@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://otds-group.org/otds"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:toma="http://otds-group.org/otds/booking/toma"
+           xmlns:merlin="http://otds-group.org/otds/booking/merlin"
+           targetNamespace="http://otds-group.org/otds"
+           elementFormDefault="qualified">
+   <xs:include schemaLocation="otds-schema-common.xsd"/>
+   <xs:include schemaLocation="otds-schema-accommodation.xsd"/>
+   <xs:include schemaLocation="otds-schema-flight.xsd"/>
+   <xs:include schemaLocation="otds-schema-addon.xsd"/>
+   <xs:include schemaLocation="otds-schema-products.xsd"/>
+   <xs:import namespace="http://otds-group.org/otds/booking/merlin"
+              schemaLocation="otds-booking-merlin.xsd"/>
+   <xs:import namespace="http://otds-group.org/otds/booking/toma"
+              schemaLocation="otds-booking-toma.xsd"/>
+   <xs:element name="Otds">
+      <xs:annotation>
+         <xs:documentation xml:lang="de">Dies ist das Wurzelelement einer OTDS-Datenlieferung.
+In OTDS wird zwischen Reisekomponenten und Produkten unterschieden.
+Reisekomponenten sind Unterbringungen, Kreuzfahrten, Flüge und Zusatzleistungen. Mit Produkten werden diese Komponenten einzeln oder kombiniert verkäuflich gemacht. 
+Das Update-Konzept nutzt die hierarchische Struktur von OTDS. Jeder wichtige logische Knoten innerhalb des Datenbaumes hat die Attribute "Key" und "UpdateMode". Die unterschiedlichen UpdateModes erlauben mehrere Möglichkeiten direkter Updates der logischen Knoten.
+<a href="../otds_spezifikation.html#OtdsSpecInfo">OTDS</a>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+         <xs:complexContent>
+            <xs:extension base="CompositeUpdateNodeType">
+               <xs:sequence>
+                  <xs:element name="Products" type="ProductsType" minOccurs="0"/>
+                  <xs:element name="Brands" type="BrandsType" minOccurs="0"/>
+                  <xs:element name="Accommodations" type="AccommodationsType" minOccurs="0">
+                     <xs:annotation>
+                        <xs:documentation xml:lang="de">Reisekomponente für Unterbringungen
+Dieser Zweig enthält alle relevanten Daten für alle gelieferten Unterbringungen wie Hotels, Ferienwohnungen und Ferienhäusern. </xs:documentation>
+                     </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Flights" type="FlightsType" minOccurs="0">
+                     <xs:annotation>
+                        <xs:documentation xml:lang="de">Reisekomponente für Flüge (Flights). 
+Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen (ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so kann dies regelbasiert mit den ReturnFlightRules gemacht werden.
+In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich, die aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können.
+                </xs:documentation>
+                     </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Addons" type="AddonsType" minOccurs="0">
+                     <xs:annotation>
+                        <xs:documentation>Reisekomponente für Zusatzangebote (Addons). 
+Zusatzangebote sind z.B. der Transfer, Sportangebote, Gesundheits- oder Wellnessleistungen, besonderer Hotelservice oder besondere touristische Angebote. 
+Hier werden alle dazugehörigen Daten und Eigenschaften erfasst inkl. der Preise und Verfügbarkeiten.</xs:documentation>
+                     </xs:annotation>
+                  </xs:element>
+                  <xs:element name="DefinedComponents" type="CombiComponentsType" minOccurs="0">
+                     <xs:annotation>
+                        <xs:documentation xml:lang="de">Unter diesem Element werden kombinierte Componenten definiert, die aus mehreren Einzelkomponenten bestehen.
+								Die XML-Definition erluabt aktuell ausdrücklich nur die Kombination von Flügen gleichen Typs. So können hier aus Einzelflügen Returnflüge zusammengestellt werden. Und es können auch Einzelflüge mit Zubringern erweitern werden. Genauso können Returnflüge mit Zubringern erweitert werden. Es ist denkbar, dass in zukünftigen Versionen auch andere Komponenten kombiniert werden können.
+                </xs:documentation>
+                     </xs:annotation>
+                  </xs:element>
+               </xs:sequence>
+               <xs:attribute name="Version" use="required" type="OTDSVersionEnum">
+                  <xs:annotation>
+                     <xs:documentation>OTDS Version der Datenlieferung:
+Dieses Element enthält die OTDS-Version die der Datenlieferung zu Grunde liegt.</xs:documentation>
+                  </xs:annotation>
+               </xs:attribute>
+               <xs:attribute name="Market" type="ISO3166Country" use="required">
+                  <xs:annotation>
+                     <xs:documentation>Angabe des Vertriebsmarktes / Land
+Datenlieferungen erfolgen getrennt nach Vertriebsmarkt
+Vertriebsmärkte sind die jeweiligen Länder in denen die Angebote zum Verkauf angeboten werden. Datenlieferungen für einen Vertriebsmarkt werden durch eine ISO Code mit 2-Zeichen definiert. 
+Länderkürzel nach ISO-3166 Alpha-2: 
+DE Deutschland 
+AT Österreich
+BE Belgien
+CH Schweiz
+FR Frankreich
+GB Ver. Königreich/Großbritannien 
+PL Polen</xs:documentation>
+                  </xs:annotation>
+               </xs:attribute>
+            </xs:extension>
+         </xs:complexContent>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

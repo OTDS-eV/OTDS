@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd"
+ xmlns="http://otds-group.org/otds"
+ Version="1.0"
+ Market="DE">
+	<Products>
+		<GlobalValues>
+			<GlobalValue Key="GermanMarket">
+				<ParameterSet Key="1">
+					<SalesChannel>OnlineTravelAgency</SalesChannel>
+				</ParameterSet>
+			</GlobalValue>
+		</GlobalValues>
+		<Product Key="Package" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<ReturnFlight/>
+			</Components>
+		</Product>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands/>
+	<Accommodations>
+		<Accommodation Key="TT01">
+			<Properties>
+				<PropertyGroup>
+					<AccommodationName>Hotel "Beach"</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="TT01">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2011-01-01</Min>
+										<Max>2011-02-15</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2011-04-01</Min>
+										<Max>2011-05-15</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">B</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2011-03-01</Min>
+										<Max>2011-03-31</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2011-05-16</Min>
+										<Max>2011-06-30</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>TT01</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"></Board>
+				<Unit Key="DZ">
+					<SellingUnit Key="DZ-2">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties>
+							<PropertyGroup>
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+						
+						<!--DE: Start PriceItems Beispiele ohne Kombinatorik -->
+						<!--GB: Start PriceItems Examples without combination logic-->
+						<PriceItems Key="PriceItems">
+							<PriceItem Class="Baseprice">
+								<Absolute>
+									<Value>250</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							<PriceItem Class="Extraday">
+								<!--DE: Tagespreis  -->
+								<!--GB: Daily price  -->
+								<Absolute>
+									<Value>15</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+
+							<PriceItem Class="BoardSupplement">
+								<!--DE: Verpflegungszuschlag pro Tag und Reisenden -->
+								<!--GB: Board supplement per day and participant-->
+								<Absolute>
+									<Value>10</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							
+							<PriceItem Class="UnitPrice">
+								<!--DE: Einmaliger Grundpreis  -->
+								<!--GB: Base price   -->
+								<Absolute>
+									<Value>750</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>x</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Duration Source="Accommodation">
+											<Durations>7</Durations>
+										</Duration>
+										<Impact>
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="CheckInSeason">A</ConditionalTags>
+										</Impact>
+									</And>
+								</Condition>
+							</PriceItem>
+							
+							<PriceItem Class="UnitPrice">
+								<!--DE: Tageweiser Zimmerpreis  -->
+								<!--GB: Daily unit price   -->
+								<Absolute>
+									<Value>100</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>x</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="CheckInSeason">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							
+							
+								
+							<PriceItem Class="WEEKENDPrice">
+								<!--DE: Preis pro tag/pro Person nur für die Wochenendtage  -->
+								<!--GB: Daily price per person for the weekend days. -->	
+								<Absolute>
+									<Value>70</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<DayImpact>
+										<Weekdays Source="ThisComponent">Fri Sat Sun</Weekdays>
+									</DayImpact>
+								</Condition>
+							</PriceItem>
+									
+									
+							<PriceItem Class="ChildDayPrice">
+								<!--DE: Passender Kinder-Tagespreis, der den normalen Tagespreis ersetzt -->
+								<!--GB: Child price per day that replaces the normal daily price -->
+								<Absolute>
+									<Value>5</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>2</Min>
+											<Max>12</Max>
+										</PersonAge>
+									</PersonImpact>
+								</Condition>
+								<Combinatorics LayerName="ResetPrice" LayerLevel="-1">
+									<ExcludePriceItemClasses>
+										<ExcludePriceItemClass Component="ThisComponent">BasePrice</ExcludePriceItemClass>
+									</ExcludePriceItemClasses>
+								</Combinatorics>
+							</PriceItem>
+							
+							<PriceItem Class="ChildReduction">
+								<!--DE: Prozentuale Kinderermäßigung auf Basispreis und Extratag
+										gilt nicht für FullPayer-->
+								<!--GB: Child reduction based on percent of BasePrice and ExtraDay
+										not for >FullPayer-->
+								<Percent>
+									<Value>-30</Value>
+									<ApplyTo>Extraday BasePrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<And>
+										<PersonImpact>
+											<PersonAge Source="Product">
+												<Min>2</Min>
+												<Max>12</Max>
+											</PersonAge>
+										</PersonImpact>
+										<Not>
+											<Impact>
+												<ConditionalTags Source="SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+											</Impact>
+										</Not>
+									</And>
+								</Condition>
+							</PriceItem>
+							
+							
+							<PriceItem Class="ThirdPersonReduction">
+								<!--DE: Prozentuale Ermäßigung ab der 3. Person (Alter absteigend). -->
+								<!--GB: Third and more person reduction based on percent (descending ages).-->
+								<Percent>
+									<Value>-60</Value>
+									<ApplyTo>Extraday BasePrice</ApplyTo>
+								</Percent>
+								<Condition>
+										<PersonImpact>
+											<PersonIndex Source="Product">
+												<From>3</From>
+											</PersonIndex>
+										</PersonImpact>
+								</Condition>
+							</PriceItem>
+							
+							<PriceItem Class="ChildReduction">
+								<!--DE: Prozentuale Kinderermäßigung auf Basispreis und Extratag für das 2. Kind 6-14 (Alter aufsteigend). 
+									Kind sind alle Personen zwischen 2-16-->
+								<!--GB: Child reduction based on percent of Base price and extra day for the second child (ascending ages). 
+									Children are passengers between 2 - 16.-->
+								<Percent>
+									<Value>-60</Value>
+									<ApplyTo>Extraday BasePrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<And>
+										<PersonImpact>
+											<PersonAge Source="Product">
+												<Min>6</Min>
+												<Max>14</Max>
+											</PersonAge>
+										</PersonImpact>
+										<PersonImpact>
+											<PersonIndex Source="Product">
+												<Indices>-2 -5</Indices>
+												<PersonFilter>
+													<PersonAge Source="Product">
+														<Min>2</Min>
+														<Max>16</Max>
+													</PersonAge>
+												</PersonFilter>
+											</PersonIndex>
+										</PersonImpact>
+									</And>
+								</Condition>
+							</PriceItem>
+							
+							
+							<PriceItem Class="EarlyBird">
+								<!--DE: Frühbucher, der auf Basispreis und Extraday angewendet wird.  -->
+								<!--GB: Early bird, used for base price and Extraday   -->
+								<Percent>
+									<Value>-15</Value>
+									<ApplyTo>Extraday BasePrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<BookingDate Source="Product">
+										<Max>2011-12-31</Max>
+									</BookingDate>
+								</Condition>
+							</PriceItem>
+							
+							
+							
+							
+							
+							<PriceItem Class="InfantPrice">
+								<!--DE: Baby umsonst  -->
+								<!--GB: Infant for free -->
+								<Percent>
+									<Value>-100</Value>
+									<ApplyToAll/>
+									<!--Keine Angabe zu  ApplyTo, NotApplyTo, ApplyToAll definiert keine Wirkung des prozentualen PriceItems.
+										Das kann sinnvoll sein, wenn AppliedBy in den absoluten PriceItems verwendet wird.  -->
+									<!--GB: Missing ApplyTo, NotApplyTo, ApplyToAll  applies no absolute value to the percent price item.
+										 This can be sensible, when AppliedBy in absolute PriceItems is used. 
+										-->
+								</Percent>
+								<Condition>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>0</Min>
+											<Max>1</Max>
+										</PersonAge>
+									</PersonImpact>
+								</Condition>
+							</PriceItem>
+							
+							
+							<PriceItem Class="DurationReduction">
+								<!--DE: Dauerreduktion - jeder 3. Tag ist frei.  -->
+								<!--GB: Duration reduction - every 3 nights the 3rd night is free -->
+								<Percent>
+									<Value>-100</Value>
+								</Percent>
+								<Condition>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product" Repeat="3">
+												<Indices>3</Indices>
+											</DayIndex>
+										</DayImpact>
+										<Duration Source="Accommodation">
+											<Min>14</Min>
+											<Max>21</Max>
+										</Duration>
+									</And>
+								</Condition>
+							</PriceItem>
+							
+							<PriceItem Class="DurationReduction">
+								<!--DE: Dauerreduktion - 2 Tage reduziert. Für welche Dauern das gilt, sieht man in der Condition  -->
+								<!--GB: Duration reduction - 2 nights for free. duration validity is delivered in condition  -->
+								<Percent>
+									<Value>-100</Value>
+									<ApplyTo>Tagesprice KinderTagesPrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<And>
+										<Duration Source="Accommodation">
+											<Min>14</Min>
+											<Max>21</Max>
+										</Duration>
+										<DayImpact>
+											<DayPriceIndex Source="ThisComponent">
+												<From>2</From>
+												<ConsideredPriceItemClasses Component="ThisComponent">DurationReduction</ConsideredPriceItemClasses>
+											</DayPriceIndex>
+										</DayImpact>
+									</And>
+								</Condition>
+								<Properties>
+									<PropertyGroup>
+										<PriceType>DurationReduction</PriceType>
+									</PropertyGroup>
+								</Properties>
+							</PriceItem>
+						</PriceItems>
+						
+						
+						<!-- Ende PriceItems Beispiele ohne Conditions und ohne Kombinatorik -->
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					
+					
+					<!-- Hier Beispiele für die BErechnung von unterschiedlichen Grundpreisen    -->					
+					<SellingUnit Key="DZ-4">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties>
+							<PropertyGroup>
+								<UnitName>Doppelzimmer D</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>13</MinAge>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MaxAge>12</MaxAge>
+								<MinCount>0</MinCount>
+								<MaxCount>1</MaxCount>
+							</Person>
+						</Occupancy>
+						
+						
+						
+						
+						<PriceItems Key="Grundpreise">
+							<!-- Start der Beispiele für die Grundpreisberechnungen -->
+							
+
+								<!-- Beispiel G1 G3 G5 TG
+									G1 gilt für Dauern 1-2  
+									G3 gilt für Dauern 3-4
+									G5 gilt für Dauern 5 - undendlich
+									Pro Tag muss der Uebernachtungspreis hinzugerechnet werden.
+									 -->
+							<PriceItem Class="G1">
+								
+								<Absolute>
+									<Value>90</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Date Source="Accommodation" DayType="CheckIn">
+											<Min>2011-04-15</Min>
+											<Max>2011-06-01</Max>
+										</Date>
+										<Duration Source="Accommodation">
+											<Min>1</Min>
+											<Max>2</Max>
+										</Duration>
+									</And>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="G3">
+								<!--DE: Einmaliger Grundpreis pro Reisenden bei Aufenthaltsdauer von 3 oder 4 Tagen  -->
+								<!--GB: Base price per participant and a duration of 3 or 4 days  -->
+								<Absolute>
+									<Value>250</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Date Source="Accommodation" DayType="CheckIn">
+											<Min>2011-04-15</Min>
+											<Max>2011-06-01</Max>
+										</Date>
+										<Duration Source="Accommodation">
+											<Min>3</Min>
+											<Max>4</Max>
+										</Duration>
+									</And>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="G5">
+								<!--DE: Einmaliger Grundpreis pro Reisenden bei Aufenthaltsdauer von mindestens 5 Tagen  -->
+								<!--GB: Base price per participant and a duration of a minimum of 5 days  -->
+								<Absolute>
+									<Value>400</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Date Source="Accommodation" DayType="CheckIn">
+											<Min>2011-04-15</Min>
+											<Max>2011-06-01</Max>
+										</Date>
+										<Duration Source="Accommodation">
+											<Min>5</Min>
+										</Duration>
+									</And>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ExtraNightPrice">
+								<!--DE: Übernachtungspreis  -->
+								<!--GB: Extra night price  -->
+								<Absolute>
+									<Value>45</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Date Source="Accommodation" DayType="CheckIn">
+										<Min>2011-04-15</Min>
+										<Max>2011-06-01</Max>
+									</Date>
+								</Condition>
+							</PriceItem>
+							
+						
+						
+							<!-- Beispiel  V07 V14 ET
+							V07 gilt für Dauern 1 - 11
+							V14 gilt für Dauern 12 - unendlich
+							In V07 V14 sind jeweils schon die Übernachtungspreise für 7 bzw. 14 Nächte enthalten
+							Bei Dauern <> 7 oder 14 muss die Rate des Erweiterungtages entsprechend der Dauer X mal addiert oder subtrahiert werden. -->
+							<PriceItem Class="V07">
+								
+								<Absolute>
+									<Value>250</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Duration Source="Accommodation">
+											<Max>11</Max>
+										</Duration>
+										<Impact>
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="CheckInSeason">A</ConditionalTags>
+										</Impact>
+									</And>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="V14">
+								<!--DE: V14 gilt für Dauern 12 - unendlich  -->
+								<!--GB: V14 is valid for duration of 12 and above   -->
+								<Absolute>
+									<Value>470</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Duration Source="Accommodation">
+											<Min>12</Min>
+										</Duration>
+										<Impact>
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="CheckInSeason">A</ConditionalTags>
+										</Impact>
+									</And>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ExtraDay">
+								<!--DE: Erweiterungstag  -->
+								<!--GB: Extra day  -->
+								<Absolute>
+									<Value>15</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Duration Source="Accommodation">
+											<Min>1</Min>
+										</Duration>
+										<Impact>
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="CheckInSeason">A</ConditionalTags>
+										</Impact>
+									</And>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="CompensationExtraDay">
+								<!--DE: Dieser Preis kompensiert den Extratag bezogen auf den V07  -->
+								<Absolute>
+									<!--Berechtnet aus dem ExtraDay-Value * der Dauer des Basispreises also 7 X 15 -->
+									<Value>-105</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Duration Source="Accommodation">
+											<Min>1</Min>
+											<Max>11</Max>
+										</Duration>
+										<Impact>
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="CheckInSeason">A</ConditionalTags>
+										</Impact>
+									</And>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="CompensationExtraDay">
+								<!--DE: Dieser Preis kompensiert den Extratag bezogen auf den V07  -->
+								<Absolute>
+									<!--Berechtnet aus dem ExtraDay-Value * der Dauer des Basispreises also 14 X 15 -->
+									<Value>-210</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<And>
+										<Duration Source="Accommodation">
+											<Min>12</Min>
+										</Duration>
+										<Impact>
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="CheckInSeason">A</ConditionalTags>
+										</Impact>
+									</And>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+
+					<!-- Hier Beispiele für die Kombinatorik von PriceItems    -->						
+					<SellingUnit Key="DZ-3">
+					
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties>
+							<PropertyGroup>
+								<UnitName>Doppelzimmer D</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>13</MinAge>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MaxAge>12</MaxAge>
+								<MinCount>0</MinCount>
+								<MaxCount>1</MaxCount>
+							</Person>
+						</Occupancy>
+						<!-- Start der Beispiele für die Kombinatorik von PriceItems    -->
+						
+						<PriceItems Key="1">
+							<!--DE: Kombinatorik über CombiLevel -->
+							<!--GB: Compatibility with CombiLevel  -->
+							<PriceItem Class="AbsoluteReduction">
+								<!--DE: Absoluter Abschlag - Abschlag einmalig pro Reisenden   -->
+								<!--GB: Absolute reduction - reduction one time per participant  -->
+								<Absolute>
+									<Value>-90</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationLevel>1</CombinationLevel>
+									<CombinationCode Group="Default">AB</CombinationCode>
+								</Combinatorics>
+							</PriceItem>
+							<PriceItem Class="ExtraNightPrice">
+								<!--DE: Preis pro Übernachtung und Reisenden  -->
+								<!--GB: Extra night price per participant -->
+								<Absolute>
+									<Value>30</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationLevel>1</CombinationLevel>
+									<CombinationCode Group="Default">TZ</CombinationCode>
+								</Combinatorics>
+							</PriceItem>
+							<PriceItem Class="DurationReduction">
+								<!--DE: Dauerreduktion - Reduzierung um die letzte Nacht bezogen auf den ExtraNightPrice  -->
+								<!--GB: Duration reduction - reduction of the last night based on ExtraNightPrice  -->
+								<Percent>
+									<Value>-100</Value>
+									<ApplyTo>ExtraNightPrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<Date Source="Accommodation">
+										<Min>2012-07-15</Min>
+										<Max>2012-08-15</Max>
+									</Date>
+								</Condition>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationLevel>2</CombinationLevel>
+									<CombinationCode Group="Default">DR</CombinationCode>
+								</Combinatorics>
+							</PriceItem>
+							<PriceItem Class="EarlyBird">
+								<!--DE: Frühbucherrabatt - Reduzierung um die letzte Nacht bezogen auf AbsoluteReduction und ExtraNightPrice -->
+								<!--GB: Early bird - reduction of the last night based on AbsoluteReduction and ExtraNightPrice   -->
+								<Percent>
+									<Value>-100</Value>
+									<ApplyTo>AbsoluteReduction ExtraNightPrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<Indices>-1</Indices>
+											</DayIndex>
+										</DayImpact>
+										<Date Source="Accommodation" DayType="CheckIn">
+											<Min>2012-08-01</Min>
+											<Max>2012-08-30</Max>
+										</Date>
+										<BookingDate Source="Product">
+											<Max>2012-03-31</Max>
+										</BookingDate>
+									</And>
+								</Condition>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationLevel>2</CombinationLevel>
+									<CombinationCode Group="Default">FB</CombinationCode>
+									<CombinableWhen>
+										<Not>
+											<CombinationCode Component="ThisComponent" Group="Default">DR</CombinationCode>
+										</Not>
+									</CombinableWhen>
+								</Combinatorics>
+							</PriceItem>
+							<!--  DE: Ergebnis der Kombinatorik:
+							- wenn  "EarlyBird" und  "DurationReduction" beide gleichzeitig bzgl. der Conditions gültig sind, 
+							dann wird die "DurationReduction" angewendet, der "EarlyBird" kommt aufgrund der Kombinatorik nicht zum Einsatz. 	
+							Es wird eine Inkompatibilität zwischen den Kombicodes "FB" und "DR" definiert. Das CombiLevel gibt an, welches 
+							PriceItem innerhalb eines Kompatibilitätskonfliktes zuerst kommt (kleinere zuerst!) und damit die anderen PriceItems aussticht. -->
+							<!-- GB:  Result of compatibility:
+								- when EarlyBird and DurationReduction are both valid concerning the conditions, 
+								DurationReduction must be used because of the compatibility. There is no compatibility between the codes "FB" and "DR". 
+								The CombiLevel specify, which PriceItem is the first (less one first). -->
+							<!--DE: Kombinatorik über BlockingLevel -->
+							<!--GB: Compatibility with BlockingLevel  -->
+							<PriceItem Class="AbsoluteReduction">
+								<!--DE: Absoluter Abschlag - Abschlag einmalig pro Reisenden und mit BlockingLevel 1 -->
+								<!--GB: Absolute reduction - reduction one time per participant using BlockingLevel 1 -->
+								<Absolute>
+									<Value>-90</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationIndex Group="BlockingLevel">1</CombinationIndex>
+									<CombinableWhen>
+										<Not>
+											<CombinationIndexMax Group="BlockingLevel" Component="ThisComponent">0</CombinationIndexMax>
+										</Not>
+									</CombinableWhen>
+								</Combinatorics>
+							</PriceItem>
+							<PriceItem Class="ExtraNightPrice">
+								<Absolute>
+									<Value>30</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationIndex Group="BlockingLevel">1</CombinationIndex>
+									<CombinableWhen>
+										<Not>
+											<CombinationIndexMax Group="BlockingLevel" Component="ThisComponent">0</CombinationIndexMax>
+										</Not>
+									</CombinableWhen>
+								</Combinatorics>
+							</PriceItem>
+							<PriceItem Class="WinterReduction">
+								<!--DE: Einmalige Reduktion pro Reisenden  -->
+								<!--GB: One time reduction per participant  -->
+								<Absolute>
+									<Value>-200</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Date Source="Accommodation">
+										<Min>2011-11-01</Min>
+										<Max>2012-01-31</Max>
+									</Date>
+								</Condition>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationIndex Group="BlockingLevel">4</CombinationIndex>
+									<CombinableWhen>
+										<Not>
+											<CombinationIndexMax Group="BlockingLevel" Component="ThisComponent">3</CombinationIndexMax>
+										</Not>
+									</CombinableWhen>
+								</Combinatorics>
+							</PriceItem>
+							<!-- ************************ -->
+							<PriceItem Class="DurationReduction">
+								<!--DE: Dauerreduktion - Reduzierung um die letzte Nacht bezogen auf den ExtraNightPrice, 
+									mit BlockingLevel 2 -->
+								<!--GB: Duration reduction - reduction of the last night based on ExtraNightPrice 
+								using BlockingLevel 2-->
+								<Percent>
+									<Value>-100</Value>
+									<ApplyTo>ExtraNightPrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<And>
+										<Date Source="Accommodation">
+											<Min>2012-07-15</Min>
+											<Max>2012-08-15</Max>
+										</Date>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<From>-1</From>
+											</DayIndex>
+										</DayImpact>
+									</And>
+								</Condition>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationIndex Group="BlockingLevel">2</CombinationIndex>
+									<CombinableWhen>
+										<Not>
+											<CombinationIndexMax Group="BlockingLevel" Component="ThisComponent">1</CombinationIndexMax>
+										</Not>
+									</CombinableWhen>
+								</Combinatorics>
+							</PriceItem>
+							<PriceItem Class="EarlyBird">
+								<!--DE: Frühbucherrabatt - Reduzierung um die letzte Nacht bezogen auf AbsoluteReduction und ExtraNightPrice
+									mit BlockingLevel 4 -->
+								<!--GB: Early bird - reduction of the last night based on AbsoluteReduction and ExtraNightPrice
+									using BlockingLevel 4-->
+								<Percent>
+									<Value>-15</Value>
+									<ApplyTo>AbsoluteReduction ExtraNightPrice</ApplyTo>
+								</Percent>
+								<Condition>
+									<And>
+										<Date Source="Accommodation" DayType="CheckIn">
+											<Min>2012-08-01</Min>
+											<Max>2012-01-30</Max>
+										</Date>
+										<BookingDate Source="Product">
+											<Max>2012-03-31</Max>
+										</BookingDate>
+									</And>
+								</Condition>
+								<Combinatorics LayerLevel="0" LayerName="Default">
+									<CombinationIndex Group="BlockingLevel">4</CombinationIndex>
+									<CombinableWhen>
+										<Not>
+											<CombinationIndexMax Group="BlockingLevel" Component="ThisComponent">3</CombinationIndexMax>
+										</Not>
+									</CombinableWhen>
+								</Combinatorics>
+							</PriceItem>
+						</PriceItems>
+						<!-- DE:  Ergebnis der Kombinatorik:
+							Die Wirkung in diesem Fall ist ähnlich wie im Fall davor, nur etwas globaler. Die gültige DurationReduction sticht alle 
+							PriceItems aus, die ein größeres BlockingLevel haben. In diesem Falle zum Beispiel auch WinterReduction. Die 	
+							Auswertung der Kombinatorik des BlockingLevels erfolgt aufsteigend in der Reihenfolge der BlockingLevel. -->
+						<!-- GB:  Result of compatibility:
+							The impact is similar to the case before. The DurationReduction with BlockingLevel=2 
+							The interpretation of the BlockingLevel is made in ascending order.
+							 -->
+						<Availabilities Key="DZ-3">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+</Otds>

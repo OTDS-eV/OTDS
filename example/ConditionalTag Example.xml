@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Brands/>
+	<Accommodations>
+		<Accommodation Key="PMI8172">
+			<SellingAccom Key="PMI817201">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="Season">Low</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Accommodation" DayType="CheckIn">
+									<Min>2012-01-01</Min>
+									<Max>2012-03-31</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">Middle</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Accommodation" DayType="CheckIn">
+									<Min>2012-04-01</Min>
+									<Max>2012-06-30</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">High</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Accommodation" DayType="CheckIn">
+									<Min>2012-07-01</Min>
+									<Max>2012-08-31</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<!-- verschiedene Saisons werden mit Hilfe von ConditionalTags festgelegt -->
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI210</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"></Board>
+				<Unit Key="154">
+					<Properties>
+						<PropertyGroup>
+							<UnitType>Double</UnitType>
+						</PropertyGroup>
+					</Properties>
+					<!-- In diesem Zimmer erfolgt die Definition der Vollzahler-Regeln mit Hilfe von ConditionalTags. -->
+					<SellingUnit Key="154">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+							<ConditionalTag>
+								<Tag Class="PersonPriceClass">ReducedChild</Tag>
+								<Condition>
+									<Or>
+										<!-- 1 Erwachsener > 18 J. ermäßigt 2 Kinder bis 14 J. -->
+										<And>
+											<PersonImpact>
+												<PersonIndex Source="Product">
+													<From>-2</From>
+													<PersonFilter>
+														<PersonAge Source="Product">
+															<Max>14</Max>
+														</PersonAge>
+													</PersonFilter>
+												</PersonIndex>
+											</PersonImpact>
+											<PersonGroup Source="Product">
+												<Person>
+													<MinAge>18</MinAge>
+													<Count>1</Count>
+												</Person>
+											</PersonGroup>
+										</And>
+										<!-- 2 Erwachsene > 18 J. ermäßigen 4 Kinder bis 14 J. -->
+										<And>
+											<PersonImpact>
+												<PersonIndex Source="Product">
+													<From>-4</From>
+													<PersonFilter>
+														<PersonAge Source="Product">
+															<Max>14</Max>
+														</PersonAge>
+													</PersonFilter>
+												</PersonIndex>
+											</PersonImpact>
+											<PersonGroup Source="Accommodation">
+												<Person>
+													<MinAge>18</MinAge>
+													<Count>2</Count>
+												</Person>
+											</PersonGroup>
+										</And>
+									</Or>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>TR</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>10</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+</Otds>

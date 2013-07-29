@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../../xsd/incremental_xsds/otds.xsd" Version="1.0" UpdateMode="Merge">
+	<!-- Flights als Zusatzlieferung zum base.xml, werden in das OTDS-Objekt gemerged -->
+	<Flights UpdateMode="New">
+		<OnewayFlights UpdateMode="New">
+			<OnewayFlight Key="DUSPMI" UpdateMode="New">
+				<Booking UpdateMode="New">
+					<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+						<BookingParameter Field="RequestCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>DUS PMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties UpdateMode="New">
+					<PropertyGroup Priority="0">
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>GHY</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-08" StartDate="2012-04-08" EndDate="2012-10-28">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Thu Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>-35</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Min>2012-10-18</Min>
+									<Max>2012-10-28</Max>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>-20</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-04-12</Min>
+										<Max>2012-04-26</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-05-03</Min>
+										<Max>2012-05-13</Max>
+									</Date>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Thu</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-06-14</Min>
+											<Max>2012-07-05</Max>
+										</Date>
+									</And>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>-15</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-06-10</Min>
+										<Max>2012-07-04</Max>
+									</Date>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>0</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-08-16</Min>
+										<Max>2012-08-30</Max>
+									</Date>
+									<And>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Dates>2012-08-09 2012-08-12</Dates>
+										</Date>
+										<Duration Source="Product">
+											<Min>14</Min>
+										</Duration>
+									</And>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>15</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<Weekdays Source="OnewayFlight" DayType="CheckIn">Thu</Weekdays>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-09-06</Min>
+										<Max>2012-10-04</Max>
+									</Date>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>20</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-05-20</Min>
+										<Max>2012-06-03</Max>
+									</Date>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>30</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-04-08 2012-04-29 2012-06-03 2012-10-04</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>35</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Thu</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-07-12</Min>
+											<Max>2012-08-02</Max>
+										</Date>
+									</And>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-05-17</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>40</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-07-08</Min>
+											<Max>2012-08-12</Max>
+										</Date>
+									</And>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-05-17</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>50</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-10-07 2012-10-11</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>100</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-06-07</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="PMIDUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties>
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>GHY</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-10-31">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed Thu Fri Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<PriceItems Key="1">
+				<PriceItem Class="Base">
+					<Absolute>
+						<Value>249</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>2</Min>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">PMI</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="Infant">
+					<Absolute>
+						<Value>40</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Max>1</Max>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">PMI</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+			</PriceItems>
+		</OnewayFlights>
+	</Flights>
+</Otds>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Brands>
+		<Brand Key="TO1">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>TO1</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="12345">
+			<SellingAccom Key="FAMI-12345D">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>12345D</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+						<BookingParameter Field="TravelType">
+							<Value>FAMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="OV">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>OV</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+				</Board>
+				<Unit Key="DZT">
+					<SellingUnit Key="DZT-2-3">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZT</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties>
+							<PropertyGroup>
+								<UnitName>Studio 2-3 Erw.</UnitName>
+								<UnitType>Studio</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MaxCount>1</MaxCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="2011-09-01-P2">
+							<!-- Alle Availability-Lieferungen, die unter diesem Knoten geliefert werden, beziehen sich nur auf eine Belegung mit
+								 2 Personen und eine Abreise  am 01.09.2011 (siehe Condition ). DIes ist also eine Terminbezogene Lieferung von einzelnen Dauern. Jeder mgöliche CheckOut fdefiniert eine mögliche Dauer bezogen auf den 01.09.2011. Eine komplette Lieferung in dieser Form enthält je Termin einen Availabilities Knoten. Der Key sollte so gewählt werden, dass er mit dem Inhalt der Condition korreliert, damit er für inkrementelle Lieferung eindeutig reproduzierbar ist. -->
+							<Availability Key="2011-09-01" StartDate="2011-09-01" EndDate="2011-09-19">
+								<!-- Diese Availability enthält Tagesstati für alle Tage zwischen dem 01.09.2011 und dem 19.09.2011. 		                     Default für jeden Tag der nicht explizit geliefert wird ist der Tagesstatus "Open", CheckIn = möglich und CheckOut= möglich. Durch den Default "CheckOut", was bedeutet CheckOut möglich, werden in diesem Fall ausschließlich negative Verfügbarkeiten geliefert. An einzelnen Tagen wird also ein CheckOut verboten, so dass dadurch genau dieser Abreisetermin nicht gilt und damit die entsprechende Dauer nicht möglich ist.
+Die Lieferung entspricht.: Am 01.09.2012 sind die Dauer: 1,2,3,5,6,7,9,17,18,19 möglich.
+Mit einem Default  "NoCheckOut" könnte man die Lieferung auch auf die positiven Dauern beschränken.
+
+ -->
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+								<DayState Offset="4" Key="4">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="8" Key="8">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="10" Key="10">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="11" Key="11">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="12" Key="12">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="13" Key="13">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="14" Key="14">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="15" Key="15">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+								<DayState Offset="16" Key="16">
+									<Open/>
+									<NoCheckOut/>
+								</DayState>
+							</Availability>
+							<Condition>
+								<And>
+									<Date Source="Product" DayType="CheckIn">
+										<Dates>2012-09-01</Dates>
+									</Date>
+									<PersonGroup Source="Accommodation.SellingAccom.Unit.SellingUnit">
+										<Person>
+											<Count>2</Count>
+										</Person>
+									</PersonGroup>
+								</And>
+							</Condition>
+						</Availabilities>
+						<Availabilities Key="1">
+							<Availability Key="2011-10-01" StartDate="2011-10-01" EndDate="2011-10-10">
+								<!-- Steuerung über Tagesstatus:
+									 Im Zeitraum 2011-10-01 bis 2011-10-10 sind alle Tage "Open" bis auf 
+									 das Datum 2011-10-09.  Die Dauern ergeben sich aus den offenen Terminen. Ist eine Termin CLosed, so können keine Dauern erstellt werden, die diesen Termin enthalten.-->
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+								<DayState Offset="9" Key="9">
+									<Closed/>
+								</DayState>
+							</Availability>
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2011-11-10">
+								<!-- Steuerung über Tagesstatus:
+									 Im Zeitraum 2011-11-01 bis 2011-11-10 sind alle Tage "Closed" bis auf 
+									 das Datum 2011-11-05. Wenn im DefaultDayState keine Angaben zu CheckIn oder CheckOut gemacht werden so wird als Default CheckIn bzw. CheckOut möglich angenommen.-->
+								<DefaultDayState>
+									<Closed/>
+								</DefaultDayState>
+								<DayState Offset="5" Key="5">
+									<Open/>
+								</DayState>
+							</Availability>
+						</Availabilities>
+						<Availabilities Key="D1-7">
+							<!-- Dauersteuerung:
+									Alle in diesem zweig gelieferten Availabilities gelten nur für die Dauern 1 - 7  (siehe Condition) .
+									Der Key sollte so gewählt werden, dass er mit dem Inhalt der Condition korreliert, damit er für inkrementelle 		Lieferung eindeutig reproduzierbar ist.
+								   -->
+							<Availability Key="2011-12-01" StartDate="2011-12-01" EndDate="2011-12-15">
+								<DefaultDayState>
+									<Open/>
+								</DefaultDayState>
+								<DayState Offset="4" Key="4">
+									<Open/>
+									<NoCheckIn/>
+								</DayState>
+								<DayState Offset="11" Key="4">
+									<Open/>
+									<NoCheckIn/>
+								</DayState>
+							</Availability>
+							<Condition>
+								<Duration Source="Product">
+									<Min>1</Min>
+									<Max>7</Max>
+								</Duration>
+							</Condition>
+						</Availabilities>
+						<Availabilities Key="Mon-Tue-Wed-Thu">
+							<!-- Besonders beliebt bei Flugrotationen im Pauschalbereich
+									nur CheckIn von Montag bis Donnerstag 
+								Beachte bei Availabilities im Flugbereich wird der Status CheckOut / NoCheckOut nicht berücksichtigt.
+							-->
+							<Availability Key="2012-01-01" StartDate="2012-01-01" EndDate="2012-01-31">
+								<!-- Alle Flugrotationen sind verfügbar bis auf den 5.1. -->
+								<DefaultDayState>
+									<Open/>
+								</DefaultDayState>
+								<DayState Offset="5" Key="5">
+									<Closed/>
+								</DayState>
+							</Availability>
+							<Condition>
+								<Weekdays Source="Product" DayType="CheckIn">Mon Tue Wed Thu</Weekdays>
+							</Condition>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+</Otds>

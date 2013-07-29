@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://otds-group.org/otds"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://otds-group.org/otds"
+           elementFormDefault="qualified">
+   <xs:include schemaLocation="otds-schema-common.xsd"/>
+   <xs:complexType name="AddonsType">
+      <xs:complexContent>
+         <xs:extension base="CompositeUpdateNodeType">
+            <xs:annotation>
+               <xs:documentation>Reisekomponente für Zusatzangebote (Addons). 
+Zusatzangebote sind z.B. der Transfer, Sportangebote, Gesundheits- oder Wellnessleistungen, besonderer Hotelservice oder besondere touristische Angebote. 
+Hier werden alle dazugehörigen Daten und Eigenschaften erfasst inkl. der Preise und Verfügbarkeiten.</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element name="Addon"
+                           type="BaseAddonType"
+                           maxOccurs="unbounded"
+                           minOccurs="0"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="BaseAddonType">
+      <xs:annotation>
+         <xs:documentation>In diesem Element wird definiert welche zusätzlichen Leistungen in dem Produkt enthalten sein können. Leistungen die sich auf die Buchungszeilen der Accommodation auswirken zum Beispiel durch Änderung des Hotel oder Zimmer Buchungscodes müssen zwingend hier platziert werden.</xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Booking" type="BookingType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <!----><xs:element name="CheckOutDateOffset"
+                           type="CheckOutDateOffsetType"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>This defines, if an addon has a fixed duration interval. In case this element is missing the addon can have flexibel durations like an accommodation generally has.  </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Properties" type="PropertiesType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>In diesem Element können Attribute für den Service hinterlegt werden.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="ServiceFeature"
+                           type="ServiceFeatureType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de">ServiceFeatures können definierte Services um bestimmte Eigenschaften erweitern und somit durch Ausmultiplizieren neue Addon-Angebote generieren.
+							</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Service"
+                           type="ServiceType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de">In diesem Element werden die verschiedenen Ausprägungen des AddonServices aufgeführt.
+										</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Filter" type="ConditionSimpleNodeType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>In diesem Element können Einschränkungnen bzgl. der Gültigkeit der AddonServices definiert werden. </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Preisberechnung der Zusatzleistungen auf Unterbringungsebene</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="CatchmentAirports"
+                           type="SimpleNodeIataAirportCodeListType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Alle Flughäfen, die im Einzugsgebiet des Addons liegen.
+Angaben erfolgen als (IATA Airport-Code). Es ist in Form einer XML-List auch die Angabe mehrerer Flughäfen durch Space getrennt möglich.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="NeighbourComponentCorrection"
+                           type="NeighbourComponentCorrectionType"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
+Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt.
+Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ServiceType">
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Booking" type="BookingType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Properties" type="PropertiesType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Beschreibung der Zusatzleistungen</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Occupancy"
+                           type="OccupancyType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Die dem Addon zugeordnete Belegung. Hier kann die Mindestanforderung für die Reisenden definiert werden. Fehlt der Zweig Addon. So gibt es keine Einschränkungen bzgl. der Reisenden.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Filter" type="ConditionSimpleNodeType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Regeln, für die die Zusatzleistungen gelten.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Preisberechnung der Zusatzleistungen</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Availabilities"
+                           type="AvailabilitiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als verfügbar, sofern diese nicht schon an anderer Stelle eingeschränkt wurden. Die Ebene Aailabilities definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ServiceFeatureType">
+      <xs:annotation>
+         <xs:documentation>Definition der ServiceFeatures</xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Booking" type="BookingType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>In diesem Element werden alle Daten zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Werte zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Properties" type="PropertiesType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Genauere Spezifizierung des ServiceFeatures</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Filter" type="ConditionSimpleNodeType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Einschränkungen in Bezug auf das ServiceFeature</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Preisbestandteile für das ServiceFeature</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+</xs:schema>

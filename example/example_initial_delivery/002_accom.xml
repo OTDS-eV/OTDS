@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../../xsd/incremental_xsds/otds.xsd" Version="1.0">
+	<!-- Accommodations als Zusatzlieferung zum base.xml, werden in das OTDS-Objekt gemerged -->
+	<Accommodations>
+		<Accommodation Key="XPMIOYK">
+			<Properties>
+				<PropertyGroup>
+					<AccommodationName>Hotel Don Miguel Playa</AccommodationName>
+					<AccommodationOfficialCategory>3</AccommodationOfficialCategory>
+					<AccommodationLocations>NearShoppingFacilities</AccommodationLocations>
+					<AccommodationAddress>
+						<City>Playa de Palma</City>
+						<Country>Spain</Country>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="XPMIOYK">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="Season">B</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-05-17</Min>
+										<Max>2012-06-03</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-09-26</Min>
+										<Max>2012-10-11</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-04-01</Min>
+										<Max>2012-05-16</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-10-12</Min>
+										<Max>2012-10-30</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">C</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-06-04</Min>
+									<Max>2012-07-11</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">D</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-07-12</Min>
+									<Max>2012-08-26</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">E</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-08-27</Min>
+									<Max>2012-09-25</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="ThisComponent">
+						<BookingParameter Field="ServiceCode">
+							<Value>XPMIOYK</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<PriceItems Key="1">
+					<PriceItem Class="Child">
+						<Percent>
+							<Value>-100</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>2</Min>
+										<Max>6</Max>
+									</PersonAge>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="Child">
+						<Percent>
+							<Value>-50</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>7</Min>
+										<Max>14</Max>
+									</PersonAge>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-17</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Accommodation">
+									<Max>2012-04-30</Max>
+								</BookingDate>
+								<Duration Source="Accommodation">
+									<Min>7</Min>
+								</Duration>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-15</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Accommodation">
+									<Max>2012-04-30</Max>
+								</BookingDate>
+								<Duration Source="Accommodation">
+									<Min>5</Min>
+									<Max>6</Max>
+								</Duration>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="Spar">
+						<Percent>
+							<Value>-100</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<Or>
+									<Date Source="Product" DayType="CheckIn">
+										<Min>2012-04-01</Min>
+										<Max>2012-04-20</Max>
+									</Date>
+									<Date Source="Product" DayType="CheckIn">
+										<Min>2012-05-20</Min>
+										<Max>2012-05-22</Max>
+									</Date>
+									<Date Source="Product" DayType="CheckIn">
+										<Min>2012-10-07</Min>
+										<Max>2012-10-30</Max>
+									</Date>
+								</Or>
+								<Or>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<Indices>-1</Indices>
+											</DayIndex>
+										</DayImpact>
+										<Duration Source="Product">
+											<Min>7</Min>
+											<Max>13</Max>
+										</Duration>
+									</And>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<From>-2</From>
+											</DayIndex>
+										</DayImpact>
+										<Duration Source="Product">
+											<Min>14</Min>
+											<Max>20</Max>
+										</Duration>
+									</And>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<From>-3</From>
+											</DayIndex>
+										</DayImpact>
+										<Duration Source="Product">
+											<Min>21</Min>
+										</Duration>
+									</And>
+								</Or>
+							</And>
+						</Condition>
+						<Properties>
+							<PropertyGroup>
+								<PriceType>DurationReduction</PriceType>
+							</PropertyGroup>
+						</Properties>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="XPMIAQK">
+			<Properties>
+				<PropertyGroup>
+					<AccommodationName>Aquasol Aparthotel</AccommodationName>
+					<AccommodationAddress>
+						<City>Palma Nova</City>
+						<Country>Spain</Country>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="XPMIAQK">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="Season">I</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-10-11</Min>
+									<Max>2012-10-31</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">H</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-09-26</Min>
+									<Max>2012-10-10</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">G</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-09-11</Min>
+									<Max>2012-09-25</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">F</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-08-21</Min>
+									<Max>2012-09-10</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">E</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-08-01</Min>
+									<Max>2012-08-20</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">D</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-07-01</Min>
+									<Max>2012-07-31</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">C</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-06-10</Min>
+									<Max>2012-06-30</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">B</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-05-12</Min>
+									<Max>2012-06-09</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-05-01</Min>
+									<Max>2012-05-11</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<PriceItems Key="1">
+					<PriceItem Class="Child">
+						<Percent>
+							<Value>-100</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>2</Min>
+										<Max>12</Max>
+									</PersonAge>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="Child">
+						<Percent>
+							<Value>-100</Value>
+							<ApplyTo>Day Board</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonIndex Source="Product">
+										<Until>-2</Until>
+										<From>-2</From>
+										<PersonFilter>
+											<PersonAge Source="Product">
+												<Min>2</Min>
+												<Max>12</Max>
+											</PersonAge>
+										</PersonFilter>
+									</PersonIndex>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-21</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDate Source="Accommodation">
+								<Max>2011-11-30</Max>
+							</BookingDate>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-17</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDate Source="Accommodation">
+								<Min>2011-12-01</Min>
+								<Max>2012-01-31</Max>
+							</BookingDate>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-12</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDate Source="Accommodation">
+								<Min>2012-02-01</Min>
+								<Max>2012-03-31</Max>
+							</BookingDate>
+						</Condition>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+</Otds>
