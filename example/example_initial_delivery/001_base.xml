@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../../xsd/otds.xsd" Version="1.0">
+	<!-- Basis XML für die initiale OTDS Datenlieferung -->
+	<!-- Produktdefinitionen unabhängig von den tatsächlich instanziierten Komponenten -->
+	<Products>
+		<GlobalValues>
+			<GlobalValue Key="OTA">
+				<Tags>
+					<Tag Class="SalesChannel">OTA</Tag>
+				</Tags>
+				<ParameterSet Key="1">
+					<SalesChannel>OnlineTravelAgency</SalesChannel>
+				</ParameterSet>
+			</GlobalValue>
+			<GlobalValue Key="Expodo">
+				<ParameterSet Key="2">
+					<CrsSystem>Toma</CrsSystem>
+					<AgencyCode>123-345678-678</AgencyCode>
+					<BrandCode>GTI</BrandCode>
+				</ParameterSet>
+				<ParameterSet Key="3">
+					<CrsSystem>Merlin</CrsSystem>
+					<AgencyCode>133-34563-234</AgencyCode>
+					<BrandCode>GTI</BrandCode>
+				</ParameterSet>
+			</GlobalValue>
+		</GlobalValues>
+		<Product Key="Package" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<DefinedComponent Name="ReturnFlight" UseRole="ReturnFlight"/>
+			</Components>
+			<Filter>
+				<MatchEqual>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+					<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</Product>
+		<Product Key="HotelOnly" ProductType="AccommodationOnly">
+			<Tags>
+				<Tag Class="Product">HotelOnly</Tag>
+			</Tags>
+			<Components>
+				<Accommodation/>
+			</Components>
+			<Filter>
+				<Tags Class="Type" Source="Accommodation.SellingAccom">HotelOnlyHotel</Tags>
+			</Filter>
+		</Product>
+	</Products>
+	<!-- Markendefinitionen -->
+	<Brands>
+		<Brand Key="GTI">
+			<Booking>
+				<BookingGroup Area="GlobalArea" Source="ThisComponent">
+					<BookingParameter Field="BrandCode">
+						<Value>GTI</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<!-- definierte komponenten (hier: Return Flights kombiniert aus Oneways) -->
+	<DefinedComponents>
+		<DefineComponent Key="HR" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight Name="OutFlight"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight Name="InFlight"/>
+				</CombiComponent>
+			</Components>
+			<Filter>
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">DepartureAirport</Element>
+						<Element Source="Inbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">DepartureAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>
