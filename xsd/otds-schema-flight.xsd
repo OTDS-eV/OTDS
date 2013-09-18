@@ -6,10 +6,12 @@
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="det_487">Reisekomponente für Flüge (Flights). 
+					<xs:documentation xml:lang="de" xml:id="de_487">Reisekomponente für Flüge (Flights). 
 Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen (ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so kann dies regelbasiert mit den ReturnFlightRules gemacht werden.
 In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich, die aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können.
-                </xs:documentation>
+                </xs:documentation><xs:documentation xml:lang="en" xml:id="en_487">Travel components for flights (Flights).
+Flight offers consist of one-way (OnewayFlight) and return (ReturnFlight) flights. If further flights are to be added to a single flight, this can be done based on the ReturnFlightRules.
+In the OTDS structure, extended flight offers (CombiRules) are also available, which can consist of several one-way or return flights.</xs:documentation>
 				</xs:annotation>
 				<xs:sequence>
 					<xs:element name="OnewayFlights" type="OnewayFlightsType" minOccurs="0"/>
@@ -22,10 +24,12 @@ In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="det_488">Reisekomponente für Flüge (Flights). 
+					<xs:documentation xml:lang="de" xml:id="de_488">Reisekomponente für Flüge (Flights). 
 Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen (ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so kann dies regelbasiert mit den ReturnFlightRules gemacht werden.
 In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich, die aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können.
-                </xs:documentation>
+                </xs:documentation><xs:documentation xml:lang="en" xml:id="en_488">Travel components for flights (Flights).
+Flight offers consist of one-way (OnewayFlight) and return (ReturnFlight) flights. If further flights are to be added to a single flight, this can be done based on the ReturnFlightRules.
+In the OTDS structure, extended flight offers (CombiRules) are also available, which can consist of several one-way or return flights.</xs:documentation>
 				</xs:annotation>
 				<xs:sequence>
 					<xs:element name="DefineComponent" maxOccurs="unbounded">
@@ -34,14 +38,16 @@ In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich
 								<xs:extension base="DefineComponentRulesType">
 									<xs:attribute name="Role" type="RoleEnum" use="required">
 										<xs:annotation>
-											<xs:documentation xml:id="det_489" xml:lang="de">Dieses Attribut definiert die Rolle, die eine CombiComponente in Bezug auf den ComponentenTyp einnimmt. Das "Role" Attribut wird bei der Auswertung von Komponentenreferenzen (Attribut "Source" in Conditions) wie der statische Komponententyp echter Komponenten verwendet. Mögliche Werte sind aktuell:
+											<xs:documentation xml:id="de_489" xml:lang="de">Dieses Attribut definiert die Rolle, die eine CombiComponente in Bezug auf den ComponentenTyp einnimmt. Das "Role" Attribut wird bei der Auswertung von Komponentenreferenzen (Attribut "Source" in Conditions) wie der statische Komponententyp echter Komponenten verwendet. Mögliche Werte sind aktuell:
+- OnewayFlight
+- ReturnFlight</xs:documentation><xs:documentation xml:id="en_489" xml:lang="en">This attribute defines the role that is played by a CombiComponent in relation to the ComponentType. The "role" attribute is used for the evaluation of component references (the "source" attribute in Conditions) such as the static component type of real components. Possible values ​​are currently:
 - OnewayFlight
 - ReturnFlight</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
 									<xs:attribute name="DayAllocationIndex" type="xs:int">
 										<xs:annotation>
-											<xs:documentation xml:id="det_490" xml:lang="de">Dieses Attribut definiert einen Vorgabewert für die DayAllocation bei der Verwendung dieser CombiComponent.</xs:documentation>
+											<xs:documentation xml:id="de_490" xml:lang="de">Dieses Attribut definiert einen Vorgabewert für die DayAllocation bei der Verwendung dieser CombiComponent.</xs:documentation><xs:documentation xml:id="en_490" xml:lang="en">This attribute defines a default value for the DayAllocation when using the CombiComponent.</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
 								</xs:extension>
@@ -59,19 +65,20 @@ In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich
 				<xs:sequence>
 					<xs:element name="OnewayFlight" type="OnewayType" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_491" xml:lang="de">Definition der kleinsten Einheit von Einzelflügen, die in einem Veranstaltersystem vorliegen und  ggf. zur Kombination von Returnflügen und auch zur Erstellung von erweiterten Flügen benutzt werden. Siehe dazu auch Hinweise ReturnFlightRules und OnewayFlightCombiRules.  
-		</xs:documentation>
+							<xs:documentation xml:id="de_491" xml:lang="de">Definition der kleinsten Einheit von Einzelflügen, die in einem Veranstaltersystem vorliegen und  ggf. zur Kombination von Returnflügen und auch zur Erstellung von erweiterten Flügen benutzt werden. Siehe dazu auch Hinweise ReturnFlightRules und OnewayFlightCombiRules.  
+		</xs:documentation><xs:documentation xml:id="en_491" xml:lang="en">Definition of the smallest unit for individual flights present in the operating system and optionally used for the combination of return flights, and also to create extended flights. See also the notes on ReturnFlightRules and OnewayFlightCombiRules.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_492" xml:lang="de">Preisbestandteile auf OnewayFlights-Ebene
-								Preise, die für alle Flüge in der Datenlieferung gelten, beispielsweise Kerosinzuschläge</xs:documentation>
+							<xs:documentation xml:id="de_492" xml:lang="de">Preisbestandteile auf OnewayFlights-Ebene
+								Preise, die für alle Flüge in der Datenlieferung gelten, beispielsweise Kerosinzuschläge</xs:documentation><xs:documentation xml:id="en_492" xml:lang="en">Price components on the OnewayFlights level
+Rates that apply to all flights in the data delivery, such as fuel surcharges</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="GroupDefinitions" type="GroupDefinitionsType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:id="det_493" xml:lang="de">Unter diesem Element können sortierte Gruppen definiert werden. Diese Gruppen werden benutzt, um eine Sortierung/Priorisierung von Angeboten und Komponenten zu ermöglichen. Die GroupDefinition wird über den Namen in der  GroupCondition referenziert. Die GroupCondition kann in der BookingGroup und in Availabilties verwendet werden. Häufigste Anwendung ist die Priorisierung von Flügen innerhlab der der der höchst priorisierte Flug dann mit dem CityPair buchbar ist anstatt mit der Flugkettenkennung.</xs:documentation>
+							<xs:documentation xml:id="de_493" xml:lang="de">Unter diesem Element können sortierte Gruppen definiert werden. Diese Gruppen werden benutzt, um eine Sortierung/Priorisierung von Angeboten und Komponenten zu ermöglichen. Die GroupDefinition wird über den Namen in der  GroupCondition referenziert. Die GroupCondition kann in der BookingGroup und in Availabilties verwendet werden. Häufigste Anwendung ist die Priorisierung von Flügen innerhlab der der der höchst priorisierte Flug dann mit dem CityPair buchbar ist anstatt mit der Flugkettenkennung.</xs:documentation><xs:documentation xml:id="en_493" xml:lang="en">Sorted groups can be defined under this element. These groups are used to create a grading system or prioritisation of offers and components. The GroupDefinition is referenced by the name in the GroupCondition. The GroupCondition can be used in the BookingGroup and in Availabilities. The most frequent use for this is the prioritisation of flights whereby the flight with the highest priority can be booked with the CityPair instead of the flight chain ID.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -84,18 +91,19 @@ In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich
 				<xs:sequence>
 					<xs:element name="ReturnFlight" type="ReturnType" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_494" xml:lang="de">Definition aller Hin- und Rückflüge sofern diese nicht durch Kombination von Einzelflügen abgebildet werden können.</xs:documentation>
+							<xs:documentation xml:id="de_494" xml:lang="de">Definition aller Hin- und Rückflüge sofern diese nicht durch Kombination von Einzelflügen abgebildet werden können.</xs:documentation><xs:documentation xml:id="en_494" xml:lang="en">Definition of all return flights where they cannot be represented by a combination of individual flights.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_495" xml:lang="de">Preisbestandteile auf ReturnFlights-Ebene
-								Preise, die für alle Flüge in der Datenlieferung gelten, beispielsweise Kerosinzuschläge</xs:documentation>
+							<xs:documentation xml:id="de_495" xml:lang="de">Preisbestandteile auf ReturnFlights-Ebene
+								Preise, die für alle Flüge in der Datenlieferung gelten, beispielsweise Kerosinzuschläge</xs:documentation><xs:documentation xml:id="en_495" xml:lang="en">Price components at the ReturnFlights level
+Rates that apply to all flights in the data delivery, such as fuel surcharges</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="GroupDefinitions" type="GroupDefinitionsType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:id="det_496" xml:lang="de">Unter diesem Element können sortierte Gruppen definiert werden. Diese Gruppen werden benutzt, um eine Sortierung/Priorisierung von Angeboten und Komponenten zu ermöglichen. Die GroupDefinition wird über den Namen in der  GroupCondition referenziert. Die GroupCondition kann in der BookingGroup und in Availabilties verwendet werden. Häufigste Anwendung ist die Priorisierung von Flügen innerhlab der der der höchst priorisierte Flug dann mit dem CityPair buchbar ist anstatt mit der Flugkettenkennung.</xs:documentation>
+							<xs:documentation xml:id="de_496" xml:lang="de">Unter diesem Element können sortierte Gruppen definiert werden. Diese Gruppen werden benutzt, um eine Sortierung/Priorisierung von Angeboten und Komponenten zu ermöglichen. Die GroupDefinition wird über den Namen in der  GroupCondition referenziert. Die GroupCondition kann in der BookingGroup und in Availabilties verwendet werden. Häufigste Anwendung ist die Priorisierung von Flügen innerhlab der der der höchst priorisierte Flug dann mit dem CityPair buchbar ist anstatt mit der Flugkettenkennung.</xs:documentation><xs:documentation xml:id="en_496" xml:lang="en">Sorted groups can be defined under this element. These groups are used to create a grading system or prioritisation of offers and components. The GroupDefinition is referenced by the name in the GroupCondition. The GroupCondition can be used in the BookingGroup and in Availabilities. The most frequent use for this is prioritisation of flights whereby the flight with the highest priority can be booked with the CityPair instead of the flight chain ID.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -108,7 +116,7 @@ In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich
 				<xs:sequence>
 					<xs:element name="Booking" type="BookingType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:id="det_497" xml:lang="de">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+							<xs:documentation xml:id="de_497" xml:lang="de">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation><xs:documentation xml:id="en_497" xml:lang="en">In this element, all values ​​required for booking are combined. Other Namespaces can later be added via the BookingEntry, so that values specific to different booking systems are specified along with the corresponding parameter name​​.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Filter" type="ConditionSimpleNodeType" minOccurs="0"/>
@@ -118,7 +126,7 @@ In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich
 	</xs:complexType>
 	<xs:complexType name="OnewayType">
 		<xs:annotation>
-			<xs:documentation xml:id="det_498" xml:lang="de">Beschreibt einen Flug (flach oder als Menge von Segmenten)</xs:documentation>
+			<xs:documentation xml:id="de_498" xml:lang="de">Beschreibt einen Flug (flach oder als Menge von Segmenten)</xs:documentation><xs:documentation xml:id="en_498" xml:lang="en">Describes a flight (flat or as a series of segments)</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="FlightBaseType">
@@ -126,14 +134,16 @@ In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich
 					<xs:group ref="FlightBaseDetailsGroup"/>
 					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:id="det_499" xml:lang="de">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
+							<xs:documentation xml:id="de_499" xml:lang="de">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
 Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt.
-Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation>
+Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation><xs:documentation xml:id="en_499" xml:lang="en">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of cases involving flights.
+This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
+As previously stated there is currently no other known factor that would influence the Accommodation dates.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="BookingClass" type="BookingClassType" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_500" xml:lang="de">Definiert Buchungsklassen für den Flug und mögliche Verfügbarkeiten.</xs:documentation>
+							<xs:documentation xml:id="de_500" xml:lang="de">Definiert Buchungsklassen für den Flug und mögliche Verfügbarkeiten.</xs:documentation><xs:documentation xml:id="en_500" xml:lang="en">Defined booking classes for the flight and possible availability.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -142,7 +152,7 @@ Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:docume
 	</xs:complexType>
 	<xs:group name="FlightBaseDetailsGroup">
 		<xs:annotation>
-			<xs:documentation xml:id="det_501" xml:lang="de">Beschreibt die Basisdetails eines Fluges sowohl für Oneway als auch für Inbound und Outbound</xs:documentation>
+			<xs:documentation xml:id="de_501" xml:lang="de">Beschreibt die Basisdetails eines Fluges sowohl für Oneway als auch für Inbound und Outbound</xs:documentation><xs:documentation xml:id="en_501" xml:lang="en">Describes the basic details of a flight for both one-way, as well as inbound and outbound</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Properties" type="PropertiesType" minOccurs="0"/>
@@ -150,19 +160,19 @@ Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:docume
 			<xs:element name="ArrivalAirport" type="SimpleNodeIataAirportCodeType"/>
 			<xs:element name="CheckOutDateOffset" type="CheckOutDateOffsetType" default="0" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:id="det_502" xml:lang="de">This definies whether you have an overnight fliight or not.</xs:documentation>
+					<xs:documentation xml:id="de_502" xml:lang="de">This definies whether you have an overnight fliight or not.</xs:documentation><xs:documentation xml:id="en_502" xml:lang="en">This defines whether you have an overnight flight or not.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:id="det_503" xml:lang="de">Preisberechnung der Flugangebote innerhalb einer Buchungsklasse</xs:documentation>
+					<xs:documentation xml:id="de_503" xml:lang="de">Preisberechnung der Flugangebote innerhalb einer Buchungsklasse</xs:documentation><xs:documentation xml:id="en_503" xml:lang="en">Calculation of prices for flight deals within a booking class</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="OutboundFlightType">
 		<xs:annotation>
-			<xs:documentation xml:id="det_504" xml:lang="de">Beschreibt einen Flug (flach oder als Menge von Segmenten)</xs:documentation>
+			<xs:documentation xml:id="de_504" xml:lang="de">Beschreibt einen Flug (flach oder als Menge von Segmenten)</xs:documentation><xs:documentation xml:id="en_504" xml:lang="en">Describes a flight (flat or as a series of segments)</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
@@ -170,9 +180,11 @@ Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:docume
 					<xs:group ref="FlightBaseDetailsGroup"/>
 					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:id="det_505" xml:lang="de">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
+							<xs:documentation xml:id="de_505" xml:lang="de">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
 Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt.
-Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation>
+Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation><xs:documentation xml:id="en_505" xml:lang="en">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of cases involving flights.
+This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
+As previously stated there is currently no case example for Accommodation.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -181,7 +193,7 @@ Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:docume
 	</xs:complexType>
 	<xs:complexType name="InboundFlightType">
 		<xs:annotation>
-			<xs:documentation xml:id="det_506" xml:lang="de">Beschreibt einen Flug (flach oder als Menge von Segmenten)</xs:documentation>
+			<xs:documentation xml:id="de_506" xml:lang="de">Beschreibt einen Flug (flach oder als Menge von Segmenten)</xs:documentation><xs:documentation xml:id="en_506" xml:lang="en">Describes a flight (flat or as a series of segments)</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
@@ -189,9 +201,11 @@ Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:docume
 					<xs:group ref="FlightBaseDetailsGroup"/>
 					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:id="det_507" xml:lang="de">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
+							<xs:documentation xml:id="de_507" xml:lang="de">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
 Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt.
-Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation>
+Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation><xs:documentation xml:id="en_507" xml:lang="en">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of cases involving flights.
+This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
+As previously stated there is currently no other known factor that would influence the Accommodation dates.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -200,33 +214,37 @@ Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:docume
 	</xs:complexType>
 	<xs:complexType name="ReturnType">
 		<xs:annotation>
-			<xs:documentation xml:id="det_508" xml:lang="de">Beschreibt einen Hin- und Rückflug (flach oder als Kombination aus zwei Oneway-Flügen)</xs:documentation>
+			<xs:documentation xml:id="de_508" xml:lang="de">Beschreibt einen Hin- und Rückflug (flach oder als Kombination aus zwei Oneway-Flügen)</xs:documentation><xs:documentation xml:id="en_508" xml:lang="en">Describes a return flight (flat, or as a combination of two one-way flights)</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="FlightBaseType">
 				<xs:sequence>
 					<xs:element name="Outbound" type="OutboundFlightType">
 						<xs:annotation>
-							<xs:documentation xml:id="det_509" xml:lang="de">Beschreibt die Primäreigenschaften des ausgehenden Flugs.
+							<xs:documentation xml:id="de_509" xml:lang="de">Beschreibt die Primäreigenschaften des ausgehenden Flugs.
 
-Kann weiterhin detailliert den ausgehenden Flug beschreiben. Dieser kann flach oder segmentweise definiert werden.</xs:documentation>
+Kann weiterhin detailliert den ausgehenden Flug beschreiben. Dieser kann flach oder segmentweise definiert werden.</xs:documentation><xs:documentation xml:id="en_509" xml:lang="en">Describes the primary features of the outbound flight.
+
+Describes the outbound flight in greater detail. Defines the flight as flat or segmented.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Inbound" type="InboundFlightType">
 						<xs:annotation>
-							<xs:documentation xml:id="det_510" xml:lang="de">Beschreibt die Primäreigenschaften des eingehenden Flugs.
+							<xs:documentation xml:id="de_510" xml:lang="de">Beschreibt die Primäreigenschaften des eingehenden Flugs.
 
-Kann weiterhin detailliert den eingehenden Flug beschreiben. Dieser kann flach oder segmentweise definiert werden.</xs:documentation>
+Kann weiterhin detailliert den eingehenden Flug beschreiben. Dieser kann flach oder segmentweise definiert werden.</xs:documentation><xs:documentation xml:id="en_510" xml:lang="en">Describes the primary characteristics of the inbound flight.
+
+Describes the inbound flight in greater detail. Defines the flight as flat or segmented.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="BookingClass" type="BookingClassType" minOccurs="1" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_511" xml:lang="de">Definiert Buchungsklassen für den Return-Flug und die möglichen Verfügbarkeiten.</xs:documentation>
+							<xs:documentation xml:id="de_511" xml:lang="de">Definiert Buchungsklassen für den Return-Flug und die möglichen Verfügbarkeiten.</xs:documentation><xs:documentation xml:id="en_511" xml:lang="en">Defined booking classes for the return flight, and possible availability.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_512" xml:lang="de">Preisberechnung der Flugangebote</xs:documentation>
+							<xs:documentation xml:id="de_512" xml:lang="de">Preisberechnung der Flugangebote</xs:documentation><xs:documentation xml:id="en_512" xml:lang="en">Calculation of prices for flight deals</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -235,30 +253,30 @@ Kann weiterhin detailliert den eingehenden Flug beschreiben. Dieser kann flach o
 	</xs:complexType>
 	<xs:complexType name="BookingClassType">
 		<xs:annotation>
-			<xs:documentation xml:id="det_513" xml:lang="de">Basisinformationen der Buchungsklasse</xs:documentation>
+			<xs:documentation xml:id="de_513" xml:lang="de">Basisinformationen der Buchungsklasse</xs:documentation><xs:documentation xml:id="en_513" xml:lang="en">Basic information for the booking class</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
 				<xs:sequence>
 					<xs:element name="Booking" type="BookingType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:id="det_514" xml:lang="de">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+							<xs:documentation xml:id="de_514" xml:lang="de">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation><xs:documentation xml:id="en_514" xml:lang="en">In this element, all values ​​required for booking are combined. Later other Namespaces can be added to the BookingEntry, so that values specific to different booking systems are specified along with their corresponding parameter name​​.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Properties" type="PropertiesType" minOccurs="0"/>
 					<xs:element name="Occupancy" type="OccupancyType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_515" xml:lang="de">Die dem Flug zugeordnete Belegung. Hier kann die Mindestanforderung für die Reisenden definiert werden. Fehlt der Zweig Occupancy, so gibt es keine Einschränkungen bzgl. der Reisenden. Es wird ein Default angenommen, der beliebige Personen in beliebiger Anzahl zulässt.</xs:documentation>
+							<xs:documentation xml:id="de_515" xml:lang="de">Die dem Flug zugeordnete Belegung. Hier kann die Mindestanforderung für die Reisenden definiert werden. Fehlt der Zweig Occupancy, so gibt es keine Einschränkungen bzgl. der Reisenden. Es wird ein Default angenommen, der beliebige Personen in beliebiger Anzahl zulässt.</xs:documentation><xs:documentation xml:id="en_515" xml:lang="en">The assigned capacity for the flight Here, the minimum occupancy requirement is defined. If the Occupancy branch is not specified, there are no restrictions on the number of passengers. A default is assumed, which allows any number of people in any number of permutations</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_516" xml:lang="de">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als verfügbar, sofern diese nicht schon an anderer Stelle eingeschränkt wurden. Die Ebene Aailabilities definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Belegung stattfindet, so wird es je eingeschränkter Belegung einen eigenen Availabilities-Zweig mit einer entsprechenden  unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  </xs:documentation>
+							<xs:documentation xml:id="de_516" xml:lang="de">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als verfügbar, sofern diese nicht schon an anderer Stelle eingeschränkt wurden. Die Ebene Aailabilities definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Belegung stattfindet, so wird es je eingeschränkter Belegung einen eigenen Availabilities-Zweig mit einer entsprechenden  unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  </xs:documentation><xs:documentation xml:id="en_516" xml:lang="en">Under this branch the availability of the object is defined. If this branch is omitted, all dates and durations are considered available unless already restricted elsewhere. The Availabilities level defines which kind of availability management is possible. For example, where restrictions on the available occupancy are imposed, each restricted occupancy will have its own Availabilities branch with a corresponding one entered under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:id="det_517" xml:lang="de">PreisBestandteile abhängig von der Buchungsklasse</xs:documentation>
+							<xs:documentation xml:id="de_517" xml:lang="de">PreisBestandteile abhängig von der Buchungsklasse</xs:documentation><xs:documentation xml:id="en_517" xml:lang="en">Price components are dependent upon the booking class</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
