@@ -1080,14 +1080,15 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="GenericTagType">
-		<xs:sequence>
-			<xs:element name="GenericTag" maxOccurs="unbounded">
-				<xs:complexType>
+		
 					<xs:sequence>
 						<xs:element name="GenericTagFunction">
 							<xs:complexType>
 								<xs:choice>
 									<xs:element name="SortedCandidateGroup">
+										<xs:annotation>
+											<xs:documentation>Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als GenericTag-Value seine eigene Position innerhalb der sortierten Angebotsgruppe. </xs:documentation>
+										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
 												<xs:element name="GroupedByEqual">
@@ -1348,6 +1349,9 @@ Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
 										</xs:complexType>
 									</xs:element>
 									<xs:element name="ExternalParameter">
+										<xs:annotation>
+											<xs:documentation>Die Funktion ExternalParameter erlaubt, dass von außen ein vorgegebener Parameter in die OTDS-Verarbeitung eingeschleust werden kann.</xs:documentation>
+										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
 												<xs:element name="Value">
@@ -1366,9 +1370,6 @@ Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
 						</xs:element>
 					</xs:sequence>
 					<xs:attributeGroup ref="TagAttributeGroup"/>
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
 	</xs:complexType>
 	<xs:group name="GroupConditionGroup">
 		<xs:annotation>
@@ -2562,10 +2563,6 @@ The current node and all child elements are deleted.</xs:documentation>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="ProductMultipleCompositeUpdateNodeWithTagsType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_234">Dieser Type definiert CompositeUpdateNodes, die multiple auftreten können und an denen auch noch Tags platziert werden können. Es handelt sich um eine Ableitung des MultipleCompositeUpdateNodeTypes</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_234">This type defines CompositeUpdateNodes, which can occur in multiples and also accept tags. It is a derivative of the MultipleCompositeUpdateNodeTypes</xs:documentation>
-		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
@@ -5160,7 +5157,21 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 		<xs:complexContent>
 			<xs:extension base="TagsType">
 				<xs:sequence>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>GenericTags sind Makierungen, deren Value von einer Funktion abhängt.
+
+Folgende Funktionen sind aktuell integriert:
+- SortedCandidateGroup
+  Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als GenericTag-Value seine eigene Position innerhalb der sortierten Angebotsgruppe. 
+
+- ExternalParameter
+Die Funktion ExternalParameter erlaubt, dass von außen ein vorgegebener Parameter in die OTDS-Verarbeitung eingeschleust werden kann.
+
+In Filtern und Conditions können Bedingungen an die GenericTags formuliert werden. 
+Die Funktion "SortedCandidateGroup findet keine Berücksichtigung in der Preisberechnung. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -6385,10 +6396,10 @@ Die GroupCondition ist nur in Filtern und in der Condition von BookingGroups und
 		<xs:sequence>
 			<xs:element name="GenericTag">
 				<xs:annotation>
-					<xs:documentation>Die GenericTag-Condition definiert eine Bedingung an das GenericTag. Das Attribut "Class" refernziert welche GenericTag geprüft wird. 
-Die Bedingung ist erfüllt, wenn der Value des referenzierten GenericTags innerhalb der Value-Bedinungen liegt.
+					<xs:documentation>Die GenericTag-Condition definiert eine Bedingung an das GenericTag. Das Attribut "Class" referenziert welches GenericTag geprüft wird. 
+Die Bedingung ist erfüllt, wenn der Value des referenzierten GenericTags innerhalb der Value-Bedingungen liegt.
 
-Die GroupCondition ist nur in Filtern und in der Condition von BookingGroups und Availabilities erlaub. In allen anderen Fällen wird die GroupTag-Condition als "False" interpretiert.</xs:documentation>
+Eine GenericTag Bedingung ohne Value ist false.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:complexContent>
@@ -6396,12 +6407,8 @@ Die GroupCondition ist nur in Filtern und in der Condition von BookingGroups und
 							<xs:choice>
 								<xs:element name="Value"/>
 								<xs:sequence>
-									<xs:element name="MinValue">
-										<xs:complexType/>
-									</xs:element>
-									<xs:element name="MaxValue">
-										<xs:complexType/>
-									</xs:element>
+									<xs:element name="MinValue" type="xs:int" minOccurs="0"/>
+									<xs:element name="MaxValue" type="xs:int" minOccurs="0"/>
 								</xs:sequence>
 							</xs:choice>
 						</xs:extension>
