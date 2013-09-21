@@ -101,9 +101,9 @@ The default is 0.</xs:documentation>
 				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Per Default sind die Komponenten des PriceItems und die des assozierten PriceItems gleich (ThisComponent). Durch die explizite Angabe einer anderen Komponente ist es aber möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Durch die Integration von Source an dieser Stelle wird die Component zum Auslaufmodel. Component wird nur noch bis zur Version 4.0 unterstützt. </xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="local+Hirarchy.all:ThisComponent">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="local+Hierarchy.all:ThisComponent">
 			<xs:annotation>
-				<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. Um die Compatibilität zu Version 1.0 zu erhalten wird der Defaultwert Source="Hirarchy.all:ThisComponent". Dieser Wert entdpricht dann zu 100% dem Attribut Component=ThisComponent. Im Zuge der Einführung von Source wird Component zu einem Auslaufmodel. Component wird an dieser Stelle nur noch bis zur Version 4.0 unterstützt.</xs:documentation>
+				<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. Um die Compatibilität zu Version 1.0 zu erhalten wird der Defaultwert Source="Hierarchy.all:ThisComponent". Dieser Wert entdpricht dann zu 100% dem Attribut Component=ThisComponent. Im Zuge der Einführung von Source wird Component zu einem Auslaufmodel. Component wird an dieser Stelle nur noch bis zur Version 4.0 unterstützt.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
@@ -887,7 +887,7 @@ With the first child element (according to XML order) the "Sum" element determin
 																	<xs:choice>
 																		<xs:element name="Price" type="SortPriceType">
 																			<xs:annotation>
-																				<xs:documentation xml:lang="de" xml:id="de_122">Dieses Element referenziert eine Menge von PriceItems. Zur Berechnung der Summer, die zur Sortierung benutzt wird, werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind. Über die Source kann die Verwendung von PriceItems auf bestimmte Komponenten oder SubKomponenten eingeschränkt werden. Dazu wurde extra eingeführt, dass die Source auch Descendants und Ancistors referenzieren kann. Schauhen Sie dazu in der Doku unter dem Begriff "Source-Hirarchy".</xs:documentation>
+																				<xs:documentation xml:lang="de" xml:id="de_122">Dieses Element referenziert eine Menge von PriceItems. Zur Berechnung der Summer, die zur Sortierung benutzt wird, werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind. Über die Source kann die Verwendung von PriceItems auf bestimmte Komponenten oder SubKomponenten eingeschränkt werden. Dazu wurde extra eingeführt, dass die Source auch Descendants und Ancistors referenzieren kann. Schauhen Sie dazu in der Doku unter dem Begriff "Source-Hierarchy".</xs:documentation>
 																				<xs:documentation xml:lang="en" xml:id="en_122">This element defines a tag, which is used for sorting and forms a component of a sum. To calculate the sorting price only PriceItems attached to an ancestor node or descendant node within the GroupDefinition list, and those valid for the offer currently being viewed, are used.</xs:documentation>
 																			</xs:annotation>
 																		</xs:element>
@@ -1086,7 +1086,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 					<xs:choice>
 						<xs:element name="SortedCandidateGroup">
 							<xs:annotation>
-								<xs:documentation>Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als GenericTag-Value seine eigene Position innerhalb der sortierten Angebotsgruppe. </xs:documentation>
+								<xs:documentation>Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als GenericTag-Value seine eigene Position innerhalb der sortierten Angebotsgruppe. Die Auswertung der Funktion findet erst nach der Auswertung der Verfügbarkeit und nach Abschluss der Preisberechnung statt. Bis dahin gilt der Value der Funktion als "Undefined".</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
@@ -1198,7 +1198,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																								<xs:choice>
 																									<xs:element name="Price" type="SortPriceType">
 																										<xs:annotation>
-																											<xs:documentation xml:lang="de" xml:id="det_122">Dieses Element referenziert eine Menge von PriceItems. Zur Berechnung der Summer, die zur Sortierung benutzt wird, werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind. Über die Source kann die Verwendung von PriceItems auf bestimmte Komponenten oder SubKomponenten eingeschränkt werden. Dazu wurde extra eingeführt, dass die Source auch Descendants und Ancistors referenzieren kann. Schauhen Sie dazu in der Doku unter dem Begriff "Source-Hirarchy".</xs:documentation>
+																											<xs:documentation xml:lang="de" xml:id="det_122">Dieses Element referenziert eine Menge von PriceItems. Zur Berechnung der Summer, die zur Sortierung benutzt wird, werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind. Über die Source kann die Verwendung von PriceItems auf bestimmte Komponenten oder SubKomponenten eingeschränkt werden. Dazu wurde extra eingeführt, dass die Source auch Descendants und Ancistors referenzieren kann. Schauhen Sie dazu in der Doku unter dem Begriff "Source-Hierarchy".</xs:documentation>
 																										</xs:annotation>
 																									</xs:element>
 																									<xs:element name="Tag" type="EmptyTagConditionType">
@@ -1405,6 +1405,29 @@ Falls ConsideredPriceItems kein Element enthält, so werden alle PriceItems gem�
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="EmptyPriceTagReferenceType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyElementType">
+				<xs:attributeGroup ref="SourceAttributeGroup"/>
+				<xs:attributeGroup ref="TagAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ApplyToPriceTagsType">
+		<xs:simpleContent>
+			<xs:extension base="PriceTagsReferenceType">
+				<xs:attribute name="Include" type="IncludeAttributeEnum">
+					<xs:annotation>
+						<xs:documentation>Mit  Include="ApplyDescandents" Hier können weitere PriceItems inkludiert werden, die von den addressierten PriceItems applied werden. So kann man bestimmte PercentPriceItems zuordnen und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem beziehen.
+
+Dieses Attribut berücksichtigt nur eine Apply-Hirarchie!
+Sollte ein Bezug auf ein generisches Abolute hergestellt werden, so wird 
+hierbei dessen Include nicht mit berücksichtigt.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:complexType name="ConsideredPriceTagsReferenceType">
 		<xs:annotation>
 			<xs:documentation>Der TagConditionType definiert die Bedingung an bestimmte TAGs inklusive Angabe der Class, Location und Werte des TAGs. TAGs sind Wertepaare, die an definierten Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
@@ -1427,7 +1450,7 @@ Falls ConsideredPriceItems kein Element enthält, so werden alle PriceItems gem�
 	</xs:group>
 	<xs:complexType name="PropertiesType">
 		<xs:complexContent>
-			<xs:extension base="SimpleUpdateNodeType">
+			<xs:extension base="OptionalMultipleSimpleUpdateNodeType">
 				<xs:group ref="PropertiesWithoutNodeGroup"/>
 			</xs:extension>
 		</xs:complexContent>
@@ -2700,6 +2723,22 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:extension base="SimpleUpdateNodeType">
 				<xs:attribute name="Key" type="KeyType" use="required">
 					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_1">In diesem Attribut muss ein für dieses Level eindeutiger Key hinterlegt werden, so dass mit diesem bei späteren Updatelieferung dieser Knoten eindeutig identifiziert werden kann. </xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_1">There must be a key unique to this level stored in this attribute, so that later updates of these nodes can be uniquely identified.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OptionalMultipleSimpleUpdateNodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_2">Dieser Type definiert SimpleUpdateNodes, die multiple auftreten können. Zur eindeutigen Addressierung brauchen diese Knoten einen bzgl. des übergeordneten Knoten eindeutigen Schlüssel, welcher im Attribute "Key" hinterlegt werden kann. Es handelt sich um eine Ableitung des SimpleUpdateNodeTypes.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_2">This type defines SimpleUpdateNodes, which can occur multiple times. To give each node a unique address, it require a unique key referring to the parent node, which can be stored in the attribute "Key". It is a derivative of SimpleUpdateNodeTypes.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="SimpleUpdateNodeType">
+				<xs:attribute name="Key" type="KeyType" default="Default">
+					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_236">In diesem Attribut muss ein für dieses Level eindeutiger Key hinterlegt werden, so dass mit diesem bei späteren Updatelieferung dieser Knoten eindeutig identifiziert werden kann. </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_236">There must be a key unique to this level stored in this attribute, so that later updates of these nodes can be uniquely identified.</xs:documentation>
 					</xs:annotation>
@@ -2731,6 +2770,11 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:pattern value="[A-Za-z0-9\.\-_|\+]+"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="EmptyElementType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="BaseTagType">
 		<xs:union>
 			<xs:simpleType>
@@ -2746,6 +2790,11 @@ The current node and all child elements are deleted.</xs:documentation>
 		</xs:union>
 	</xs:simpleType>
 	<xs:simpleType name="EmptyTagType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EmptyKeyType">
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="0"/>
 		</xs:restriction>
@@ -3510,7 +3559,7 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="1.1"/>
 			<xs:enumeration value="1.2"/>
 			<xs:enumeration value="1.3"/>
-			<xs:enumeration value="1.9901"/>
+			<xs:enumeration value="1.9"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -3562,6 +3611,7 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="OnewayFlight"/>
 			<xs:enumeration value="Outbound"/>
 			<xs:enumeration value="Inbound"/>
+			<xs:enumeration value="Accommodation"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ExecutionOrderEnum">
@@ -3613,7 +3663,7 @@ The current node and all child elements are deleted.</xs:documentation>
 			
 			Eigenschaft2 ="real" | "virtual" | "ComponentType.all"
 			
-			Eigenschaft3 ="self" | "ancestors" | "descendants" | "Hirarchy.all"
+			Eigenschaft3 ="self" | "ancestors" | "descendants" | "Hierarchy.all"
 
 			Eigenschaft4 = "first" | "last" | "DayAllocation.all"
 
@@ -3659,7 +3709,7 @@ The current node and all child elements are deleted.</xs:documentation>
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hirarchy.)?(self|ancestors|descendants))|Hirarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -3898,6 +3948,11 @@ If CheckOutOffset is not set, then a default value will be used. Thus CheckOutOf
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:simpleType name="InheritPriceTagsEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ConsideredAbsolutes"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!--Begin of  rules definition-->
 	<xs:complexType name="DayAllocationStartType">
 		<xs:attribute name="Source" type="SourceAttributeType" default="Product">
@@ -4051,7 +4106,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 							<xs:documentation xml:lang="en" xml:id="en_292">In this branch the components which are part of the product can be defined.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Filter" type="ConditionSimpleNodeType" minOccurs="0">
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_293">Dieses Element definiert Filterbedingungen, die das Produkt erfüllen muss. Die Filter beziehen sich dabei über das Attribut "Source" auf die unter Components angegebenen Komponenten.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_293">This element defines the filter conditions that must be met by the product. The filter here refers to the attribute "Source" in the components specified under Components.</xs:documentation>
@@ -4078,7 +4133,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 							<xs:documentation xml:lang="en" xml:id="en_297">In this branch the components which are part of the product can be defined.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Filter" type="ConditionSimpleNodeType" minOccurs="0">
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_298">Dieses Element definiert Filterbedingungen, die das Produkt erfüllen muss. Die Filter beziehen sich dabei über das Attribut "Source" auf die unter Components angegebenen Komponenten.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_298">This element defines the filter conditions that must be met by the product. The filter here refers to the attribute "Source" in the components specified under Components.</xs:documentation>
@@ -4427,6 +4482,14 @@ This is based on the total number of nights For this reason the return date is e
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
+	<xs:complexType name="EmptyKeyConditionType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyKeyType">
+				<xs:attributeGroup ref="ConditionAttributeGroup"/>
+				<xs:attributeGroup ref="SourceAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:complexType name="EmptyTagConditionType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_332">Der TagConditionType definiert die Bedingung an bestimmte TAGs inklusive Angabe der Class, Location und Werte des TAGs. TAGs sind Wertepaare, die an definierten Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
@@ -4495,6 +4558,16 @@ This is based on the total number of nights For this reason the return date is e
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
+	<xs:complexType name="PriceTagsReferenceType">
+		<xs:annotation>
+			<xs:documentation>Der TagConditionType definiert die Bedingung an bestimmte TAGs inklusive Angabe der Class, Location und Werte des TAGs. TAGs sind Wertepaare, die an definierten Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="ConsideredPriceTagsReferenceType">
+				<xs:attributeGroup ref="SourceAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:complexType name="RuleComponentBaseType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_341">Von diesem Basistyp werden für die verschiedenen Rule-Components
@@ -4507,6 +4580,15 @@ To enable extensions (different sub-components)</xs:documentation>
 		<xs:attributeGroup ref="ProductComponentGroup"/>
 	</xs:complexType>
 	<xs:complexType name="RuleAccommodationComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:sequence maxOccurs="2">
+					<xs:element name="SellingAccom" type="RuleSellingAccomComponentType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleSellingAccomComponentType">
 		<xs:complexContent>
 			<xs:extension base="RuleComponentBaseType"/>
 		</xs:complexContent>
@@ -4719,11 +4801,24 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 			<xs:documentation xml:lang="en" xml:id="en_355">Definition of price components (PriceItem) for accommodation</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
+			<xs:element name="PriceTags" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PriceTag" type="TagType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 			<xs:choice>
 				<xs:element name="Absolute" type="PriceImpactAbsoluteType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_356">Definition des Absolutbetrags eines Preisbestandteils (PriceItems) mit den Berechnungsgrundlagen und Wirkungen</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_356">Definition of the absolute value of a price component (PriceItem) with the bases for the calculation and effects</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="GenericAbsolute" type="PriceImpactGenericType">
+					<xs:annotation>
+						<xs:documentation>Angabe eines prozentualen Auf- oder Abschlag.
+Wirkt auf bestimmte PriceItems über ApplyTo oder NotApplyTo und wirkungsbezogene Bedingungen auf Reisende und Termine.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="Percent" type="PriceImpactPercentType">
@@ -5114,6 +5209,36 @@ The interval from CheckIn to CheckOut including CheckIn and CheckOut.
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:group name="PriceAppliedByGroup">
+		<xs:sequence>
+			<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>In diesem Element wird definiert, welche anderen PriceItems auf dieses PriceItem wirken können. Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space getrennt angegeben werden.
+Außerdem kann man sich wie in der Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values beziehen.
+
+Das Attribut "Source" wird hier auch häufig mit der Eigenschaft "Hierarchy.All"  verwendet um PriceItems aus mehren SubKomponenten gleichzeitig zu referenzieren.
+
+Am Häufigsten wird Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle Komponente inkl. alle Ancestors und Descendants referenziert.
+
+PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>In diesem Element wird definiert, welche Preisbestandteile mit prozentualem Zu- oder Abschlag eine Wirkung auf diesen Wert haben. Das Element enthält den Wert des Attributs "Class" des entsprechenden PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt angegeben werden. In dem Attribute  "Component" kann man definieren auf welche Komponente sich das AppliedBy bezieht. Ist "Component" nicht gefüllt so gilt der Default="ThisComponent". 
+
+Im Zuge der Erweiterung von OTDS 2.0 ist das Attribute "Source" hinzugekommen, welches in der Zukunft das Attribute "Component" komplett ersetzen wird. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Ist nur ein Attribut gefüllt, so muss dieses erfüllt sein. Ist sowohl "Source" als auch "Component" nicht gefüllt, so gilt ab Version V2.0 für Source der Defaul: </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="PriceItemClassTypeList">
+							<xs:attributeGroup ref="ApplyAttributeGroup"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
 	<xs:complexType name="PriceImpactPercentType">
 		<xs:sequence>
 			<xs:element name="Value" type="xs:decimal">
@@ -5134,6 +5259,155 @@ e.g. Discount of 25% on everything</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:group ref="ApplyToGroup" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PriceImpactGenericType">
+		<xs:sequence>
+			<xs:element name="GenericValue" type="GenericValueType"/>
+			<xs:group ref="PriceAppliedByGroup"/>
+		</xs:sequence>
+		<xs:attribute name="ExecutionPriority" default="0"/>
+	</xs:complexType>
+	<xs:complexType name="GenericValueType">
+		<xs:sequence>
+			<xs:element name="Round">
+				<xs:annotation>
+					<xs:documentation>Dieses Element definiert, wie die durch "DomainSegmentedBy" definierten Segmente von PriceItems gerundet werden sollen. Dazu betrachtet die Round-Funktion jedes Ergebnisse der segmentierten PriceItems und rundet entsprechend der im Round-Element gesetzten Attribute. Die Funktion "Round" führt jeweils je Segment zu einem  generischen PriceItem mit Value="gerundeter Wert" - "berechneter Wert".</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GroupAbsolutePriceItemsBy">
+							<xs:annotation>
+								<xs:documentation>Dieses Element definiert, dass die Funktion jeweils auf mehrere Gruppen von Absolute-PriceItems angewendet wird.
+Dabei werden die durch ApplyTo und AppliedBy addressierten Percent-PriceItems jeweils der Gruppe hinzugerechnet.
+
+Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksichtigt.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Person" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Alle absoluten PriceItems bezogen auf eine Person bilden eine separate Gruppe.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Day" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Alle absoluten PriceItems bezogen auf eine Tag bilden eine separate Gruppe.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="AbsolutePriceItem" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Jedes absolute PriceItem bildet eine separate Gruppe.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PriceTagValue" type="EmptyPriceTagReferenceType" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Alle absoluten PriceItems, die das hier definierte PriceTag mit identischem Value enthalten bilden eine Gruppe.
+
+Nicht enthaltene PriceTags fließen je PriceTag mit dem Value="Default" jeweils in die dem entsprechende Gruppe ein. </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ConsideredPriceItems" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines bestimmten Types und/oder mit bestimmten PriceTags.
+
+Die Auswahl erfolgt in der folgenden Reihenfolge:
+
+1. Auswahl der PriceItems gemäß  PriceFilter
+2. Ggf. Ergänzung der IncludedDescendants
+
+
+Bei mehrfacher Angabe des Elementes besteht die finale Menge der PriceItems aus einem Merge der PriceItems der einzelnen ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung von PriceItems statt. </xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:group ref="PriceItemFilterGroup"/>
+									<xs:element name="IncludeAppliedDescendants" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Ist diese Element angegeben werden zu den in PriceItemCollection definierten Priceitems auch deren Descendants ergänzt. Descendendants sind in dem Zusammenhang alle PriceItems, die durch ApplyTo und AppliedBy der PrideItemCollection-Pricetems adressiert werden. 
+So kann man in der Collection bestimmte PercentPriceItems auswählen und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem beziehen.
+
+Die Auswahl der Descendants lässt sich wiederum durch den PriceItemFilter separat einschränken.
+
+Bei der Auswahl der Descendants wird nur Apply-Hirarchie berücksichtigt!
+
+Sollte ein Bezug auf ein generisches Abolute hergestellt werden, so wird 
+hierbei dessen Include nicht mit-berücksichtigt.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:group ref="PriceItemFilterGroup"/>
+											</xs:sequence>
+											<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum">
+												<xs:annotation>
+													<xs:documentation>Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
+- Absolutes
+Es werden nur absolute PriceItems berücksichtigt.
+
+- Percents
+Es werden nur Percent-PriceItems berücksichtigt.
+
+
+- All
+Es werden alle PriceItems berücksichtigt.
+
+Default = "All"</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attributeGroup ref="SourceAttributeGroup"/>
+								<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
+									<xs:annotation>
+										<xs:documentation>Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
+- Absolutes
+Es werden nur absolute PriceItems berücksichtigt.
+
+- Percents
+Es werden nur Percent-PriceItems berücksichtigt.
+
+
+- All
+Es werden alle PriceItems berücksichtigt.
+
+Default = "All"</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Method">
+						<xs:annotation>
+							<xs:documentation>Down
+Up
+AwayFromZero
+TowardsZero</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="RemainingDigits">
+						<xs:annotation>
+							<xs:documentation>Anzahl der Stellen rechts vom Dezimalpunkt die nach dem Runden übrig bleiben. Rundung auf ganze Zahl bedeutet RemainingDigits=0.
+
+Rundung auf die 2 Stelle hinter dem Komma bedeutet RemainingDigits=2 .
+Negative Zahlen bedeiuten Rundung auf 10er , 100er oder mehr.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Treshold">
+						<xs:annotation>
+							<xs:documentation>Grenzwert  für Rundung in Abhängigkeit der Methode. Der Grenzwert gehört immer schon zu der Richtung, die der Name der Methode vorgibt.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="InheritPriceTags" type="InheritPriceTagsEnum">
+						<xs:annotation>
+							<xs:documentation>Falls dieses Attribute den Wert "ConsideredAbsolutes" annimmt, dann erben die Generic-PriceItems  die PriceTags der Considered Absolute-PriceItems.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="PriceAbsoluteType">
@@ -5195,9 +5469,9 @@ hierbei dessen Include nicht mit berücksichtigt.</xs:documentation>
 						<xs:documentation>In diesem Element wird definiert, auf welche anderen PriceItems dieses PriceItem wirkt. Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space getrennt angegeben werden.
 Außerdem kann man sich wie in der Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values beziehen.
 
-Das Attribut "Source" wird hier auch häufig mit der Eigenschaft "Hirarchy.All"  verwendet um PriceItems aus mehren SubKomponenten gleichzeitig zu referenzieren.
+Das Attribut "Source" wird hier auch häufig mit der Eigenschaft "Hierarchy.All"  verwendet um PriceItems aus mehren SubKomponenten gleichzeitig zu referenzieren.
 
-Am Häufigsten wird Source="Hirarchy.All:ThisComponent" vorkommen, welches die aktuelle Komponente inkl. alle Ancestors und Descendants referenziert.
+Am Häufigsten wird Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle Komponente inkl. alle Ancestors und Descendants referenziert.
 
 PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
 					</xs:annotation>
@@ -5312,24 +5586,24 @@ Die Funktion "SortedCandidateGroup findet keine Berücksichtigung in der Preisbe
 	</xs:complexType>
 	<xs:complexType name="MatchType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_404">Mit Match kann man Felder definieren, die im Wert übereinstimmen müssen, damit die Bedingung erfüllt ist.  
+			<xs:documentation xml:lang="de" xml:id="det_404">Mit Match kann man Felder definieren, die im Wert übereinstimmen müssen, damit die Bedingung erfüllt ist.  
 				Die Felder können sowohl TAG mit Class sein, als auch Elemente. Bei Tags definiert dieses Element die TAG Position und die Class die entsprechende Class des TAGs.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_404">With Match, it is possible to define fields which must have the same value in order to fulfil the condition.
-The fields can be a TAG with Class, or elements. In the case of tags, this element defines the TAG position and the Class defines the corresponding Class of the TAGs.</xs:documentation>
 		</xs:annotation>
 		<xs:choice minOccurs="2" maxOccurs="unbounded">
+			<xs:element name="Key" type="EmptyKeyConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="det_3">Dieses Element adressiert einen bestimmten Key innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="Tag" type="EmptyTagConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_405">Dieses Element adressiert ein bestimmtes Tag innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_405">This element addresses a certain tag within the offer context. The offer context is comprised of all possible combinations of the components specified in the ProductRule. The combination extends down to the level of dates.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="det_405">Dieses Element adressiert ein bestimmtes Tag innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Element">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_406">Dieses Element adressiert einen bestimmten Knoten oder Parameter innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.
+					<xs:documentation xml:lang="de" xml:id="det_406">Dieses Element adressiert einen bestimmten Knoten oder Parameter innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.
 Über das Attribut "Source" wird die Unterkomponente adressiert. Der Body dieses Elements spezifieziert den SourceKnoten als nächsten untergeordneten Knoten unterhalb der addressierten Unterkomponente. </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_406">This element addresses a particular node or parameter within the context of the offer. The offer context is comprised of all possible combinations of the components specified in the ProductRule. The combination extends down to the level of dates.
-Accommodation components are addressed using the "Source" attribute. The body of this element specifies SourceNodes as the next subordinate nodes beneath the addressed sub-components.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
@@ -6061,6 +6335,11 @@ It is possible to provide a list of values separated by spaces. The list defines
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="ProductPrice" type="ProductPriceConditionType"/>
+						<xs:element name="GroupedPerson" type="EmptyElementType">
+							<xs:annotation>
+								<xs:documentation>Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem Context keine Auswirkung. Das Element hängt direkt zusammen mit dem Element GroupAbsolutePriceItemsBy/Person und definiert, dass die GenericValues separat auf die Kostenknoten der separat betrachteten Personen aufgeteilt werden. Ist das Element Person innerhalb von GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedPerson keine Auswirkung.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:choice>
 					<xs:attributeGroup ref="ConditionsCombinatoricsAttributGroup"/>
 				</xs:complexType>
@@ -6155,6 +6434,11 @@ This condition is exclusively used within OTDS for long-term discounts, with res
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="ProductPrice" type="ProductPriceConditionType"/>
+						<xs:element name="GroupedDay" type="EmptyElementType">
+							<xs:annotation>
+								<xs:documentation>Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem Context keine Auswirkung. Das Element hängt direkt zusammen mit dem Element GroupAbsolutePriceItemsBy/Day und definiert, dass die GenericValues separat auf die Kostenknoten der separat betrachteten Tage aufgeteilt werden. Ist das Element Day innerhalb von GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedDay keine Auswirkung.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:choice>
 					<xs:attributeGroup ref="ConditionsCombinatoricsAttributGroup"/>
 				</xs:complexType>
@@ -6171,7 +6455,7 @@ Preise, die mir einer DayImpactBedingung verknüpft sind, sind nur für bestimmt
 Prices that have a DayImpactCondition attached to them are only valid for certain days of the trip and are therefore only applied to the corresponding days.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:sequence>
+					<xs:choice>
 						<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_475">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). 
@@ -6190,7 +6474,12 @@ If, however, the addressing of the destination node is not unambiguous, every de
 (ToDo: See also Thematic Documentation evaluation of the ConditionalTag)</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-					</xs:sequence>
+						<xs:element name="GroupedAbsolute" type="EmptyElementType">
+							<xs:annotation>
+								<xs:documentation>Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem Context keine Auswirkung. Das Element hängt direkt zusammen mit dem Element GroupAbsolutePriceItemsBy/EachAbsolute und definiert, dass die GenericValues separat auf die Kostenknoten der separat betrachteten PriceItemGruppen aufgeteilt werden. Ist das Element EachAbsolute innerhalb von GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedAbsolute keine Auswirkung.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
 					<xs:attributeGroup ref="ConditionsCombinatoricsAttributGroup"/>
 				</xs:complexType>
 			</xs:element>
@@ -6288,6 +6577,13 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 	<xs:complexType name="ConditionSimpleNodeType">
 		<xs:complexContent>
 			<xs:extension base="SimpleUpdateNodeType">
+				<xs:group ref="ConditionGroup"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FilterSimpleNodeType">
+		<xs:complexContent>
+			<xs:extension base="OptionalMultipleSimpleUpdateNodeType">
 				<xs:group ref="ConditionGroup"/>
 			</xs:extension>
 		</xs:complexContent>
