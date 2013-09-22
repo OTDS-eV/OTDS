@@ -15,6 +15,12 @@
 							<xs:documentation xml:lang="en" xml:id="en_518">Definition of the GlobalValues such as Subcontractors (exclusive customers) and specific sales channels.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="Booking" type="BookingType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_291">Diese Buchungsinformationen, die benutzt werden um in einer Rule die Buchungsparameter der Einzelkomponenten komplett zu überschreiben. Im Flugbereich wird dies häufig bei der Definition von Flughülsen verwendet, die die Buchungsinformationen der beteiligten Einzelflüge überschreiben.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_291">This booking information is used to completely override the booking parameters of the individual components in a rule. In the context of flights, this is commonly used in defining flight envelopes that override the booking information of the individual flights involved.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Unterbringung:
@@ -93,6 +99,13 @@ Falls die Features hier gesetzt sind, können entsprechende externe Parameter be
 								</xs:extension>
 							</xs:complexContent>
 						</xs:complexType>
+					</xs:element>
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="det">Preisbestandteile auf globaler Ebene, die für alle Produkte gelten.
+							Beachten Sie das AbsolutePriceItems nur einmal in die Berechnung einbezogen werden und nicht für jede Komponente einmal.
+</xs:documentation>
+						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>
