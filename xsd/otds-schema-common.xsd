@@ -2281,21 +2281,7 @@ A more detailed description of the attributes can be found in the "Thematic docu
 						<xs:element name="BrandCode" type="xs:string"/>
 					</xs:sequence>
 					<xs:element name="SalesChannel" type="SalesChannelEnum"/>
-					<xs:element name="ProductionPreference" type="ProductionPreferenceEnum">
-						<xs:annotation>
-							<xs:documentation>Unter diesem Element werden vom Datenlieferanten vorgegebene Präferenzen definiert. In der Regel geht es hier um vorgegebene Sortierungen, die von den Vertriebssystemen bei der Bearbeitung berücksichtigt werden können, um nur bestimmte Angebote zu verarbeiten. Es wird nach folgenden PreferenceTypen unterschieden:
-- CityPairOffers
-- SignificantOffers
-
-Bei der ProductionPreference= "CityPairOffers" handelt es sich um eine Priorisierung der Flüge welche in allen Produkten  dazu benutzt wird, die Anzahl der Angebote auf einen Flug pro Tag zu reduzieren und nur den höchstpriorisierten Flug unter Verwendung des CityPairCodes zu produzieren. Alle weiteren Flüge eines Tages sind dementsprechend alternative Flüge.
-
-Bei der Bei der ProductionPreference="SignificantOffers" handelt es sich um die Priorisierung der Angebote an sich. Anwendugnsfall ist hier zum Beispiel, wenn aus einer Gesamtdatendlieferung nur eine bestimmte Menge an Angeboten produziert werden soll. Mit Hilfe dieser Präferenz können so die am höchsten priorisierten Angebote zuerst  produziert werden.
-
-GlobalValues mit ProductionPreferences werden in der Regel zusammen mit entsprechenden GroudDefinitions in den Produktfiltern benutzt.
-
-</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+					<xs:element name="SalesMarket" type="SalesMarketType"/>
 				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
@@ -2307,7 +2293,7 @@ GlobalValues mit ProductionPreferences werden in der Regel zusammen mit entsprec
 				<xs:documentation xml:lang="en" xml:id="en_402">With this attribute, it is possible to further specify the "Tag", the node of which the contents refer to.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="TagType" type="TagTypeEnum" default="String">
+		<xs:attribute name="TagValueType" type="TagValueTypeEnum" default="String">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_403">Dieses Attribut gibt an, von welchem Typ der Value des Tags ist. Es gibt 3 unterschiedliche Typen:
 - String
@@ -2598,7 +2584,7 @@ DE Germany</xs:documentation>
 			<xs:enumeration value="Undefined"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="TagTypeEnum">
+	<xs:simpleType name="TagValueTypeEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="String"/>
 			<xs:enumeration value="Numeric"/>
@@ -3040,6 +3026,11 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:pattern value="[0-1]"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="SalesMarketType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z][A-Z]"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="IncludeAttributeEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="AppliedChildren"/>
@@ -3195,7 +3186,7 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="InternetAccess"/>
 			<xs:enumeration value="ParkingArea"/>
 			<xs:enumeration value="FitnessCenter"/>
-			<xs:enumeration value="Wellnessbereich"/>
+			<xs:enumeration value="Wellnessarea"/>
 			<xs:enumeration value="IndoorPool"/>
 			<xs:enumeration value="Restaurant"/>
 			<xs:enumeration value="Reception24_7"/>
@@ -3390,8 +3381,13 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="MotorBike"/>
 			<xs:enumeration value="CabrioletCar"/>
 			<xs:enumeration value="MediumCar"/>
-			<xs:enumeration value="Other"/>
 			<xs:enumeration value="Minivan"/>
+			<xs:enumeration value="OtherCarType"/>
+			<xs:enumeration value="CarInsurance"/>
+			<xs:enumeration value="CarFacility"/>
+			<xs:enumeration value="CarProductOption"/>
+			<xs:enumeration value="AddonPackage"/>
+			<xs:enumeration value="OtherRentalCarService"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="CarRentalStationTypeEnum">
@@ -3402,14 +3398,16 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="HotelDelivery"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="CarRentalFullOptionsEnum">
+	<xs:simpleType name="CarRentalProductOptionsEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="FullFull"/>
-			<xs:enumeration value="FullEmptyPrepaid"/>
+			<xs:enumeration value="TankFullFull"/>
+			<xs:enumeration value="TankFullEmptyPrepaid"/>
 			<xs:enumeration value="FreeTankOfFuel"/>
+			<xs:enumeration value="UnlimitedMileage"/>
+			<xs:enumeration value="AdditionalDriver"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="CarRentalSpecificationEnum">
+	<xs:simpleType name="CarRentalFacilityEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="AirConditioning"/>
 			<xs:enumeration value="Automatic"/>
@@ -3418,14 +3416,12 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="2Doors"/>
 			<xs:enumeration value="4DoorsOrMore"/>
 			<xs:enumeration value="SnowTires"/>
-			<xs:enumeration value="AdditionalDriver"/>
 			<xs:enumeration value="ChildSeat"/>
 			<xs:enumeration value="BabySeat"/>
 			<xs:enumeration value="Diesel"/>
 			<xs:enumeration value="Gas"/>
 			<xs:enumeration value="Hybrid"/>
 			<xs:enumeration value="ReducedEmission"/>
-			<xs:enumeration value="UnlimitedMileage"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="CarRentalInsuranceEnum">
@@ -3490,7 +3486,7 @@ The current node and all child elements are deleted.</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="GolfArrangementEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="CourtAccess"/>
+			<xs:enumeration value="CourseAccess"/>
 			<xs:enumeration value="EquipmentRental"/>
 			<xs:enumeration value="GolfLesson"/>
 			<xs:enumeration value="DrivingRange"/>
@@ -4518,7 +4514,7 @@ This is based on the total number of nights For this reason the return date is e
 						<xs:documentation xml:lang="en" xml:id="en_335">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElements is compared to the end of the character string.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="TagType" type="TagTypeEnum">
+				<xs:attribute name="TagValueType" type="TagValueTypeEnum">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_336">Definiert den TagType des referenzierten Tags. Stimmt der TagType nicht mit dem TagType der TagDefinition überein, so wird als Value für den Tag der Wert="" verwendet.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_336">Defines the TagType of the tags referred to. If the TagType does not match the TagType in the TagDefinition, the value for the tag used is Value="".</xs:documentation>
@@ -4652,7 +4648,7 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 	</xs:complexType>
 	<xs:complexType name="RuleDefinedComponentType">
 		<xs:attributeGroup ref="ProductComponentGroup"/>
-		<xs:attribute name="UseRole" type="ComponentTypeEnum" use="required">
+		<xs:attribute name="UseRole" type="RoleEnum" use="required">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_343">Dieses Attribut referenziert auf die hier zu benutzende Definition der CombiComponet. Es wird dabei das Attribut "Role" in der CombiComponentDefinition referenziert und dadurch an dieser Stelle die Definition der dort definierten Komponente benutzt. 
 Mögliche Werte sind aktuell:
@@ -6038,7 +6034,7 @@ Indices="1 3 -3 -1" defines the check-in day and 2 following days as well as the
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
-		<xs:attribute name="Repeat">
+		<xs:attribute name="Repeat" type="xs:positiveInteger">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_447">Dieses Attribut gibt an, dass es sich um ein wiederholendes Muster von Indices handelt. Der angegebene Value definiert die Weite des Wiederholungszyklus.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_447">This attribute indicates that there is a repeating pattern of indices. The specified value defines the size of the repeat cycle.</xs:documentation>
@@ -6557,6 +6553,12 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			<xs:element name="NonImpact">
+				<xs:complexType>
+					<xs:group ref="ConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum" default="Person Day"/>
+				</xs:complexType>
+			</xs:element>
 		</xs:choice>
 	</xs:group>
 	<xs:complexType name="ConditionType">
@@ -6890,29 +6892,77 @@ Eine GenericTag Bedingung ohne Value ist false.</xs:documentation>
 	<xs:complexType name="CarRentalPropertiesType">
 		<xs:sequence>
 			<xs:element name="CarRentalStationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de">Art der Mietwagenstation</xs:documentation>
+				</xs:annotation>
 				<xs:simpleType>
 					<xs:list itemType="CarRentalStationTypeEnum"/>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="FuelOptions" minOccurs="0">
+			<xs:element name="CarRentalProductOptions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Zusätzliche Optionen die zu einem Mietwagen hinzugebucht werden können oder bereits enthalten sind.</xs:documentation>
+				</xs:annotation>
 				<xs:simpleType>
-					<xs:list itemType="CarRentalFullOptionsEnum"/>
+					<xs:list itemType="CarRentalProductOptionsEnum"/>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="CarSpecifications" minOccurs="0">
+			<xs:element name="CarFacilities" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Austattungsmerkmale</xs:documentation>
+				</xs:annotation>
 				<xs:simpleType>
-					<xs:list itemType="CarRentalSpecificationEnum"/>
+					<xs:list itemType="CarRentalFacilityEnum"/>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="Insurance" type="CarRentalInsuranceType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="CarInsurance" type="CarRentalInsuranceType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Das Element Insurance kann mehrfach geliefert werden und beinhaltet die Art der Versicherung. Eine Beschreibung, die Deckungssumme und die Selbstbeteiligung</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CarCapacity" type="CarCapacityType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Angaben zum Fassungsvermögen des Mietwagens. Dieses Fassungsvermögen ersetzt nicht die Occupancy. Das Fassungsvermögen liefert nur Informationen über die maximale empfohlene Anzahl von Personen und Gepäck.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CarRentalInsuranceType">
 		<xs:sequence>
-			<xs:element name="Insurance" type="CarRentalInsuranceEnum"/>
-			<xs:element name="Description" type="xs:string" minOccurs="0"/>
-			<xs:element name="AmountOfCover" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Excess" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Insurance" type="CarRentalInsuranceEnum">
+				<xs:annotation>
+					<xs:documentation>Versicherungsart</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Beschreibung der Versicherung</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AmountOfCover" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Die Schadenssumme, welche durch die Versicherung abgedeckt wird</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Excess" type="xs:decimal" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Höhe der Selbstbeteiligung im Falle eines Schadens</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CarCapacityType">
+		<xs:sequence>
+			<xs:element name="Passengers" type="PositiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Maximale Anzahl an Personen</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Bags" type="PositiveInteger" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Maximale Anzahl an Gepäckstücken</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
