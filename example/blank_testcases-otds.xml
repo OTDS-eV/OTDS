@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
-	<Products>
-		<Product ProductType="AccommodationOnly" Key="hotel">
-			<Booking>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
+	<Products UpdateMode="New">
+		<Product ProductType="AccommodationOnly" Key="hotel" UpdateMode="New">
+			<Booking UpdateMode="New">
 				<!-- ToDo CS: Das Booking-Element gehört hier nicht rein. Das gehört direkt zur Definition der Brand -->
-				<BookingGroup Area="GlobalArea">
-					<BookingParameter Field="BrandCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+				<BookingGroup Area="GlobalArea" Priority="0" Class="Default" Source="ThisComponent">
+					<BookingParameter Field="BrandCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 						<Value>XYZ</Value>
 					</BookingParameter>
 				</BookingGroup>
 			</Booking>
-			<Components>
-				<Accommodation/>
+			<Components UpdateMode="New">
+				<Accommodation DayAllocationLevel="0"/>
 			</Components>
 		</Product>
 	</Products>
-	<Brands>
-		<Brand Key="main">
-			<Booking>
-				<BookingGroup Area="GlobalArea">
-					<BookingParameter Field="BrandCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+	<Brands UpdateMode="New">
+		<Brand Key="main" UpdateMode="New">
+			<Booking UpdateMode="New">
+				<BookingGroup Area="GlobalArea" Priority="0" Class="Default" Source="ThisComponent">
+					<BookingParameter Field="BrandCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 						<Value>XYZ</Value>
 					</BookingParameter>
 				</BookingGroup>
 			</Booking>
 		</Brand>
 	</Brands>
-	<Accommodations>
-		<Accommodation Key="S1-ACE002">
+	<Accommodations UpdateMode="New">
+		<Accommodation Key="S1-ACE002" UpdateMode="New">
 			<!-- ToDo CS: Was soll durch dieses Beispiel ausgedrückt werden. Hier sind X-Zimmer drin, die keine eigene Aussagekraft besitzen. Die kann man dann auch weglassen.
 						-->
-			<Properties>
-				<PropertyGroup>
+			<Properties Key="1" UpdateMode="New">
+				<PropertyGroup Priority="0">
 					<AccommodationCity>PUERTO DEL CARMEN</AccommodationCity>
 					<AccommodationName>GREEN BAY-GAVIOTAS 7</AccommodationName>
 					<AccommodationOfficialCategory>3</AccommodationOfficialCategory>
@@ -47,13 +47,13 @@
 					</AccommodationAddress>
 				</PropertyGroup>
 			</Properties>
-			<SellingAccom Key="S1-ACE002">
-				<Tags>
+			<SellingAccom Key="S1-ACE002" UpdateMode="New">
+				<Tags UpdateMode="New">
 					<ConditionalTag>
-						<Tag Class="Season">A</Tag>
+						<Tag Class="Season" TagValueType="String">A</Tag>
 						<Condition>
-							<DayImpact>
-								<Date Source="Product">
+							<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+								<Date Source="Product" DayType="Stay">
 									<Min>2011-05-01</Min>
 									<Max>2011-07-14</Max>
 								</Date>
@@ -61,10 +61,10 @@
 						</Condition>
 					</ConditionalTag>
 					<ConditionalTag>
-						<Tag Class="Season">B</Tag>
+						<Tag Class="Season" TagValueType="String">B</Tag>
 						<Condition>
-							<DayImpact>
-								<Date Source="Product">
+							<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+								<Date Source="Product" DayType="Stay">
 									<Min>2011-07-15</Min>
 									<Max>2011-09-15</Max>
 								</Date>
@@ -72,10 +72,10 @@
 						</Condition>
 					</ConditionalTag>
 					<ConditionalTag>
-						<Tag Class="Season">C</Tag>
+						<Tag Class="Season" TagValueType="String">C</Tag>
 						<Condition>
-							<DayImpact>
-								<Date Source="Product">
+							<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+								<Date Source="Product" DayType="Stay">
 									<Min>2011-09-16</Min>
 									<Max>2011-10-31</Max>
 								</Date>
@@ -83,17 +83,17 @@
 						</Condition>
 					</ConditionalTag>
 				</Tags>
-				<Booking>
-					<BookingGroup Area="ServiceArea">
-						<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+				<Booking UpdateMode="New">
+					<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+						<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 							<Value>ACE002</Value>
 						</BookingParameter>
-						<BookingParameter Field="RequestCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<BookingParameter Field="RequestCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 							<Value>H</Value>
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1" UpdateMode="New">
 					<Or>
 						<And>
 							<!-- ToDo CS: Diese Min 1er machen für mich keinen Sinn. Und könnten doch weggelassen werden-->
@@ -125,73 +125,73 @@
 						</And>
 					</Or>
 				</Filter>
-				<Board Key="A">
-					<Booking>
-						<BookingGroup Area="ServiceArea">
-							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+				<Board Key="A" UpdateMode="New">
+					<Booking UpdateMode="New">
+						<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 								<Value>A</Value>
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
-						<PropertyGroup>
+					<Properties Key="1" UpdateMode="New">
+						<PropertyGroup Priority="0">
 							<BoardType>AllInclusive</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
-				<Board Key="F">
-					<Booking>
-						<BookingGroup Area="ServiceArea">
-							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+				<Board Key="F" UpdateMode="New">
+					<Booking UpdateMode="New">
+						<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 								<Value>F</Value>
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
-						<PropertyGroup>
+					<Properties Key="1" UpdateMode="New">
+						<PropertyGroup Priority="0">
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
-				<Board Key="H">
-					<Booking>
-						<BookingGroup Area="ServiceArea">
-							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+				<Board Key="H" UpdateMode="New">
+					<Booking UpdateMode="New">
+						<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 								<Value>H</Value>
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
-						<PropertyGroup>
+					<Properties Key="1" UpdateMode="New">
+						<PropertyGroup Priority="0">
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
-				<Board Key="U">
-					<Booking>
-						<BookingGroup Area="ServiceArea">
-							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+				<Board Key="U" UpdateMode="New">
+					<Booking UpdateMode="New">
+						<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+							<BookingParameter Field="BoardCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 								<Value>U</Value>
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
-						<PropertyGroup>
+					<Properties Key="1" UpdateMode="New">
+						<PropertyGroup Priority="0">
 							<BoardType>None</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
-				<Unit Key="A11">
-					<Properties>
-						<PropertyGroup>
+				<Unit Key="A11" UpdateMode="New">
+					<Properties Key="1" UpdateMode="New">
+						<PropertyGroup Priority="0">
 							<UnitName>APP. 1 SCHLAFZ. 1 ERW.</UnitName>
 							<UnitType>Other</UnitType>
 						</PropertyGroup>
 					</Properties>
-					<SellingUnit Key="A11-A">
-						<Booking>
-							<BookingGroup Area="ServiceArea">
-								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+					<SellingUnit Key="A11-A" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 									<Value>A11</Value>
 								</BookingParameter>
 							</BookingGroup>
@@ -201,231 +201,231 @@
 						Die Definition der Source erfordert in diesem Fall, dass das Prefix "global:" eingefügt wird, da sich der angesprochene Sourceknoten kein Ancestor oder Child des gerade betrachteten Knotens ist. Alternativ würde auch noch gehen: Source="Global:Accommodation.SellingAccom.Board". Standard für das Prefix ist: "local:" und muss nicht angegeben werden.
 						Das gilt natürlich für alle SellingUnits dieser Art.
 						-->
-						<Filter>
-							<Keys Source="global:Board">A</Keys>
+						<Filter Key="1" UpdateMode="New">
+							<Keys Source="global:Board" DayAllocation="All" EvaluationMode="Any">A</Keys>
 						</Filter>
-						<Occupancy Key="Occ-A11-A">
+						<Occupancy Key="Occ-A11-A" UpdateMode="New">
 							<Person>
 								<!-- ToDo CS: Wahrscheinlich gehört hier doch ein Mindestalter rein, oder? -->
 								<Count>1</Count>
 							</Person>
 						</Occupancy>
-						<PriceItems Key="Price-A11-A">
+						<PriceItems Key="Price-A11-A" UpdateMode="New">
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>18</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">A</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>27</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">B</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>19</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">C</ConditionalTags>
 								</Condition>
 							</PriceItem>
 						</PriceItems>
-						<Availabilities Key="Avail-A11">
-							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31">
-								<DefaultDayState>
+						<Availabilities Key="Avail-A11" UpdateMode="New">
+							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31" UpdateMode="New">
+								<DefaultDayState UpdateMode="New">
 									<Open/>
 								</DefaultDayState>
 							</Availability>
 						</Availabilities>
 					</SellingUnit>
-					<SellingUnit Key="A11-F">
-						<Booking>
-							<BookingGroup Area="ServiceArea">
-								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+					<SellingUnit Key="A11-F" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 									<Value>A11</Value>
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Occupancy Key="Occ-A11-F">
+						<Occupancy Key="Occ-A11-F" UpdateMode="New">
 							<Person>
 								<Count>1</Count>
 							</Person>
 						</Occupancy>
-						<PriceItems Key="Price-A11-F">
+						<PriceItems Key="Price-A11-F" UpdateMode="New">
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>18</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">A</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>27</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">B</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>19</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">C</ConditionalTags>
 								</Condition>
 							</PriceItem>
 						</PriceItems>
-						<Availabilities Key="Avail-A11">
-							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31">
-								<DefaultDayState>
+						<Availabilities Key="Avail-A11" UpdateMode="New">
+							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31" UpdateMode="New">
+								<DefaultDayState UpdateMode="New">
 									<Open/>
 								</DefaultDayState>
 							</Availability>
 						</Availabilities>
 					</SellingUnit>
-					<SellingUnit Key="A11-H">
-						<Booking>
-							<BookingGroup Area="ServiceArea">
-								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+					<SellingUnit Key="A11-H" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 									<Value>A11</Value>
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Occupancy Key="Occ-A11-H">
+						<Occupancy Key="Occ-A11-H" UpdateMode="New">
 							<Person>
 								<Count>1</Count>
 							</Person>
 						</Occupancy>
-						<PriceItems Key="Price-A11-H">
+						<PriceItems Key="Price-A11-H" UpdateMode="New">
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>18</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">A</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>27</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">B</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>19</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">C</ConditionalTags>
 								</Condition>
 							</PriceItem>
 						</PriceItems>
-						<Availabilities Key="Avail-A11">
-							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31">
-								<DefaultDayState>
+						<Availabilities Key="Avail-A11" UpdateMode="New">
+							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31" UpdateMode="New">
+								<DefaultDayState UpdateMode="New">
 									<Open/>
 								</DefaultDayState>
 							</Availability>
 						</Availabilities>
 					</SellingUnit>
-					<SellingUnit Key="A11-U">
-						<Booking>
-							<BookingGroup Area="ServiceArea">
-								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+					<SellingUnit Key="A11-U" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 									<Value>A11</Value>
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Occupancy Key="Occ-A11-U">
+						<Occupancy Key="Occ-A11-U" UpdateMode="New">
 							<Person>
 								<Count>1</Count>
 							</Person>
 						</Occupancy>
-						<PriceItems Key="Price-A11-U">
+						<PriceItems Key="Price-A11-U" UpdateMode="New">
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>18</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">A</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>27</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">B</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>19</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">C</ConditionalTags>
 								</Condition>
 							</PriceItem>
 						</PriceItems>
-						<Availabilities Key="Avail-A11">
-							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31">
-								<DefaultDayState>
+						<Availabilities Key="Avail-A11" UpdateMode="New">
+							<Availability Key="Avail-A11-something" StartDate="2011-05-01" EndDate="2011-10-31" UpdateMode="New">
+								<DefaultDayState UpdateMode="New">
 									<Open/>
 								</DefaultDayState>
 							</Availability>
 						</Availabilities>
 					</SellingUnit>
 				</Unit>
-				<Unit Key="A12">
-					<Properties>
-						<PropertyGroup>
+				<Unit Key="A12" UpdateMode="New">
+					<Properties Key="1" UpdateMode="New">
+						<PropertyGroup Priority="0">
 							<UnitName>APP. 1 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
 						</PropertyGroup>
 					</Properties>
-					<SellingUnit Key="A12-A">
-						<Booking>
-							<BookingGroup Area="ServiceArea">
-								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+					<SellingUnit Key="A12-A" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" LeftSeparator="" RightSeparator="" Padding=" " Name="Default">
 									<Value>A12</Value>
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Occupancy Key="Occ-A12-A">
+						<Occupancy Key="Occ-A12-A" UpdateMode="New">
 							<!-- Hier wird eine Belegung mit mindestens 2 Erwachsenen (älter als 12) und zusätzlich 0-2 Kinder bis 12 definiert. Ist das so gewollt?                    -->
 							<Person>
 								<MinAge>13</MinAge>
@@ -437,35 +437,35 @@
 								<MaxCount>2</MaxCount>
 							</Person>
 						</Occupancy>
-						<PriceItems Key="Price-A12-A">
+						<PriceItems Key="Price-A12-A" UpdateMode="New">
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>18</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">A</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>27</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">B</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="HOTEL">
 								<Absolute>
 									<Value>19</Value>
-									<DayBase>1</DayBase>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 								<Condition>
-									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">C</ConditionalTags>
 								</Condition>
 							</PriceItem>
 							<PriceItem Class="KINDA">
@@ -474,22 +474,17 @@
 								</Percent>
 								<Condition>
 									<And>
-										<PersonImpact>
-											<PersonAge Source="Product">
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
 												<Min>0</Min>
 												<Max>1</Max>
 											</PersonAge>
 										</PersonImpact>
-										<Impact>
-											<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+										<Impact ImpactExecutionOrder="BeforeCombinatorics">
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">A</ConditionalTags>
 										</Impact>
 									</And>
 								</Condition>
-								<Properties>
-									<PropertyGroup>
-										<PriceType>ChildReduction</PriceType>
-									</PropertyGroup>
-								</Properties>
 							</PriceItem>
 							<PriceItem Class="KINDA">
 								<Percent>
@@ -497,22 +492,17 @@
 								</Percent>
 								<Condition>
 									<And>
-										<PersonImpact>
-											<PersonAge Source="Product">
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
 												<Min>0</Min>
 												<Max>1</Max>
 											</PersonAge>
 										</PersonImpact>
-										<Impact>
-											<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+										<Impact ImpactExecutionOrder="BeforeCombinatorics">
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">B</ConditionalTags>
 										</Impact>
 									</And>
 								</Condition>
-								<Properties>
-									<PropertyGroup>
-										<PriceType>ChildReduction</PriceType>
-									</PropertyGroup>
-								</Properties>
 							</PriceItem>
 							<PriceItem Class="KINDA">
 								<Percent>
@@ -520,14 +510,14 @@
 								</Percent>
 								<Condition>
 									<And>
-										<PersonImpact>
-											<PersonAge Source="Product">
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
 												<Min>0</Min>
 												<Max>1</Max>
 											</PersonAge>
 										</PersonImpact>
-										<Impact>
-											<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+										<Impact ImpactExecutionOrder="BeforeCombinatorics">
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">C</ConditionalTags>
 										</Impact>
 									</And>
 								</Condition>
@@ -1208,7 +1198,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A13">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -2562,7 +2552,7 @@
 			<CatchmentAirports>ACE</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-ACE111A">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>FAMARA</AccommodationCity>
 					<AccommodationName>FAMARA C.S.A. INKL. PKW</AccommodationName>
@@ -2603,7 +2593,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<!-- ToDo CS: Welche Bedeutung soll ein solches Konstrukt haben? Die Min 3 sind völlig über flüssig.
 						-->
 					<And>
@@ -2635,14 +2625,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>None</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="A11">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 1 ERW.</UnitName>
 							<!-- ToDo CS: UnitType=Appartment -->
@@ -2690,7 +2680,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A12">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -2732,7 +2722,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A22">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 2 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType/>
@@ -2779,7 +2769,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A23">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 2 SCHLAFZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -2826,7 +2816,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A24">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 2 SCHLAFZ. 4 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -2867,7 +2857,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="B22">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>BUNGALOW 2 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -2908,7 +2898,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="B23">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>BUNGALOW 2 SCHLAFZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -2957,7 +2947,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="B24">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>BUNGALOW 2 SCHLAFZ. 4 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -3001,7 +2991,7 @@
 			<CatchmentAirports>ACE</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-ACE138">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>PLAYA BLANCA</AccommodationCity>
 					<AccommodationName>H10 RUBICON PALACE</AccommodationName>
@@ -3064,7 +3054,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -3139,7 +3129,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>AllInclusive</BoardType>
 						</PropertyGroup>
@@ -3153,14 +3143,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="2PR">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>PRIVILEGE DOPPEL</UnitName>
 							<UnitType>Other</UnitType>
@@ -3746,7 +3736,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="3PR">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>PRIVILEGE DOPPEL 3 ERW</UnitName>
 							<UnitType>Other</UnitType>
@@ -4189,7 +4179,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="D">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -4775,7 +4765,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DE">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ.=EINZELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -4935,7 +4925,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DO-MEERBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -5521,7 +5511,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DR">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -5957,7 +5947,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DRM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DO.+3.PERS.(ERW)MEERBLICK/BLK.</UnitName>
 							<UnitType>Other</UnitType>
@@ -6393,7 +6383,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="JS2">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>JUNIORSUITE BEL. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -6979,7 +6969,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="JS3">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>JUNIORSUITE BEL. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -7415,7 +7405,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="SSZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>SUPER SPARZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -7631,7 +7621,7 @@
 			<CatchmentAirports>ACE</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="J2-AD1400">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>Rottach-Egern</AccommodationCity>
 					<AccommodationName>Hotel Bachmair am See</AccommodationName>
@@ -7725,7 +7715,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -7791,14 +7781,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="DZ1">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ, Seehaus od. Sporthotel</UnitName>
 							<UnitType>Other</UnitType>
@@ -7869,7 +7859,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DZ2">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ, Parkhtl.,Gartenh. o. Villa</UnitName>
 							<UnitType>Other</UnitType>
@@ -7940,7 +7930,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DZ3">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ, Neubau od. Sporthotel</UnitName>
 							<UnitType>Other</UnitType>
@@ -8011,7 +8001,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="EZ2">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>Einzelzimmer, Parkhotel</UnitName>
 							<UnitType>Other</UnitType>
@@ -8082,7 +8072,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="RZ2">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ/Zb.,Parkhtl,Gartenh., Villa</UnitName>
 							<UnitType/>
@@ -8252,7 +8242,7 @@
 			<CatchmentAirports>OAL FIT</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-AGP009">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>TORREMOLINOS</AccommodationCity>
 					<AccommodationName>GRAN HOTEL CERVANTES</AccommodationName>
@@ -8348,7 +8338,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -8414,7 +8404,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
@@ -8428,7 +8418,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
@@ -8442,7 +8432,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>None</BoardType>
 						</PropertyGroup>
@@ -8456,14 +8446,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>FullBoard</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="D">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -9575,7 +9565,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DO-MEERBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -10687,7 +10677,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DR">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -11775,7 +11765,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DRM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DO.+3.PERS.(ERW)MEERBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -12863,7 +12853,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="E">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>EINZELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -13303,7 +13293,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="SSR">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>SUPER SPARZIMMER DREIBETT</UnitName>
 							<UnitType>Other</UnitType>
@@ -14391,7 +14381,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="SSZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>SUPER SPARZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -15690,7 +15680,7 @@
 			<CatchmentAirports>AGP</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="W1-DXB034">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>JEBEL ALI</AccommodationCity>
 					<AccommodationName>JEBEL ALI HOTEL&amp;GOLF RES.</AccommodationName>
@@ -15797,7 +15787,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -15854,7 +15844,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>AllInclusive</BoardType>
 						</PropertyGroup>
@@ -15868,7 +15858,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
@@ -15882,14 +15872,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="D">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -16824,7 +16814,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DE">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ.=EINZELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -17051,7 +17041,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DEM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ=EZ MEERBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -17278,7 +17268,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DO-MEERBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -18216,7 +18206,7 @@
 			<CatchmentAirports>DXB AUH</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-FUE146">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>CORRALEJO</AccommodationCity>
 					<AccommodationName>HESPERIA BRISTOL PLAYA</AccommodationName>
@@ -18279,7 +18269,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<And>
 						<Date Source="Product" DayType="CheckIn">
 							<Min>2011-07-01</Min>
@@ -18298,7 +18288,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
@@ -18312,7 +18302,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
@@ -18326,14 +18316,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>None</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="1AM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. MEERBLICK 1 PERS.</UnitName>
 							<UnitType>Other</UnitType>
@@ -18500,7 +18490,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="2AM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. MEERBLICK 2 PERS.</UnitName>
 							<UnitType>Other</UnitType>
@@ -19042,7 +19032,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="3AM">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. MEERBLICK 3 PERS.</UnitName>
 							<UnitType>Other</UnitType>
@@ -19704,7 +19694,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A11">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 1 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -20036,7 +20026,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A12">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -20674,7 +20664,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A13">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP.1 SCHLAFZ. 3PERS.</UnitName>
 							<UnitType>Other</UnitType>
@@ -21432,7 +21422,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="AP1">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 ERW. POOLBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -21599,7 +21589,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="AP2">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 2 ERW. POOLBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -22141,7 +22131,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="AP3">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 3 ERW. POOLBLICK</UnitName>
 							<UnitType>Other</UnitType>
@@ -22997,7 +22987,7 @@
 			<CatchmentAirports>FUE</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-PMI001">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>CABO BLANCO</AccommodationCity>
 					<AccommodationName>DELTA</AccommodationName>
@@ -23038,7 +23028,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -23095,7 +23085,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>AllInclusive</BoardType>
 						</PropertyGroup>
@@ -23109,7 +23099,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
@@ -23123,7 +23113,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
@@ -23137,14 +23127,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>FullBoard</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="D">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -24142,7 +24132,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DE">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ.=EINZELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -24834,7 +24824,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DR">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -25757,7 +25747,7 @@
 			<CatchmentAirports>PMI</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-PMI002">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>PALMA-STADT</AccommodationCity>
 					<AccommodationName>ISLA DE MALLORCA</AccommodationName>
@@ -25817,7 +25807,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
@@ -25831,7 +25821,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
@@ -25845,14 +25835,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>FullBoard</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="D">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -26421,7 +26411,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DE">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ.=EINZELZIMMER</UnitName>
 							<UnitType>Other</UnitType>
@@ -26558,7 +26548,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DR">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DOPPELZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -26971,7 +26961,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="JS2">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>JUNIORSUITE BEL. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -27086,7 +27076,7 @@
 			<CatchmentAirports>PMI</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-PMI025">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>CALA RATJADA</AccommodationCity>
 					<AccommodationName>PRINSOTEL LA PINEDA</AccommodationName>
@@ -27171,7 +27161,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -27210,7 +27200,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>AllInclusivePlus</BoardType>
 						</PropertyGroup>
@@ -27224,7 +27214,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
@@ -27238,7 +27228,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
@@ -27252,14 +27242,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>None</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="A12">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -30773,7 +30763,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A13">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP.1 SCHLAFZ. 3PERS.</UnitName>
 							<UnitType>Other</UnitType>
@@ -34287,7 +34277,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A14">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 4 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -37777,7 +37767,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DA">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DO TYP A</UnitName>
 							<UnitType>Other</UnitType>
@@ -38587,7 +38577,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DB">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DO TYP B</UnitName>
 							<UnitType>Other</UnitType>
@@ -39982,7 +39972,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="DEA">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ=EZ TYP A</UnitName>
 							<UnitType>Other</UnitType>
@@ -41101,7 +41091,7 @@
 			<CatchmentAirports>PMI</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-PMI643O">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>ROULETTE</AccommodationCity>
 					<AccommodationName>FINCA 2 SZ. ROULETTE/OT</AccommodationName>
@@ -41186,7 +41176,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<And>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -41232,14 +41222,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>None</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="V22">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>VILLA 2 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -41316,7 +41306,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="V23">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>VILLA 2 SCHLAFZ. 3 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -41393,7 +41383,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="V24">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>VILLA 2 SCHLAFZ. 4 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -41467,7 +41457,7 @@
 			<CatchmentAirports>PMI</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-SPC007">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>LOS CANCAJOS</AccommodationCity>
 					<AccommodationName>HACIENDA SAN JORGE</AccommodationName>
@@ -41541,7 +41531,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -41589,7 +41579,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
@@ -41603,7 +41593,7 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>HalfBoard</BoardType>
 						</PropertyGroup>
@@ -41617,14 +41607,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>None</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="A11">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 1 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -41821,7 +41811,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A12">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP. 1 SCHLAFZ. 2 ERW.</UnitName>
 							<UnitType>Other</UnitType>
@@ -42696,7 +42686,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="A13">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>APP.1 SCHLAFZ. 3PERS.</UnitName>
 							<UnitType>Other</UnitType>
@@ -43433,7 +43423,7 @@
 			<CatchmentAirports>SPC</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="J2-WM4015">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>Traben-Trarbach</AccommodationCity>
 					<AccommodationName>* Champagner Tage *</AccommodationName>
@@ -43496,7 +43486,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<And>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -43526,14 +43516,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>AllInclusive</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="DZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>Doppelzimmer, Champagnertage</UnitName>
 							<UnitType>Other</UnitType>
@@ -43584,7 +43574,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="EZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>Einzelzimmer, Champagnertage</UnitName>
 							<UnitType>Other</UnitType>
@@ -43638,7 +43628,7 @@
 			<CatchmentAirports>MOS</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-WP0210">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>Vienenburg</AccommodationCity>
 					<AccommodationName>Klosterhotel W|ltingerode</AccommodationName>
@@ -43721,7 +43711,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<Or>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -43814,14 +43804,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>AllInclusive</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="DZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ, Kl|sterl. Gen}sse erleben</UnitName>
 							<UnitType>Other</UnitType>
@@ -43872,7 +43862,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="EZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>EZ, Kl|sterl. Gen}sse erleben</UnitName>
 							<UnitType>Other</UnitType>
@@ -43926,7 +43916,7 @@
 			<CatchmentAirports>HRZ</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-WR0010">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>Mei~en</AccommodationCity>
 					<AccommodationName>Welcome Parkhotel Mei~en</AccommodationName>
@@ -43965,7 +43955,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter>
+				<Filter Key="1">
 					<And>
 						<And>
 							<Date Source="Product" DayType="CheckIn">
@@ -43995,14 +43985,14 @@
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardType>Breakfast</BoardType>
 						</PropertyGroup>
 					</Properties>
 				</Board>
 				<Unit Key="DZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>Doppelzimmer, Bad od. Du/WC</UnitName>
 							<UnitType>Other</UnitType>
@@ -44043,7 +44033,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="EZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>Einzelzimmer, Bad od. Du/WC</UnitName>
 							<UnitType>Other</UnitType>
@@ -44084,7 +44074,7 @@
 					</SellingUnit>
 				</Unit>
 				<Unit Key="RZ">
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<UnitName>DZ/Zustellbett, Bad od. Du/WC</UnitName>
 							<UnitType/>

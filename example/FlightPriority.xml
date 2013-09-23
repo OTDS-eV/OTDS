@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
 	<Products>
 		<GenericTag Class="CityPairProduction">
-			<GenericTagFunction>
-				<ExternalParameter>
-					<Value Feature="CityPairProduction">
-						<ValueOptions>true|false</ValueOptions>
-					</Value>
-				</ExternalParameter>
-			</GenericTagFunction>
+				<ExternalParameter Feature="CityPairProduction"/>
 		</GenericTag>
-		<Product Key="Package" ProductType="FlightAccommodation" ProductFeatures="CityPairProduction AdultPriceProduction PartyPriceProduction">
+		<Product Key="Package" ProductType="FlightAccommodation" ProductFeatures="CityPairProduction">
 			<Tags>
 				<Tag Class="Product">Pauschal</Tag>
 				<!-- Hier sind beispielhaft verschiedene Möglichkeiten für sinnvolle Gruppierungen bzgl. der Flugpriorisierung aufgeführt. In der praxis werden in der Regel nicht mehrere Gruppierungen nebeneinander stehen.-->
 				<GenericTag Class="ReturnFlightGroupPrice">
 					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und nach Preis aufsteigend sortiert. -->
-					<GenericTagFunction>
 						<SortedCandidateGroup>
 							<GroupedByEqual>
 								<CandidateInstance Source="Descendants:Accommodation"/>
-								<Date Source="Outbound" DayType="CheckIn"/>
-								<Duration Source="ReturnFlight"/>
 								<Tag Source="Outbound" Class="DepartureAirport"/>
 								<Tag Source="Outbound" Class="ArrivalAirport"/>
 							</GroupedByEqual>
@@ -41,16 +32,12 @@
 								</Position>
 							</Value>
 						</SortedCandidateGroup>
-					</GenericTagFunction>
 				</GenericTag>
 				<GenericTag Class="StringIndexWithPADDING">
 					<!-- Dieses GenericTag definiert einen Priorisierung nach einer Zeichenkette, die durch Paading auf eine Länge gebracht wird. -->
-					<GenericTagFunction>
 						<SortedCandidateGroup>
 							<GroupedByEqual>
 								<CandidateInstance Source="Descendants:Accommodation"/>
-								<Date Source="Outbound" DayType="CheckIn"/>
-								<Duration Source="ReturnFlight"/>
 								<Tag Source="Outbound" Class="DepartureAirport"/>
 								<Tag Source="Outbound" Class="ArrivalAirport"/>
 							</GroupedByEqual>
@@ -58,24 +45,20 @@
 								<Position>
 									<Sequence>
 										<Sort Order="Ascending">
-											<Connect Padding="_" PadLength="25">
+											<Concatenate Padding="_" PadLength="25">
 												<Tag Source="ReturnFlight" Class="FlightStringIndex" TagValueType="String" Padding=" " PadLength="8"/>
-											</Connect>
+											</Concatenate>
 										</Sort>
 									</Sequence>
 								</Position>
 							</Value>
 						</SortedCandidateGroup>
-					</GenericTagFunction>
 				</GenericTag>
 				<GenericTag Class="ReturnFlightGroupOutInIndex">
 					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem numerischen Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach numerischen InboundIndex sortiert. -->
-					<GenericTagFunction>
 						<SortedCandidateGroup>
 							<GroupedByEqual>
 								<CandidateInstance Source="Descendants:Accommodation"/>
-								<Date Source="Outbound" DayType="CheckIn"/>
-								<Duration Source="ReturnFlight"/>
 								<Tag Source="Outbound" Class="DepartureAirport"/>
 								<Tag Source="Outbound" Class="ArrivalAirport"/>
 							</GroupedByEqual>
@@ -96,16 +79,12 @@
 								</Position>
 							</Value>
 						</SortedCandidateGroup>
-					</GenericTagFunction>
 				</GenericTag>
 				<GenericTag Class="ReturnFlightGroupOutIndexPrice">
 					<!-- Diese GroupDefinition definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
-					<GenericTagFunction>
 						<SortedCandidateGroup>
 							<GroupedByEqual>
 								<CandidateInstance Source="Descendants:Accommodation"/>
-								<Date Source="Outbound" DayType="CheckIn"/>
-								<Duration Source="ReturnFlight"/>
 								<Tag Source="Outbound" Class="DepartureAirport"/>
 								<Tag Source="Outbound" Class="ArrivalAirport"/>
 							</GroupedByEqual>
@@ -128,16 +107,12 @@
 								</Position>
 							</Value>
 						</SortedCandidateGroup>
-					</GenericTagFunction>
 				</GenericTag>
 				<GenericTag Class="ReturnFlightGroupOutInNumTextIndex">
 					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
-					<GenericTagFunction>
 						<SortedCandidateGroup>
 							<GroupedByEqual>
 								<CandidateInstance Source="Descendants:Accommodation"/>
-								<Date Source="Outbound" DayType="CheckIn"/>
-								<Duration Source="ReturnFlight"/>
 								<Tag Source="Outbound" Class="DepartureAirport"/>
 								<Tag Source="Outbound" Class="ArrivalAirport"/>
 							</GroupedByEqual>
@@ -150,9 +125,9 @@
 											</Sum>
 										</Sort>
 										<Sort Order="Ascending">
-											<Connect>
+											<Concatenate>
 												<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
-											</Connect>
+											</Concatenate>
 										</Sort>
 										<Sort Order="Ascending">
 											<Sum>
@@ -160,24 +135,20 @@
 											</Sum>
 										</Sort>
 										<Sort Order="Ascending">
-											<Connect>
+											<Concatenate>
 												<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
-											</Connect>
+											</Concatenate>
 										</Sort>
 									</Sequence>
 								</Position>
 							</Value>
 						</SortedCandidateGroup>
-					</GenericTagFunction>
 				</GenericTag>
 				<GenericTag Class="ExampleCombinedIndicesPrices">
 					<!-- Diese GroupDefinition entspricht keiner realen Priorisierung, sondern soll lediglich aufzeigen welche Möglichkeiten es in OTDS gibt, Tags und Preise miteinander zu kombinieren um damit eine Sortierung zu definieren.-->
-					<GenericTagFunction>
 						<SortedCandidateGroup>
 							<GroupedByEqual>
 								<CandidateInstance Source="Descendants:Accommodation"/>
-								<Date Source="Outbound" DayType="CheckIn"/>
-								<Duration Source="ReturnFlight"/>
 								<Tag Source="Outbound" Class="DepartureAirport"/>
 								<Tag Source="Outbound" Class="ArrivalAirport"/>
 							</GroupedByEqual>
@@ -213,16 +184,15 @@
 											</Average>
 										</Sort>
 										<Sort Order="Ascending">
-											<Connect>
+											<Concatenate>
 												<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
 												<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
-											</Connect>
+											</Concatenate>
 										</Sort>
 									</Sequence>
 								</Position>
 							</Value>
 						</SortedCandidateGroup>
-					</GenericTagFunction>
 				</GenericTag>
 			</Tags>
 			<Booking>
@@ -259,7 +229,7 @@
 				<Accommodation DayAllocationLevel="0"/>
 				<DefinedComponent UseRole="ReturnFlight" Name="ReturnFlight"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<MatchEqual>
 						<Element Source="Accommodation">CatchmentAirport</Element>
@@ -512,7 +482,7 @@
 					<OnewayFlight/>
 				</CombiComponent>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<Or>
 						<MatchEqual>
