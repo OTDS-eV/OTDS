@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
 	<!-- Im folgenden ein Beispiel für eine Konvertierung von INFX in OTDS. Eine Konvertierung hat nur die Datentiefe zur Verfügung, die in INFX steckt. 
 			Dieses Beispiel zeigt genau diese Konvertierung.
 
@@ -7,9 +7,8 @@
 
 Sie finden hier jeweils ein Beispiel für INFX-Package und INFX-NurHotel. Die entsprechenden INFX-zeilen sind als Kommentar im Produkt aufgeführt. 
 
---> 
+-->
 	<Products>
-	
 		<Product Key="Package" ProductType="FlightAccommodation">
 			<!-- Dieses Produkt definiert folgende INFXZeilen:
 Zeile 1:     
@@ -22,7 +21,7 @@ Zeile 1:
 					<Inbound DayAllocationIndex="1"/>
 				</ReturnFlight>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<MatchEqual>
 						<Element Source="Accommodation">CatchmentAirport</Element>
@@ -33,12 +32,11 @@ Zeile 1:
 			</Filter>
 		</Product>
 		<Product Key="HotelOnly" ProductType="AccommodationOnly">
-			
 			<Components>
 				<Accommodation/>
 			</Components>
-			<Filter>
-					<Tags Source="Accommodation" Class="Product">HotelOnlyAccommodation</Tags>
+			<Filter Key="1">
+				<Tags Source="Accommodation" Class="Product">HotelOnlyAccommodation</Tags>
 			</Filter>
 		</Product>
 	</Products>
@@ -138,7 +136,7 @@ Zeile 1:
 			<Tags>
 				<Tag Class="Product">PackageAccommodation</Tag>
 			</Tags>
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>La Pampa</AccommodationCity>
 					<AccommodationName>H10 RUBICON PALACE</AccommodationName>
@@ -164,7 +162,7 @@ Zeile 1:
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardName>Halbpension</BoardName>
 							<BoardType>HalfBoard</BoardType>
@@ -179,7 +177,7 @@ Zeile 1:
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardName>Vollpension</BoardName>
 							<BoardType>FullBoard</BoardType>
@@ -190,12 +188,12 @@ Zeile 1:
 					<SellingUnit Key="DZ-2-4-2-2">
 						<Booking>
 							<BookingGroup Area="ServiceArea">
-								<BookingParameter Field="ServiceFeatureCode"  PadLength="3">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
 									<Value>DZ</Value>
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties>
+						<Properties Key="1">
 							<PropertyGroup>
 								<UnitName>Doppelzimmer</UnitName>
 								<UnitType>Double</UnitType>
@@ -229,7 +227,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>7</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>7</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
@@ -244,7 +244,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>10</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>10</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
@@ -269,7 +271,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>7</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>7</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
@@ -284,7 +288,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>10</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>10</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
@@ -301,7 +307,7 @@ Zeile 1:
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties>
+						<Properties Key="1">
 							<PropertyGroup>
 								<UnitName>Dreibettzimmer mit Zustellbett</UnitName>
 								<UnitType>Double</UnitType>
@@ -340,7 +346,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>7</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>7</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
@@ -355,7 +363,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>10</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>10</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
@@ -380,7 +390,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>7</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>7</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
@@ -395,7 +407,9 @@ Zeile 1:
 							</Availability>
 							<Condition>
 								<And>
-									<Duration Source="Product"><Durations>10</Durations></Duration>
+									<Duration Source="Product">
+										<Durations>10</Durations>
+									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
 									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
@@ -410,8 +424,8 @@ Zeile 1:
 		<Accommodation Key="S1-ACE138">
 			<Tags>
 				<Tag Class="Product">HotelOnlyAccommodation</Tag>
-			</Tags>			
-			<Properties>
+			</Tags>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationType>Hotel</AccommodationType>
 					<AccommodationName>H10 RUBICON PALACE</AccommodationName>
@@ -448,7 +462,7 @@ Zeile 1:
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardName>Halbpension</BoardName>
 							<BoardType>HalfBoard</BoardType>
@@ -464,7 +478,7 @@ Zeile 1:
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties>
+						<Properties Key="1">
 							<PropertyGroup>
 								<UnitName>PRIVILEGE DOPPEL</UnitName>
 								<UnitType>Double</UnitType>
@@ -494,10 +508,10 @@ Zeile 1:
 			<CatchmentAirports>ACE</CatchmentAirports>
 		</Accommodation>
 		<Accommodation Key="S1-PMI001">
-		    <Tags>
+			<Tags>
 				<Tag Class="Product">HotelOnlyAccommodation</Tag>
 			</Tags>
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationCity>CABO BLANCO</AccommodationCity>
 					<AccommodationName>DELTA</AccommodationName>
@@ -533,7 +547,7 @@ Zeile 1:
 							</BookingParameter>
 						</BookingGroup>
 					</Booking>
-					<Properties>
+					<Properties Key="1">
 						<PropertyGroup>
 							<BoardName>Vollpension</BoardName>
 							<BoardType>FullBoard</BoardType>
@@ -549,12 +563,12 @@ Zeile 1:
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties>
+						<Properties Key="1">
 							<PropertyGroup>
 								<UnitName>DOPPELZIMMER</UnitName>
 							</PropertyGroup>
 						</Properties>
-						<Filter>
+						<Filter Key="1">
 							<Keys Source="Accommodation.SellingAccom.Board">A</Keys>
 						</Filter>
 						<Occupancy Key="1">
@@ -773,7 +787,6 @@ Zeile 1:
 					</And>
 				</Condition>
 			</PriceItem>
-			
 			<!-- INFX Zeile Preis pro Erwachsenen 349 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
@@ -976,7 +989,6 @@ Zeile 1:
 					</And>
 				</Condition>
 			</PriceItem>
-			
 			<!-- INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
@@ -1105,9 +1117,7 @@ Zeile 1:
 			</ReturnFlight>
 		</ReturnFlights>
 	</Flights>
-	
-	
-<!--
+	<!--
 Folgende INFXZeilen werden für Pauschal abgebildet:
 Zeile01:01TO1 DUSTFSTFSDUS     06.01.201313.01.2013TFS001           DZ H  200399                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2422EUR
 Zeile02:01TO1 DUSTFSTFSDUS     06.01.201316.01.2013TFS001           DZ H  200449                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2422EUR
@@ -1125,13 +1135,8 @@ Zeile13:01TO1 DUSTFNTFNDUS     06.01.201313.01.2013TFS001           DZ V  200549
 Zeile14:01TO1 DUSTFNTFNDUS     06.01.201316.01.2013TFS001           DZ V  200599                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2422EUR
 Zeile15:01TO1 DUSTFNTFNDUS     06.01.201313.01.2013TFS001           DZ V  200449                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2433EUR
 Zeile16:01TO1 DUSTFNTFNDUS     06.01.201316.01.2013TFS001           DZ V  200499                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2433EUR
--->	
-
-
-
-
-
-<!-- Durch das NurHotel-Produkt werden in diesem Beispiel folgende INFX-Zeilen abgedeckt:
+-->
+	<!-- Durch das NurHotel-Produkt werden in diesem Beispiel folgende INFX-Zeilen abgedeckt:
 Zeile1:01TO1                  01.12.201108.12.2011ACE138           2PRH  200199LH                                        H10 RUBICON PALACE PLAYA BLANCA                                                                                                                                                                                                                                                        4,5                                            9                                                                                                                                        2422EUR
 Zeile2:01TO1                  02.12.201109.12.2011ACE138           2PRH  200299LH                                        H10 RUBICON PALACE PLAYA BLANCA                                                                                                                                                                                                                                                        4,5                                            9                                                                                                                                        2422EUR
 Zeile3:01TO1                  01.12.201108.12.2011PMI001           D  A  200199LH                                        DELTA              CABO BLANCO                                                                                                                                                                                                                                                         4                                              9                                                                                                                                        2322EUR
@@ -1139,5 +1144,4 @@ Zeile4:01TO1                  02.12.201109.12.2011PMI001           D  A  200299L
 
 			
 -->
-	
 </Otds>

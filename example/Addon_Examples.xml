@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
 	<Products>
 		<!-- Exemplarische Accommodation, auf die sich das Addon bezieht. Ein Addon kann stets nur mit einer anderen Komponente zusammen gebucht werden! -->
 		<Product Key="Accom" ProductType="AccommodationOnly">
@@ -15,14 +15,13 @@
 				<Addon DayAllocationIndex="0"/>
 			</Components>
 			<!-- Einschränkungen mit welchen Komponenten das Addon gebucht werden kann. -->
-			<Filter>
+			<Filter Key="1">
 				<Or>
 					<!-- Übereinstimmung bestimmter Tags. In diesem Beispiel handelt es sich um Leistungscodes der Accommodation, die in jeweils einem Tag in der bestimmten Accommodation und dem Addon vermerkt sind. -->
 					<MatchEqual>
 						<Tag Source="Accommodation" Class="Accom"/>
 						<Tag Source="Addon" Class="Accom"/>
 					</MatchEqual>
-					
 					<!-- Zusammenspiel bestimmter Bedingungen der jeweiligen Komponenten -->
 					<And>
 						<Or>
@@ -32,7 +31,6 @@
 						</Or>
 						<Keys Source="Addon">0500S2</Keys>
 					</And>
-					
 					<!-- Übereinstimmung eines Teils eines "Tags" (hier die ersten 3 Stellen) . -->
 					<MatchEqual>
 						<Tag Source="Accommodation" Class="Accom" Offset="1" Length="3"/>
@@ -62,7 +60,7 @@
 				<Addon Name="1906C0" DayAllocationIndex="0"/>
 			</Components>
 			<!-- Einschränkungen für die Kombinierbarkeit. Hier als Beispiel über ein Tag, das einen übereinstimmenden Ort (Leipzig) vorgibt. -->
-			<Filter>
+			<Filter Key="1">
 				<MatchEqual>
 					<Tag Source="Accommodation" Class="Ort"/>
 					<Tag Source="Addon" Class="Ort"/>
@@ -89,7 +87,7 @@
 				<Addon DayAllocationIndex="0"/>
 			</Components>
 			<!-- Einschränkungen für die Kombinierbarkeit. Hier als Beispiel über ein Tag, das einen übereinstimmenden Zielflughafen (CatchmentAirport) vorgibt. -->
-			<Filter>
+			<Filter Key="1">
 				<MatchEqual>
 					<Element Source="Accommodation">CatchmentAirport</Element>
 					<Element Source="Addon">CatchmentAirport</Element>
@@ -149,7 +147,6 @@
 				</Unit>
 			</SellingAccom>
 		</Accommodation>
-		
 		<!--Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
 		<Accommodation Key="051002">
 			<Tags>
@@ -222,7 +219,6 @@
 				</Unit>
 			</SellingAccom>
 		</Accommodation>
-		
 		<!--Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
 		<Accommodation Key="1">
 			<!-- Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
@@ -255,7 +251,6 @@
 					</SellingUnit>
 				</Unit>
 			</SellingAccom>
-			
 			<CatchmentAirports>ACE</CatchmentAirports>
 		</Accommodation>
 	</Accommodations>
@@ -274,16 +269,16 @@
 			<!-- Tour-Arrangement individuelle Ausflug -->
 			<Booking>
 				<BookingGroup Area="ServiceArea" Source="Addon">
-					<BookingParameter Field="ServiceCode" >
+					<BookingParameter Field="ServiceCode">
 						<Value>0500S2</Value>
 					</BookingParameter>
-					<BookingParameter Field="RequestCode" >
+					<BookingParameter Field="RequestCode">
 						<Value>H</Value>
 					</BookingParameter>
 				</BookingGroup>
 			</Booking>
 			<CheckOutDateOffset>0</CheckOutDateOffset>
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AddonName>Erlebnisausflug</AddonName>
 					<AddonServiceType>
@@ -300,7 +295,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Properties>
+				<Properties Key="1">
 					<PropertyGroup>
 						<AddonServiceType>
 							<TourArrangement>PrivateTour</TourArrangement>
@@ -310,7 +305,7 @@
 				</Properties>
 			</Service>
 			<!-- Die Zusatzleistung ist nur im angegebenen Zeitraum verfügbar. -->
-			<Filter>
+			<Filter Key="1">
 				<Date Source="Addon" DayType="CheckIn">
 					<Min>2012-01-01</Min>
 					<Max>2012-10-31</Max>
@@ -327,7 +322,6 @@
 				</PriceItem>
 			</PriceItems>
 		</Addon>
-		
 		<Addon Key="1906C0">
 			<!-- Drei-Tages-Pass für Leipzig. Preis p.P. einmalig -->
 			<!-- Verfügbar April bis Oktober 2012 (einschließlich) -->
@@ -350,7 +344,7 @@
 			</Booking>
 			<!-- CheckOutDateOffset = 0 : Die Buchung geschieht hier auf einen Tag, auch wenn dann der CityPass 3 Tage gültig ist. -->
 			<CheckOutDateOffset>0</CheckOutDateOffset>
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AddonName>Leipzig Card</AddonName>
 					<AddonServiceType>
@@ -367,7 +361,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Properties>
+				<Properties Key="1">
 					<PropertyGroup>
 						<AddonServiceType>
 							<CityArrangement>CityPass</CityArrangement>
@@ -377,7 +371,7 @@
 				</Properties>
 			</Service>
 			<!-- Die Zusatzleistung ist nur im angegebenen Zeitraum verfügbar. -->
-			<Filter>
+			<Filter Key="1">
 				<Date Source="Addon" DayType="CheckIn">
 					<Min>2012-04-01</Min>
 					<Max>2012-10-31</Max>
@@ -412,7 +406,7 @@
 				</BookingGroup>
 			</Booking>
 			<!-- Kein CheckOutDateOffset bedeutet bei Addons, dass das Addon (zeitlich) flexibel ist -->
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AddonName>Mietwagen</AddonName>
 					<AddonServiceType>
@@ -429,7 +423,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Properties>
+				<Properties Key="1">
 					<PropertyGroup>
 						<AddonServiceType>
 							<CarRental>SmallCar</CarRental>

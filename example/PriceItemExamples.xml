@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd"
- xmlns="http://otds-group.org/otds"
- Version="1.0"
- Market="DE">
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.0">
 	<Products>
 		<GlobalValues>
 			<GlobalValue Key="GermanMarket">
@@ -27,7 +23,7 @@
 	<Brands/>
 	<Accommodations>
 		<Accommodation Key="TT01">
-			<Properties>
+			<Properties Key="1">
 				<PropertyGroup>
 					<AccommodationName>Hotel "Beach"</AccommodationName>
 				</PropertyGroup>
@@ -83,7 +79,7 @@
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Board Key="Board"></Board>
+				<Board Key="Board"/>
 				<Unit Key="DZ">
 					<SellingUnit Key="DZ-2">
 						<Booking>
@@ -93,7 +89,7 @@
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties>
+						<Properties Key="1">
 							<PropertyGroup>
 								<UnitName>Doppelzimmer</UnitName>
 							</PropertyGroup>
@@ -103,7 +99,6 @@
 								<Count>2</Count>
 							</Person>
 						</Occupancy>
-						
 						<!--DE: Start PriceItems Beispiele ohne Kombinatorik -->
 						<!--GB: Start PriceItems Examples without combination logic-->
 						<PriceItems Key="PriceItems">
@@ -123,7 +118,6 @@
 									<PersonBase>1</PersonBase>
 								</Absolute>
 							</PriceItem>
-
 							<PriceItem Class="BoardSupplement">
 								<!--DE: Verpflegungszuschlag pro Tag und Reisenden -->
 								<!--GB: Board supplement per day and participant-->
@@ -133,7 +127,6 @@
 									<PersonBase>1</PersonBase>
 								</Absolute>
 							</PriceItem>
-							
 							<PriceItem Class="UnitPrice">
 								<!--DE: Einmaliger Grundpreis  -->
 								<!--GB: Base price   -->
@@ -153,7 +146,6 @@
 									</And>
 								</Condition>
 							</PriceItem>
-							
 							<PriceItem Class="UnitPrice">
 								<!--DE: Tageweiser Zimmerpreis  -->
 								<!--GB: Daily unit price   -->
@@ -168,12 +160,9 @@
 									</Impact>
 								</Condition>
 							</PriceItem>
-							
-							
-								
 							<PriceItem Class="WEEKENDPrice">
 								<!--DE: Preis pro tag/pro Person nur für die Wochenendtage  -->
-								<!--GB: Daily price per person for the weekend days. -->	
+								<!--GB: Daily price per person for the weekend days. -->
 								<Absolute>
 									<Value>70</Value>
 									<DayBase>1</DayBase>
@@ -185,8 +174,6 @@
 									</DayImpact>
 								</Condition>
 							</PriceItem>
-									
-									
 							<PriceItem Class="ChildDayPrice">
 								<!--DE: Passender Kinder-Tagespreis, der den normalen Tagespreis ersetzt -->
 								<!--GB: Child price per day that replaces the normal daily price -->
@@ -209,7 +196,6 @@
 									</ExcludePriceItemClasses>
 								</Combinatorics>
 							</PriceItem>
-							
 							<PriceItem Class="ChildReduction">
 								<!--DE: Prozentuale Kinderermäßigung auf Basispreis und Extratag
 										gilt nicht für FullPayer-->
@@ -235,8 +221,6 @@
 									</And>
 								</Condition>
 							</PriceItem>
-							
-							
 							<PriceItem Class="ThirdPersonReduction">
 								<!--DE: Prozentuale Ermäßigung ab der 3. Person (Alter absteigend). -->
 								<!--GB: Third and more person reduction based on percent (descending ages).-->
@@ -245,14 +229,13 @@
 									<ApplyTo>Extraday BasePrice</ApplyTo>
 								</Percent>
 								<Condition>
-										<PersonImpact>
-											<PersonIndex Source="Product">
-												<From>3</From>
-											</PersonIndex>
-										</PersonImpact>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<From>3</From>
+										</PersonIndex>
+									</PersonImpact>
 								</Condition>
 							</PriceItem>
-							
 							<PriceItem Class="ChildReduction">
 								<!--DE: Prozentuale Kinderermäßigung auf Basispreis und Extratag für das 2. Kind 6-14 (Alter aufsteigend). 
 									Kind sind alle Personen zwischen 2-16-->
@@ -284,8 +267,6 @@
 									</And>
 								</Condition>
 							</PriceItem>
-							
-							
 							<PriceItem Class="EarlyBird">
 								<!--DE: Frühbucher, der auf Basispreis und Extraday angewendet wird.  -->
 								<!--GB: Early bird, used for base price and Extraday   -->
@@ -299,11 +280,6 @@
 									</BookingDate>
 								</Condition>
 							</PriceItem>
-							
-							
-							
-							
-							
 							<PriceItem Class="InfantPrice">
 								<!--DE: Baby umsonst  -->
 								<!--GB: Infant for free -->
@@ -325,8 +301,6 @@
 									</PersonImpact>
 								</Condition>
 							</PriceItem>
-							
-							
 							<PriceItem Class="DurationReduction">
 								<!--DE: Dauerreduktion - jeder 3. Tag ist frei.  -->
 								<!--GB: Duration reduction - every 3 nights the 3rd night is free -->
@@ -347,7 +321,6 @@
 									</And>
 								</Condition>
 							</PriceItem>
-							
 							<PriceItem Class="DurationReduction">
 								<!--DE: Dauerreduktion - 2 Tage reduziert. Für welche Dauern das gilt, sieht man in der Condition  -->
 								<!--GB: Duration reduction - 2 nights for free. duration validity is delivered in condition  -->
@@ -369,15 +342,8 @@
 										</DayImpact>
 									</And>
 								</Condition>
-								<Properties>
-									<PropertyGroup>
-										<PriceType>DurationReduction</PriceType>
-									</PropertyGroup>
-								</Properties>
 							</PriceItem>
 						</PriceItems>
-						
-						
 						<!-- Ende PriceItems Beispiele ohne Conditions und ohne Kombinatorik -->
 						<Availabilities Key="1">
 							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
@@ -389,9 +355,7 @@
 							</Availability>
 						</Availabilities>
 					</SellingUnit>
-					
-					
-					<!-- Hier Beispiele für die BErechnung von unterschiedlichen Grundpreisen    -->					
+					<!-- Hier Beispiele für die BErechnung von unterschiedlichen Grundpreisen    -->
 					<SellingUnit Key="DZ-4">
 						<Tags>
 							<ConditionalTag>
@@ -412,7 +376,7 @@
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties>
+						<Properties Key="1">
 							<PropertyGroup>
 								<UnitName>Doppelzimmer D</UnitName>
 							</PropertyGroup>
@@ -428,22 +392,15 @@
 								<MaxCount>1</MaxCount>
 							</Person>
 						</Occupancy>
-						
-						
-						
-						
 						<PriceItems Key="Grundpreise">
 							<!-- Start der Beispiele für die Grundpreisberechnungen -->
-							
-
-								<!-- Beispiel G1 G3 G5 TG
+							<!-- Beispiel G1 G3 G5 TG
 									G1 gilt für Dauern 1-2  
 									G3 gilt für Dauern 3-4
 									G5 gilt für Dauern 5 - undendlich
 									Pro Tag muss der Uebernachtungspreis hinzugerechnet werden.
 									 -->
 							<PriceItem Class="G1">
-								
 								<Absolute>
 									<Value>90</Value>
 									<DayBase>x</DayBase>
@@ -518,16 +475,12 @@
 									</Date>
 								</Condition>
 							</PriceItem>
-							
-						
-						
 							<!-- Beispiel  V07 V14 ET
 							V07 gilt für Dauern 1 - 11
 							V14 gilt für Dauern 12 - unendlich
 							In V07 V14 sind jeweils schon die Übernachtungspreise für 7 bzw. 14 Nächte enthalten
 							Bei Dauern <> 7 oder 14 muss die Rate des Erweiterungtages entsprechend der Dauer X mal addiert oder subtrahiert werden. -->
 							<PriceItem Class="V07">
-								
 								<Absolute>
 									<Value>250</Value>
 									<DayBase>x</DayBase>
@@ -632,10 +585,8 @@
 							</Availability>
 						</Availabilities>
 					</SellingUnit>
-
-					<!-- Hier Beispiele für die Kombinatorik von PriceItems    -->						
+					<!-- Hier Beispiele für die Kombinatorik von PriceItems    -->
 					<SellingUnit Key="DZ-3">
-					
 						<Tags>
 							<ConditionalTag>
 								<Tag Class="PersonType">FullPayer</Tag>
@@ -655,7 +606,7 @@
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties>
+						<Properties Key="1">
 							<PropertyGroup>
 								<UnitName>Doppelzimmer D</UnitName>
 							</PropertyGroup>
@@ -672,7 +623,6 @@
 							</Person>
 						</Occupancy>
 						<!-- Start der Beispiele für die Kombinatorik von PriceItems    -->
-						
 						<PriceItems Key="1">
 							<!--DE: Kombinatorik über CombiLevel -->
 							<!--GB: Compatibility with CombiLevel  -->

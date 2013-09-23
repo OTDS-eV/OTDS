@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" Market="DE" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
 	<!-- In diesem Beispiel werden einige Flüge auf unterschiedliche Weise kombiniert.
 		Dazu werden häufig "Tags" in der Form <Tag Class="">XXX</Tag> definiert, auf die später in der Kombinationsregel Bezug genommen wird.
 		Die Tags besitzen in diesem Beispiel sprechende Inhalte sind aber vom Veranstalter frei gestaltbar.	
@@ -9,7 +9,7 @@
 			<Components>
 				<OnewayFlight/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<Not>
 					<Tags Source="OnewayFlight" Class="Zubringer_Only"/>
 				</Not>
@@ -19,7 +19,7 @@
 			<Components>
 				<DefinedComponent Name="ThisOnewayFlight" UseRole="OnewayFlight"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<Tags Source="#ThisOnewayFlight" Class="OnewayFlight"/>
 			</Filter>
 		</Product>
@@ -378,8 +378,7 @@
 					<DepartureAirport>PMI</DepartureAirport>
 					<ArrivalAirport>DUS</ArrivalAirport>
 				</Inbound>
-				<BookingClass Key="Y">
-			</BookingClass>
+				<BookingClass Key="Y"/>
 			</ReturnFlight>
 		</ReturnFlights>
 	</Flights>
@@ -393,7 +392,7 @@
 					<OnewayFlight/>
 				</CombiComponent>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<MatchEqual>
 						<Tag Source="Outbound" Class="Airline"/>
@@ -423,7 +422,7 @@
 					<OnewayFlight/>
 				</CombiComponent>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<Or>
 						<MatchEqual>
@@ -469,7 +468,7 @@
 					<OnewayFlight Name="Inbound1"/>
 				</CombiComponent>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<MatchEqual>
 					<Element Source="Outbound">ArrivalAirport</Element>
 					<Element Source="Inbound">DepartureAirport</Element>
@@ -486,7 +485,7 @@
 					<OnewayFlight Name="Inbound2"/>
 				</CombiComponent>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<MatchEqual>
 					<Element Source="Outbound">DepartureAirport</Element>
 					<Element Source="Inbound">ArrivalAirport</Element>
@@ -502,7 +501,7 @@
 					<DefinedComponent UseRole="OnewayFlight"/>
 				</CombiComponent>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<MatchEqual>
 						<Tag Source="Outbound" Class="Airline"/>
@@ -529,7 +528,7 @@
 				<OnewayFlight Name="Hauptflug" DayAllocationIndex="2"/>
 				<OnewayFlight Name="Verteiler" DayAllocationIndex="3"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<MatchEqual>
 						<Tag Source="#Zubringer" Class="Airline"/>
@@ -560,7 +559,7 @@
 				<OnewayFlight Name="2"/>
 				<OnewayFlight Name="3" DayAllocationLevel="1"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<Tags Source="#1" Class="Zubringer"/>
 					<Tags Source="#2" Class="Hauptflug"/>
@@ -582,7 +581,7 @@
 				<OnewayFlight Name="6"/>
 				<OnewayFlight Name="7" DayAllocationLevel="1"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<Tags Source="#5" Class="Zubringer">FRA</Tags>
 					<Tags Source="#6" Class="Hauptflug">FRABKK</Tags>
@@ -604,7 +603,7 @@
 				<OnewayFlight Name="9"/>
 				<OnewayFlight Name="10" DayAllocationLevel="1"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<Tags Class="Name" Source="#8">DUSFRA16</Tags>
 					<Weekdays Source="#8" DayType="CheckIn">Sun Mon Wed Fri Sat</Weekdays>
@@ -618,7 +617,7 @@
 				<OnewayFlight Name="11" DayAllocationLevel="-1"/>
 				<OnewayFlight Name="12"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<Keys Source="#11">DUSFRA16</Keys>
 					<Weekdays Source="#11" DayType="CheckIn">Tue Thu</Weekdays>
@@ -645,7 +644,7 @@
 				<OnewayFlight Name="14"/>
 				<OnewayFlight Name="15" DayAllocationLevel="1"/>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<Keys Source="#13">DUSFRA16</Keys>
 					<Weekdays Source="#13" DayType="CheckIn">Sun Mon Wed Fri Sat</Weekdays>
@@ -664,7 +663,7 @@
 					<OnewayFlight Name="Inbound3"/>
 				</CombiComponent>
 			</Components>
-			<Filter>
+			<Filter Key="1">
 				<And>
 					<MatchEqual>
 						<Element Source="Outbound">DepartureAirport</Element>
