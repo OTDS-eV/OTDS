@@ -6,7 +6,7 @@
     <title>OTDS - Open Travel Data Structure</phrase></title>-->
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="OtdsSpec" version="5.0" class="specification">
 	<info xml:id="OtdsSpecInfo">
-		<title><phrase xml:id="de_527" xml:lang="de">OTDS Spezifikation</phrase><phrase xml:id="en_527" xml:lang="en">OTDS specification</phrase></title>
+		<title><phrase xml:cid="de_527" xml:lang="de">OTDS Spezifikation</phrase><phrase xml:id="en_527" xml:lang="en">OTDS specification</phrase></title>
 		<authorgroup>
 			<author>
 				<personname>
@@ -4054,6 +4054,19 @@
 						damit in die Berechnung mit einbezogen. </para><para xml:id="en_1146" xml:lang="en">The above is an example of a product definition for the product type "AccommodationOnly" Some tour operators apply a surcharge to their hotels, which are sold as hotel-only products. By equipping the product in the example above with a specific "tag" with the class="Product" and value="AccomOnly", prices can be provided with a condition relating to this very tag. Prices, discounts and surcharges are defined in ODTS in PriceItems. A condition specifies the terms under which a PriceItem applies. Precisely this is demonstrated in the example above. Thus only if the hotel is used as a hotel-only product is this supplement valid and will be included in the calculation.</para>
 					<para xml:id="de_1147" xml:lang="de"> </para><para xml:id="en_1147" xml:lang="en"/>
 				</section>
+				<section xml:id="OtdsStrategyProductProperties">
+					<title><phrase xml:lang="de">Eigenschaft (Properties) in Produkten</phrase></title>
+						<para xml:lang="de">Innerhalb der Produktdefinition können Eigenschaften definiert werden die global über die gesamte Lieferung gelten. Hiermit kann z.B. für ein gesamtes Produkt die Eigenschaft "Transfer inkludiert" gesetzt werden. Diese Eigenschaft muss dann nicht je Accommodation geliefert
+						werden. </para>
+				</section>
+				<section xml:id="OtdsStrategyProductPriceItems">
+					<title><phrase xml:lang="de">Preise (PriceItems) in Produkten</phrase></title>
+					<para xml:lang="de">Innerhalb der Produktdefinition können PriceItems geliefert werden die global für alle Komponenten des Produktes gelten. Hierbei ist zu beachten, das absolute PriceItems nur einmal je Produkt angewendet werden und nicht je Komponente.</para>
+				</section>
+				<section xml:id="OtdsStrategyProductBooking">
+					<title><phrase xml:lang="de">Buchungsparameter (Booking) in Produkten</phrase></title>
+					<para xml:lang="de">Das Booking-Element innerhalb der Produktdefinition dient zur globalen Definition von Buchungsparametern. Die Platzierung der Reiseart (TravelType) ist an dieser Stelle sinnvoll.</para>
+				</section>
 				<section xml:id="OtdsStrategyRulesProductTypes">
 					<title><phrase xml:id="de_1148" xml:lang="de">Festlegung der Produkttypen</phrase><phrase xml:id="en_1148" xml:lang="en">Definition of product types</phrase></title>
 					<para xml:id="de_1149" xml:lang="de">OTDS 1.0 kennt aktuell 5 Produkttypen: </para><para xml:id="en_1149" xml:lang="en">OTDS 1.0 currently has 5 product types:</para>
@@ -4917,7 +4930,7 @@
 							<itemizedlist>
 								<listitem>
 									<para xml:id="de_1296" xml:lang="de">Auf welches absolute PriceItem wirkt ein prozentualer Zu-/Abschlag:
-										ApplyTo, NotApplyTo</para><para xml:id="en_1296" xml:lang="en">Which absolute PriceItem does a percentage surcharge/discount have an effect on: ApplyTo, NotApplyTo</para>
+										ApplyTo, NotApplyTo, ApplyToPriceTags</para><para xml:id="en_1296" xml:lang="en">Which absolute PriceItem does a percentage surcharge/discount have an effect on: ApplyTo, NotApplyTo, ApplyToPriceTags</para>
 								</listitem>
 								<listitem>
 									<para xml:id="de_1297" xml:lang="de">Welche prozentualen PriceItems wirken auf ein absolutes PriceItem:
@@ -5000,6 +5013,10 @@
 						deshalb ein von der PriceItem-Class entkoppelten CombinationCode, der je nach Bedarf
 						natürlich auch mit der "Class" gefüllt werden kann. So wird OTDS allen Systemen
 						gerecht.</para><para xml:id="en_1312" xml:lang="en">Each PriceItem must include the attribute <code>Class</code> , which contains a name that is completely elective and describes the type or the category of the PriceItem. In general each operator's system contains this type of classification of prices with corresponding references within the rules. This value is referred to in the price calculation and combinatorics. The percentage and absolute PriceItems are established through the attribute <code>Class</code> . The depiction of replacement prices, as well as the dispensation of data, is also controlled with this attribute. Some operator's systems also use the "Class" for the rules of the combinatorics. Other systems here use their own combinatorics codes. In OTDS there is therefore one CombinationCode which has been decoupled from the PriceItem class, and which, if necessary, can be filled with the "Class". In this way OTDS can function with all systems.</para>
+				</section>
+				<section xml:id="OtdsStrategyPriceItemTags">
+					<title><phrase xml:lang="de">PriceItem Tags (PriceTags) (Version 1.9)</phrase></title>
+					<para xml:lang="de">Mit den PriceTags wurde das bestehende Tag-Konzept um die Möglichkeit erweitert Tags auch einem PriceItem zuzuweisen. Die Wirkung der prozentualen PriceItems auf absolute PriceItems kann durch PriceTags gesteuert werden. Innerhalb des ApplyToPriceTags-Element in den prozentualen PriceItems ist es möglich die PriceTags zu definieren die an einem absoluten PriceItem vorkommen müssen, damit das prozentuale PriceItem auf das absolute wirkt. PriceTags haben wie die "normalen" Tags eine Class und einen Wert.</para>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemAbsolute">
 					<title><phrase xml:id="de_1313" xml:lang="de">PriceItems mit absoluten Preisen (Absolute)</phrase><phrase xml:id="en_1313" xml:lang="en">PriceItems with absolute prices (Absolute)</phrase></title>
@@ -5337,8 +5354,8 @@
 					<para xml:id="det_1362" xml:lang="de"/>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">
-					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>,
-						<code>AppliedBy</code>)</phrase><phrase xml:id="en_1363" xml:lang="en">Effect (<code>ApplyTo</code> , <code>NotApplyTo</code> , <code>AppliedBy</code> )</phrase></title>
+					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>,
+						<code>AppliedBy</code>)</phrase><phrase xml:id="en_1363" xml:lang="en">Effect (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>, <code>AppliedBy</code> )</phrase></title>
 					<para xml:id="de_1364" xml:lang="de">Prozentuale PriceItems müssen sich immer auf mindestens ein absolutes PriceItem
 						beziehen, um angewendet zu werden. Diese Beziehung wird bei den prozentualen
 						PriceItems durch das Element <code>ApplyTo</code> hergestellt, in dem die
@@ -5368,6 +5385,7 @@
 						nur die PriceItems der Komponente eingeschlossen, die durch das Attribut
 							<code>Component</code> angegeben ist. Im Standardfall ist es die Komponente, in
 						der man sich befindet. </para><para xml:id="en_1366" xml:lang="en">Instead of specifying the absolute PriceItems which are to be influenced by a percentage PriceItem, it is also alternatively possible to specify the PriceItems which are not to be influenced by the percentage PriceItem. This occurs via the element <code>NotApplyTo</code> . If <code>NotApplyTo</code> is used, the percentage PriceItem is applied to all absolute PriceItems which are not explicitly excluded. In this, the only PriceItems included are those of the component which is specified by the attribute <code>Component</code> . In the standard case, it is the component you are currently in.</para>
+					<para xml:lang="de">Neu in der Version 1.9 ist die Möglichkeit die Wirkung über PriceTags zu definieren. In dem ApplyToPriceTags Element werden alle PriceTags aufgelistet auf die ein prozentuales PriceItem wirken soll. PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</para>
 					<para xml:id="de_1367" xml:lang="de">Manche Veranstalter hinterlegen die Beziehungen zwischen absoluten und prozentualen
 						PriceItems nicht bei den prozuentualen PriceItems sondern bei den absoluten
 						PriceItems. OTDS bietet für diesen Sonderfall die Möglichkeit, an Stelle von
@@ -5378,7 +5396,7 @@
 					<para xml:id="de_1368" xml:lang="de">Es können die Komponenten Accommodation, OnewayFlight und ReturnFlight angegeben
 						werden. Die Angabe <code>ThisComponent</code> ist die Standardeinstellung und
 						referenziert die Komponente des prozentualen PriceItem selbst.</para><para xml:id="en_1368" xml:lang="en">The components Accommodation, OnewayFlight and ReturnFlight can be specified. The specification of <code>ThisComponent</code> is the default setting and refers to the component of the percentage PriceItem itself.</para>
-					<para xml:id="de_1369" xml:lang="de">Die Angaben <code>ApplyTo</code>, <code>NotApplyTo</code> und <code>AppliedBy</code>
+					<para xml:id="de_1369" xml:lang="de">Die Angaben <code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code> und <code>AppliedBy</code>
 						sind optional. Fehlen die Angaben, so findet keine Zuweisung statt. Bei mehrfacher
 						Verwendung von <code>ApplyTo</code> oder <code>NotApplyTo</code> werden die
 						Percent-Values nur auf die Absolute-Values angewendet, die alle Bedingungen erfüllen.
@@ -13300,6 +13318,16 @@
 									<entry>Multiple</entry>
 								</row>
 								<row>
+									<entry><code>&indent;&indent;Booking</code></entry>
+									<entry>Simple</entry>
+									<entry>Single</entry>
+								</row>
+								<row>
+									<entry><code>&indent;&indent;Properties</code></entry>
+									<entry>Simple</entry>
+									<entry>Multiple</entry>
+								</row>
+								<row>
 									<entry><code>&indent;&indent;Product</code></entry>
 									<entry>Composite</entry>
 									<entry>Multiple</entry>
@@ -13322,7 +13350,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;DayAllocationStart</code></entry>
@@ -13332,6 +13360,11 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;DayAllocationEnd</code></entry>
 									<entry>Simple</entry>
+									<entry>Multiple</entry>
+								</row>
+								<row>
+									<entry><code>&indent;&indent;PriceItems</code></entry>
+									<entry>Composite</entry>
 									<entry>Multiple</entry>
 								</row>
 								<row>
@@ -13372,7 +13405,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
+								</row>
+								<row>
+									<entry><code>&indent;&indent;&indent;Filter</code></entry>
+									<entry>Simple</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;SellingAccom</code></entry>
@@ -13392,12 +13430,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Board</code></entry>
@@ -13417,12 +13455,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;PriceItems</code></entry>
@@ -13442,7 +13480,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;SellingUnit</code></entry>
@@ -13462,12 +13500,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -13577,12 +13615,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;DepartureAirport</code></entry>
@@ -13627,7 +13665,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
+								</row>
+								<row>
+									<entry><code>&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
+									<entry>Simple</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -13692,7 +13735,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Outbound</code></entry>
@@ -13702,7 +13745,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;DepartureAirport</code></entry>
@@ -13737,7 +13780,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;DepartureAirport</code></entry>
@@ -13780,9 +13823,14 @@
 									<entry>Single</entry>
 								</row>
 								<row>
+									<entry><code>&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
+									<entry>Simple</entry>
+									<entry>Multiple</entry>
+								</row>
+								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -13857,7 +13905,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;ServiceFeature</code></entry>
@@ -13877,12 +13925,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;PriceItems</code></entry>
@@ -13907,7 +13955,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -13917,7 +13965,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;PriceItems</code></entry>
@@ -13952,7 +14000,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;PriceItems</code></entry>
@@ -13992,7 +14040,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Single</entry>
+									<entry>Multiple</entry>
 								</row>
 							</tbody>
 						</tgroup>
@@ -17711,7 +17759,7 @@
 								<code>Absolute/AppliedBy</code></para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_3621" xml:lang="de">Bei relativen PriceItems über die Angabe von <code>Percent/ApplyTo</code>,
+							<para xml:id="det_3621" xml:lang="de">Bei relativen PriceItems über die Angabe von <code>Percent/ApplyTo</code>, <code>Percent/ApplyToPriceTags</code>,
 									<code>Percent/ApplyToAll</code> oder
 								<code>Percent/NotApplyTo</code></para>
 						</listitem>
@@ -17750,6 +17798,12 @@
 									<para xml:id="det_3631" xml:lang="de">Hat das relative PriceItem eine Angabe <code>ApplyTo</code>, wird
 										das relative PriceItem in alle Kostenknoten kopiert, dessen absolutes
 										PriceItem im Klassennamen mit einem der angegebenen Klassennamen
+										übereinstimmt.</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="de">Hat das relative PriceItem eine Angabe <code>ApplyToPriceTags</code>, wird
+										das relative PriceItem in alle Kostenknoten kopiert, dessen absolutes
+										PriceItem ein PriceTag besitzt, welches mit der Definition in <code>ApplyToPriceTags</code> übereinstimmt
 										übereinstimmt.</para>
 								</listitem>
 								<listitem>
@@ -18111,6 +18165,7 @@
 							<code>PriceItems</code> Wert der Instanz zu finden ist.</para>
 
 					<para xml:id="det_3717" xml:lang="de">Hier eine vollständige Auflistung der <code>Booking</code> Elemente in OTDS: <simplelist>
+							<member>/Otds/Products/Booking</member>
 							<member>/Otds/Products/Product/Booking</member>
 							<member>/Otds/Brands/Brand/Booking</member>
 							<member>/Otds/Accommodations/Accommodation/SellingAccom/Booking</member>
@@ -21100,7 +21155,7 @@
 												<emphasis role="bold">Golfarrangements</emphasis></para>
 											<itemizedlist>
 												<listitem>
-												<para xml:id="det_4485" xml:lang="de">CourtAccess</para>
+												<para xml:id="det_4485" xml:lang="de">CourseAccess</para>
 												</listitem>
 												<listitem>
 												<para xml:id="det_4486" xml:lang="de">EquipmentRental</para>
@@ -21939,6 +21994,10 @@
 										<entry>k</entry>
 										<entry>*/PriceItems/PriceItem/Properties/PriceType</entry>
 									</row>
+									<row>
+										<entry>l</entry>
+										<entry>/Otds/Products/</entry>
+									</row>
 								</tbody>
 							</tgroup>
 						</table>
@@ -21973,6 +22032,7 @@
 										<entry>i</entry>
 										<entry>j</entry>
 										<entry>k</entry>
+										<entry>l</entry>
 									</row>
 								</thead>
 								<tbody>
@@ -21980,6 +22040,7 @@
 										<entry>AccommodationCity</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22003,11 +22064,13 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationName</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22031,11 +22094,13 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationOperatorCategory</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22059,11 +22124,13 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationGeneralFacilities</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22087,11 +22154,13 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationSportsFacilities</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22115,11 +22184,13 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationSeniorFacilities</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22143,11 +22214,13 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationAddress</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22171,6 +22244,7 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>UnitName</entry>
@@ -22179,6 +22253,7 @@
 										<entry/>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22199,6 +22274,7 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 								<row>
 									<entry>UnitBedType (V2.0)</entry>
@@ -22207,6 +22283,7 @@
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -22227,6 +22304,7 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>UnitBuildingType</entry>
@@ -22241,12 +22319,14 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>BoardName</entry>
 										<entry/>
 										<entry/>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22269,12 +22349,14 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>BoardProperties</entry>
 										<entry/>
 										<entry/>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22297,6 +22379,7 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AddonServiceType</entry>
@@ -22308,6 +22391,7 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22325,6 +22409,7 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>AddonServiceFeatureName</entry>
@@ -22336,6 +22421,7 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22353,6 +22439,7 @@
 										<entry/>
 										<entry/>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>GeneralIncludedService</entry>
@@ -22360,6 +22447,7 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22381,6 +22469,7 @@
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
 								</row>
 									<row>
 										<entry>FlightBookingClassBaggageAllowances</entry>
@@ -22394,6 +22483,7 @@
 										<entry/>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 									</row>
 									<row>
@@ -22409,6 +22499,7 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry/>
+										<entry/>
 									</row>
 									<row>
 										<entry>PriceType</entry>
@@ -22423,6 +22514,7 @@
 										<entry/>
 										<entry/>
 										<entry>x</entry>
+										<entry/>
 									</row>
 									<row>
 										<entry>Figures (V2.0)</entry>
@@ -22431,6 +22523,7 @@
 										<entry/>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22448,6 +22541,7 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry>x</entry>
+										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -23789,6 +23883,9 @@
 								<entry>
 									<itemizedlist>
 										<listitem>
+											<para xml:lang="de">/Otds/Accommodations/Accommodation/Filter</para>
+										</listitem>
+										<listitem>
 											<para xml:id="det_4754" xml:lang="de">/Otds/Accommodations/Accommodation/SellingAccom/Filter</para>
 										</listitem>
 										<listitem>
@@ -23801,7 +23898,13 @@
 											<para xml:id="det_4757" xml:lang="de">/Otds/Flights/OnewayFlights/OnewayFlight/Filter</para>
 										</listitem>
 										<listitem>
+											<para xml:id="det_4757" xml:lang="de">/Otds/Flights/OnewayFlights/OnewayFlight/BookingClass/Filter</para>
+										</listitem>
+										<listitem>
 											<para xml:id="det_4758" xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/Filter</para>
+										</listitem>
+										<listitem>
+											<para xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/BookingClass/Filter</para>
 										</listitem>
 										<listitem>
 											<para xml:id="det_4759" xml:lang="de">/Otds/Addons/Addon/Filter</para>
@@ -23955,6 +24058,10 @@
 								<row>
 									<entry>n</entry>
 									<entry>/*/PriceItems/PriceItem/</entry>
+								</row>
+								<row>
+									<entry>o</entry>
+									<entry>/OTDS/Products/</entry>
 								</row>
 							</tbody>
 						</tgroup>
