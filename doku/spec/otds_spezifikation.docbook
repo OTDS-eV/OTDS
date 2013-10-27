@@ -2669,7 +2669,37 @@
 									Dokumentation für OTDS </link>.</para><para xml:id="en_951" xml:lang="en">Please obtain further information from the <link xlink:href="./technisch/otds_technisch.html#ConditionalTags">Technical documentation for OTDS</link> .</para>
 						</section>
 					</section>
-					<section xml:id="OtdsStrategyConditionTypeRule">
+				  <section xml:id="OtdsStrategyConditionDayPersonCount">
+				    <title>
+				      <phrase xml:lang="de">DayCount- und PersonCount-Bedingungen (Version 1.9)</phrase>
+				      <phrase xml:lang="en">Conditions using DayCount or PersonCount (Version 1.9)</phrase>
+				    </title>
+				    <para xml:lang="de">Die Verwendung von "DayCount" bzw. "PersonCount" erlaubt eine
+				      vereinfachte Zählung von Tagen bzw. Personen. Innerhalb dieser Elemente kann entschieden 
+				      werden, welche Grenzen abgeprüft werden sollen. Optional kann über einen  
+				      Filter ("PersonFilter" bzw. DayFilter) definiert werden, welche Tage bzw. Personen
+				      betrachtet werden sollen. Dieser Filter erlaubt auch Verknüpfungen über
+				      &lt;AND&gt; und &lt;OR&gt;.</para>
+				    <para xml:lang="de">Das folgende Beispiel zeigt eine Bedingung, die prüft, ob die Anzahl der Personen, die das ConditionalTag=Adult haben, gleich 2 ist.</para>
+				    <programlisting><![CDATA[<PersonCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+  <Counts>2</Counts>
+  <PersonFilter>
+    <Impact ImpactExecutionOrder="BeforeCombinatorics">
+      <ConditionalTags Source="SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Adult</ConditionalTags>
+    </Impact>
+  </PersonFilter>
+</PersonCount>]]></programlisting>
+				    <para xml:lang="de">Das nächste Beispiel zeigt eine Bedingung, die prüft, ob die Anzahl der Tage, die auf einen Freitag und Samstag fallen, mindestens 3 ist.</para>
+				    <programlisting><![CDATA[<DayCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+  <Min>3</Min>
+  <DayFilter>
+    <DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+      <Weekdays Source="Product" DayType="Stay">Fri Sat</Weekdays>
+    </DayImpact>
+  </DayFilter>
+</DayCount>]]></programlisting>
+				  </section>				  
+				  <section xml:id="OtdsStrategyConditionTypeRule">
 						<title><phrase xml:id="de_952" xml:lang="de">Rules-Bedingungen</phrase><phrase xml:id="en_952" xml:lang="en">Rules conditions</phrase></title>
 						<section xml:id="OtdsStrategyConditionMatchEqual">
 							<title><phrase xml:id="de_953" xml:lang="de">MatchEqual</phrase><phrase xml:id="en_953" xml:lang="en">MatchEqual</phrase></title>
@@ -4021,8 +4051,8 @@
 		</Condition>
 	</PriceItem>
 </Accommodations>
-]]></programlisting></para><para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its use in pricing:<programlisting>
-							<![CDATA[<Products>
+]]></programlisting></para><para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its use in pricing:
+<programlisting><![CDATA[<Products>
   <Product Key="Package1" ProductType="AccommodationOnly">
     <Tag Class="Product">AccomOnly</Tag>
     <Filter>
@@ -4040,8 +4070,7 @@
 			<Tag Class="Product">AccomOnly</Tag>
 		</Condition>
 	</PriceItem>
-</Accommodations>
-]]></programlisting>
+</Accommodations>]]></programlisting>
 					</para>
 					<para xml:id="de_1146" xml:lang="de">Das obige Beispiel zeigt eine Produktdefinition für den Produkttyp
 						"AccommodationOnly". Einige Veranstalter belegen ihre Hotels, die als NurHotelProdukt
@@ -4096,9 +4125,70 @@
 								werden können </para><para xml:id="en_1159" xml:lang="en">For the definition of additional services which are offered optionally in addition to the product</para>
 
 						</listitem>
-					</itemizedlist>
-					
+					</itemizedlist>					
 				</section>
+			  <section xml:id="OtdsStrategyProductGenericTag">
+			    <title>
+			      <phrase xml:lang="de">Kennzeichnung von Produkt-Features durch <code>GenericTag</code> in Produkten (Version 1.9)</phrase>
+			      <phrase xml:lang="en">Identification of Product Features using <code>GenericTag</code> in Products (Version 1.9)</phrase>
+			    </title>
+			    <para xml:lang="de">Durch das Element <code>GenericTag</code> ist es möglich von den
+            OTDS-Daten unterstützte Produkt-Features in den einzelnen Produkten zu kennzeichnen.
+            Dadurch weiß das verarbeitende System, dass die gelieferten OTDS-Daten das Feature
+            unterstützen. </para>  
+			    <para xml:lang="de">Das Element <code>ExternalParameter</code> innerhalb von
+              <code>GenericTag</code> erlaubt, dass von der OTDS-Verarbeitung ein Feauture in die
+            Datenverarbeitung integrieren werden kann. </para>
+			    <para xml:lang="de">OTDS 1.9 kennt aktuell folgende Produkt-Features:</para>
+			    <itemizedlist>
+			      <listitem>
+			        <para xml:lang="de">CityPairProduction</para>
+			      </listitem>			  
+			      <listitem>
+			        <para xml:lang="de">AlternativeFlightsProduction</para>
+			      </listitem>		
+			    </itemizedlist>
+
+			    <para xml:lang="de">Eine Production mit einem Produkt-Feature macht nur dann Sinn, wenn das Feature auch unter <code>Product/@Features</code> 
+			      gesetzt ist. Denn nur dann ist vom Datenlieferanten sichergestellt, dass entsprechende Bedingungen gesetzt sind, die dazu führen, 
+			      dass eine Verarbeitung ausschließlich mit dem gewünschten Feaure resultiert.</para>
+			    <para xml:lang="de">Nachfolgend ein Beispiel für die Angabe der unterstützten Features:</para>
+			    <programlisting><![CDATA[<Otds...>
+  ...
+  <Products>
+    <Product Key="Package1" ProductType="FlightAccommodation" ProductFeatures="CityPairProduction ...">
+      ...
+    </Product>
+  </Products>  
+  ...
+</Otds>]]></programlisting>			    
+			    <para xml:lang="de">Falls eine OTDS-Verabreitung z.B. mit dem externen Parameter <code>CityPairProduction="true"</code> verarbeitet wird, 
+			      so bekommen alle Elemente <code>GenericTag</code> mit dem Element <code>ExternalParameter/@Feature="CityPairProduction</code> den 
+			      Wert <code>true</code> und fließen somit in die Verarbeitung ein.</para>
+			    <para xml:lang="de">Hier ein Beispiel für die Angabe der verwendeten externen
+			      Parameter:</para>			    
+			    <programlisting><![CDATA[<Otds...>
+  ...
+  <Products>
+    <GenericTag Class="CityPairProduction">
+      <GenericTagFunction>
+        <ExternalParameter ProductFeature="CityPairProduction"/>
+      </GenericTagFunction>
+    </GenericTag>
+    ...
+  </Products>  
+  ...
+  </Otds>]]></programlisting>			    
+			    <para xml:lang="de">Der Wert kann dann in den Filtern und Conditions über die <code>GenericTag</code>-Condition abgeprüft werden und 
+			      damit die Verarbeitung entsprechend beeinflussen.
+			    </para>
+			    <para xml:lang="de">Eine <code>GenericTag</code>-Condition, die auf ein <code>GenericTag</code> mit dem Wert <code>Undefined</code> 
+			      trifft, erhält selbst den Wert "<code>Undefined</code>.
+			    </para>  
+			    <para xml:lang="de">Bitte beachten Sie dabei die Reglen hinsichtlich der Auswertung von Bedingungen im Zusammenhang mit dem Wert 
+			      <code>Undefined</code>.
+			    </para>
+			  </section>
 				<section xml:id="OtdsStrategyRulesProductDefinedComponents">
 					<title><phrase xml:id="de_1160" xml:lang="de">Regeln zur Definition kombinierter Komponenten (DefinedComponents)</phrase><phrase xml:id="en_1160" xml:lang="en">Rules for the definition of combined components (DefinedComponents)</phrase></title>
 					<para xml:id="de_1161" xml:lang="de">Die gleichen Regelmechanismen finden auch Verwendung für die Erweiterung von
@@ -5353,6 +5443,81 @@
 </PriceItems>]]></programlisting>
 					<para xml:id="det_1362" xml:lang="de"/>
 				</section>
+			  <section xml:id="OtdsStrategyPriceItemGenericAbsolute">
+			    <title>
+			      <phrase xml:lang="de">Absolutbeträge(<code>GenericAbsolute</code> (Version 1.9)</phrase>	
+			      <phrase xml:lang="en">Fixed Amounts(<code>GenericAbsolute</code> (Version 1.9)</phrase>	
+			    </title>
+			    <para xml:lang="de">Der PriceItem-Typ <code>GenericAbsolute</code> wurde im Rahmen der Umsetzung der Rundung eingeführt. 
+			      Es handelt sich hierbei um Absolutbeträge deren finaler Wert erst zur Laufzeit aufgrund einer flexibel 
+			      zu definierenden Funktion berechnet wird.
+			    </para>
+			    <para xml:lang="de">Aktuell ist nur eine Funktion für das Runden integriert welche über <code>Round</code> angesprochen wird. 
+			      Die Struktur ist aber erweiterbar für beliebige weitere Funktionen, die in späteren Versionen notwendig werden.
+			    </para>
+			    <para xml:lang="de">Dabei stellt die Rundung nur eine Form einer mathematischen Funktion da,
+            die letztendlich zur Integration eines Absolutbetrages führt, der in der Summe aus dem
+            ungerundeten Wert den gerundeten Wert ergibt. Am Beispiel der Aufrundung der Zahl 106,4
+            auf eine ganze Zahl entspricht der <code>GenericAbsolute</code>>-Value dem Wert 0,6,
+            d.h. 106,4 + 0,6 = 107. </para>
+			    <para xml:lang="de">Die Integration der generischen Absolutbeträge in die Kostenmatrix erfolgt zusammen mit der Integration der 
+			      normalen Absolutbeträge, wobei nur eine Variable stellvertretend für den generischen Absolutbetrag in die 
+			      KostenMatrix integriert wird. Die letztendliche Berechnung der generischen Absolutbeträge, erfolgt 
+			      zeitlich nach der Auswertung der Kombinatorik. Dabei wird mit Hilfe der Priorität eine Abarbeitungsreihenfolge der Berechnung 
+			      der generischen Werte in diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig zu definieren.			      
+			    </para>
+			    <para xml:lang="de">Grundlage des generischen Absolutbetrages ist die Definition einer Round-Funktion, die dann auf das 
+			      Gesamtergebnis oder Zwischenergebnisse der Preisberechnung angewendet wird. Eine Rundung wird jeweils für eine Definition 
+			      gruppierter PriceItems festgelegt und führt je betrachteter Gruppierung zu einem Rundungsergebnis, welches auf die Kostenmatrix 
+			      verteilt wird. 
+			    </para>
+			    <para xml:lang="de">Die Definition der Gruppierung der PriceItems befindet sich in dem Element <code>GroupPriceItemsBy</code>. 
+			      Hier können Preise nach Personen, Tagen, einzelnen <code>Absolute</code>-PriceItems oder auch bestimmten PriceTagValues gruppiert 
+			      werden. Die Verteilung auf die Kostenmatrix ist genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente 
+			      <code>DayBase</code> und <code>PersonBase</code> bestimmt.
+			    </para>
+			    <para xml:lang="de">Innerhalb von <code>Round</code> kann über das Element <code>ConsideredPriceItems</code> definiert werden, 
+			      welche PriceItems für die Berechnung der Rundungsfunktion herangezogen werden. Dabei kann auch mit Hilfe des Elementes 
+			      <code>IncludeAppliedPriceItems</code> definiert werden, dass auch die nächste Apply-Hierarchiestufe von adressierten PriceItems 
+			      mit einbezogen wird.</para>
+			    <para xml:lang="de">Damit Eigenschaften bzw. die damit verbundenen implizierten Möglichkeiten der Verwendung der Quell-PriceItems 
+			      an die Element von <code>GenericAbsolute</code> weitergegeben werden, können <code>GenericAbsolutes</code> auch <code>PriceTags</code> 
+			      von den verwendeten Quell-PriceItems erben. Hierzu erhält das Element <code>Round</code> das Attribute <code>InheritPriceTags</code>.
+			    </para> 
+			    <para xml:lang="de">Nachfolgend ein Beispiel eines PriceItems für einen generischen
+            Absolutbetrag, in dem exemplarisch alle Bereiche aufgeführt sind: </para>  
+			    <programlisting><![CDATA[<PriceItem Class="SpecialRounding">
+  <GenericAbsolute ExecutionPriority="2">
+    <GenericValue>
+      <Round InheritAppliedPriceTags="true" RemainingDigits="0" Method="Up" Treshold="0.5">
+        <GroupAbsolutePriceItemsBy>
+          <Person/>
+          <Day/>
+          <EachAbsolute/>
+          <PriceTagValue Source="Hierarchy.all:Product" Class="RoundGrouping"/>
+        </GroupAbsolutePriceItemsBy>
+        <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
+          <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
+          <IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
+        </ConsideredPriceItems>
+      </Round>
+    </GenericValue>
+  </GenericAbsolute>
+  <Condition>
+    <And>
+      <PersonImpact>
+        <GroupedPerson/>
+      </PersonImpact>
+      <DayImpact>
+        <GroupedDay/>
+      </DayImpact>
+      <Impact>
+        <GroupedAbsolute/>
+      </Impact>
+    </And>
+  </Condition>
+</PriceItem>]]></programlisting>
+			  </section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">
 					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>,
 						<code>AppliedBy</code>)</phrase><phrase xml:id="en_1363" xml:lang="en">Effect (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>, <code>AppliedBy</code> )</phrase></title>
