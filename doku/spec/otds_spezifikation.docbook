@@ -1228,7 +1228,7 @@
 					<para xml:id="de_807" xml:lang="de">Die einzelnen Bedingungsarten beziehen sich auf verschiedene Parameter,
 						beispielsweise auf Reisedatum und -dauer, den Buchungszeitpunkt, die Personen der
 						Reise, auf Keys und TAGs, Flughäfen usw. Die Impact-Bedingungen spielen eine besondere
-						Rolle. Die Impactbedingungen werden nur in der Preisberechnung verwendet und drücken
+						Rolle. Die Impact-Bedingungen werden nur in der Preisberechnung verwendet und drücken
 						eine Bedingung für einzelne Tage (DayImpact) bzw. einzelne Personen (PersonImpact)
 						aus, also ob eine Preis für einen bestimmten Tag oder eine bestimmte Person gültig
 						ist. Im Vergleich zu den "normalen" Bedingungen, die lediglich ausdrücken ob ein Preis
@@ -2241,7 +2241,7 @@
 							Beispiel eine entsprechene "Impact"-Bedingung, dass der Zuschlag nur für genau
 							diesen Termin gilt. Innerhalb der Impact-Bedingungen unterscheiden wir nochmal, ob
 							die Bedingungen sich auf die Tage (DayImpact), auf die Personen (PersonImpact)
-							oder auf eine Kobination von Tagen/Personen auswirken. Um die ImpactConditions von
+							oder auf eine Kombination von Tagen/Personen auswirken. Um die ImpactConditions von
 							den normalen Conditions klar zu unterscheiden, sind die entsprechenden Bedingungen
 							jeweils durch die Elemente "PersonImpact", "DayImpact" und "Impact" geklammert. </para><para xml:id="en_862" xml:lang="en">Conditions play a very important role within price calculation. In price calculation, we differentiate between two different types of conditions. There are "normal" conditions which express whether or not a complete PriceItem is used. There are also conditions which additionally specify for which persons or for which days a price is valid. As these conditions influence the impact of the prices, they are called "Impact" conditions. If the "normal" condition describes that a surcharge applies if a certain date is included in a trip, then a corresponding "Impact" condition will describe that the surcharge is only valid for this particular date. Within the Impact conditions, we can also specify whether the conditions have an impact on the days (DayImpact) or on the persons (PersonImpact) or on a combination of days/persons. In order to be able to clearly differentiate between the ImpactConditions and the normal conditions, the elements "PersonImpact", "DayImpact" and "Impact" are attached to the corresponding conditions.</para>
 						<para xml:id="de_863" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="./technisch/otds_technisch.html#Impact">Technischen Dokumentation
@@ -2897,7 +2897,7 @@
 							<para xml:id="de_995" xml:lang="de"><emphasis role="bold">Indices="1 3 -2 -1</emphasis> definiert den 1. Tag,
 								den 3. Tag, den vorletzten Tag und den letzten Tag als gültige Tage.</para><para xml:id="en_995" xml:lang="en">
 								<emphasis role="bold">Indices="1 3 -2 -1"</emphasis> defines the 1st day, the 3rd day, the 2nd to last day and the last day as valid days.</para>
-							<para>Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur der letzte
+						  <para xml:lang="de">Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur der letzte
 								Stay-Tag adressiert.  </para>
 							<programlisting><![CDATA[<Condition>
   <DayImpact>
@@ -3117,7 +3117,7 @@
 								Person, die drittälteste Person, die zweitjüngste Person und die jüngste
 								Person als gültige Personen.</para><para xml:id="en_1041" xml:lang="en">
 								<emphasis role="bold">Indices="1 3 -2 -1"</emphasis> defines the oldest person, the third-oldest person, the second-youngest person and the youngest person as valid persons.</para>
-							<para>Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur die älteste Person
+						  <para xml:lang="de">Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur die älteste Person
 								adressiert. </para>
 							<programlisting><![CDATA[<Condition>
   <PersonImpact>
@@ -3491,8 +3491,7 @@
     </PriceItems>
 </Addon>]]>					</programlisting>
 						</para><para xml:id="en_1090" xml:lang="en">
-							<programlisting>
-								<![CDATA[<Addon Key="VERS1">
+							<programlisting><![CDATA[<Addon Key="VERS1">
     …
     <PriceItems Key="Prices">
         <PriceItem Class="VERS">
@@ -3615,8 +3614,7 @@
 </Addon>]]>							</programlisting>
 
 							</para><para xml:id="en_1092" xml:lang="en">
-							<programlisting>
-								<![CDATA[<Addon Key="VERS2">
+							<programlisting><![CDATA[<Addon Key="VERS2">
     …
     <PriceItems Key="Prices">
         <PriceItem Class="VERS">
@@ -4432,7 +4430,7 @@
       </GroupBy>
       <Sequence>
         <Sort Order="Ascending">
-          <Price Source="Hirarchy.all:ReturnFlight"/>
+          <Price Source="Hierarchy.all:ReturnFlight"/>
         </Sort>
       </Sequence>
     </GroupDefinition>
@@ -4506,13 +4504,13 @@
         </Sort>
         <Sort Order="Ascending">
           <Sum>
-            <Price Source="Hirarchy.all:ReturnFlight"/>
+            <Price Source="Hierarchy.all:ReturnFlight"/>
             <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
           </Sum>
         </Sort>
         <Sort Order="Ascending">
           <Average>
-            <Price Source="Hirarchy.all:ReturnFlight"/>
+            <Price Source="Hierarchy.all:ReturnFlight"/>
             <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
           </Average>
         </Sort>
@@ -4641,13 +4639,19 @@
 						
 						
 						
-						<para xml:id="de_1224" xml:lang="de">Bei den Parametern "global:" und "local:" handelt es sich um WErte der Eigenschaft "Scope", die eine Menge von Knotenreferenzen hat.
-						Die Angabe einer spezifischen Eigenschaft filtert bestimmte Knotenreferenzen aus der Gesamtmenge der in Frage kommenden Knotenreferenzen herraus.
-						Implizit wird in V1.0 immer nur der Knoten (Self) und nicht auch noch sein Umfeld (Ancestors und Descendants) betrachtet. Wir bezeichen diese Eigenschaft im folgenden als "Hirarchy". Man könnte also sagen, dass in V1.0 immer die Eigenschaft Hirarchy="Self" implizit vorrausgesetzt war.</para><para xml:id="en_1224" xml:lang="en">The parameters "global:" and "local:" refer to values with the property "Scope", which has a number of node references. The specification of a specific property filters particular node references from the total amount of eligible node references In V1.0 it is implicitly only the node (Self) and not its environment (Ancestors and Descendants) which is regarded. In the following, this property will be referred to as "Hierarchy". Thus it could be said that in V1.0, the property Hierarchy = "Self" is always implicitly assumed.</para>
+						<para xml:id="de_1224" xml:lang="de">Bei den Parametern "global:" und "local:" handelt es sich
+              um WErte der Eigenschaft "Scope", die eine Menge von Knotenreferenzen hat. Die Angabe
+              einer spezifischen Eigenschaft filtert bestimmte Knotenreferenzen aus der Gesamtmenge
+              der in Frage kommenden Knotenreferenzen herraus. Implizit wird in V1.0 immer nur der
+              Knoten (Self) und nicht auch noch sein Umfeld (Ancestors und Descendants) betrachtet.
+              Wir bezeichen diese Eigenschaft im folgenden als "Hierarchy". Man könnte also sagen,
+              dass in V1.0 immer die Eigenschaft Hierarchy="Self" implizit vorrausgesetzt
+              war.</para><para xml:id="en_1224" xml:lang="en">The parameters "global:" and "local:" refer to values with the property "Scope", which has a number of node references. The specification of a specific property filters particular node references from the total amount of eligible node references In V1.0 it is implicitly only the node (Self) and not its environment (Ancestors and Descendants) which is regarded. In the following, this property will be referred to as "Hierarchy". Thus it could be said that in V1.0, the property Hierarchy = "Self" is always implicitly assumed.</para>
 						
 						<para xml:id="de_1225" xml:lang="de">Genau hier setzt die Erweiterung an.</para><para xml:id="en_1225" xml:lang="en">This is where the expansion comes in.</para>
 						
-						<para xml:id="de_1226" xml:lang="de">In OTDS 2.0 kann man nun die "Hirarchy" als Eigenschaft explizit setzen.</para><para xml:id="en_1226" xml:lang="en">In OTDS 2.0, you can now explicitly set "Hierarchy" as a property.</para>
+						<para xml:id="de_1226" xml:lang="de">In OTDS 2.0 kann man nun die "Hierarchy" als Eigenschaft
+              explizit setzen.</para><para xml:id="en_1226" xml:lang="en">In OTDS 2.0, you can now explicitly set "Hierarchy" as a property.</para>
 						<para xml:id="de_1227" xml:lang="de">	Darüber hinaus wird die Eigenschaft "DayAllocation", welche bisher ein eigenes Attribut war, zusätzlich mit in die Source hineingezogen, um eine flexible Kombination zu ermöglichen. Und schließlich wird auch noch der Knotentype als neue Eigenschaft "ComponentType"=real|virtual|both eingeführt, mit deren Hilfe man auch virtuelle Komponenten/SubKomponenten einbeziehen kann. Wir haben also nun 4 Eigenschaften von Knotenreferenzen mit mehreren KeyWord-Optionen:</para><para xml:id="en_1227" xml:lang="en">Moreover, the property "DayAllocation" (which was previously an independent attribute) is additionally taken up into Source in order to allow flexible combination. And finally, node type is introduced as the new property "ComponentType" = real|virtual|both, with the aid of which virtual components/subcomponents can also be included. We now have 4 properties of node references with multiple KeyWord options:</para>
 						
 						
@@ -4658,7 +4662,8 @@
 								
 							</listitem>
 							<listitem>
-								<para xml:id="de_1230" xml:lang="de">Hirarchy=self|descendants|ancestors (Default=self)</para><para xml:id="en_1230" xml:lang="en">Hierarchy=self|descendants|ancestors (default=self)</para>
+								<para xml:id="de_1230" xml:lang="de">Hierarchy=self|descendants|ancestors
+                  (Default=self)</para><para xml:id="en_1230" xml:lang="en">Hierarchy=self|descendants|ancestors (default=self)</para>
 								<itemizedlist>
 									<listitem>
 										<para xml:id="de_1231" xml:lang="de">"self"</para><para xml:id="en_1231" xml:lang="en">"Self"</para>
@@ -4722,7 +4727,7 @@
 						<para xml:id="de_1252" xml:lang="de">Das folgende Beispiel referenziert alle Tags an allen reellen und virtuellen Knoteninstanzen der Knoten "SellingAccom" und sämtlicher untergeordneter, übergeordneter rellen und virtuellen Knoten. Da "global" gesetzt ist, können sich die Knoten bezogen auf die Platzierung der Source-Definition irgendwo im Produktbaum befinden. Zusätzlich ist "first" gesetzt.</para><para xml:id="en_1252" xml:lang="en">The following example refers to all tags on all real and virtual node instances of the "SellingAccom" node and all subordinate and superordinate real and virtual nodes. As the setting "global" is set, the nodes can be located anywhere in the product tree relative to the placement of the Source definition. "First" is also set.</para>
 						
 							
-						<programlisting><![CDATA[<Tags Class="Saison" Source="global+Hirarchy.all+ComponentType.all:SellingAccom">A</Tags>]]>				</programlisting>
+						<programlisting><![CDATA[<Tags Class="Saison" Source="global+Hierarchy.all+ComponentType.all:SellingAccom">A</Tags>]]>				</programlisting>
 						
 						
 						
@@ -4757,10 +4762,10 @@
       </GroupBy>
       <Sequence>
         <Sort Order="Ascending">
-          <Price Source="Hirarchy.all:Outbound"/>
+          <Price Source="Hierarchy.all:Outbound"/>
         </Sort>
         <Sort Order="Ascending">
-          <Price Source="Hirarchy.all:Inbound"/>
+          <Price Source="Hierarchy.all:Inbound"/>
         </Sort>
       </Sequence>
     </GroupDefinition>
@@ -4879,8 +4884,11 @@
   	</Condition>
 	...
 </PriceItem>]]></programlisting>Weitere Beispiele aus der Praxis wie Saisonbezüge mit ConditionalTags
-					umgesetzt werden, finden sie im Praxis-Kapitel <link linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para><para xml:id="en_1268" xml:lang="en">Here, each "Stay" day (accommodation day) is marked with the season tag = "E", if the day falls in the period 01.07. to 31.08. The following example shows how this season Tag can be defined as a condition in a PriceItem, so that only those days marked with the season Tag= "E" are assigned the price (day price with reference to season). <programlisting>
-						<![CDATA[<PriceItem>
+					umgesetzt werden, finden sie im Praxis-Kapitel <link linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para><para xml:id="en_1268" xml:lang="en">Here, each "Stay" day (accommodation day) is marked with the
+          season tag = "E", if the day falls in the period 01.07. to 31.08. The following example
+          shows how this season Tag can be defined as a condition in a PriceItem, so that only those
+          days marked with the season Tag= "E" are assigned the price (day price with reference to
+          season). <programlisting><![CDATA[<PriceItem>
 	...
 	<Condition>
 	...
@@ -4890,7 +4898,9 @@
 	...
   	</Condition>
 	...
-</PriceItem>]]></programlisting>Further examples regarding how to use ConditionalTags with reference to seasons can be found in the practical chapter <link linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para>
+</PriceItem>]]></programlisting>Further examples regarding how to use ConditionalTags with reference
+          to seasons can be found in the practical chapter <link
+            linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para>
 				<para xml:id="de_1269" xml:lang="de">Eine andere typische Verwendung von ConditionalTags ist die Markierung von Personen. In
 					dem folgenden Beispiel werden beispielsweise die ältesten beiden Mitreisenden als
 					Vollzahler markiert.</para><para xml:id="en_1269" xml:lang="en">Another typical use of ConditionalTags is to mark certain persons. In the following example, the two oldest participants are marked as full-paying guests.</para>
@@ -5445,31 +5455,17 @@
 				</section>
 			  <section xml:id="OtdsStrategyPriceItemGenericAbsolute">
 			    <title>
-			      <phrase xml:lang="de">Absolutbeträge(<code>GenericAbsolute</code> (Version 1.9)</phrase>	
-			      <phrase xml:lang="en">Fixed Amounts(<code>GenericAbsolute</code> (Version 1.9)</phrase>	
-			    </title>
+            <phrase xml:lang="de">Rundung mit Absolutbeträgen (<code>GenericAbsolute</code>)
+              (Version 1.9)</phrase>
+            <phrase xml:lang="en">Rouding using fixed amounts (<code>GenericAbsolute</code>)
+              (Version 1.9)</phrase>
+          </title>
 			    <para xml:lang="de">Der PriceItem-Typ <code>GenericAbsolute</code> wurde im Rahmen der Umsetzung der Rundung eingeführt. 
 			      Es handelt sich hierbei um Absolutbeträge deren finaler Wert erst zur Laufzeit aufgrund einer flexibel 
 			      zu definierenden Funktion berechnet wird.
 			    </para>
 			    <para xml:lang="de">Aktuell ist nur eine Funktion für das Runden integriert welche über <code>Round</code> angesprochen wird. 
 			      Die Struktur ist aber erweiterbar für beliebige weitere Funktionen, die in späteren Versionen notwendig werden.
-			    </para>
-			    <para xml:lang="de">Dabei stellt die Rundung nur eine Form einer mathematischen Funktion da,
-            die letztendlich zur Integration eines Absolutbetrages führt, der in der Summe aus dem
-            ungerundeten Wert den gerundeten Wert ergibt. Am Beispiel der Aufrundung der Zahl 106,4
-            auf eine ganze Zahl entspricht der <code>GenericAbsolute</code>>-Value dem Wert 0,6,
-            d.h. 106,4 + 0,6 = 107. </para>
-			    <para xml:lang="de">Die Integration der generischen Absolutbeträge in die Kostenmatrix erfolgt zusammen mit der Integration der 
-			      normalen Absolutbeträge, wobei nur eine Variable stellvertretend für den generischen Absolutbetrag in die 
-			      KostenMatrix integriert wird. Die letztendliche Berechnung der generischen Absolutbeträge, erfolgt 
-			      zeitlich nach der Auswertung der Kombinatorik. Dabei wird mit Hilfe der Priorität eine Abarbeitungsreihenfolge der Berechnung 
-			      der generischen Werte in diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig zu definieren.			      
-			    </para>
-			    <para xml:lang="de">Grundlage des generischen Absolutbetrages ist die Definition einer Round-Funktion, die dann auf das 
-			      Gesamtergebnis oder Zwischenergebnisse der Preisberechnung angewendet wird. Eine Rundung wird jeweils für eine Definition 
-			      gruppierter PriceItems festgelegt und führt je betrachteter Gruppierung zu einem Rundungsergebnis, welches auf die Kostenmatrix 
-			      verteilt wird. 
 			    </para>
 			    <para xml:lang="de">Die Definition der Gruppierung der PriceItems befindet sich in dem Element <code>GroupPriceItemsBy</code>. 
 			      Hier können Preise nach Personen, Tagen, einzelnen <code>Absolute</code>-PriceItems oder auch bestimmten PriceTagValues gruppiert 
@@ -5493,7 +5489,7 @@
         <GroupAbsolutePriceItemsBy>
           <Person/>
           <Day/>
-          <EachAbsolute/>
+          <AbsolutePriceItem/>
           <PriceTagValue Source="Hierarchy.all:Product" Class="RoundGrouping"/>
         </GroupAbsolutePriceItemsBy>
         <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
@@ -5517,6 +5513,319 @@
     </And>
   </Condition>
 </PriceItem>]]></programlisting>
+			    <section xml:id="OtdsStrategyPriceItemRounding">
+			      <title xml:lang="de">Umsetzung der Rundung (Version 1.9)</title>
+			      <bridgehead xml:lang="de">Allgemein</bridgehead>
+			      <para xml:lang="de">Die Rundung wird in OTDS ein eigenes PriceItem <code>GenericAbsolute</code> abgebildet. 
+			        Dabei stellt die Rundung nur eine Form einer mathematischen Funktion da, die letztendlich 
+			        zur Integration eines Absolutbetrages führt, der in der Summe aus dem ungerundeten Wert 
+			        den gerundeten Wert ergibt. Am Beispiel der Aufrundung der Zahl 106,4 auf eine ganze Zahl 
+			        entspricht der GenericAbsolute>-Value dem Wert 0,6, d.h. 106,4 + 0,6 = 107.
+			      </para>
+			      <para xml:lang="de">Die Integration der generischen Absolutbeträge in die Kostenmatrix erfolgt zusammen mit der
+			        Integration der normalen Absolutbeträge, wobei nur eine Variable stellvertretend für den 
+			        generischen Absolutbetrag in die KostenMatrix integriert wird. Die letztendliche Berechnung 
+			        der generischen Absolutbeträge, erfolgt zeitlich nach der Auswertung der Kombinatorik. 
+			        Dabei wird mit Hilfe der Priorität eine Abarbeitungsreihenfolge der Berechnung der generischen 
+			        Werte in diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig zu definieren. 
+			      </para>
+			      <para xml:lang="de">Grundlage des generischen Absolutbetrages ist die Definition einer Round-Funktion, die dann 
+			        auf das Gesamtergebnis oder Zwischenergebnisse der Preisberechnung angewendet wird. Eine Rundung 
+			        wird jeweils für eine Definition gruppierter PriceItems festgelegt und führt je betrachteter 
+			        Gruppierung zu einem Rundungsergebnis, welches auf die Kostenmatrix verteilt wird.</para>
+			      <para xml:lang="de">Nachfolgend ein Beispiel wie die Rundung des Endpreises auf Personenpreise umgesetzt
+              werden kann:</para>
+			      <programlisting><![CDATA[<PriceItem Class="RoundingPersonPrices">
+  <GenericAbsolute>
+    <GenericValue>
+      <Round RemainingDigits="0" Method="Up" Treshold="0.5">
+        <GroupAbsolutePriceItemsBy>
+          <Person/>
+        </GroupAbsolutePriceItemsBy>
+        <ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
+      </Round>
+    </GenericValue>
+  </GenericAbsolute>
+  <Condition>
+    <PersonImpact>
+      <GroupedPerson/>
+    </PersonImpact>
+  </Condition>
+</PriceItem>]]></programlisting>
+			      <bridgehead xml:lang="de">Definition der betrachteten PriceItem-Gruppierungen
+                (<code>Person</code>, <code>Day</code>, <code>AbsolutePriceItem</code> und
+                <code>PriceTagValue</code>)</bridgehead>
+			      <para xml:lang="de">Mit Hilfe der Elemente <code>Person</code>, <code>Day</code>,
+                <code>AbsolutePriceItem</code> und <code>PriceTagValue</code> können die PriceItems
+              für die Anwendung der Rundung gruppiert werden. Die Rundung wird dann jeweils einzeln
+              auf jede Gruppe angewendet, z.B. definiert</para>
+			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
+  <Person/>
+</GroupAbsolutePriceItemsBy>]]></programlisting>
+			      <para xml:lang="de">, dass bei der Auswertung der Funktion jeweils jede Person einzeln betrachtet wird. Es werden 
+			        also die Kostenknoten einer Person betrachtet und auf die darin enthaltenen PriceItems wird jeweils 
+			        die Rundung angewendet. Das gleiche geschieht analog mit allen anderne Personen.</para>
+			      <para xml:lang="de">Im Falle</para>
+			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
+  <Person/>
+  <Day/>
+</GroupAbsolutePriceItemsBy>]]></programlisting>
+			      <para xml:lang="de">wird nicht nur jede Person sondern auch jeder Tag und jeder Person einzeln betrachtet und die 
+			        Rundung auf das Zwischenergebnis jeder einzelnen Gruppierung angewendet.</para>
+			      <para xml:lang="de">Im Falle</para>
+			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
+  <Person/>
+  <Day/>
+  <AbsolutePriceItem/>
+</GroupAbsolutePriceItemsBy>]]></programlisting>
+			      <para xml:lang="de">bildet zusätzlich jedes einzelne <code>Absolute</code>-PriceItem eine eigene Gruppierung. 
+			        Zu jeder Gruppe eines <code>Absolute</code>-PriceItems gehören dann auch jeweils die dem 
+			        <code>Absolute</code>-PriceItem durch <code>ApplyTo</code> und <code>AppliedBy</code> zugeordneten 
+			        <code>Percent</code>-PriceItems.</para>
+			      <para xml:lang="de">Im Falle</para>
+			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
+  <Person/>
+  <Day/>
+  <PriceTagValue Source="global+Hierarchy.all:Product" Class="RoundGrouping"/>
+</GroupAbsolutePriceItemsBy>]]></programlisting>
+			      <para xml:lang="de">bildet zusätzlich Gruppierungen von <code>Absolute</code>-PriceItems mit übereinstimmenden 
+			        PriceTag-Values der hier definierten PriceTags. Zu jeder Gruppe gehören dann auch jeweils die dem 
+			        <code>Absolute</code>-PriceItem durch <code>ApplyTo</code> und <code>AppliedBy</code> zugeordneten 
+			        <code>Percent</code>-PriceItems.</para>
+			      <para xml:lang="de">Im Falle</para>
+			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy/>]]></programlisting>			        
+			      <para xml:lang="de">handelt es sich nur um eine Rundung des Endergebnisses.</para>
+			      <bridgehead xml:lang="de">Aufteilung der Values über GroupedImpacts</bridgehead>
+			      <para>Damit die GenericValues korrekt auf die einzelnen Kostenknoten aufgeteilt werden, müssen entsprechende 
+			        Impact-Bedingungen ergänzt werden.</para>
+			      <para>Zu jedem Element unter <code>GroupAbsolutePriceItemsBy</code> gibt es ein passendes Gegenstück als Impact-Condition, 
+			        welches gesetzt werden muss, damit die Aufteilung im Falle der Rundung korrekt stattfindet.</para>
+			      <orderedlist>
+			        <listitem>
+			          <para><code>&lt;Person/></code> korreliert mit <code>&lt;GroupedPerson/></code></para>
+			        </listitem>
+			        <listitem>
+			          <para><code>&lt;Day/></code> korreliert mit <code>&lt;GroupedDay/></code></para>
+			        </listitem>
+			        <listitem>
+			          <para><code>&lt;AbsolutePriceItem/></code> korreliert mit
+                    <code>&lt;GroupedAbsolute/></code></para>
+			        </listitem>
+			        <listitem>
+			          <para><code>&lt;PriceTagValue ...></code> korreliert auch mit <code>&lt;GroupedAbsolute/></code></para>
+			        </listitem>
+			      </orderedlist>
+			      <para>Bei einem nach Personen gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedPerson/></code> dafür, dass der 
+			        errechnete Value für die erste betrachtete Person auch nur auf Kostenknoten dieser betrachteten Person 
+			        verteilt werden. Das gilt analog auch für die Berechnung der anderen Personen.</para>
+			      <para>Bei einem nach Tagen gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedDay/></code> dafür, dass der errechnete 
+			        Value für den ersten betrachteten Tag auch nur auf Kostenknoten dieses betrachteten Tages verteilt werden. 
+			        Das gilt analog auch für die Berechnung der anderen Tage.</para>
+			      <para>Bei einem nach einzelnen <code>Absolute</code>-PriceItems gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedAbsolute/></code> 
+			        dafür, dass der errechnete Value für das erste <code>Absolute</code>-PriceItem auch nur auf Kostenknoten verteilt wird, die 
+			        dieses <code>Absolute</code>-PriceItem besetzt hat. Das gilt analog auch für die Berechnung der anderen <code>Absolute</code>>-PriceItems.</para>
+			      <para>Bei einem nach identischen PriceTagValues gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedAbsolute/></code> 
+			        dafür, dass der errechnete Value für die erste Gruppe von <code>Absolute</code>-PriceItems auch nur auf Kostenknoten 
+			        verteilt wird, die diese <code>Absolute</code>-PriceItem-Gruppe besetzt hat. Hier reicht, dass ein PriceItem der 
+			            Gruppe in dem Kostenknoten present ist. </para>
+			      <para>Das gilt analog auch für die Berechnung der anderen <code>Absolute</code>-PriceItem-Gruppen.</para>
+			      <para>Der GenericValue, der sich aus der Rundung einer Gruppe ergibt, wird durch die Anzahl der beteiligten Zellen 
+			        geteilt ist der letztendliche Wert,der auf alle beteiligten Zellen dieser Gruppenauswertung verteilt wird.</para>		
+			      <bridgehead xml:lang="de">Rundungsparamater (Element <code>Round</code>)</bridgehead>
+			      <para>Das Ergebnis der hier implementierten Round-Funktion ist für den <code>GenericAbsolute</code> per Definition die Differenz des 
+			        nicht grundeten Wertes zum gerundeten Wert. Ist das betrachtete Zwischenergebnis 105,4 und es wird auf die ganze Zahl 
+			        aufgerundet, dann entspricht das einem <code>GenericAbsolute</code>-Wert von +0,6. Dieser Wert wird wie ein normaler Absolutbetrag 
+			        in die Berechnung integriert.</para>
+			      <para>Die Round-Funktion bietet folgende 3 Attribute an, um die Art der Rundung flexibel zu definieren:</para>
+			      <orderedlist>
+			        <listitem>
+			          <para>Method</para>
+			            <itemizedlist>
+			              <listitem>
+			                <para>Up => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes aufgerundet wird. 
+			                  Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -23</para>
+			              </listitem>
+			              <listitem>
+			                <para>Down => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes abgerundet wird. 
+			                  Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -24</para>
+			              </listitem>
+			              <listitem>
+			                <para>AwayFromZero => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes bei 
+			                  positiven Zahlen aufgerundet und bei negativen Zahlen abgerundet wird. Bei positiven Zahlen (Treshold 0.5) 
+			                  also von 23.5 auf 24. Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -24.</para>
+			              </listitem>
+			              <listitem>
+			                <para>TowardsZero => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes bei positiven 
+			                  Zahlen abgerundet und bei negativen Zahlen augerundet wird. Bei positiven Zahlen (Treshold 0.5) also von 
+			                  23.5 auf 23. Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -23.</para>
+			              </listitem>
+			            </itemizedlist>  
+			        </listitem>
+			        <listitem>
+			          <para>RemainingDigits</para>
+			          <itemizedlist>
+			            <listitem>
+			              <para>Definiert die Anzahl der nach dem Runden verbleibenden Stellen rechts neben dem Dezimalpunkt.</para>
+			            </listitem>
+			          </itemizedlist> 
+			        </listitem>
+			        <listitem>
+			          <para>Treshold</para>
+			          <itemizedlist>
+			            <listitem>
+			              <para>Definiert den Grenzwert als 1 stellige Kommazahl nach dessen Erreichen gemäß der Angabe unter "Method" 
+			                auf die nächste Stelle auf- oder abgerundet wird.</para>
+			            </listitem>
+			          </itemizedlist> 
+			        </listitem>
+			      </orderedlist>
+			      <programlisting><![CDATA[<Round RemainingDigits="0" Method="Up" Treshold="0.5">
+   ...
+</Round>]]></programlisting>
+			      <bridgehead xml:lang="de">Vererbung der PriceTags</bridgehead>
+			      <para>Es besteht die Möglichkeit, dass für das <code>GenericAbsolute</code>-PriceItem die
+                <code>PriceTags</code> der gerundeten <code>Absolute</code>-PriceItems vererbt
+              werden können. Damit wird auch die PriceItem-Class vererbt, die 1-zu-1 in ein
+                <code>PriceTag</code> überführt wird. Siehe dazu Details unter <link
+                linkend="OtdsStrategyPriceItemTags">Kapitel: PriceItem Tags
+                (PriceTags)</link></para>
+			      <para>Die Vererbung wird jeweils durch die Angabe des Attributes <emphasis role="bold"
+                >InheritPriceTags="ConsideredAbsolutes"</emphasis> im <code>Round</code>-Knoten
+                definiert.</para>
+			      <programlisting><![CDATA[<GenericAbsolute>
+    <GenericValue>
+        <Round InheritPriceTags="ConsideredAbsolutes" ...>
+            ...
+        </Round>
+    </GenericValue>
+    ...
+</GenericAbsolute>]]></programlisting>
+			      <para>Dem Anwendungsfall liegt folgendes Szenario zu Grunde:</para>
+			      <para>Es liegt ein Reisezuschlag vor, der für die ganze Reise einmalig und für die komplette Reisegruppe 
+			        einmalig in die Berechnung eingeht. Das berechnende System gibt vor, dass dieser Zuschlag auf alle Tage 
+			        und Personen aufgeteilt wird und direkt nach der Aufteilung auf ganze Euro gerundet wird.</para>
+			      <para>Durch ein entsprechendes <code>GenericAbsolute</code>-PriceItem wird für jedes enthaltene 
+			        <code>Absolute</code>-PriceItem die Rundung angewendet. Daraus resultiert je PriceItem-Value ein 
+			        entsprechender <code>GenericAbsolute</code>-Value.</para>
+			      <para>Hierbei fließt der <code>GenericAbsolute</code> in alle Berechnungen bzgl. Zuschlägen, 7=6 etc mit ein. 
+			        Dies erfordert, dass der <code>GenericAbsolute</code> automatisch die Eigenschaften des in der Rundung betrachteten 
+			        PriceItems vererbet bekommt.</para>
+			      <bridgehead xml:lang="de">Definition der berücksichtigten PriceItems (<code>ConsideredPriceItems</code>)</bridgehead>
+			      <para>In dem Element <code>ConsideredPriceItems</code> wird definiert, welche PriceItems
+              für die Berechnung des generischen Absolutbetrages herangezogen werden. Über das
+              Attribut Source legt man fest aus welchen OTDS-Instanzen PriceItems berücksichtigt
+              werden. Durch das Attribut <emphasis role="bold">PriceItemType</emphasis> legt man
+              zusätzlich fest, welche PriceItem-Typen berücksichtigt werden sollen.</para>
+			      <programlisting><![CDATA[<GenericAbsolute>
+    <GenericValue>
+        <Round ...>
+            ...
+            <ConsideredPriceItems Source="global+Hierarchy.all:Product" PriceItemType="Absolute">
+                ...
+            </ConsideredPriceItems>
+        </Round>
+    </GenericValue>
+    ...
+    </GenericAbsolute>]]></programlisting>
+			      <para>Das Attribut PriceItemType enthält dabei einen der möglichen Werte:</para>
+			      <orderedlist>
+			        <listitem>
+			          <para>Absolutes</para>
+			        </listitem>
+			        <listitem>
+			          <para>Percents</para>
+			        </listitem>
+			        <listitem>
+			          <para>All</para>
+			        </listitem>
+			      </orderedlist> 
+			      <para>Default ist "All" und wird auch benutzt, wenn das Attribut nicht gesetzt ist.</para>
+			      <bridgehead xml:lang="de">Definition zu berücksichtigender PriceTags oder auszuschließender PriceTags</bridgehead>
+			      <para>PriceTags sind neu in Version 1.9 eingeführte Markierungen (Tags) von einzelnen PriceItems direkt am 
+			        PriceItem-Knoten.</para>
+			      <para>Mit Hilfe des Elementes <code>ConsideredPriceTags</code> kann man einschränken, dass nur PriceItems mit bestimmten 
+			        PriceTags benutzt werden. Alternativ kann man auch PriceItems mit bestimmten PriceTags durch Verwendung des Elementes 
+			        <code>ExcludeConsideredPriceTags</code> explizit von der Verwendung ausschließen.</para>
+			      <programlisting><![CDATA[<GenericAbsolute>
+    <GenericValue>
+        <Round ...>
+            ...
+            <ConsideredPriceItems ...>
+                <ConsideredPriceTags Class="Currency">EUR CHF</PriceTags>
+                <ExcludeConsideredPriceTags Class="Rounding">NoRounding</ExcludeConsideredPriceTags>
+            </ConsideredPriceItems>
+        </Round>
+    </GenericValue>
+    ...
+    </GenericAbsolute>]]></programlisting>
+			      <bridgehead xml:lang="de">Die Eigenschaft "Hierarchy" des Source-Attributes</bridgehead>
+			      <para>In Version 1.9 wird das Attribute <emphasis role="bold">Source</emphasis> um mehrere
+              Eigenschaften erweitert, so dass mit Source weitreichender Komponenten-Instanzen
+              addressiert werden können.</para>
+			      <para>In diesem Zusammenhang wird bei der Rundung hauptsächlich die neue Eigenschaft
+                <emphasis role="bold">Hierarchy</emphasis> verwendet, um mehrere Instanzebenen mit
+                der Source zu addressieren.</para>
+			      <para>Die Eigenschaft Hierarchy kann folgende Werte annehmen (Default=self):</para>
+			      <orderedlist>
+			        <listitem>
+			          <para>"self"</para>
+			          <para>Mit "self" wird genau die Knotenreferenz referenziert</para>
+			        </listitem>
+			        <listitem>
+			          <para>"descendants"</para>
+			          <para>Mit "descendants" wird die Knotenreferenz und alle Instanz-Nachfahren referenziert</para>
+			        </listitem>
+			        <listitem>
+			          <para>"ancestors"</para>
+			          <para>Mit "ancestors" wird die Knotenreferenz und alle Instanz-Vorfahren referenziert</para>
+			        </listitem>
+			        <listitem>
+			          <para>"all"</para>
+			          <para>Mit "all" wird die Knotenreferenz, alle Instanz-Vorfahren und alle Nachfahren referenziert</para>
+			        </listitem>
+			      </orderedlist>
+			      <para>Im Falle</para>
+			      <programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.all:Product" PriceItemType="Absolute">]]></programlisting>
+			      <para>werden alle absoluten PriceItems des gesamten Produktes referenziert.</para>
+			      <para>Im Falle</para>
+			      <programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.descendants:Outbound" PriceItemType="Absolute">]]></programlisting>
+			      <para>werden alle absoluten PriceItems an der Knoten-Instanz "Outbound" und an den darunterliegendne 
+			      KnotenInstanzen OnewayFlight und BookingClass referenziert.</para>
+			      <bridgehead xml:lang="de">Sonderfall für die Adressierung von PriceItems über <code>IncludeAppliedDescendants</code></bridgehead>
+			      <para>Es wird zusätzlich ermöglicht, auch die nächste Apply-Hirarchystufe von adressierten PriceItems 
+			        zu addressieren. Dazu muss innerhalb des Elementes <code>ConsideredPriceItem</code> das Element <code>IncludeAppliedDescendants</code> 
+			        definiert werden. Das bedeutet also, dass zusätzlich zu den durch <code>ConsideredPriceItems</code> definierten PriceItems auch deren 
+			        "AppliedDescendants" miteinbezogen wird.</para>
+			      <para>Die "AppliedDescendants" sind alle PriceItems, die durch <code>ApplyTo</code>'s oder <code>AppliedBy</code>'s mit 
+			        den <code>ConsideredPriceItem</code>'s in Interaktion treten. Die "AppliedDescendants" sind nicht auf den PriceItemType 
+			        der ConsideredPriceItems begrenzt. Vielmehr können die "AppliedDescendants" separat durch ein eigenes Attribut 
+			        "PriceItemType" optional eingegrenzt werden. Das <code>IncludeAppliedDescendants</code> wird generell auf die 
+			        Auswertung der nächsten Ebene begrenzt. Es existiert keine weitere Rekursion.</para>
+			      <para>Anwendungsfall ist die Rundung aller Absoluten, auf die ein Percent-PriceItems mit einem PriceTag der 
+			      Class="CurrencyFactor" wirkt. </para>
+			      <programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
+    <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
+    <IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
+    </ConsideredPriceItems> ]]></programlisting>
+			      <para>Hier werden im ersten Schritt nur alle <code>Percent</code>-PriceItems berücksichtigt. Durch das 
+			        "IncludeAppliedDescendants" werden zusätzlich alle dazu passenden <code>Absolute</code>-PriceItems mit 
+			        einbezogen, die entweder ein entsprechendes <code>AppliedBy</code></para>
+			      <para>Die <code>IncludeAppliedDescendants</code> können auch explizit bzgl. spezieller PriceTags weiter eingeschränkt werden.</para>
+			      <programlisting><![CDATA[<ConsideredPriceItems ...>
+    ...
+    <IncludeAppliedDescendants ...>
+        <ConsideredPriceTags ... >A B</ConsideredPriceTags>
+        <ExcludeConsideredPriceTags ... >NoRounding</ExcludeConsideredPriceTags>
+    </IncludeAppliedDescendants>
+    </ConsideredPriceItems>]]></programlisting>
+			      <bridgehead xml:lang="de">Verschachtelte Rundung (ExecutionPriority)</bridgehead>
+			      <para>Die Berechnung der <code>GenericAbsolute</code>'s findet nach der Auswertung der Combinatoric statt.
+			        Für die Auswertung der <code>GenericAbsolute</code>'s wird eine Abarbeitungsreihenfolge definiert.
+			        Diese richtet sich in erster Instanz aufsteigend nach dem Attribut "ExecutionPriority" am Knoten 
+			        <code>GenericAbsolute</code> und bei gleicher Priority <code>GenericAbsolute</code> aufsteigend nach XML-Dokument-Order.</para>
+			      <para>Trifft eine GenericAbsolute("A") bei der Auswertung seines Values auf einen noch nicht berechneten GenericAbsolute("B"), 
+			        so ist GenericAbsolut("B").Value=0 zu benutzen. Das gleiche gilt, für einen rekursiven Bezug auf sich selbst.</para>
+			    </section>
 			  </section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">
 					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>,
