@@ -465,12 +465,20 @@
 							</textobject>
 						</mediaobject>
 					</figure>
-					<para xml:id="de_640" xml:lang="de">Der Knoten "Board" definiert die möglichen Verpflegungstypen, die für diese
-						Unterkunft zur Verfügung stehen. Dabei werden hier neben den Buchungsinformationen auch die
-						Eigenschaften (Properties) der Verpflegung definiert. Durch die Filter kann eine Verpflegung auf
-						bestimmte Bedingungen begrenzt werden (z.B. nicht zwischen Nov - Feb) . Alle unter "Board"
-						gelieferten Preisbestandteile gelten nur für die jeweilige Verpflegung. Ab der Version 2.0 ist
-						die Lieferung eines Board-Elements pflicht.</para><para xml:id="en_640" xml:lang="en">The "Board" node defines the types of board available for this accommodation. In addition to the booking information, the properties (Properties) of the board are also defined here. By using the filter, board can be limited to certain conditions (e.g. not between Nov - Feb). All of the price elements delivered under "Board" are only valid for the corresponding board option.</para>
+					<para xml:id="de_640" xml:lang="de">Der Knoten "Board" definiert die möglichen
+						Verpflegungstypen, die für diese Unterkunft zur Verfügung stehen. Dabei
+						werden hier neben den Buchungsinformationen auch die Eigenschaften
+						(Properties) der Verpflegung definiert. Durch die Filter kann eine
+						Verpflegung auf bestimmte Bedingungen begrenzt werden (z.B. nicht zwischen
+						Nov - Feb) . Alle unter "Board" gelieferten Preisbestandteile gelten nur für
+						die jeweilige Verpflegung. Ab der Version 1.9 ist die Lieferung eines
+						Board-Elements Pflicht.</para><para xml:id="en_640" xml:lang="en">The "Board" node defines the types of board available for this
+						accommodation. In addition to the booking information, the properties
+						(Properties) of the board are also defined here. By using the filter, board
+						can be limited to certain conditions (e.g. not between Nov - Feb). All of
+						the price elements delivered under "Board" are only valid for the
+						corresponding board option. From version 1.9 on it is obligatory to provide
+						a "Board" element.</para>
 					<para xml:id="de_641" xml:lang="de">Jeder Knoten "Board" erfordert die Angabe eines eindeutigen Schlüsselwertes für
 						diesen Knoten. Es empfiehlt sich den Buchungscode der Verpflegung als Schlüsselwert zu
 						verwenden. </para><para xml:id="en_641" xml:lang="en">Each "Board" node requires the entry of a distinct key value for this node. It is recommended to use the booking code of the board as the key value.</para>
@@ -881,9 +889,10 @@
 								Diese dienen jedoch nur zur Information, nicht zur Produkterstellung.</para><para xml:id="en_734" xml:lang="en">AddonCatchmentRailwayStations: In this element, a list of railway stations can be given which lie in the catchment area of the additional service. These are only provided for information, not for product creation.</para>
 						</listitem>
 						<listitem>
-							<para xml:lang="de">AddonCarRentalProperties (Version 2.0): In diesem Element können
-								Mietwagenspeziefische Eigenschaften definiert werden, z.B. Informationen zur
-								Mietwagenstation, zu Aufstattungsmerkmalen des Mietwagens, ...</para>
+							<para xml:lang="de">AddonCarRentalProperties (Version 1.9): In diesem Element können
+								Mietwagenspeziefische Eigenschaften definiert werden, z.B.
+								Informationen zur Mietwagenstation, zu Aufstattungsmerkmalen des
+								Mietwagens, ...</para>
 						</listitem>
 					</itemizedlist>
 					
@@ -1228,7 +1237,7 @@
 					<para xml:id="de_807" xml:lang="de">Die einzelnen Bedingungsarten beziehen sich auf verschiedene Parameter,
 						beispielsweise auf Reisedatum und -dauer, den Buchungszeitpunkt, die Personen der
 						Reise, auf Keys und TAGs, Flughäfen usw. Die Impact-Bedingungen spielen eine besondere
-						Rolle. Die Impact-Bedingungen werden nur in der Preisberechnung verwendet und drücken
+						Rolle. Die Impactbedingungen werden nur in der Preisberechnung verwendet und drücken
 						eine Bedingung für einzelne Tage (DayImpact) bzw. einzelne Personen (PersonImpact)
 						aus, also ob eine Preis für einen bestimmten Tag oder eine bestimmte Person gültig
 						ist. Im Vergleich zu den "normalen" Bedingungen, die lediglich ausdrücken ob ein Preis
@@ -2241,7 +2250,7 @@
 							Beispiel eine entsprechene "Impact"-Bedingung, dass der Zuschlag nur für genau
 							diesen Termin gilt. Innerhalb der Impact-Bedingungen unterscheiden wir nochmal, ob
 							die Bedingungen sich auf die Tage (DayImpact), auf die Personen (PersonImpact)
-							oder auf eine Kombination von Tagen/Personen auswirken. Um die ImpactConditions von
+							oder auf eine Kobination von Tagen/Personen auswirken. Um die ImpactConditions von
 							den normalen Conditions klar zu unterscheiden, sind die entsprechenden Bedingungen
 							jeweils durch die Elemente "PersonImpact", "DayImpact" und "Impact" geklammert. </para><para xml:id="en_862" xml:lang="en">Conditions play a very important role within price calculation. In price calculation, we differentiate between two different types of conditions. There are "normal" conditions which express whether or not a complete PriceItem is used. There are also conditions which additionally specify for which persons or for which days a price is valid. As these conditions influence the impact of the prices, they are called "Impact" conditions. If the "normal" condition describes that a surcharge applies if a certain date is included in a trip, then a corresponding "Impact" condition will describe that the surcharge is only valid for this particular date. Within the Impact conditions, we can also specify whether the conditions have an impact on the days (DayImpact) or on the persons (PersonImpact) or on a combination of days/persons. In order to be able to clearly differentiate between the ImpactConditions and the normal conditions, the elements "PersonImpact", "DayImpact" and "Impact" are attached to the corresponding conditions.</para>
 						<para xml:id="de_863" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="./technisch/otds_technisch.html#Impact">Technischen Dokumentation
@@ -2275,15 +2284,15 @@
 								(z.B.: Termine der Gesamtreise, des Hotels oder des Fluges). </para><para xml:id="en_869" xml:lang="en">The element "Date" defines the condition of whether specific dates are included in the currently regarded trip. Either a range of dates or a list of individual dates can be entered. The condition is considered to be met if one date is contained which fulfils the conditions. Via the attribute "DayType", it must also be defined which days of the trip are to be regarded (e.g. only the day of arrival or only the days of the stay). Via the attribute "Source" the context of the regarded travel dates is determined (e.g. dates of the entire trip, the hotel or the flight).</para>
 							<para xml:id="de_870" xml:lang="de">Das folgende Beispiel zeigt eine Date-Condition:</para><para xml:id="en_870" xml:lang="en">The following example shows a Date condition:</para>
 							<programlisting><![CDATA[<Condition>
- 	 <Date  DayType="Stay" Source="Accommodation">
+ 	 <DateType="Stay" Source="Accommodation">
     		<Min>2011-04-15</Min>
     		<Max>2011-05-27</Max>
   	</Date>
  </Condition>]]></programlisting>
-							<para xml:id="de_871" xml:lang="de">Diese Bedingung überprüft, ob einer der Aufenthaltstage (DayType="Stay") im
+							<para xml:id="de_871" xml:lang="de">Diese Bedingung überprüft, ob einer der Aufenthaltstage (DateType="Stay") im
 								Hotel (Source="Accommodation") in dem Zeitraum zwischen 15.04.2011 und
 								27.05.2011 enthalten ist. Um die Bedingung zu erfüllen, reicht es also, wenn
-								ein Tag diese Bedingung erfüllt.</para><para xml:id="en_871" xml:lang="en">This condition checks whether one of the days of the stay (DayType="Stay") in the hotel (Source="Accommodation") is included in the period 15.04.2011 to 27.05.2011. To meet this condition, it therefore suffices if one day fulfils this condition.</para>
+								ein Tag diese Bedingung erfüllt.</para><para xml:id="en_871" xml:lang="en">This condition checks whether one of the days of the stay (DateType="Stay") in the hotel (Source="Accommodation") is included in the period 15.04.2011 to 27.05.2011. To meet this condition, it therefore suffices if one day fulfils this condition.</para>
 							<para xml:id="de_872" xml:lang="de">Diese Bedingung überprüft ausdrücklich nicht, ob bestimmte Tage einer Reise
 								eine Terminbedingung erfüllen und deshalb Preise explizit für diese Tage
 								gelten. Dies wird nur durch eine entsprechende DayImpact Bedingung
@@ -2669,37 +2678,7 @@
 									Dokumentation für OTDS </link>.</para><para xml:id="en_951" xml:lang="en">Please obtain further information from the <link xlink:href="./technisch/otds_technisch.html#ConditionalTags">Technical documentation for OTDS</link> .</para>
 						</section>
 					</section>
-				  <section xml:id="OtdsStrategyConditionDayPersonCount">
-				    <title>
-				      <phrase xml:lang="de">DayCount- und PersonCount-Bedingungen (Version 1.9)</phrase>
-				      <phrase xml:lang="en">Conditions using DayCount or PersonCount (Version 1.9)</phrase>
-				    </title>
-				    <para xml:lang="de">Die Verwendung von "DayCount" bzw. "PersonCount" erlaubt eine
-				      vereinfachte Zählung von Tagen bzw. Personen. Innerhalb dieser Elemente kann entschieden 
-				      werden, welche Grenzen abgeprüft werden sollen. Optional kann über einen  
-				      Filter ("PersonFilter" bzw. DayFilter) definiert werden, welche Tage bzw. Personen
-				      betrachtet werden sollen. Dieser Filter erlaubt auch Verknüpfungen über
-				      &lt;AND&gt; und &lt;OR&gt;.</para>
-				    <para xml:lang="de">Das folgende Beispiel zeigt eine Bedingung, die prüft, ob die Anzahl der Personen, die das ConditionalTag=Adult haben, gleich 2 ist.</para>
-				    <programlisting><![CDATA[<PersonCount Source="Product" DayAllocation="All" EvaluationMode="Any">
-  <Counts>2</Counts>
-  <PersonFilter>
-    <Impact ImpactExecutionOrder="BeforeCombinatorics">
-      <ConditionalTags Source="SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Adult</ConditionalTags>
-    </Impact>
-  </PersonFilter>
-</PersonCount>]]></programlisting>
-				    <para xml:lang="de">Das nächste Beispiel zeigt eine Bedingung, die prüft, ob die Anzahl der Tage, die auf einen Freitag und Samstag fallen, mindestens 3 ist.</para>
-				    <programlisting><![CDATA[<DayCount Source="Product" DayAllocation="All" EvaluationMode="Any">
-  <Min>3</Min>
-  <DayFilter>
-    <DayImpact ImpactExecutionOrder="BeforeCombinatorics">
-      <Weekdays Source="Product" DayType="Stay">Fri Sat</Weekdays>
-    </DayImpact>
-  </DayFilter>
-</DayCount>]]></programlisting>
-				  </section>				  
-				  <section xml:id="OtdsStrategyConditionTypeRule">
+					<section xml:id="OtdsStrategyConditionTypeRule">
 						<title><phrase xml:id="de_952" xml:lang="de">Rules-Bedingungen</phrase><phrase xml:id="en_952" xml:lang="en">Rules conditions</phrase></title>
 						<section xml:id="OtdsStrategyConditionMatchEqual">
 							<title><phrase xml:id="de_953" xml:lang="de">MatchEqual</phrase><phrase xml:id="en_953" xml:lang="en">MatchEqual</phrase></title>
@@ -2897,7 +2876,7 @@
 							<para xml:id="de_995" xml:lang="de"><emphasis role="bold">Indices="1 3 -2 -1</emphasis> definiert den 1. Tag,
 								den 3. Tag, den vorletzten Tag und den letzten Tag als gültige Tage.</para><para xml:id="en_995" xml:lang="en">
 								<emphasis role="bold">Indices="1 3 -2 -1"</emphasis> defines the 1st day, the 3rd day, the 2nd to last day and the last day as valid days.</para>
-						  <para xml:lang="de">Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur der letzte
+							<para>Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur der letzte
 								Stay-Tag adressiert.  </para>
 							<programlisting><![CDATA[<Condition>
   <DayImpact>
@@ -3117,7 +3096,7 @@
 								Person, die drittälteste Person, die zweitjüngste Person und die jüngste
 								Person als gültige Personen.</para><para xml:id="en_1041" xml:lang="en">
 								<emphasis role="bold">Indices="1 3 -2 -1"</emphasis> defines the oldest person, the third-oldest person, the second-youngest person and the youngest person as valid persons.</para>
-						  <para xml:lang="de">Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur die älteste Person
+							<para>Die Elemente Until, From und Indices sind Und-Verknüpft. Im folgenden Beispiel würde nur die älteste Person
 								adressiert. </para>
 							<programlisting><![CDATA[<Condition>
   <PersonImpact>
@@ -3397,7 +3376,10 @@
 
 					</section>
 					<section xml:id="OtdsStrategyConditionProductPrice">
-						<title><phrase xml:id="de_1083" xml:lang="de">Bedingung an die Preishöhe einer Productdefinition (ProductPriceCondition) (V2.0)</phrase><phrase xml:id="en_1083" xml:lang="en">Condition for the price level of a product definition (ProductPriceCondition) (V2.0)</phrase></title>
+						<title><phrase xml:id="de_1083" xml:lang="de">Bedingung an die Preishöhe einer
+								Productdefinition (ProductPriceCondition) (V1.9)</phrase><phrase
+								xml:id="en_1083" xml:lang="en">Condition for the price level of a
+								product definition (ProductPriceCondition) (V1.9)</phrase></title>
 						<figure>
 							<title><phrase xml:id="de_1084" xml:lang="de">ProductPriceCondition</phrase><phrase xml:id="en_1084" xml:lang="en">ProductPriceCondition</phrase></title>
 							<mediaobject>
@@ -3491,7 +3473,8 @@
     </PriceItems>
 </Addon>]]>					</programlisting>
 						</para><para xml:id="en_1090" xml:lang="en">
-							<programlisting><![CDATA[<Addon Key="VERS1">
+							<programlisting>
+								<![CDATA[<Addon Key="VERS1">
     …
     <PriceItems Key="Prices">
         <PriceItem Class="VERS">
@@ -3614,7 +3597,8 @@
 </Addon>]]>							</programlisting>
 
 							</para><para xml:id="en_1092" xml:lang="en">
-							<programlisting><![CDATA[<Addon Key="VERS2">
+							<programlisting>
+								<![CDATA[<Addon Key="VERS2">
     …
     <PriceItems Key="Prices">
         <PriceItem Class="VERS">
@@ -4049,8 +4033,8 @@
 		</Condition>
 	</PriceItem>
 </Accommodations>
-]]></programlisting></para><para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its use in pricing:
-<programlisting><![CDATA[<Products>
+]]></programlisting></para><para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its use in pricing:<programlisting>
+							<![CDATA[<Products>
   <Product Key="Package1" ProductType="AccommodationOnly">
     <Tag Class="Product">AccomOnly</Tag>
     <Filter>
@@ -4068,7 +4052,8 @@
 			<Tag Class="Product">AccomOnly</Tag>
 		</Condition>
 	</PriceItem>
-</Accommodations>]]></programlisting>
+</Accommodations>
+]]></programlisting>
 					</para>
 					<para xml:id="de_1146" xml:lang="de">Das obige Beispiel zeigt eine Produktdefinition für den Produkttyp
 						"AccommodationOnly". Einige Veranstalter belegen ihre Hotels, die als NurHotelProdukt
@@ -4080,19 +4065,6 @@
 						nur wenn das Hotel als NurHotel verwendet wird, dann wird dieser Zuschlag gültig und
 						damit in die Berechnung mit einbezogen. </para><para xml:id="en_1146" xml:lang="en">The above is an example of a product definition for the product type "AccommodationOnly" Some tour operators apply a surcharge to their hotels, which are sold as hotel-only products. By equipping the product in the example above with a specific "tag" with the class="Product" and value="AccomOnly", prices can be provided with a condition relating to this very tag. Prices, discounts and surcharges are defined in ODTS in PriceItems. A condition specifies the terms under which a PriceItem applies. Precisely this is demonstrated in the example above. Thus only if the hotel is used as a hotel-only product is this supplement valid and will be included in the calculation.</para>
 					<para xml:id="de_1147" xml:lang="de"> </para><para xml:id="en_1147" xml:lang="en"/>
-				</section>
-				<section xml:id="OtdsStrategyProductProperties">
-					<title><phrase xml:lang="de">Eigenschaft (Properties) in Produkten</phrase></title>
-						<para xml:lang="de">Innerhalb der Produktdefinition können Eigenschaften definiert werden die global über die gesamte Lieferung gelten. Hiermit kann z.B. für ein gesamtes Produkt die Eigenschaft "Transfer inkludiert" gesetzt werden. Diese Eigenschaft muss dann nicht je Accommodation geliefert
-						werden. </para>
-				</section>
-				<section xml:id="OtdsStrategyProductPriceItems">
-					<title><phrase xml:lang="de">Preise (PriceItems) in Produkten</phrase></title>
-					<para xml:lang="de">Innerhalb der Produktdefinition können PriceItems geliefert werden die global für alle Komponenten des Produktes gelten. Hierbei ist zu beachten, das absolute PriceItems nur einmal je Produkt angewendet werden und nicht je Komponente.</para>
-				</section>
-				<section xml:id="OtdsStrategyProductBooking">
-					<title><phrase xml:lang="de">Buchungsparameter (Booking) in Produkten</phrase></title>
-					<para xml:lang="de">Das Booking-Element innerhalb der Produktdefinition dient zur globalen Definition von Buchungsparametern. Die Platzierung der Reiseart (TravelType) ist an dieser Stelle sinnvoll.</para>
 				</section>
 				<section xml:id="OtdsStrategyRulesProductTypes">
 					<title><phrase xml:id="de_1148" xml:lang="de">Festlegung der Produkttypen</phrase><phrase xml:id="en_1148" xml:lang="en">Definition of product types</phrase></title>
@@ -4123,70 +4095,9 @@
 								werden können </para><para xml:id="en_1159" xml:lang="en">For the definition of additional services which are offered optionally in addition to the product</para>
 
 						</listitem>
-					</itemizedlist>					
+					</itemizedlist>
+					
 				</section>
-			  <section xml:id="OtdsStrategyProductGenericTag">
-			    <title>
-			      <phrase xml:lang="de">Kennzeichnung von Produkt-Features durch <code>GenericTag</code> in Produkten (Version 1.9)</phrase>
-			      <phrase xml:lang="en">Identification of Product Features using <code>GenericTag</code> in Products (Version 1.9)</phrase>
-			    </title>
-			    <para xml:lang="de">Durch das Element <code>GenericTag</code> ist es möglich von den
-            OTDS-Daten unterstützte Produkt-Features in den einzelnen Produkten zu kennzeichnen.
-            Dadurch weiß das verarbeitende System, dass die gelieferten OTDS-Daten das Feature
-            unterstützen. </para>  
-			    <para xml:lang="de">Das Element <code>ExternalParameter</code> innerhalb von
-              <code>GenericTag</code> erlaubt, dass von der OTDS-Verarbeitung ein Feauture in die
-            Datenverarbeitung integrieren werden kann. </para>
-			    <para xml:lang="de">OTDS 1.9 kennt aktuell folgende Produkt-Features:</para>
-			    <itemizedlist>
-			      <listitem>
-			        <para xml:lang="de">CityPairProduction</para>
-			      </listitem>			  
-			      <listitem>
-			        <para xml:lang="de">AlternativeFlightsProduction</para>
-			      </listitem>		
-			    </itemizedlist>
-
-			    <para xml:lang="de">Eine Production mit einem Produkt-Feature macht nur dann Sinn, wenn das Feature auch unter <code>Product/@Features</code> 
-			      gesetzt ist. Denn nur dann ist vom Datenlieferanten sichergestellt, dass entsprechende Bedingungen gesetzt sind, die dazu führen, 
-			      dass eine Verarbeitung ausschließlich mit dem gewünschten Feaure resultiert.</para>
-			    <para xml:lang="de">Nachfolgend ein Beispiel für die Angabe der unterstützten Features:</para>
-			    <programlisting><![CDATA[<Otds...>
-  ...
-  <Products>
-    <Product Key="Package1" ProductType="FlightAccommodation" ProductFeatures="CityPairProduction ...">
-      ...
-    </Product>
-  </Products>  
-  ...
-</Otds>]]></programlisting>			    
-			    <para xml:lang="de">Falls eine OTDS-Verabreitung z.B. mit dem externen Parameter <code>CityPairProduction="true"</code> verarbeitet wird, 
-			      so bekommen alle Elemente <code>GenericTag</code> mit dem Element <code>ExternalParameter/@Feature="CityPairProduction</code> den 
-			      Wert <code>true</code> und fließen somit in die Verarbeitung ein.</para>
-			    <para xml:lang="de">Hier ein Beispiel für die Angabe der verwendeten externen
-			      Parameter:</para>			    
-			    <programlisting><![CDATA[<Otds...>
-  ...
-  <Products>
-    <GenericTag Class="CityPairProduction">
-      <GenericTagFunction>
-        <ExternalParameter ProductFeature="CityPairProduction"/>
-      </GenericTagFunction>
-    </GenericTag>
-    ...
-  </Products>  
-  ...
-  </Otds>]]></programlisting>			    
-			    <para xml:lang="de">Der Wert kann dann in den Filtern und Conditions über die <code>GenericTag</code>-Condition abgeprüft werden und 
-			      damit die Verarbeitung entsprechend beeinflussen.
-			    </para>
-			    <para xml:lang="de">Eine <code>GenericTag</code>-Condition, die auf ein <code>GenericTag</code> mit dem Wert <code>Undefined</code> 
-			      trifft, erhält selbst den Wert "<code>Undefined</code>.
-			    </para>  
-			    <para xml:lang="de">Bitte beachten Sie dabei die Reglen hinsichtlich der Auswertung von Bedingungen im Zusammenhang mit dem Wert 
-			      <code>Undefined</code>.
-			    </para>
-			  </section>
 				<section xml:id="OtdsStrategyRulesProductDefinedComponents">
 					<title><phrase xml:id="de_1160" xml:lang="de">Regeln zur Definition kombinierter Komponenten (DefinedComponents)</phrase><phrase xml:id="en_1160" xml:lang="en">Rules for the definition of combined components (DefinedComponents)</phrase></title>
 					<para xml:id="de_1161" xml:lang="de">Die gleichen Regelmechanismen finden auch Verwendung für die Erweiterung von
@@ -4274,7 +4185,7 @@
 				</section>
 				<section xml:id="OtdsStrategyRulesGroupDefinitions">
 					<title><phrase xml:id="de_1171" xml:lang="de">Gruppierung und Priorisierung von Angeboten in Angebotsgruppen (Thema:
-							Flugpriorisierung) (V2.0: GroupDefinitions)</phrase><phrase xml:id="en_1171" xml:lang="en">Grouping and prioritisation of offers in offer groups (theme: flight prioritisation) (V2.0: GroupDefinitions)</phrase></title>
+							Flugpriorisierung) (V1.9: GroupDefinitions)</phrase><phrase xml:id="en_1171" xml:lang="en">Grouping and prioritisation of offers in offer groups (theme: flight prioritisation) (V1.9: GroupDefinitions)</phrase></title>
 					<section xml:id="OtdsStrategyRulesGroupDefinitionsOverview">
 						<title><phrase xml:id="de_1172" xml:lang="de">Überblick</phrase><phrase xml:id="en_1172" xml:lang="en">Overview</phrase></title>
 						<para xml:id="de_1173" xml:lang="de">Eine Priorisierung von Angeboten bestimmter Angebotsgruppen existiert aktuell nur für das
@@ -4430,7 +4341,7 @@
       </GroupBy>
       <Sequence>
         <Sort Order="Ascending">
-          <Price Source="Hierarchy.all:ReturnFlight"/>
+          <Price Source="Hirarchy.all:ReturnFlight"/>
         </Sort>
       </Sequence>
     </GroupDefinition>
@@ -4504,13 +4415,13 @@
         </Sort>
         <Sort Order="Ascending">
           <Sum>
-            <Price Source="Hierarchy.all:ReturnFlight"/>
+            <Price Source="Hirarchy.all:ReturnFlight"/>
             <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
           </Sum>
         </Sort>
         <Sort Order="Ascending">
           <Average>
-            <Price Source="Hierarchy.all:ReturnFlight"/>
+            <Price Source="Hirarchy.all:ReturnFlight"/>
             <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
           </Average>
         </Sort>
@@ -4639,19 +4550,15 @@
 						
 						
 						
-						<para xml:id="de_1224" xml:lang="de">Bei den Parametern "global:" und "local:" handelt es sich
-              um WErte der Eigenschaft "Scope", die eine Menge von Knotenreferenzen hat. Die Angabe
-              einer spezifischen Eigenschaft filtert bestimmte Knotenreferenzen aus der Gesamtmenge
-              der in Frage kommenden Knotenreferenzen herraus. Implizit wird in V1.0 immer nur der
-              Knoten (Self) und nicht auch noch sein Umfeld (Ancestors und Descendants) betrachtet.
-              Wir bezeichen diese Eigenschaft im folgenden als "Hierarchy". Man könnte also sagen,
-              dass in V1.0 immer die Eigenschaft Hierarchy="Self" implizit vorrausgesetzt
-              war.</para><para xml:id="en_1224" xml:lang="en">The parameters "global:" and "local:" refer to values with the property "Scope", which has a number of node references. The specification of a specific property filters particular node references from the total amount of eligible node references In V1.0 it is implicitly only the node (Self) and not its environment (Ancestors and Descendants) which is regarded. In the following, this property will be referred to as "Hierarchy". Thus it could be said that in V1.0, the property Hierarchy = "Self" is always implicitly assumed.</para>
+						<para xml:id="de_1224" xml:lang="de">Bei den Parametern "global:" und "local:" handelt es sich um WErte der Eigenschaft "Scope", die eine Menge von Knotenreferenzen hat.
+						Die Angabe einer spezifischen Eigenschaft filtert bestimmte Knotenreferenzen aus der Gesamtmenge der in Frage kommenden Knotenreferenzen herraus.
+						Implizit wird in V1.0 immer nur der Knoten (Self) und nicht auch noch sein Umfeld (Ancestors und Descendants) betrachtet. Wir bezeichen diese Eigenschaft im folgenden als "Hirarchy". Man könnte also sagen, dass in V1.0 immer die Eigenschaft Hirarchy="Self" implizit vorrausgesetzt war.</para><para xml:id="en_1224" xml:lang="en">The parameters "global:" and "local:" refer to values with the property "Scope", which has a number of node references. The specification of a specific property filters particular node references from the total amount of eligible node references In V1.0 it is implicitly only the node (Self) and not its environment (Ancestors and Descendants) which is regarded. In the following, this property will be referred to as "Hierarchy". Thus it could be said that in V1.0, the property Hierarchy = "Self" is always implicitly assumed.</para>
 						
 						<para xml:id="de_1225" xml:lang="de">Genau hier setzt die Erweiterung an.</para><para xml:id="en_1225" xml:lang="en">This is where the expansion comes in.</para>
 						
-						<para xml:id="de_1226" xml:lang="de">In OTDS 2.0 kann man nun die "Hierarchy" als Eigenschaft
-              explizit setzen.</para><para xml:id="en_1226" xml:lang="en">In OTDS 2.0, you can now explicitly set "Hierarchy" as a property.</para>
+						<para xml:id="de_1226" xml:lang="de">In OTDS 1.9 kann man nun die "Hierarchy" als Eigenschaft
+							explizit setzen.</para><para xml:id="en_1226" xml:lang="en">In OTDS 1.9, you can now explicitly set "Hierarchy" as a
+							property.</para>
 						<para xml:id="de_1227" xml:lang="de">	Darüber hinaus wird die Eigenschaft "DayAllocation", welche bisher ein eigenes Attribut war, zusätzlich mit in die Source hineingezogen, um eine flexible Kombination zu ermöglichen. Und schließlich wird auch noch der Knotentype als neue Eigenschaft "ComponentType"=real|virtual|both eingeführt, mit deren Hilfe man auch virtuelle Komponenten/SubKomponenten einbeziehen kann. Wir haben also nun 4 Eigenschaften von Knotenreferenzen mit mehreren KeyWord-Optionen:</para><para xml:id="en_1227" xml:lang="en">Moreover, the property "DayAllocation" (which was previously an independent attribute) is additionally taken up into Source in order to allow flexible combination. And finally, node type is introduced as the new property "ComponentType" = real|virtual|both, with the aid of which virtual components/subcomponents can also be included. We now have 4 properties of node references with multiple KeyWord options:</para>
 						
 						
@@ -4662,8 +4569,7 @@
 								
 							</listitem>
 							<listitem>
-								<para xml:id="de_1230" xml:lang="de">Hierarchy=self|descendants|ancestors
-                  (Default=self)</para><para xml:id="en_1230" xml:lang="en">Hierarchy=self|descendants|ancestors (default=self)</para>
+								<para xml:id="de_1230" xml:lang="de">Hirarchy=self|descendants|ancestors (Default=self)</para><para xml:id="en_1230" xml:lang="en">Hierarchy=self|descendants|ancestors (default=self)</para>
 								<itemizedlist>
 									<listitem>
 										<para xml:id="de_1231" xml:lang="de">"self"</para><para xml:id="en_1231" xml:lang="en">"Self"</para>
@@ -4727,7 +4633,7 @@
 						<para xml:id="de_1252" xml:lang="de">Das folgende Beispiel referenziert alle Tags an allen reellen und virtuellen Knoteninstanzen der Knoten "SellingAccom" und sämtlicher untergeordneter, übergeordneter rellen und virtuellen Knoten. Da "global" gesetzt ist, können sich die Knoten bezogen auf die Platzierung der Source-Definition irgendwo im Produktbaum befinden. Zusätzlich ist "first" gesetzt.</para><para xml:id="en_1252" xml:lang="en">The following example refers to all tags on all real and virtual node instances of the "SellingAccom" node and all subordinate and superordinate real and virtual nodes. As the setting "global" is set, the nodes can be located anywhere in the product tree relative to the placement of the Source definition. "First" is also set.</para>
 						
 							
-						<programlisting><![CDATA[<Tags Class="Saison" Source="global+Hierarchy.all+ComponentType.all:SellingAccom">A</Tags>]]>				</programlisting>
+						<programlisting><![CDATA[<Tags Class="Saison" Source="global+Hirarchy.all+ComponentType.all:SellingAccom">A</Tags>]]>				</programlisting>
 						
 						
 						
@@ -4762,10 +4668,10 @@
       </GroupBy>
       <Sequence>
         <Sort Order="Ascending">
-          <Price Source="Hierarchy.all:Outbound"/>
+          <Price Source="Hirarchy.all:Outbound"/>
         </Sort>
         <Sort Order="Ascending">
-          <Price Source="Hierarchy.all:Inbound"/>
+          <Price Source="Hirarchy.all:Inbound"/>
         </Sort>
       </Sequence>
     </GroupDefinition>
@@ -4884,11 +4790,8 @@
   	</Condition>
 	...
 </PriceItem>]]></programlisting>Weitere Beispiele aus der Praxis wie Saisonbezüge mit ConditionalTags
-					umgesetzt werden, finden sie im Praxis-Kapitel <link linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para><para xml:id="en_1268" xml:lang="en">Here, each "Stay" day (accommodation day) is marked with the
-          season tag = "E", if the day falls in the period 01.07. to 31.08. The following example
-          shows how this season Tag can be defined as a condition in a PriceItem, so that only those
-          days marked with the season Tag= "E" are assigned the price (day price with reference to
-          season). <programlisting><![CDATA[<PriceItem>
+					umgesetzt werden, finden sie im Praxis-Kapitel <link linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para><para xml:id="en_1268" xml:lang="en">Here, each "Stay" day (accommodation day) is marked with the season tag = "E", if the day falls in the period 01.07. to 31.08. The following example shows how this season Tag can be defined as a condition in a PriceItem, so that only those days marked with the season Tag= "E" are assigned the price (day price with reference to season). <programlisting>
+						<![CDATA[<PriceItem>
 	...
 	<Condition>
 	...
@@ -4898,9 +4801,7 @@
 	...
   	</Condition>
 	...
-</PriceItem>]]></programlisting>Further examples regarding how to use ConditionalTags with reference
-          to seasons can be found in the practical chapter <link
-            linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para>
+</PriceItem>]]></programlisting>Further examples regarding how to use ConditionalTags with reference to seasons can be found in the practical chapter <link linkend="OtdsProductsComponentsAccommodationSeason">Saisondefinitionen</link>.</para>
 				<para xml:id="de_1269" xml:lang="de">Eine andere typische Verwendung von ConditionalTags ist die Markierung von Personen. In
 					dem folgenden Beispiel werden beispielsweise die ältesten beiden Mitreisenden als
 					Vollzahler markiert.</para><para xml:id="en_1269" xml:lang="en">Another typical use of ConditionalTags is to mark certain persons. In the following example, the two oldest participants are marked as full-paying guests.</para>
@@ -5030,7 +4931,7 @@
 							<itemizedlist>
 								<listitem>
 									<para xml:id="de_1296" xml:lang="de">Auf welches absolute PriceItem wirkt ein prozentualer Zu-/Abschlag:
-										ApplyTo, NotApplyTo, ApplyToPriceTags</para><para xml:id="en_1296" xml:lang="en">Which absolute PriceItem does a percentage surcharge/discount have an effect on: ApplyTo, NotApplyTo, ApplyToPriceTags</para>
+										ApplyTo, NotApplyTo</para><para xml:id="en_1296" xml:lang="en">Which absolute PriceItem does a percentage surcharge/discount have an effect on: ApplyTo, NotApplyTo</para>
 								</listitem>
 								<listitem>
 									<para xml:id="de_1297" xml:lang="de">Welche prozentualen PriceItems wirken auf ein absolutes PriceItem:
@@ -5057,8 +4958,9 @@
 									</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_1302" xml:lang="de">Bedingungen an Preise anderer Produktkomponenten <code>ProductPrice</code>
-										(V2.0)</para><para xml:id="en_1302" xml:lang="en">Conditions for prices of other product components <code>ProductPrice</code> (V2.0)</para>
+									<para xml:id="de_1302" xml:lang="de">Bedingungen an Preise anderer Produktkomponenten
+											<code>ProductPrice</code> (V1.9)</para><para xml:id="en_1302" xml:lang="en">Conditions for prices of other product components
+											<code>ProductPrice</code> (V1.9)</para>
 								</listitem>
 							</itemizedlist>
 						</listitem>
@@ -5113,10 +5015,6 @@
 						deshalb ein von der PriceItem-Class entkoppelten CombinationCode, der je nach Bedarf
 						natürlich auch mit der "Class" gefüllt werden kann. So wird OTDS allen Systemen
 						gerecht.</para><para xml:id="en_1312" xml:lang="en">Each PriceItem must include the attribute <code>Class</code> , which contains a name that is completely elective and describes the type or the category of the PriceItem. In general each operator's system contains this type of classification of prices with corresponding references within the rules. This value is referred to in the price calculation and combinatorics. The percentage and absolute PriceItems are established through the attribute <code>Class</code> . The depiction of replacement prices, as well as the dispensation of data, is also controlled with this attribute. Some operator's systems also use the "Class" for the rules of the combinatorics. Other systems here use their own combinatorics codes. In OTDS there is therefore one CombinationCode which has been decoupled from the PriceItem class, and which, if necessary, can be filled with the "Class". In this way OTDS can function with all systems.</para>
-				</section>
-				<section xml:id="OtdsStrategyPriceItemTags">
-					<title><phrase xml:lang="de">PriceItem Tags (PriceTags) (Version 1.9)</phrase></title>
-					<para xml:lang="de">Mit den PriceTags wurde das bestehende Tag-Konzept um die Möglichkeit erweitert Tags auch einem PriceItem zuzuweisen. Die Wirkung der prozentualen PriceItems auf absolute PriceItems kann durch PriceTags gesteuert werden. Innerhalb des ApplyToPriceTags-Element in den prozentualen PriceItems ist es möglich die PriceTags zu definieren die an einem absoluten PriceItem vorkommen müssen, damit das prozentuale PriceItem auf das absolute wirkt. PriceTags haben wie die "normalen" Tags eine Class und einen Wert.</para>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemAbsolute">
 					<title><phrase xml:id="de_1313" xml:lang="de">PriceItems mit absoluten Preisen (Absolute)</phrase><phrase xml:id="en_1313" xml:lang="en">PriceItems with absolute prices (Absolute)</phrase></title>
@@ -5453,383 +5351,9 @@
 </PriceItems>]]></programlisting>
 					<para xml:id="det_1362" xml:lang="de"/>
 				</section>
-			  <section xml:id="OtdsStrategyPriceItemGenericAbsolute">
-			    <title>
-            <phrase xml:lang="de">Rundung mit Absolutbeträgen (<code>GenericAbsolute</code>)
-              (Version 1.9)</phrase>
-            <phrase xml:lang="en">Rouding using fixed amounts (<code>GenericAbsolute</code>)
-              (Version 1.9)</phrase>
-          </title>
-			    <para xml:lang="de">Der PriceItem-Typ <code>GenericAbsolute</code> wurde im Rahmen der Umsetzung der Rundung eingeführt. 
-			      Es handelt sich hierbei um Absolutbeträge deren finaler Wert erst zur Laufzeit aufgrund einer flexibel 
-			      zu definierenden Funktion berechnet wird.
-			    </para>
-			    <para xml:lang="de">Aktuell ist nur eine Funktion für das Runden integriert welche über <code>Round</code> angesprochen wird. 
-			      Die Struktur ist aber erweiterbar für beliebige weitere Funktionen, die in späteren Versionen notwendig werden.
-			    </para>
-			    <para xml:lang="de">Die Definition der Gruppierung der PriceItems befindet sich in dem Element <code>GroupPriceItemsBy</code>. 
-			      Hier können Preise nach Personen, Tagen, einzelnen <code>Absolute</code>-PriceItems oder auch bestimmten PriceTagValues gruppiert 
-			      werden. Die Verteilung auf die Kostenmatrix ist genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente 
-			      <code>DayBase</code> und <code>PersonBase</code> bestimmt.
-			    </para>
-			    <para xml:lang="de">Innerhalb von <code>Round</code> kann über das Element <code>ConsideredPriceItems</code> definiert werden, 
-			      welche PriceItems für die Berechnung der Rundungsfunktion herangezogen werden. Dabei kann auch mit Hilfe des Elementes 
-			      <code>IncludeAppliedPriceItems</code> definiert werden, dass auch die nächste Apply-Hierarchiestufe von adressierten PriceItems 
-			      mit einbezogen wird.</para>
-			    <para xml:lang="de">Damit Eigenschaften bzw. die damit verbundenen implizierten Möglichkeiten der Verwendung der Quell-PriceItems 
-			      an die Element von <code>GenericAbsolute</code> weitergegeben werden, können <code>GenericAbsolutes</code> auch <code>PriceTags</code> 
-			      von den verwendeten Quell-PriceItems erben. Hierzu erhält das Element <code>Round</code> das Attribute <code>InheritPriceTags</code>.
-			    </para> 
-			    <para xml:lang="de">Nachfolgend ein Beispiel eines PriceItems für einen generischen
-            Absolutbetrag, in dem exemplarisch alle Bereiche aufgeführt sind: </para>  
-			    <programlisting><![CDATA[<PriceItem Class="SpecialRounding">
-  <GenericAbsolute ExecutionPriority="2">
-    <GenericValue>
-      <Round InheritAppliedPriceTags="true" RemainingDigits="0" Method="Up" Treshold="0.5">
-        <GroupAbsolutePriceItemsBy>
-          <Person/>
-          <Day/>
-          <AbsolutePriceItem/>
-          <PriceTagValue Source="Hierarchy.all:Product" Class="RoundGrouping"/>
-        </GroupAbsolutePriceItemsBy>
-        <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
-          <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-          <IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
-        </ConsideredPriceItems>
-      </Round>
-    </GenericValue>
-  </GenericAbsolute>
-  <Condition>
-    <And>
-      <PersonImpact>
-        <GroupedPerson/>
-      </PersonImpact>
-      <DayImpact>
-        <GroupedDay/>
-      </DayImpact>
-      <Impact>
-        <GroupedAbsolute/>
-      </Impact>
-    </And>
-  </Condition>
-</PriceItem>]]></programlisting>
-			    <section xml:id="OtdsStrategyPriceItemRounding">
-			      <title xml:lang="de">Umsetzung der Rundung (Version 1.9)</title>
-			      <bridgehead xml:lang="de">Allgemein</bridgehead>
-			      <para xml:lang="de">Die Rundung wird in OTDS ein eigenes PriceItem <code>GenericAbsolute</code> abgebildet. 
-			        Dabei stellt die Rundung nur eine Form einer mathematischen Funktion da, die letztendlich 
-			        zur Integration eines Absolutbetrages führt, der in der Summe aus dem ungerundeten Wert 
-			        den gerundeten Wert ergibt. Am Beispiel der Aufrundung der Zahl 106,4 auf eine ganze Zahl 
-			        entspricht der GenericAbsolute>-Value dem Wert 0,6, d.h. 106,4 + 0,6 = 107.
-			      </para>
-			      <para xml:lang="de">Die Integration der generischen Absolutbeträge in die Kostenmatrix erfolgt zusammen mit der
-			        Integration der normalen Absolutbeträge, wobei nur eine Variable stellvertretend für den 
-			        generischen Absolutbetrag in die KostenMatrix integriert wird. Die letztendliche Berechnung 
-			        der generischen Absolutbeträge, erfolgt zeitlich nach der Auswertung der Kombinatorik. 
-			        Dabei wird mit Hilfe der Priorität eine Abarbeitungsreihenfolge der Berechnung der generischen 
-			        Werte in diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig zu definieren. 
-			      </para>
-			      <para xml:lang="de">Grundlage des generischen Absolutbetrages ist die Definition einer Round-Funktion, die dann 
-			        auf das Gesamtergebnis oder Zwischenergebnisse der Preisberechnung angewendet wird. Eine Rundung 
-			        wird jeweils für eine Definition gruppierter PriceItems festgelegt und führt je betrachteter 
-			        Gruppierung zu einem Rundungsergebnis, welches auf die Kostenmatrix verteilt wird.</para>
-			      <para xml:lang="de">Nachfolgend ein Beispiel wie die Rundung des Endpreises auf Personenpreise umgesetzt
-              werden kann:</para>
-			      <programlisting><![CDATA[<PriceItem Class="RoundingPersonPrices">
-  <GenericAbsolute>
-    <GenericValue>
-      <Round RemainingDigits="0" Method="Up" Treshold="0.5">
-        <GroupAbsolutePriceItemsBy>
-          <Person/>
-        </GroupAbsolutePriceItemsBy>
-        <ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
-      </Round>
-    </GenericValue>
-  </GenericAbsolute>
-  <Condition>
-    <PersonImpact>
-      <GroupedPerson/>
-    </PersonImpact>
-  </Condition>
-</PriceItem>]]></programlisting>
-			      <bridgehead xml:lang="de">Definition der betrachteten PriceItem-Gruppierungen
-                (<code>Person</code>, <code>Day</code>, <code>AbsolutePriceItem</code> und
-                <code>PriceTagValue</code>)</bridgehead>
-			      <para xml:lang="de">Mit Hilfe der Elemente <code>Person</code>, <code>Day</code>,
-                <code>AbsolutePriceItem</code> und <code>PriceTagValue</code> können die PriceItems
-              für die Anwendung der Rundung gruppiert werden. Die Rundung wird dann jeweils einzeln
-              auf jede Gruppe angewendet, z.B. definiert</para>
-			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
-  <Person/>
-</GroupAbsolutePriceItemsBy>]]></programlisting>
-			      <para xml:lang="de">, dass bei der Auswertung der Funktion jeweils jede Person einzeln betrachtet wird. Es werden 
-			        also die Kostenknoten einer Person betrachtet und auf die darin enthaltenen PriceItems wird jeweils 
-			        die Rundung angewendet. Das gleiche geschieht analog mit allen anderne Personen.</para>
-			      <para xml:lang="de">Im Falle</para>
-			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
-  <Person/>
-  <Day/>
-</GroupAbsolutePriceItemsBy>]]></programlisting>
-			      <para xml:lang="de">wird nicht nur jede Person sondern auch jeder Tag und jeder Person einzeln betrachtet und die 
-			        Rundung auf das Zwischenergebnis jeder einzelnen Gruppierung angewendet.</para>
-			      <para xml:lang="de">Im Falle</para>
-			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
-  <Person/>
-  <Day/>
-  <AbsolutePriceItem/>
-</GroupAbsolutePriceItemsBy>]]></programlisting>
-			      <para xml:lang="de">bildet zusätzlich jedes einzelne <code>Absolute</code>-PriceItem eine eigene Gruppierung. 
-			        Zu jeder Gruppe eines <code>Absolute</code>-PriceItems gehören dann auch jeweils die dem 
-			        <code>Absolute</code>-PriceItem durch <code>ApplyTo</code> und <code>AppliedBy</code> zugeordneten 
-			        <code>Percent</code>-PriceItems.</para>
-			      <para xml:lang="de">Im Falle</para>
-			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
-  <Person/>
-  <Day/>
-  <PriceTagValue Source="global+Hierarchy.all:Product" Class="RoundGrouping"/>
-</GroupAbsolutePriceItemsBy>]]></programlisting>
-			      <para xml:lang="de">bildet zusätzlich Gruppierungen von <code>Absolute</code>-PriceItems mit übereinstimmenden 
-			        PriceTag-Values der hier definierten PriceTags. Zu jeder Gruppe gehören dann auch jeweils die dem 
-			        <code>Absolute</code>-PriceItem durch <code>ApplyTo</code> und <code>AppliedBy</code> zugeordneten 
-			        <code>Percent</code>-PriceItems.</para>
-			      <para xml:lang="de">Im Falle</para>
-			      <programlisting><![CDATA[<GroupAbsolutePriceItemsBy/>]]></programlisting>			        
-			      <para xml:lang="de">handelt es sich nur um eine Rundung des Endergebnisses.</para>
-			      <bridgehead xml:lang="de">Aufteilung der Values über GroupedImpacts</bridgehead>
-			      <para>Damit die GenericValues korrekt auf die einzelnen Kostenknoten aufgeteilt werden, müssen entsprechende 
-			        Impact-Bedingungen ergänzt werden.</para>
-			      <para>Zu jedem Element unter <code>GroupAbsolutePriceItemsBy</code> gibt es ein passendes Gegenstück als Impact-Condition, 
-			        welches gesetzt werden muss, damit die Aufteilung im Falle der Rundung korrekt stattfindet.</para>
-			      <orderedlist>
-			        <listitem>
-			          <para><code>&lt;Person/></code> korreliert mit <code>&lt;GroupedPerson/></code></para>
-			        </listitem>
-			        <listitem>
-			          <para><code>&lt;Day/></code> korreliert mit <code>&lt;GroupedDay/></code></para>
-			        </listitem>
-			        <listitem>
-			          <para><code>&lt;AbsolutePriceItem/></code> korreliert mit
-                    <code>&lt;GroupedAbsolute/></code></para>
-			        </listitem>
-			        <listitem>
-			          <para><code>&lt;PriceTagValue ...></code> korreliert auch mit <code>&lt;GroupedAbsolute/></code></para>
-			        </listitem>
-			      </orderedlist>
-			      <para>Bei einem nach Personen gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedPerson/></code> dafür, dass der 
-			        errechnete Value für die erste betrachtete Person auch nur auf Kostenknoten dieser betrachteten Person 
-			        verteilt werden. Das gilt analog auch für die Berechnung der anderen Personen.</para>
-			      <para>Bei einem nach Tagen gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedDay/></code> dafür, dass der errechnete 
-			        Value für den ersten betrachteten Tag auch nur auf Kostenknoten dieses betrachteten Tages verteilt werden. 
-			        Das gilt analog auch für die Berechnung der anderen Tage.</para>
-			      <para>Bei einem nach einzelnen <code>Absolute</code>-PriceItems gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedAbsolute/></code> 
-			        dafür, dass der errechnete Value für das erste <code>Absolute</code>-PriceItem auch nur auf Kostenknoten verteilt wird, die 
-			        dieses <code>Absolute</code>-PriceItem besetzt hat. Das gilt analog auch für die Berechnung der anderen <code>Absolute</code>>-PriceItems.</para>
-			      <para>Bei einem nach identischen PriceTagValues gruppierten <code>GenericAbsolute</code> sorgt, das <code>&lt;GroupedAbsolute/></code> 
-			        dafür, dass der errechnete Value für die erste Gruppe von <code>Absolute</code>-PriceItems auch nur auf Kostenknoten 
-			        verteilt wird, die diese <code>Absolute</code>-PriceItem-Gruppe besetzt hat. Hier reicht, dass ein PriceItem der 
-			            Gruppe in dem Kostenknoten present ist. </para>
-			      <para>Das gilt analog auch für die Berechnung der anderen <code>Absolute</code>-PriceItem-Gruppen.</para>
-			      <para>Der GenericValue, der sich aus der Rundung einer Gruppe ergibt, wird durch die Anzahl der beteiligten Zellen 
-			        geteilt ist der letztendliche Wert,der auf alle beteiligten Zellen dieser Gruppenauswertung verteilt wird.</para>		
-			      <bridgehead xml:lang="de">Rundungsparamater (Element <code>Round</code>)</bridgehead>
-			      <para>Das Ergebnis der hier implementierten Round-Funktion ist für den <code>GenericAbsolute</code> per Definition die Differenz des 
-			        nicht grundeten Wertes zum gerundeten Wert. Ist das betrachtete Zwischenergebnis 105,4 und es wird auf die ganze Zahl 
-			        aufgerundet, dann entspricht das einem <code>GenericAbsolute</code>-Wert von +0,6. Dieser Wert wird wie ein normaler Absolutbetrag 
-			        in die Berechnung integriert.</para>
-			      <para>Die Round-Funktion bietet folgende 3 Attribute an, um die Art der Rundung flexibel zu definieren:</para>
-			      <orderedlist>
-			        <listitem>
-			          <para>Method</para>
-			            <itemizedlist>
-			              <listitem>
-			                <para>Up => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes aufgerundet wird. 
-			                  Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -23</para>
-			              </listitem>
-			              <listitem>
-			                <para>Down => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes abgerundet wird. 
-			                  Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -24</para>
-			              </listitem>
-			              <listitem>
-			                <para>AwayFromZero => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes bei 
-			                  positiven Zahlen aufgerundet und bei negativen Zahlen abgerundet wird. Bei positiven Zahlen (Treshold 0.5) 
-			                  also von 23.5 auf 24. Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -24.</para>
-			              </listitem>
-			              <listitem>
-			                <para>TowardsZero => bedeutet, dass ab Erreichen des unter Treshold definierten Delta-Wertes bei positiven 
-			                  Zahlen abgerundet und bei negativen Zahlen augerundet wird. Bei positiven Zahlen (Treshold 0.5) also von 
-			                  23.5 auf 23. Bei negativen Zahlen (Treshold 0.5) also von -23.5 auf -23.</para>
-			              </listitem>
-			            </itemizedlist>  
-			        </listitem>
-			        <listitem>
-			          <para>RemainingDigits</para>
-			          <itemizedlist>
-			            <listitem>
-			              <para>Definiert die Anzahl der nach dem Runden verbleibenden Stellen rechts neben dem Dezimalpunkt.</para>
-			            </listitem>
-			          </itemizedlist> 
-			        </listitem>
-			        <listitem>
-			          <para>Treshold</para>
-			          <itemizedlist>
-			            <listitem>
-			              <para>Definiert den Grenzwert als 1 stellige Kommazahl nach dessen Erreichen gemäß der Angabe unter "Method" 
-			                auf die nächste Stelle auf- oder abgerundet wird.</para>
-			            </listitem>
-			          </itemizedlist> 
-			        </listitem>
-			      </orderedlist>
-			      <programlisting><![CDATA[<Round RemainingDigits="0" Method="Up" Treshold="0.5">
-   ...
-</Round>]]></programlisting>
-			      <bridgehead xml:lang="de">Vererbung der PriceTags</bridgehead>
-			      <para>Es besteht die Möglichkeit, dass für das <code>GenericAbsolute</code>-PriceItem die
-                <code>PriceTags</code> der gerundeten <code>Absolute</code>-PriceItems vererbt
-              werden können. Damit wird auch die PriceItem-Class vererbt, die 1-zu-1 in ein
-                <code>PriceTag</code> überführt wird. Siehe dazu Details unter <link
-                linkend="OtdsStrategyPriceItemTags">Kapitel: PriceItem Tags
-                (PriceTags)</link></para>
-			      <para>Die Vererbung wird jeweils durch die Angabe des Attributes <emphasis role="bold"
-                >InheritPriceTags="ConsideredAbsolutes"</emphasis> im <code>Round</code>-Knoten
-                definiert.</para>
-			      <programlisting><![CDATA[<GenericAbsolute>
-    <GenericValue>
-        <Round InheritPriceTags="ConsideredAbsolutes" ...>
-            ...
-        </Round>
-    </GenericValue>
-    ...
-</GenericAbsolute>]]></programlisting>
-			      <para>Dem Anwendungsfall liegt folgendes Szenario zu Grunde:</para>
-			      <para>Es liegt ein Reisezuschlag vor, der für die ganze Reise einmalig und für die komplette Reisegruppe 
-			        einmalig in die Berechnung eingeht. Das berechnende System gibt vor, dass dieser Zuschlag auf alle Tage 
-			        und Personen aufgeteilt wird und direkt nach der Aufteilung auf ganze Euro gerundet wird.</para>
-			      <para>Durch ein entsprechendes <code>GenericAbsolute</code>-PriceItem wird für jedes enthaltene 
-			        <code>Absolute</code>-PriceItem die Rundung angewendet. Daraus resultiert je PriceItem-Value ein 
-			        entsprechender <code>GenericAbsolute</code>-Value.</para>
-			      <para>Hierbei fließt der <code>GenericAbsolute</code> in alle Berechnungen bzgl. Zuschlägen, 7=6 etc mit ein. 
-			        Dies erfordert, dass der <code>GenericAbsolute</code> automatisch die Eigenschaften des in der Rundung betrachteten 
-			        PriceItems vererbet bekommt.</para>
-			      <bridgehead xml:lang="de">Definition der berücksichtigten PriceItems (<code>ConsideredPriceItems</code>)</bridgehead>
-			      <para>In dem Element <code>ConsideredPriceItems</code> wird definiert, welche PriceItems
-              für die Berechnung des generischen Absolutbetrages herangezogen werden. Über das
-              Attribut Source legt man fest aus welchen OTDS-Instanzen PriceItems berücksichtigt
-              werden. Durch das Attribut <emphasis role="bold">PriceItemType</emphasis> legt man
-              zusätzlich fest, welche PriceItem-Typen berücksichtigt werden sollen.</para>
-			      <programlisting><![CDATA[<GenericAbsolute>
-    <GenericValue>
-        <Round ...>
-            ...
-            <ConsideredPriceItems Source="global+Hierarchy.all:Product" PriceItemType="Absolute">
-                ...
-            </ConsideredPriceItems>
-        </Round>
-    </GenericValue>
-    ...
-    </GenericAbsolute>]]></programlisting>
-			      <para>Das Attribut PriceItemType enthält dabei einen der möglichen Werte:</para>
-			      <orderedlist>
-			        <listitem>
-			          <para>Absolutes</para>
-			        </listitem>
-			        <listitem>
-			          <para>Percents</para>
-			        </listitem>
-			        <listitem>
-			          <para>All</para>
-			        </listitem>
-			      </orderedlist> 
-			      <para>Default ist "All" und wird auch benutzt, wenn das Attribut nicht gesetzt ist.</para>
-			      <bridgehead xml:lang="de">Definition zu berücksichtigender PriceTags oder auszuschließender PriceTags</bridgehead>
-			      <para>PriceTags sind neu in Version 1.9 eingeführte Markierungen (Tags) von einzelnen PriceItems direkt am 
-			        PriceItem-Knoten.</para>
-			      <para>Mit Hilfe des Elementes <code>ConsideredPriceTags</code> kann man einschränken, dass nur PriceItems mit bestimmten 
-			        PriceTags benutzt werden. Alternativ kann man auch PriceItems mit bestimmten PriceTags durch Verwendung des Elementes 
-			        <code>ExcludeConsideredPriceTags</code> explizit von der Verwendung ausschließen.</para>
-			      <programlisting><![CDATA[<GenericAbsolute>
-    <GenericValue>
-        <Round ...>
-            ...
-            <ConsideredPriceItems ...>
-                <ConsideredPriceTags Class="Currency">EUR CHF</PriceTags>
-                <ExcludeConsideredPriceTags Class="Rounding">NoRounding</ExcludeConsideredPriceTags>
-            </ConsideredPriceItems>
-        </Round>
-    </GenericValue>
-    ...
-    </GenericAbsolute>]]></programlisting>
-			      <bridgehead xml:lang="de">Die Eigenschaft "Hierarchy" des Source-Attributes</bridgehead>
-			      <para>In Version 1.9 wird das Attribute <emphasis role="bold">Source</emphasis> um mehrere
-              Eigenschaften erweitert, so dass mit Source weitreichender Komponenten-Instanzen
-              addressiert werden können.</para>
-			      <para>In diesem Zusammenhang wird bei der Rundung hauptsächlich die neue Eigenschaft
-                <emphasis role="bold">Hierarchy</emphasis> verwendet, um mehrere Instanzebenen mit
-                der Source zu addressieren.</para>
-			      <para>Die Eigenschaft Hierarchy kann folgende Werte annehmen (Default=self):</para>
-			      <orderedlist>
-			        <listitem>
-			          <para>"self"</para>
-			          <para>Mit "self" wird genau die Knotenreferenz referenziert</para>
-			        </listitem>
-			        <listitem>
-			          <para>"descendants"</para>
-			          <para>Mit "descendants" wird die Knotenreferenz und alle Instanz-Nachfahren referenziert</para>
-			        </listitem>
-			        <listitem>
-			          <para>"ancestors"</para>
-			          <para>Mit "ancestors" wird die Knotenreferenz und alle Instanz-Vorfahren referenziert</para>
-			        </listitem>
-			        <listitem>
-			          <para>"all"</para>
-			          <para>Mit "all" wird die Knotenreferenz, alle Instanz-Vorfahren und alle Nachfahren referenziert</para>
-			        </listitem>
-			      </orderedlist>
-			      <para>Im Falle</para>
-			      <programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.all:Product" PriceItemType="Absolute">]]></programlisting>
-			      <para>werden alle absoluten PriceItems des gesamten Produktes referenziert.</para>
-			      <para>Im Falle</para>
-			      <programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.descendants:Outbound" PriceItemType="Absolute">]]></programlisting>
-			      <para>werden alle absoluten PriceItems an der Knoten-Instanz "Outbound" und an den darunterliegendne 
-			      KnotenInstanzen OnewayFlight und BookingClass referenziert.</para>
-			      <bridgehead xml:lang="de">Sonderfall für die Adressierung von PriceItems über <code>IncludeAppliedDescendants</code></bridgehead>
-			      <para>Es wird zusätzlich ermöglicht, auch die nächste Apply-Hirarchystufe von adressierten PriceItems 
-			        zu addressieren. Dazu muss innerhalb des Elementes <code>ConsideredPriceItem</code> das Element <code>IncludeAppliedDescendants</code> 
-			        definiert werden. Das bedeutet also, dass zusätzlich zu den durch <code>ConsideredPriceItems</code> definierten PriceItems auch deren 
-			        "AppliedDescendants" miteinbezogen wird.</para>
-			      <para>Die "AppliedDescendants" sind alle PriceItems, die durch <code>ApplyTo</code>'s oder <code>AppliedBy</code>'s mit 
-			        den <code>ConsideredPriceItem</code>'s in Interaktion treten. Die "AppliedDescendants" sind nicht auf den PriceItemType 
-			        der ConsideredPriceItems begrenzt. Vielmehr können die "AppliedDescendants" separat durch ein eigenes Attribut 
-			        "PriceItemType" optional eingegrenzt werden. Das <code>IncludeAppliedDescendants</code> wird generell auf die 
-			        Auswertung der nächsten Ebene begrenzt. Es existiert keine weitere Rekursion.</para>
-			      <para>Anwendungsfall ist die Rundung aller Absoluten, auf die ein Percent-PriceItems mit einem PriceTag der 
-			      Class="CurrencyFactor" wirkt. </para>
-			      <programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
-    <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-    <IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
-    </ConsideredPriceItems> ]]></programlisting>
-			      <para>Hier werden im ersten Schritt nur alle <code>Percent</code>-PriceItems berücksichtigt. Durch das 
-			        "IncludeAppliedDescendants" werden zusätzlich alle dazu passenden <code>Absolute</code>-PriceItems mit 
-			        einbezogen, die entweder ein entsprechendes <code>AppliedBy</code></para>
-			      <para>Die <code>IncludeAppliedDescendants</code> können auch explizit bzgl. spezieller PriceTags weiter eingeschränkt werden.</para>
-			      <programlisting><![CDATA[<ConsideredPriceItems ...>
-    ...
-    <IncludeAppliedDescendants ...>
-        <ConsideredPriceTags ... >A B</ConsideredPriceTags>
-        <ExcludeConsideredPriceTags ... >NoRounding</ExcludeConsideredPriceTags>
-    </IncludeAppliedDescendants>
-    </ConsideredPriceItems>]]></programlisting>
-			      <bridgehead xml:lang="de">Verschachtelte Rundung (ExecutionPriority)</bridgehead>
-			      <para>Die Berechnung der <code>GenericAbsolute</code>'s findet nach der Auswertung der Combinatoric statt.
-			        Für die Auswertung der <code>GenericAbsolute</code>'s wird eine Abarbeitungsreihenfolge definiert.
-			        Diese richtet sich in erster Instanz aufsteigend nach dem Attribut "ExecutionPriority" am Knoten 
-			        <code>GenericAbsolute</code> und bei gleicher Priority <code>GenericAbsolute</code> aufsteigend nach XML-Dokument-Order.</para>
-			      <para>Trifft eine GenericAbsolute("A") bei der Auswertung seines Values auf einen noch nicht berechneten GenericAbsolute("B"), 
-			        so ist GenericAbsolut("B").Value=0 zu benutzen. Das gleiche gilt, für einen rekursiven Bezug auf sich selbst.</para>
-			    </section>
-			  </section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">
-					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>,
-						<code>AppliedBy</code>)</phrase><phrase xml:id="en_1363" xml:lang="en">Effect (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>, <code>AppliedBy</code> )</phrase></title>
+					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>,
+						<code>AppliedBy</code>)</phrase><phrase xml:id="en_1363" xml:lang="en">Effect (<code>ApplyTo</code> , <code>NotApplyTo</code> , <code>AppliedBy</code> )</phrase></title>
 					<para xml:id="de_1364" xml:lang="de">Prozentuale PriceItems müssen sich immer auf mindestens ein absolutes PriceItem
 						beziehen, um angewendet zu werden. Diese Beziehung wird bei den prozentualen
 						PriceItems durch das Element <code>ApplyTo</code> hergestellt, in dem die
@@ -5859,7 +5383,6 @@
 						nur die PriceItems der Komponente eingeschlossen, die durch das Attribut
 							<code>Component</code> angegeben ist. Im Standardfall ist es die Komponente, in
 						der man sich befindet. </para><para xml:id="en_1366" xml:lang="en">Instead of specifying the absolute PriceItems which are to be influenced by a percentage PriceItem, it is also alternatively possible to specify the PriceItems which are not to be influenced by the percentage PriceItem. This occurs via the element <code>NotApplyTo</code> . If <code>NotApplyTo</code> is used, the percentage PriceItem is applied to all absolute PriceItems which are not explicitly excluded. In this, the only PriceItems included are those of the component which is specified by the attribute <code>Component</code> . In the standard case, it is the component you are currently in.</para>
-					<para xml:lang="de">Neu in der Version 1.9 ist die Möglichkeit die Wirkung über PriceTags zu definieren. In dem ApplyToPriceTags Element werden alle PriceTags aufgelistet auf die ein prozentuales PriceItem wirken soll. PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</para>
 					<para xml:id="de_1367" xml:lang="de">Manche Veranstalter hinterlegen die Beziehungen zwischen absoluten und prozentualen
 						PriceItems nicht bei den prozuentualen PriceItems sondern bei den absoluten
 						PriceItems. OTDS bietet für diesen Sonderfall die Möglichkeit, an Stelle von
@@ -5870,7 +5393,7 @@
 					<para xml:id="de_1368" xml:lang="de">Es können die Komponenten Accommodation, OnewayFlight und ReturnFlight angegeben
 						werden. Die Angabe <code>ThisComponent</code> ist die Standardeinstellung und
 						referenziert die Komponente des prozentualen PriceItem selbst.</para><para xml:id="en_1368" xml:lang="en">The components Accommodation, OnewayFlight and ReturnFlight can be specified. The specification of <code>ThisComponent</code> is the default setting and refers to the component of the percentage PriceItem itself.</para>
-					<para xml:id="de_1369" xml:lang="de">Die Angaben <code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code> und <code>AppliedBy</code>
+					<para xml:id="de_1369" xml:lang="de">Die Angaben <code>ApplyTo</code>, <code>NotApplyTo</code> und <code>AppliedBy</code>
 						sind optional. Fehlen die Angaben, so findet keine Zuweisung statt. Bei mehrfacher
 						Verwendung von <code>ApplyTo</code> oder <code>NotApplyTo</code> werden die
 						Percent-Values nur auf die Absolute-Values angewendet, die alle Bedingungen erfüllen.
@@ -7133,7 +6656,9 @@
 										wie Single, Double, Suite etc.</para><para xml:id="en_1642" xml:lang="en">UnitType: Type of accommodation. Selection from a predefined list of short identifiers such as Single, Double, Suite, etc.</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_1643" xml:lang="de">UnitBedType: Art der Betten in der Unit / Unterkunft. Ab Version 2.0</para><para xml:id="en_1643" xml:lang="en">UnitBedType: Type of beds in the unit/accommodation. From Version 2.0</para>
+									<para xml:id="de_1643" xml:lang="de">UnitBedType: Art der Betten in der Unit / Unterkunft.
+										Ab Version 1.9</para><para xml:id="en_1643" xml:lang="en">UnitBedType: Type of beds in the unit/accommodation. From
+										Version 1.9</para>
 								</listitem>
 							</itemizedlist>
 						</section>
@@ -7194,10 +6719,14 @@
 								Anhang unter Tabellen/Properties. </para><para xml:id="en_1661" xml:lang="en">A full, tabulated itemisation of the elements can be found in the attachment under Tables/Properties.</para>
 						</section>
 						<section>
-							<title><phrase xml:id="de_1662" xml:lang="de">Figures (V2.0)</phrase><phrase xml:id="en_1662" xml:lang="en">Figures (V2.0)</phrase></title>
-							<para xml:id="de_1663" xml:lang="de">Mit der Version 2.0 wurde das Figures-Element eingeführt. Innerhalb der Figures können Entfernungen
-								(Strand, Stadtzentrum, ...) oder Zimmergrößen, sowie z.B. die Anzahl der Schlafzimmer
-								definiert werden.</para><para xml:id="en_1663" xml:lang="en">With Version 2.0, the Figures element is introduced. Within the Figures, distances (beach, city centre, etc.) or room sizes, as well as the number of bedrooms, for example, can be defined.</para>
+							<title><phrase xml:id="de_1662" xml:lang="de">Figures (V1.9)</phrase><phrase xml:id="en_1662"
+									xml:lang="en">Figures (V1.9)</phrase></title>
+							<para xml:id="de_1663" xml:lang="de">Mit der Version 1.9 wurde das Figures-Element
+								eingeführt. Innerhalb der Figures können Entfernungen (Strand,
+								Stadtzentrum, ...) oder Zimmergrößen, sowie z.B. die Anzahl der
+								Schlafzimmer definiert werden.</para><para xml:id="en_1663" xml:lang="en">With Version 1.9, the Figures element is introduced. Within the
+								Figures, distances (beach, city centre, etc.) or room sizes, as well
+								as the number of bedrooms, for example, can be defined.</para>
 							<para xml:id="de_1664" xml:lang="de">Eine vollständige tabelarrische Aufstellung der Elemente findet sich im
 								Anhang unter Tabellen/Properties. </para><para xml:id="en_1664" xml:lang="en">A full, tabulated itemisation of the elements can be found in the attachment under Tables/Properties.</para>
 						</section>
@@ -7991,8 +7520,8 @@
 						Luxusausstattung, behindertengerecht, Meerblick, Familienzimmer aber auch
 						einschränkende Eigenschaften wie Straßenseite, Bad/Toilette auf Korridor etc.
 						Attribute können auch durch Verwendung eigener Namespaces erweitert werden. </para>
-					<para xml:id="det_1817" xml:lang="de">Ab der Version 2.0 ist es möglich zu spezifizieren welche Arten von Betten (UnitBedType) in
-						der Unterbringung vorhanden sind.</para>
+					<para xml:id="det_1817" xml:lang="de">Ab der Version 1.9 ist es möglich zu spezifizieren welche
+						Arten von Betten (UnitBedType) in der Unterbringung vorhanden sind.</para>
 					<para xml:id="det_1818" xml:lang="de">Eine vollständige <link linkend="AnhangPropertiesUnits">Liste der
 							Unterkunftseigenschaften</link> finden Sie im Anhang!</para>
 					<para xml:id="det_1819" xml:lang="de">
@@ -9150,10 +8679,11 @@
 				<para xml:id="det_2011" xml:lang="de">Pflicht Zusatzleistungen + Preis sind noch nicht als Komponenten integriert.</para>
 				<para xml:id="det_2012" xml:lang="de">Die Kombinationsmöglichkeiten von Addons mit Hotels, Flügen, etc. sollten die Package
 					Rules übernehmen. </para>
-				<para xml:id="det_2013" xml:lang="de">Der Aufbau der Buchungsmaske wird später im Booking-Element voraussichtlich. ab OTDS
-					V2.0 geregelt. Dabei sollte idealerweise schon die Bedingungen für die Termine mit
-					integriert werden. 1. RelatedPrevGroup - Abhängig von dem größten Leistungstermin in der
-					letzten Gruppe 2. RelatedNextGroup - Abhängig von dem größten Leistungstermin in der
+				<para xml:id="det_2013" xml:lang="de">Der Aufbau der Buchungsmaske wird später im
+					Booking-Element voraussichtlich. ab OTDS V1.9 geregelt. Dabei sollte
+					idealerweise schon die Bedingungen für die Termine mit integriert werden. 1.
+					RelatedPrevGroup - Abhängig von dem größten Leistungstermin in der letzten
+					Gruppe 2. RelatedNextGroup - Abhängig von dem größten Leistungstermin in der
 					nächsten Gruppe Außerdem gibt es für beide Termine evtl. Vorgaben bzgl. Offsets. </para>
 				<para xml:id="det_2014" xml:lang="de">Belegungen brauchen auch Geschlechtsspezifische Kennzeichen für zum Beispiel FrauenSauna
 					oder ähnliches</para>
@@ -9237,8 +8767,8 @@
 							</listitem>
 						</itemizedlist>
 					
-					<para xml:id="det_2041" xml:lang="de">Ab der Version 2.0 ist es nur noch möglich eine Ausprägung des AddonServiceType zu
-						definieren.</para>
+					<para xml:id="det_2041" xml:lang="de">Ab der Version 1.9 ist es nur noch möglich, eine
+						Ausprägung des AddonServiceType zu definieren.</para>
 					<programlisting><![CDATA[
 	<Addons ...>
 		<Addon ...>
@@ -13454,7 +12984,8 @@
 							<code>True</code>.</para>
 				</section>
 				<section xml:id="OtdsProcessConditionsProductPrice">
-					<title><phrase xml:id="det_2794" xml:lang="de"><code>ProductPrice</code> Bedingung (V2.0)</phrase></title>
+					<title><phrase xml:id="det_2794" xml:lang="de"><code>ProductPrice</code> Bedingung
+							(V1.9)</phrase></title>
 					
 					<para xml:id="det_2795" xml:lang="de">Die <code>ProductPrice</code> Bedingung ist die einzige Bedingung welche sich ausschließlich 
 						auf Werte einer anderen Produktdefinition bezieht. Der Bezug zur Produktkomponente findet über 
@@ -13468,12 +12999,17 @@
 							<para xml:id="det_2798" xml:lang="de"><code>Max</code>: Dieses Element definiert den höchsten Preis, also die Obergrenze einer Preisspanne.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_2799" xml:lang="de"><code>Prices</code>: In diesem Element kann eine Liste von Preisen oder ein Preis angegeben werden. Wenn der betrachtete Preis mit einem der Preise aus der Liste übereinstimmt ist die Bedingung erfüllt. Die Preise in der Liste sind durch "Leerzeichen" getrennt.</para>
+							<para xml:id="det_2799" xml:lang="de"><code>Prices</code>: In diesem Element kann eine Liste
+								von Preisen oder ein Preis angegeben werden. Wenn der betrachtete
+								Preis mit einem der Preise aus der Liste übereinstimmt, ist die
+								Bedingung erfüllt. Die Preise in der Liste sind durch "Leerzeichen"
+								getrennt.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_2800" xml:lang="de"><code>ConsiderationBase</code>: Definiert ob für die Ermittlung des Preises der Gesamtpreis
-									(<code>Total</code>) oder der Preis der gerade betrachteten Person
-									(<code>Person</code>) herangezogen werden soll.</para>
+							<para xml:id="det_2800" xml:lang="de"><code>ConsiderationBase</code>: Definiert, ob für die
+								Ermittlung des Preises der Gesamtpreis (<code>Total</code>) oder der
+								Preis der gerade betrachteten Person (<code>Person</code>)
+								herangezogen werden soll.</para>
 						</listitem>
 					</itemizedlist>
 					
@@ -13792,16 +13328,6 @@
 									<entry>Multiple</entry>
 								</row>
 								<row>
-									<entry><code>&indent;&indent;Booking</code></entry>
-									<entry>Simple</entry>
-									<entry>Single</entry>
-								</row>
-								<row>
-									<entry><code>&indent;&indent;Properties</code></entry>
-									<entry>Simple</entry>
-									<entry>Multiple</entry>
-								</row>
-								<row>
 									<entry><code>&indent;&indent;Product</code></entry>
 									<entry>Composite</entry>
 									<entry>Multiple</entry>
@@ -13824,7 +13350,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;DayAllocationStart</code></entry>
@@ -13834,11 +13360,6 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;DayAllocationEnd</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
-								</row>
-								<row>
-									<entry><code>&indent;&indent;PriceItems</code></entry>
-									<entry>Composite</entry>
 									<entry>Multiple</entry>
 								</row>
 								<row>
@@ -13879,12 +13400,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
-								</row>
-								<row>
-									<entry><code>&indent;&indent;&indent;Filter</code></entry>
-									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;SellingAccom</code></entry>
@@ -13904,12 +13420,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Board</code></entry>
@@ -13929,12 +13445,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;PriceItems</code></entry>
@@ -13954,7 +13470,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;SellingUnit</code></entry>
@@ -13974,12 +13490,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -14089,12 +13605,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;DepartureAirport</code></entry>
@@ -14139,12 +13655,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
-								</row>
-								<row>
-									<entry><code>&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
-									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -14209,7 +13720,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Outbound</code></entry>
@@ -14219,7 +13730,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;DepartureAirport</code></entry>
@@ -14254,7 +13765,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;DepartureAirport</code></entry>
@@ -14297,14 +13808,9 @@
 									<entry>Single</entry>
 								</row>
 								<row>
-									<entry><code>&indent;&indent;&indent;&indent;&indent;Filter</code></entry>
-									<entry>Simple</entry>
-									<entry>Multiple</entry>
-								</row>
-								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -14379,7 +13885,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;ServiceFeature</code></entry>
@@ -14399,12 +13905,12 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;PriceItems</code></entry>
@@ -14429,7 +13935,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Properties</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Occupancy</code></entry>
@@ -14439,7 +13945,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;&indent;PriceItems</code></entry>
@@ -14474,7 +13980,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 								<row>
 									<entry><code>&indent;&indent;&indent;PriceItems</code></entry>
@@ -14514,7 +14020,7 @@
 								<row>
 									<entry><code>&indent;&indent;&indent;Filter</code></entry>
 									<entry>Simple</entry>
-									<entry>Multiple</entry>
+									<entry>Single</entry>
 								</row>
 							</tbody>
 						</tgroup>
@@ -18233,8 +17739,8 @@
 								<code>Absolute/AppliedBy</code></para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_3621" xml:lang="de">Bei relativen PriceItems über die Angabe von <code>Percent/ApplyTo</code>, <code>Percent/ApplyToPriceTags</code>,
-								<code>Percent/ApplyToAll</code>, <code>Percent/ApplyToPriceTags</code> oder
+							<para xml:id="det_3621" xml:lang="de">Bei relativen PriceItems über die Angabe von <code>Percent/ApplyTo</code>,
+									<code>Percent/ApplyToAll</code> oder
 								<code>Percent/NotApplyTo</code></para>
 						</listitem>
 					</itemizedlist>
@@ -18272,12 +17778,6 @@
 									<para xml:id="det_3631" xml:lang="de">Hat das relative PriceItem eine Angabe <code>ApplyTo</code>, wird
 										das relative PriceItem in alle Kostenknoten kopiert, dessen absolutes
 										PriceItem im Klassennamen mit einem der angegebenen Klassennamen
-										übereinstimmt.</para>
-								</listitem>
-								<listitem>
-									<para xml:lang="de">Hat das relative PriceItem eine Angabe <code>ApplyToPriceTags</code>, wird
-										das relative PriceItem in alle Kostenknoten kopiert, dessen absolutes
-										PriceItem ein PriceTag besitzt, welches mit der Definition in <code>ApplyToPriceTags</code> übereinstimmt
 										übereinstimmt.</para>
 								</listitem>
 								<listitem>
@@ -18639,7 +18139,6 @@
 							<code>PriceItems</code> Wert der Instanz zu finden ist.</para>
 
 					<para xml:id="det_3717" xml:lang="de">Hier eine vollständige Auflistung der <code>Booking</code> Elemente in OTDS: <simplelist>
-							<member>/Otds/Products/Booking</member>
 							<member>/Otds/Products/Product/Booking</member>
 							<member>/Otds/Brands/Brand/Booking</member>
 							<member>/Otds/Accommodations/Accommodation/SellingAccom/Booking</member>
@@ -19269,13 +18768,13 @@
 										<para xml:id="det_3846" xml:lang="de">Other</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3847" xml:lang="de">DetachedHouse (V2.0)</para>
+										<para xml:id="det_3847" xml:lang="de">DetachedHouse (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3848" xml:lang="de">RowHouse (V2.0)</para>
+										<para xml:id="det_3848" xml:lang="de">RowHouse (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3849" xml:lang="de">HolidayHome (V2.0)</para>
+										<para xml:id="det_3849" xml:lang="de">HolidayHome (V1.9)</para>
 									</listitem>
 									</itemizedlist>
 								</td>
@@ -19418,22 +18917,22 @@
 										<para xml:id="det_3881" xml:lang="de">HotelSafe</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3882" xml:lang="de">Carport (V2.0)</para>
+										<para xml:id="det_3882" xml:lang="de">Carport (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3883" xml:lang="de">GuardedParkingLot (V2.0)</para>
+										<para xml:id="det_3883" xml:lang="de">GuardedParkingLot (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3884" xml:lang="de">BasementGarage (V2.0)</para>
+										<para xml:id="det_3884" xml:lang="de">BasementGarage (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3885" xml:lang="de">ParkingWithCost (V2.0)</para>
+										<para xml:id="det_3885" xml:lang="de">ParkingWithCost (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3886" xml:lang="de">FreeParking (V2.0)</para>
+										<para xml:id="det_3886" xml:lang="de">FreeParking (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_3887" xml:lang="de">Garage (V2.0)</para>
+										<para xml:id="det_3887" xml:lang="de">Garage (V1.9)</para>
 									</listitem>
 									</itemizedlist>
 								</td>
@@ -19456,7 +18955,7 @@
 											<para xml:id="det_3890" xml:lang="de">ChildrenEntertainment</para>
 										</listitem>
 										<listitem>
-											<para xml:id="det_3891" xml:lang="de">KinderAnimation (entfällt ab V2.0)</para>
+											<para xml:id="det_3891" xml:lang="de">KinderAnimation (entfällt ab V1.9)</para>
 										</listitem>
 										<listitem>
 											<para xml:id="det_3892" xml:lang="de">BabysitterService</para>
@@ -19486,7 +18985,7 @@
 											<para xml:id="det_3900" xml:lang="de">MiniClub</para>
 										</listitem>
 										<listitem>
-											<para xml:id="det_3901" xml:lang="de">SingleWithChild (entfällt ab V2.0)</para>
+											<para xml:id="det_3901" xml:lang="de">SingleWithChild (entfällt ab V1.9)</para>
 										</listitem>
 										<listitem>
 											<para xml:id="det_3902" xml:lang="de">FurnitureForChildren</para>
@@ -19532,19 +19031,22 @@
 								<td rowspan="1" colspan="1"><para xml:id="det_3915" xml:lang="de">Familieneinrichtungen der Unterkunft</para>
 									<itemizedlist>
 										<listitem>
-											<para xml:id="det_3916" xml:lang="de">In der V1.0 gibt es auch noch die Option "KinderAnimation"
-												diese wird aber in V2.0 entfernt. Bitte verwenden Sie
-												"ChildrenEntertainment" stattdessen.</para>
+											<para xml:id="det_3916" xml:lang="de">In der V1.0 gibt es auch noch die Option
+											"KinderAnimation" diese wird aber in V1.9 entfernt.
+											Bitte verwenden Sie "ChildrenEntertainment"
+											stattdessen.</para>
 										</listitem>
 										<listitem>
-											<para xml:id="det_3917" xml:lang="de"> "SingleWithChild" entfällt ab V2.0 da diese Eigenschaft auf
-												Hotelebene keinen praktischen Nutzen bringt. Diese Option gibt
-												es dann lediglich noch im UnitType.</para>
+											<para xml:id="det_3917" xml:lang="de"> "SingleWithChild" entfällt ab V1.9 da diese
+											Eigenschaft auf Hotelebene keinen praktischen Nutzen
+											bringt. Diese Option gibt es dann lediglich noch im
+											UnitType.</para>
 										</listitem>
 										<listitem>
-											<para xml:id="det_3918" xml:lang="de">"FamilyRoom" entfällt ab V2.0 da diese Eigenschaft auf
-												Hotelebene keinen praktischen Nutzen bringt. Diese Option gibt
-												es dann lediglich noch im UnitType als "Family".</para>
+											<para xml:id="det_3918" xml:lang="de">"FamilyRoom" entfällt ab V1.9 da diese Eigenschaft
+											auf Hotelebene keinen praktischen Nutzen bringt. Diese
+											Option gibt es dann lediglich noch im UnitType als
+											"Family".</para>
 										</listitem>
 									</itemizedlist>
 								</td>
@@ -20031,7 +19533,8 @@
 											<para xml:id="det_4045" xml:lang="de">GardenView</para>
 										</listitem>
 										<listitem>
-											<para xml:id="det_4046" xml:lang="de">Bunkbed (entfällt ab V2.0, zu finden im UnitBedType)</para>
+											<para xml:id="det_4046" xml:lang="de">Bunkbed (entfällt ab V1.9, zu finden im
+											UnitBedType)</para>
 										</listitem>
 										<listitem>
 											<para xml:id="det_4047" xml:lang="de">BathToiletteInCorridor</para>
@@ -20142,10 +19645,10 @@
 										<para xml:id="det_4082" xml:lang="de">Iron</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4083" xml:lang="de">PetsAllowed (V2.0)</para>
+										<para xml:id="det_4083" xml:lang="de">PetsAllowed (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4084" xml:lang="de">PetsProhibited (V2.0)</para>
+										<para xml:id="det_4084" xml:lang="de">PetsProhibited (V1.9)</para>
 									</listitem>
 									</itemizedlist>
 								</td>
@@ -20813,7 +20316,7 @@
 							<para xml:id="det_4274" xml:lang="de">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_4275" xml:lang="de">GeneralExcludedServices (V2.0)</para>
+							<para xml:id="det_4275" xml:lang="de">GeneralExcludedServices (V1.9)</para>
 						</listitem>
 						<listitem>
 							<para xml:id="det_4276" xml:lang="de">AccommodationAddress</para>
@@ -20897,7 +20400,7 @@
 							<para xml:id="det_4298" xml:lang="de">UnitType</para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_4299" xml:lang="de">UnitBedType (V2.0)</para>
+							<para xml:id="det_4299" xml:lang="de">UnitBedType (V1.9)</para>
 						</listitem>
 						<listitem>
 							<para xml:id="det_4300" xml:lang="de">UnitFacilities</para>
@@ -20909,7 +20412,7 @@
 							<para xml:id="det_4302" xml:lang="de">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_4303" xml:lang="de">GeneralExcludedServices (V2.0)</para>
+							<para xml:id="det_4303" xml:lang="de">GeneralExcludedServices (V1.9)</para>
 						</listitem>
 					</itemizedlist>
 					
@@ -21200,7 +20703,7 @@
 							<para xml:id="det_4389" xml:lang="de">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_4390" xml:lang="de">GeneralExcludedServices (V2.0)</para>
+							<para xml:id="det_4390" xml:lang="de">GeneralExcludedServices (V1.9)</para>
 						</listitem>
 					</itemizedlist>
 					
@@ -21453,13 +20956,13 @@
 							<para xml:id="det_4437" xml:lang="de">AddonCatchmentRailwayStations</para>
 						</listitem>
 						<listitem>
-							<para xml:lang="de">AddonCarRentalProperties (V2.0)</para>
+							<para xml:lang="de">AddonCarRentalProperties (V1.9)</para>
 						</listitem>
 						<listitem>
 							<para xml:id="det_4438" xml:lang="de">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="det_4439" xml:lang="de">GeneralExcludedServices (V2.0)</para>
+							<para xml:id="det_4439" xml:lang="de">GeneralExcludedServices (V1.9)</para>
 						</listitem>
 					</itemizedlist>
 					<para xml:id="det_4440" xml:lang="de">Die Service-Typen der Zusatzleistungen sind, wie oben aufgelistet, in verschiedene
@@ -21528,7 +21031,7 @@
 												<para xml:lang="de">Other</para>
 											</listitem>
 											<listitem>
-												<para xml:lang="de">Minivan (V2.0)</para>
+												<para xml:lang="de">Minivan (V1.9)</para>
 											</listitem>
 											</itemizedlist>
 										</entry>
@@ -21629,7 +21132,7 @@
 												<emphasis role="bold">Golfarrangements</emphasis></para>
 											<itemizedlist>
 												<listitem>
-												<para xml:id="det_4485" xml:lang="de">CourseAccess</para>
+												<para xml:id="det_4485" xml:lang="de">CourtAccess</para>
 												</listitem>
 												<listitem>
 												<para xml:id="det_4486" xml:lang="de">EquipmentRental</para>
@@ -21890,7 +21393,8 @@
 					</itemizedlist>
 				</section>
 				<section xml:id="AnhangPropertiesPriceTypes">
-					<title><phrase xml:id="det_4551" xml:lang="de">Properties - GeneralIncluded, GeneralExcluded (V2.0), PriceType, TextInformation</phrase></title>
+					<title><phrase xml:id="det_4551" xml:lang="de">Properties - GeneralIncluded, GeneralExcluded
+							(V1.9), PriceType, TextInformation</phrase></title>
 					
 						<informaltable border="0" style="border-collapse:  collapse;width:1008pt" width="1344">
 							<col width="121.0px"/>
@@ -22085,22 +21589,22 @@
 										<para xml:id="det_4623" xml:lang="de">None</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4624" xml:lang="de">Parking (V2.0)</para>
+										<para xml:id="det_4624" xml:lang="de">Parking (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4625" xml:lang="de">CookService (V2.0)</para>
+										<para xml:id="det_4625" xml:lang="de">CookService (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4626" xml:lang="de">LaundryService (V2.0)</para>
+										<para xml:id="det_4626" xml:lang="de">LaundryService (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4627" xml:lang="de">RollService (V2.0)</para>
+										<para xml:id="det_4627" xml:lang="de">RollService (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4628" xml:lang="de">CleaningService (V2.0)</para>
+										<para xml:id="det_4628" xml:lang="de">CleaningService (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="det_4629" xml:lang="de">FinalCleanUp (V2.0)</para>
+										<para xml:id="det_4629" xml:lang="de">FinalCleanUp (V1.9)</para>
 									</listitem>
 									</itemizedlist>
 								</td>
@@ -22121,7 +21625,7 @@
 								<para xml:id="det_4639" xml:lang="de">&gt;= ReturnFlight/Outbound</para>
 								<para xml:id="det_4640" xml:lang="de">&gt;= ReturnFlight/Inbound</para>
 							</td>
-							<td rowspan="1" colspan="1">GeneralExcludedService (V2.0)</td>
+							<td rowspan="1" colspan="1">GeneralExcludedService (V1.9)</td>
 							<td rowspan="1" colspan="1">
 								<itemizedlist>
 									<listitem>
@@ -22253,7 +21757,7 @@
 					<para xml:id="det_4684" xml:lang="de"> </para>
 				</section>
 				<section xml:id="AnhangPropertiesFigures">
-					<title><phrase xml:id="det_4685" xml:lang="de">Figures (V2.0)</phrase></title>
+					<title><phrase xml:id="det_4685" xml:lang="de">Figures (V1.9)</phrase></title>
 					
 						<informaltable border="0" style="border-collapse:  collapse;width:1008pt" width="1344">
 							<col width="121.0px"/>
@@ -22468,10 +21972,6 @@
 										<entry>k</entry>
 										<entry>*/PriceItems/PriceItem/Properties/PriceType</entry>
 									</row>
-									<row>
-										<entry>l</entry>
-										<entry>/Otds/Products/</entry>
-									</row>
 								</tbody>
 							</tgroup>
 						</table>
@@ -22506,7 +22006,6 @@
 										<entry>i</entry>
 										<entry>j</entry>
 										<entry>k</entry>
-										<entry>l</entry>
 									</row>
 								</thead>
 								<tbody>
@@ -22514,7 +22013,6 @@
 										<entry>AccommodationCity</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22538,13 +22036,11 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationName</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22568,13 +22064,11 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationOperatorCategory</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22598,13 +22092,11 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationGeneralFacilities</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22628,13 +22120,11 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationSportsFacilities</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22658,13 +22148,11 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationSeniorFacilities</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22688,13 +22176,11 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AccommodationAddress</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22718,7 +22204,6 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>UnitName</entry>
@@ -22727,7 +22212,6 @@
 										<entry/>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22748,16 +22232,14 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 								<row>
-									<entry>UnitBedType (V2.0)</entry>
+									<entry>UnitBedType (V1.9)</entry>
 									<entry/>
 									<entry/>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
-									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -22778,7 +22260,6 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>UnitBuildingType</entry>
@@ -22793,14 +22274,12 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>BoardName</entry>
 										<entry/>
 										<entry/>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22823,14 +22302,12 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>BoardProperties</entry>
 										<entry/>
 										<entry/>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22853,7 +22330,6 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AddonServiceType</entry>
@@ -22865,7 +22341,6 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22883,7 +22358,6 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>AddonServiceFeatureName</entry>
@@ -22895,7 +22369,6 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -22913,7 +22386,6 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>GeneralIncludedService</entry>
@@ -22928,15 +22400,13 @@
 										<entry/>
 										<entry/>
 										<entry/>
-										<entry/>
 									</row>
 								<row>
-									<entry>GeneralExcludedService (V2.0)</entry>
+									<entry>GeneralExcludedService (V1.9)</entry>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
-									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -22958,7 +22428,6 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry/>
-										<entry/>
 									</row>
 									<row>
 										<entry>FlightRoute</entry>
@@ -22972,7 +22441,6 @@
 										<entry/>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 									</row>
 									<row>
@@ -22988,25 +22456,23 @@
 										<entry/>
 										<entry/>
 										<entry>x</entry>
+									</row>
+									<row>
+										<entry>Figures (V1.9)</entry>
+										<entry>x</entry>
+										<entry>x</entry>
+										<entry/>
+										<entry>x</entry>
+										<entry>x</entry>
+										<entry/>
+										<entry/>
+										<entry/>
+										<entry/>
+										<entry/>
 										<entry/>
 									</row>
 									<row>
-										<entry>Figures (V2.0)</entry>
-										<entry>x</entry>
-										<entry>x</entry>
-										<entry/>
-										<entry>x</entry>
-										<entry>x</entry>
-										<entry/>
-										<entry/>
-										<entry/>
-										<entry/>
-										<entry/>
-										<entry/>
-										<entry/>
-									</row>
-									<row>
-										<entry>AddonCarRentalProperties (V2.0)</entry>
+										<entry>AddonCarRentalProperties (V1.9)</entry>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -23015,7 +22481,6 @@
 										<entry>x</entry>
 										<entry>x</entry>
 										<entry>x</entry>
-										<entry/>
 										<entry/>
 										<entry/>
 										<entry/>
@@ -23024,8 +22489,8 @@
 							</tgroup>
 						</table>
 					<table frame="all">
-							<title><phrase xml:id="det_4737" xml:lang="de">Verwendung der Figures / LocationsDistance in Abhängigkeit der (Sub-)Komponente
-							(V2.0)</phrase></title>
+							<title><phrase xml:id="det_4737" xml:lang="de">Verwendung der Figures / LocationsDistance in
+								Abhängigkeit der (Sub-)Komponente (V1.9)</phrase></title>
 							<tgroup cols="12" align="left" colsep="1" rowsep="1">
 								<thead>
 									<row>
@@ -23160,7 +22625,8 @@
 							</tgroup>
 						</table>
 					<table frame="all">
-						<title><phrase xml:id="det_4738" xml:lang="de">Verwendung der Figures / Facility in Abhängigkeit der (Sub-)Komponente (V2.0)</phrase></title>
+						<title><phrase xml:id="det_4738" xml:lang="de">Verwendung der Figures / Facility in
+								Abhängigkeit der (Sub-)Komponente (V1.9)</phrase></title>
 						<tgroup cols="12" align="left" colsep="1" rowsep="1">
 							<thead>
 								<row>
@@ -24357,9 +23823,6 @@
 								<entry>
 									<itemizedlist>
 										<listitem>
-											<para xml:lang="de">/Otds/Accommodations/Accommodation/Filter</para>
-										</listitem>
-										<listitem>
 											<para xml:id="det_4754" xml:lang="de">/Otds/Accommodations/Accommodation/SellingAccom/Filter</para>
 										</listitem>
 										<listitem>
@@ -24372,13 +23835,7 @@
 											<para xml:id="det_4757" xml:lang="de">/Otds/Flights/OnewayFlights/OnewayFlight/Filter</para>
 										</listitem>
 										<listitem>
-											<para xml:lang="de">/Otds/Flights/OnewayFlights/OnewayFlight/BookingClass/Filter</para>
-										</listitem>
-										<listitem>
 											<para xml:id="det_4758" xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/Filter</para>
-										</listitem>
-										<listitem>
-											<para xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/BookingClass/Filter</para>
 										</listitem>
 										<listitem>
 											<para xml:id="det_4759" xml:lang="de">/Otds/Addons/Addon/Filter</para>
@@ -24532,10 +23989,6 @@
 								<row>
 									<entry>n</entry>
 									<entry>/*/PriceItems/PriceItem/</entry>
-								</row>
-								<row>
-									<entry>o</entry>
-									<entry>/OTDS/Products/</entry>
 								</row>
 							</tbody>
 						</tgroup>
