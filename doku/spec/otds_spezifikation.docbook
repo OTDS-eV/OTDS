@@ -7050,14 +7050,8 @@
 					<title><phrase xml:id="de_1574" xml:lang="de">Overview</phrase><phrase xml:id="en_1574" xml:lang="en">Overview</phrase></title>
 					<para xml:id="de_1575" xml:lang="de">Eine OTDS-Datei ist eine XML-Datei.</para><para xml:id="en_1575" xml:lang="en">An OTDS file is an XML file.</para>
 					<para xml:id="de_1576" xml:lang="de">Jede Datei in einer OTDS-Datenlieferung beginnt mit dem Wurzelelement <emphasis role="bold">Otds</emphasis>. </para><para xml:id="en_1576" xml:lang="en">Each file in an OTDS data delivery begins with the root element <emphasis role="bold">Otds</emphasis>.</para>
-					<para xml:id="de_1577" xml:lang="de">
-						<programlisting><![CDATA[<Otds Market="DE" UpdateMode="New" xmlns="http://otds-group.org/otds" Version="1.0">]]></programlisting>
-					</para><para xml:id="en_1577" xml:lang="en">
-						<programlisting>
-							<![CDATA[<Otds Market="DE" UpdateMode="New" xmlns="http://otds-group.org/otds" Version="1.0">]]></programlisting>
-					</para>
-					<para xml:id="de_1578" xml:lang="de">Jede OTDS-Datenlieferung ist marktspezifisch. Das Attribut "Market" definiert für
-						welchen Markt die Lieferung gedacht ist. </para><para xml:id="en_1578" xml:lang="en">Each OTDS data delivery is market specific. The attribute "Market" defines which market the delivery is intended for.</para>
+					<programlisting><![CDATA[<Otds UpdateMode="New" xmlns="http://otds-group.org/otds" Version="1.0">]]></programlisting>
+					<para xml:id="de_1578" xml:lang="de">Jede OTDS-Datenlieferung ist marktspezifisch. </para><para xml:id="en_1578" xml:lang="en">Each OTDS data delivery is market specific. </para>
 					<para xml:id="de_1579" xml:lang="de">Die Angabe der OTDS-Datenlieferung zugrunde liegenden Version in dem Attribut
 						"Version" ist Pflicht und für die korrekte Verarbeitung der Datenlieferung
 						unerlässlich.</para><para xml:id="en_1579" xml:lang="en">The indication of the version on which the specification of the OTDS data delivery is based within the attribute "Version" is mandatory for the correct processing of the data delivery.</para>
@@ -7075,13 +7069,244 @@
 						Exklusivangebote innerhalb einer Datenlieferung integriert werden.</para><para xml:id="en_1582" xml:lang="en">In OTDS it is possible for a data delivery to contain several brands (Brand). In many places, market specific validities, price components or rules can be set. In this way it is possible to avoid high redundancies in the data delivery. The same applies for the delivery of customer specific data. In OTDS only the fine, customer specific differences can be delivered. In this way NegoSpaces and NegoFares or exclusive offers can be integrated within a data delivery.</para>
 					<para xml:id="de_1583" xml:lang="de">Das führt zu erheblich reduzierten Datenmengen, aber garantiert eine optimale
 						Updatebarkeit von Preisen und Verfügbarkeiten.</para><para xml:id="en_1583" xml:lang="en">This leads to greatly reduced data quantities, but guarantees an optimal updatability of prices and availabilities.</para>
-					<bridgehead xml:id="de_1584" xml:lang="de">Separate Datenlieferungen der einzelnen Vertriebsmärkte</bridgehead><bridgehead xml:id="en_1584" xml:lang="en">Separate data deliveries of the individual distribution markets</bridgehead>
-					<para xml:id="de_1585" xml:lang="de">In OTDS ist aktuell vorgesehen, dass Datenlieferungen nach Vertriebsmärkten getrennt
-						und geliefert werden. Die Vertriebsmärkte teilen sich auf einzelne Länder auf. Die
-						Angabe des Vertriebsmarktes erfolgt im Attribut "Market" im Element <emphasis role="italic">Otds</emphasis>.</para><para xml:id="en_1585" xml:lang="en">In OTDS it is currently planned that data deliveries will be divided and delivered according to distribution markets. The distribution markets are divided into individual countries. The specification of the distribution market occurs in the attribute "Market" in the element <emphasis role="italic">Otds</emphasis>.</para>
-					<para xml:id="de_1586" xml:lang="de">Die Kennzeichnung in den Daten erfolgt durch den international gebräuchlichen
-						2-Zeichen Ländercode (Länderkürzel nach ISO-3166 Alpha-2).</para><para xml:id="en_1586" xml:lang="en">Identification in the data occurs via the internationally used 2-letter country code (country abbreviations according to ISO-3166 Alpha-2).</para>
 				</section>
+			  <section xml:id="OtdsDataDeliveryCurrencies">
+			    <title><phrase xml:lang="de">Unterschiedliche Währungen in einer Komponente (Version
+			      1.9)</phrase></title>
+			    <para>Ab der Version 1.9 ist es möglich innerhalb einer Komponente unterschiedliche Währungen
+            zu nutzen. Dabei erfolgt die Umsetzung in 3 Bereichen:</para>
+			    <orderedlist>
+			      <listitem>
+			        <para>Parameter SalesMarket / Wegfall des Attributes Otds/@Market</para>
+			      </listitem>
+			      <listitem>
+			        <para>Ergänzung der Definition von PriceItems unter Products, Product, Addons,
+                Brand</para>
+			      </listitem>
+			      <listitem>
+			        <para>Bezüge von Währungs-Umrechnungsfaktor über AppliedBy oder ApplyToPriceTags</para>
+			      </listitem>
+			    </orderedlist>
+			      <bridgehead><phrase xml:lang="de">Der Parameter SalesMarket / Wegfall des Attributes
+			        Otds/@Market</phrase></bridgehead>
+			      <para>Bis zur Version 1.9 wurde der Markt über das Attribut <code>Market</code> innerhalb
+              von <code>Otds</code> geliefert. </para>
+            <para>Ab der Version 1.9 wird <code>Market</code> nun durch den <code>SalesMarket</code>
+              innerhalb von <code>GlobalValues</code> ersetzt.</para>
+			      <para>Durch den Parameter "SalesMarket" wird es möglich GlobalValues zu definieren, die gültig werden wenn Daten für bestimmte Märkte produziert werden.
+			        Der Inhalt des Elementes "SalesMarket" folgt dabei dem ISO 3166-Alpha2-Standard für Ländercodes. </para>
+            <para>Die OTDS XSD überprüft die Inhalte nicht auf gültige ISO-Codes. Es wird lediglich
+              geprüft, dass die Codes 2-stellig sind.</para>
+            <para>Im folgenden ein Beispiel wie die Definition der GlobalValues für den deutschen
+              Markt und den schweizer Markt formuliert werden kann:</para>
+            <programlisting><![CDATA[<Otds...>
+  <Products>
+        <GlobalValues>
+            <GlobalValue Key="GermanMarket">
+                <ParameterSet Key="1">
+                    <SalesMarket>DE</SalesMarket>
+                </ParameterSet>
+            </GlobalValue>
+            <GlobalValue Key="SwissMarket">
+                <ParameterSet Key="1">
+                    <SalesMarket>CH</SalesMarket>
+                </ParameterSet>
+            </GlobalValue>
+            <GlobalValue Key="GBMarket">
+                <ParameterSet Key="1">
+                    <SalesMarket>GB</SalesMarket>
+                </ParameterSet>
+            </GlobalValue>
+        </GlobalValues>
+        ...
+  </Products>
+  ...
+  </Otds>]]></programlisting>
+			      <para>Durch die Definition dieser GlobalTypes hat man in OTDS über die Filter / Conditions
+              sehr flexible Möglichkeiten Produkte, Hotels, Flüge aber auch Preise auf die Benutzung
+              in bestimmten Märkten zu begrenzen.</para>
+            <para>Hier ein Beispiel, wie ein SellingAccom über die oben definierten GlobalTypes auf
+              den SchweizerMarkt begrenzt werden kann:</para>
+            <programlisting><![CDATA[<Otds...>
+    <Products>
+        <GlobalValues>
+            ... siehe oben
+        </GlobalValues>
+                ...
+     </Products>
+    <Accommodations>
+        <Accommodation ...>
+            <SellingAccom ...>
+                ...
+                <Filter>
+                    <Keys Source="global:GlobalType">SwissMarket</Keys>
+                </Filter>
+            </SellingAccom>
+        </Accommodation>
+     <Accommodations>    
+     ...
+     </Otds>]]></programlisting>
+			    <bridgehead><phrase xml:lang="de">PriceItems unter Products, Product, Addons,
+            Brand</phrase></bridgehead>
+			    <para>Um Währungsumrechnungsfaktoren sinnvoll im OTDS-Format platzieren zu können, 
+			      ist es notwendig, "PriceItems" auch auf globaler Ebene also direkt unter Products abzulegen.</para>
+			    <programlisting><![CDATA[<Otds...>
+    <Products>
+        <GlobalValues>
+            ... 
+        </GlobalValues>
+               <Product>
+                  ...
+               </Product>
+                ...
+               <PriceItems Key="CurrencyRates">
+            <PriceItem Class="EURGBP">
+                <Percent>
+                    <Value>-15.49</Value>
+                    <ApplyToPriceTags Source="Descendants:Product" Class="Currency">EUR</ApplyToPriceTags>
+                </Percent>
+                <Condition>
+                    <Keys Source="global:GlobalValue">GBmarket</Keys>
+                </Condition>
+            </PriceItem>
+        </PriceItems>
+     </Products>
+     ...
+     </Otds>]]></programlisting>
+			    <para>Es ist dabei zu beachten, dass global definierte PriceItems nur einmalig in die
+			    Berechnung einfließen.</para>
+			    <bridgehead><phrase xml:lang="de">Bezüge von Währungs-Umrechnungsfaktor über AppliedBy</phrase></bridgehead>
+			    <para>Wie zuvor dargestellt, können also für jeden Markt explizit Preise definiert werden.
+            Wenn die expliziten Preise lediglich auf einer Kursumrechnung basieren, müssen nicht
+            alle Preise explitzit geliefert werden, sondern sie können die OTDS-Berechnungslogik
+            genau für diese Umrechnung benutzen.</para>
+          <para>Hierzu benutzen Sie vorrangig das Element <code>AppliedBy</code>> innerhalb der
+            Absolute-PriceItems.</para>
+          <para>Ein mögliches Szenario wäre, wenn ein deutscher Veranstalter seine Angebote auch auf
+            dem Schweizer Markt anbieten möchte. Die Preise sind identisch zum deutschen Markt. Für
+            den Schweizer Markt erfolgt lediglich eine Umrechnung in schweizer Franken durch einen
+            vom Veranstalter vorgegebenen Umrechnungsfaktor (z.B.: 1Euro = 1,233 Franken). Dieser
+            Umrechnungsfaktor wird als Percent-PriceItem in OTDS geliefert. Aus 1,233 wird also
+            +23,3%.</para>
+			    <para>Nachfolgend ein passendes Beispiel dazu:</para>
+           <programlisting><![CDATA[<Otds...>
+    <Products>
+        <GlobalValues>
+            ... siehe oben
+        </GlobalValues>
+               <Product>
+                  ...
+               </Product>
+                ...
+               <PriceItems Key="CurrencyRates">
+            <PriceItem Class="EURCHF">
+                <Percent>
+                    <Value>23.3</Value>
+                </Percent>
+                <Condition>
+                    <Keys Source="global:GlobalValue">Swissmarket</Keys>
+                </Condition>
+            </PriceItem>
+        </PriceItems>
+     </Products>
+    <Accommodations>
+        <Accommodation ...>
+            <SellingAccom ...>
+                ...
+                <PriceItems ...>
+                    <PriceItem ...>
+                        <Absolute>
+                            <Value>90</Value>
+                            <DayBase>x</DayBase>
+                            <PersonBase>1</PersonBase>
+                            <AppliedBy>EURCHF</AppliedBy>
+                        </Absolute>
+                        <Condition>
+                            <And>
+                                <Keys Source="global:GlobalValue">GermanMarket</Keys>
+                                <Date Source="Accommodation" DayType="CheckIn">
+                                    <Min>2011-04-15</Min>
+                                    <Max>2011-06-01</Max>
+                                </Date>
+                                ...            
+                            </And>
+                        </Condition>
+                    </PriceItem>
+            </SellingAccom>
+        </Accommodation>
+
+     <Accommodations>    
+     ...
+     </Otds>]]></programlisting> 	
+			    <para>Die Umrechnungsfaktoren der Währungen werden also zentral platziert. Alle absoluten
+            Euro Werte werden mit dem &lt;AppliedBy>EURCHF&lt;/AppliedBy> versehen. Für den
+            deutschen Markt ist das PriceItem "EURCHF" nicht gültig. Damit basiert die Berechnung
+            für den deutsche Markt allein auf Basis der Europreise. Für den Schweizer Markt ist das
+            PriceItem "EURCHF" aktiv und wird auf alle absoluten PriceItems angewendet, sofern diese
+            das entsprechende "AppliedBy" integriert haben.</para>
+          <para>Das Resultat ist der korrekte spezifische Preis für jeden Markt. OTDS geht hierbei
+            davon aus, dass je Markt eine einheitliche Währung angeboten wird, die auch der Währung
+            der Veranstalter-Antwort (z.B. bei Aktion BA) entspricht. Dies entspricht der
+            klassischen Rollenverteilung beim Datenverkehr zwischen Veranstaltern und
+            Vertriebssystemen.</para>
+			    <bridgehead><phrase xml:lang="de">Bezüge von Währungs-Umrechnungsfaktor über PriceTags</phrase></bridgehead>
+			    <para>Dadurch, dass seit Version 1.9 auch PriceTags zusätzlich zu der Class eines PriceItems
+            definiert werden können, können alle PriceItems mit einer PriceTag-"Auszeichnung"
+            versehen werden, auf die sich der Umrechnungsfaktor beziehen kann.</para>
+          <para>Nachfolgend ein passendes Beispiel dazu:</para>
+			    <programlisting><![CDATA[<Otds...>
+    <Products>
+        <GlobalValues>
+            ... siehe oben
+        </GlobalValues>
+               <Product>
+                  ...
+               </Product>
+                ...
+               <PriceItems Key="CurrencyRates">
+            <PriceItem Class="EURGBP">
+                <Percent>
+                    <Value>-15.49</Value>
+                    <ApplyToPriceTags Source="Descendants:Product" Class="Currency">EUR</ApplyToPriceTags>
+                </Percent>
+                <Condition>
+                    <Keys Source="global:GlobalValue">GBmarket</Keys>
+                </Condition>
+            </PriceItem>
+        </PriceItems>
+     </Products>
+    <Accommodations>
+        <Accommodation ...>
+            <SellingAccom ...>
+                ...
+                <PriceItems ...>
+                    <PriceItem ...>
+                        <PriceTags>
+                            <PriceTag Class="Currency">EUR</PriceTag>
+                        </PriceTags>
+                        <Absolute>
+                            <Value>90</Value>
+                            <DayBase>x</DayBase>
+                            <PersonBase>1</PersonBase>
+                        </Absolute>
+                        <Condition>
+                            <And>
+                                <Keys Source="global:GlobalValue">GermanMarket</Keys>
+                                <Date Source="Accommodation" DayType="CheckIn">
+                                    <Min>2011-04-15</Min>
+                                    <Max>2011-06-01</Max>
+                                </Date>
+                                ...            
+                            </And>
+                        </Condition>
+                    </PriceItem>
+            </SellingAccom>
+        </Accommodation>
+
+     <Accommodations>    
+     ...
+</Otds>]]></programlisting>
+			  </section>
 				<section xml:id="OtdsDataDeliveryInitial">
 					<title><phrase xml:id="de_1587" xml:lang="de">Initiale Datenlieferung</phrase><phrase xml:id="en_1587" xml:lang="en">Initial data delivery</phrase></title>
 					<section xml:id="OtdsDataDeliveryInitialOverview">
@@ -9744,9 +9969,9 @@
 					(dynamischen) Properties</link>
 			</para>
 		</section>
-    <section xml:id="OtdsRounding">
-      <title><phrase xml:lang="de">Rundung</phrase></title>
-      <para xml:lang="de">Die Rundung wird in OTDS über ein eigenes PriceItem
+    <section xml:id="OtdsProductsComponentsRounding">
+      <title><phrase xml:lang="de">Rundung (Version 1.9)</phrase></title>
+      <para xml:lang="de">Die Rundung wird in OTDS ab Version 1.9 über ein eigenes PriceItem
           <code>GenericAbsolute</code> abgebildet. Dabei stellt die Rundung nur eine Form einer
         mathematischen Funktion da, die letztendlich zur Integration eines Absolutbetrages führt,
         der in der Summe aus dem ungerundeten Wert den gerundeten Wert ergibt.</para>
@@ -19549,13 +19774,12 @@
 						</listitem>
 					</itemizedlist>
 
-					<para xml:id="det_3777" xml:lang="de">Zusätzlich zur Wertangabe enthält das Element optional Formatierungsanweisungen für
-						Datumswerte. Diese werden durch das Attribut <code>DateFormat</code> angegeben. Dieses
-						Attribut enthält ein Formatierungstemplate welches festlegt, wie das Datum anzuzeigen
-						ist. Dieses Template folgt den Regeln des <code>picture</code> Argumentes der
-							<code>xslt:format-date</code> Funktion aus dem XSLT 2.0 Standard. Die in diesem
-						Standard definierten Argumente <code>language</code> und <code>country</code> werden
-						auf den Wert des <code>Market</code> Elementes der OTDS Lieferung gesetzt.</para>
+					<para xml:id="det_3777" xml:lang="de">Zusätzlich zur Wertangabe enthält das Element optional
+            Formatierungsanweisungen für Datumswerte. Diese werden durch das Attribut
+              <code>DateFormat</code> angegeben. Dieses Attribut enthält ein Formatierungstemplate
+            welches festlegt, wie das Datum anzuzeigen ist. Dieses Template folgt den Regeln des
+              <code>picture</code> Argumentes der <code>xslt:format-date</code> Funktion aus dem
+            XSLT 2.0 Standard. </para>
 				</section>
 				<section xml:id="OtdsProcessBookingExamples">
 					<title><phrase xml:id="det_3778" xml:lang="de">Beispiele</phrase></title>
