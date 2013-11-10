@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<!--  Ein Returnflight ist eine Flug der zwischen Hin- und Rückflug eine Anzahl Tage überbrückt.
+			Die folgenden Beispiele definieren, die klassische Variante, in der Startflughafen und Zielflughafen des Hinflugs jeweils vom Hin- und Rückflug identisch sind.
+			Am Ende finden Sie aber auch Beispiele wie ein Gabelflug definiert würde.
+
+			Die meisten Veranstaltersysteme basieren nicht auf gelieferten Returnflügen, sondern auf gelieferten OnewayFlügen, welche sich über Regeln zu Returnflügen kombinieren lassen.
+			Trotzdem fangen wir aufgrund der Ähnlichkeit zu OnewayFlight beim ersten Produkt mit der Definition eines Produktes an, welches auf gelieferten Returnflügen beruht.
+			Das zweite Produkt behandelt dann ReturnFlüge, die aus Oneways bestehen.
+			 Bitte schauen Sie sich zuerst das Beispiel OnewayFlight.xml an, da hier nicht mehr explizit auf die Besonderheiten bzgl. Properties und Routes eingegangen wird.
+	-->
+	<Products>
+		<Product Key="ReturnFlightOnly_Return_Delivered" ProductType="ReturnFlightOnly">
+			<!-- Diese Produktdefinition definiert ein Produkt, welches nur aus gelieferten Returnflügen besteht. -->
+			<Booking>
+				<!-- Definition globaler Buchungsparameter wie dem Anforderungscode und zum Beispiel dem Starttermin. Falls mehrere Buchungszeilen notwendig sind, schauen Sie sich dazu den Booking-Bereich im nächsten Product an. -->
+				<BookingGroup Area="ServiceArea" Source="ReturnFlight">
+					<BookingParameter Field="RequestCode">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="DateStart">
+						<Date Source="Outbound" DayType="CheckIn"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date Source="Inbound" DayType="CheckIn"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<ReturnFlight/>
+			</Components>
+		</Product>
+		<Product Key="ReturnFlightOnly_Oneways_Delivered" ProductType="ReturnFlightOnly">
+			<!-- Diese Produktdefinition definiert ein Produkt, welches aus kombinierten Oneways besteht. Dazu werden alle DefinedComponets mit der Role="ReturnFlight" herangezogen. Die Regeln nach denen kombiniert wird sind in den jeweiligen DefinedComponents (am Ende der XML) definiert. -->
+			<Booking>
+				<!-- Hier Beispielhaft die BookingPaarameter für eine Übergabe von 2 Flugzeilen. Dieses Product könnte aber auch ohne weiteres nur mit einer Buchungszeile gebucht werden, wenn dies in Ihrem Veranstaltersystem so vorgesehen ist. -->
+				<BookingGroup Area="ServiceArea" Source="Outbound">
+					<BookingParameter Field="RequestCode">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="DateStart">
+						<Date Source="Outbound" DayType="CheckIn"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date Source="Inbound" DayType="CheckOut"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="Inbound">
+					<BookingParameter Field="RequestCode">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="DateStart">
+						<Date Source="Inbound" DayType="CheckIn"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date Source="Inbound" DayType="CheckOut"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<DefinedComponent UseRole="ReturnFlight"/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="YYY">
+			<Booking>
+				<!-- Definition des Veranstaltercodes für die Buchung -->
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>YYY</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="DUSTFS20130212K1">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSTFSK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>TFS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2013-03-31" StartDate="2013-03-31" EndDate="2013-03-31">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>105</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="DUSTFS20130212K2">
+				<Tags>
+					<Tag Class="Airline">AB</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSTFSK2</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>TFS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>110</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="DUSTFS20130212K3">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSTFSK3</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>TFS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>115</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="TFSDUS20130220K1">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>TFSDUSK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>TFS</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>105</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="TFSDUS20130220K2">
+				<Tags>
+					<Tag Class="Airline">AB</Tag>
+					<Tag Class="FlightSource">B</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>TFSDUSK2</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>TFS</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>110</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="TFSDUS20130220K3">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>TFSDUSK3</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>TFS</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>115</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="CGNTFS20130212K1">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>CGNTFSK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>CGN</DepartureAirport>
+				<ArrivalAirport>TFS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2013-03-31" StartDate="2013-03-31" EndDate="2013-03-31">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>105</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="CGNTFN20130212K2">
+				<Tags>
+					<Tag Class="Airline">AB</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>CGNTFNK2</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>CGN</DepartureAirport>
+				<ArrivalAirport>TFN</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>110</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="FRATFS20130212K3">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>FRATFSK3</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>TFS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>115</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="TFSCGN20130220K1">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>TFSCGNK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>TFS</DepartureAirport>
+				<ArrivalAirport>CGN</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>105</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="TFNCGN20130220K2">
+				<Tags>
+					<Tag Class="Airline">AB</Tag>
+					<Tag Class="FlightSource">B</Tag>
+					<Tag Class="OpenYawDestinationGroup">TFSTFN</Tag>
+					<Tag Class="OpenYawDepartureGroup">DUSCGN</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>TFNCGNK2</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>TFN</DepartureAirport>
+				<ArrivalAirport>CGN</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>110</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="TFSFRA20130220K3">
+				<Tags>
+					<Tag Class="Airline">LH</Tag>
+					<Tag Class="FlightSource">A</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>TFSFRAK3</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>TFS</DepartureAirport>
+				<ArrivalAirport>FRA</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>115</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+		</OnewayFlights>
+		<ReturnFlights>
+			<ReturnFlight Key="FRAPMI01112011K1">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FRAPMIK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Outbound>
+					<DepartureAirport>FRA</DepartureAirport>
+					<ArrivalAirport>PMI</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<DepartureAirport>PMI</DepartureAirport>
+					<ArrivalAirport>FRA</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="OccuFlight">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="AvailFRAPMIReturn">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2011-11-01">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Base">
+							<Absolute>
+								<Value>320</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</ReturnFlight>
+			<ReturnFlight Key="FRAPMIK2">
+				<!-- Definition einer Flugrotation mit immer gleichem Routing und einem StopOver auf dem Rückflug. -->
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FRAPMIK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Outbound>
+					<Properties Key="1">
+						<PropertyGroup>
+							<FlightRoutes>
+								<FlightRoute>
+									<Departure>
+										<Airport>FRA</Airport>
+										<Time>12:50:00</Time>
+									</Departure>
+									<Arrival>
+										<Airport>PMI</Airport>
+										<Time>10:00:00</Time>
+									</Arrival>
+									<FlightType>Main</FlightType>
+								</FlightRoute>
+							</FlightRoutes>
+						</PropertyGroup>
+					</Properties>
+					<DepartureAirport>PMI</DepartureAirport>
+					<ArrivalAirport>FRA</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<Properties Key="1">
+						<PropertyGroup>
+							<FlightRoutes>
+								<FlightRoute>
+									<Departure>
+										<Airport>PMI</Airport>
+										<Time>21:00:00</Time>
+									</Departure>
+									<Arrival>
+										<Airport>PAR</Airport>
+										<Time>22:55:00</Time>
+									</Arrival>
+									<FlightType>Main</FlightType>
+								</FlightRoute>
+								<FlightRoute>
+									<Departure>
+										<Airport>PAR</Airport>
+										<Time>23:40:00</Time>
+									</Departure>
+									<Arrival>
+										<Airport>FRA</Airport>
+										<DateOffset>1</DateOffset>
+										<!-- Der DateOffset bezieht sich auf den CheckIn-Termin des Inbound-Fluges.-->
+										<Time>01:05:00</Time>
+									</Arrival>
+									<FlightType>Feeder</FlightType>
+								</FlightRoute>
+							</FlightRoutes>
+						</PropertyGroup>
+					</Properties>
+					<DepartureAirport>FRA</DepartureAirport>
+					<ArrivalAirport>PMI</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="OccuFlight">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="AvailFRAPMIReturn">
+						<!-- Definiert eine Verfügbarkeit für jeden Tag zwischen dem 01.05 und dem 31.10. aber nur Dauern 7, 14, 21, 28 usw. -->
+						<Availability Key="2011-11-01" StartDate="2011-05-01" EndDate="2011-10-31">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Duration Source="ReturnFlight">
+								<MultiplesOf>7</MultiplesOf>
+							</Duration>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Base">
+							<Absolute>
+								<Value>320</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+				<PriceItems Key="1">
+					<PriceItem Class="DateSupplement">
+						<Absolute>
+							<Value>20</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+					</PriceItem>
+				</PriceItems>
+			</ReturnFlight>
+			<ReturnFlight Key="DUSPMICGN0111201107K1">
+				<!-- Definition eines Gabelfluges -->
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSPMIPMICGNK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Outbound>
+					<DepartureAirport>DUS</DepartureAirport>
+					<ArrivalAirport>PMI</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<DepartureAirport>PMI</DepartureAirport>
+					<ArrivalAirport>CGN</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="OccuFlight">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="AvailFRAPMIReturn">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2011-11-01">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Duration Source="ReturnFlight">
+								<Durations>7</Durations>
+							</Duration>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Base">
+							<Absolute>
+								<Value>320</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</ReturnFlight>
+		</ReturnFlights>
+	</Flights>
+	<DefinedComponents>
+		<DefineComponent Key="ReturnFlight_Simple" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="Airline"/>
+						<Tag Source="Inbound" Class="Airline"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="FlightSource"/>
+						<Tag Source="Inbound" Class="FlightSource"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">ArrivalAirport</Element>
+						<Element Source="Outbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="ReturnFlight_with_Exceptions" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Or>
+						<MatchEqual>
+							<Tag Source="Outbound" Class="Airline"/>
+							<Tag Source="Inbound" Class="Airline"/>
+						</MatchEqual>
+						<And>
+							<Date Source="Outbound" DayType="CheckIn">
+								<Min>2013-03-22</Min>
+								<Max>2013-10-31</Max>
+							</Date>
+							<Date Source="Inbound" DayType="CheckIn">
+								<Min>2013-03-29</Min>
+								<Max>2013-10-31</Max>
+							</Date>
+							<Tags Source="Outbound" Class="Airline">AB DE XQ XG</Tags>
+							<Tags Source="Inbound" Class="Airline">AB DE XQ XG</Tags>
+							<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
+							<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
+						</And>
+					</Or>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="FlightSource"/>
+						<Tag Source="Inbound" Class="FlightSource"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">ArrivalAirport</Element>
+						<Element Source="Outbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="ReturnFlight_OpenYaw" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="Airline"/>
+						<Tag Source="Inbound" Class="Airline"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="FlightSource"/>
+						<Tag Source="Inbound" Class="FlightSource"/>
+					</MatchEqual>
+					<Or>
+						<And>
+							<MatchEqual>
+								<!-- OpenYawDestinationGroups sind identisch-->
+								<Tag Source="Outbound" Class="OpenYawDestinationGroup"/>
+								<Tag Source="Inbound" Class="OpenYawDestinationGroup"/>
+							</MatchEqual>
+							<MatchEqual>
+								<!-- Abflughafen sind identisch-->
+								<Element Source="Inbound">ArrivalAirport</Element>
+								<Element Source="Outbound">DepartureAirport</Element>
+							</MatchEqual>
+						</And>
+						<And>
+							<MatchEqual>
+								<!-- Zielflughafen ist identisch-->
+								<Element Source="Outbound">ArrivalAirport</Element>
+								<Element Source="Inbound">DepartureAirport</Element>
+							</MatchEqual>
+							<MatchEqual>
+								<!-- OpenYawDepartureGroups sind gleich-->
+								<Tag Source="Outbound" Class="OpenYawDepartureGroups"/>
+								<Tag Source="Inbound" Class="OpenYawDepartureGroups"/>
+							</MatchEqual>
+						</And>
+					</Or>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>

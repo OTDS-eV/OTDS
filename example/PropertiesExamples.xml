@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.0">
+	<Products>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TO1">
+			<Booking>
+				<BookingGroup Source="ThisComponent" Area="GlobalArea" Class="Default">
+					<BookingParameter Field="BrandCode">
+						<Value>TO1</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<!--Exemplarische Accommodation. -->
+		<!-- Auf eine ausführliche Definition wird verzichtet, hier lediglich terminabhängige Properties demonstriert werden sollen. -->
+		<Accommodation Key="12345">
+			<!-- Hotelbeispiel mit datumsabhängigen Properties -->
+			<Properties Key="1">
+				<!-- Für jede Kategorie wird eine PropertyGroup eröffnet, die eine Date-Condition enthalten kann. -->
+				<PropertyGroup>
+					<!-- Keine Terminangabe, dies sind die default-Properties. -->
+					<!-- Diese werden ggfs. von Properties einer anderen Group mit höherer Priority überschrieben, sofern die jeweilige Condition zutrifft. -->
+					<AccommodationCity>El Arenal</AccommodationCity>
+					<AccommodationName>Hotel Estrella</AccommodationName>
+					<AccommodationOfficialCategory>2</AccommodationOfficialCategory>
+					<AccommodationOperatorCategory>2</AccommodationOperatorCategory>
+					<AccommodationGeneralFacilities>Discothek Airconditioning</AccommodationGeneralFacilities>
+					<AccommodationSportsFacilities>BeachVolleballCourt BikeRental TennisCourt</AccommodationSportsFacilities>
+					<AccommodationWellnessFacilities>Thermalbad Ayurveda MedicalWellness</AccommodationWellnessFacilities>
+					<AccommodationSeniorFacilities>Lift HandicappedAccessible</AccommodationSeniorFacilities>
+				</PropertyGroup>
+				<PropertyGroup Priority="1">
+					<!-- Umbenennung des Hotels während des Jahres -->
+					<!-- Überschreibt wg. der Priority obigen default-Wert -->
+					<AccommodationName>Hotel Dos Estrellas</AccommodationName>
+					<Condition>
+						<Date Source="ThisComponent" DayType="CheckIn">
+							<Min>2012-08-01</Min>
+						</Date>
+					</Condition>
+				</PropertyGroup>
+				<PropertyGroup Priority="1">
+					<!-- Änderung der Hotelkategorie während des Jahres -->
+					<!-- Überschreibt wg. der Priority obigen default-Wert -->
+					<AccommodationOfficialCategory>3</AccommodationOfficialCategory>
+					<AccommodationOperatorCategory>3</AccommodationOperatorCategory>
+					<Condition>
+						<Date Source="ThisComponent" DayType="CheckIn">
+							<Min>2012-08-01</Min>
+						</Date>
+					</Condition>
+				</PropertyGroup>
+				<PropertyGroup Priority="1">
+					<!-- Diese Properties sind nur während des Sommers verfügbar. -->
+					<!-- Überschreibt wg. der Priority obigen default-Wert -->
+					<AccommodationFamilyFacilities>AquaPark WaterSlide</AccommodationFamilyFacilities>
+					<AccommodationSportsFacilities>OwnSurfCentre BeachVolleballCourt BikeRental TennisCourt</AccommodationSportsFacilities>
+					<Condition>
+						<Date Source="ThisComponent">
+							<Min>2012-04-01</Min>
+							<Max>2012-10-31</Max>
+						</Date>
+					</Condition>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="1">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="ThisComponent" Class="Default">
+						<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>050255</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="DZ">
+					<SellingUnit Key="DZ">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="ThisComponent" Class="Default">
+								<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="A">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+	<Addons>
+		<Addon Key="RentalCar">
+			<Service Key="Service">
+				<Properties Key="1">
+					<PropertyGroup>
+						<AddonServiceType>
+							<CarRental>FamilyCar</CarRental>
+						</AddonServiceType>
+						<AddonCarRentalProperties>
+							<CarRentalStationType>AirportWithShuttle</CarRentalStationType>
+							<CarRentalProductOptions>TankFullFull TankFullEmptyPrepaid UnlimitedMileage</CarRentalProductOptions>
+							<CarFacilities>4DoorsOrMore AirConditioning Automatic Gas</CarFacilities>
+						</AddonCarRentalProperties>
+					</PropertyGroup>
+				</Properties>
+			</Service>
+			<Service Key="ServiceWithInsurances">
+				<Properties Key="1">
+					<PropertyGroup>
+						<AddonServiceType>
+							<CarRental>CabrioletCar</CarRental>
+						</AddonServiceType>
+						<AddonCarRentalProperties>
+							<CarRentalStationType>RentalStation</CarRentalStationType>
+							<CarRentalProductOptions>TankFullFull UnlimitedMileage</CarRentalProductOptions>
+							<CarFacilities>2Doors NavigationSystem AirConditioning Gas</CarFacilities>
+							<CarInsurance>
+								<Insurance>CollisionDamageWaiver</Insurance>
+								<AmountOfCover>7500000</AmountOfCover>
+								<Excess>650</Excess>
+							</CarInsurance>
+							<CarInsurance>
+								<Insurance>DamagesRoof</Insurance>
+							</CarInsurance>
+							<CarInsurance>
+								<Insurance>TheftProtection</Insurance>
+							</CarInsurance>
+						</AddonCarRentalProperties>
+					</PropertyGroup>
+				</Properties>
+			</Service>
+		</Addon>
+	</Addons>
+</Otds>

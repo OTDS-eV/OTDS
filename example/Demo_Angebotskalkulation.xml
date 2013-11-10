@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Products>
+		<Product Key="Package" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<ReturnFlight/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Tag Source="Accommodation" Class="Reiseart"/>
+						<Tag Source="ReturnFlight" Class="Reiseart"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TO1">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>TO1</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<!-- Kalkulation ist der Einfachheit halber ohne Saisons -->
+		<Accommodation Key="FUE123">
+			<SellingAccom Key="A">
+				<Tags>
+					<Tag Class="Reiseart">ABC</Tag>
+					<Tag Class="Hotelgruppenschluessel">X</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FUE123A</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="FR">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>FR</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="HP">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>HP</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="V">
+							<Absolute>
+								<Value>5</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Board Key="VP">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>VP</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardType>FullBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="V">
+							<Absolute>
+								<Value>15</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Unit Key="D">
+					<Tags>
+						<ConditionalTag>
+							<Tag Class="PersonType">FullPayer</Tag>
+							<Condition>
+								<PersonImpact>
+									<PersonIndex Source="Product">
+										<Until>2</Until>
+									</PersonIndex>
+								</PersonImpact>
+							</Condition>
+						</ConditionalTag>
+					</Tags>
+					<SellingUnit Key="1">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>D1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer mit optionalem Zustellbett</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<!-- 1 Erwachsener -->
+								<MinAge>18</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<!-- 1 Kind oder Erwachsener -->
+								<MinAge>2</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<!-- 1 optionales Baby -->
+								<MinAge>0</MinAge>
+								<MaxAge>1</MaxAge>
+								<MinCount>0</MinCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="B">
+								<!-- Grundpreis -->
+								<Absolute>
+									<Value>200</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							<PriceItem Class="B">
+								<!-- Grundpreis fuer Zustellbett -->
+								<Absolute>
+									<Value>10</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							<PriceItem Class="N">
+								<!-- Uebernachtungspreis -->
+								<Absolute>
+									<Value>50</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+									<!-- Zieht nicht fuer Zustellbett (s.o.) -->
+								</Absolute>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="1">
+					<PriceItem Class="Z1">
+						<!-- 10 Euro Rabatt bei 7er-Aufenthaltsdauern -->
+						<Absolute>
+							<Value>-10</Value>
+							<DayBase>1</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<Duration Source="Accommodation">
+								<MultiplesOf>7</MultiplesOf>
+							</Duration>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="FB">
+						<!-- -10% Frühbucher bis 90 Tage vor Antritt -->
+						<Percent>
+							<Value>0.9</Value>
+							<!-- betrifft alle absoluten Bestandteile des Personenpreises -->
+							<ApplyTo>B N V Z1</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDateOffset Source="Product">
+								<Min>90</Min>
+							</BookingDateOffset>
+						</Condition>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+		</Accommodation>
+		<PriceItems Key="1">
+			<!-- prozentualer Rabatt 10% auf Verpflegungspreis -->
+			<PriceItem Class="PV">
+				<Percent>
+					<Value>0.9</Value>
+					<ApplyTo>V</ApplyTo>
+				</Percent>
+				<Condition>
+					<And>
+						<Date Source="Product" DayType="CheckIn">
+							<Min>2011-11-01</Min>
+							<Max>2012-03-31</Max>
+						</Date>
+						<Keys Source="Accommodation.SellingAccom.Board">HP VP</Keys>
+					</And>
+				</Condition>
+			</PriceItem>
+			<!-- prozentualer Rabatt 10% auf auf Uebernachtungspreis -->
+			<PriceItem Class="NV">
+				<Percent>
+					<Value>0.9</Value>
+					<ApplyTo>N</ApplyTo>
+				</Percent>
+				<Condition>
+					<And>
+						<Date Source="Product" DayType="CheckIn">
+							<Min>2011-12-01</Min>
+							<Max>2011-12-16</Max>
+						</Date>
+						<Tags Source="Accommodation" Class="Hotelgruppenschluessel">X</Tags>
+					</And>
+				</Condition>
+			</PriceItem>
+			<!-- Service Charge pro Buchung -->
+			<PriceItem Class="SC">
+				<Absolute>
+					<Value>10</Value>
+					<DayBase>x</DayBase>
+					<PersonBase>x</PersonBase>
+				</Absolute>
+			</PriceItem>
+		</PriceItems>
+	</Accommodations>
+	<Flights>
+		<ReturnFlights>
+			<ReturnFlight Key="HAMFUE1">
+				<Tags>
+					<Tag Class="Reiseart">ABC</Tag>
+				</Tags>
+				<Outbound>
+					<DepartureAirport>HAM</DepartureAirport>
+					<ArrivalAirport>FUE</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<DepartureAirport>FUE</DepartureAirport>
+					<ArrivalAirport>HAM</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="FP">
+							<Absolute>
+								<Value>300</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</ReturnFlight>
+		</ReturnFlights>
+	</Flights>
+</Otds>

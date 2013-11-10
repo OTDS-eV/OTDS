@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
+	<!-- Dieses Beispiel zeigt die Verwendung von Conditions. 
+		Es geht an dieser Stelle um die Verdeutlichung des Condition-Konstruktes.
+		Jede Condition für sich betrachtet ist sinnvoll und richtig, nicht aber die Conditions in Kombination -->
+	<Products UpdateMode="New">
+		<Product Key="Package" ProductType="FlightAccommodation" UpdateMode="New">
+			<Components UpdateMode="New">
+				<Accommodation DayAllocationLevel="0"/>
+				<ReturnFlight DayAllocationLevel="0"/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands UpdateMode="New">
+		<Brand Key="TO1" UpdateMode="New"/>
+	</Brands>
+	<Accommodations UpdateMode="New">
+		<Accommodation Key="TT01" UpdateMode="New">
+			<Properties Key="1" UpdateMode="New">
+				<PropertyGroup Priority="0">
+					<AccommodationName>Hotel "Beach"</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="TT01" UpdateMode="New">
+				<Booking UpdateMode="New">
+					<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+						<BookingParameter Field="ServiceCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>TT01</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Filter Key="1" UpdateMode="New">
+					<And>
+						<BookingDate Source="Product">
+							<Max>2013-01-31</Max>
+						</BookingDate>
+						<Date Source="ThisComponent" DayType="CheckIn">
+							<Min>2013-11-03</Min>
+						</Date>
+					</And>
+				</Filter>
+				<Board Key="Board" UpdateMode="New"/>
+				<Unit Key="DZ" UpdateMode="New">
+					<SellingUnit Key="DZ" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1" UpdateMode="New">
+							<PropertyGroup Priority="0">
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1" UpdateMode="New">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1" UpdateMode="New">
+							<PriceItem Class="ABC">
+								<Absolute>
+									<Value>100</Value>
+									<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<!--All Accommodation Conditions-->
+								<Condition>
+									<And>
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonIndex Source="Product" DayAllocation="All" EvaluationMode="Any">
+												<Until>4</Until>
+												<From>3</From>
+												<PersonFilter>
+													<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
+														<Min>2</Min>
+														<Max>6</Max>
+													</PersonAge>
+												</PersonFilter>
+											</PersonIndex>
+										</PersonImpact>
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
+												<Min>3</Min>
+												<Max>12</Max>
+											</PersonAge>
+										</PersonImpact>
+										<Date Source="Product" DayType="CheckIn">
+											<Min>2012-03-30</Min>
+											<Max>2012-04-30</Max>
+										</Date>
+										<Date Source="Product" DayType="Stay">
+											<Dates>2011-12-31 2011-12-24</Dates>
+										</Date>
+										<Duration Source="Accommodation" DurationUnit="Nights">
+											<Min>5</Min>
+										</Duration>
+										<Duration Source="Product" DurationUnit="Nights">
+											<Durations>7 14 21</Durations>
+										</Duration>
+										<BookingDate Source="Product">
+											<Min>2012-01-31</Min>
+											<Max>2012-03-31</Max>
+										</BookingDate>
+										<BookingDateOffset Source="Product">
+											<Min>30</Min>
+											<Max>60</Max>
+										</BookingDateOffset>
+										<Weekdays Source="Accommodation" DayType="CheckIn">Mon Tue</Weekdays>
+										<PersonGroup Source="Accommodation" DayAllocation="All" EvaluationMode="Any">
+											<Person>
+												<Count>1</Count>
+											</Person>
+											<Person>
+												<MinAge>2</MinAge>
+												<MaxAge>14</MaxAge>
+												<Count>1</Count>
+											</Person>
+										</PersonGroup>
+										<Keys Source="Accommodation" DayAllocation="All" EvaluationMode="Any">PMI215</Keys>
+										<Keys Source="Accommodation.SellingAccom.Unit" DayAllocation="All" EvaluationMode="Any">DZ</Keys>
+										<Keys Source="Accommodation.SellingAccom.Board" DayAllocation="All" EvaluationMode="Any">AI</Keys>
+										<Tags Source="Accommodation.SellingAccom.Unit" Class="KennzeichenA" DayAllocation="All" EvaluationMode="Any">AB1</Tags>
+										<Tags Source="Accommodation" Offset="0" Length="4" Class="AccomCode" DayAllocation="All" EvaluationMode="Any">PMI1</Tags>
+										<!-- CheckIn oder Stay wird beim Setzen des Tags über den Type des Datums definiert.   -->
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
+												<Min>6</Min>
+												<Max>14</Max>
+											</PersonAge>
+										</PersonImpact>
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonIndex Source="Product" DayAllocation="All" EvaluationMode="Any">
+												<Indices>1 3 7</Indices>
+											</PersonIndex>
+										</PersonImpact>
+										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<Date Source="Product" DayType="CheckIn">
+												<Min>2012-12-24</Min>
+												<Max>2013-01-02</Max>
+											</Date>
+										</DayImpact>
+										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<DayIndex Source="Product" IntervalType="Stay">
+												<Indices>1</Indices>
+											</DayIndex>
+										</DayImpact>
+										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<DayIndex Source="Product" IntervalType="Stay">
+												<Indices>-1</Indices>
+											</DayIndex>
+										</DayImpact>
+										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<DayIndex Source="Product" Repeat="7" IntervalType="Stay">
+												<Indices>1 2</Indices>
+											</DayIndex>
+										</DayImpact>
+										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<Weekdays Source="Accommodation" DayType="CheckIn">Fri Sat Sun</Weekdays>
+										</DayImpact>
+										<!-- And     Not     Or   -->
+										<Or>
+											<And>
+												<Date Source="Product" DayType="CheckOut">
+													<Min>2011-12-11</Min>
+												</Date>
+												<Duration Source="Accommodation" DurationUnit="Nights">
+													<Min>6</Min>
+												</Duration>
+												<Not>
+													<Weekdays Source="Accommodation" DayType="CheckIn">Fri Mon</Weekdays>
+												</Not>
+											</And>
+											<Keys Source="Accommodation" DayAllocation="All" EvaluationMode="Any">PMI215</Keys>
+										</Or>
+										<!-- Imply   If     then    -->
+										<Imply>
+											<If>
+												<And>
+													<Date Source="Product" DayType="CheckIn">
+														<Min>2012-05-01</Min>
+														<Max>2010-05-31</Max>
+													</Date>
+													<Weekdays Source="Accommodation" DayType="CheckIn">Fri</Weekdays>
+												</And>
+											</If>
+											<Then>
+												<Duration Source="Accommodation" DurationUnit="Nights">
+													<Min>7</Min>
+												</Duration>
+											</Then>
+										</Imply>
+										<And>
+											<Duration Source="Accommodation" DurationUnit="Nights">
+												<Min>3</Min>
+											</Duration>
+											<Imply>
+												<If>
+													<Keys Source="Accommodation.SellingAccom.Board" DayAllocation="All" EvaluationMode="Any">VP</Keys>
+												</If>
+												<Then>
+													<Duration Source="Accommodation" DurationUnit="Nights">
+														<Min>5</Min>
+													</Duration>
+												</Then>
+											</Imply>
+										</And>
+										<Impact ImpactExecutionOrder="BeforeCombinatorics">
+											<ConditionalTags Source="Accommodation" Class="Season" DayAllocation="All" EvaluationMode="Any">A</ConditionalTags>
+										</Impact>
+										<Impact ImpactExecutionOrder="BeforeCombinatorics">
+											<ConditionalTags Source="Accommodation" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Fullpayer</ConditionalTags>
+										</Impact>
+										<Impact ImpactExecutionOrder="BeforeCombinatorics">
+											<ConditionalTags Source="Accommodation.SellingAccom" Class="Season" DayAllocation="All" EvaluationMode="Any">A B C</ConditionalTags>
+										</Impact>
+										<Impact ImpactExecutionOrder="BeforeCombinatorics">
+											<ConditionalTags Source="ReturnFlight" Class="Season" DayAllocation="All" EvaluationMode="Any">A B C</ConditionalTags>
+										</Impact>
+										<PersonCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+											<Counts>2</Counts>
+											<PersonFilter>
+												<Impact ImpactExecutionOrder="BeforeCombinatorics">
+													<ConditionalTags Source="SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Adult</ConditionalTags>
+												</Impact>
+											</PersonFilter>
+										</PersonCount>
+										<DayCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+											<Min>3</Min>
+											<DayFilter>
+												<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+													<Weekdays Source="Product" DayType="Stay">Fri Sat</Weekdays>
+												</DayImpact>
+											</DayFilter>
+										</DayCount>
+									</And>
+								</Condition>
+								<!--Ende der Beispiel Condition-->
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="DZ" UpdateMode="New">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30" UpdateMode="New">
+								<DefaultDayState UpdateMode="New">
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports UpdateMode="New">PMI</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+	<Flights UpdateMode="New">
+		<ReturnFlights UpdateMode="New">
+			<ReturnFlight Key="DUSPMI" UpdateMode="New">
+				<Outbound UpdateMode="New">
+					<DepartureAirport UpdateMode="New">DUS</DepartureAirport>
+					<ArrivalAirport UpdateMode="New">PMI</ArrivalAirport>
+				</Outbound>
+				<Inbound UpdateMode="New">
+					<DepartureAirport UpdateMode="New">PMI</DepartureAirport>
+					<ArrivalAirport UpdateMode="New">DUS</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="DUSPMI" UpdateMode="New">
+					<Booking UpdateMode="New">
+						<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
+							<BookingParameter Field="ServiceCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+								<Value>DUSPMI</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1" UpdateMode="New">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="DUSPMI" UpdateMode="New">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30" UpdateMode="New">
+							<DefaultDayState UpdateMode="New">
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1" UpdateMode="New">
+						<PriceItem Class="AB">
+							<Absolute>
+								<Value>430</Value>
+								<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<!--Beispiel Flight Condition-->
+							<Condition>
+								<And>
+									<Tags Source="ReturnFlight" Class="Airline" DayAllocation="All" EvaluationMode="Any">LH</Tags>
+									<Tags Source="ReturnFlight" Class="Carrier" DayAllocation="All" EvaluationMode="Any">AirBerlin</Tags>
+									<Tags Source="ReturnFlight.Inbound" Class="FlightCode" DayAllocation="All" EvaluationMode="Any">LH453</Tags>
+									<Airports Source="ReturnFlight.Inbound" AirportType="Departure">PMI</Airports>
+									<Keys Source="OnewayFlight.BookingClass" DayAllocation="All" EvaluationMode="Any">YY</Keys>
+								</And>
+							</Condition>
+							<!--Ende Beispiel Flight Condition-->
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</ReturnFlight>
+		</ReturnFlights>
+	</Flights>
+	<Addons UpdateMode="New">
+		<Addon Key="WT" UpdateMode="New">
+			<Properties Key="1" UpdateMode="New">
+				<PropertyGroup Priority="0">
+					<AddonName>Wellness Treatment</AddonName>
+				</PropertyGroup>
+			</Properties>
+			<Service Key="BP" UpdateMode="New">
+				<Properties Key="1" UpdateMode="New">
+					<PropertyGroup Priority="0">
+						<AddonName>BlütenPackung</AddonName>
+					</PropertyGroup>
+				</Properties>
+				<PriceItems Key="1" UpdateMode="New">
+					<PriceItem Class="Base">
+						<Absolute>
+							<Value>80</Value>
+							<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<!--Beispiel Addon Condition-->
+						<Condition>
+							<And>
+								<Date Source="Product" DayType="CheckIn">
+									<Min>2011-12-01</Min>
+									<Max>2011-12-31</Max>
+								</Date>
+								<Duration Source="Product" DurationUnit="Nights">
+									<Min>2</Min>
+								</Duration>
+							</And>
+						</Condition>
+						<!--Ende Beispiel Addon Condition-->
+					</PriceItem>
+				</PriceItems>
+				<Availabilities Key="BP" UpdateMode="New">
+					<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30" UpdateMode="New">
+						<DefaultDayState UpdateMode="New">
+							<Open/>
+							<CheckIn/>
+							<CheckOut/>
+						</DefaultDayState>
+					</Availability>
+				</Availabilities>
+			</Service>
+		</Addon>
+	</Addons>
+</Otds>

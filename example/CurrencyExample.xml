@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
+	<Products UpdateMode="New">
+		<GlobalValues UpdateMode="New">
+			<GlobalValue Key="GermanMarket" UpdateMode="New">
+				<ParameterSet Key="1" UpdateMode="New">
+					<SalesMarket>DE</SalesMarket>
+				</ParameterSet>
+			</GlobalValue>
+			<GlobalValue Key="SwissMarket" UpdateMode="New">
+				<ParameterSet Key="1" UpdateMode="New">
+					<SalesMarket>CH</SalesMarket>
+				</ParameterSet>
+			</GlobalValue>
+			<GlobalValue Key="GBMarket" UpdateMode="New">
+				<ParameterSet Key="1" UpdateMode="New">
+					<SalesMarket>GB</SalesMarket>
+				</ParameterSet>
+			</GlobalValue>
+		</GlobalValues>
+		<Product Key="Package" ProductType="FlightAccommodation" UpdateMode="New">
+			<Components UpdateMode="New">
+				<Accommodation DayAllocationLevel="0"/>
+				<DefinedComponent UseRole="ReturnFlight" DayAllocationLevel="0"/>
+			</Components>
+			<Filter Key="1">
+				<MatchEqual>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+					<Element Source="Outbound">ArrivalAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</Product>
+		<PriceItems Key="CurrencyRates">
+			<PriceItem Class="EURCHF">
+				<!--Diese Umrechnung erfolgt durch AppliedBy in den AbsolutePriceItems -->
+				<Percent>
+					<Value>23.3</Value>
+				</Percent>
+				<Condition>
+					<Keys Source="global:GlobalValue">Swissmarket</Keys>
+				</Condition>
+			</PriceItem>
+			<PriceItem Class="EURGBP">
+				<!--Diese Umrechnung erfolgt durch ApplyToPriceTags in diesem PriceItem. -->
+				<Percent>
+					<Value>-15.49</Value>
+					<ApplyToPriceTags Source="descendants:Product" Class="Currency">EUR</ApplyToPriceTags>
+				</Percent>
+				<Condition>
+					<Keys Source="global:GlobalValue">Swissmarket</Keys>
+				</Condition>
+			</PriceItem>
+		</PriceItems>
+	</Products>
+	<Brands>
+		<Brand Key="FTI">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>FTI</Value>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Title">
+						<Value>H</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="global:SellingAccom" Class="PersonType">Adult </ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Male Undefined</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Title">
+						<Value>D</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="global:SellingAccom" Class="PersonType">Adult </ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Female</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product" Class="Default">
+					<BookingParameter Field="Title">
+						<Value>K</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Child </ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Title">
+						<Value>B</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Baby </ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Age">
+						<PersonAge AgeType="TravelAge"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:SellingAccom" Class="Default">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Accommodation"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckOut" Source="global:Accommodation"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:Outbound">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Outbound"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckOut" Source="global:Outbound"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:Inbound">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Inbound"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Inbound"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="A">
+			<SellingAccom Key="A">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="SellingAccom">
+						<BookingParameter Field="ServiceCode">
+							<Value>A</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="F">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>A</Value>
+							</BookingParameter>
+							<BookingParameter Field="RequestCode">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+				</Board>
+				<Unit Key="AZ">
+					<SellingUnit Key="AZ-2">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>AZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="BZ">
+					<SellingUnit Key="BZ-2">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>BZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="CZ">
+					<SellingUnit Key="CZ-2">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>CZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="DZ">
+					<SellingUnit Key="DZ-2">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="EZ">
+					<SellingUnit Key="EZ-2">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>EZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="FZ">
+					<SellingUnit Key="FZ-2">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>FZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="OfferPrices">
+					<PriceItem Class="Baseprice">
+						<Absolute>
+							<Value>250</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+					</PriceItem>
+					<PriceItem Class="Extraday">
+						<!--DE: Tagespreis  -->
+						<!--GB: Daily price  -->
+						<Absolute>
+							<Value>15</Value>
+							<DayBase>1</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+					</PriceItem>
+					<PriceItem Class="ChildReduction">
+						<!--DE: Prozentuale Kinderermäßigung auf Basispreis und Extratag für das 2. Kind 6-14 (Alter aufsteigend). 
+									Kind sind alle Personen zwischen 2-16-->
+						<!--GB: Child reduction based on percent of Base price and extra day for the second child (ascending ages). 
+									Children are passengers between 2 - 16.-->
+						<Percent>
+							<Value>-60</Value>
+							<ApplyTo>Extraday BasePrice</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>6</Min>
+										<Max>14</Max>
+									</PersonAge>
+								</PersonImpact>
+								<PersonImpact>
+									<PersonIndex Source="Product">
+										<Indices>-2 -5</Indices>
+										<PersonFilter>
+											<PersonAge Source="Product">
+												<Min>2</Min>
+												<Max>16</Max>
+											</PersonAge>
+										</PersonFilter>
+									</PersonIndex>
+								</PersonImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EarlyBird">
+						<!--DE: Frühbucher, der auf Basispreis und Extraday angewendet wird.  -->
+						<!--GB: Early bird, used for base price and Extraday   -->
+						<Percent>
+							<Value>-15</Value>
+							<ApplyTo>Extraday BasePrice</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDate Source="Product">
+								<Max>2011-12-31</Max>
+							</BookingDate>
+						</Condition>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+			<Availabilities Key="1">
+				<Availability Key="2013-11-01" StartDate="2013-11-01" EndDate="2013-11-30">
+					<DefaultDayState>
+						<Open/>
+						<CheckIn/>
+						<CheckOut/>
+					</DefaultDayState>
+				</Availability>
+			</Availabilities>
+		</Accommodation>
+	</Accommodations>
+</Otds>
