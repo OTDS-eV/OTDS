@@ -4331,11 +4331,47 @@
 				</section>
 			  <section xml:id="OtdsStrategyProductGenericTag">
 			    <title>
-			      <phrase xml:lang="de">Kennzeichnung von Produkt-Features durch <code>GenericTag</code> in Produkten (Version 1.9)</phrase>
-			      <phrase xml:lang="en">Identification of Product Features using <code>GenericTag</code> in Products (Version 1.9)</phrase>
-			    </title>
-			    <para xml:lang="de">Durch das Element <code>GenericTag</code> ist es möglich von den
-            OTDS-Daten unterstützte Produkt-Features in den einzelnen Produkten zu kennzeichnen.
+            <phrase xml:lang="de">Verwendung von <code>GenericTag</code> in Produkten (Version
+              1.9)</phrase>
+            <phrase xml:lang="en">Usage of  <code>GenericTag</code> in Products (Version
+              1.9)</phrase>
+          </title>
+          <para>Für die Flugpriorisierung wurden GenericTags in OTDS eingeführt. GenericTags sind
+            wie normale Tags freie Markierungen an den Product-Knoten bzw. auch alternativ am
+            Products-Knoten. Im Gegensatz zu den normalen Tags haben die GenericTags aber keinen
+            festgelegten Value sondern einen generischen Value, der erst zur Laufzeit über eine
+            definierte Funktion ermittelt wird. </para>
+          <para>Speziell für die Flugpriorisierung gibt es eine Funktion "SortedCandidateGroup",
+            welche Angebote mit einzelnen identischen Komponenten (gleiche SellingUnit, SellingAccom
+            etc. ) und identischen Parametern und Tags in einer Gruppe zusammenfasst.</para>
+          <para>Im Falle der klassischen FlugPriorisierung des Pauschalbereiches geht es um alle
+            Angebote mit identischer Unterkunft, mit dem selben Abflugtermin, dem selben
+            Abflughafen, dem selben Zielflughafen und dem selben Rückflugtermin (Dauer der
+            Reise).</para>
+          <para>Hier ein Beispiel, wie das mit einem SortedCandidateGroup-GenericTag umgesetzt
+            werden kann:</para>
+          <programlisting><![CDATA[<Otds...>
+  ...
+  <Products> 
+    <GenericTag Class="ReturnFlightGroupPrice">
+      <GenericTagFunction>
+        <SortedCandidateGroup>
+          <GroupedByEqual>
+            <CandidateInstance Source="Descendants:Accommodation"/>
+            <Tag Source="Outbound" Class="DepartureAirport"/>
+            <Tag Source="Outbound" Class="ArrivalAirport"/>
+          </GroupedByEqual>
+          <Value>
+            ...
+          </Value>
+        </SortedCandidateGroup>
+      </GenericTagFunction>
+    </GenericTag>
+  </Products>
+  ...
+</Otds>]]></programlisting>
+			    <para xml:lang="de">Weiterhin es möglich, durch das Element <code>GenericTag</code> die von
+            den OTDS-Daten unterstützte Produkt-Features in den einzelnen Produkten zu kennzeichnen.
             Dadurch weiß das verarbeitende System, dass die gelieferten OTDS-Daten das Feature
             unterstützen. </para>  
 			    <para xml:lang="de">Das Element <code>ExternalParameter</code> innerhalb von
