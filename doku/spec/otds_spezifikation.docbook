@@ -2912,14 +2912,39 @@
 	</MatchEqual>
  </Condition>]]></programlisting>
 							</para><para xml:id="en_962" xml:lang="en">
-								<programlisting>
-									<![CDATA[<Condition>
+								<programlisting><![CDATA[<Condition>
     <MatchEqual>
 	  <Element Source="Accommodation">CatchmentAirport</Element>
 	  <Element Source="Addon">CatchmentAirport</Element>
 	</MatchEqual>
  </Condition>]]></programlisting>
 							</para>
+						  <para>Ab der Version 1.9 ist es möglich, MatchEqual/Key-Konstrukte zu verwenden. Dieses
+                Konstrukt vereinfacht die Nutzung von MatchEqual/Tag, da nun die dazu passenden Tags
+                weggelassen werden können.</para>
+						  <para>Nachfolgend ein Beispiel für Saisonüberschneidungen mittels MatchEqual/Key:</para>
+						  <programlisting><![CDATA[<Filter>
+    <And>
+      <Tags Source="#SWSummer" Class="DistributionSeason">Summer</Tags>
+      <Tags Source="#SWWinter" Class="DistributionSeason">Winter</Tags>
+      <MatchEqual>
+        <Key Source="#SWSummer.Unit"/>
+        <Key Source="#SWWinter.Unit"/>
+      </MatchEqual>
+      <MatchEqual>
+        <Tag Source="#SWSummer" Class="Hotelcode"/>
+        <Tag Source="#SWWinter" Class="Hotelcode"/>
+      </MatchEqual>
+      <MatchEqual>
+        <Tag Source="#SWSummer" Class="TravelType"/>
+        <Tag Source="#SWWinter" Class="TravelType"/>
+      </MatchEqual>
+      <MatchEqual>
+        <Key Source="#SWSummer.Board"/>
+        <Key Source="#SWWinter.Board"/>
+      </MatchEqual>
+    </And>
+</Filter>]]></programlisting>
 							<para xml:id="de_963" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="./technisch/otds_technisch.html#MatchEqual">Technischen
 									Dokumentation für OTDS </link>.</para><para xml:id="en_963" xml:lang="en">Please obtain further information from the <link xlink:href="./technisch/otds_technisch.html#MatchEqual">Technical documentation for OTDS</link> .</para>
 							<para xml:id="de_964" xml:lang="de"> </para><para xml:id="en_964" xml:lang="en"/>
@@ -4306,11 +4331,47 @@
 				</section>
 			  <section xml:id="OtdsStrategyProductGenericTag">
 			    <title>
-			      <phrase xml:lang="de">Kennzeichnung von Produkt-Features durch <code>GenericTag</code> in Produkten (Version 1.9)</phrase>
-			      <phrase xml:lang="en">Identification of Product Features using <code>GenericTag</code> in Products (Version 1.9)</phrase>
-			    </title>
-			    <para xml:lang="de">Durch das Element <code>GenericTag</code> ist es möglich von den
-            OTDS-Daten unterstützte Produkt-Features in den einzelnen Produkten zu kennzeichnen.
+            <phrase xml:lang="de">Verwendung von <code>GenericTag</code> in Produkten (Version
+              1.9)</phrase>
+            <phrase xml:lang="en">Usage of  <code>GenericTag</code> in Products (Version
+              1.9)</phrase>
+          </title>
+          <para>Für die Flugpriorisierung wurden GenericTags in OTDS eingeführt. GenericTags sind
+            wie normale Tags freie Markierungen an den Product-Knoten bzw. auch alternativ am
+            Products-Knoten. Im Gegensatz zu den normalen Tags haben die GenericTags aber keinen
+            festgelegten Value sondern einen generischen Value, der erst zur Laufzeit über eine
+            definierte Funktion ermittelt wird. </para>
+          <para>Speziell für die Flugpriorisierung gibt es eine Funktion "SortedCandidateGroup",
+            welche Angebote mit einzelnen identischen Komponenten (gleiche SellingUnit, SellingAccom
+            etc. ) und identischen Parametern und Tags in einer Gruppe zusammenfasst.</para>
+          <para>Im Falle der klassischen FlugPriorisierung des Pauschalbereiches geht es um alle
+            Angebote mit identischer Unterkunft, mit dem selben Abflugtermin, dem selben
+            Abflughafen, dem selben Zielflughafen und dem selben Rückflugtermin (Dauer der
+            Reise).</para>
+          <para>Hier ein Beispiel, wie das mit einem SortedCandidateGroup-GenericTag umgesetzt
+            werden kann:</para>
+          <programlisting><![CDATA[<Otds...>
+  ...
+  <Products> 
+    <GenericTag Class="ReturnFlightGroupPrice">
+      <GenericTagFunction>
+        <SortedCandidateGroup>
+          <GroupedByEqual>
+            <CandidateInstance Source="Descendants:Accommodation"/>
+            <Tag Source="Outbound" Class="DepartureAirport"/>
+            <Tag Source="Outbound" Class="ArrivalAirport"/>
+          </GroupedByEqual>
+          <Value>
+            ...
+          </Value>
+        </SortedCandidateGroup>
+      </GenericTagFunction>
+    </GenericTag>
+  </Products>
+  ...
+</Otds>]]></programlisting>
+			    <para xml:lang="de">Weiterhin es möglich, durch das Element <code>GenericTag</code> die von
+            den OTDS-Daten unterstützte Produkt-Features in den einzelnen Produkten zu kennzeichnen.
             Dadurch weiß das verarbeitende System, dass die gelieferten OTDS-Daten das Feature
             unterstützen. </para>  
 			    <para xml:lang="de">Das Element <code>ExternalParameter</code> innerhalb von
@@ -10788,6 +10849,244 @@ usw.]]></programlisting>
 </PriceItem> ]]></programlisting>
       </section>
     </section>
+	  <section xml:id="OtdsProductsComponentsSeasonOverlap">
+	    <title><phrase xml:lang="de">Saisonüberschneidungen (1.9)</phrase></title>
+	    <para>Es gibt Veranstalter, die die Vertriebssaisons in ihrem System separat verwalten. In der
+        Regel gibt es in den Veranstaltersystemen dann implizite Regeln wie mit Reisen im
+        Überschneidungsbereich der Saison umgegangen werden soll. </para>
+	    <para>Es wird in Version 1.9 zusätzlich ermöglicht, dass man die Accommodation in Components
+	      auf mehrere zeitlich nacheinander folgende unterschiedliche SellingAccoms erweitern kann. In
+	      der Definition der DefineComponent kann man dann alle Bedingungen, für die erfolgreiche
+	      Kombination der SellingAccoms festlegen. </para>
+	    <para>Damit die neuen Produkte und gleichzeitig auch die alten Produkte weiterhin korrekt
+	      verarbeitet werden, müssen folgende Aspekte berücksichtigt werden:</para>
+	    <orderedlist>
+	      <listitem>
+	        <para>Die überlappenden Winter- und Sommerangebote eines Hotels müssen jeweils in der selben
+	          &lt;Accommodation> aber in unterschiedlichen SellingAccoms platziert werden </para>
+	      </listitem>
+	      <listitem>
+	        <para>Sommer- bzw. Winterangebote benötigen in der SellingAccom das &lt;Tag
+	          Class="DistributionSeason">Summer bzw. Winter&lt;/Tag> </para>
+	      </listitem>
+	      <listitem>
+	        <para>Alle SellingAccoms benötigen in der SellingAccom das &lt;Tag
+	          Class="Hotelcode">PMI997&lt;/Tag> (Der Value ist natürlich abhängig vom Hotel) </para>
+	      </listitem>
+	      <listitem>
+	        <para>Alle SellingAccoms benötigen in der SellingAccom das &lt;Tag
+	          Class="TravelType">PAUS&lt;/Tag> (Der Value ist natürlich abhängig vom Hotel) </para>
+	      </listitem>
+	      <listitem>
+	        <para>In Filtern und Conditions muss die Verwendung von Source="ThisComponent",
+	          Source="SellingAccom" und Source="Accommodation" bzgl. der gewollten Interpretation
+	          überprüft werden </para>
+	      </listitem>
+	    </orderedlist>
+      <para>Für die Übergangsphase zwischen Version 1.0 und Version 1.9 sollten die hier
+        vereinbahrten Classnamen etc. möglichst eingehalten werden, um eine explizite Produktion
+        auch mit der Version 1.0 zu ermöglichen. </para>
+      <para>Die Änderungen in der Accommodation-Komponente sind 100% abwärtskompatibel auch
+        hinsichtlich der Verarbeitung der Produkte aus Version 1.0. Lediglich die Formulierung des
+        &lt;Product>-Elementes und die neue DefineComponent ist erst ab Version 1.9 möglich.</para>
+      <para>Für die Definiton saisonüberschneidender Reisen wird es eine zusätzliche Möglichkeit zur
+      Definition dieser Produkte unter Products geben.</para>
+	    <para>Das Product-Konstrukt sieht wie folgt aus:</para>
+      <programlisting><![CDATA[<Otds>
+<Products>
+    <Product Key="AccommodationOnly" ProductType="AccommodationOnly">
+        <Components>
+            <DefinedComponent Role="Accommodation"/>
+        </Components>
+    </Product>
+    <Product Key="Packages" ProductType="FlightAccommodation">
+        <Components>
+            <DefinedComponent Role="Accommodation"/>
+            <DefinedComponent Role="ReturnFlight"/>
+        </Components>
+        ...
+    </Product>
+    ...
+</Products>
+...
+<DefinedComponents>
+    <DefineComponent Key="OverlapSW" Role="Accommodation">
+        <Booking>
+            <BookingGroup Area="ServiceArea" Source="#SWWinter" Priority="10">
+                <BookingReplace Source="#SWWinter"/>
+            </BookingGroup>
+            <BookingGroup Area="ServiceArea" Source="#SWSummer" Priority="10">
+                <BookingParameter Field="DateEnd">
+                    <Date DayType="CheckOut" Source="#SWWinter"/>
+                </BookingParameter>
+            </BookingGroup>
+        </Booking>
+        <Components>
+            <Accommodation>
+                <SellingAccom DayAllocationIndex="-1" Name="SWSummer"/>
+                <SellingAccom DayAllocationIndex="1" Name="SWWinter"/>
+            </Accommodation>
+        </Components>
+        <Filter>
+            <And>
+                <Tags Source="#SWSummer" Class="DistributionSeason">Summer</Tags>
+                <Tags Source="#SWWinter" Class="DistributionSeason">Winter</Tags>
+                <MatchEqual>
+                    <Key Source="#SWSummer.Unit"/>
+                    <Key Source="#SWWinter.Unit"/>
+                </MatchEqual>
+                <MatchEqual>
+                    <Tag Source="#SWSummer" Class="Hotelcode"/>
+                    <Tag Source="#SWWinter" Class="Hotelcode"/>
+                </MatchEqual>
+                <MatchEqual>
+                    <Tag Source="#SWSummer" Class="TravelType"/>
+                    <Tag Source="#SWWinter" Class="TravelType"/>
+                </MatchEqual>
+                <MatchEqual>
+                    <Key Source="#SWSummer.Board"/>
+                    <Key Source="#SWWinter.Board"/>
+                </MatchEqual>
+            </And>
+        </Filter>
+    </DefineComponent>
+        ...
+</DefinedComponents>
+</Otds>]]></programlisting>
+	    <para>Analog dazu wird es auch immer eine weitere DefineComponent geben, die die Überlappung an
+	    der anderen Saisongrenze definiert:</para>
+	    <programlisting><![CDATA[<DefineComponent Key="OverlapWS" Role="Accommodation">
+    <Booking>
+        <BookingGroup Area="ServiceArea" Source="#WSSummer" Priority="10">
+            <BookingReplace Source="#WSSummer"/>
+        </BookingGroup>
+        <BookingGroup Area="ServiceArea" Source="#WSWinter" Priority="10">
+            <BookingParameter Field="DateEnd">
+                <Date DayType="CheckOut" Source="#WSSummer"/>
+            </BookingParameter>
+        </BookingGroup>
+    </Booking>
+    <Components>
+        <Accommodation>
+            <SellingAccom DayAllocationIndex="-1" Name="WSSummer"/>
+            <SellingAccom DayAllocationIndex="1" Name="WSWinter"/>
+        </Accommodation>
+    </Components>
+    <Filter>
+        <And>
+            <Tags Source="#SWSummer" Class="DistributionSeason">Summer</Tags>
+            <Tags Source="#SWWinter" Class="DistributionSeason">Winter</Tags>
+
+        <MatchEqual>
+            <Key Source="#SWSummer.Unit"/>
+            <Key Source="#SWWinter.Unit"/>
+        </MatchEqual>
+        <MatchEqual>
+            <Tag Source="#SWSummer" Class="Hotelcode"/>
+            <Tag Source="#SWWinter" Class="Hotelcode"/>
+        </MatchEqual>
+        <MatchEqual>
+            <Tag Source="#SWSummer" Class="TravelType"/>
+            <Tag Source="#SWWinter" Class="TravelType"/>
+        </MatchEqual>
+        <MatchEqual>
+            <Key Source="#SWSummer.Board"/>
+            <Key Source="#SWWinter.Board"/>
+        </MatchEqual>
+      </And>
+    </Filter>
+</DefineComponent>]]></programlisting>
+	    <para>In dem Beispiel sind bereits MatchEqual/Key-Konstrukte enthalten, die erst ab Version 1.9
+        erlaubt sind. </para>
+      <para>In V1.0 kompatiblen Lieferungen müsste man diese durch entsprechende MatchEqual/Tag
+        ersetzen und natürlich auch die entsprechenden Tags integrieren. </para>
+      <para>Außerdem gibt es der Einfachheit noch eine 3. sehr simple DefineComponent, die die
+      "Nicht-überlappenden"-Accommodations definiert. </para>
+	    <programlisting><![CDATA[<DefineComponent Key="NonOverlap" Role="Accommodation">
+    <Components>
+        <Accommodation/>
+    </Components>
+</DefineComponent>]]></programlisting>
+	    <para>Damit braucht man dann nur eine Produktdefinition zum Beispiel für das Pauschal-Produkt,
+        die sich auf<emphasis role="bold"> DefinedComponent Role="Accommodation"</emphasis>
+        bezieht.</para>
+	    <programlisting><![CDATA[<Product ...>
+    <Components>
+        <DefinedComponent Role="Accommodation"/>
+        <DefinedComponent Role="ReturnFlight"/>
+    </Components>
+    <Filter>
+      ...
+    </Filter>
+</Product>]]></programlisting>
+	    <bridgehead><phrase xml:lang="de">Verarbeitung</phrase></bridgehead>
+	    <para>Entsprechend der Regeln der Produktauswertung werden durch die oben angegebenen neuen
+        Produktdefinitionen, alle Angebote zusammengestellt, die aus 2 SellingAccoms bestehen,
+        welche in einer Accommodation platziert sind und zusätzlich den angegebenen Regeln
+        entsprechen. </para>
+      <para>Da die saisonüberschneidenden Reisen in der Regel auch durch genau eine Buchungszeile
+        für die Unterkunft gebucht werden, muss dies durch entsprechende BookingGroups im
+        &lt;Product> sichergestellt werden. </para>
+      <para>Analog kann man auch bei der Definition für Pauschalprodukte verfahren.</para>
+	    <bridgehead><phrase xml:lang="de">Beispiel</phrase></bridgehead>
+	    <para>Häufig ist es ggf. sinnvoller die Winter- und Sommersaison in getrennten Dateien zu
+        liefern, da es die Produktion vereinfacht. Dementsprechend sieht eine Lieferung eines Hotels
+        (PMI997) für die Winter- und Sommersaison dann folgendermaßen aus:</para>
+      <para>1. Wintersaison:</para>
+      <programlisting><![CDATA[<Otds UpdateMode="Merge" ...>
+    <Accommodations UpdateMode="Merge">
+        <Accommodation Key="PMI997" UpdateMode="Merge" ...>
+            <SellingAccom Key="W12_PMI997" ...>
+                <Tags>
+                    <Tag Class="DistributionSeason">Winter</Tag>
+                    <Tag Class="Hotelcode">PMI997</Tag>
+                    <Tag Class="TravelType">PAUS</Tag>
+                    ...
+                </Tags>
+                ...
+                <Board Key="A" ...>
+                    ...
+                </Board>
+                ...
+                <Unit Key="DZ" ...>
+                    ...
+                </Unit>
+                ...
+            </SellingAccom>
+        </Accommodation>
+        ...
+    </Accommodations>    
+</Otds>]]></programlisting>
+	    <para>Hier ist der Key der Accommodation sehr wichtig, der zu dem Key aus der Sommerlieferung
+        passen muss. Ein Prefix "W12_" wäre hier falsch.</para>
+      <para>1. Sommersaison:</para>
+      <programlisting><![CDATA[<Otds UpdateMode="Merge" ...>
+    <Accommodations UpdateMode="Merge">
+        <Accommodation Key="PMI997" UpdateMode="Merge" ...>
+            <SellingAccom Key="S13_PMI997" ...>
+                <Tags>
+                    <Tag Class="DistributionSeason">Summer</Tag>
+                    <Tag Class="Hotelcode">PMI997</Tag>
+                    <Tag Class="TravelType">PAUS</Tag>
+                    ...
+                </Tags>
+                ...
+                <Board Key="A" ...>
+                    ...
+                </Board>
+                ...
+                <Unit Key="DZ" ...>
+                    ...
+                </Unit>
+                ...
+            </SellingAccom>
+        </Accommodation>
+        ...
+    </Accommodations>    
+    </Otds>]]></programlisting>
+	    <para>Auch hier ist der Key der Accommodation sehr wichtig, der zu dem Key aus der
+        Winterlieferung passen muss. Ein Prefix "S13_" wäre hier falsch.</para>
+	  </section>
 	</section>
 	<section xml:id="OtdsProcess">
 		<title><phrase xml:id="det_2129" xml:lang="de">Das theoretische Verarbeitungsmodell</phrase></title>
