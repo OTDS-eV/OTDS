@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
-<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:internal="http://otds-group.org/otds/internal" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<xs:attributeGroup name="ProductComponentGroup">
 		<xs:attribute name="Name" type="NameType">
 			<xs:annotation>
@@ -560,7 +560,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:sequence>
+				<xs:sequence minOccurs="0">
 					<xs:element name="MaxAge" type="PersonAgeType">
 						<xs:annotation>
 							<xs:documentation>Höchstalter der Person(en)</xs:documentation>
@@ -583,7 +583,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:sequence>
+				<xs:sequence minOccurs="0">
 					<xs:element name="MaxCount" type="PositiveShort">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">Maximale Anzahl Personen</xs:documentation>
@@ -1083,7 +1083,9 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 		<xs:choice>
 			<xs:element name="SortedCandidateGroup" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als GenericTag-Value seine eigene Position innerhalb der sortierten Angebotsgruppe. Die Auswertung der Funktion findet erst nach der Auswertung der Verfügbarkeit und nach Abschluss der Preisberechnung statt. Bis dahin gilt der Value der Funktion als "Undefined".</xs:documentation>
+					<xs:documentation>Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als GenericTag-Value seine eigene Position innerhalb der sortierten Angebotsgruppe. Die Auswertung der Funktion findet erst nach der Auswertung der Verfügbarkeit und nach Abschluss der Preisberechnung statt. Bis dahin gilt der Value der Funktion als "Undefined".
+
+Eine GenericTag-Bedingung auf ein GenericTag, darf nur innerhalb  von Product benutzt werden. In allen anderen Fällen wird die  Bedingung automatisch als "Undefined" ausgewertet.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1097,64 +1099,6 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 										<xs:element name="CandidateInstance" minOccurs="0">
 											<xs:complexType>
 												<xs:attribute name="Source"/>
-											</xs:complexType>
-										</xs:element>
-										<xs:element name="Date" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_110">Die Gruppirung erfolgt über das in den Attributen definierte Datum. Das bedeutet alle Elemente einer Gruppe haben das gleiche CheckIn- oder Checkoutdatum bezogen auf die durch die Attribute definierte Komponente.</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
-													<xs:annotation>
-														<xs:documentation xml:lang="de" xml:id="det_111">In diesem Attribut wird eine Referenz auf den Context  der DayAllocation definiert. 
-		Zulässige Werte sind:
-		- Product
-		- Accommodation
-		- ReturnFlight
-		- OnewayFlight
-		- Outbound
-		- Inbound
-		- Addon
-		
-		Default ist "ThisComponent".
-		Es sind aber theoretisch auch Namensreferenzen erlaubt.
-		Siehe Dazu auch in der Thematischen Dokumentation die Kapitel zum Source-Attribut. (Todo: Verlinkung) 
-		
-		In diesem Falll defniert die Source welches Datum aus welcher Unterkompponente für die Gruppierung verwendet wird.</xs:documentation>
-													</xs:annotation>
-												</xs:attribute>
-												<xs:attribute name="DayType" type="DayTypeEnum" use="required">
-													<xs:annotation>
-														<xs:documentation xml:lang="de" xml:id="det_112">Dieses Attribut definiert ob es sich bei dem definierten Datum um eine CheckIn-oder CheckOut- Datum handelt.
-		Mögliche Werte sind:
-		- CheckIn
-		- CheckOut</xs:documentation>
-													</xs:annotation>
-												</xs:attribute>
-											</xs:complexType>
-										</xs:element>
-										<xs:element name="Duration" minOccurs="0">
-											<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_113">Die Gruppirung erfolgt über die hier definierte Duration. Das bedeutet alle Elemente einer Gruppe haben die gleiche Duration bezogen auf die durch Source definierte Komponente.</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
-													<xs:annotation>
-														<xs:documentation xml:lang="de" xml:id="det_114">In diesem Attribut wird eine Referenz auf den Context  der DayAllocation definiert. 
-		Zulässige Werte sind:
-		- Product
-		- Accommodation
-		- ReturnFlight
-		- OnewayFlight
-		- Outbound
-		- Inbound
-		- Addon
-		
-		Default ist "ThisComponent".
-		Es sind aber theoretisch auch Namensreferenzen erlaubt.
-		Siehe Dazu auch in der Thematischen Dokumentation die Kapitel zum Source-Attribut. (Todo: Verlinkung) </xs:documentation>
-													</xs:annotation>
-												</xs:attribute>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="Tag" type="EmptyTagConditionType" minOccurs="0">
@@ -1180,7 +1124,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 														<xs:sequence>
 															<xs:element name="Sort" minOccurs="0" maxOccurs="unbounded">
 																<xs:annotation>
-																	<xs:documentation xml:lang="de" xml:id="det_117">Jedes Sort Element enthält eine Anzahl von Kriterien, nach denen aufwärts oder abwärts sortiert werden soll. Es wird zuerst nach dem ersten Sort-Element sortiert, danach bei Gleichheit nach dem nächsten Sort-Element. Das Attribut "Order" gibt an, ob aufwärts oder abwärts sortiert werden soll. Mit "Add" und "Average" können einzelne Sortierkriterien auch vor der Sortierung zusammengefasst werden.</xs:documentation>
+																	<xs:documentation xml:lang="de" xml:id="det_117">Jedes Sort Element enthält eine Anzahl von Kriterien, nach denen aufwärts oder abwärts sortiert werden soll. Es wird zuerst nach dem ersten Sort-Element sortiert, danach bei Gleichheit nach dem nächsten Sort-Element. Das Attribut "Order" gibt an, ob aufwärts oder abwärts sortiert werden soll. Mit "Sum" und "Average" können einzelne Sortierkriterien auch vor der Sortierung zusammengefasst werden.</xs:documentation>
 																</xs:annotation>
 																<xs:complexType>
 																	<xs:choice>
@@ -1209,12 +1153,12 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																				</xs:sequence>
 																			</xs:complexType>
 																		</xs:element>
-																		<xs:element name="Connect" minOccurs="0">
+																		<xs:element name="Concatenate" minOccurs="0">
 																			<xs:annotation>
 																				<xs:documentation xml:lang="de" xml:id="det_125">Dieses Element definiert, dass mehrere Tags des TagTypes ="String" zu einem String zusammengeführt werden und dann eine lexikalische Sortierung nach diesem String erfolgt. Alle Elemente müssen dem TagType="String" entsprechen. 
-		Die Values der referenzierten Tags werden in der unter Element "Connect" aufgeführten XML-Order aneinandergefügt. Entspricht ein Tag nicht dem TagType="String" so wird es mit dem Wert "" (lererer String) in die Zeichenkette eingefügt.
+		Die Values der referenzierten Tags werden in der unter Element "Concatenate" aufgeführten XML-Order aneinandergefügt. Entspricht ein Tag nicht dem TagType="String" so wird es mit dem Wert "" (lererer String) in die Zeichenkette eingefügt. Werden bzgl. eine Tag-Referenz mehrere Tags im Angebotsbaum gefunden so bestimmt die XML-Order des Angebotsbaum die Reihenfolge, in der die Tag-Values aneinandergefügt werden.
 		
-		Es gilt die folgende generell in OTDS festgelegte Definition für Zeichenketten-Sortierungen:
+Es gilt die folgende generell in OTDS festgelegte Definition für Zeichenketten-Sortierungen:
 		
 		Zeichenketten werden grundsätzlich mit dem linken Zeichen beginnend Zeichen für Zeichen sortiert, wobei das erste Zeichen die höchste Priorität besitzt. Die Sortierung folgt den ASCII-Values der Zeichen und entspricht damit folgender aufsteigenden Liste:
 		
@@ -2648,9 +2592,8 @@ DE Germany</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="ProductFeatureAttributeEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="PartyPriceProduction"/>
-			<xs:enumeration value="AdultPriceProduction"/>
 			<xs:enumeration value="CityPairProduction"/>
+			<xs:enumeration value="AlternativeFlights"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="PersonGenderEnum">
@@ -3627,10 +3570,6 @@ The current node and all child elements are deleted.</xs:documentation>
 	<!-- End Property Enums -->
 	<xs:simpleType name="OTDSVersionEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="1.0"/>
-			<xs:enumeration value="1.1"/>
-			<xs:enumeration value="1.2"/>
-			<xs:enumeration value="1.3"/>
 			<xs:enumeration value="1.9"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -3781,9 +3720,7 @@ The current node and all child elements are deleted.</xs:documentation>
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern
-						value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"
-					/>
+					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -4193,7 +4130,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 	</xs:complexType>
 	<xs:complexType name="DefineComponentRulesType">
 		<xs:complexContent>
-			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
 					<xs:element name="Booking" type="BookingType" minOccurs="0">
 						<xs:annotation>
@@ -4318,7 +4255,7 @@ This defines all dates equal to or earlier than 30.01.2012.</xs:documentation>
 				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="Max" type="xs:date" maxOccurs="1">
+				<xs:element name="Max" type="xs:date" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="det_307">Dieses Element definiert das größte Datum also die Obergrenze einer Terminspanne.
 
@@ -4373,7 +4310,7 @@ between the booking date and check-in date</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:element name="Max" type="PositiveInteger">
+			<xs:element name="Max" type="PositiveInteger" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="det_312">Dieses Element beinhaltet den maximalen Zeitabstand in Tagen zwischen Buchungstag und CheckIn-Termin. Hiermit wird "Rolling EarlyBird" abgebildet. Dieser Wert wird für Berechnung von Frühbucherpreisen benutzt, bei denen die Buchung eine bestimmte Anzahl von Tagen vor dem CheckIn, also der Anmeldung am Ankunftsort stattfinden muss.</xs:documentation>
 				</xs:annotation>
@@ -4402,7 +4339,7 @@ between the booking date and check-in date</xs:documentation>
 				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="Max" type="PositiveInteger">
+				<xs:element name="Max" type="PositiveInteger" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="det_315">Maximalaufenthaltsdauer</xs:documentation>
 					</xs:annotation>
@@ -4786,7 +4723,7 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 					</xs:element>
 				</xs:sequence>
 				<xs:sequence>
-					<xs:element name="MaxAge" type="PersonAgeType">
+					<xs:element name="MaxAge" type="PersonAgeType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="det_345">Mindestalter der Person(en)</xs:documentation>
 						</xs:annotation>
@@ -4809,7 +4746,7 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 					</xs:element>
 				</xs:sequence>
 				<xs:sequence>
-					<xs:element name="MaxCount" type="PositiveShort">
+					<xs:element name="MaxCount" type="PositiveShort" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="det_348">Maximale Anzahl Personen</xs:documentation>
 						</xs:annotation>
@@ -5912,134 +5849,80 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 			</xs:element>
 		</xs:choice>
 	</xs:group>
-	<!-- Begin of new Condition types-->
-	<xs:complexType name="CountConditionType">
+	<xs:group name="CountMinMaxConditionGroup">
 		<xs:choice>
-			<xs:element name="Persons" minOccurs="0">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:choice>
-							<xs:sequence maxOccurs="2">
-								<xs:choice>
-									<xs:element name="Min" type="xs:int" minOccurs="0">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_437">Definition aller Personen bis zu einer bestimmten Person.
-
-Until=x definiert die X ältesten Personen.
-
-Until=-x definiert alle Personen dem Alter nach aufsteigend bis zur X-jüngsten Person. NICHT zu verwechslen mit den X-jüngsten Personen, die über  From=-x definiert werden. </xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_437">Definition of all persons up to a certain person.
+			<xs:sequence maxOccurs="2">
+				<xs:choice>
+					<xs:element name="Min" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_437">In diesem Element kann eine minimale Anzahl definiert werden</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_437">Definition of all persons up to a certain person.
 
 Until=x defines the X oldest persons.
 
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-									<xs:element name="Max" type="xs:int" minOccurs="0">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_438">Definition aller Personen ab einer bestimmten Person.
-Standardverwendung ist hier 
-From=-x. From=-x definiert die X jüngsten Personen.
-
-From=x definiert alle Personen dem Alter nach aufsteigend ab der X-ältesten  Person (inklusive der Xten Person).</xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_438">Definition of all persons from a certain person.
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Max" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_438">In diesem Element kann eine maximale Anzahl definiert werden</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_438">Definition of all persons from a certain person.
 The standard usage for this is
 From=-x. From=-x defines the X youngest persons.
 
 From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-								</xs:choice>
-							</xs:sequence>
-							<xs:element name="Counts" type="IntegerListType" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_439">Es kann eine Liste an Indizes von Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch Space voneinander separiert sein.
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+			<xs:element name="Counts" type="IntegerListType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_439">Es kann eine Liste von mehreren gültigen Anzahlen angegeben werden. Die einzelnen Zahlen müssen durch Space voneinander separiert sein.
 
 
-Indices="1 4 -3 -1" definiert die Älteste Person, die 4.-älteste Person, die 3.-jüngste Person und die jüngste Person.</xs:documentation>
-									<xs:documentation xml:lang="en" xml:id="en_439">A list of indexes of participants can be specified. The individual indices must be separated from each other by a space.
-
-
-Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd youngest person and the youngest person.</xs:documentation>
-								</xs:annotation>
-							</xs:element>
-						</xs:choice>
-						<xs:element name="PersonFilter" type="PersonFilterConditionType" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen.
-Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren.
-Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert und auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices".</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_440">This element filters the participants in the tour to which the PersonIndex should apply. By default, all participants in the tour are sorted in descending order according to age.
-Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. An application of this would be, for example, to address only full-paying adults or children.
-The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices".</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Days" minOccurs="0">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:choice>
-							<xs:sequence maxOccurs="2">
-								<xs:choice>
-									<xs:element name="Min" type="xs:int" minOccurs="0">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_437">Definition aller Personen bis zu einer bestimmten Person.
-
-Until=x definiert die X ältesten Personen.
-
-Until=-x definiert alle Personen dem Alter nach aufsteigend bis zur X-jüngsten Person. NICHT zu verwechslen mit den X-jüngsten Personen, die über  From=-x definiert werden. </xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_437">Definition of all persons up to a certain person.
-
-Until=x defines the X oldest persons.
-
-Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-									<xs:element name="Max" type="xs:int" minOccurs="0">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_438">Definition aller Personen ab einer bestimmten Person.
-Standardverwendung ist hier 
-From=-x. From=-x definiert die X jüngsten Personen.
-
-From=x definiert alle Personen dem Alter nach aufsteigend ab der X-ältesten  Person (inklusive der Xten Person).</xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_438">Definition of all persons from a certain person.
-The standard usage for this is
-From=-x. From=-x defines the X youngest persons.
-
-From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
-										</xs:annotation>
-									</xs:element>
-								</xs:choice>
-							</xs:sequence>
-							<xs:element name="Counts" type="IntegerListType" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_439">Es kann eine Liste an Indizes von Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch Space voneinander separiert sein.
-
-
-Indices="1 4 -3 -1" definiert die Älteste Person, die 4.-älteste Person, die 3.-jüngste Person und die jüngste Person.</xs:documentation>
-									<xs:documentation xml:lang="en" xml:id="en_439">A list of indexes of participants can be specified. The individual indices must be separated from each other by a space.
+Counts="1 4 -3 -1"</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_439">A list of indexes of participants can be specified. The individual indices must be separated from each other by a space.
 
 
 Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd youngest person and the youngest person.</xs:documentation>
-								</xs:annotation>
-							</xs:element>
-						</xs:choice>
-						<xs:element name="DayFilter" type="DayFilterConditionType" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen.
-Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren.
-Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert und auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices".</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_440">This element filters the participants in the tour to which the PersonIndex should apply. By default, all participants in the tour are sorted in descending order according to age.
-Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. An application of this would be, for example, to address only full-paying adults or children.
-The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices".</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
+				</xs:annotation>
 			</xs:element>
 		</xs:choice>
+	</xs:group>
+	<!-- Begin of new Condition types-->
+	<xs:complexType name="DayCountConditionType">
+		<xs:sequence>
+			<xs:group ref="CountMinMaxConditionGroup"/>
+			<xs:element name="DayFilter" type="DayFilterConditionType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen.
+Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren.
+Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert und auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices".</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_440">This element filters the participants in the tour to which the PersonIndex should apply. By default, all participants in the tour are sorted in descending order according to age.
+Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. An application of this would be, for example, to address only full-paying adults or children.
+The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices".</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="ConditionAttributeGroup"/>
+		<xs:attributeGroup ref="SourceAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="PersonCountConditionType">
+		<xs:sequence>
+			<xs:group ref="CountMinMaxConditionGroup"/>
+			<xs:sequence>
+				<xs:element name="PersonFilter" type="PersonFilterConditionType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen.
+Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren.
+Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert und auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices".</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_440">This element filters the participants in the tour to which the PersonIndex should apply. By default, all participants in the tour are sorted in descending order according to age.
+Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. An application of this would be, for example, to address only full-paying adults or children.
+The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices".</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
 		<xs:attributeGroup ref="ConditionAttributeGroup"/>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 	</xs:complexType>
@@ -6610,7 +6493,7 @@ If, however, the addressing of the destination node is not unambiguous, every de
 						</xs:element>
 						<xs:element name="GroupedAbsolute" type="EmptyElementType" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem Context keine Auswirkung. Das Element hängt direkt zusammen mit dem Element GroupAbsolutePriceItemsBy/EachAbsolute und definiert, dass die GenericValues separat auf die Kostenknoten der separat betrachteten PriceItemGruppen aufgeteilt werden. Ist das Element EachAbsolute innerhalb von GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedAbsolute keine Auswirkung.</xs:documentation>
+								<xs:documentation>Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem Context keine Auswirkung. Das Element hängt direkt zusammen mit dem Element GroupAbsolutePriceItemsBy/AbsolutePriceItem und definiert, dass die GenericValues separat auf die Kostenknoten der separat betrachteten PriceItemGruppen aufgeteilt werden. Ist das Element AbsolutePriceItem innerhalb von GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedAbsolute keine Auswirkung.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
@@ -6986,9 +6869,10 @@ AmountBathrooms (amount of bathrooms)</xs:documentation>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="AtomicCountConditionGroup">
-		<xs:sequence>
-			<xs:element name="Count" type="CountConditionType" minOccurs="0"/>
-		</xs:sequence>
+		<xs:choice>
+			<xs:element name="DayCount" type="DayCountConditionType" minOccurs="0"/>
+			<xs:element name="PersonCount" type="PersonCountConditionType" minOccurs="0"/>
+		</xs:choice>
 	</xs:group>
 	<xs:group name="AtomicGroupConditionGroup">
 		<xs:sequence>
@@ -7051,7 +6935,7 @@ Eine GenericTag Bedingung ohne Value ist false.</xs:documentation>
 				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="Max" type="xs:decimal">
+				<xs:element name="Max" type="xs:decimal" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="det_484">Dieses Element definiert den höchsten Preis, also die Obergrenze einer Preisspanne.</xs:documentation>
 					</xs:annotation>

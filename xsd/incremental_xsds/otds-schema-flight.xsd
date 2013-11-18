@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="http://otds-group.org/otds"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:internal="http://otds-group.org/otds/internal"
            targetNamespace="http://otds-group.org/otds"
            elementFormDefault="qualified">
    <xs:include schemaLocation="otds-schema-common.xsd"/>
@@ -321,7 +322,10 @@ Describes the inbound flight in greater detail. Defines the flight as flat or se
                      <xs:documentation xml:lang="en" xml:id="en_514">In this element, all values ​​required for booking are combined. Later other Namespaces can be added to the BookingEntry, so that values specific to different booking systems are specified along with their corresponding parameter name​​.</xs:documentation>
                   </xs:annotation>
                </xs:element>
-               <xs:element name="Properties" type="PropertiesType" minOccurs="0"/>
+               <xs:element name="Properties"
+                           type="PropertiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0"/>
                <xs:element name="Filter"
                            type="FilterSimpleNodeType"
                            maxOccurs="unbounded"
