@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Products>
+		<Product Key="OnewayFlightOnly" ProductType="OnewayFlightOnly">
+			<!-- Dieses Element definiert ein OnewayFlightOnly-Produkt, welches aus einem OnewayFlight besteht.
+					Sollten Sie sich auch für OnewayFlights interessieren, die aus einzelnen OnewayFlights zusammengesetzt werden, so schauen Sie bitte nach Durchsicht dieses Beispiels die OTDS Beispieldatei 		"FlightRulesExample.xml" an.-->
+			<Booking>
+				<!-- Definition globaler Buchungsparameter wie dem Anforderungscode und zum Beispiel dem Starttermin. Der Übersicht halber ist die Platzierung der Start und Landezeiten etc. nur in dem 2. aufgeführten OnewayFlight aufgeführt. Dieses könnte analog auch im 1. aufgeführten OnewayFlight erfolgen.  -->
+				<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+					<BookingParameter Field="RequestCode">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="DateStart">
+						<Date Source="OnewayFlight" DayType="CheckIn"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<OnewayFlight/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="YYY">
+			<Booking>
+				<!-- Definition des Veranstaltercodes für die Buchung -->
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>YYY</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="FRAFUE20130331K1">
+				<!-- Dieser OnewayFlight stellt die einfachste Form eines gelieferten OnewayFlights dar. In diesem Fall ist es ein Einzelflug an einem bestimmten Termin mit einer bestimmten Buchungsklasse. -->
+				<Booking>
+					<!-- Hier wird er Flugcode für die Buchung definiert.-->
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FRAFUEK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<!-- In diesem Fall besteht die FlightRoute nur aus einem Segment. Es können aber auch mehrere Segmente und auch mehr Eigenschaften zum Flug angegeben. 
+								Im 3. OnewayFlight finden Sie ein beispiel für einen Flug mit StopOver und mehr definierten Eigenschaften
+							-->
+							<FlightRoute>
+								<Departure>
+									<Airport>FRA</Airport>
+									<Time>12:20:00</Time>
+									<!-- Die Angabe der Zeit erfolgt in der Zeitzone am Ort des Abflug-Flughafens. Will man andere Zeitzonen benutzen, so kann man dies unter Angabe des DLC als Attribut im Element <Time> angeben, oder alternativ die Zeitangabe inklusive Angabe der Zeitzone angeben. Zum Beispiel in der Form: "12:20:46.275+01:00". OTDS folgt dabei der allgemeinen XML-Vorgabe für das Format von Zeiten xs:time .-->
+								</Departure>
+								<Arrival>
+									<Airport>FUE</Airport>
+									<Time>16:20:00</Time>
+								</Arrival>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>FUE</ArrivalAirport>
+				<CheckOutDateOffset>0</CheckOutDateOffset>
+				<!-- Der CheckOutDateOffset definiert, ob es sich um einen Übernachtflug handelt oder nicht. 
+					  Wenn es sich um keinen Übernachtflug handelt, nicht kann das Element auch weggelassen werden.-->
+				<BookingClass Key="Y">
+					<!-- Definition einer Buchungsklasse auf diesem Flug-->
+					<Booking>
+						<!-- Hier wird er Code für die zu buchende Buchungsklasse definiert.-->
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<!-- Dies ist eine Standardangabe, dass beliebige Personen buchbar sind. In der Regel muss hier keine Hand angelegt werden. -->
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<!--Definition der Verfügbarkeit für diesen Flug-->
+						<Availability Key="2013-03-31" StartDate="2013-03-31" EndDate="2013-03-31">
+							<DefaultDayState>
+								<Open>4</Open>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Base">
+							<Absolute>
+								<Value>332</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+				<!-- Hier können sich weitere Buchungsklassen mit unterschiedlichen Preisen anschließen.-->
+			</OnewayFlight>
+			<OnewayFlight Key="FRAFUEK2">
+				<!-- Dieser OnewayFlight stellt eine immer wiederkehrende Flugkette da, welche zu einem bestimmten Zeitpunkt, an den in der Availability definierten Tagen fliegt. -->
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FRAFUEK2</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>FUE</ArrivalAirport>
+				<BookingClass Key="Y">
+					<!-- Definition einer Buchungsklasse auf dieser Flugkette.-->
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<!--Definition der Verfügbarkeit für diese Flugkette. Es finden Flüge zwischen dem 03.03.2013 und dem 27.05.2013 statt. Es finden ausschließlich am Mo und Fr Flüge statt. 
+							Der Flug am 13.03. ist bereits ausgebucht.-->
+						<Availability Key="2013-03-01" StartDate="2013-03-01" EndDate="2013-03-31">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+							<DayState Key="12" Offset="12">
+								<!-- Dieses Element definiert die Verfügbarkeitsstatus, in diesem Falle "Closed" für den Termin (StartDate + Offset). Also für den 13.03.2013. -->
+								<Closed/>
+							</DayState>
+							<DayState Key="29" Offset="29">
+								<!-- Dieses Element definiert die Verfügbarkeitsstatus, in diesem Falle "Closed" für den Termin (StartDate + Offset). Also für den 13.03.2013. -->
+								<Closed/>
+							</DayState>
+						</Availability>
+						<Availability Key="2013-04-01" StartDate="2013-04-01" EndDate="2013-04-30">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Availability Key="2013-05-01" StartDate="2013-05-01" EndDate="2013-05-27">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<!-- Die Weekday Condition legt fest, dass die in diesem AvailabilityElement definierte Verfügbarkeit generell nur an den Abflugtagen "Montag" und "Freitag" gilt.-->
+							<Weekdays Source="ThisComponent">Mon Fri</Weekdays>
+						</Condition>
+						<!-- Wir empfehlen die Availabilities monatsweise zu gestalten, so kann man bei der Datenproduktion einzelne Monate bei fehlender Verfügbarkeit, bzw. das EndDate (siehe Mai) an die Verfügbarkeit anpassen. ohne viele Daten liefern zu müssen.
+							Wir empfehlen weiterhin den Startdate bzw. den Key der Availability-Elemente nicht zu ändern, da es sonst bei inkrementellen Updates zu Offsetproblemen kommen kann. -->
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Base">
+							<!-- Festlegung des Flugpreises dieser Flugkette. -->
+							<Absolute>
+								<Value>332</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+						<PriceItem Class="FligtDateSupplement">
+							<!-- Festlegung z.B. eines terminabhängigen Flugzuschlages. -->
+							<Absolute>
+								<Value>15</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="ThisComponent">
+									<Dates>2013-03-10 2013-03-18 2013-03-19 2013-03-27</Dates>
+								</Date>
+								<!-- Es lassen sich im Element-Condition sehr viele unterschiedliche Bedingungen definieren, die auch Definitionen für Kinderpreise, Wochentagsabhängigkeiten und vieles mehr erlauben. 		
+									Weitere PreisItem Beispiele finden Sie in der OTDS-Beispieldatei "PriceItemExamples.xml".-->
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="FRAHKT20130331K1">
+				<!-- Dieser OnewayFlight verdeutlicht wie Sie Eigenschaften, wie die Carrier, Zwischenlandungen, Übernachflüge darstellen.
+					OnewayFlights mit mehreren Segmenten kommen nur dann zum Einsatz, wenn das Veranstaltersystem keine Regeln, oder Preise auf einzelne Segmente bezieht.
+					 Will man sich auf einzelne Segmente mit Regeln und Preisen beziehen, so muss man dafür die Segmente als OnewayFlights liefern und mit Hilfe der im Veranstaltersystem hinterlegten Regeln zusammensetzen. zusammensetzen
+					Schauen Sie sich dazu dann auch das OTDS Beispiel  FlightRules.xml an.
+				  -->
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FRAHKTK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightBookingClassBaggageAllowances>
+							<BaggageAllowance BaggageType="Checked">
+								<Pieces>1</Pieces>
+								<Weight>20</Weight>
+							</BaggageAllowance>
+						</FlightBookingClassBaggageAllowances>
+						<FlightRoutes>
+							<!-- In diesem Fall besteht die FlightRoute aus mehreren Segmenten. Teilweise ist das Terminal bekannt. Ab BKK jhandelt es sich um einen Übernachtflug. Der DateOffset bezieht sich immer auf den CheckIn Termin des Angebotes. Die Zusatzangaben im ersten Segment können wenn vorhanden auch in den anderen Segmenten ergänzt werden.
+							-->
+							<FlightRoute>
+								<Departure>
+									<Airport>FRA</Airport>
+									<Time>12:20:00</Time>
+									<Terminal>A1</Terminal>
+								</Departure>
+								<Arrival>
+									<Airport>DXB</Airport>
+									<Time>19:30:00</Time>
+									<Terminal>A</Terminal>
+								</Arrival>
+								<Operating>
+									<Carrier>
+										<Identifier>LH</Identifier>
+									</Carrier>
+									<FlightNumber>4711</FlightNumber>
+								</Operating>
+								<Marketing>
+									<Carrier>
+										<Identifier>TUI</Identifier>
+									</Carrier>
+								</Marketing>
+								<FlightType>Main</FlightType>
+								<FlightBookingClassType>Economy</FlightBookingClassType>
+								<ElapsedFlyingTime>300</ElapsedFlyingTime>
+								<Equipment>A320</Equipment>
+								<StopOvers>1</StopOvers>
+							</FlightRoute>
+							<FlightRoute>
+								<Departure>
+									<Airport>DXB</Airport>
+									<Time>21:20:00</Time>
+									<Terminal>5</Terminal>
+								</Departure>
+								<Arrival>
+									<Airport>BKK</Airport>
+									<DateOffset>1</DateOffset>
+									<Time>05:30:00</Time>
+									<Terminal>D6</Terminal>
+								</Arrival>
+							</FlightRoute>
+							<FlightRoute>
+								<Departure>
+									<Airport>BKK</Airport>
+									<DateOffset>1</DateOffset>
+									<Time>07:40:00</Time>
+								</Departure>
+								<Arrival>
+									<Airport>HKT</Airport>
+									<DateOffset>1</DateOffset>
+									<Time>09:30:00</Time>
+								</Arrival>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>FUE</ArrivalAirport>
+				<!-- Definition eines Übernachtfluges-->
+				<CheckOutDateOffset>1</CheckOutDateOffset>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2013-03-31" StartDate="2013-03-31" EndDate="2013-03-31">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Base">
+							<Absolute>
+								<Value>332</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="FRASFOK6">
+				<!-- In dieser Flugrotation sind die Segmente nicht bekannt. Aber es ist bekannt, dass es 3 StopOvers gibt.-->
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FRASFOK6</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Departure>
+									<Airport>FRA</Airport>
+									<Time>19:30:00</Time>
+								</Departure>
+								<Arrival>
+									<Airport>SFO</Airport>
+									<DateOffset>1</DateOffset>
+									<Time>14:05:00</Time>
+								</Arrival>
+								<Marketing>
+									<Carrier>
+										<Identifier>LH</Identifier>
+									</Carrier>
+								</Marketing>
+								<Marketing>
+									<Carrier>
+										<Identifier>DL</Identifier>
+									</Carrier>
+								</Marketing>
+								<FlightType>Main</FlightType>
+								<StopOvers>3</StopOvers>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>SFO</ArrivalAirport>
+				<BookingClass Key="FRASFO">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="FRASFO">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Base">
+							<Absolute>
+								<Value>432</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+		</OnewayFlights>
+	</Flights>
+</Otds>

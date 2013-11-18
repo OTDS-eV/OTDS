@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Products>
+		<GenericTag Class="CityPairProduction">
+				<ExternalParameter Feature="CityPairProduction"/>
+		</GenericTag>
+		<Product Key="Package" ProductType="FlightAccommodation" ProductFeatures="CityPairProduction">
+			<Tags>
+				<Tag Class="Product">Pauschal</Tag>
+				<!-- Hier sind beispielhaft verschiedene Möglichkeiten für sinnvolle Gruppierungen bzgl. der Flugpriorisierung aufgeführt. In der praxis werden in der Regel nicht mehrere Gruppierungen nebeneinander stehen.-->
+				<GenericTag Class="ReturnFlightGroupPrice">
+					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und nach Preis aufsteigend sortiert. -->
+						<SortedCandidateGroup>
+							<GroupedByEqual>
+								<CandidateInstance Source="Descendants:Accommodation"/>
+								<Tag Source="Outbound" Class="DepartureAirport"/>
+								<Tag Source="Outbound" Class="ArrivalAirport"/>
+							</GroupedByEqual>
+							<Value>
+								<Position>
+									<Sequence>
+										<Sort Order="Ascending">
+											<Sum>
+												<Price>
+													<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+												</Price>
+											</Sum>
+											<!-- in Version 1.0 konnte man mit der Source nur genau eine Component bzw. SubComponent referenzieren. Im Zuge der Referenzierung von Preisen wird das Source-Konstrukt um die "Hierarchy" erweitert, so dass auch Descendants und Ancestors eines Knoten mit einbezogen werden können. Eine genaue Beschreibung dazu finden Sie in der Doku wenn Sie nach dem Begriff Source-Range suchen. 
+					-->
+										</Sort>
+									</Sequence>
+								</Position>
+							</Value>
+						</SortedCandidateGroup>
+				</GenericTag>
+				<GenericTag Class="StringIndexWithPADDING">
+					<!-- Dieses GenericTag definiert einen Priorisierung nach einer Zeichenkette, die durch Paading auf eine Länge gebracht wird. -->
+						<SortedCandidateGroup>
+							<GroupedByEqual>
+								<CandidateInstance Source="Descendants:Accommodation"/>
+								<Tag Source="Outbound" Class="DepartureAirport"/>
+								<Tag Source="Outbound" Class="ArrivalAirport"/>
+							</GroupedByEqual>
+							<Value>
+								<Position>
+									<Sequence>
+										<Sort Order="Ascending">
+											<Concatenate Padding="_" PadLength="25">
+												<Tag Source="ReturnFlight" Class="FlightStringIndex" TagValueType="String" Padding=" " PadLength="8"/>
+											</Concatenate>
+										</Sort>
+									</Sequence>
+								</Position>
+							</Value>
+						</SortedCandidateGroup>
+				</GenericTag>
+				<GenericTag Class="ReturnFlightGroupOutInIndex">
+					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem numerischen Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach numerischen InboundIndex sortiert. -->
+						<SortedCandidateGroup>
+							<GroupedByEqual>
+								<CandidateInstance Source="Descendants:Accommodation"/>
+								<Tag Source="Outbound" Class="DepartureAirport"/>
+								<Tag Source="Outbound" Class="ArrivalAirport"/>
+							</GroupedByEqual>
+							<Value>
+								<Position>
+									<Sequence>
+										<Sort Order="Ascending">
+											<Sum>
+												<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Sum>
+										</Sort>
+										<Sort Order="Ascending">
+											<Sum>
+												<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Sum>
+										</Sort>
+									</Sequence>
+								</Position>
+							</Value>
+						</SortedCandidateGroup>
+				</GenericTag>
+				<GenericTag Class="ReturnFlightGroupOutIndexPrice">
+					<!-- Diese GroupDefinition definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
+						<SortedCandidateGroup>
+							<GroupedByEqual>
+								<CandidateInstance Source="Descendants:Accommodation"/>
+								<Tag Source="Outbound" Class="DepartureAirport"/>
+								<Tag Source="Outbound" Class="ArrivalAirport"/>
+							</GroupedByEqual>
+							<Value>
+								<Position>
+									<Sequence>
+										<Sort Order="Ascending">
+											<Sum>
+												<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Sum>
+										</Sort>
+										<Sort Order="Ascending">
+											<Sum>
+												<Price>
+													<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+												</Price>
+											</Sum>
+										</Sort>
+									</Sequence>
+								</Position>
+							</Value>
+						</SortedCandidateGroup>
+				</GenericTag>
+				<GenericTag Class="ReturnFlightGroupOutInNumTextIndex">
+					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
+						<SortedCandidateGroup>
+							<GroupedByEqual>
+								<CandidateInstance Source="Descendants:Accommodation"/>
+								<Tag Source="Outbound" Class="DepartureAirport"/>
+								<Tag Source="Outbound" Class="ArrivalAirport"/>
+							</GroupedByEqual>
+							<Value>
+								<Position>
+									<Sequence>
+										<Sort Order="Ascending">
+											<Sum>
+												<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Sum>
+										</Sort>
+										<Sort Order="Ascending">
+											<Concatenate>
+												<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
+											</Concatenate>
+										</Sort>
+										<Sort Order="Ascending">
+											<Sum>
+												<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Sum>
+										</Sort>
+										<Sort Order="Ascending">
+											<Concatenate>
+												<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
+											</Concatenate>
+										</Sort>
+									</Sequence>
+								</Position>
+							</Value>
+						</SortedCandidateGroup>
+				</GenericTag>
+				<GenericTag Class="ExampleCombinedIndicesPrices">
+					<!-- Diese GroupDefinition entspricht keiner realen Priorisierung, sondern soll lediglich aufzeigen welche Möglichkeiten es in OTDS gibt, Tags und Preise miteinander zu kombinieren um damit eine Sortierung zu definieren.-->
+						<SortedCandidateGroup>
+							<GroupedByEqual>
+								<CandidateInstance Source="Descendants:Accommodation"/>
+								<Tag Source="Outbound" Class="DepartureAirport"/>
+								<Tag Source="Outbound" Class="ArrivalAirport"/>
+							</GroupedByEqual>
+							<Value>
+								<Position>
+									<Sequence>
+										<Sort Order="Ascending">
+											<Sum>
+												<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+												<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Sum>
+										</Sort>
+										<Sort Order="Ascending">
+											<Average>
+												<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+												<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Average>
+										</Sort>
+										<Sort Order="Ascending">
+											<Sum>
+												<Price>
+													<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+												</Price>
+												<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Sum>
+										</Sort>
+										<Sort Order="Ascending">
+											<Average>
+												<Price>
+													<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+												</Price>
+												<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+											</Average>
+										</Sort>
+										<Sort Order="Ascending">
+											<Concatenate>
+												<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
+												<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
+											</Concatenate>
+										</Sort>
+									</Sequence>
+								</Position>
+							</Value>
+						</SortedCandidateGroup>
+				</GenericTag>
+			</Tags>
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="TravelType">
+						<Value>PAUS</Value>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea">
+					<!--Löscht unabhängig von der Priorisierung die Buchungszeile des InboundFluges. -->
+					<BookingReplace Source="Inbound"/>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="Outbound" Priority="1">
+					<!-- Ersetzt den ServiceCode des Outboundfluges durch das CityPair, wenn der Flug die höchste Prio hat. -->
+					<BookingParameter Field="ServiceCode">
+						<Tag Source="Outbound" Class="DepartureAirport"/>
+					</BookingParameter>
+					<BookingParameter Name="ServiceCode" Field="ServiceCode" Index="1">
+						<Tag Source="Outbound" Class="ArrivalAirport"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<!-- Ersetzt den Endtermin der Outboundflugzeile durch den Starttermin des Rückfluges. -->
+						<Date Source="Inbound" DayType="CheckIn"/>
+					</BookingParameter>
+					<Condition>
+						<!--Dieser Bedingung sorgt dafür, dass falls eine Verarbeitung mit dem externen Parameter CityPairProduction=true durchgeführt wird, die FLugcodes durch CityPairCodes ersetzt werden. Die Flughafencodes müssen dazu in den Flügen in entsprechenden Tags enthalten sein.   -->
+						<GenericTag Class="CityPairProduction">
+							<Value>true</Value>
+						</GenericTag>
+					</Condition>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<Accommodation DayAllocationLevel="0"/>
+				<DefinedComponent UseRole="ReturnFlight" Name="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<Imply>
+						<!--Dieser Imply sorgt dafür, dass falls eine Verarbeitung mit dem externen Parameter CityPairProduction=true durchgeführt wird, nur das erste Angebot jeder Fluggruppe gültig ist.   -->
+						<If>
+							<GenericTag Class="CityPairProduction">
+								<Value>true</Value>
+							</GenericTag>
+						</If>
+						<Then>
+							<GenericTag Class="CityPairGrouping" TagValueType="Numeric">
+								<MaxValue>1</MaxValue>
+							</GenericTag>
+						</Then>
+					</Imply>
+				</And>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="YYY">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>YYY</Value>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Title">
+						<Value>H</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="global:SellingAccom" Class="PersonType">Adult</ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Male Undefined</PersonGenders>
+							</PersonImpact>
+							<Keys Source="SellingAccom" DayAllocation="All" EvaluationMode="Any"/>
+						</And>
+					</Condition>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="1">
+			<SellingAccom Key="1">
+				<Tags>
+					<Tag Class="Reiseart">BAUS</Tag>
+				</Tags>
+				<Booking/>
+				<Board Key="Board"/>
+				<Unit Key="1">
+					<SellingUnit Key="1">
+						<Booking/>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="DUSPMI20130212K1">
+				<Tags>
+					<Tag Class="DepartureAirport">DUS</Tag>
+					<Tag Class="ArrivalAirport">PMI</Tag>
+					<Tag Class="FlightGroupIndex" TagValueType="Numeric">1</Tag>
+					<Tag Class="FlightCode">DUSPMIK1</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSPMIK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>105</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="DUSPMI20130212K2">
+				<Tags>
+					<Tag Class="DepartureAirport">DUS</Tag>
+					<Tag Class="ArrivalAirport">PMI</Tag>
+					<Tag Class="FlightGroupIndex" TagValueType="Numeric">2</Tag>
+					<Tag Class="FlightCode">DUSPMIK2</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSPMIK2</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>110</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="DUSPMI20130212K3">
+				<Tags>
+					<Tag Class="DepartureAirport">DUS</Tag>
+					<Tag Class="ArrivalAirport">PMI</Tag>
+					<Tag Class="FlightGroupIndex" TagValueType="Numeric">3</Tag>
+					<Tag Class="FlightCode">DUSPMIK3</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSPMIK3</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>115</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="PMIDUS20130220K1">
+				<Tags>
+					<Tag Class="DepartureAirport">PMI</Tag>
+					<Tag Class="ArrivalAirport">DUS</Tag>
+					<Tag Class="FlightGroupIndex" TagValueType="Numeric">1</Tag>
+					<Tag Class="FlightCode">PMIDUSK1</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMIDUSK1</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>105</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="PMIDUS20130220K2">
+				<Tags>
+					<Tag Class="DepartureAirport">PMI</Tag>
+					<Tag Class="ArrivalAirport">DUS</Tag>
+					<Tag Class="FlightGroupIndex" TagValueType="Numeric">2</Tag>
+					<Tag Class="FlightCode">PMIDUSK2</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMIDUSK2</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>110</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="PMIDUS20130220K3">
+				<Tags>
+					<Tag Class="DepartureAirport">PMI</Tag>
+					<Tag Class="ArrivalAirport">DUS</Tag>
+					<Tag Class="FlightGroupIndex" TagValueType="Numeric">3</Tag>
+					<Tag Class="FlightCode">PMIDUSK3</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMIDUSK3</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<PriceItems Key="1">
+						<PriceItem Class="Gesamtpreis">
+							<Absolute>
+								<Value>115</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+		</OnewayFlights>
+	</Flights>
+	<DefinedComponents>
+		<DefineComponent Key="ReturnFlight" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Or>
+						<MatchEqual>
+							<Tag Source="Outbound" Class="Airline"/>
+							<Tag Source="Inbound" Class="Airline"/>
+						</MatchEqual>
+						<And>
+							<Date Source="Outbound" DayType="CheckIn">
+								<Min>2013-03-22</Min>
+								<Max>2013-10-31</Max>
+							</Date>
+							<Date Source="Inbound" DayType="CheckIn">
+								<Min>2013-03-29</Min>
+								<Max>2013-10-31</Max>
+							</Date>
+							<Tags Source="Outbound" Class="Airline">AB DE XQ XG</Tags>
+							<Tags Source="Inbound" Class="Airline">AB DE XQ XG</Tags>
+							<Airports Source="Outbound" AirportType="Arrival">AYT FUE</Airports>
+						</And>
+					</Or>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="PauLi"/>
+						<Tag Source="Inbound" Class="PauLi"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">ArrivalAirport</Element>
+						<Element Source="Outbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>

@@ -1,0 +1,3613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Products>
+		<Product Key="Package" ProductType="FlightAccommodation">
+			<Tags>
+				<Tag Class="Product">Pauschal</Tag>
+			</Tags>
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="TravelType">
+						<Value>PAUS</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<DefinedComponent UseRole="Accommodation"/>
+				<DefinedComponent UseRole="ReturnFlight" Name="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<Not>
+						<Keys Source="global:Brand">XFTI</Keys>
+					</Not>
+				</And>
+			</Filter>
+		</Product>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="TravelType">
+						<Value>PAUS</Value>
+					</BookingParameter>
+					<Condition>
+						<Tags Source="SellingAccom" Class="Reiseart">PAUS</Tags>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="TravelType">
+						<Value>BAUS</Value>
+					</BookingParameter>
+					<Condition>
+						<Tags Source="SellingAccom" Class="Reiseart">BAUS</Tags>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="TravelType">
+						<Value>CITY</Value>
+					</BookingParameter>
+					<Condition>
+						<Tags Source="SellingAccom" Class="Reiseart">CITY</Tags>
+					</Condition>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<DefinedComponent UseRole="Accommodation"/>
+			</Components>
+			<Filter Key="1">
+				<Not>
+					<Tags Source="Accommodation" Class="Product">Pauschal</Tags>
+				</Not>
+			</Filter>
+		</Product>
+		<Product Key="OnewayFlightOnly" ProductType="OnewayFlightOnly">
+			<Tags>
+				<Tag Class="Product">NurFlug</Tag>
+			</Tags>
+			<Components>
+				<OnewayFlight/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Not>
+						<Tags Source="OnewayFlight" Class="Product">PackageOnly</Tags>
+					</Not>
+					<Not>
+						<Keys Source="global:Brand">XFTI</Keys>
+					</Not>
+				</And>
+			</Filter>
+		</Product>
+		<Product Key="ReturnFlightOnly" ProductType="ReturnFlightOnly">
+			<Tags>
+				<Tag Class="Product">NurFlug</Tag>
+			</Tags>
+			<Components>
+				<DefinedComponent UseRole="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<Not>
+					<Keys Source="global:Brand">XFTI</Keys>
+				</Not>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="FTI">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>FTI</Value>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Title">
+						<Value>H</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="global:SellingAccom" Class="PersonType">Adult </ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Male Undefined</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Title">
+						<Value>D</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="global:SellingAccom" Class="PersonType">Adult </ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Female</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product" Class="Default">
+					<BookingParameter Field="Title">
+						<Value>K</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Child </ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Title">
+						<Value>B</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Baby </ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea">
+					<BookingParameter Field="Age">
+						<PersonAge AgeType="TravelAge"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:SellingAccom" Class="Default">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Accommodation"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckOut" Source="global:Accommodation"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:Outbound">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Outbound"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckOut" Source="global:Outbound"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:Inbound">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Inbound"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Inbound"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="ACE388">
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationCity>PLAYA BLANCA</AccommodationCity>
+					<AccommodationType>Hotel</AccommodationType>
+					<AccommodationName>PUEBLO MARINERO</AccommodationName>
+					<AccommodationOperatorCategory>4</AccommodationOperatorCategory>
+					<AccommodationAddress>
+						<GeoInfo>
+							<Region Code="ACE" Name="Lanzarote"/>
+							<Country Code="ES" Name="Spanien"/>
+							<Destination Code="ACE" Name="Lanzarote"/>
+							<GeoCode>
+								<Latitude>28.86000700</Latitude>
+								<Longitude>-13.8161210</Longitude>
+								<Accuracy>1</Accuracy>
+							</GeoCode>
+						</GeoInfo>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="S13_ACE388">
+				<Tags>
+					<Tag Class="Reiseart">PAUS</Tag>
+					<Tag Class="Giata">63741</Tag>
+					<Tag Class="DistributionSeason">Summer</Tag>
+					<Tag Class="Hotelcode">ACE388</Tag>
+					<ConditionalTag>
+						<Tag Class="NoSeason">NoSeason</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="SellingAccom">
+										<Min>2013-12-22</Min>
+										<Max>2013-12-27</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="SellingAccom">
+										<Min>2014-02-14</Min>
+										<Max>2014-02-19</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Adult</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>12</Min>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Child</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>02</Min>
+									<Max>11</Max>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="SellingAccom" DayType="Stay">
+										<Min>2013-05-01</Min>
+										<Max>2013-07-01</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="SellingAccom" DayType="Stay">
+										<Min>2013-09-17</Min>
+										<Max>2013-10-07</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">D</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2013-10-13</Min>
+									<Max>2013-10-31</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">I</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="SellingAccom" DayType="Stay">
+										<Min>2013-07-02</Min>
+										<Max>2013-07-15</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="SellingAccom" DayType="Stay">
+										<Min>2013-08-23</Min>
+										<Max>2013-09-16</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">J</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2013-07-16</Min>
+									<Max>2013-08-22</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">K</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2013-10-08</Min>
+									<Max>2013-10-12</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="SellingAccom">
+						<BookingParameter Field="ServiceCode">
+							<Value>ACE388</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Filter Key="1">
+					<And>
+						<Not>
+							<ConditionalTags Source="SellingAccom" Class="NoSeason">NoSeason</ConditionalTags>
+						</Not>
+						<And>
+							<Date DayType="CheckIn" Source="SellingAccom">
+								<Min>2013-05-01</Min>
+								<Max>2013-10-31</Max>
+							</Date>
+							<Duration Source="SellingAccom">
+								<Min>00003</Min>
+							</Duration>
+						</And>
+					</And>
+				</Filter>
+				<Board Key="F">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>F</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Fruehstueck</BoardName>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="H">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Halbpension</BoardName>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="BDS">
+							<Absolute>
+								<Value>18.00</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D I J K</ConditionalTags>
+								</Impact>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Unit Key="P1M">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Suite</UnitType>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="P1M_33002200">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>P1M</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Suite P1M</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>12</MinAge>
+								<MinCount>2</MinCount>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>48.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>55.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> B I</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>71.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> C J</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>63.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> D K</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="P2">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Suite</UnitType>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="P2_55002200">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>P2 </Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Suite P2 </UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>12</MinAge>
+								<MinCount>2</MinCount>
+								<MaxCount>5</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>44.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>52.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> B I</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>68.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> C J</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>60.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> D K</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="1">
+					<PriceItem Class="BPR">
+						<Absolute>
+							<Value>469.00</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<Keys Source="Product">Package</Keys>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>02</Min>
+									</PersonAge>
+								</PersonImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="SDS">
+						<Absolute>
+							<Value>20.00</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<Keys Source="Product">AccomOnly</Keys>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>12</Min>
+									</PersonAge>
+								</PersonImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB1">
+						<Percent>
+							<Value>-20.00</Value>
+							<ApplyTo>ENP CHP GD1 GD2 GD3 GD4 GDC BDS BCR</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Product">
+									<Max>2013-04-02</Max>
+								</BookingDate>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D</ConditionalTags>
+								</Impact>
+							</And>
+						</Condition>
+						<Combinatorics LayerName="EBCombi" LayerLevel="-1">
+							<CombinationLevel>1</CombinationLevel>
+							<CombinationCode>EB</CombinationCode>
+							<CombinableWhen>
+								<Not>
+									<CombinationCode>EB</CombinationCode>
+								</Not>
+							</CombinableWhen>
+						</Combinatorics>
+					</PriceItem>
+					<PriceItem Class="EB2">
+						<Percent>
+							<Value>-15.00</Value>
+							<ApplyTo>ENP CHP GD1 GD2 GD3 GD4 GDC BDS BCR</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Product">
+									<Max>2013-05-31</Max>
+								</BookingDate>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D</ConditionalTags>
+								</Impact>
+							</And>
+						</Condition>
+						<Combinatorics LayerName="EBCombi" LayerLevel="-1">
+							<CombinationLevel>2</CombinationLevel>
+							<CombinationCode>EB</CombinationCode>
+							<CombinableWhen>
+								<Not>
+									<CombinationCode>EB</CombinationCode>
+								</Not>
+							</CombinableWhen>
+						</Combinatorics>
+					</PriceItem>
+					<PriceItem Class="DMX">
+						<Absolute>
+							<Value>35.00</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<Keys Source="global:Brand">XFTI</Keys>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="TPR">
+						<Percent>
+							<Value>-30.00</Value>
+							<ApplyTo>ENP BDS GD1 GD2 GD3 GD4</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonIndex Source="Product">
+										<From>3</From>
+										<PersonFilter>
+											<PersonAge Source="Product">
+												<Min>12</Min>
+											</PersonAge>
+										</PersonFilter>
+									</PersonIndex>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D I J K</ConditionalTags>
+								</Impact>
+							</And>
+						</Condition>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<SellingAccom Key="W13_ACE388">
+				<Tags>
+					<Tag Class="Reiseart">PAUS</Tag>
+					<Tag Class="Giata">63741</Tag>
+					<Tag Class="DistributionSeason">Winter</Tag>
+					<Tag Class="Hotelcode">ACE388</Tag>
+					<ConditionalTag>
+						<Tag Class="NoSeason">NoSeason</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="SellingAccom">
+										<Min>2014-09-01</Min>
+										<Max>2014-09-05</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="SellingAccom">
+										<Min>2014-10-01</Min>
+										<Max>2014-10-05</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Adult</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>12</Min>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Child</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>02</Min>
+									<Max>11</Max>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2013-11-01</Min>
+									<Max>2013-11-21</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">B</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2013-12-22</Min>
+									<Max>2013-12-23</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">C</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2013-12-24</Min>
+									<Max>2014-01-01</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">D</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2014-01-02</Min>
+									<Max>2014-02-06</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">E</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2014-02-07</Min>
+									<Max>2014-03-27</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">F</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2014-03-28</Min>
+									<Max>2014-04-14</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">G</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2014-04-15</Min>
+									<Max>2014-04-21</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">H</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2014-04-22</Min>
+									<Max>2014-04-30</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">X</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="SellingAccom" DayType="Stay">
+									<Min>2013-11-22</Min>
+									<Max>2013-12-21</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="SellingAccom">
+						<BookingParameter Field="ServiceCode">
+							<Value>ACE388</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Filter Key="1">
+					<And>
+						<Not>
+							<ConditionalTags Source="SellingAccom" Class="NoSeason">NoSeason</ConditionalTags>
+						</Not>
+						<And>
+							<Date DayType="CheckIn" Source="Accommodation">
+								<Min>2013-11-01</Min>
+								<Max>2014-04-30</Max>
+							</Date>
+							<Duration Source="Accommodation">
+								<Min>00003</Min>
+							</Duration>
+						</And>
+					</And>
+				</Filter>
+				<Board Key="F">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>F</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Fruehstueck</BoardName>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="H">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Halbpension</BoardName>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="BDS">
+							<Absolute>
+								<Value>19.00</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D E F G H</ConditionalTags>
+								</Impact>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Unit Key="P1">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Suite</UnitType>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="P1_33001100">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>P1 </Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Suite P1 </UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Filter Key="1">
+							<Not>
+								<ConditionalTags Source="global:SellingAccom" Class="Season"> X</ConditionalTags>
+							</Not>
+						</Filter>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>12</MinAge>
+								<MinCount>1</MinCount>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>46.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A E</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>35.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> B D</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>77.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>36.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> F H</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>61.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> G</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="P1M">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Suite</UnitType>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="P1M_33002200">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>P1M</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Suite P1M</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Filter Key="1">
+							<Not>
+								<ConditionalTags Source="global:SellingAccom" Class="Season"> X</ConditionalTags>
+							</Not>
+						</Filter>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>12</MinAge>
+								<MinCount>2</MinCount>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>57.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A E</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>46.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> B D</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>88.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>47.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> F H</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="ENP">
+								<Absolute>
+									<Value>72.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> G</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="1">
+					<PriceItem Class="FBK">
+						<Absolute>
+							<Value>-50.00</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<BookingDate Source="Product">
+									<Max>2013-10-31</Max>
+								</BookingDate>
+								<Not>
+									<Keys Source="global:Brand">XFTI</Keys>
+								</Not>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>02</Min>
+										<Max>11</Max>
+									</PersonAge>
+								</PersonImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="BPR">
+						<Absolute>
+							<Value>344.00</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<Keys Source="Product">Package</Keys>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>02</Min>
+									</PersonAge>
+								</PersonImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="SDS">
+						<Absolute>
+							<Value>20.00</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<Keys Source="Product">AccomOnly</Keys>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>12</Min>
+									</PersonAge>
+								</PersonImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB1">
+						<Percent>
+							<Value>-12.00</Value>
+							<ApplyTo>ENP CHP GD1 GD2 GD3 GD4 GDC BDS BCR</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Product">
+									<Max>2013-10-31</Max>
+								</BookingDate>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D E F G H</ConditionalTags>
+								</Impact>
+							</And>
+						</Condition>
+						<Combinatorics LayerName="EBCombi" LayerLevel="-1">
+							<CombinationLevel>1</CombinationLevel>
+							<CombinationCode>EB</CombinationCode>
+							<CombinableWhen>
+								<Not>
+									<CombinationCode>EB</CombinationCode>
+								</Not>
+							</CombinableWhen>
+						</Combinatorics>
+					</PriceItem>
+					<PriceItem Class="EB2">
+						<Percent>
+							<Value>-10.00</Value>
+							<ApplyTo>ENP CHP GD1 GD2 GD3 GD4 GDC BDS BCR</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Product">
+									<Max>2013-12-31</Max>
+								</BookingDate>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D E F G H</ConditionalTags>
+								</Impact>
+							</And>
+						</Condition>
+						<Combinatorics LayerName="EBCombi" LayerLevel="-1">
+							<CombinationLevel>2</CombinationLevel>
+							<CombinationCode>EB</CombinationCode>
+							<CombinableWhen>
+								<Not>
+									<CombinationCode>EB</CombinationCode>
+								</Not>
+							</CombinableWhen>
+						</Combinatorics>
+					</PriceItem>
+					<PriceItem Class="DMX">
+						<Absolute>
+							<Value>24.00</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<Keys Source="global:Brand">XFTI</Keys>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GD2">
+						<Absolute>
+							<Value>81.00</Value>
+							<DayBase>1</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<Keys Source="Accommodation.SellingAccom.Board">H</Keys>
+								<DayImpact>
+									<Date Source="Product">
+										<Dates>2013-12-31</Dates>
+									</Date>
+								</DayImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GD2">
+						<Absolute>
+							<Value>81.00</Value>
+							<DayBase>1</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<Keys Source="Accommodation.SellingAccom.Board">H</Keys>
+								<DayImpact>
+									<Date Source="Product">
+										<Dates>2013-12-25</Dates>
+									</Date>
+								</DayImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD1</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Indices>-1</Indices>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>00</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD2</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Indices>-1</Indices>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>00</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD1</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Indices>-1</Indices>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>01</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD2</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Indices>-1</Indices>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>01</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD1</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Until>-2</Until>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>00</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD2</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Until>-2</Until>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>00</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD1</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Until>-2</Until>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>01</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="GDC">
+						<Percent>
+							<Value>-100.00</Value>
+							<ApplyTo>GD2</ApplyTo>
+						</Percent>
+						<Condition>
+							<PersonImpact>
+								<PersonIndex Source="Product">
+									<Until>-2</Until>
+									<PersonFilter>
+										<PersonAge Source="Product">
+											<Min>01</Min>
+											<Max>00</Max>
+										</PersonAge>
+									</PersonFilter>
+								</PersonIndex>
+							</PersonImpact>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="SR">
+						<Percent>
+							<Value>-10.00</Value>
+							<ApplyTo>ENP CHP BDS BCR GD1 GD2 GD3 GD4 GDC</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonGroup Source="Product">
+									<Person>
+										<MinAge>60</MinAge>
+										<MinCount>1</MinCount>
+									</Person>
+								</PersonGroup>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>12</Min>
+									</PersonAge>
+								</PersonImpact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="SGL">
+						<Absolute>
+							<Value>18.00</Value>
+							<DayBase>1</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Condition>
+							<And>
+								<PersonGroup Source="Product">
+									<Person>
+										<Count>1</Count>
+									</Person>
+								</PersonGroup>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D E F G H</ConditionalTags>
+								</Impact>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="TPR">
+						<Percent>
+							<Value>-30.00</Value>
+							<ApplyTo>ENP BDS GD1 GD2 GD3 GD4</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonIndex Source="Product">
+										<From>3</From>
+										<PersonFilter>
+											<PersonAge Source="Product">
+												<Min>12</Min>
+											</PersonAge>
+										</PersonFilter>
+									</PersonIndex>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season"> A B C D E F G H</ConditionalTags>
+								</Impact>
+							</And>
+						</Condition>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>ACE </CatchmentAirports>
+			<Availabilities Key="P1M_S13_ACE388">
+				<Availability Key="13_07" StartDate="2013-07-01" EndDate="2013-07-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="24" Offset="24">
+						<Request/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_08" StartDate="2013-08-01" EndDate="2013-08-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_09" StartDate="2013-09-01" EndDate="2013-09-30">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_10" StartDate="2013-10-01" EndDate="2013-10-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Condition>
+					<And>
+						<Keys Source="Unit">P1M</Keys>
+						<Keys Source="SellingAccom">S13_ACE388</Keys>
+					</And>
+				</Condition>
+			</Availabilities>
+			<Availabilities Key="P2_S13_ACE388">
+				<Availability Key="13_07" StartDate="2013-07-01" EndDate="2013-07-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="24" Offset="24">
+						<Request/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_08" StartDate="2013-08-01" EndDate="2013-08-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_09" StartDate="2013-09-01" EndDate="2013-09-30">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_10" StartDate="2013-10-01" EndDate="2013-10-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Condition>
+					<And>
+						<Keys Source="Unit">P2</Keys>
+						<Keys Source="SellingAccom">S13_ACE388</Keys>
+					</And>
+				</Condition>
+			</Availabilities>
+			<Availabilities Key="P1_W13_ACE388">
+				<Availability Key="13_07" StartDate="2013-07-01" EndDate="2013-07-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="25" Offset="25">
+						<Request/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_08" StartDate="2013-08-01" EndDate="2013-08-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_09" StartDate="2013-09-01" EndDate="2013-09-30">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_10" StartDate="2013-10-01" EndDate="2013-10-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_11" StartDate="2013-11-01" EndDate="2013-11-30">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_12" StartDate="2013-12-01" EndDate="2013-12-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="14_01" StartDate="2014-01-01" EndDate="2014-01-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="14_02" StartDate="2014-02-01" EndDate="2014-02-28">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="14_03" StartDate="2014-03-01" EndDate="2014-03-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Condition>
+					<And>
+						<Keys Source="Unit">P1</Keys>
+						<Keys Source="SellingAccom">W13_ACE388</Keys>
+					</And>
+				</Condition>
+			</Availabilities>
+			<Availabilities Key="P1M_W13_ACE388">
+				<Availability Key="13_07" StartDate="2013-07-01" EndDate="2013-07-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="25" Offset="25">
+						<Request/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_08" StartDate="2013-08-01" EndDate="2013-08-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_09" StartDate="2013-09-01" EndDate="2013-09-30">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_10" StartDate="2013-10-01" EndDate="2013-10-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_11" StartDate="2013-11-01" EndDate="2013-11-30">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="13_12" StartDate="2013-12-01" EndDate="2013-12-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="14_01" StartDate="2014-01-01" EndDate="2014-01-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="14_02" StartDate="2014-02-01" EndDate="2014-02-28">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Availability Key="14_03" StartDate="2014-03-01" EndDate="2014-03-31">
+					<DefaultDayState>
+						<Closed/>
+					</DefaultDayState>
+					<DayState Key="00" Offset="00">
+						<Open/>
+					</DayState>
+					<DayState Key="01" Offset="01">
+						<Open/>
+					</DayState>
+					<DayState Key="02" Offset="02">
+						<Open/>
+					</DayState>
+					<DayState Key="03" Offset="03">
+						<Open/>
+					</DayState>
+					<DayState Key="04" Offset="04">
+						<Open/>
+					</DayState>
+					<DayState Key="05" Offset="05">
+						<Open/>
+					</DayState>
+					<DayState Key="06" Offset="06">
+						<Open/>
+					</DayState>
+					<DayState Key="07" Offset="07">
+						<Open/>
+					</DayState>
+					<DayState Key="08" Offset="08">
+						<Open/>
+					</DayState>
+					<DayState Key="09" Offset="09">
+						<Open/>
+					</DayState>
+					<DayState Key="10" Offset="10">
+						<Open/>
+					</DayState>
+					<DayState Key="11" Offset="11">
+						<Open/>
+					</DayState>
+					<DayState Key="12" Offset="12">
+						<Open/>
+					</DayState>
+					<DayState Key="13" Offset="13">
+						<Open/>
+					</DayState>
+					<DayState Key="14" Offset="14">
+						<Open/>
+					</DayState>
+					<DayState Key="15" Offset="15">
+						<Open/>
+					</DayState>
+					<DayState Key="16" Offset="16">
+						<Open/>
+					</DayState>
+					<DayState Key="17" Offset="17">
+						<Open/>
+					</DayState>
+					<DayState Key="18" Offset="18">
+						<Open/>
+					</DayState>
+					<DayState Key="19" Offset="19">
+						<Open/>
+					</DayState>
+					<DayState Key="20" Offset="20">
+						<Open/>
+					</DayState>
+					<DayState Key="21" Offset="21">
+						<Open/>
+					</DayState>
+					<DayState Key="22" Offset="22">
+						<Open/>
+					</DayState>
+					<DayState Key="23" Offset="23">
+						<Open/>
+					</DayState>
+					<DayState Key="24" Offset="24">
+						<Open/>
+					</DayState>
+					<DayState Key="25" Offset="25">
+						<Open/>
+					</DayState>
+					<DayState Key="26" Offset="26">
+						<Open/>
+					</DayState>
+					<DayState Key="27" Offset="27">
+						<Open/>
+					</DayState>
+					<DayState Key="28" Offset="28">
+						<Open/>
+					</DayState>
+					<DayState Key="29" Offset="29">
+						<Open/>
+					</DayState>
+					<DayState Key="30" Offset="30">
+						<Open/>
+					</DayState>
+				</Availability>
+				<Condition>
+					<And>
+						<Keys Source="Unit">P1M</Keys>
+						<Keys Source="SellingAccom">W13_ACE388</Keys>
+					</And>
+				</Condition>
+			</Availabilities>
+		</Accommodation>
+	</Accommodations>
+	<DefinedComponents>
+		<DefineComponent Key="NonOverlap" Role="Accommodation">
+			<Components>
+				<Accommodation/>
+			</Components>
+		</DefineComponent>
+		<DefineComponent Key="OverlapSW" Role="Accommodation">
+			<Components>
+				<Accommodation>
+					<SellingAccom DayAllocationIndex="-1" Name="SWSummer"/>
+					<SellingAccom DayAllocationIndex="1" Name="SWWinter"/>
+				</Accommodation>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Source="#SWSummer" Class="DistributionSeason">Summer</Tags>
+					<Tags Source="#SWWinter" Class="DistributionSeason">Winter</Tags>
+					<MatchEqual>
+						<Key Source="#SWSummer.Unit"/>
+						<Key Source="#SWWinter.Unit"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="#SWSummer" Class="Hotelcode"/>
+						<Tag Source="#SWWinter" Class="Hotelcode"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="#SWSummer" Class="TravelType"/>
+						<Tag Source="#SWWinter" Class="TravelType"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Key Source="#SWSummer.Board"/>
+						<Key Source="#SWWinter.Board"/>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="OverlapWS" Role="Accommodation">
+			<Booking>
+				<BookingGroup Area="ServiceArea" Source="#WSSummer" Priority="10">
+					<BookingReplace Source="#WSSummer"/>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="#WSWinter" Priority="10">
+					<BookingParameter Field="DateEnd">
+						<Date DayType="CheckOut" Source="#WSSummer"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<Accommodation>
+					<SellingAccom DayAllocationIndex="-1" Name="WSWinter"/>
+					<SellingAccom DayAllocationIndex="1" Name="WSSummer"/>
+				</Accommodation>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Source="#WSSummer" Class="DistributionSeason">Summer</Tags>
+					<Tags Source="#WSWinter" Class="DistributionSeason">Winter</Tags>
+					<MatchEqual>
+						<Key Source="#WSSummer.Unit"/>
+						<Key Source="#WSWinter.Unit"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="#WSSummer" Class="Hotelcode"/>
+						<Tag Source="#WSWinter" Class="Hotelcode"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="#WSSummer" Class="TravelType"/>
+						<Tag Source="#WSWinter" Class="TravelType"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Key Source="#WSSummer.Board"/>
+						<Key Source="#WSWinter.Board"/>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>
