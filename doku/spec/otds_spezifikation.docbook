@@ -1418,7 +1418,7 @@
               Knoten. Da "global" gesetzt ist, können sich die Knoten bezogen auf die Platzierung
               der Source-Definition irgendwo im Produktbaum befinden. Zusätzlich ist "first"
               gesetzt.</para>
-            <bridgehead><phrase xml:lang="de">Beispiel Source "global:"</phrase></bridgehead>
+            <bridgehead> xml:lang="de">Beispiel Source "global:"</bridgehead>
 					  <para>Aufgrund von</para>
 					  <programlisting><![CDATA[<Tags Source="global:Board" Class="Markierung">A12</Tags>]]></programlisting>
 					  <para>wird im globalen Baum nach Board mit dem Inhalt "A12" gesucht. </para>
@@ -1430,7 +1430,7 @@
 					      </imageobject>
 					    </mediaobject>
 					  </figure>
-					  <bridgehead><phrase xml:lang="de">Beispiel Source "ancestors:"</phrase></bridgehead>
+					  <bridgehead>Beispiel Source "ancestors:"</bridgehead>
 					  <para>Aufgrund von</para>
 					  <programlisting><![CDATA[<Tags Source="ancestors:Board" Class="Markierung">A12</Tags>]]></programlisting>
 					  <para>wird bezogen auf die lokale Position nach Board mit dem Inhalt "A12" in allen
@@ -4707,7 +4707,8 @@
 							
 							<bridgehead xml:id="de_1206" xml:lang="de">Sortierung über kombinierte Indices (Sum/Average/Connect)</bridgehead><bridgehead xml:id="en_1206" xml:lang="en">Sorting over combined Indices</bridgehead>
 							
-							<para> Das &lt;Sort>-Element kann eines der folgenden Elemente enthalten: <orderedlist>
+							<para> Das &lt;Sort>-Element kann eines der folgenden Elemente enthalten: </para>
+							<orderedlist>
 								<listitem>
 									<para>&lt;Sum></para>
 								</listitem>
@@ -4718,153 +4719,156 @@
 									<para>&lt;Average></para>
 								</listitem>
 							</orderedlist>
-						</para>
 						<para>
 							<emphasis role="bold">&lt;Sum></emphasis> enthält wahlweise Referenzen
-							auf eine Menge <orderedlist>
-								<listitem>
-									<para>von Numeric-Tags, aus denen eine Summe gebildet wird, nach
-										der sortiert wird.</para>
-								</listitem>
-								<listitem>
-									<para>von Price-Tags, aus denen eine Summe gebildet wird, nach
-										der sortiert wird.</para>
-								</listitem>
-								<listitem>
-									<para>von Menge von PriceItems, aus denen eine Summe gebildet
-										wird, nach der sortiert wird (Details siehe Beschreibung
-										Kapitel 7).</para>
-								</listitem>
-								<listitem>
-									<para>Eine gemischte Menge von Price-Tags und PriceItems, aus
-										denen eine Summe gebildet wird, nach der sortiert
-										wird.</para>
-									<para>Eine Summe aus Numeric-Tags und Preisen führt zu einem
-										ungültigen Ergebnis.</para>
-									<para>Eine Summe aus einer leeren Menge von Elementen führt zu
-										einem ungültigen Ergebnis.</para>
-									<para>Ein ungültiges Ergebnis wird generell bezogen auf die
-										Sortierung des &lt;Sort>-Elementes ans Ende gesetzt
-										wird.</para>
-								</listitem>
-							</orderedlist>
-						</para>
+							auf eine Menge </para>
+						<orderedlist>
+							<listitem>
+								<para>von Numeric-Tags, aus denen eine Summe gebildet wird, nach
+									der sortiert wird.</para>
+							</listitem>
+							<listitem>
+								<para>von Price-Tags, aus denen eine Summe gebildet wird, nach
+									der sortiert wird.</para>
+							</listitem>
+							<listitem>
+								<para>von Menge von PriceItems, aus denen eine Summe gebildet
+									wird, nach der sortiert wird (Details siehe Beschreibung
+									Kapitel 7).</para>
+							</listitem>
+							<listitem>
+								<para>Eine gemischte Menge von Price-Tags und PriceItems, aus
+									denen eine Summe gebildet wird, nach der sortiert
+									wird.</para>
+								<para>Eine Summe aus Numeric-Tags und Preisen führt zu einem
+									ungültigen Ergebnis.</para>
+								<para>Eine Summe aus einer leeren Menge von Elementen führt zu
+									einem ungültigen Ergebnis.</para>
+								<para>Ein ungültiges Ergebnis wird generell bezogen auf die
+									Sortierung des &lt;Sort>-Elementes ans Ende gesetzt
+									wird.</para>
+							</listitem>
+						</orderedlist>
+						
 						<para>
 							<emphasis role="bold">&lt;Concatenate></emphasis> enthält Referenzen auf
 							eine Menge von String-Tags, die nach aufgeführter Reihenfolge und
 							innerhalb der Reihenfolge nach XML-Document-Order zu einer Zeichenkette
 							zusammengesetzt wird, nach der sortiert wird.Die Sortierung der
-							Zeichenkette folgt nach folgenden in OTDS generell gültigen Regeln: <orderedlist>
-								<listitem>
-									<para>Zeichenketten werden grundsätzlich mit dem linken Zeichen
-										beginnend Zeichen für Zeichen sortiert</para>
-								</listitem>
-								<listitem>
-									<para>Das erste Zeichen besitzt die höchste Priorität.</para>
-								</listitem>
-								<listitem>
-									<para>Die Sortierung der einzelnen Zeichen folgt den
-										ASCII-Values der Zeichen und entspricht damit folgender
-										aufsteigenden Liste: <orderedlist>
-											<listitem>
-												<para> "leerer String" </para>
-											</listitem>
-											<listitem>
-												<para> - (Bindestrich)</para>
-											</listitem>
-											<listitem>
-												<para> .</para>
-											</listitem>
-											<listitem>
-												<para> 0</para>
-											</listitem>
-											<listitem>
-												<para> 1</para>
-											</listitem>
-											<listitem>
-												<para> 2</para>
-											</listitem>
-											<listitem>
-												<para> 3</para>
-											</listitem>
-											<listitem>
-												<para> usw.</para>
-											</listitem>
-											<listitem>
-												<para> A</para>
-											</listitem>
-											<listitem>
-												<para> B</para>
-											</listitem>
-											<listitem>
-												<para> C</para>
-											</listitem>
-											<listitem>
-												<para> usw.</para>
-											</listitem>
-											<listitem>
-												<para> _ (Unterstrich)</para>
-											</listitem>
-											<listitem>
-												<para> a</para>
-											</listitem>
-											<listitem>
-												<para> b</para>
-											</listitem>
-											<listitem>
-												<para> c</para>
-											</listitem>
-											<listitem>
-												<para> usw.</para>
-											</listitem>
-											<listitem>
-												<para> | (Pipe)</para>
-											</listitem>
-											<listitem>
-												<para> ~</para>
-											</listitem>
-										</orderedlist></para>
-								</listitem>
-								<listitem>
-									<para> Die speziellen individuellen Sortierungen von Zeichenketten mit ungleichen Längen
-										können über die Attribute "Padding" und "PadLength"
-										ausgedrückt werden. Das Attribut "Padding" legt dabei fest,
-										mit welchem Zeichen die einzelnen Strings nach links
-										aufgefüllt werden, um die in PadLength definierte Länge zu
-										erfüllen. Danach erfolgt die Concatenierung und danach
-										erfolgt die Auswertung der Sortierung. Fehlt Padding oder
-										enthält keinen String so findet kein Padding statt. </para>
-								</listitem>
-							</orderedlist>
+							Zeichenkette folgt nach folgenden in OTDS generell gültigen Regeln: 
 						</para>
+						<orderedlist>
+							<listitem>
+								<para>Zeichenketten werden grundsätzlich mit dem linken Zeichen
+									beginnend Zeichen für Zeichen sortiert</para>
+							</listitem>
+							<listitem>
+								<para>Das erste Zeichen besitzt die höchste Priorität.</para>
+							</listitem>
+							<listitem>
+								<para>Die Sortierung der einzelnen Zeichen folgt den
+									ASCII-Values der Zeichen und entspricht damit folgender
+									aufsteigenden Liste: <orderedlist>
+										<listitem>
+											<para> "leerer String" </para>
+										</listitem>
+										<listitem>
+											<para> - (Bindestrich)</para>
+										</listitem>
+										<listitem>
+											<para> .</para>
+										</listitem>
+										<listitem>
+											<para> 0</para>
+										</listitem>
+										<listitem>
+											<para> 1</para>
+										</listitem>
+										<listitem>
+											<para> 2</para>
+										</listitem>
+										<listitem>
+											<para> 3</para>
+										</listitem>
+										<listitem>
+											<para> usw.</para>
+										</listitem>
+										<listitem>
+											<para> A</para>
+										</listitem>
+										<listitem>
+											<para> B</para>
+										</listitem>
+										<listitem>
+											<para> C</para>
+										</listitem>
+										<listitem>
+											<para> usw.</para>
+										</listitem>
+										<listitem>
+											<para> _ (Unterstrich)</para>
+										</listitem>
+										<listitem>
+											<para> a</para>
+										</listitem>
+										<listitem>
+											<para> b</para>
+										</listitem>
+										<listitem>
+											<para> c</para>
+										</listitem>
+										<listitem>
+											<para> usw.</para>
+										</listitem>
+										<listitem>
+											<para> | (Pipe)</para>
+										</listitem>
+										<listitem>
+											<para> ~</para>
+										</listitem>
+									</orderedlist></para>
+							</listitem>
+							<listitem>
+								<para> Die speziellen individuellen Sortierungen von Zeichenketten mit ungleichen Längen
+									können über die Attribute "Padding" und "PadLength"
+									ausgedrückt werden. Das Attribut "Padding" legt dabei fest,
+									mit welchem Zeichen die einzelnen Strings nach links
+									aufgefüllt werden, um die in PadLength definierte Länge zu
+									erfüllen. Danach erfolgt die Concatenierung und danach
+									erfolgt die Auswertung der Sortierung. Fehlt Padding oder
+									enthält keinen String so findet kein Padding statt. </para>
+							</listitem>
+						</orderedlist>
+						
 						<para>
 							<emphasis role="bold">&lt;Average></emphasis> verhält sich analog zu
-							&lt;Sum> und enthält wahlweise Referenzen auf eine Menge <orderedlist>
-								<listitem>
-									<para>von Numeric-Tags, aus denen ein Mittelwert gebildet wird,
-										nach dem sortiert wird.</para>
-								</listitem>
-								<listitem>
-									<para>von Price-Tags, aus denen ein Mittelwert gebildet wird,
-										nach dem sortiert wird.</para>
-								</listitem>
-								<listitem>
-									<para>von Menge von PriceItems, aus denen ein Mittelwert
-										gebildet wird, nach dem sortiert wird</para>
-								</listitem>
-								<listitem>
-									<para>Eine gemischte Menge von Price-Tags und PriceItems, aus
-										denen ein Mittelwert gebildet wird, nach dem sortiert
-										wird.</para>
-									<para>Ein Mittelwert aus Numeric-Tags und Preisen führt zu einem
-										ungültigen Ergebnis.</para>
-									<para>Ein Mittelwert aus einer leeren Menge von Elementen führt
-										zu einem ungültigen Ergebnis.</para>
-									<para>Ein ungültiges Ergebnis wird generell bezogen auf die Sortierung des
-										&lt;Sort>-Elementes ans Ende gesetzt wird.</para>
-								</listitem>
-							</orderedlist>
-						</para>
+							&lt;Sum> und enthält wahlweise Referenzen auf eine Menge </para>
+						<orderedlist>
+							<listitem>
+								<para>von Numeric-Tags, aus denen ein Mittelwert gebildet wird,
+									nach dem sortiert wird.</para>
+							</listitem>
+							<listitem>
+								<para>von Price-Tags, aus denen ein Mittelwert gebildet wird,
+									nach dem sortiert wird.</para>
+							</listitem>
+							<listitem>
+								<para>von Menge von PriceItems, aus denen ein Mittelwert
+									gebildet wird, nach dem sortiert wird</para>
+							</listitem>
+							<listitem>
+								<para>Eine gemischte Menge von Price-Tags und PriceItems, aus
+									denen ein Mittelwert gebildet wird, nach dem sortiert
+									wird.</para>
+								<para>Ein Mittelwert aus Numeric-Tags und Preisen führt zu einem
+									ungültigen Ergebnis.</para>
+								<para>Ein Mittelwert aus einer leeren Menge von Elementen führt
+									zu einem ungültigen Ergebnis.</para>
+								<para>Ein ungültiges Ergebnis wird generell bezogen auf die Sortierung des
+									&lt;Sort>-Elementes ans Ende gesetzt wird.</para>
+							</listitem>
+						</orderedlist>
+						
 						<para>Dementsprechnd können <emphasis role="bold">&lt;Sum></emphasis>, <emphasis role="bold"
 								>&lt;Average></emphasis> und <emphasis role="bold"
 								>&lt;Concatenate></emphasis> nur die folgenden Elemente
@@ -7495,8 +7499,8 @@ usw.]]></programlisting>
 			        <para>Bezüge von Währungs-Umrechnungsfaktor über AppliedBy oder ApplyToPriceTags</para>
 			      </listitem>
 			    </orderedlist>
-			      <bridgehead><phrase xml:lang="de">Der Parameter SalesMarket / Wegfall des Attributes
-			        Otds/@Market</phrase></bridgehead>
+			      <bridgehead>Der Parameter SalesMarket / Wegfall des Attributes
+			        Otds/@Market</bridgehead>
 			      <para>Bis zur Version 1.9 wurde der Markt über das Attribut <code>Market</code> innerhalb
               von <code>Otds</code> geliefert. </para>
             <para>Ab der Version 1.9 wird <code>Market</code> nun durch den <code>SalesMarket</code>
@@ -7554,8 +7558,8 @@ usw.]]></programlisting>
      <Accommodations>    
      ...
      </Otds>]]></programlisting>
-			    <bridgehead><phrase xml:lang="de">PriceItems unter Products, Product, Addons,
-            Brand</phrase></bridgehead>
+			    <bridgehead>PriceItems unter Products, Product, Addons,
+            Brand</bridgehead>
 			    <para>Um Währungsumrechnungsfaktoren sinnvoll im OTDS-Format platzieren zu können, 
 			      ist es notwendig, "PriceItems" auch auf globaler Ebene also direkt unter Products abzulegen.</para>
 			    <programlisting><![CDATA[<Otds...>
@@ -7583,7 +7587,7 @@ usw.]]></programlisting>
      </Otds>]]></programlisting>
 			    <para>Es ist dabei zu beachten, dass global definierte PriceItems nur einmalig in die
 			    Berechnung einfließen.</para>
-			    <bridgehead><phrase xml:lang="de">Bezüge von Währungs-Umrechnungsfaktor über AppliedBy</phrase></bridgehead>
+			    <bridgehead>Bezüge von Währungs-Umrechnungsfaktor über AppliedBy</bridgehead>
 			    <para>Wie zuvor dargestellt, können also für jeden Markt explizit Preise definiert werden.
             Wenn die expliziten Preise lediglich auf einer Kursumrechnung basieren, müssen nicht
             alle Preise explitzit geliefert werden, sondern sie können die OTDS-Berechnungslogik
@@ -7657,7 +7661,7 @@ usw.]]></programlisting>
             der Veranstalter-Antwort (z.B. bei Aktion BA) entspricht. Dies entspricht der
             klassischen Rollenverteilung beim Datenverkehr zwischen Veranstaltern und
             Vertriebssystemen.</para>
-			    <bridgehead><phrase xml:lang="de">Bezüge von Währungs-Umrechnungsfaktor über PriceTags</phrase></bridgehead>
+			    <bridgehead>Bezüge von Währungs-Umrechnungsfaktor über PriceTags</bridgehead>
 			    <para>Dadurch, dass seit Version 1.9 auch PriceTags zusätzlich zu der Class eines PriceItems
             definiert werden können, können alle PriceItems mit einer PriceTag-"Auszeichnung"
             versehen werden, auf die sich der Umrechnungsfaktor beziehen kann.</para>
