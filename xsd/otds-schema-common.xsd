@@ -1217,7 +1217,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 	</xs:complexType>
 	<xs:complexType name="GenericTagType">
 		<xs:choice>
-			<xs:element name="SortedCandidateGroup">
+			<xs:element name="SortedCandidateGroup" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten,
 						die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als
@@ -1239,7 +1239,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="GroupedByEqual">
+						<xs:element name="GroupedByEqual" internal:otdsversion="1.9">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="det_108">Die Angaben in ClassifiedBy definieren, über welche Parameter die Angebote gruppiert werden. 
 									Die häufigste Verwendung wird sein, dass eine Gruppierung der Returnflüge über Abflughafen, Zielflughafen, Termin und Dauer erfolgt.</xs:documentation>
@@ -1289,7 +1289,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																</xs:annotation>
 																<xs:complexType>
 																	<xs:choice>
-																		<xs:element name="Sum">
+																		<xs:element name="Sum" internal:otdsversion="1.9">
 																			<xs:annotation>
 																				<xs:documentation xml:lang="de" xml:id="det_121">In diesem Element können
 												mehrere Elemente zu einer Summe zusammengeführt
@@ -1357,7 +1357,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																				</xs:sequence>
 																			</xs:complexType>
 																		</xs:element>
-																		<xs:element name="Concatenate">
+																		<xs:element name="Concatenate" internal:otdsversion="1.9">
 																			<xs:annotation>
 																				<xs:documentation xml:lang="de" xml:id="det_125">Dieses Element definiert, dass
 												mehrere Tags des TagTypes ="String" zu einem
@@ -1469,9 +1469,9 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																				</xs:attribute>
 																			</xs:complexType>
 																		</xs:element>
-																		<xs:element name="Average">
+																		<xs:element name="Average" internal:otdsversion="1.9">
 																			<xs:annotation>
-																				<xs:documentation xml:lang="de" xml:id="det_128">Dieses Element definiert, dass
+																				<xs:documentation xml:lang="de" xml:id="de_128">Dieses Element definiert, dass
 												zwischen den Values der referenzierten Tags und
 												ggf. einem Preis ein Mittelwert ermittelt wird und
 												der so entstehende Mittelwert zur Sortierung
@@ -1509,13 +1509,13 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																					<xs:choice>
 																						<xs:element name="Price" type="SortPriceType">
 																							<xs:annotation>
-																								<xs:documentation xml:lang="de" xml:id="det_129">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. Zur Berechnung des Sortierungspreises werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind.</xs:documentation>
+																								<xs:documentation xml:lang="de" xml:id="de_129">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. Zur Berechnung des Sortierungspreises werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind.</xs:documentation>
 																								<xs:documentation xml:lang="en" xml:id="en_129">This element defines a tag which is used for sorting and is a component in the formation of a mean value. To calculate the sorting price, only PriceItems attached to an ancestor node or descendant node within the GroupDefinition list, and those valid for the offer currently being viewed, are used.</xs:documentation>
 																							</xs:annotation>
 																						</xs:element>
 																						<xs:element name="Tag" type="EmptyTagConditionType">
 																							<xs:annotation>
-																								<xs:documentation xml:lang="de" xml:id="det_130">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. 
+																								<xs:documentation xml:lang="de" xml:id="de_130">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. 
 		Die Attribute des Tags definieren, welches Tag im XML-Baum referenziert wird. </xs:documentation>
 																								<xs:documentation xml:lang="en" xml:id="en_130">This element defines a tag
 												which is used for sorting and is component of
@@ -1531,7 +1531,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																	</xs:choice>
 																	<xs:attribute name="Order" type="OrderEnum" default="Ascending">
 																		<xs:annotation>
-																			<xs:documentation xml:lang="de" xml:id="det_132">Dieses Attribut gibt an, ob ein Sort-Element aufsteigend  oder absteigend sortiert werden soll.</xs:documentation>
+																			<xs:documentation xml:lang="de" xml:id="de_132">Dieses Attribut gibt an, ob ein Sort-Element aufsteigend  oder absteigend sortiert werden soll.</xs:documentation>
 																			<xs:documentation xml:lang="en" xml:id="en_132">This attribute specifies whether a sort element is to be sorted in ascending or descending order.</xs:documentation>
 																		</xs:annotation>
 																	</xs:attribute>
@@ -2809,11 +2809,11 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	<xs:simpleType name="OWGS84Latitude">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_223">
-				<summary>This optional type can take the latitude of an object. Valid values are
-					from -90.0 to 90.0. As this information is optional, the value can be empty
-					(string of length zero).</summary>
-			</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_223"/>
+				<summary>Dieser optionale Typ zeigt den Breitengrad eines
+					Objektes an. Gültige Werte sind von -90.0 bis 90.0. Da diese Informationsangabe
+					optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary></xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_223"><summary>This optional type can take the latitude of an object. Valid values are
+				from -90.0 to 90.0. As this information is optional, the value can be empty (string of length zero).</summary></xs:documentation>
 		</xs:annotation>
 		<xs:union>
 			<xs:simpleType>
@@ -2832,12 +2832,12 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	<xs:simpleType name="OWGS84Longitude">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_224">
-				<summary>Dieser optionale Typ zeigt den Breitengrad eines Objektes an. Gültige Werte sind -180.0
+				<summary>Dieser optionale Typ zeigt den Längengrad eines Objektes an. Gültige Werte sind -180.0
 					bis 180.0. Da diese Informationsangabe optional ist, kann der Wert auch leer
 					bleiben ("", ohne Zeichen).</summary></xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_224"><summary>This optional type can take the latitude of an object. Valid values are
-				from -180.0 to 180.0. As this information is optional, the value can be empty
-				(string of length zero).</summary></xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_224"><summary>This optional type can take the longitude of an object. Valid values are from -180.0 to
+					180.0. As this information is optional, the value can be empty (string of length
+					zero).</summary></xs:documentation>
 		</xs:annotation>
 		<xs:union>
 			<xs:simpleType>
@@ -5237,20 +5237,21 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 					<xs:element name="MinAge" type="PersonAgeType" minOccurs="1">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_345">Mindestalter der Person(en)</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_345">Minimum age of the person (s)</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_345">Minimum age of the person(s)</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="MaxAge" type="PersonAgeType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_346">Höchstalter der Person(en)</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_346">Maximum age of the person (s)</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_346">Maximum age of the person(s)</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
 				<xs:sequence>
 					<xs:element name="MaxAge" type="PersonAgeType" minOccurs="1">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="det_345">Mindestalter der Person(en)</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_345">Mindestalter der Person(en)</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_345">Minimum age of the person(s)</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -5273,7 +5274,8 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 				<xs:sequence>
 					<xs:element name="MaxCount" type="PositiveShort" minOccurs="1">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="det_348">Maximale Anzahl Personen</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_348">Maximale Anzahl Personen</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_348">Maximum number of persons</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -6283,7 +6285,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 		<xs:complexContent>
 			<xs:extension base="TagsType">
 				<xs:sequence>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">GenericTags sind Markierungen, deren Value von einer Funktion abhängt.
 								Folgende Funktionen sind aktuell integriert: - SortedCandidateGroup
@@ -8068,7 +8070,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 	</xs:complexType>
 	<xs:group name="AtomicProductPriceConditionGroup">
 		<xs:sequence>
-			<xs:element name="ProductPrice" type="ProductPriceConditionType">
+			<xs:element name="ProductPrice" type="ProductPriceConditionType" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_482">Einschränkung bzgl. des Preises des
 						Gesamtangebots oder einzelner Personen. Für die Auswertung der ProductPrice
@@ -8120,7 +8122,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 	</xs:group>
 	<xs:group name="AtomicGenericTagConditionGroup">
 		<xs:sequence>
-			<xs:element name="GenericTag">
+			<xs:element name="GenericTag" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Die GenericTag-Condition definiert eine Bedingung an das GenericTag. Das
 						Attribut "Class" referenziert welches GenericTag geprüft wird. Die Bedingung
