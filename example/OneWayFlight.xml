@@ -37,7 +37,7 @@
 			<OnewayFlight Key="FRAFUE20130331K1">
 				<!-- Dieser OnewayFlight stellt die einfachste Form eines gelieferten OnewayFlights dar. In diesem Fall ist es ein Einzelflug an einem bestimmten Termin mit einer bestimmten Buchungsklasse. -->
 				<Booking>
-					<!-- Hier wird er Flugcode für die Buchung definiert.-->
+					<!-- Hier wird der Flugcode für die Buchung definiert.-->
 					<BookingGroup Area="ServiceArea">
 						<BookingParameter Field="ServiceCode">
 							<Value>FRAFUEK1</Value>
@@ -47,8 +47,8 @@
 				<Properties Key="1">
 					<PropertyGroup>
 						<FlightRoutes>
-							<!-- In diesem Fall besteht die FlightRoute nur aus einem Segment. Es können aber auch mehrere Segmente und auch mehr Eigenschaften zum Flug angegeben. 
-								Im 3. OnewayFlight finden Sie ein beispiel für einen Flug mit StopOver und mehr definierten Eigenschaften
+							<!-- In diesem Fall besteht die FlightRoute nur aus einem Segment. Es können aber auch mehrere Segmente und auch mehr Eigenschaften zum Flug angegeben werden. 
+								Im 3. OnewayFlight finden Sie ein Beispiel für einen Flug mit StopOver und mehr definierten Eigenschaften.
 							-->
 							<FlightRoute>
 								<Departure>
@@ -106,7 +106,7 @@
 				<!-- Hier können sich weitere Buchungsklassen mit unterschiedlichen Preisen anschließen.-->
 			</OnewayFlight>
 			<OnewayFlight Key="FRAFUEK2">
-				<!-- Dieser OnewayFlight stellt eine immer wiederkehrende Flugkette da, welche zu einem bestimmten Zeitpunkt, an den in der Availability definierten Tagen fliegt. -->
+				<!-- Dieser OnewayFlight stellt eine immer wiederkehrende Flugkette da, welche zu einem bestimmten Zeitpunkt an den in der Availability definierten Tagen fliegt. -->
 				<Booking>
 					<BookingGroup Area="ServiceArea">
 						<BookingParameter Field="ServiceCode">
@@ -160,7 +160,7 @@
 							<!-- Die Weekday Condition legt fest, dass die in diesem AvailabilityElement definierte Verfügbarkeit generell nur an den Abflugtagen "Montag" und "Freitag" gilt.-->
 							<Weekdays Source="ThisComponent">Mon Fri</Weekdays>
 						</Condition>
-						<!-- Wir empfehlen die Availabilities monatsweise zu gestalten, so kann man bei der Datenproduktion einzelne Monate bei fehlender Verfügbarkeit, bzw. das EndDate (siehe Mai) an die Verfügbarkeit anpassen. ohne viele Daten liefern zu müssen.
+						<!-- Wir empfehlen, die Availabilities monatsweise zu gestalten. So kann man bei der Datenproduktion einzelne Monate bei fehlender Verfügbarkeit, bzw. das EndDate (siehe Mai) an die Verfügbarkeit anpassen. ohne viele Daten liefern zu müssen.
 							Wir empfehlen weiterhin den Startdate bzw. den Key der Availability-Elemente nicht zu ändern, da es sonst bei inkrementellen Updates zu Offsetproblemen kommen kann. -->
 					</Availabilities>
 					<PriceItems Key="1">
@@ -191,9 +191,9 @@
 				</BookingClass>
 			</OnewayFlight>
 			<OnewayFlight Key="FRAHKT20130331K1">
-				<!-- Dieser OnewayFlight verdeutlicht wie Sie Eigenschaften, wie die Carrier, Zwischenlandungen, Übernachflüge darstellen.
-					OnewayFlights mit mehreren Segmenten kommen nur dann zum Einsatz, wenn das Veranstaltersystem keine Regeln, oder Preise auf einzelne Segmente bezieht.
-					 Will man sich auf einzelne Segmente mit Regeln und Preisen beziehen, so muss man dafür die Segmente als OnewayFlights liefern und mit Hilfe der im Veranstaltersystem hinterlegten Regeln zusammensetzen. zusammensetzen
+				<!-- Dieser OnewayFlight verdeutlicht, wie Sie Eigenschaften wie die Carrier, Zwischenlandungen oder Übernachflüge darstellen.
+					OnewayFlights mit mehreren Segmenten kommen nur dann zum Einsatz, wenn das Veranstaltersystem keine Regeln oder Preise auf einzelne Segmente bezieht.
+					 Will man sich auf einzelne Segmente mit Regeln und Preisen beziehen, so muss man dafür die Segmente als OnewayFlights liefern und mit Hilfe der im Veranstaltersystem hinterlegten Regeln zusammensetzen.
 					Schauen Sie sich dazu dann auch das OTDS Beispiel  FlightRules.xml an.
 				  -->
 				<Booking>
@@ -212,7 +212,7 @@
 							</BaggageAllowance>
 						</FlightBookingClassBaggageAllowances>
 						<FlightRoutes>
-							<!-- In diesem Fall besteht die FlightRoute aus mehreren Segmenten. Teilweise ist das Terminal bekannt. Ab BKK jhandelt es sich um einen Übernachtflug. Der DateOffset bezieht sich immer auf den CheckIn Termin des Angebotes. Die Zusatzangaben im ersten Segment können wenn vorhanden auch in den anderen Segmenten ergänzt werden.
+							<!-- In diesem Fall besteht die FlightRoute aus mehreren Segmenten. Teilweise ist das Terminal bekannt. Ab BKK handelt es sich um einen Übernachtflug. Der DateOffset bezieht sich immer auf den CheckIn Termin des Angebotes. Die Zusatzangaben im ersten Segment können - wenn vorhanden - auch in den anderen Segmenten ergänzt werden.
 							-->
 							<FlightRoute>
 								<Departure>
