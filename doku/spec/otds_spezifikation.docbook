@@ -1674,7 +1674,7 @@
 									</row>
 									<row>
 										<entry>k</entry>
-										<entry>ReturnFlight.Outbound.BookingClass</entry>
+										<entry>ReturnFlight.BookingClass</entry>
 										<entry>/OTDS/Flights/ReturnFlights/ReturnFlight/BookingClass</entry>
 									</row>
 									<row>
@@ -1699,7 +1699,7 @@
 									</row>
 									<row>
 										<entry>p</entry>
-										<entry>Addon.Service.ServiceFeature</entry>
+										<entry>Addon.ServiceFeature</entry>
 										<entry>/OTDS/Addons/Addon/ServiceFeature</entry>
 									</row>
 									<row>
@@ -3717,8 +3717,7 @@
 							PriceItems ein- bzw. ausgeschlossen werden. Durch
 								<code>ConsideredPriceItems</code> kann angegeben werden, auf welche
 							Preisanteile sich die Bedingung bezieht. Hier können ein oder auch
-							mehrere PriceItem-Classes angegeben werden. Fehlt die Angabe, werden
-							alle gültigen Preisbestandteile dieser Komponente berücksichtigt.</para><para xml:id="en_1078" xml:lang="en">Conditions can be set for the lowest or highest day prices, in
+							mehrere PriceItem-Classes angegeben werden.</para><para xml:id="en_1078" xml:lang="en">Conditions can be set for the lowest or highest day prices, in
 							order to apply percentage surcharges or discounts. In contrast to the
 							DayIndex, the travel days in this case are not sorted according to
 							travel itinerary, but according to ascending DayPrice levels and
@@ -3729,9 +3728,7 @@
 							PriceItems can be included or excluded with the
 							Not-/ConsideredPriceItemClasses. With <code>ConsideredPriceItems</code>
 							, it is possible to specify which price components the condition refers
-							to. Here one or several PriceItem classes can be specified. If there is
-							no entry, all valid price components of this component will be
-							considered.</para>
+							to. Here one or several PriceItem classes can be specified.</para>
 
 						<para xml:id="de_1079" xml:lang="de">Bedingungen an den Tagespreis können erst ausgewertet werden, wenn die
 							Kombinatorik vollständig abgeschlossen ist und aus den verbleibenden gültigen
@@ -4495,7 +4492,9 @@
 						werden. Diese Eigenschaft muss dann nicht je Accommodation geliefert werden. </para><para xml:lang="en" xml:id="en_5038">Within the product definition, properties can be defined which are globally applicable to the whole delivery. This, for example, allows the property "Transfer included" to be set for the whole product. These properties do not then have to be delivered according to Accommodation.</para>
 				</section>
 				<section xml:id="OtdsStrategyProductPriceItems">
-					<title><phrase xml:lang="de" xml:id="de_5039">Preise (PriceItems) in Produkten</phrase><phrase xml:lang="en" xml:id="en_5039">Prices (PriceItems) in products</phrase></title>
+					<title><phrase xml:lang="de" xml:id="de_5039">Preise (PriceItems) in Produkten (Version 1.9,
+							V1.9)</phrase><phrase xml:lang="en" xml:id="en_5039">Prices (PriceItems)
+							in products (version 1.9, v1.9)</phrase></title>
 					<para xml:lang="de" xml:id="de_5040">Innerhalb der Produktdefinition können PriceItems
 						geliefert werden, die global für alle Komponenten des Produktes gelten.
 						Hierbei ist zu beachten, dass absolute PriceItems nur einmal je Produkt
@@ -6458,8 +6457,10 @@ usw.]]></programlisting>
   </Condition>
 </PriceItem>]]></programlisting>
 			    <section xml:id="OtdsStrategyPriceItemRounding">
-			      <title><phrase xml:lang="de">Umsetzung der Rundung (Version 1.9, V1.9)</phrase>
-			      	<phrase xml:lang="en">Implementation of the rounding (version 1.9, v1.9)</phrase></title>
+			      <title>
+			      	<phrase xml:lang="de">Umsetzung der Rundung (Version 1.9, V1.9)</phrase>
+			      	<phrase xml:lang="en">Implementation of the rounding (version 1.9, v1.9)</phrase>
+			      </title>
 			      <bridgehead xml:lang="de" xml:id="de_5170">Allgemein</bridgehead><bridgehead xml:lang="en" xml:id="en_5170">General</bridgehead>
 			      <para xml:lang="de" xml:id="de_5171">Die Rundung wird in OTDS über ein eigenes PriceItem
                 <code>GenericAbsolute</code> abgebildet. Dabei stellt die Rundung nur eine Form
@@ -6503,7 +6504,10 @@ usw.]]></programlisting>
 </PriceItem>]]></programlisting>
 			      <bridgehead xml:lang="de" xml:id="de_5175">Definition der betrachteten PriceItem-Gruppierungen
                 (<code>Person</code>, <code>Day</code>, <code>AbsolutePriceItem</code> und
-                <code>PriceTagValue</code>)</bridgehead><bridgehead xml:lang="en" xml:id="en_5175">Deifnition of the PriceItem groupings concerned (<code>Person</code> , <code>Day</code> , <code>AbsolutePriceItem</code> and <code>PriceTagValue</code> )</bridgehead>
+                <code>PriceTagValue</code>)</bridgehead><bridgehead xml:lang="en" xml:id="en_5175">Definition of the PriceItem groupings concerned
+								(<code>Person</code> , <code>Day</code> ,
+								<code>AbsolutePriceItem</code> and <code>PriceTagValue</code>
+							)</bridgehead>
 			      <para xml:lang="de" xml:id="de_5176">Mit Hilfe der Elemente <code>Person</code>,
 								<code>Day</code>, <code>AbsolutePriceItem</code> und
 								<code>PriceTagValue</code> können die PriceItems für die Anwendung
@@ -7984,8 +7988,9 @@ usw.]]></programlisting>
 						Verfügbarkeiten.</para><para xml:id="en_1583" xml:lang="en">This leads to greatly reduced data quantities, but guarantees an optimal updatability of prices and availabilities.</para>
 				</section>
 			  <section xml:id="OtdsDataDeliveryCurrencies">
-			    <title><phrase xml:lang="de" xml:id="de_5254">Unterschiedliche Währungen in einer Komponente (Version
-			      1.9)</phrase><phrase xml:lang="en" xml:id="en_5254">Various currencies in a component (version 1.9)</phrase></title>
+			    <title><phrase xml:lang="de" xml:id="de_5254">Unterschiedliche Währungen in einer Komponente
+							(Version 1.9, V1.9)</phrase><phrase xml:lang="en" xml:id="en_5254"
+							>Various currencies in a component (version 1.9, v1.9)</phrase></title>
 			    <para xml:id="de_5255" xml:lang="de">Ab der Version 1.9 ist es möglich, innerhalb einer
 						Komponente unterschiedliche Währungen zu nutzen. Dabei erfolgt die Umsetzung
 						in drei Bereichen:</para><para xml:id="en_5255" xml:lang="en">From version 1.9, it is possible to use different currencies
@@ -11340,8 +11345,10 @@ usw.]]></programlisting>
           </orderedlist>
       </section>
       <section xml:id="OtdsRoundingBreakDown">
-        <title><phrase xml:lang="de" xml:id="de_5311">Beispiel für Rundung von Reisepreisen direkt nach der
-            Aufteilung auf Tage und Personen</phrase><phrase xml:lang="en" xml:id="en_5311">Example of rounding of travel prices directly after their distribution among days and persons</phrase></title>
+        <title><phrase xml:lang="de" xml:id="de_5311">Beispiel für Rundung von Reisepreisen direkt
+						nach Aufteilung auf Tage und Personen</phrase><phrase xml:lang="en"
+						xml:id="en_5311">Example of rounding of travel prices directly after their
+						distribution among days and persons</phrase></title>
         <para xml:id="de_5312" xml:lang="de">Manchmal brechen Veranstaltersysteme grundsätzlich alle
 					reisebezogenen Preise auf Tage und Personen herunter und runden dann direkt,
 					bevor weitere Berechungen angestellt werden. Das folgende PriceItem zeigt, wie
