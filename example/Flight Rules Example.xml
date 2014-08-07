@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<!-- In diesem Beispiel werden einige Flüge auf unterschiedliche Weise kombiniert.
+		Dazu werden häufig "Tags" in der Form <Tag Class="">XXX</Tag> definiert, auf die später in der Kombinationsregel Bezug genommen wird.
+		Die Tags besitzen in diesem Beispiel sprechende Inhalte sind aber vom Veranstalter frei gestaltbar.	
+		Die Inhalte der Flüge sind auf das Wesentliche beschränkt. Auch die Buchungsparameter sind der Übersichtlichkeit halber nicht vollständig integriert.-->
+	<Products>
+		<Product Key="OnewayFlightOnly_Standard" ProductType="OnewayFlightOnly">
+			<Components>
+				<OnewayFlight/>
+			</Components>
+			<Filter Key="1">
+				<Not>
+					<Tags Source="OnewayFlight" Class="Zubringer_Only"/>
+				</Not>
+			</Filter>
+		</Product>
+		<Product Key="OneFlightOnlyCombis" ProductType="OnewayFlightOnly">
+			<Components>
+				<DefinedComponent Name="ThisOnewayFlight" UseRole="OnewayFlight"/>
+			</Components>
+			<Filter Key="1">
+				<Tags Source="#ThisOnewayFlight" Class="OnewayFlight"/>
+			</Filter>
+		</Product>
+		<Product Key="ReturnFlight" ProductType="ReturnFlightOnly">
+			<!-- Die einfachste Form der Produktdefinition der ReturnFlights. Welche aus allen gelieferten ReturnFlights besteht. Hier können sehr wohl auch OpenJaw-Flights drinstecken.-->
+			<Components>
+				<ReturnFlight/>
+			</Components>
+		</Product>
+		<Product Key="ReturnFlight_Combinied" ProductType="ReturnFlightOnly">
+			<!-- Returnflights die aus kombinierten OneWayFlights bestehen, welche die Rolle ReturnFlight haben. Hier können auch OpenJawFlights drinstecken. -->
+			<Components>
+				<DefinedComponent UseRole="ReturnFlight"/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands/>
+	<Flights>
+		<OnewayFlights>
+			<!--Dieser Flug wird zur Kombination als Zubringer benutzt. Der Veranstalter hat dazu den Flug durch ein Tag als "Zubringer" markiert.-->
+			<OnewayFlight Key="DUSFRA16">
+				<Tags>
+					<Tag Class="Kombi">A1</Tag>
+					<Tag Class="Zubringer">FRA</Tag>
+				</Tags>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>FRA</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="DUSFRA16">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!--Diese Flug wird zur Kombination als Zubringer benutzt. Der Veranstalter hat dazu den Flug durch ein Tag als "Zubringer"=FRA markiert.-->
+			<OnewayFlight Key="HAMFRA13">
+				<Tags>
+					<Tag Class="Kombi">A1</Tag>
+					<Tag Class="Zubringer">FRA</Tag>
+				</Tags>
+				<DepartureAirport>HAM</DepartureAirport>
+				<ArrivalAirport>FRA</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="HAMFRA13">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!--Diese Flug wird sowhl für die Kombinationen als Hauptflug benutzt, als auch als eigenständiger Flug angeboten. Der Veranstalter hat den Flug 
+			durch ein Tag als "Hauptflug" markiert.-->
+			<OnewayFlight Key="FRABKK03">
+				<Tags>
+					<Tag Class="Kombi">A1</Tag>
+					<Tag Class="Hauptflug">FRABKK</Tag>
+				</Tags>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>BKK</ArrivalAirport>
+				<BookingClass Key="FRABKK">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="FRABKK">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!--Diese Flug wird für Kombinationen als Hauptflug benutzt. Der Veranstalter hat den Flug durch ein Tag als Hauptflug markiert.-->
+			<OnewayFlight Key="FRAHKT03">
+				<Tags>
+					<Tag Class="Kombi">A1</Tag>
+					<Tag Class="Hauptflug">DUSHKT</Tag>
+				</Tags>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>HKT</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="DUSHKT">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!--In dem folgenden Flug sind zwei Tags definiert, die zur Kombination des Fluges verwendet werden können.-->
+			<OnewayFlight Key="BKKHKT03">
+				<Tags>
+					<Tag Class="Kombi">A1</Tag>
+					<Tag Class="Verteiler">BKK</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>BKKHKT</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>BKK</DepartureAirport>
+				<ArrivalAirport>HKT</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="BKKHKT">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="FRADUS16">
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="FRADUS16">
+						<Availability Key="2011-11-08" StartDate="2011-11-08" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="FRAHAM13">
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>HAM</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="FRAHAM13">
+						<Availability Key="2011-11-08" StartDate="2011-11-08" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!--Diese Flug wird sowhl für die Kombinationen als Hauptflug benutzt, als auch als eigenständiger Flug angeboten. Der Veranstalter hat den Flug 
+			durch ein Tag als "Hauptflug" markiert.-->
+			<OnewayFlight Key="BKKFRA03">
+				<DepartureAirport>BKK</DepartureAirport>
+				<ArrivalAirport>FRA</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="BKKFRA">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!--Diese Flug wird für Kombinationen als Hauptflug benutzt. Der Veranstalter hat den Flug durch ein Tag als Hauptflug markiert.-->
+			<OnewayFlight Key="FRAHKT03">
+				<Tags>
+					<Tag Class="Kombi">A1</Tag>
+					<Tag Class="Hauptflug">DUSHKT</Tag>
+				</Tags>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>HKT</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="DUSHKT">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!--In dem folgenden Flug sind zwei Tags definiert, die zur Kombination des Fluges verwendet werden können.-->
+			<OnewayFlight Key="BKKHKT03">
+				<Tags>
+					<Tag Class="Kombi">A1</Tag>
+					<Tag Class="Verteiler">BKK</Tag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>BKKHKT</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>BKK</DepartureAirport>
+				<ArrivalAirport>HKT</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="BKKHKT">
+						<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+		</OnewayFlights>
+		<ReturnFlights>
+			<ReturnFlight Key="1">
+				<Outbound>
+					<DepartureAirport>DUS</DepartureAirport>
+					<ArrivalAirport>PMI</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<DepartureAirport>PMI</DepartureAirport>
+					<ArrivalAirport>DUS</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="Y"/>
+			</ReturnFlight>
+		</ReturnFlights>
+	</Flights>
+	<DefinedComponents>
+		<DefineComponent Key="StandardReturnFlight" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="Airline"/>
+						<Tag Source="Inbound" Class="Airline"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="PauLi"/>
+						<Tag Source="Inbound" Class="PauLi"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">ArrivalAirport</Element>
+						<Element Source="Outbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="StandardReturnFlight_Plus_Exception" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Or>
+						<MatchEqual>
+							<Tag Source="Outbound" Class="Airline"/>
+							<Tag Source="Inbound" Class="Airline"/>
+						</MatchEqual>
+						<And>
+							<Date Source="Outbound" DayType="CheckIn">
+								<Min>2013-03-22</Min>
+								<Max>2013-10-31</Max>
+							</Date>
+							<Date Source="Inbound" DayType="CheckIn">
+								<Min>2013-03-29</Min>
+								<Max>2013-10-31</Max>
+							</Date>
+							<Tags Source="Outbound" Class="Airline">AB DE XQ XG</Tags>
+							<Tags Source="Inbound" Class="Airline">AB DE XQ XG</Tags>
+							<Airports Source="Outbound" AirportType="Arrival">AYT FUE</Airports>
+						</And>
+					</Or>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="PauLi"/>
+						<Tag Source="Inbound" Class="PauLi"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">ArrivalAirport</Element>
+						<Element Source="Outbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="ReturnKombi_OpenJaw1" Role="ReturnFlight">
+			<!-- Im folgenden eine Definition für OpenJawFlights mit identischem Zielflughafen. -->
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight Name="Outbound1"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight Name="Inbound1"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<MatchEqual>
+					<Element Source="Outbound">ArrivalAirport</Element>
+					<Element Source="Inbound">DepartureAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="ReturnKombi_OpenJaw2" Role="ReturnFlight">
+			<!-- Im folgenden eine Definition für OpenJawFlights mit identischem Abflughafen. -->
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight Name="Outbound2"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight Name="Inbound2"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<MatchEqual>
+					<Element Source="Outbound">DepartureAirport</Element>
+					<Element Source="Inbound">ArrivalAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="ReturnFlight_with_Defined_OnewayFlights" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<DefinedComponent UseRole="OnewayFlight"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<DefinedComponent UseRole="OnewayFlight"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="Airline"/>
+						<Tag Source="Inbound" Class="Airline"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="FlightSource"/>
+						<Tag Source="Inbound" Class="FlightSource"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">ArrivalAirport</Element>
+						<Element Source="Outbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="OnewayFlight_Standard_3_Segments" Role="OnewayFlight">
+			<Components>
+				<OnewayFlight Name="Zubringer" DayAllocationIndex="1"/>
+				<OnewayFlight Name="Hauptflug" DayAllocationIndex="2"/>
+				<OnewayFlight Name="Verteiler" DayAllocationIndex="3"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Tag Source="#Zubringer" Class="Airline"/>
+						<Tag Source="#Hauptflug" Class="Airline"/>
+						<Tag Source="#Verteiler" Class="Airline"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="#Zubringer" Class="FlightSource"/>
+						<Tag Source="#Hauptflug" Class="FlightSource"/>
+						<Tag Source="#Verteiler" Class="FlightSource"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="#Zubringer">ArrivalAirport</Element>
+						<Element Source="#Hauptflug">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="#Hauptflug">ArrivalAirport</Element>
+						<Element Source="#Verteiler">DepartureAirport</Element>
+					</MatchEqual>
+					<Tags Source="#Verteiler" Class="Origin">Thailand</Tags>
+					<Tags Source="#Zubringer" Class="Origin">Germany</Tags>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="Kombi01" Role="OnewayFlight">
+			<Components>
+				<OnewayFlight Name="1" DayAllocationLevel="-1"/>
+				<OnewayFlight Name="2"/>
+				<OnewayFlight Name="3" DayAllocationLevel="1"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Source="#1" Class="Zubringer"/>
+					<Tags Source="#2" Class="Hauptflug"/>
+					<Tags Source="#3" Class="Verteiler"/>
+					<MatchEqual>
+						<Element Source="#1">ArrivalAirport</Element>
+						<Element Source="#2">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="#2">ArrivalAirport</Element>
+						<Element Source="#3">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="Kombi02" Role="OnewayFlight">
+			<Components>
+				<OnewayFlight Name="5" DayAllocationLevel="-1"/>
+				<OnewayFlight Name="6"/>
+				<OnewayFlight Name="7" DayAllocationLevel="1"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Source="#5" Class="Zubringer">FRA</Tags>
+					<Tags Source="#6" Class="Hauptflug">FRABKK</Tags>
+					<Tags Source="#7" Class="Verteiler"/>
+					<MatchEqual>
+						<Element Source="#5">ArrivalAirport</Element>
+						<Element Source="#6">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="#6">ArrivalAirport</Element>
+						<Element Source="#7">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="Kombi03a" Role="OnewayFlight">
+			<Components>
+				<OnewayFlight Name="8" DayAllocationLevel="-1"/>
+				<OnewayFlight Name="9"/>
+				<OnewayFlight Name="10" DayAllocationLevel="1"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Class="Name" Source="#8">DUSFRA16</Tags>
+					<Weekdays Source="#8" DayType="CheckIn">Sun Mon Wed Fri Sat</Weekdays>
+					<Keys Source="#9">FRABKK03</Keys>
+					<Keys Source="#10">BKKHKT03</Keys>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="Kombi03b" Role="OnewayFlight">
+			<Components>
+				<OnewayFlight Name="11" DayAllocationLevel="-1"/>
+				<OnewayFlight Name="12"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Keys Source="#11">DUSFRA16</Keys>
+					<Weekdays Source="#11" DayType="CheckIn">Tue Thu</Weekdays>
+					<Tags Class="Name" Offset="0" Length="6" Source="#12">FRAHKT</Tags>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="Kombi04" Role="OnewayFlight">
+			<Booking>
+				<BookingGroup Priority="1" Area="ServiceArea">
+					<BookingParameter Field="RequestCode">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="ServiceCode">
+						<Value>DUSHKT</Value>
+					</BookingParameter>
+					<BookingParameter Field="ServiceFeatureCode">
+						<Value>ZZ</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<OnewayFlight Name="13" DayAllocationLevel="-1"/>
+				<OnewayFlight Name="14"/>
+				<OnewayFlight Name="15" DayAllocationLevel="1"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Keys Source="#13">DUSFRA16</Keys>
+					<Weekdays Source="#13" DayType="CheckIn">Sun Mon Wed Fri Sat</Weekdays>
+					<Keys Source="#14">FRABKK03</Keys>
+					<Keys Source="#15">BKKHKT03</Keys>
+				</And>
+			</Filter>
+		</DefineComponent>
+		<DefineComponent Key="ReturnKombi1" Role="ReturnFlight">
+			<!-- Im folgenden eine Definition für einen klassischen Returnflight mit Oneway mit identischem Abflughafen bzw. Zielflughafen. -->
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight Name="Outbound3"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight Name="Inbound3"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">DepartureAirport</Element>
+						<Element Source="Inbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>
