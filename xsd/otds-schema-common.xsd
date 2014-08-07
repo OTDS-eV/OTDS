@@ -1615,7 +1615,15 @@ Kosher</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="GeneralIncludedService" type="GeneralIncludedServiceEnum" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="GeneralIncludedService" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="GeneralIncludedServiceEnum">
+										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType" default="None"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -1628,7 +1636,15 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="GeneralExcludedService" type="GeneralExcludedServiceEnum" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="GeneralExcludedService" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="GeneralExcludedServiceEnum">
+										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType" default="None"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -1943,6 +1959,31 @@ DE Germany</xs:documentation>
 			</xs:element>
 		</xs:all>
 	</xs:complexType>
+	<xs:complexType name="AccommodationInternetAccessType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_172">Möglichkeiten des Internetzugangs in der Unterkunft</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_172">Options for accessing internet in accommodation</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="EmptyTagType">
+				<xs:attribute name="InternetAccessLocation" type="InternetAccessLocationEnum">
+					<xs:annotation>
+						<xs:documentation>Verschiedene Orte des Internanschlusses im Hotel</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="InternetAccessCharge" type="InternetAccessChargeEnum">
+					<xs:annotation>
+						<xs:documentation>Kosten für Internetanschluss im Hotel</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="InternetAccessType" type="InternetAccessTypeEnum">
+					<xs:annotation>
+						<xs:documentation>Zugangsart des Internetanschlusses</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:group name="AccommodationCategoryGroup">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_201">Kategorie der Unterkunft (Offizielle + Veranstalterkategorie).</xs:documentation>
@@ -2028,6 +2069,21 @@ The attribution is carried out according to hotel chain ID. A list of references
 				<xs:simpleType>
 					<xs:list itemType="AccommodationSeniorFacilitiesEnum"/>
 				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AccomodationTargetgroup" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_211">Angebote für bestimmte Zielgruppen</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_211">Offers for special target groups</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:list itemType="AccommodationTargetgroupEnum"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AccommodationInternetAccess" type="AccommodationInternetAccessType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_211">Internetangebot im Hotel</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_211">Accessing internet in accommodation/hotel</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:group>
@@ -3055,6 +3111,12 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="AppliedChildren"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="ShortServiceAnnotationType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
@@ -3180,6 +3242,10 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="Iron"/>
 			<xs:enumeration value="PetsAllowed"/>
 			<xs:enumeration value="PetsProhibited"/>
+			<xs:enumeration value="Minibar"/>
+			<xs:enumeration value="CityView"/>
+			<xs:enumeration value="MountainView"/>
+			<xs:enumeration value="InnercourtView"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AccommodationTypeEnum">
@@ -3197,6 +3263,12 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="DetachedHouse"/>
 			<xs:enumeration value="RowHouse"/>
 			<xs:enumeration value="HolidayHome"/>
+			<xs:enumeration value="ElegantAccommodationStyle"/>
+			<xs:enumeration value="BoutiqueAccommodationStyle"/>
+			<xs:enumeration value="DesignAccommodationStyle"/>
+			<xs:enumeration value="HistoricAccommodationStyle"/>
+			<xs:enumeration value="RuralAccommodationStyle"/>
+			<xs:enumeration value="PalaceHotelStyle"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AccommodationGeneralFacilitiesEnum">
@@ -3356,6 +3428,47 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="NearSights"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AccommodationTargetgroupEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GourmetTravelers"/>
+			<xs:enumeration value="Singles"/>
+			<xs:enumeration value="LuxuryTravelers"/>
+			<xs:enumeration value="Families"/>
+			<xs:enumeration value="SeniorTravelers"/>
+			<xs:enumeration value="RomanticCouples"/>
+			<xs:enumeration value="YoungPeople"/>
+			<xs:enumeration value="AdultsOnly"/>
+			<xs:enumeration value="Homosexuals"/>
+			<xs:enumeration value="AccomodationForCityTravelers"/>
+			<xs:enumeration value="AccomodationForCulturalTravelers"/>
+			<xs:enumeration value="AccomodationForNatureTravelers"/>
+			<xs:enumeration value="WellnessTravelers"/>
+			<xs:enumeration value="SportTravelers"/>
+			<xs:enumeration value="ShortstayTravelers"/>
+			<xs:enumeration value="DogOwner"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InternetAccessLocationEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Room"/>
+			<xs:enumeration value="Lobby"/>
+			<xs:enumeration value="Bar"/>
+			<xs:enumeration value="EntireHotel"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InternetAccessChargeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WithCharge"/>
+			<xs:enumeration value="ForFree"/>
+			<xs:enumeration value="NotSpecified"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InternetAccessTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WIFI"/>
+			<xs:enumeration value="ViaCable"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="GeneralIncludedServiceEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Transfer"/>
@@ -3377,6 +3490,9 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="RollService"/>
 			<xs:enumeration value="CleaningService"/>
 			<xs:enumeration value="FinalCleanUp"/>
+			<xs:enumeration value="RailAndFly"/>
+			<xs:enumeration value="SkiLessons"/>
+			<xs:enumeration value="SnowboardLessons "/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UnitBuildingTypeEnum">
@@ -3462,6 +3578,8 @@ The current node and all child elements are deleted.</xs:documentation>
 			<xs:enumeration value="InterceptionInsurance"/>
 			<xs:enumeration value="FamilyInsurance"/>
 			<xs:enumeration value="LuggageInsurance"/>
+			<xs:enumeration value="SportsEquipmentInsurance"/>
+			<xs:enumeration value="TransportInsurance"/>
 			<xs:enumeration value="Other"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -3571,6 +3689,7 @@ The current node and all child elements are deleted.</xs:documentation>
 	<xs:simpleType name="OTDSVersionEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="1.9"/>
+			<xs:enumeration value="1.9.1"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -5437,7 +5556,7 @@ hierbei dessen Include nicht mit berücksichtigt.</xs:documentation>
 	</xs:group>
 	<xs:group name="ConsideredPriceItemsGroup">
 		<xs:choice>
-			<xs:element name="ConsideredPriceItemClasses" maxOccurs="unbounded">
+			<xs:element name="ConsideredPriceItemClasses">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_397">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_397">The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
@@ -5457,7 +5576,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="NotConsideredPriceItemClasses" maxOccurs="unbounded">
+			<xs:element name="NotConsideredPriceItemClasses">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_399">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_399">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
@@ -6105,7 +6224,7 @@ standard usage of "From" is with negative values. From=-x defines all days from 
 It is rare to use a positive value in relation to "From", i.e. "From=x", and it will define all days from the Xth cheapest day.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:group ref="ConsideredPriceItemsGroup">
+			<xs:group ref="ConsideredPriceItemsGroup" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindices herangezogen werden.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
