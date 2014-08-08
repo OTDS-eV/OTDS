@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
-<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:xml="http://www.w3.org/XML/1998/namespace"
-	xmlns:internal="http://otds-group.org/otds/internal"
-	targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<xs:attributeGroup name="ProductComponentGroup">
 		<xs:attribute name="Name" type="NameType">
 			<xs:annotation>
@@ -85,8 +82,7 @@ The default is 0.</xs:documentation>
 			<xs:documentation xml:lang="de" xml:id="de_57">Attributsgruppe zur Steuerung der Reihenfolge der Conditions im Zusammenhang mit der Auswertung Combinatorics</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_57">Attribute group to control the order of Conditions in relation to the Combinatorics analysis</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="ImpactExecutionOrder" type="ExecutionOrderEnum" use="optional"
-			default="BeforeCombinatorics">
+		<xs:attribute name="ImpactExecutionOrder" type="ExecutionOrderEnum" use="optional" default="BeforeCombinatorics">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_58">Dieses Attribut definiert, ob eine Bedingung in
 					die Combinatorics-Auswertung einbezogen wird oder nicht. Beispiel: Bei der
@@ -102,14 +98,12 @@ The default is 0.</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Attributsgruppe zur Steuerung aller Applies wie z.B.: ApplyTo, AppliedBy, etc.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="Component" type="ComponentAttributeType" use="optional"
-			default="ThisComponent">
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional" default="ThisComponent">
 			<xs:annotation>
 				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Per Default sind die Komponenten des PriceItems und die des assozierten PriceItems gleich (ThisComponent). Durch die explizite Angabe einer anderen Komponente ist es aber möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Durch die Integration von Source an dieser Stelle wird die Component zum Auslaufmodel. Component wird nur noch bis zur Version 4.0 unterstützt. </xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="Source" type="SourceAttributeType" use="optional"
-			default="local+Hierarchy.all:ThisComponent">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="local+Hierarchy.all:ThisComponent">
 			<xs:annotation>
 				<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. Um
 					die Kompatibilität zu Version 1.0 zu erhalten, wird der Defaultwert
@@ -133,8 +127,7 @@ The default is 0.</xs:documentation>
 	</xs:complexType>
 	<xs:group name="BookingWithoutNodeGroup">
 		<xs:sequence>
-			<xs:element name="BookingGroup" type="BookingGroupType" minOccurs="0"
-				maxOccurs="unbounded" internal:otdsversion="1.9"/>
+			<xs:element name="BookingGroup" type="BookingGroupType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9"/>
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="BookingType">
@@ -440,8 +433,7 @@ In "BookingReplace" the additional use of "*" (asterisk) is allowed. The asteris
 					<xs:documentation xml:lang="en" xml:id="en_79">The wildcard allows a child element from the Amadeus namespace.</xs:documentation>
 				</xs:annotation>
 			</xs:any>
-			<xs:element name="BookingReplace" type="BookingReplaceType" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="BookingReplace" type="BookingReplaceType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_80">Mit diesem Element können beliebige Buchungsparameter innerhalb eines Buchungscontexts ersetzt werden. Die Verwendung der Attribute erfolgt analog zu den Attributen in BookingParameter. Die Attribute in BookingReplace haben lediglich zusätzlich den Value "*". Stern steht dabei für beliebige Werte. Dadurch kann ein Replace mehrere Instanzen von BookingParameter ersetzen.
 BookingReplace wird vorzugsweise bei der Definition von "Flughüllen"  benutzt.</xs:documentation>
@@ -449,8 +441,7 @@ BookingReplace wird vorzugsweise bei der Definition von "Flughüllen"  benutzt.<
 BookingReplace is preferably used in the definition of "flight cases".</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BookingParameter" type="BookingParameterType" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="BookingParameter" type="BookingParameterType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_81">Mit diesem Element können Buchungsparameter und
 						deren Platzierung innerhalb eines Buchungskontexts definiert werden. Die Art
@@ -583,15 +574,13 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 			</xs:choice>
 			<xs:choice minOccurs="1">
 				<xs:sequence>
-					<xs:element name="MinCount" type="PositiveShort" minOccurs="1"
-						internal:otdsversion="1.9">
+					<xs:element name="MinCount" type="PositiveShort" minOccurs="1" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_93">Mindestanzahl Personen</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_93">Minimum number of persons</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="MaxCount" type="PositiveShort" minOccurs="0"
-						internal:otdsversion="1.9">
+					<xs:element name="MaxCount" type="PositiveShort" minOccurs="0" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_94">Maximale Anzahl Personen</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_94">Maximum number of persons</xs:documentation>
@@ -599,15 +588,13 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 					</xs:element>
 				</xs:sequence>
 				<xs:sequence>
-					<xs:element name="MaxCount" type="PositiveShort" minOccurs="1"
-						internal:otdsversion="1.9">
+					<xs:element name="MaxCount" type="PositiveShort" minOccurs="1" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">Maximale Anzahl Personen</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:element name="Count" type="PositiveShort" minOccurs="1"
-					internal:otdsversion="1.9">
+				<xs:element name="Count" type="PositiveShort" minOccurs="1" internal:otdsversion="1.9">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_95">Genaue Anzahl der Person(en)</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_95">Exact number of person (s)</xs:documentation>
@@ -788,8 +775,7 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 											<xs:documentation xml:lang="en" xml:id="en_105">This element defines a name within the product rules of the filters using the "Source" attribute as the reference.</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
-									<xs:attribute name="ProductType" type="ProductTypeEnum"
-										use="required">
+									<xs:attribute name="ProductType" type="ProductTypeEnum" use="required">
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_106">Über dieses Attribut werden die Produkte referenziert, für die dieses Element steht. Es wird dabei auf das Attribute "ProductType" im Element "Product" verwiesen.</xs:documentation>
 											<xs:documentation xml:lang="en" xml:id="en_106">This attribute references the products that this element stands for. The "ProductType" attribute in the "Product" element is referred to.</xs:documentation>
@@ -827,8 +813,8 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 										<xs:sequence maxOccurs="unbounded">
 											<xs:choice>
 												<xs:element name="Element">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_109">Dieses Element adressiert einen
+													<xs:annotation>
+														<xs:documentation xml:lang="de" xml:id="de_109">Dieses Element adressiert einen
 												bestimmten Parameter innerhalb des
 												Angebotskontextes. Über das Attribut "Source" wird
 												die Unterkomponente adressiert. Der Body dieses
@@ -838,35 +824,34 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 												erfolgt über den in diesem Element festgelegten
 												Parameter. Das bedeutet, für alle Elemente einer
 												Gruppe ist der hier definierte Parameter gleich. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_109">This element addresses a certain parameter within the offer context.
+														<xs:documentation xml:lang="en" xml:id="en_109">This element addresses a certain parameter within the offer context.
 Accommodation components are addressed using the "Source" attribute. The body of this element specifies SourceNodes as the next subordinate nodes beneath the addressed sub-components.
 
 The grouping takes place in the parameter determined in this element. That means that the parameter defined here is the same for all elements of a group.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:simpleContent>
-												<xs:extension base="MatchElementEnum">
-												<xs:attributeGroup ref="ConditionAttributeGroup"/>
-												<xs:attributeGroup ref="SourceAttributeGroup"/>
-												</xs:extension>
-												</xs:simpleContent>
-												</xs:complexType>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:simpleContent>
+															<xs:extension base="MatchElementEnum">
+																<xs:attributeGroup ref="ConditionAttributeGroup"/>
+																<xs:attributeGroup ref="SourceAttributeGroup"/>
+															</xs:extension>
+														</xs:simpleContent>
+													</xs:complexType>
 												</xs:element>
 												<xs:element name="Date">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_110">Die Gruppierung erfolgt über das in
+													<xs:annotation>
+														<xs:documentation xml:lang="de" xml:id="de_110">Die Gruppierung erfolgt über das in
 												den Attributen definierte Datum. Das bedeutet,
 												alle Elemente einer Gruppe haben das gleiche
 												CheckIn- oder Checkoutdatum bezogen auf die durch
 												die Attribute definierte
 												Komponente.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_110">The grouping is done via the date defined in the attributes. That means that all elements of a group have the same check-in or check-out date relating to the components defined by the attributes.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:attribute name="Source"
-												type="SourceAttributeType" default="ThisComponent">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_111">In diesem Attribut wird eine
+														<xs:documentation xml:lang="en" xml:id="en_110">The grouping is done via the date defined in the attributes. That means that all elements of a group have the same check-in or check-out date relating to the components defined by the attributes.</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
+															<xs:annotation>
+																<xs:documentation xml:lang="de" xml:id="de_111">In diesem Attribut wird eine
 												Referenz auf den Context der DayAllocation
 												definiert. Zulässige Werte sind: - Product -
 												Accommodation - ReturnFlight - OnewayFlight -
@@ -878,7 +863,7 @@ The grouping takes place in the parameter determined in this element. That means
 												Source, welches Datum aus welcher Unterkomponente
 												für die Gruppierung verwendet
 												wird.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_111">In this attribute a reference to the
+																<xs:documentation xml:lang="en" xml:id="en_111">In this attribute a reference to the
 												context of the DayAllocation will be defined.
 												Permitted values are: - Product - Accommodation -
 												ReturnFlight - OnewayFlight - Outbound - Inbound -
@@ -889,37 +874,35 @@ The grouping takes place in the parameter determined in this element. That means
 												source defines which date from which sub-component
 												should be used for the
 												grouping.</xs:documentation>
-												</xs:annotation>
-												</xs:attribute>
-												<xs:attribute name="DayType" type="DayTypeEnum"
-												use="required">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_112">Dieses Attribut definiert, ob es
+															</xs:annotation>
+														</xs:attribute>
+														<xs:attribute name="DayType" type="DayTypeEnum" use="required">
+															<xs:annotation>
+																<xs:documentation xml:lang="de" xml:id="de_112">Dieses Attribut definiert, ob es
 												sich bei dem definierten Datum um eine CheckIn-
 												oder CheckOut-Datum handelt. Mögliche Werte sind:
 												- CheckIn - CheckOut</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_112">This attribute defines whether the date defined concerns a CheckIn or CheckOut date.
+																<xs:documentation xml:lang="en" xml:id="en_112">This attribute defines whether the date defined concerns a CheckIn or CheckOut date.
 Possible values are:
 - CheckIn
 - CheckOut</xs:documentation>
-												</xs:annotation>
-												</xs:attribute>
-												</xs:complexType>
+															</xs:annotation>
+														</xs:attribute>
+													</xs:complexType>
 												</xs:element>
 												<xs:element name="Duration">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_113">Die Gruppirung erfolgt über die hier
+													<xs:annotation>
+														<xs:documentation xml:lang="de" xml:id="de_113">Die Gruppirung erfolgt über die hier
 												definierte Duration. Das bedeutet, alle Elemente
 												einer Gruppe haben die gleiche Duration bezogen
 												auf die durch Source definierte
 												Komponente.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_113">The grouping takes place via the Duration defined here. That means that all elements in a group have the same duration, in terms of the components defined through the source.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:attribute name="Source"
-												type="SourceAttributeType" default="ThisComponent">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_114">In diesem Attribut wird eine
+														<xs:documentation xml:lang="en" xml:id="en_113">The grouping takes place via the Duration defined here. That means that all elements in a group have the same duration, in terms of the components defined through the source.</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
+															<xs:annotation>
+																<xs:documentation xml:lang="de" xml:id="de_114">In diesem Attribut wird eine
 												Referenz auf den Context der DayAllocation
 												definiert. Zulässige Werte sind: - Product -
 												Accommodation - ReturnFlight - OnewayFlight -
@@ -928,7 +911,7 @@ Possible values are:
 												Namensreferenzen erlaubt. Siehe Dazu auch in der
 												Thematischen Dokumentation die Kapitel zum
 												Source-Attribut. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_114">A reference to the context of the
+																<xs:documentation xml:lang="en" xml:id="en_114">A reference to the context of the
 												DayAllocation will also be defined in this
 												attribute. Permitted values are: - Product -
 												Accommodation - ReturnFlight - OnewayFlight -
@@ -937,20 +920,20 @@ Possible values are:
 												are also allowed. For further information, see the
 												Source Attribute chapter of the Thematic
 												Documentation.</xs:documentation>
-												</xs:annotation>
-												</xs:attribute>
-												</xs:complexType>
+															</xs:annotation>
+														</xs:attribute>
+													</xs:complexType>
 												</xs:element>
 												<xs:element name="Tag" type="EmptyTagConditionType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_115">Dieses Element adressiert ein
+													<xs:annotation>
+														<xs:documentation xml:lang="de" xml:id="de_115">Dieses Element adressiert ein
 												bestimmtes Tag innerhalb des Angebotskontextes.
 												Die Gruppierung erfolgt über das hier
 												referenzierte Tag. Das bedeutet, alle Elemente
 												einer Gruppe haben den gleichen
 												Tag-Value.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_115">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a group have the same tag value.</xs:documentation>
-												</xs:annotation>
+														<xs:documentation xml:lang="en" xml:id="en_115">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a group have the same tag value.</xs:documentation>
+													</xs:annotation>
 												</xs:element>
 											</xs:choice>
 										</xs:sequence>
@@ -971,14 +954,14 @@ Possible values are:
 										<xs:sequence>
 											<xs:element name="Sort" maxOccurs="unbounded">
 												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_117">Jedes Sort Element enthält eine Anzahl von Kriterien, nach denen aufwärts oder abwärts sortiert werden soll. Es wird zuerst nach dem ersten Sort-Element sortiert, danach bei Gleichheit nach dem nächsten Sort-Element. Das Attribut "Order" gibt an, ob aufwärts oder abwärts sortiert werden soll. Mit "Add" und "Average" können einzelne Sortierkriterien auch vor der Sortierung zusammengefasst werden.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_117">Each Sort element contains a number of criteria by which you can sort in ascending or descending order. First of all it will be sorted by the first Sort element, then by the next element if the first element is the same value. The "Order" attribute indicates whether the elements are to be sorted in ascending or descending order. With "Add" and "Average" individual sort criteria can also be added before the sorting takes place.</xs:documentation>
+													<xs:documentation xml:lang="de" xml:id="de_117">Jedes Sort Element enthält eine Anzahl von Kriterien, nach denen aufwärts oder abwärts sortiert werden soll. Es wird zuerst nach dem ersten Sort-Element sortiert, danach bei Gleichheit nach dem nächsten Sort-Element. Das Attribut "Order" gibt an, ob aufwärts oder abwärts sortiert werden soll. Mit "Add" und "Average" können einzelne Sortierkriterien auch vor der Sortierung zusammengefasst werden.</xs:documentation>
+													<xs:documentation xml:lang="en" xml:id="en_117">Each Sort element contains a number of criteria by which you can sort in ascending or descending order. First of all it will be sorted by the first Sort element, then by the next element if the first element is the same value. The "Order" attribute indicates whether the elements are to be sorted in ascending or descending order. With "Add" and "Average" individual sort criteria can also be added before the sorting takes place.</xs:documentation>
 												</xs:annotation>
 												<xs:complexType>
-												<xs:choice>
-												<xs:element name="Sum">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_121">In diesem Element können mehrere
+													<xs:choice>
+														<xs:element name="Sum">
+															<xs:annotation>
+																<xs:documentation xml:lang="de" xml:id="de_121">In diesem Element können mehrere
 												Elemente zu einer Summe zusammengeführt werden.
 												Die Elemente müssen dabei zueinander passen. Das
 												heißt, das Element 'Price' kann immer nur mit Tags
@@ -990,16 +973,16 @@ Possible values are:
 												Elemente oder Tags, die nicht zum geforderten
 												TagType passen, so werden diese in die Summe mit
 												dem Wert 0 integriert.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_121">In this element, a number of elements are combined to form a sum.
+																<xs:documentation xml:lang="en" xml:id="en_121">In this element, a number of elements are combined to form a sum.
 The elements must be compatible. That is, the element 'Price' can only occur within the "Price" tag types. And tags which = "Numeric" can only occur with other tags of the "Numeric" tag type.
 With the first child element (according to XML order) the "Sum" element determines the required tag type. Elements or tags that do not match the required tag type, will be integrated into the sum with the value 0.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence maxOccurs="unbounded">
-												<xs:choice>
-												<xs:element name="Price" type="SortPriceType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_122">Dieses Element referenziert eine
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence maxOccurs="unbounded">
+																	<xs:choice>
+																		<xs:element name="Price" type="SortPriceType">
+																			<xs:annotation>
+																				<xs:documentation xml:lang="de" xml:id="de_122">Dieses Element referenziert eine
 												Menge von PriceItems. Zur Berechnung der Summe,
 												die zur Sortierung benutzt wird, werden nur die
 												PriceItems herangezogen, die bezogen auf die
@@ -1013,7 +996,7 @@ With the first child element (according to XML order) the "Sum" element determin
 												Descendants und Ancestors referenzieren kann.
 												Schauen Sie dazu in die Doku unter dem Begriff
 												"Source-Hierarchy".</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_122">This element defines a number of
+																				<xs:documentation xml:lang="en" xml:id="en_122">This element defines a number of
 												PriceItems. For the calculation of the sum, which
 												is used for sorting only PriceItems attached to an
 												ancestor node or descendant node within the
@@ -1025,27 +1008,26 @@ With the first child element (according to XML order) the "Sum" element determin
 												and ancestors has been introduced. For more
 												details please refer to the documentation and look
 												for "Source-Hierarchy".</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="Tag"
-												type="EmptyTagConditionType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_123">Dieses Element referenziert ein
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="Tag" type="EmptyTagConditionType">
+																			<xs:annotation>
+																				<xs:documentation xml:lang="de" xml:id="de_123">Dieses Element referenziert ein
 												Tag oder eine Menge von Tags, welche zur Sortierung herangezogen werden und Bestandteil
 												einer Summenbildung sind. In der Summe sind nur	Tags der Typen Numeric oder Price erlaubt.
 												String-Tags führen zu ungültigen Ergebnissen der Summe. Die Attribute des Tags definieren, welche
 												Tags im XML-Baum referenziert wird. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_123">This element defines a tag or several tags, which is used for sorting and forms a component of a sum.
+																				<xs:documentation xml:lang="en" xml:id="en_123">This element defines a tag or several tags, which is used for sorting and forms a component of a sum.
 Within the sum only the tags Numeric or Price are permitted. String-tags lead to invalid results of the sum. The attributes of the tag define which tag in the XML tree is referenced.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												</xs:choice>
-												</xs:sequence>
-												</xs:complexType>
-												</xs:element>
-												<xs:element name="Connect">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_125">Dieses Element definiert, dass
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:choice>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="Connect">
+															<xs:annotation>
+																<xs:documentation xml:lang="de" xml:id="de_125">Dieses Element definiert, dass
 												mehrere Tags des TagTypes ="String" zu einem
 												String zusammengeführt werden und dann eine
 												lexikalische Sortierung nach diesem String
@@ -1064,82 +1046,82 @@ Within the sum only the tags Numeric or Price are permitted. String-tags lead to
 												Sortierung folgt den ASCII-Values der Zeichen und
 												entspricht damit folgender aufsteigenden Liste: -
 												. 0 1 2 3 usw. A B C usw. _ a b c usw. | ~ </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_125">This element defines that multiple tags of the tag type = "String" will merge into a single string and then be sorted lexically. All elements must have the tag type ="String".
+																<xs:documentation xml:lang="en" xml:id="en_125">This element defines that multiple tags of the tag type = "String" will merge into a single string and then be sorted lexically. All elements must have the tag type ="String".
 The values ​​of the referenced tags are combined in the "Connect" element and listed in XML order. If the tag is not of the "String" tag type it will inserted into the string with the value "" (empty string).
 The following definition established in OTDS for character string sorting applies:
 Character strings are generally sorted character by character, beginning with the character on the left, whereby the first character has the highest priority. The sorting follows the ASCII values of characters and corresponds to the following list in ascending order:
 - . 0 1 2 3 etc. A B C etc. _ a b c etc. | ~</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence maxOccurs="unbounded">
-												<xs:element name="Tag">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_126">Dieses Element definiert ein Tag,
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence maxOccurs="unbounded">
+																	<xs:element name="Tag">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="de" xml:id="de_126">Dieses Element definiert ein Tag,
 												welches zur Sortierung herangezogen wird und
 												Bestandteil einer zusammengesetzten Zeichenkette
 												ist. Die Attribute des Tags definieren, welches
 												Tag im XML-Baum referenziert wird. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_126">This element defines a tag which is used for sorting and is component of a composite character string.
+																			<xs:documentation xml:lang="en" xml:id="en_126">This element defines a tag which is used for sorting and is component of a composite character string.
 The attributes of the tag define which tag in the XML tree is referenced.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:complexContent>
-												<xs:extension base="EmptyTagConditionType">
-												<xs:attribute name="Padding" default=" ">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-												<xs:documentation xml:lang="en">Padding - Determines the character with which
+																		</xs:annotation>
+																		<xs:complexType>
+																			<xs:complexContent>
+																				<xs:extension base="EmptyTagConditionType">
+																					<xs:attribute name="Padding" default=" ">
+																						<xs:annotation>
+																							<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																							<xs:documentation xml:lang="en">Padding - Determines the character with which
 												the tag's single value before the Connection is
 												filled up. The default is a
 												space.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:string">
-												<xs:maxLength value="1"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:attribute>
-												<xs:attribute name="PadLength" default="0">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-												<xs:documentation xml:lang="en">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:integer"/>
-												</xs:simpleType>
-												</xs:attribute>
-												</xs:extension>
-												</xs:complexContent>
-												</xs:complexType>
-												</xs:element>
-												</xs:sequence>
-												<xs:attribute name="Padding" default=" ">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-												<xs:documentation xml:lang="en">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:string">
-												<xs:maxLength value="1"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:attribute>
-												<xs:attribute name="PadLength" default="0">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-												<xs:documentation xml:lang="en">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:integer">
-												<xs:minInclusive value="0"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:attribute>
-												</xs:complexType>
-												</xs:element>
-												<xs:element name="Average">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_128">Dieses Element definiert, dass
+																						</xs:annotation>
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:maxLength value="1"/>
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="PadLength" default="0">
+																						<xs:annotation>
+																							<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																							<xs:documentation xml:lang="en">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																						</xs:annotation>
+																						<xs:simpleType>
+																							<xs:restriction base="xs:integer"/>
+																						</xs:simpleType>
+																					</xs:attribute>
+																				</xs:extension>
+																			</xs:complexContent>
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+																<xs:attribute name="Padding" default=" ">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																		<xs:documentation xml:lang="en">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:maxLength value="1"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:attribute>
+																<xs:attribute name="PadLength" default="0">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																		<xs:documentation xml:lang="en">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:integer">
+																			<xs:minInclusive value="0"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:attribute>
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="Average">
+															<xs:annotation>
+																<xs:documentation xml:lang="de" xml:id="de_128">Dieses Element definiert, dass
 												zwischen den Values der referenzierten Tags und
 												ggf. einem Preis ein Mittelwert ermittelt wird und
 												der so entstehende Mittelwert zur Sortierung
@@ -1156,7 +1138,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												einbezogen. In der Umsetzung reicht nicht, dass
 												der Wert = 0 gesetzt wird, da ansonsten der
 												Mittelwert beeinflusst wird.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_128">This element defines that a mean
+																<xs:documentation xml:lang="en" xml:id="en_128">This element defines that a mean
 												value is determined within the values of the tags
 												referenced, and if necessary also the prices, and
 												the resulting mean value is to be used for
@@ -1171,14 +1153,14 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												included in the calculation of the mean value. The
 												value cannot be set to 0 as this will affect the
 												calculation of the mean value.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence maxOccurs="unbounded">
-												<xs:choice>
-												<xs:element name="Price" type="SortPriceType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_129">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist.  Zur Berechnung des Sortierungspreises werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_129">This element defines a tag which
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence maxOccurs="unbounded">
+																	<xs:choice>
+																		<xs:element name="Price" type="SortPriceType">
+																			<xs:annotation>
+																				<xs:documentation xml:lang="de" xml:id="de_129">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist.  Zur Berechnung des Sortierungspreises werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind.</xs:documentation>
+																				<xs:documentation xml:lang="en" xml:id="en_129">This element defines a tag which
 												is used for sorting and is a component in the
 												formation of a mean value. To calculate the
 												sorting price, only PriceItems attached to an
@@ -1186,35 +1168,33 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												GroupDefinition list, and those valid for the
 												offer currently being viewed, are
 												used.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="Tag"
-												type="EmptyTagConditionType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_130">Dieses Element definiert ein
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="Tag" type="EmptyTagConditionType">
+																			<xs:annotation>
+																				<xs:documentation xml:lang="de" xml:id="de_130">Dieses Element definiert ein
 												Tag, welches zur Sortierung herangezogen wird und
 												Bestandteil einer Mittelwertbildung ist. Die
 												Attribute des Tags definieren, welches Tag im
 												XML-Baum referenziert wird. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_130">This element defines a tag that
+																				<xs:documentation xml:lang="en" xml:id="en_130">This element defines a tag that
 												is used for sorting and is a component in the
 												formation of an mean value. The attributes of the
 												tag define which tag in the XML tree is
 												referenced.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												</xs:choice>
-												</xs:sequence>
-												</xs:complexType>
-												</xs:element>
-												</xs:choice>
-												<xs:attribute name="Order" type="OrderEnum"
-												default="Ascending">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_132">Dieses Attribut gibt an, ob ein Sort-Element aufsteigend  oder absteigend sortiert werden soll.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_132">This attribute specifies whether a sort element is to be sorted in ascending or descending order.</xs:documentation>
-												</xs:annotation>
-												</xs:attribute>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:choice>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:choice>
+													<xs:attribute name="Order" type="OrderEnum" default="Ascending">
+														<xs:annotation>
+															<xs:documentation xml:lang="de" xml:id="de_132">Dieses Attribut gibt an, ob ein Sort-Element aufsteigend  oder absteigend sortiert werden soll.</xs:documentation>
+															<xs:documentation xml:lang="en" xml:id="en_132">This attribute specifies whether a sort element is to be sorted in ascending or descending order.</xs:documentation>
+														</xs:annotation>
+													</xs:attribute>
 												</xs:complexType>
 											</xs:element>
 										</xs:sequence>
@@ -1293,25 +1273,25 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 										<xs:complexType>
 											<xs:sequence>
 												<xs:element name="Sequence">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_116">Unter diesem Element wird die
+													<xs:annotation>
+														<xs:documentation xml:lang="de" xml:id="det_116">Unter diesem Element wird die
 												Reihenfolge der einzelnen Elemente der Gruppe definiert. Die Reihenfolge der Sort-Elemente im
 												XML geben auch die Rangfolge der Abarbeitung der Sortierkriterien an. So kann man nach mehreren
 												Kriterien nacheinander aufwärts oder abwärts sortieren, wie man es zum Beispiel aus MS-Excel kennt.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_116">The order of individual elements in a group is defined under this element. The order of the sort elements in the XML also indicates the processing rank order of the sort criteria. They can be filtered in ascending or descending order by various criteria, as you may already know from Microsoft Excel.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence>
-												<xs:element name="Sort" maxOccurs="unbounded">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_117">Jedes Sort Element enthält eine Anzahl von Kriterien, nach denen aufwärts oder abwärts sortiert werden soll. Es wird zuerst nach dem ersten Sort-Element sortiert, danach bei Gleichheit nach dem nächsten Sort-Element. Das Attribut "Order" gibt an, ob aufwärts oder abwärts sortiert werden soll. Mit "Sum" und "Average" können einzelne Sortierkriterien auch vor der Sortierung zusammengefasst werden.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_117">Each Sort element contains a number of criteria by which you can sort in ascending or descending order. First of all it will be sorted by the first Sort element, then by the next element if the first element is the same value. The "Order" attribute indicates whether the elements are to be sorted in ascending or descending order. With "Add" and "Average" individual sort criteria can also be added before the sorting takes place.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:choice>
-												<xs:element name="Sum" internal:otdsversion="1.9">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_121">In diesem Element können
+														<xs:documentation xml:lang="en" xml:id="en_116">The order of individual elements in a group is defined under this element. The order of the sort elements in the XML also indicates the processing rank order of the sort criteria. They can be filtered in ascending or descending order by various criteria, as you may already know from Microsoft Excel.</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Sort" maxOccurs="unbounded">
+																<xs:annotation>
+																	<xs:documentation xml:lang="de" xml:id="det_117">Jedes Sort Element enthält eine Anzahl von Kriterien, nach denen aufwärts oder abwärts sortiert werden soll. Es wird zuerst nach dem ersten Sort-Element sortiert, danach bei Gleichheit nach dem nächsten Sort-Element. Das Attribut "Order" gibt an, ob aufwärts oder abwärts sortiert werden soll. Mit "Sum" und "Average" können einzelne Sortierkriterien auch vor der Sortierung zusammengefasst werden.</xs:documentation>
+																	<xs:documentation xml:lang="en" xml:id="en_117">Each Sort element contains a number of criteria by which you can sort in ascending or descending order. First of all it will be sorted by the first Sort element, then by the next element if the first element is the same value. The "Order" attribute indicates whether the elements are to be sorted in ascending or descending order. With "Add" and "Average" individual sort criteria can also be added before the sorting takes place.</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:choice>
+																		<xs:element name="Sum" internal:otdsversion="1.9">
+																			<xs:annotation>
+																				<xs:documentation xml:lang="de" xml:id="det_121">In diesem Element können
 												mehrere Elemente zu einer Summe zusammengeführt
 												werden. Die Elemente müssen dabei zueinander
 												passen. Dass heißt, das Element 'Price' kann immer
@@ -1323,7 +1303,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												Elemente oder Tags, die nicht zum geforderten
 												TagType passen, so werden diese in die Summe mit
 												dem Wert 0 integriert.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_121">In this element, a number of
+																				<xs:documentation xml:lang="en" xml:id="en_121">In this element, a number of
 												elements are combined to form a sum. The elements
 												must be compatible. That is, the element 'Price'
 												can only occur within the "Price" tag types. And
@@ -1334,30 +1314,29 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												type. Elements or tags that do not match the
 												required tag type, will be integrated into the sum
 												with the value 0.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence maxOccurs="unbounded">
-												<xs:choice>
-												<xs:element name="Price" type="SortPriceType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_122">Dieses Element referenziert
+																			</xs:annotation>
+																			<xs:complexType>
+																				<xs:sequence maxOccurs="unbounded">
+																					<xs:choice>
+																						<xs:element name="Price" type="SortPriceType">
+																							<xs:annotation>
+																								<xs:documentation xml:lang="de" xml:id="det_122">Dieses Element referenziert
 												eine Menge von PriceItems. Zur Berechnung der Summe, die zur Sortierung benutzt wird, werden nur
 												die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem
 												Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot
 												gültig sind. Über die Source kann die Verwendung von PriceItems auf bestimmte Komponenten oder
 												SubKomponenten eingeschränkt werden. Dazu wurde extra eingeführt, dass die Source auch Descendants
 												und Ancistors referenzieren kann. Schauen Sie dazu in der Doku unter dem Begriff "Source-Hierarchy".</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_122">This element defines a number of PriceItems. 
+																								<xs:documentation xml:lang="en" xml:id="en_122">This element defines a number of PriceItems. 
 												For the calculation of the sum, which is used for sorting only PriceItems attached to an ancestor node or descendant node within the 
 												GroupDefinition list, and those valid for the offer currently being viewed, are used. Via Source the use of PriceItems can be limited 
 												for specific Components or SubComponents. For doing so the possibility for Source to reference descendants and ancestors has been introduced. 
 												For more details please refer to the documentation and look for "Source-Hierarchy".</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="Tag"
-												type="EmptyTagConditionType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_123">Dieses Element referenziert
+																							</xs:annotation>
+																						</xs:element>
+																						<xs:element name="Tag" type="EmptyTagConditionType">
+																							<xs:annotation>
+																								<xs:documentation xml:lang="de" xml:id="det_123">Dieses Element referenziert
 												ein Tag oder eine Menge von Tags, welche zur
 												Sortierung herangezogen werden und Bestandteil
 												einer Summenbildung sind. In der Summe sind nur
@@ -1365,23 +1344,22 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												String-Tags führen zu ungültigen Ergebnissen der
 												Summe. Die Attribute des Tags definieren, welche
 												Tags im XML-Baum referenziert werden. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_123">This element defines a tag
+																								<xs:documentation xml:lang="en" xml:id="en_123">This element defines a tag
 												or several tags, which is used for sorting and
 												forms a component of a sum. Within the sum only
 												the tags Numeric or Price are permitted.
 												String-tags lead to invalid results of the sum.
 												The attributes of the tag define which tags in the
 												XML tree are referenced.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												</xs:choice>
-												</xs:sequence>
-												</xs:complexType>
-												</xs:element>
-												<xs:element name="Concatenate"
-												internal:otdsversion="1.9">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_125">Dieses Element definiert, dass
+																							</xs:annotation>
+																						</xs:element>
+																					</xs:choice>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																		<xs:element name="Concatenate" internal:otdsversion="1.9">
+																			<xs:annotation>
+																				<xs:documentation xml:lang="de" xml:id="det_125">Dieses Element definiert, dass
 												mehrere Tags des TagTypes ="String" zu einem
 												String zusammengeführt werden und dann eine
 												lexikalische Sortierung nach diesem String
@@ -1405,7 +1383,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												entspricht damit folgender aufsteigenden Liste: -
 												. 0 1 2 3 usw. A B C usw. _ a b c usw. |
 												~</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_125">This element defines that
+																				<xs:documentation xml:lang="en" xml:id="en_125">This element defines that
 												multiple tags of the tag type = "String" will
 												merge into a single string and then be sorted
 												lexically. All elements must have the tag type
@@ -1427,74 +1405,73 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												following list in ascending order: - . 0 1 2 3
 												etc. A B C etc. _ a b c etc. |
 												~</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence maxOccurs="unbounded">
-												<xs:element name="Tag">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="det_126">Dieses Element definiert ein
+																			</xs:annotation>
+																			<xs:complexType>
+																				<xs:sequence maxOccurs="unbounded">
+																					<xs:element name="Tag">
+																						<xs:annotation>
+																							<xs:documentation xml:lang="de" xml:id="det_126">Dieses Element definiert ein
 												Tag, welches zur Sortierung herangezogen wird und
 												Bestandteil einer zusammengesetzten Zeichenkette
 												ist. Die Attribute des Tags definieren, welches
 												Tag im XML-Baum referenziert wird. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_126">This element defines a tag which is used for sorting and is component of a composed character string. The attributes of the tag define which tag in the XML tree is referenced.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:complexContent>
-												<xs:extension base="EmptyTagConditionType">
-												<xs:attribute name="Padding" default=" ">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-												<xs:documentation xml:lang="en">Padding - Determines the character with which the tag's single value before the Connection is filled up. Default is a space.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:string">
-												<xs:maxLength value="1"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:attribute>
-												<xs:attribute name="PadLength" default="0">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-												<xs:documentation xml:lang="en">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:integer"/>
-												</xs:simpleType>
-												</xs:attribute>
-												</xs:extension>
-												</xs:complexContent>
-												</xs:complexType>
-												</xs:element>
-												</xs:sequence>
-												<xs:attribute name="Padding" default=" ">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-												<xs:documentation xml:lang="en">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:string">
-												<xs:maxLength value="1"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:attribute>
-												<xs:attribute name="PadLength" default="0">
-												<xs:annotation>
-												<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-												<xs:documentation xml:lang="en">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:integer">
-												<xs:minInclusive value="0"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:attribute>
-												</xs:complexType>
-												</xs:element>
-												<xs:element name="Average"
-												internal:otdsversion="1.9">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_128">Dieses Element definiert, dass
+																							<xs:documentation xml:lang="en" xml:id="en_126">This element defines a tag which is used for sorting and is component of a composed character string. The attributes of the tag define which tag in the XML tree is referenced.</xs:documentation>
+																						</xs:annotation>
+																						<xs:complexType>
+																							<xs:complexContent>
+																								<xs:extension base="EmptyTagConditionType">
+																									<xs:attribute name="Padding" default=" ">
+																										<xs:annotation>
+																											<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																											<xs:documentation xml:lang="en">Padding - Determines the character with which the tag's single value before the Connection is filled up. Default is a space.</xs:documentation>
+																										</xs:annotation>
+																										<xs:simpleType>
+																											<xs:restriction base="xs:string">
+																												<xs:maxLength value="1"/>
+																											</xs:restriction>
+																										</xs:simpleType>
+																									</xs:attribute>
+																									<xs:attribute name="PadLength" default="0">
+																										<xs:annotation>
+																											<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																											<xs:documentation xml:lang="en">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																										</xs:annotation>
+																										<xs:simpleType>
+																											<xs:restriction base="xs:integer"/>
+																										</xs:simpleType>
+																									</xs:attribute>
+																								</xs:extension>
+																							</xs:complexContent>
+																						</xs:complexType>
+																					</xs:element>
+																				</xs:sequence>
+																				<xs:attribute name="Padding" default=" ">
+																					<xs:annotation>
+																						<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																						<xs:documentation xml:lang="en">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
+																					</xs:annotation>
+																					<xs:simpleType>
+																						<xs:restriction base="xs:string">
+																							<xs:maxLength value="1"/>
+																						</xs:restriction>
+																					</xs:simpleType>
+																				</xs:attribute>
+																				<xs:attribute name="PadLength" default="0">
+																					<xs:annotation>
+																						<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																						<xs:documentation xml:lang="en">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																					</xs:annotation>
+																					<xs:simpleType>
+																						<xs:restriction base="xs:integer">
+																							<xs:minInclusive value="0"/>
+																						</xs:restriction>
+																					</xs:simpleType>
+																				</xs:attribute>
+																			</xs:complexType>
+																		</xs:element>
+																		<xs:element name="Average" internal:otdsversion="1.9">
+																			<xs:annotation>
+																				<xs:documentation xml:lang="de" xml:id="de_128">Dieses Element definiert, dass
 												zwischen den Values der referenzierten Tags und
 												ggf. einem Preis ein Mittelwert ermittelt wird und
 												der so entstehende Mittelwert zur Sortierung
@@ -1511,7 +1488,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												einbezogen. In der Umsetzung reicht nicht, dass
 												der Wert = 0 gesetzt wird, da ansonsten der
 												Mittelwert beeinflusst wird.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_128">This element defines that a mean
+																				<xs:documentation xml:lang="en" xml:id="en_128">This element defines that a mean
 												value is determined within the values of the tags
 												referenced, and if necessary also the prices, and
 												the resulting mean value is to be used for
@@ -1526,44 +1503,42 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												included in the calculation of the mean value. The
 												value cannot be set to 0 as this will affect the
 												calculation of the mean value.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence maxOccurs="unbounded">
-												<xs:choice>
-												<xs:element name="Price" type="SortPriceType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_129">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. Zur Berechnung des Sortierungspreises werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_129">This element defines a tag which is used for sorting and is a component in the formation of a mean value. To calculate the sorting price, only PriceItems attached to an ancestor node or descendant node within the GroupDefinition list, and those valid for the offer currently being viewed, are used.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="Tag"
-												type="EmptyTagConditionType">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_130">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. 
+																			</xs:annotation>
+																			<xs:complexType>
+																				<xs:sequence maxOccurs="unbounded">
+																					<xs:choice>
+																						<xs:element name="Price" type="SortPriceType">
+																							<xs:annotation>
+																								<xs:documentation xml:lang="de" xml:id="de_129">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. Zur Berechnung des Sortierungspreises werden nur die PriceItems herangezogen, die bezogen auf die Platzierung der GroupDefinition an einem Ancestor-Knoten oder einem Descendant-Knoten hängen und für das gerade betrachtete Angebot gültig sind.</xs:documentation>
+																								<xs:documentation xml:lang="en" xml:id="en_129">This element defines a tag which is used for sorting and is a component in the formation of a mean value. To calculate the sorting price, only PriceItems attached to an ancestor node or descendant node within the GroupDefinition list, and those valid for the offer currently being viewed, are used.</xs:documentation>
+																							</xs:annotation>
+																						</xs:element>
+																						<xs:element name="Tag" type="EmptyTagConditionType">
+																							<xs:annotation>
+																								<xs:documentation xml:lang="de" xml:id="de_130">Dieses Element definiert ein Tag, welches zur Sortierung herangezogen wird und Bestandteil einer Mittelwertbildung ist. 
 		Die Attribute des Tags definieren, welches Tag im XML-Baum referenziert wird. </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_130">This element defines a tag
+																								<xs:documentation xml:lang="en" xml:id="en_130">This element defines a tag
 												which is used for sorting and is component of
 												building a mean value. The attributes of the tag
 												define which tag in the XML tree is
 												referenced.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												</xs:choice>
-												</xs:sequence>
-												</xs:complexType>
-												</xs:element>
-												</xs:choice>
-												<xs:attribute name="Order" type="OrderEnum"
-												default="Ascending">
-												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_132">Dieses Attribut gibt an, ob ein Sort-Element aufsteigend  oder absteigend sortiert werden soll.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_132">This attribute specifies whether a sort element is to be sorted in ascending or descending order.</xs:documentation>
-												</xs:annotation>
-												</xs:attribute>
-												</xs:complexType>
-												</xs:element>
-												</xs:sequence>
-												</xs:complexType>
+																							</xs:annotation>
+																						</xs:element>
+																					</xs:choice>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:choice>
+																	<xs:attribute name="Order" type="OrderEnum" default="Ascending">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="de" xml:id="de_132">Dieses Attribut gibt an, ob ein Sort-Element aufsteigend  oder absteigend sortiert werden soll.</xs:documentation>
+																			<xs:documentation xml:lang="en" xml:id="en_132">This attribute specifies whether a sort element is to be sorted in ascending or descending order.</xs:documentation>
+																		</xs:annotation>
+																	</xs:attribute>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
 												</xs:element>
 											</xs:sequence>
 										</xs:complexType>
@@ -1628,8 +1603,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 	</xs:group>
 	<xs:complexType name="SortPriceType">
 		<xs:sequence>
-			<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType"
-				maxOccurs="unbounded">
+			<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems
 						eines bestimmten Types und/oder mit bestimmten PriceTags. Die Auswahl
@@ -1730,8 +1704,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:any namespace="##other" processContents="lax" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_140">An dieser Stelle können beliebige Elemente und Strukturen aus Namespaces zu Eigenschaften integriert werden. Hier sollten nur Namespaces verwendet werden, die OTDS nicht bekannt sind. Die Auswertung der integrierten Elemente ist nur in Absprache mit dem Datenlieferanten vorgesehen und erlaubt eine individuelle Interpretation von individuellen Inhalten. Eine Validierung aller Elemente unterhalb dieses Knotens ist im Rahmen von OTDS nicht vorgesehen. </xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_140">At this point, any structures and elements from Namespaces are integrated into properties. Only Namespaces may be used here that are not known to OTDS. The evaluation of the integrated elements is only in agreement with the data suppliers and allows for individual interpretation of individual content. A validation of all elements below this node is not provided in the context of OTDS.</xs:documentation>
@@ -1779,8 +1752,7 @@ etc.
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="RailwayStation" type="RailwayStationType" minOccurs="0"
-							maxOccurs="unbounded"/>
+						<xs:element name="RailwayStation" type="RailwayStationType" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -1883,23 +1855,16 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:choice>
 						<xs:element name="Insurance" type="InsuranceEnum" minOccurs="0" internal:otdsversion="1.9"/>
 						<xs:element name="CarRental" type="CarRentalEnum" minOccurs="0"/>
-						<xs:element name="WellnessArrangement" type="WellnessArrangementEnum"
-							minOccurs="0"/>
-						<xs:element name="SportsArrangement" type="SportsArrangementEnum"
-							minOccurs="0"/>
-						<xs:element name="TransferArrangement" type="TransferArrangementEnum"
-							minOccurs="0"/>
+						<xs:element name="WellnessArrangement" type="WellnessArrangementEnum" minOccurs="0"/>
+						<xs:element name="SportsArrangement" type="SportsArrangementEnum" minOccurs="0"/>
+						<xs:element name="TransferArrangement" type="TransferArrangementEnum" minOccurs="0"/>
 						<xs:element name="GolfArrangement" type="GolfArrangementEnum" minOccurs="0"/>
-						<xs:element name="DivingArrangement" type="DivingArrangementEnum"
-							minOccurs="0"/>
+						<xs:element name="DivingArrangement" type="DivingArrangementEnum" minOccurs="0"/>
 						<xs:element name="TourArrangement" type="TourArrangementEnum" minOccurs="0"/>
-						<xs:element name="HotelArrangement" type="HotelArrangementEnum"
-							minOccurs="0"/>
+						<xs:element name="HotelArrangement" type="HotelArrangementEnum" minOccurs="0"/>
 						<xs:element name="CityArrangement" type="CityArrangementEnum" minOccurs="0"/>
-						<xs:element name="BoardArrangement" type="BoardArrangementEnum"
-							minOccurs="0"/>
-						<xs:element name="FlightSeatArrangement" type="FlightSeatArrangementEnum"
-							minOccurs="0"/>
+						<xs:element name="BoardArrangement" type="BoardArrangementEnum" minOccurs="0"/>
+						<xs:element name="FlightSeatArrangement" type="FlightSeatArrangementEnum" minOccurs="0"/>
 					</xs:choice>
 				</xs:complexType>
 			</xs:element>
@@ -1923,8 +1888,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="RailwayStation" type="RailwayStationType" minOccurs="0"
-							maxOccurs="unbounded"/>
+						<xs:element name="RailwayStation" type="RailwayStationType" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -1948,7 +1912,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="GeneralExcludedServices" minOccurs="0"  internal:otdsversion="1.9">
+			<xs:element name="GeneralExcludedServices" minOccurs="0" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_158">Zusatzleistungen, die zusätzliche Kosten vor
 						Ort verursachen. Einige Zusatzleistungen sind Bestandteil des Angebots und
@@ -1997,8 +1961,7 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="FlightRoute" type="RouteType" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:element name="FlightRoute" type="RouteType" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="det_162"/>
 							</xs:annotation>
@@ -2006,8 +1969,7 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="FlightBookingClassType" type="FlightBookingClassTypeEnum"
-				minOccurs="0">
+			<xs:element name="FlightBookingClassType" type="FlightBookingClassTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_163">Spezifierung der Buchungsklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_163">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
@@ -2066,8 +2028,7 @@ Here, for example, the distance to the beach or the number of bedrooms can be sp
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Figure" type="FigureType" minOccurs="0"
-							maxOccurs="unbounded">
+						<xs:element name="Figure" type="FigureType" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_169">Das Element Figure beinhaltet alle
 									Eigenschaften, die zusammen mit einer Wertangabe eine Komponente
@@ -2356,15 +2317,13 @@ DE Germany</xs:documentation>
 				operator category).</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="AccommodationOfficialCategory" type="AccommodationCategory"
-				minOccurs="0">
+			<xs:element name="AccommodationOfficialCategory" type="AccommodationCategory" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_202">Offizielle Kategorie der Unterkunft</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_202">Official category of the accommodation</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AccommodationOperatorCategory" type="AccommodationCategory"
-				minOccurs="0">
+			<xs:element name="AccommodationOperatorCategory" type="AccommodationCategory" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_203">Vom Veranstalter vergebene Kategorie</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_203">Category provided by the tour
@@ -2442,7 +2401,7 @@ The attribution is carried out according to hotel chain ID. A list of references
 					<xs:list itemType="AccommodationSeniorFacilitiesEnum"/>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="AccomodationTargetgroup" minOccurs="0">
+			<xs:element name="AccomodationTargetgroups" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_211">Angebote für bestimmte Zielgruppen</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_211">Offers for special target groups</xs:documentation>
@@ -2522,8 +2481,7 @@ Default = "All"</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
-		<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum"
-			default="All">
+		<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
 			<xs:annotation>
 				<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
 - Absolutes: Es werden nur absolute PriceItems berücksichtigt.
@@ -2540,15 +2498,13 @@ Default = "All"</xs:documentation>
 	</xs:complexType>
 	<xs:group name="PriceItemFilterGroup">
 		<xs:sequence>
-			<xs:element name="ConsideredPriceTags" type="ConsideredPriceTagsReferenceType"
-				minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ConsideredPriceTags" type="ConsideredPriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
 					<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ExcludeConsideredPriceTags" type="ConsideredPriceTagsReferenceType"
-				minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ExcludeConsideredPriceTags" type="ConsideredPriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
 					<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
@@ -2572,8 +2528,7 @@ Default = "All"</xs:documentation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="PriceImpactBaseValueType">
-							<xs:attribute name="Source" type="SourceAttributeType"
-								default="ThisComponent">
+							<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
 								<xs:annotation>
 									<xs:documentation xml:lang="de" xml:id="de_384">Dieses Attribut definiert aufgrund der
 										Komponente, welchen Tagen der Absolutpreis zugewiesen wird.
@@ -2623,10 +2578,8 @@ Default = "All"</xs:documentation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="EmptyElementType">
-							<xs:attribute name="Source" type="SourceAttributeType"
-								default="ThisComponent"/>
-							<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay"
-							/>
+							<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent"/>
+							<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay"/>
 						</xs:extension>
 					</xs:simpleContent>
 				</xs:complexType>
@@ -2639,8 +2592,7 @@ Default = "All"</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="SimpleUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="DayAllocationStart" type="DayAllocationStartType"
-						minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="DayAllocationStart" type="DayAllocationStartType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_212">Diese Element definiert den Anfang des
 								DayAllocationIntervalls einer DayAllocation-Ebene. Standardmäßig
@@ -2672,8 +2624,7 @@ Where no DayAllocationStart element is specified for the DayAllocationLevel=0, a
 A more detailed description of the attributes can be found in the "Thematic documentation" in the chapter "Day Allocation".</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="DayAllocationEnd" type="DayAllocationEndType" minOccurs="0"
-						maxOccurs="unbounded">
+					<xs:element name="DayAllocationEnd" type="DayAllocationEndType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_213">Diese Element definiert das Ende des
 								DayAllocationIntervalls eines DayAllocation-Ebene. Standardmäßig
@@ -2916,9 +2867,12 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:documentation xml:lang="de" xml:id="de_223">
 				<summary>Dieser optionale Typ zeigt den Breitengrad eines
 					Objektes an. Gültige Werte sind von -90.0 bis 90.0. Da diese Informationsangabe
-					optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary></xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_223"><summary>This optional type can take the latitude of an object. Valid values are
-				from -90.0 to 90.0. As this information is optional, the value can be empty (string of length zero).</summary></xs:documentation>
+					optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
+			</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_223">
+				<summary>This optional type can take the latitude of an object. Valid values are
+				from -90.0 to 90.0. As this information is optional, the value can be empty (string of length zero).</summary>
+			</xs:documentation>
 		</xs:annotation>
 		<xs:union>
 			<xs:simpleType>
@@ -2939,10 +2893,13 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:documentation xml:lang="de" xml:id="de_224">
 				<summary>Dieser optionale Typ zeigt den Längengrad eines Objektes an. Gültige Werte sind -180.0
 					bis 180.0. Da diese Informationsangabe optional ist, kann der Wert auch leer
-					bleiben ("", ohne Zeichen).</summary></xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_224"><summary>This optional type can take the longitude of an object. Valid values are from -180.0 to
+					bleiben ("", ohne Zeichen).</summary>
+			</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_224">
+				<summary>This optional type can take the longitude of an object. Valid values are from -180.0 to
 					180.0. As this information is optional, the value can be empty (string of length
-					zero).</summary></xs:documentation>
+					zero).</summary>
+			</xs:documentation>
 		</xs:annotation>
 		<xs:union>
 			<xs:simpleType>
@@ -3423,8 +3380,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_251">Type of flight (main; feeder, wrapper)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FlightBookingClassType" type="FlightBookingClassTypeEnum"
-				minOccurs="0">
+			<xs:element name="FlightBookingClassType" type="FlightBookingClassTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_252">Spezifierung der Buchungsklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_252">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
@@ -3863,21 +3819,21 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="AccommodationTargetgroupEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="GourmetTravelers"/>
+			<xs:enumeration value="GourmetTravellers"/>
 			<xs:enumeration value="Singles"/>
-			<xs:enumeration value="LuxuryTravelers"/>
+			<xs:enumeration value="LuxuryTravellers"/>
 			<xs:enumeration value="Families"/>
-			<xs:enumeration value="SeniorTravelers"/>
+			<xs:enumeration value="SeniorTravellers"/>
 			<xs:enumeration value="RomanticCouples"/>
 			<xs:enumeration value="YoungPeople"/>
 			<xs:enumeration value="AdultsOnly"/>
 			<xs:enumeration value="Homosexuals"/>
-			<xs:enumeration value="AccomodationForCityTravelers"/>
-			<xs:enumeration value="AccomodationForCulturalTravelers"/>
-			<xs:enumeration value="AccomodationForNatureTravelers"/>
-			<xs:enumeration value="WellnessTravelers"/>
-			<xs:enumeration value="SportTravelers"/>
-			<xs:enumeration value="ShortstayTravelers"/>
+			<xs:enumeration value="AccomodationForCityTravellers"/>
+			<xs:enumeration value="AccomodationForCulturalTravellers"/>
+			<xs:enumeration value="AccomodationForNatureTravellers"/>
+			<xs:enumeration value="WellnessTravellers"/>
+			<xs:enumeration value="SportTravellers"/>
+			<xs:enumeration value="ShortstayTravellers"/>
 			<xs:enumeration value="DogOwner"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -3925,7 +3881,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:enumeration value="FinalCleanUp"/>
 			<xs:enumeration value="RailAndFly"/>
 			<xs:enumeration value="SkiLessons"/>
-			<xs:enumeration value="SnowboardLessons "/>
+			<xs:enumeration value="SnowboardLessons"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UnitBuildingTypeEnum">
@@ -4325,9 +4281,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern
-						value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"
-					/>
+					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -4547,8 +4501,7 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="SimpleUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="CheckInDateOffset" type="CheckInOutOffsetType" minOccurs="0"
-						maxOccurs="unbounded">
+					<xs:element name="CheckInDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_279">Mit diesem Element wird definiert, welche
 								Überschneidung das Ende der vorhergehenden Komponente mit dem Anfang
@@ -4575,8 +4528,7 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 								necessary to check out a night earlier from the hotel. </xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="CheckOutDateOffset" type="CheckInOutOffsetType" minOccurs="0"
-						maxOccurs="unbounded">
+					<xs:element name="CheckOutDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_280">Mit diesem Element wird definiert, welche
 								Überschneidung der Anfang der angrenzenden nachfolgenden Komponente
@@ -4765,8 +4717,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 							<xs:documentation xml:lang="en" xml:id="en_292">In this branch the components which are part of the product can be defined.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0"
-						maxOccurs="unbounded">
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_293">Dieses Element definiert Filterbedingungen, die das Produkt erfüllen muss. Die Filter beziehen sich dabei über das Attribut "Source" auf die unter Components angegebenen Komponenten.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_293">This element defines the filter conditions that must be met by the product. The filter here refers to the attribute "Source" in the components specified under Components.</xs:documentation>
@@ -4797,8 +4748,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 							<xs:documentation xml:lang="en" xml:id="en_297">In this branch the components which are part of the product can be defined.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0"
-						maxOccurs="unbounded">
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_298">Dieses Element definiert Filterbedingungen, die das Produkt erfüllen muss. Die Filter beziehen sich dabei über das Attribut "Source" auf die unter Components angegebenen Komponenten.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_298">This element defines the filter conditions that must be met by the product. The filter here refers to the attribute "Source" in the components specified under Components.</xs:documentation>
@@ -5294,8 +5244,7 @@ This is based on the total number of nights For this reason the return date is e
 		<xs:complexContent>
 			<xs:extension base="RuleComponentBaseType">
 				<xs:sequence maxOccurs="2">
-					<xs:element name="SellingAccom" type="RuleSellingAccomComponentType"
-						minOccurs="0"/>
+					<xs:element name="SellingAccom" type="RuleSellingAccomComponentType" minOccurs="0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -5536,8 +5485,7 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 							effects.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="GenericAbsolute" type="PriceImpactGenericType"
-					internal:otdsversion="1.9">
+				<xs:element name="GenericAbsolute" type="PriceImpactGenericType" internal:otdsversion="1.9">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_357">Angabe eines prozentualen Auf- oder Abschlags. Wirkt auf bestimmte
 							PriceItems über ApplyTo oder NotApplyTo und wirkungsbezogene Bedingungen
@@ -5572,8 +5520,7 @@ It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impactin
 					</xs:complexContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="Combinatorics" type="CombinatoricsType" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="Combinatorics" type="CombinatoricsType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_359">In diesem Element wird definiert, wie
 						PriceItems miteinander kombiniert werden können oder auch nicht kombiniert
@@ -5721,17 +5668,15 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 								<xs:complexType>
 									<xs:simpleContent>
 										<xs:extension base="PriceItemClassTypeList">
-											<xs:attribute name="Component"
-												type="ComponentAttributeType"
-												default="ThisComponent">
+											<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
 												<xs:annotation>
-												<xs:documentation xml:lang="de" xml:id="de_371">Das Attribut Component gibt an, auf
+													<xs:documentation xml:lang="de" xml:id="de_371">Das Attribut Component gibt an, auf
 												welche Komponente sich die PriceItemClasses
 												beziehen. Per Default="ThisComponent" definiert,
 												dass es die Komponente ist, in der dieses Attribut
 												definiert ist. Es ist aber möglich, auf andere
 												Komponenten zu verweisen.</xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_371">The attribute component indicates which components the PriceItemClasses refer to. By default, "ThisComponent" is defined by the fact that it is the component in which this attribute is defined. It is however possible to refer to other components.</xs:documentation>
+													<xs:documentation xml:lang="en" xml:id="en_371">The attribute component indicates which components the PriceItemClasses refer to. By default, "ThisComponent" is defined by the fact that it is the component in which this attribute is defined. It is however possible to refer to other components.</xs:documentation>
 												</xs:annotation>
 											</xs:attribute>
 										</xs:extension>
@@ -5826,8 +5771,7 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 									<xs:documentation xml:lang="en" xml:id="en_375">This group refers to the group stated in the CombinationCode</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
-							<xs:attribute name="Component" type="ComponentAttributeType"
-								default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
 								<xs:annotation>
 									<xs:documentation xml:lang="de" xml:id="de_376">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
@@ -5866,8 +5810,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 										the CombinationIndexn</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
-							<xs:attribute name="Component" type="ComponentAttributeType"
-								default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
 								<xs:annotation>
 									<xs:documentation xml:lang="de" xml:id="de_379">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
@@ -5905,8 +5848,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 										the CombinationIndex.</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
-							<xs:attribute name="Component" type="ComponentAttributeType"
-								default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
 								<xs:annotation>
 									<xs:documentation xml:lang="de" xml:id="de_382">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
@@ -5959,8 +5901,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 						<xs:complexType>
 							<xs:simpleContent>
 								<xs:extension base="PriceItemClassTypeList">
-									<xs:attribute name="Component" type="ComponentAttributeType"
-										default="ThisComponent">
+									<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_388">Das Attribut Component gibt an, auf
 												welche Komponente dieses PriceItem sich bezieht. Per
@@ -5983,8 +5924,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 	</xs:complexType>
 	<xs:group name="PriceAppliedByGroup">
 		<xs:sequence>
-			<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0"
-				maxOccurs="unbounded" internal:otdsversion="1.9">
+			<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">In diesem Element wird definiert, welche anderen PriceItems auf dieses
 						PriceItem wirken können. Das Element enthält einen oder mehrere Values eines
@@ -6110,9 +6050,7 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 											<xs:documentation xml:lang="en">Each absolute PriceItem forms a separate group.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="PriceTagValue"
-										type="EmptyPriceTagReferenceType" minOccurs="0"
-										maxOccurs="unbounded" internal:otdsversion="1.9">
+									<xs:element name="PriceTagValue" type="EmptyPriceTagReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 										<xs:annotation>
 											<xs:documentation xml:lang="de">Alle absoluten PriceItems, die das hier definierte
 												PriceTag mit identischem Value enthaltens bilden
@@ -6149,13 +6087,11 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 									of the PriceItems of the individual ConsideredPriceItems
 									evaluations. There will be no duplication of
 									PriceItems.</xs:documentation>
-
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
 									<xs:group ref="PriceItemFilterGroup"/>
-									<xs:element name="IncludeAppliedDescendants" minOccurs="0"
-										maxOccurs="unbounded">
+									<xs:element name="IncludeAppliedDescendants" minOccurs="0" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation xml:lang="de">Ist dieses Element angegeben, werden zu den in PriceItemCollection
 												definierten Priceitems auch deren Descendants
@@ -6178,10 +6114,9 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 											<xs:sequence>
 												<xs:group ref="PriceItemFilterGroup"/>
 											</xs:sequence>
-											<xs:attribute name="ConsideredPriceItemType"
-												type="ConsideredPriceItemTypeEnum">
+											<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum">
 												<xs:annotation>
-												<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
+													<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
 - Absolutes
 Es werden nur absolute PriceItems berücksichtigt.
 
@@ -6192,7 +6127,7 @@ Es werden nur Percent-PriceItems berücksichtigt.
 - All
 Es werden alle PriceItems berücksichtigt.
 Default = "All"</xs:documentation>
-												<xs:documentation xml:lang="en">This element defines which type of PriceItems should be considered. A list of values separated by space can be specified. The following values are possible: 
+													<xs:documentation xml:lang="en">This element defines which type of PriceItems should be considered. A list of values separated by space can be specified. The following values are possible: 
 														- Absolute: Only absolute PriceItems are considered. 
 														- Percents: Only Percent-PriceItems are considered. 
 														- All: all PriceItems are considered. Default = "All"</xs:documentation>
@@ -6202,8 +6137,7 @@ Default = "All"</xs:documentation>
 									</xs:element>
 								</xs:sequence>
 								<xs:attributeGroup ref="SourceAttributeGroup"/>
-								<xs:attribute name="ConsideredPriceItemType"
-									type="ConsideredPriceItemTypeEnum" default="All">
+								<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
 									<xs:annotation>
 										<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
 - Absolutes
@@ -6399,8 +6333,7 @@ Negative Zahlen bedeiuten Rundung auf 10er , 100er oder mehr.</xs:documentation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="PriceItemClassTypeList">
-							<xs:attribute name="Component" type="ComponentAttributeType"
-								default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
 								<xs:annotation>
 									<xs:documentation xml:lang="de" xml:id="de_398">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
@@ -6431,8 +6364,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="PriceItemClassTypeList">
-							<xs:attribute name="Component" type="ComponentAttributeType"
-								default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
 								<xs:annotation>
 									<xs:documentation xml:lang="de" xml:id="de_400">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
@@ -6468,8 +6400,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 							<xs:documentation xml:lang="en" xml:id="en_401">The tags are used for the combination rules of travel components. The tags can be more precisely specified via the "Class" attribute.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ConditionalTag" type="ConditionalTagType" minOccurs="0"
-						maxOccurs="unbounded"/>
+					<xs:element name="ConditionalTag" type="ConditionalTagType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -6478,8 +6409,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 		<xs:complexContent>
 			<xs:extension base="TagsType">
 				<xs:sequence>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0"
-						maxOccurs="unbounded" internal:otdsversion="1.9">
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">GenericTags sind Markierungen, deren Value von einer Funktion abhängt.
 								Folgende Funktionen sind aktuell integriert: - SortedCandidateGroup
@@ -6618,8 +6548,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 							<xs:documentation xml:lang="en" xml:id="en_409">This branch defines which additional conditions apply to the availabilities listed under Availability. In general, the key for the Availabilities node should correlate exactly with this condition, so that the key is always unambiguously reproducible for incremental updates.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="GroupCondition" type="GroupConditionSimpleNodeType"
-						minOccurs="0">
+					<xs:element name="GroupCondition" type="GroupConditionSimpleNodeType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_410">Die GroupCondition definiert genau wie die
 								Condition eine Bedingung, die bestimmt, ob ein
@@ -6669,8 +6598,7 @@ To check whether the condition is satisfied all offers are sorted by the GroupDe
 							<xs:documentation xml:lang="en" xml:id="en_412">In a similar manner to DayState, this branch defines which statuses should be set, if an entire DayState or individual statuses are not set in this AvailabilityBlock. Here you can have either negative Availabilities only or positive Availabilities only.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="DayState" type="DayStateType" minOccurs="0"
-						maxOccurs="unbounded">
+					<xs:element name="DayState" type="DayStateType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_413">Unter diesem Zweig wird der
 								Verfügbarkeitsstatus eines Tages aus einem Availability-Block
@@ -6944,14 +6872,12 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 			<xs:group ref="AtomicDayImpactConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="2"
-						maxOccurs="unbounded"/>
+					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="2" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="2"
-						maxOccurs="unbounded"/>
+					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="2" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
@@ -7021,8 +6947,7 @@ Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd yo
 	<xs:complexType name="DayCountConditionType">
 		<xs:sequence>
 			<xs:group ref="CountMinMaxConditionGroup"/>
-			<xs:element name="DayFilter" type="DayFilterConditionType" minOccurs="0"
-				internal:otdsversion="V1.9">
+			<xs:element name="DayFilter" type="DayFilterConditionType" minOccurs="0" internal:otdsversion="V1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_527">Dieses Element filtert die Personen der Reise,
 						für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen
@@ -8116,14 +8041,12 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 			<xs:group ref="AtomicDayPriceIndexConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="2" maxOccurs="unbounded"
-					/>
+					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="2" maxOccurs="unbounded"
-					/>
+					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
@@ -8271,8 +8194,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 	</xs:complexType>
 	<xs:group name="AtomicProductPriceConditionGroup">
 		<xs:sequence>
-			<xs:element name="ProductPrice" type="ProductPriceConditionType"
-				internal:otdsversion="1.9">
+			<xs:element name="ProductPrice" type="ProductPriceConditionType" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_482">Einschränkung bzgl. des Preises des
 						Gesamtangebots oder einzelner Personen. Für die Auswertung der ProductPrice
@@ -8437,8 +8359,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 					<xs:list itemType="CarRentalFacilityEnum"/>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="CarInsurance" type="CarRentalInsuranceType" minOccurs="0"
-				maxOccurs="unbounded">
+			<xs:element name="CarInsurance" type="CarRentalInsuranceType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Das Element Insurance kann mehrfach geliefert werden und beinhaltet die Art
 						der Versicherung, eine Beschreibung, die Deckungssumme und die
