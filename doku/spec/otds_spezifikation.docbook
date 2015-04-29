@@ -3032,6 +3032,10 @@
     </DayImpact>
   </DayFilter>
 </DayCount>]]></programlisting>
+				  	<para xml:lang="de">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage markiert. Die angegebenen Indizes beziehen sich dann immer nur auf diese betrachtete Tage.
+				  		Die Einschränkung über "DayFilter" ist bspw. hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage innerhalb einer bestimmten Datumsrange preisreduziert werden sollen.</para>
+				  	<para xml:lang="en">With the aid of the „DayFilter“ within „DayCount“ a regarded range of days can be restricted. The restriction can be achieved by limiting certain days of the week, but also through a reference to a ConditionalTag, which marks specific days. The indices given then always relate to these days regarded.
+				  		The restriction with the aid of "DayFilter" can be helpful, when in the context of a long-term reduction specific days within a date range shall be reduced in price.</para>
 				  </section>				  
 				  <section xml:id="OtdsStrategyConditionTypeRule">
 						<title><phrase xml:id="de_952" xml:lang="de">Rules-Bedingungen</phrase><phrase xml:id="en_952" xml:lang="en">Rules conditions</phrase></title>
@@ -4547,10 +4551,10 @@
 			    <para xml:lang="de" xml:id="de_5044">Durch das Element <code>GenericTag</code> ist es
 						möglich, von den OTDS-Daten unterstützte Produkt-Features in den einzelnen
 						Produkten zu kennzeichnen. Dadurch weiß das verarbeitende System, dass die
-						gelieferten OTDS-Daten das Feature unterstützen. </para><para xml:lang="en" xml:id="en_5044">With the element <code>GenericTag</code> , it is possible to tag product features which are supported by OTDS data within the individual products. In this way, the processing system knows that the delivered OTDS data support the feature.</para>  
+						gelieferten OTDS-Daten das Feature unterstützen. </para><para xml:lang="en" xml:id="en_5044">With the element <code>GenericTag</code>, it is possible to tag product features which are supported by OTDS data within the individual products. In this way, the processing system knows that the delivered OTDS data support the feature.</para>  
 			    <para xml:lang="de" xml:id="de_5045">Das Element <code>ExternalParameter</code> innerhalb von
 							<code>GenericTag</code> erlaubt, dass von der OTDS-Verarbeitung ein
-						Feauture in die Datenverarbeitung integriert werden kann. </para><para xml:lang="en" xml:id="en_5045">The element <code>ExternalParameter</code> within <code>GenericTag</code> allows a feature from the OTDS processing to be integrated in the data processing.</para>
+						Feature in die Datenverarbeitung integriert werden kann. </para><para xml:lang="en" xml:id="en_5045">The element <code>ExternalParameter</code> within <code>GenericTag</code> allows a feature from the OTDS processing to be integrated in the data processing.</para>
 			    <para xml:lang="de" xml:id="de_5046">OTDS 1.9 kennt aktuell folgende Produkt-Features:</para><para xml:lang="en" xml:id="en_5046">OTDS 1.9 currently recognises the following product features:</para>
 			    <itemizedlist>
 			      <listitem>
@@ -4576,11 +4580,16 @@
   </Products>  
   ...
 </Otds>]]></programlisting>			    
-			    <para xml:lang="de" xml:id="de_5051">Falls eine OTDS-Verarbeitung z.B. mit dem externen
-						Parameter <code>CityPairProduction="true"</code> verarbeitet wird, so
-						bekommen alle Elemente <code>GenericTag</code> mit dem Element
+			  	<para xml:lang="de">Der Value eines GenericTag/ExternalParameter wird nur dann auf <code>true</code> gesetzt, wenn das Feature des betrachteten Products auch das Feature unterstützt.</para>
+			  	<para xml:lang="en">The Value of a GenericTag/ExternalParameter only then is set as <code>true</code> if the feature of the product regarded is supporting this specific feature.</para>
+			  	<para xml:lang="de" xml:id="de_5051">Falls eine OTDS-Verarbeitung z.B. mit dem externen Parameter <code>CityPairProduction="true"</code> verarbeitet wird, so bekommen alle Elemente <code>GenericTag</code> mit dem Element
 							<code>ExternalParameter/@Feature="CityPairProduction</code> den Wert
-							<code>true</code> und fließen somit in die Verarbeitung ein.</para><para xml:lang="en" xml:id="en_5051">If OTDS processing is carried out e.g. with the external parameters <code>CityPairProduction="true"</code> , all <code>GenericTag</code>  elements with the element <code>ExternalParameter/@Feature="CityPairProduction</code> are given the value <code>true</code> and in this way are included in processing.</para>
+			  		<code>true</code> und fließen somit in die Verarbeitung ein.</para><para xml:lang="en" xml:id="en_5051">If OTDS processing is carried out e.g. with the external
+						parameters <code>CityPairProduction="true"</code>, all
+							<code>GenericTag</code> elements with the element
+							<code>ExternalParameter/@Feature="CityPairProduction</code> are given
+						the value <code>true</code> and in this way are included in
+						processing.</para>
 			    <para xml:lang="de" xml:id="de_5052">Hier ein Beispiel für die Angabe der verwendeten externen
 			      Parameter:</para><para xml:lang="en" xml:id="en_5052">Here is an example of how to specify the external parameters used:</para>			    
 			    <programlisting><![CDATA[<Otds...>
@@ -4599,7 +4608,7 @@
 			      damit die Verarbeitung entsprechend beeinflussen.
 			    </para><para xml:lang="en" xml:id="en_5053">The value can then be checked in the filters and conditions via the <code>GenericTag</code>  condition and thus influence the processing accordingly.</para>
 			    <para xml:lang="de" xml:id="de_5054">Eine <code>GenericTag</code>-Condition, die auf ein <code>GenericTag</code> mit dem Wert <code>Undefined</code> 
-			      trifft, erhält selbst den Wert "<code>Undefined</code>.
+			      trifft, erhält selbst den Wert <code>Undefined</code>.
 			    </para><para xml:lang="en" xml:id="en_5054">A <code>GenericTag</code>  condition, that encounters a <code>GenericTag</code>  with the value <code>Undefined</code> , will itself also receive the value "<code>Undefined</code> .</para>  
 			    <para xml:lang="de" xml:id="de_5055">Bitte beachten Sie dabei die Regeln hinsichtlich der
 						Auswertung von Bedingungen im Zusammenhang mit dem Wert
