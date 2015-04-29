@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<xs:attributeGroup name="ProductComponentGroup">
@@ -1904,7 +1905,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="GeneralIncludedServiceEnum">
-										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType" default="None"/>
+										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType"/>
 									</xs:extension>
 								</xs:simpleContent>
 							</xs:complexType>
@@ -5169,7 +5170,7 @@ This is based on the total number of nights For this reason the return date is e
 						<xs:documentation xml:lang="en" xml:id="en_335">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElements is compared to the end of the character string.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="TagValueType" type="TagValueTypeEnum">
+				<xs:attribute name="TagValueType" type="TagValueTypeEnum" default="String">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_336">Definiert den TagType des referenzierten Tags. Stimmt der TagType nicht mit dem TagType der TagDefinition überein, so wird als Value für den Tag der Wert="" verwendet.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_336">Defines the TagType of the tags referred to. If the TagType does not match the TagType in the TagDefinition, the value for the tag used is Value="".</xs:documentation>
@@ -5443,6 +5444,74 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 			</xs:element>
 		</xs:choice>
 	</xs:group>
+	<xs:complexType name="DayFilterType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="Date" type="DateConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_470">Einschränkung bzgl. des Datums einzelner Reisetage. Die Bedingung gilt für die Reisetage als erfüllt, die die entsprechenden Terminbedingungen (größer=Min  und  kleiner= Max  und passt zum Attribute "DayType")  erfüllen.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_470">Limitations with respect to the dates of specific travel days. The condition is fulfilled for travel days that meet the applicable date conditions (greater=Min and lower=Max and fits the "DayType" attribute).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Weekdays" type="WeekdayConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_472">Einschränkung bzgl. des Wochentages
+einzelner Tage Dieses Element definiert die Bedingung, ob
+einzelne Tage der gerade betrachteten Reise eine Bedingung bzgl.
+der Wochentage erfüllen. Die Bedingung ist für jeden Tag erfüllt
+der einem der angegeben Wochentage entspricht. Dabei kann über
+das Attribut "DayType" zusätzlich bestimmt werden, dass nur
+bestimmte Tage der Reise betrachtet werden sollen (z.B.: nur der
+Anreisetag oder nur Aufenthaltstage). Bitte beachten: Im
+Gegensatz zu den anderen Conditions ist an dieser Stelle der
+Defaultwert="CheckIn" gesetzt. Wird das Attribut "DayType" nicht
+angegeben so wird an dieser Stelle der Wert "CheckIn" benutzt.
+Das Element Weekdays kann eine durch Space getrennte Liste von
+Wochentagen enthalten. Die Bedingung ist erfüllt, wenn einer der
+angegebenen Tage die Bedingung erfüllt. Es handelt sich also um
+eine implizite "OR-Verknüpfung". Über das Attribut "Source" wird
+die Quelle der betrachteten Reisetage bestimmt (z.B. Termine im
+Hotel oder während des Fluges). Diese Bedingung überprüft, ob
+bestimmte Tage einer Reise eine Wochentagsbedingung erfüllen und
+deshalb ggf. Preise explizit für diese Tage gelten. Die
+entsprechende Interpretation der Weekday-Condition ohne
+Impact-Anteil ist dementsprechend abweichend - bitte beachten. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_472">Restrictions on specific weekdays of
+individual days This element defines the condition whether or
+not individual days of the currently viewed tour meet the
+weekday restriction condition. The condition is met for all days
+that correspond to the weekdays entered. The "DayType" attribute
+can also be used to determine that only certain days of the tour
+should be considered (e.g. only the arrival day or only the days
+of the stay). Please note: In contrast to other conditions, here
+the default value is set to ="CheckIn". If nothing is entered as
+the "DayType" attribute, the value "CheckIn" will be used here.
+The Weekdays element can contain a list of weekdays separated by
+a space. The condition is fulfilled if one of the days entered
+fulfils the condition. It therefore concerns an implicit "OR
+connective". The "Source" attribute is used to determine the
+source of the travel days currently being viewed (e.g. dates in
+the hotel or during the flight). This condition checks whether
+certain days of a tour meet a weekday condition, and therefore
+also whether prices explicitly apply for these days. The
+corresponding interpretation of the Weekday Condition without
+Impact part changes accordingly - please
+note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_442">Schränkt den Personenkreis ein, in dem ein
+ConditionalTag überprüft wird. Dadurch kann nach bestimmten
+Personentypen gefiltert werden, wie beispielsweise Vollzahler,
+welche durch ConditionalTags markiert sind. Es ist nur sinnvoll,
+sich an dieser Stelle auf ConditionalTags zu beziehen, die
+keinen DayImpact-Anteil haben.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_442">By using a ConditionalTag, the number of people can be limited. This can be filtered according to specific types of people, such as full-paying guests, which are defined by ConditionalTags.
+At this point it makes sense to refer only to ConditionalTags which have no DayImpact share.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
 	<!--Start of price definition-->
 	<xs:complexType name="PriceItemsType">
 		<xs:annotation>
@@ -5880,6 +5949,11 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="PriceNonImpactBaseValueType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="0"/>
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="PriceImpactAbsoluteType">
 		<xs:complexContent>
@@ -7111,54 +7185,6 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 				all days befor the x-last day: Until=-x. In addition combinations of "From" and
 				"Until" are possible as well as specifying a list of indices.</xs:documentation>
 		</xs:annotation>
-		<xs:choice>
-			<xs:sequence>
-				<xs:element name="Until" type="xs:int" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
-							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
-							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
-							negativen Index wird der Tag von hinten gezählt. Until=1 ist dabei der
-							CheckIn-Tag. Until=-1 ist der CheckOut-Tag und alle davor liegenden
-							Tage. </xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_444">Days within the defined time period and all
-							indices appearing before "Until" will be found in the index as well as
-							the specified index itself. When using a negative index the day is
-							counted in reverse. Until=1 is the check-in day Until=-1 is the
-							check-out day and all other days prior to it.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="From" type="xs:int" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
-							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
-							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
-							negativen Index wird der Index vom letzten Tag aus gezählt. From=1 ist
-							dabei der CheckIn-Tag und alle folgenden. From=-1 ist der
-							CheckOut-Tag.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_445">Within the days in ascending chronological
-							order, this defines all indices appearing after the index found in
-							"From" as well as the specified index itself. If a negative index is
-							entered, the index is counted backwards from the last day. From=1 is the
-							check-in day and all following days. From=-1 is the check-out
-							day.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:element name="Indices" type="IntegerListType">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_446">Es kann eine Liste an Indizes von Tagen der
-						Reise angegeben werden. Die einzelnen Indizes müssen durch Space voneinander
-						separiert sein. Bei Angabe eines negativen Index wird der Index vom letzten
-						Tag aus gezählt. Indices="1 3 -3 -1" definiert den CheckIn Tag und den Tag
-						zwei Tage später sowie den CheckOut Tag und den Tag zwei Tage
-						vorher.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_446">A list of indices for the days of the journey can be specified. The individual indices must be separated from each other by a space.
-If a negative index is entered, the index is counted backwards from the last day.
-Indices="1 3 -3 -1" defines the check-in day and 2 following days as well as the check-out day and and the 2 days prior to it.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:choice>
 		<xs:attribute name="Repeat" type="xs:positiveInteger">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_447">Dieses Attribut gibt an, dass es sich um ein
@@ -7219,13 +7245,24 @@ It is rare to use a positive value in relation to "From", i.e. "From=x", and it 
 			</xs:element>
 			<xs:group ref="ConsideredPriceItemsGroup" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw.
-						ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen
-						werden.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" zw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
 				</xs:annotation>
 			</xs:group>
+			<xs:element name="DayFilter" type="DayFilterType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Der DayFIlter schränkt die betrachteten Tage auf bestimmte Tage ein. Die eingeschränkten Tage müssen alle Bedingungen hinsichtlich der angegebenen Date, Weekdays und ConditionalTags erfüllen.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
+		<xs:attribute name="Repeat" type="xs:positiveInteger">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_447">Dieses Attribut gibt an, dass es sich um ein
+					sich wiederholendes Muster von Indizes handelt. Der angegebene Value definiert
+					die Weite des Wiederholungszyklus.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_447">This attribute indicates that there is a repeating pattern of indices. The specified value defines the size of the repeat cycle.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 		<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay">
 			<xs:annotation>
@@ -7597,7 +7634,7 @@ Prices which are linked to a DayImpactCondition are valid only for certain days 
 								<xs:documentation xml:lang="en" xml:id="en_470">Limitations with respect to the dates of specific travel days. The condition is fulfilled for travel days that meet the applicable date conditions (greater=Min and lower=Max and fits the "DayType" attribute).</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="DayIndex" type="DayIndexConditionType">
+						<xs:element name="DayIndex">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_471">Einschränkung auf bestimmte Tage des
 									Reiseverlaufs. Dieses Element definiert eine Gültigkeit für
@@ -7635,6 +7672,63 @@ To address certain periods, there are four typical cases:
 
 Additionally, combinations of "From" and "Until" can be used as definitions in a list of indices. More details can be found in the description of the "Indices" element.</xs:documentation>
 							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="DayIndexConditionType">
+										<xs:sequence>
+											<xs:choice>
+												<xs:sequence>
+													<xs:element name="Until" type="xs:int" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
+							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
+							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
+							negativen Index wird der Tag von hinten gezählt. Until=1 ist dabei der
+							CheckIn-Tag. Until=-1 ist der CheckOut-Tag und alle davor liegenden
+							Tage. </xs:documentation>
+															<xs:documentation xml:lang="en" xml:id="en_444">Days within the defined time period and all
+							indices appearing before "Until" will be found in the index as well as
+							the specified index itself. When using a negative index the day is
+							counted in reverse. Until=1 is the check-in day Until=-1 is the
+							check-out day and all other days prior to it.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="From" type="xs:int" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
+							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
+							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
+							negativen Index wird der Index vom letzten Tag aus gezählt. From=1 ist
+							dabei der CheckIn-Tag und alle folgenden. From=-1 ist der
+							CheckOut-Tag.</xs:documentation>
+															<xs:documentation xml:lang="en" xml:id="en_445">Within the days in ascending chronological
+							order, this defines all indices appearing after the index found in
+							"From" as well as the specified index itself. If a negative index is
+							entered, the index is counted backwards from the last day. From=1 is the
+							check-in day and all following days. From=-1 is the check-out
+							day.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<xs:element name="Indices" type="IntegerListType">
+													<xs:annotation>
+														<xs:documentation xml:lang="de" xml:id="de_446">Es kann eine Liste an Indizes von Tagen der
+						Reise angegeben werden. Die einzelnen Indizes müssen durch Space voneinander
+						separiert sein. Bei Angabe eines negativen Index wird der Index vom letzten
+						Tag aus gezählt. Indices="1 3 -3 -1" definiert den CheckIn Tag und den Tag
+						zwei Tage später sowie den CheckOut Tag und den Tag zwei Tage
+						vorher.</xs:documentation>
+														<xs:documentation xml:lang="en" xml:id="en_446">A list of indices for the days of the journey can be specified. The individual indices must be separated from each other by a space.
+If a negative index is entered, the index is counted backwards from the last day.
+Indices="1 3 -3 -1" defines the check-in day and 2 following days as well as the check-out day and and the 2 days prior to it.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:choice>
+											<xs:element name="DayFilter" type="DayFilterType" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
 						</xs:element>
 						<xs:element name="Weekdays" type="WeekdayConditionType">
 							<xs:annotation>
@@ -7898,7 +7992,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 			<xs:element name="NonImpact" internal:otdsversion="1.9">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:group ref="AllocationBaseGroup"/>
+						<xs:group ref="AllocationBaseConditionGroup"/>
 						<xs:element name="Condition" type="ConditionType"/>
 					</xs:sequence>
 					<xs:attribute name="EvaluationMode" type="EvaluationModeEnum" default="Any"/>
