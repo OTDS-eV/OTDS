@@ -3012,7 +3012,7 @@
 							count of days or persons. Within these elements, it can be decided which
 							parameters are to be checked. There is the option of defining which days
 							or persons should be taken into account via a filter ("PersonFilter" or
-							"DayFilter"). This filter also allows &lt;AND&gt;and &lt;OR&gt;
+							"DayFilter"). This filter also allows &lt;AND&gt; and &lt;OR&gt;
 							connections.</para>
 				    <para xml:lang="de" xml:id="de_5008">Das folgende Beispiel zeigt eine Bedingung, die prüft, ob die Anzahl der Personen, die das ConditionalTag=Adult haben, gleich 2 ist.</para><para xml:lang="en" xml:id="en_5008">The following example shows a condition which checks whether the number of persons which have the ConditionalTag=Adult is equal to 2.</para>
 				    <programlisting><![CDATA[<PersonCount Source="Product" DayAllocation="All" EvaluationMode="Any">
@@ -3032,10 +3032,15 @@
     </DayImpact>
   </DayFilter>
 </DayCount>]]></programlisting>
-				  	<para xml:lang="de">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage markiert. Die angegebenen Indizes beziehen sich dann immer nur auf diese betrachtete Tage.
+				  	<para xml:lang="de" xml:id="de_5500">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage markiert. Die angegebenen Indizes beziehen sich dann immer nur auf diese betrachtete Tage.
 				  		Die Einschränkung über "DayFilter" ist bspw. hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage innerhalb einer bestimmten Datumsrange preisreduziert werden sollen.</para>
-				  	<para xml:lang="en">With the aid of the „DayFilter“ within „DayCount“ a regarded range of days can be restricted. The restriction can be achieved by limiting certain days of the week, but also through a reference to a ConditionalTag, which marks specific days. The indices given then always relate to these days regarded.
-				  		The restriction with the aid of "DayFilter" can be helpful, when in the context of a long-term reduction specific days within a date range shall be reduced in price.</para>
+				  	<para xml:lang="en" xml:id="en_5500">With the aid of the „DayFilter“ within „DayCount“ a regarded range of
+							days can be restricted. The restriction can be achieved by limiting
+							certain days of the week, but also through a reference to a
+							ConditionalTag, which marks specific days. The indices given then always
+							relate to these days regarded. The restriction with the aid of
+							"DayFilter" can be helpful, when in the context of a duration discount
+							specific days within a date range shall be reduced in price.</para>
 				  </section>				  
 				  <section xml:id="OtdsStrategyConditionTypeRule">
 						<title><phrase xml:id="de_952" xml:lang="de">Rules-Bedingungen</phrase><phrase xml:id="en_952" xml:lang="en">Rules conditions</phrase></title>
@@ -18661,7 +18666,11 @@ usw.]]></programlisting>
 								auf die günstigsten oder teuersten Tagespreise und auch Tagespreisanteile
 								beziehen (DayImpact/DayPriceIndex). Dies erfolgt typischerweise, um
 								prozentuale Auf- oder Abschläge auf diese Tage anzuwenden oder eine
-								Dauerreduktion abzubilden. </para><para xml:id="en_3195" xml:lang="en">Before the final price calculation, conditions can still refer to the cheapest or most expensive day prices and also percentages of day prices (DayImpact/DayPriceIndex). This generally applies for when percentage supplements or discounts are applied to these days or in the case of a long-term reduction.</para>
+								Dauerreduktion abzubilden. </para><para xml:id="en_3195" xml:lang="en">Before the final price calculation, conditions can still refer
+								to the cheapest or most expensive day prices and also percentages of
+								day prices (DayImpact/DayPriceIndex). This generally applies for
+								when percentage supplements or discounts are applied to these days
+								or in the case of a duration discount.</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_3196" xml:lang="de">Im letzten Schritt werden die endgültigen Preise errechnet. Dies erfolgt,
@@ -20585,7 +20594,14 @@ usw.]]></programlisting>
 							<code>DayPriceIndex</code>-Bedingung sich nicht auf andere PriceItems
 						beziehen dürfen, die ebenfalls eine <code>DayPriceIndex</code>-Bedingung
 						haben. Speziell bei Dauerreduktionen, also 100%-igen Abschlägen, führt dies
-						sonst zu undefinierten Ergebnissen.</para><para xml:id="en_3657" xml:lang="en">The <code>DayPriceIndex</code>  part-condition applies conditions to the day price and its evaluation may alter these day prices. In order to keep the evaluation of the condition unambiguous, it makes sense to the make the restriction, that PriceItems with a <code>DayPriceIndex</code> condition may not refer to other PriceItems, which also have a <code>DayPriceIndex</code> condition. Especially with permanent discounts, i.e. 100% reductions, this can otherwise lead to undefined results.</para>
+						sonst zu undefinierten Ergebnissen.</para><para xml:id="en_3657" xml:lang="en">The <code>DayPriceIndex</code> part-condition applies
+						conditions to the day price and its evaluation may alter these day prices.
+						In order to keep the evaluation of the condition unambiguous, it makes sense
+						to the make the restriction, that PriceItems with a
+							<code>DayPriceIndex</code> condition may not refer to other PriceItems,
+						which also have a <code>DayPriceIndex</code> condition. Especially with
+						duration discounts, i.e. 100% reductions, this can otherwise lead to
+						undefined results.</para>
 					<para xml:id="det_3658" xml:lang="de"/>
 				</section>
 
@@ -20598,10 +20614,10 @@ usw.]]></programlisting>
 					<bridgehead xml:id="de_3661" xml:lang="de">Gesamtpreis pro Tag und Person (ein Day/Person-Knoten)</bridgehead><bridgehead xml:id="en_3661" xml:lang="en">Total price per day and person (a Day/Person node)</bridgehead>
 					<para xml:id="de_3662" xml:lang="de">Für jeden Kostenknoten innerhalb eines Day/Person-Knotens
 						wird der Wert des absoluten PriceItems mit den Werten aller assoziierten
-						relativen PriceItems multipliziert. Die auf diese Weise ermittelten Werte
-						für jeden Kostenknoten werden innerhalb jedes Day/Person-Knotens
-						aufsummiert, um den Gesamtpreis für einen Tag und eine Person zu
-						errechnen.</para><para xml:id="en_3662" xml:lang="en">For every price node within a Day/Person node, the value of the absolute PriceItem is multiplied with the values of all associated relative PriceItems. The values ascertained by these means for each cost node are added up within each Day/Person node, in order to calculate the total price for one day and one person.</para>
+						relativenDayCount- und PersonCount-Bedingungen PriceItems multipliziert. Die
+						auf diese Weise ermittelten Werte für jeden Kostenknoten werden innerhalb
+						jedes Day/Person-Knotens aufsummiert, um den Gesamtpreis für einen Tag und
+						eine Person zu errechnen.</para><para xml:id="en_3662" xml:lang="en">For every price node within a Day/Person node, the value of the absolute PriceItem is multiplied with the values of all associated relative PriceItems. The values ascertained by these means for each cost node are added up within each Day/Person node, in order to calculate the total price for one day and one person.</para>
 					<bridgehead xml:id="de_3663" xml:lang="de">Beispiel</bridgehead><bridgehead xml:id="en_3663" xml:lang="en">Example</bridgehead>
 
 					<figure>
