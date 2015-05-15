@@ -2,6 +2,7 @@
 <xs:schema xmlns="http://otds-group.org/otds"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:internal="http://otds-group.org/otds/internal"
+           xmlns:z="http://www.xsdr.org/ns/structure"
            targetNamespace="http://otds-group.org/otds"
            elementFormDefault="qualified">
    <xs:include schemaLocation="otds-schema-common.xsd"/>
@@ -78,6 +79,7 @@ Here, rules and restrictions are defined at the hotel level.</xs:documentation>
                <xs:element name="SellingAccom"
                            type="SellingAccomType"
                            maxOccurs="unbounded"
+                           internal:otdsversion="1.9"
                            minOccurs="0">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_7">Verkaufsrelevante Daten der Unterbringung:
@@ -118,7 +120,9 @@ Information is given as (IATA airport code). It is also possible, in the form of
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
-   <xs:element name="SellingAccom" type="SellingAccomType">
+   <xs:element name="SellingAccom"
+               type="SellingAccomType"
+               internal:otdsversion="1.9">
       <xs:annotation>
          <xs:documentation xml:lang="de" xml:id="de_10">Verkaufsrelevante Daten der Unterbringung:
 enthält u.a. Preise und Verfügbarkeiten.</xs:documentation>
