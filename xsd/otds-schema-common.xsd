@@ -516,11 +516,23 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:sequence>
 					<xs:sequence>
-						<xs:element name="Person" type="OccupancyPersonType" maxOccurs="unbounded">
+						<xs:element name="Person" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_88">Definition der Personen, die in der Unterkunft buchbar sind. Die Personen werden nach Alter absteigend definiert.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_88">Definition of persons who can be booked into the accommodation. Persons are defined in descending order by age.</xs:documentation>
 							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="OccupancyPersonType">
+										<xs:attribute name="MatchAvaillability" type="MatchAvailabilityEnum">
+											<xs:annotation>
+												<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
+Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
+											</xs:annotation>
+										</xs:attribute>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
 					<xs:element name="Exclude" minOccurs="0" maxOccurs="unbounded">
@@ -540,11 +552,23 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 	</xs:complexType>
 	<xs:complexType name="OccupancyExcludeType">
 		<xs:sequence>
-			<xs:element name="Person" type="BaseOccupancyPersonType" maxOccurs="unbounded">
+			<xs:element name="Person" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_90">Definition der Personen, die in der Unterkunft buchbar sind</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_90">Definition of persons who can be booked into the accommodation</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="BaseOccupancyPersonType">
+							<xs:attribute name="MatchAvaillability" type="MatchAvailabilityEnum">
+								<xs:annotation>
+									<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
+Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
@@ -1674,6 +1698,69 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
+	<xs:complexType name="NeighbourComponentCorrectionType">
+		<xs:complexContent>
+			<xs:extension base="SimpleUpdateNodeType">
+				<xs:sequence>
+					<xs:element name="CheckInDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_279">Mit diesem Element wird definiert, welche
+								Überschneidung das Ende der vorhergehenden Komponente mit dem Anfang
+								dieser Komponente hat. Der Offset ist abhängig vom angrenzenden
+								Komponententyp. Dieser wird durch das Attribut "ComponentType"
+								definiert. Der Endtermin der vorhergehenden Komponente bestimmt sich
+								aus dem Anfangstermin dieser Komponente und dem CheckInOffset. Falls
+								CheckInOffset nicht gesetzt ist, so gilt der Defaultwert, also
+								CheckInOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen
+								und vorhergehenden Unterkünften. Bei sehr früh morgens abfliegenden
+								Flügen aus dem Zielgebiet kann es sein, dass ggf. eine Nacht früher
+								aus dem Hotel ausgecheckt werden muss. (@ToDo: Siehe auch Aufbau des
+								Produktes über die Produktregel in der Thematischen
+								Dokumentation)</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_279">This element is used to define the overlap of
+								the end of the previous component and the start of the current
+								component. The offset depends on the adjacent component type. This
+								is defined by the "ComponentType" attribute. The end date of the
+								previous component is determined by the start date of this component
+								+ the CheckInOffset. If CheckInOffset is not set, then a default
+								value will be used, thus CheckInOffset = 0. Currently this scenario
+								is known only for flights and preceding accommodation. With very
+								early morning flights departing from the destination, it may be
+								necessary to check out a night earlier from the hotel. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CheckOutDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_280">Mit diesem Element wird definiert, welche
+								Überschneidung der Anfang der angrenzenden nachfolgenden Komponente
+								mit dem Ende dieser Komponente hat. Der Offset ist abhängig vom
+								angrenzenden Komponententyp. Dieser wird durch das Attribut
+								"ComponentType" definiert. Der Anfangstermin der angrenzenden
+								Komponente bestimmt sich aus dem Endtermin dieser Komponente und dem
+								CheckOutOffset. Falls CheckOutOffset nicht gesetzt ist, so gilt der
+								Defaultwert, also CheckOutOffset=0. Aktuell kennen wir dieses
+								Szenario nur bei Flügen und nachfolgenden Unterkünften. Bei sehr
+								früh morgens im Zielgebiet ankommenden Flügen kann es vorkommen,
+								dass ggf. eine Nacht früher im Hotel eingecheckt werden muss.
+								(@ToDo: Siehe auch Aufbau des Produktes über die Produktregel in der
+								Thematischen Dokumentation)</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_280">This element is used to define an overlap
+								between the beginning of the adjacent component and the end of the
+								current component. The offset depends on the adjacent component
+								type. This is defined by the "ComponentType" attribute. The start
+								date of the adjacent component is determined by the closing date of
+								this component + the CheckOutOffset. If CheckOutOffset is not set,
+								then a default value will be used. Thus CheckOutOffset=0. Currently,
+								we know of this scenario only in relation to flights and subsequent
+								accommodation. With very early morning flights arriving in the
+								destination, it may be necessary to check in a night earlier to the
+								hotel. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
 	<!--Begin of  property definition-->
 	<xs:complexType name="PropertiesWithoutNodeType">
 		<xs:group ref="PropertiesWithoutNodeGroup"/>
@@ -1913,20 +2000,18 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="GeneralExcludedServices" minOccurs="0" internal:otdsversion="1.9">
+			<xs:element name="MandatoryServicesPaidAtLocation" minOccurs="0" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_158">Zusatzleistungen, die zusätzliche Kosten vor
-						Ort verursachen. Einige Zusatzleistungen sind Bestandteil des Angebots und
-						können nicht abgewählt werden kann. Andere sind optional.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_158">Zusatzleistungen, die oblogatorischer Bestandteil des Angebotes sind und zusätzliche Kosten vor Ort verursachen. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_158">Add-ons that incur additional charges to be paid locally.
 Some add-ons are part of the offer and can not be deselected. Others are optional.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="GeneralExcludedService" minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="MandatoryServicePaidAtLocation" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:simpleContent>
-									<xs:extension base="GeneralExcludedServiceEnum">
+									<xs:extension base="MandatoryServicePaidAtLocationEnum">
 										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType" default="None"/>
 									</xs:extension>
 								</xs:simpleContent>
@@ -3505,6 +3590,60 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:maxLength value="50"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="FigureType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="LocationDistance" type="DistanceLocationEnum" minOccurs="0" internal:otdsversion="1.9">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_478">In diesem Element stehen die Orte zur Auswahl,
+							für die eine Distanzangabe möglich ist. Folgende Orte für Distanzangaben
+							stehen zur Auswahl: - Beach (Strand) / Entfernungsangabe in Metern -
+							CityCenter (Stadtzentrum) / Entfernungsangabe in Kilometern - Shopping
+							(nächste Einkaufsmöglichkeit) / Entfernungsangabe in Metern - Airport
+							(Flughafen) / Entfernungsangabe in Kilometern - PublicTransport
+							(öffentliche Verkehrsmittel) / Entfernungsangabe in Metern - SkiLift
+							(Skilift) / Entfernungsangabe in Metern - GolfCourse (Golfplatz) /
+							Entfernungsangabe in Metern - Lake (See) / Entfernungsangabe in Metern </xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_478">This element displays locations for which a distance entry is possible. The following places can be selected to have distance entries:
+- Beach / distance to be entered in metres
+- CityCenter / distance to be entered in kilometres
+- Shopping (nearest shopping opportunities) / distance to be entered in metres
+- Airport / distance to be entered in kilometres
+- PublicTransport / distance to be entered in metres
+- SkiLift / distance to be entered in metres
+- GolfCourse / distance to be entered in metres
+- Lake / distance to be entered in metres</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Facility" type="FigureFacilitiesEnum" minOccurs="0" internal:otdsversion="1.9">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_479">Im Element Facilities stehen vor allem
+							Ausstattungsmerkmale zur Verfügung, die näher beschrieben werden können.
+							Folgende Informationen können geliefert werden: AmountBedrooms (Anzahl
+							Schlafzimmer), UnitSize (Zimmergröße, Ferienhausgröße) / Angabe in
+							Quadratmetern, AmountRooms (Anzahl der Zimmer im Hotel), AmountFloors
+							(Anzahl Stockwerke), AmountBathrooms (Anzahl
+							Badezimmer)</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_479">The Facilities element is primarily used to
+							describe the available facilities in more detail. The following
+							information can be delivered: AmountBedrooms (amount of bedrooms),
+							UnitSize (room size, holiday home size) / to be entered in square
+							metres, AmountRooms (amount of rooms in the hotel), AmountFloors (amount
+							of floors), AmountBathrooms (amount of bathrooms)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="Value" type="xs:decimal">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_480">In diesem Element wird der Wert zu der in
+						LocationDistance oder Facilities gewählten Eigenschaft angegeben. Die
+						Einheit, in der dieser Wert geliefert wird, findet sich in der Beschreibung
+						von LocationDistance und Facilities.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_480">In this element a value is entered for the selected feature in LocationDistance or Facilities. The unit in which this value should be delivered is written in the description of LocationDistance and Facilities.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
@@ -4494,76 +4633,28 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 	<xs:simpleType name="ConsideredPriceItemTypeEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Absolute"/>
+			<xs:enumeration value="GenericAbsolute"/>
 			<xs:enumeration value="Percent"/>
 			<xs:enumeration value="All"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="NeighbourComponentCorrectionType">
-		<xs:complexContent>
-			<xs:extension base="SimpleUpdateNodeType">
-				<xs:sequence>
-					<xs:element name="CheckInDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_279">Mit diesem Element wird definiert, welche
-								Überschneidung das Ende der vorhergehenden Komponente mit dem Anfang
-								dieser Komponente hat. Der Offset ist abhängig vom angrenzenden
-								Komponententyp. Dieser wird durch das Attribut "ComponentType"
-								definiert. Der Endtermin der vorhergehenden Komponente bestimmt sich
-								aus dem Anfangstermin dieser Komponente und dem CheckInOffset. Falls
-								CheckInOffset nicht gesetzt ist, so gilt der Defaultwert, also
-								CheckInOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen
-								und vorhergehenden Unterkünften. Bei sehr früh morgens abfliegenden
-								Flügen aus dem Zielgebiet kann es sein, dass ggf. eine Nacht früher
-								aus dem Hotel ausgecheckt werden muss. (@ToDo: Siehe auch Aufbau des
-								Produktes über die Produktregel in der Thematischen
-								Dokumentation)</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_279">This element is used to define the overlap of
-								the end of the previous component and the start of the current
-								component. The offset depends on the adjacent component type. This
-								is defined by the "ComponentType" attribute. The end date of the
-								previous component is determined by the start date of this component
-								+ the CheckInOffset. If CheckInOffset is not set, then a default
-								value will be used, thus CheckInOffset = 0. Currently this scenario
-								is known only for flights and preceding accommodation. With very
-								early morning flights departing from the destination, it may be
-								necessary to check out a night earlier from the hotel. </xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="CheckOutDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_280">Mit diesem Element wird definiert, welche
-								Überschneidung der Anfang der angrenzenden nachfolgenden Komponente
-								mit dem Ende dieser Komponente hat. Der Offset ist abhängig vom
-								angrenzenden Komponententyp. Dieser wird durch das Attribut
-								"ComponentType" definiert. Der Anfangstermin der angrenzenden
-								Komponente bestimmt sich aus dem Endtermin dieser Komponente und dem
-								CheckOutOffset. Falls CheckOutOffset nicht gesetzt ist, so gilt der
-								Defaultwert, also CheckOutOffset=0. Aktuell kennen wir dieses
-								Szenario nur bei Flügen und nachfolgenden Unterkünften. Bei sehr
-								früh morgens im Zielgebiet ankommenden Flügen kann es vorkommen,
-								dass ggf. eine Nacht früher im Hotel eingecheckt werden muss.
-								(@ToDo: Siehe auch Aufbau des Produktes über die Produktregel in der
-								Thematischen Dokumentation)</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_280">This element is used to define an overlap
-								between the beginning of the adjacent component and the end of the
-								current component. The offset depends on the adjacent component
-								type. This is defined by the "ComponentType" attribute. The start
-								date of the adjacent component is determined by the closing date of
-								this component + the CheckOutOffset. If CheckOutOffset is not set,
-								then a default value will be used. Thus CheckOutOffset=0. Currently,
-								we know of this scenario only in relation to flights and subsequent
-								accommodation. With very early morning flights arriving in the
-								destination, it may be necessary to check in a night earlier to the
-								hotel. </xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
 	<xs:simpleType name="InheritPriceTagsEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="ConsideredAbsolutes"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MatchAvailabilityEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MatchCount"/>
+			<xs:enumeration value="Ignore"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RoundMethodEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Down"/>
+			<xs:enumeration value="Up"/>
+			<xs:enumeration value="TowardsZero"/>
+			<xs:enumeration value="AwayFromZero"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--Begin of  rules definition-->
@@ -5960,38 +6051,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 			<xs:extension base="PriceAbsoluteType">
 				<xs:sequence>
 					<xs:group ref="AllocationBaseGroup"/>
-					<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_387">In diesem Element wird definiert, welche
-								Preisbestandteile mit prozentualem Zu- oder Abschlag eine Wirkung
-								auf diesen Wert haben. Das Element enthält den Wert des Attributs
-								"Class" des entsprechenden PriceItems. Es können auch mehrere Werte
-								als Liste (mit Space getrennt) angegeben werden. In dem Attribute
-								"Component" kann man definieren, auf welche Komponente sich das
-								AppliedBy bezieht. Ist "Component" nicht gefüllt, so gilt der
-								Default="ThisComponent".</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_387">This element defines which price components with percentage mark-up or mark-down have an effect on this value. The element contains the value for the "Class" attribute of the respective PriceItem. Several values can be entered as lists separated by spaces. The component referred to by AppliedBy can be defined in the "Component" attribute. If "Component" is not completed, the default setting applies = "ThisComponent".</xs:documentation>
-						</xs:annotation>
-						<xs:complexType>
-							<xs:simpleContent>
-								<xs:extension base="PriceItemClassTypeList">
-									<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_388">Das Attribut Component gibt an, auf
-												welche Komponente dieses PriceItem sich bezieht. Per
-												Default sind die Komponenten des PriceItems und die
-												des assozierten PriceItems gleich (ThisComponent).
-												Es ist aber möglich, dass ein relatives PriceItem
-												sich auf ein absolutes PriceItem einer anderen
-												Komponente bezieht durch explizite Angabe einer
-												anderen Komponente. </xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_388">The attribute Component indicates which components this PriceItem refers to. By default, the components of the PriceItem and those of the associated PriceItem are the same (ThisComponent). However, it is possible for a relative PriceItem to refer to an absolute PriceItem of another component by explicitly specifying another component.</xs:documentation>
-										</xs:annotation>
-									</xs:attribute>
-								</xs:extension>
-							</xs:simpleContent>
-						</xs:complexType>
-					</xs:element>
+					<xs:group ref="PriceAppliedByGroup"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -6106,19 +6166,19 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="Person" minOccurs="0">
+									<xs:element name="Person" type="EmptyElementType" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation xml:lang="de">Alle absoluten PriceItems bezogen auf eine Person bilden eine separate Gruppe.</xs:documentation>
 											<xs:documentation xml:lang="en">All absolute PriceItems referring to a person form a separate group.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="Day" minOccurs="0">
+									<xs:element name="Day" type="EmptyElementType" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation xml:lang="de">Alle absoluten PriceItems bezogen auf einen Tag bilden eine separate Gruppe.</xs:documentation>
 											<xs:documentation xml:lang="en">All absolute PriceItems referring to a day form a separate group.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="AbsolutePriceItem" minOccurs="0">
+									<xs:element name="AbsolutePriceItem" type="EmptyElementType" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation xml:lang="de">Jedes absolute PriceItem bildet eine separate Gruppe.</xs:documentation>
 											<xs:documentation xml:lang="en">Each absolute PriceItem forms a separate group.</xs:documentation>
@@ -6234,7 +6294,7 @@ Default = "All"</xs:documentation>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
-					<xs:attribute name="Method">
+					<xs:attribute name="Method" type="RoundMethodEnum" default="Down">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">Down
 Up
@@ -6246,7 +6306,7 @@ TowardsZero</xs:documentation>
 								TowardsZero</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
-					<xs:attribute name="RemainingDigits">
+					<xs:attribute name="RemainingDigits" type="xs:int" default="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">Anzahl der Stellen rechts vom Dezimalpunkt die nach dem Runden übrig bleiben. Rundung auf ganze Zahl bedeutet RemainingDigits=0.
 
@@ -6257,7 +6317,7 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 								Negative numbers indicate rounding to 10 (tens), 100 (hundreds) or more.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
-					<xs:attribute name="Threshold">
+					<xs:attribute name="Threshold" type="xs:double" default="0.5">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">Grenzwert  für Rundung in Abhängigkeit der Methode. Der Grenzwert gehört immer schon zu der Richtung, die der Name der Methode vorgibt.</xs:documentation>
 							<xs:documentation xml:lang="en">Limit for rounding, in relation to the method. The limit
@@ -8202,61 +8262,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 			<xs:enumeration value="CotBed"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="FigureType">
-		<xs:sequence>
-			<xs:choice>
-				<xs:element name="LocationDistance" type="DistanceLocationEnum" minOccurs="0" internal:otdsversion="1.9">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_478">In diesem Element stehen die Orte zur Auswahl,
-							für die eine Distanzangabe möglich ist. Folgende Orte für Distanzangaben
-							stehen zur Auswahl: - Beach (Strand) / Entfernungsangabe in Metern -
-							CityCenter (Stadtzentrum) / Entfernungsangabe in Kilometern - Shopping
-							(nächste Einkaufsmöglichkeit) / Entfernungsangabe in Metern - Airport
-							(Flughafen) / Entfernungsangabe in Kilometern - PublicTransport
-							(öffentliche Verkehrsmittel) / Entfernungsangabe in Metern - SkiLift
-							(Skilift) / Entfernungsangabe in Metern - GolfCourse (Golfplatz) /
-							Entfernungsangabe in Metern - Lake (See) / Entfernungsangabe in Metern </xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_478">This element displays locations for which a distance entry is possible. The following places can be selected to have distance entries:
-- Beach / distance to be entered in metres
-- CityCenter / distance to be entered in kilometres
-- Shopping (nearest shopping opportunities) / distance to be entered in metres
-- Airport / distance to be entered in kilometres
-- PublicTransport / distance to be entered in metres
-- SkiLift / distance to be entered in metres
-- GolfCourse / distance to be entered in metres
-- Lake / distance to be entered in metres</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="Facility" type="FigureFacilitiesEnum" minOccurs="0" internal:otdsversion="1.9">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_479">Im Element Facilities stehen vor allem
-							Ausstattungsmerkmale zur Verfügung, die näher beschrieben werden können.
-							Folgende Informationen können geliefert werden: AmountBedrooms (Anzahl
-							Schlafzimmer), UnitSize (Zimmergröße, Ferienhausgröße) / Angabe in
-							Quadratmetern, AmountRooms (Anzahl der Zimmer im Hotel), AmountFloors
-							(Anzahl Stockwerke), AmountBathrooms (Anzahl
-							Badezimmer)</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_479">The Facilities element is primarily used to
-							describe the available facilities in more detail. The following
-							information can be delivered: AmountBedrooms (amount of bedrooms),
-							UnitSize (room size, holiday home size) / to be entered in square
-							metres, AmountRooms (amount of rooms in the hotel), AmountFloors (amount
-							of floors), AmountBathrooms (amount of bathrooms)</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:choice>
-			<xs:element name="Value" type="xs:decimal">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_480">In diesem Element wird der Wert zu der in
-						LocationDistance oder Facilities gewählten Eigenschaft angegeben. Die
-						Einheit, in der dieser Wert geliefert wird, findet sich in der Beschreibung
-						von LocationDistance und Facilities.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_480">In this element a value is entered for the selected feature in LocationDistance or Facilities. The unit in which this value should be delivered is written in the description of LocationDistance and Facilities.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:simpleType name="GeneralExcludedServiceEnum">
+	<xs:simpleType name="MandatoryServicePaidAtLocationEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="FinalCleanUp"/>
 			<xs:enumeration value="VisitorsTax"/>
