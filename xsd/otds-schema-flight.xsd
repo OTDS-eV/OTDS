@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
-<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified" xmlns:internal="http://otds-group.org/otds/internal">
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<xs:include schemaLocation="otds-schema-common.xsd"/>
 	<xs:complexType name="FlightsType">
 		<xs:complexContent>
@@ -331,7 +332,8 @@ Describes the inbound flight in greater detail. Defines the flight as flat or se
 					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="Occupancy" type="OccupancyType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_515">Die dem Flug zugeordnete Belegung. Hier kann die Mindestanforderung für die Reisenden definiert werden. Fehlt der Zweig Occupancy, so gibt es keine Einschränkungen bzgl. der Reisenden. Es wird ein Default angenommen, der beliebige Personen in beliebiger Anzahl zulässt.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_515">Die dem Flug zugeordnete Belegung. Hier kann die Mindestanforderung für die Reisenden definiert werden. Fehlt der Zweig Occupancy, so gibt es keine Einschränkungen bzgl. der Reisenden. Es wird ein Default angenommen, der beliebige Personen in beliebiger Anzahl zulässt. Der Default definiert ebenfalls, dass MatchAvaillability="MatchCount" gesetzt ist. Damit wird ausgedrückt, dass die Anzahl der gebuchten Personen größer gleich dem unter Availability/DayState/Open gelieferten Values ist. Der Default beschreibt weiterhin, dass für Personen unter 2 Jahren MatchAvailability="Ignore" gesetzt ist. Babies besetzen also keinen der verfügbaren Plätze.
+</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_515">The assigned capacity for the flight Here,
 								the minimum occupancy requirement is defined. If the Occupancy
 								branch is not specified, there are no restrictions on the number of
