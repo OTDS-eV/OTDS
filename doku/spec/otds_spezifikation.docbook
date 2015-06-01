@@ -6,8 +6,7 @@
     <title>OTDS - Open Travel Data Structure</phrase></title>-->
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="OtdsSpec" version="5.0" class="specification">
 	<info xml:id="OtdsSpecInfo">
-		<title><phrase xml:id="de_527" xml:lang="de">OTDS Spezifikation Version 1.9</phrase><phrase
-				xml:id="en_527" xml:lang="en">OTDS Specification Version 1.9</phrase></title>
+		<title><phrase xml:id="de_527" xml:lang="de">OTDS Spezifikation Version 1.9.1</phrase><phrase xml:id="en_527" xml:lang="en">OTDS Specification Version 1.9.1</phrase></title>
 		<authorgroup>
 			<author>
 				<personname>
@@ -3032,15 +3031,24 @@
     </DayImpact>
   </DayFilter>
 </DayCount>]]></programlisting>
-				  	<para xml:lang="de" xml:id="de_5500">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage markiert. Die angegebenen Indizes beziehen sich dann immer nur auf diese betrachtete Tage.
-				  		Die Einschränkung über "DayFilter" ist bspw. hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage innerhalb einer bestimmten Datumsrange preisreduziert werden sollen.</para>
-				  	<para xml:lang="en" xml:id="en_5500">With the aid of the „DayFilter“ within „DayCount“ a regarded range of
-							days can be restricted. The restriction can be achieved by limiting
-							certain days of the week, but also through a reference to a
-							ConditionalTag, which marks specific days. The indices given then always
-							relate to these days regarded. The restriction with the aid of
-							"DayFilter" can be helpful, when in the context of a duration discount
-							specific days within a date range shall be reduced in price.</para>
+				  	<para xml:lang="de" xml:id="de_5500">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann
+							eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung
+							kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug
+							auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage
+							markiert. Die angegebenen Indizes beziehen sich dann immer nur auf diese
+							betrachtete Tage. Die Einschränkung über "DayFilter" ist bspw.
+							hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage innerhalb
+							einer bestimmten Datumsrange preisreduziert werden sollen. ("DayFilter"
+							kann auch bei "DayIndex" und "DayPriceIndex" eingesetzt werden.)</para>
+				  	<para xml:lang="en" xml:id="en_5500">With the aid of the „DayFilter“ within „DayCount“ a
+							regarded range of days can be restricted. The restriction can be
+							achieved by limiting certain days of the week, but also through a
+							reference to a ConditionalTag, which marks specific days. The indices
+							given then always relate to these days regarded. The restriction with
+							the aid of "DayFilter" can i.e. be helpful, when in the context of a
+							duration discount specific days within a date range shall be reduced in
+							price. ("DayFilter" can also be used in "DayIndex" and
+							"DayPriceIndex".)</para>
 				  </section>				  
 				  <section xml:id="OtdsStrategyConditionTypeRule">
 						<title><phrase xml:id="de_952" xml:lang="de">Rules-Bedingungen</phrase><phrase xml:id="en_952" xml:lang="en">Rules conditions</phrase></title>
@@ -3105,34 +3113,8 @@
 	</MatchEqual>
  </Condition>]]></programlisting>
 							</para>
-						  <para>Ab der Version 1.9 ist es möglich, MatchEqual/Key-Konstrukte zu verwenden. Dieses
-                Konstrukt vereinfacht die Nutzung von MatchEqual/Tag, da nun die dazu passenden Tags
-                weggelassen werden können.</para>
-						  <para>Nachfolgend ein Beispiel für Saisonüberschneidungen mittels MatchEqual/Key:</para>
-						  <programlisting><![CDATA[<Filter>
-    <And>
-      <Tags Source="#SWSummer" Class="DistributionSeason">Summer</Tags>
-      <Tags Source="#SWWinter" Class="DistributionSeason">Winter</Tags>
-      <MatchEqual>
-        <Key Source="#SWSummer.Unit"/>
-        <Key Source="#SWWinter.Unit"/>
-      </MatchEqual>
-      <MatchEqual>
-        <Tag Source="#SWSummer" Class="Hotelcode"/>
-        <Tag Source="#SWWinter" Class="Hotelcode"/>
-      </MatchEqual>
-      <MatchEqual>
-        <Tag Source="#SWSummer" Class="TravelType"/>
-        <Tag Source="#SWWinter" Class="TravelType"/>
-      </MatchEqual>
-      <MatchEqual>
-        <Key Source="#SWSummer.Board"/>
-        <Key Source="#SWWinter.Board"/>
-      </MatchEqual>
-    </And>
-</Filter>]]></programlisting>
-							<para xml:id="de_963" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="./technisch/otds_technisch.html#MatchEqual">Technischen
-									Dokumentation für OTDS </link>.</para><para xml:id="en_963" xml:lang="en">Please obtain further information from the <link xlink:href="./technisch/otds_technisch.html#MatchEqual">Technical documentation for OTDS</link> .</para>
+							<para xml:id="de_963" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#MatchEqual">Technischen
+									Dokumentation für OTDS </link>.</para><para xml:id="en_963" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#MatchEqual">Technical documentation for OTDS</link> .</para>
 							<para xml:id="de_964" xml:lang="de"> </para><para xml:id="en_964" xml:lang="en"/>
 						</section>
 					</section>
@@ -3282,7 +3264,7 @@
 							<para xml:id="de_995" xml:lang="de"><emphasis role="bold">Indices="1 3 -2 -1</emphasis> definiert den 1. Tag,
 								den 3. Tag, den vorletzten Tag und den letzten Tag als gültige Tage.</para><para xml:id="en_995" xml:lang="en">
 								<emphasis role="bold">Indices="1 3 -2 -1"</emphasis> defines the 1st day, the 3rd day, the 2nd to last day and the last day as valid days.</para>
-						  <para xml:lang="de" xml:id="de_5010">Die Elemente Until, &gt;From und Indices sind
+						  <para xml:lang="de" xml:id="de_5010">Die Elemente Until, From und Indices sind
 								UND-verknüpft. Im folgenden Beispiel würde nur der letzte Stay-Tag
 								adressiert. </para><para xml:lang="en" xml:id="en_5010">The elements Until, From and Indices are AND-connected. In the
 								following example, only the last stay day is addressed.</para>
@@ -3290,13 +3272,13 @@
   <DayImpact>
     <DayIndex Source="Product" >
       <Until>-1</Until>
-      <From>-1/From>
+      <From>-1</From>
     </DayIndex>
   </DayImpact>
 </Condition>]]></programlisting>
 							
 							<bridgehead xml:id="de_997" xml:lang="de">Das Attribut "Repeat"</bridgehead><bridgehead xml:id="en_997" xml:lang="en">The "Repeat" attribute</bridgehead>
-							<para xml:id="de_996" xml:lang="de">Über das Attribute "Repeat" können weitere Einstellungen
+							<para xml:id="de_996" xml:lang="de">Über das Attribut "Repeat" können weitere Einstellungen
 								für sich wiederholende Muster von Tagen definiert werden. Repeat
 								definiert dabei den Wiederholungszyklus. Im Zusammenspiel eines
 								gesetzten Attributs "Repeat=X" beziehen sich alle angegebenen
@@ -3316,6 +3298,23 @@
     </DayIndex>
   </DayImpact>
 </Condition>]]></programlisting>
+							<para xml:id="de_5510" xml:lang="de">Mit Hilfe des „DayFilter“ innerhalb von „DayIndex“ kann
+								eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung
+								kann durch eine Beschränkung der Wochentage, aber auch durch den
+								Bezug auf ein ConditionalTag vorgenommen werden, welches bestimmte
+								Tage markiert. Die angegebenen Indizes beziehen sich dann immer nur
+								auf diese betrachtete Tage. Die Einschränkung über "DayFilter" ist
+								bspw. hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage
+								innerhalb einer bestimmten Datumsrange preisreduziert werden
+								sollen.</para>
+							<para xml:id="en_5510" xml:lang="en">With the aid of the „DayFilter“ within „DayIndex“ a
+								regarded range of days can be restricted. The restriction can be
+								achieved by limiting certain days of the week, but also through a
+								reference to a ConditionalTag, which marks specific days. The
+								indices given then always relate to these days regarded. The
+								restriction with the aid of "DayFilter" can i.e. be helpful, when in
+								the context of a duration discount specific days within a date range
+								shall be reduced in price.</para>
 							<para xml:id="de_1000" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technischen
 									Dokumentation für OTDS </link>.</para><para xml:id="en_1000" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technical documentation for OTDS</link>.</para>
 						</section>
@@ -3765,7 +3764,15 @@
 							Not-/ConsideredPriceItemClasses. With <code>ConsideredPriceItems</code>
 							, it is possible to specify which price components the condition refers
 							to. Here one or several PriceItem classes can be specified.</para>
-
+						<para xml:id="de_5514" xml:lang="de">Über das Attribut "Repeat" können weitere Einstellungen
+							für sich wiederholende Muster von Tagen definiert werden. Repeat
+							definiert dabei den Wiederholungszyklus. Im Zusammenspiel eines
+							gesetzten Attributs "Repeat=X" beziehen sich alle angegebenen Indizes
+							nur auf diesen betracheteten Zyklus. Das bedeutet, der Betrag eines
+							angegebenen Indices kann nicht größer sein als X. Ist der Betrag eines
+							Index dennoch größer als der Wert von Repeat, so wird dies als Fehler
+							betrachtet und die komplette Bedingung ist damit nicht erfüllt.</para>
+						<para xml:id="en_5514" xml:lang="en">The "Repeat" attribute is used to define further settings for repeating patterns of days. Repeat defines the repeat cycle. If the attribute is set to "Repeat = X", all indices entered refer only to this specific cycle. This means the value of an index entered cannot be greater than X. Where the value of an index is greater than the value of Repeat, it is considered a fault and therefore the complete condition is not fulfilled.</para>
 						<para xml:id="de_1079" xml:lang="de">Bedingungen an den Tagespreis können erst ausgewertet werden, wenn die
 							Kombinatorik vollständig abgeschlossen ist und aus den verbleibenden gültigen
 							PriceItems erstmalig die Tagespreise berechenbar sind. Dies erfolgt durch die
@@ -3786,8 +3793,8 @@
   <Condition>
     <DayImpact ImpactExecutionOrder="Last">
       <DayPriceIndex>
-        <Until>2<Until>
-        <ConsideredPriceItems />
+        <Until>2</Until>
+        <ConsideredPriceItems/>
       </DayPriceIndex>
     </DayImpact>
   </Condition>
@@ -3804,6 +3811,10 @@
 							Tage. Mit <code>Until</code> adressiert man alle Tage "bis" zu einem
 							angegebenen Index. Mit <code>From</code> adressiert man alle Tage "ab"
 							einem angegebenen Index.</para><para xml:id="en_1081" xml:lang="en">In the example, <code>Until=2</code> refers to the two lowest priced days of the journey. In order to address the days with the highest prices, <code>From=-2</code> is specified. Positive indices refer to the days with the lowest prices, negative indices refer to the days with the highest prices. With <code>Until</code> one addresses all days "until" a specified index. With <code>From</code> one addresses all days "from" a specified index.</para>
+						<para xml:id="de_5511" xml:lang="de">Mit Hilfe des „DayFilter“ innerhalb von „DayPriceIndex“ kann eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage markiert. Die angegebenen Indizes beziehen sich dann immer nur auf diese betrachtete Tage.
+							Die Einschränkung über DayFilter ist bspw. hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage innerhalb einer bestimmten Datumsrange preisreduziert werden sollen.</para>
+						<para xml:id="en_5511" xml:lang="en">With the aid of the „DayFilter“ within „DayPriceIndex“ a regarded range of days can be restricted. The restriction can be achieved by limiting certain days of the week, but also through a 	reference to a ConditionalTag, which marks specific days. The indices given then always relate to these days regarded. 
+							The restriction with the aid of "DayFilter" can i.e. be helpful, when in the context of a duration discount specific days within a date range shall be reduced in price.</para>
 						<para xml:id="de_1082" xml:lang="de">Weitere Details finden Sie in der <link xlink:href="../technisch/otds_technisch.html#DayPriceIndex">Technischen
 								Dokumentation für OTDS </link>.</para><para xml:id="en_1082" xml:lang="en">Further details can be found in the <link xlink:href="../technisch/otds_technisch.html#DayPriceIndex">Technical documentation for OTDS</link> .</para>
 
@@ -4573,12 +4584,12 @@
 				</section>
 			  <section xml:id="OtdsStrategyProductGenericTag">
 			    <title>
-            <phrase xml:lang="de">Verwendung von <code>GenericTag</code> in Produkten (Version
-              1.9)</phrase>
-            <phrase xml:lang="en">Usage of  <code>GenericTag</code> in Products (Version
-              1.9)</phrase>
-
-          </title>
+						<phrase xml:lang="de" xml:id="de_5043">Kennzeichnung von Produkt-Features
+							durch <code>GenericTag</code> in Produkten (Version 1.9,
+							V1.9)</phrase><phrase xml:lang="en" xml:id="en_5043">Tagging of product
+							features using <code>GenericTag</code> in products (version 1.9,
+							v1.9)</phrase>
+					</title>
 			    <para xml:lang="de" xml:id="de_5044">Durch das Element <code>GenericTag</code> ist es
 						möglich, von den OTDS-Daten unterstützte Produkt-Features in den einzelnen
 						Produkten zu kennzeichnen. Dadurch weiß das verarbeitende System, dass die
@@ -4587,34 +4598,6 @@
 							<code>GenericTag</code> erlaubt, dass von der OTDS-Verarbeitung ein
 						Feature in die Datenverarbeitung integriert werden kann. </para><para xml:lang="en" xml:id="en_5045">The element <code>ExternalParameter</code> within <code>GenericTag</code> allows a feature from the OTDS processing to be integrated in the data processing.</para>
 			    <para xml:lang="de" xml:id="de_5046">OTDS 1.9 kennt aktuell folgende Produkt-Features:</para><para xml:lang="en" xml:id="en_5046">OTDS 1.9 currently recognises the following product features:</para>
-          <para>Im Falle der klassischen FlugPriorisierung des Pauschalbereiches geht es um alle
-            Angebote mit identischer Unterkunft, mit dem selben Abflugtermin, dem selben
-            Abflughafen, dem selben Zielflughafen und dem selben Rückflugtermin (Dauer der
-            Reise).</para>
-          <para>Hier ein Beispiel, wie das mit einem SortedCandidateGroup-GenericTag umgesetzt
-            werden kann:</para>
-          <programlisting><![CDATA[<Otds...>
-  ...
-  <Products> 
-    <GenericTag Class="ReturnFlightGroupPrice">
-      <GenericTagFunction>
-        <SortedCandidateGroup>
-          <GroupedByEqual>
-            <CandidateInstance Source="Descendants:Accommodation"/>
-            <Tag Source="Outbound" Class="DepartureAirport"/>
-            <Tag Source="Outbound" Class="ArrivalAirport"/>
-          </GroupedByEqual>
-          <Value>
-            ...
-          </Value>
-        </SortedCandidateGroup>
-      </GenericTagFunction>
-    </GenericTag>
-  </Products>
-  ...
-</Otds>]]></programlisting>
-			    <para xml:lang="de">Weiterhin es möglich, durch das Element <code>GenericTag</code> die von
-            den OTDS-Daten unterstützte Produkt-Features in den einzelnen Produkten zu kennzeichnen.
 			    <itemizedlist>
 			      <listitem>
 			        <para xml:lang="de" xml:id="de_5047">CityPairProduction</para><para xml:lang="en" xml:id="en_5047">CityPairProduction</para>
@@ -7536,6 +7519,21 @@ usw.]]></programlisting>
 						"available" and on the SellingUnit level the same day is defined as "not
 						available", then the definition of "not available" for the relevant
 						SellingUnit is prioritised.</para>
+					<para xml:id="de_5512" xml:lang="de">Mit Hilfe des Attributes <emphasis role="italic">MatchAvailability"</emphasis> wird ausgedrückt, dass sich im Flug-Bereich die Availability auf die Anzahl der Personen bezieht; in den anderen Availabilities (Accommodation, Addon) hingegen nicht. Das Attribut wird in der Occupancy am Person-Knoten definiert.</para>
+					<para xml:id="en_5512" xml:lang="en">The attribute <emphasis role="italic">MatchAvailability"</emphasis> expresses, that the availability within the flight-context refers to the number of persons; within the other availabilities (accommodation, addon) in contrary it does not. The attribute is being defined at the person-node in the Occupancy.</para>	
+					<programlisting><![CDATA[MatchAvailability="MatchCount"|"Ignore"      ]]></programlisting>	
+					
+					<para xml:id="de_5513" xml:lang="de">"MatchCount" bedeutet, dass die Anzahl der in Occupancy mit MatchCount markierten Personen kleiner oder gleich dem Value in DayState/Open sein muss, damit das Angebot verfügbar ist. "Ignore" bedeutet, dass der Value in DayState/Open keinen Bezug zu den Personen hat. Das Attribut ist optional und hat einen kontextabhängigen Default: In SellingUnit ist der Default="Ignore". In BookingClass ist der Default="MatchCount".</para>
+					<para xml:id="en_5513" xml:lang="en">"MatchCount" means, that the number of persons marked as MatchCount in Occupancy is smaller than or equal the Value in DayState/Open, in order for the offer to be available. "Ignore" means, that the Value in DayState/Open does not have any relation to the persons. The attribute is optional and has a contextual default: In SellingUnit the default="Ignore". In BookingClass the default="MatchCount".</para>
+					<programlisting><![CDATA[     
+						<Occupancy>
+ 							<Person> MatchAvailability="MatchCount"|"Ignore"
+ 								  ...
+ 							</Person>
+ 									...
+						</Occupancy>
+					 ]]></programlisting>	
+				</section>
 					<section xml:id="OtdsStrategyAvailabilities">
 						<title><phrase xml:id="de_1457" xml:lang="de">Availabilities</phrase><phrase xml:id="en_1457" xml:lang="en">Availabilities</phrase></title>
 						<para xml:id="de_1458" xml:lang="de">Unter dem Zweig <emphasis role="italic">Availabilities</emphasis> werden die
@@ -7726,7 +7724,6 @@ usw.]]></programlisting>
 							Informationen.</para><para xml:id="en_1500" xml:lang="en">You can find further information in the <link xlink:href="../technisch/otds_technisch.html#AvailabilityType">Technical documentation for OTDS</link>.</para>
 					</section>
 				</section>
-			</section>
 			<section xml:id="OtdsStrategyUpdateConcept">
 				<title><phrase xml:id="de_1501" xml:lang="de">Das Updatekonzept</phrase><phrase xml:id="en_1501" xml:lang="en">The update concept</phrase></title>
 				<section xml:id="OtdsStrategyUpdateConceptOverview">
@@ -11576,244 +11573,6 @@ usw.]]></programlisting>
 </PriceItem> ]]></programlisting>
       </section>
     </section>
-	  <section xml:id="OtdsProductsComponentsSeasonOverlap">
-	    <title><phrase xml:lang="de">Saisonüberschneidungen (1.9)</phrase></title>
-	    <para>Es gibt Veranstalter, die die Vertriebssaisons in ihrem System separat verwalten. In der
-        Regel gibt es in den Veranstaltersystemen dann implizite Regeln wie mit Reisen im
-        Überschneidungsbereich der Saison umgegangen werden soll. </para>
-	    <para>Es wird in Version 1.9 zusätzlich ermöglicht, dass man die Accommodation in Components
-	      auf mehrere zeitlich nacheinander folgende unterschiedliche SellingAccoms erweitern kann. In
-	      der Definition der DefineComponent kann man dann alle Bedingungen, für die erfolgreiche
-	      Kombination der SellingAccoms festlegen. </para>
-	    <para>Damit die neuen Produkte und gleichzeitig auch die alten Produkte weiterhin korrekt
-	      verarbeitet werden, müssen folgende Aspekte berücksichtigt werden:</para>
-	    <orderedlist>
-	      <listitem>
-	        <para>Die überlappenden Winter- und Sommerangebote eines Hotels müssen jeweils in der selben
-	          &lt;Accommodation> aber in unterschiedlichen SellingAccoms platziert werden </para>
-	      </listitem>
-	      <listitem>
-	        <para>Sommer- bzw. Winterangebote benötigen in der SellingAccom das &lt;Tag
-	          Class="DistributionSeason">Summer bzw. Winter&lt;/Tag> </para>
-	      </listitem>
-	      <listitem>
-	        <para>Alle SellingAccoms benötigen in der SellingAccom das &lt;Tag
-	          Class="Hotelcode">PMI997&lt;/Tag> (Der Value ist natürlich abhängig vom Hotel) </para>
-	      </listitem>
-	      <listitem>
-	        <para>Alle SellingAccoms benötigen in der SellingAccom das &lt;Tag
-	          Class="TravelType">PAUS&lt;/Tag> (Der Value ist natürlich abhängig vom Hotel) </para>
-	      </listitem>
-	      <listitem>
-	        <para>In Filtern und Conditions muss die Verwendung von Source="ThisComponent",
-	          Source="SellingAccom" und Source="Accommodation" bzgl. der gewollten Interpretation
-	          überprüft werden </para>
-	      </listitem>
-	    </orderedlist>
-      <para>Für die Übergangsphase zwischen Version 1.0 und Version 1.9 sollten die hier
-        vereinbahrten Classnamen etc. möglichst eingehalten werden, um eine explizite Produktion
-        auch mit der Version 1.0 zu ermöglichen. </para>
-      <para>Die Änderungen in der Accommodation-Komponente sind 100% abwärtskompatibel auch
-        hinsichtlich der Verarbeitung der Produkte aus Version 1.0. Lediglich die Formulierung des
-        &lt;Product>-Elementes und die neue DefineComponent ist erst ab Version 1.9 möglich.</para>
-      <para>Für die Definiton saisonüberschneidender Reisen wird es eine zusätzliche Möglichkeit zur
-      Definition dieser Produkte unter Products geben.</para>
-	    <para>Das Product-Konstrukt sieht wie folgt aus:</para>
-      <programlisting><![CDATA[<Otds>
-<Products>
-    <Product Key="AccommodationOnly" ProductType="AccommodationOnly">
-        <Components>
-            <DefinedComponent Role="Accommodation"/>
-        </Components>
-    </Product>
-    <Product Key="Packages" ProductType="FlightAccommodation">
-        <Components>
-            <DefinedComponent Role="Accommodation"/>
-            <DefinedComponent Role="ReturnFlight"/>
-        </Components>
-        ...
-    </Product>
-    ...
-</Products>
-...
-<DefinedComponents>
-    <DefineComponent Key="OverlapSW" Role="Accommodation">
-        <Booking>
-            <BookingGroup Area="ServiceArea" Source="#SWWinter" Priority="10">
-                <BookingReplace Source="#SWWinter"/>
-            </BookingGroup>
-            <BookingGroup Area="ServiceArea" Source="#SWSummer" Priority="10">
-                <BookingParameter Field="DateEnd">
-                    <Date DayType="CheckOut" Source="#SWWinter"/>
-                </BookingParameter>
-            </BookingGroup>
-        </Booking>
-        <Components>
-            <Accommodation>
-                <SellingAccom DayAllocationIndex="-1" Name="SWSummer"/>
-                <SellingAccom DayAllocationIndex="1" Name="SWWinter"/>
-            </Accommodation>
-        </Components>
-        <Filter>
-            <And>
-                <Tags Source="#SWSummer" Class="DistributionSeason">Summer</Tags>
-                <Tags Source="#SWWinter" Class="DistributionSeason">Winter</Tags>
-                <MatchEqual>
-                    <Key Source="#SWSummer.Unit"/>
-                    <Key Source="#SWWinter.Unit"/>
-                </MatchEqual>
-                <MatchEqual>
-                    <Tag Source="#SWSummer" Class="Hotelcode"/>
-                    <Tag Source="#SWWinter" Class="Hotelcode"/>
-                </MatchEqual>
-                <MatchEqual>
-                    <Tag Source="#SWSummer" Class="TravelType"/>
-                    <Tag Source="#SWWinter" Class="TravelType"/>
-                </MatchEqual>
-                <MatchEqual>
-                    <Key Source="#SWSummer.Board"/>
-                    <Key Source="#SWWinter.Board"/>
-                </MatchEqual>
-            </And>
-        </Filter>
-    </DefineComponent>
-        ...
-</DefinedComponents>
-</Otds>]]></programlisting>
-	    <para>Analog dazu wird es auch immer eine weitere DefineComponent geben, die die Überlappung an
-	    der anderen Saisongrenze definiert:</para>
-	    <programlisting><![CDATA[<DefineComponent Key="OverlapWS" Role="Accommodation">
-    <Booking>
-        <BookingGroup Area="ServiceArea" Source="#WSSummer" Priority="10">
-            <BookingReplace Source="#WSSummer"/>
-        </BookingGroup>
-        <BookingGroup Area="ServiceArea" Source="#WSWinter" Priority="10">
-            <BookingParameter Field="DateEnd">
-                <Date DayType="CheckOut" Source="#WSSummer"/>
-            </BookingParameter>
-        </BookingGroup>
-    </Booking>
-    <Components>
-        <Accommodation>
-            <SellingAccom DayAllocationIndex="-1" Name="WSSummer"/>
-            <SellingAccom DayAllocationIndex="1" Name="WSWinter"/>
-        </Accommodation>
-    </Components>
-    <Filter>
-        <And>
-            <Tags Source="#SWSummer" Class="DistributionSeason">Summer</Tags>
-            <Tags Source="#SWWinter" Class="DistributionSeason">Winter</Tags>
-
-        <MatchEqual>
-            <Key Source="#SWSummer.Unit"/>
-            <Key Source="#SWWinter.Unit"/>
-        </MatchEqual>
-        <MatchEqual>
-            <Tag Source="#SWSummer" Class="Hotelcode"/>
-            <Tag Source="#SWWinter" Class="Hotelcode"/>
-        </MatchEqual>
-        <MatchEqual>
-            <Tag Source="#SWSummer" Class="TravelType"/>
-            <Tag Source="#SWWinter" Class="TravelType"/>
-        </MatchEqual>
-        <MatchEqual>
-            <Key Source="#SWSummer.Board"/>
-            <Key Source="#SWWinter.Board"/>
-        </MatchEqual>
-      </And>
-    </Filter>
-</DefineComponent>]]></programlisting>
-	    <para>In dem Beispiel sind bereits MatchEqual/Key-Konstrukte enthalten, die erst ab Version 1.9
-        erlaubt sind. </para>
-      <para>In V1.0 kompatiblen Lieferungen müsste man diese durch entsprechende MatchEqual/Tag
-        ersetzen und natürlich auch die entsprechenden Tags integrieren. </para>
-      <para>Außerdem gibt es der Einfachheit noch eine 3. sehr simple DefineComponent, die die
-      "Nicht-überlappenden"-Accommodations definiert. </para>
-	    <programlisting><![CDATA[<DefineComponent Key="NonOverlap" Role="Accommodation">
-    <Components>
-        <Accommodation/>
-    </Components>
-</DefineComponent>]]></programlisting>
-	    <para>Damit braucht man dann nur eine Produktdefinition zum Beispiel für das Pauschal-Produkt,
-        die sich auf<emphasis role="bold"> DefinedComponent Role="Accommodation"</emphasis>
-        bezieht.</para>
-	    <programlisting><![CDATA[<Product ...>
-    <Components>
-        <DefinedComponent Role="Accommodation"/>
-        <DefinedComponent Role="ReturnFlight"/>
-    </Components>
-    <Filter>
-      ...
-    </Filter>
-</Product>]]></programlisting>
-	    <bridgehead><phrase xml:lang="de">Verarbeitung</phrase></bridgehead>
-	    <para>Entsprechend der Regeln der Produktauswertung werden durch die oben angegebenen neuen
-        Produktdefinitionen, alle Angebote zusammengestellt, die aus 2 SellingAccoms bestehen,
-        welche in einer Accommodation platziert sind und zusätzlich den angegebenen Regeln
-        entsprechen. </para>
-      <para>Da die saisonüberschneidenden Reisen in der Regel auch durch genau eine Buchungszeile
-        für die Unterkunft gebucht werden, muss dies durch entsprechende BookingGroups im
-        &lt;Product> sichergestellt werden. </para>
-      <para>Analog kann man auch bei der Definition für Pauschalprodukte verfahren.</para>
-	    <bridgehead><phrase xml:lang="de">Beispiel</phrase></bridgehead>
-	    <para>Häufig ist es ggf. sinnvoller die Winter- und Sommersaison in getrennten Dateien zu
-        liefern, da es die Produktion vereinfacht. Dementsprechend sieht eine Lieferung eines Hotels
-        (PMI997) für die Winter- und Sommersaison dann folgendermaßen aus:</para>
-      <para>1. Wintersaison:</para>
-      <programlisting><![CDATA[<Otds UpdateMode="Merge" ...>
-    <Accommodations UpdateMode="Merge">
-        <Accommodation Key="PMI997" UpdateMode="Merge" ...>
-            <SellingAccom Key="W12_PMI997" ...>
-                <Tags>
-                    <Tag Class="DistributionSeason">Winter</Tag>
-                    <Tag Class="Hotelcode">PMI997</Tag>
-                    <Tag Class="TravelType">PAUS</Tag>
-                    ...
-                </Tags>
-                ...
-                <Board Key="A" ...>
-                    ...
-                </Board>
-                ...
-                <Unit Key="DZ" ...>
-                    ...
-                </Unit>
-                ...
-            </SellingAccom>
-        </Accommodation>
-        ...
-    </Accommodations>    
-</Otds>]]></programlisting>
-	    <para>Hier ist der Key der Accommodation sehr wichtig, der zu dem Key aus der Sommerlieferung
-        passen muss. Ein Prefix "W12_" wäre hier falsch.</para>
-      <para>1. Sommersaison:</para>
-      <programlisting><![CDATA[<Otds UpdateMode="Merge" ...>
-    <Accommodations UpdateMode="Merge">
-        <Accommodation Key="PMI997" UpdateMode="Merge" ...>
-            <SellingAccom Key="S13_PMI997" ...>
-                <Tags>
-                    <Tag Class="DistributionSeason">Summer</Tag>
-                    <Tag Class="Hotelcode">PMI997</Tag>
-                    <Tag Class="TravelType">PAUS</Tag>
-                    ...
-                </Tags>
-                ...
-                <Board Key="A" ...>
-                    ...
-                </Board>
-                ...
-                <Unit Key="DZ" ...>
-                    ...
-                </Unit>
-                ...
-            </SellingAccom>
-        </Accommodation>
-        ...
-    </Accommodations>    
-    </Otds>]]></programlisting>
-	    <para>Auch hier ist der Key der Accommodation sehr wichtig, der zu dem Key aus der
-        Winterlieferung passen muss. Ein Prefix "S13_" wäre hier falsch.</para>
-	  </section>
 	</section>
 	<section xml:id="OtdsProcess">
 		<title><phrase xml:id="de_2129" xml:lang="de">Das theoretische Verarbeitungsmodell</phrase><phrase xml:id="en_2129" xml:lang="en">The theoretical processing model</phrase></title>
@@ -15167,10 +14926,16 @@ usw.]]></programlisting>
 						Bedingungen schränken im Rahmen einer <code>DayImpact</code> Bedingung die
 						Verarbeitung auf einzelne Tage ein. Beide Bedingungen werden im Prinzip
 						identisch verarbeitet und unterscheiden sich ausschließlich in der
-						Reihenfolge, in welcher die Tage verarbeitet werden. Im Unterschied zu
-							<code>DayIndex</code> hat die <code>DayPriceIndex</code>-Bedingung aber
-						kein Attribut <code>Repeat</code> zur Definition von gleichmäßigen
-						Index-Intervallen. </para><para xml:id="en_2657" xml:lang="en">The <code>DayIndex</code>  and <code>DayPriceIndex</code>  conditions limit the processing of the<code>DayImpact</code>  condition to individual days. In principal both conditions are processed identically and differ only in the order in which the days are processed. In contrast to <code>DayIndex</code>  the<code>DayPriceIndex</code>  condition has no <code>Repeat</code> attribute to define identical index intervals.</para>
+						Reihenfolge, in welcher die Tage verarbeitet werden. Nach
+							<code>DayIndex</code> hat mit Version 1.9.1 auch die
+							<code>DayPriceIndex</code>-Bedingung das Attribut <code>Repeat</code>
+						zur Definition von gleichmäßigen Index-Intervallen. </para><para xml:id="en_2657" xml:lang="en">The <code>DayIndex</code> and <code>DayPriceIndex</code>
+						conditions limit the processing of the<code>DayImpact</code> condition to
+						individual days. In principal both conditions are processed identically and
+						differ only in the order in which the days are processed. Following
+							<code>DayIndex</code> as of version 1.9.1 also the
+							<code>DayPriceIndex</code> condition has a <code>Repeat</code> attribute
+						to define identical index intervals.</para>
 
 					<itemizedlist>
 						<listitem>
@@ -20862,7 +20627,7 @@ usw.]]></programlisting>
 						auswertbar - die Auswertung zu den Ausführungszeitpunkten
 							<code>ImpactExecutionOrder=BeforeCombinatorics /
 							AfterCombinatorics</code> ist weder möglich noch erlaubt.</para><para xml:id="en_3654" xml:lang="en">The difference of this evaluation in comparison to the second evaluation (Ausführungszeitpunkt <code>ImpactExecutionOrder=AfterCombinatorics</code> ) lies in the <code>DayImpact</code> condition <code>DayPriceIndex</code> , with which conditions can be placed on the cheapest or most expensive days. The <code>DayPriceIndex</code> can only be evaluated at this point. Evaluation at the execution times <code>ImpactExecutionOrder=BeforeCombinatorics / AfterCombinatorics</code> is neither possible nor permitted.</para>
-					<para xml:id="de_3655" xml:lang="de">Um die Bedingungen an die Tagespreies auswerten zu können,
+					<para xml:id="de_3655" xml:lang="de">Um die Bedingungen an die Tagespreise auswerten zu können,
 						ist es notwendig, die Tagespreise zu ermitteln. Dies erfolgt für die
 						Auswertung jeder DayPriceIndex-Teilbedingung erneut, da die
 						DayPriceIndex-Teilbedingung sich jeweils auf unterschiedliche
@@ -21799,7 +21564,7 @@ usw.]]></programlisting>
 										<para xml:id="de_3849" xml:lang="de">HolidayHome (V1.9)</para><para xml:id="en_3849" xml:lang="en">HolidayHome (V1.9)</para>
 									</listitem>
 									<listitem>
-										<para xml:id="de_0001" xml:lang="de">ElegantAccommodationStyle (V1.9.1)</para><para xml:id="en_0001" xml:lang="en">ElegantAccommodationStyle (V1.9.1)</para>
+										<para xml:id="de_3850" xml:lang="de">ElegantAccommodationStyle (V1.9.1)</para><para xml:id="en_3850" xml:lang="en">ElegantAccommodationStyle (V1.9.1)</para>
 									</listitem>
 									<listitem>
 										<para xml:lang="de">BoutiqueAccommodationStyle (V1.9.1)</para><para xml:lang="en">BoutiqueAccommodationStyle (V1.9.1)</para>
@@ -21821,9 +21586,9 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1"><para xml:lang="de">Spezielle Unterkunftstypen und (neu in V1.9.1) -Stile</para><para xml:lang="en">Specific accommodation types and (new in V1.9.1) -styles</para>
 									<itemizedlist>
 										<listitem>
-											<para xml:id="de_3850" xml:lang="de">Villa sind Bungalows, Häuser, Reihenhäuser, die einzeln
+											<para xml:lang="de">Villa sind Bungalows, Häuser, Reihenhäuser, die einzeln
 												gemietet werden können, die sich aber nicht in einem
-												Parkverbund befinden </para><para xml:id="en_3850" xml:lang="en">Villas are bungalows, houses and terraced houses that can be rented individually, but that are not located in a park compound</para>
+												Parkverbund befinden </para><para xml:lang="en">Villas are bungalows, houses and terraced houses that can be rented individually, but that are not located in a park compound</para>
 										</listitem>
 										<listitem>
 											<para xml:id="de_3851" xml:lang="de">HolidayParks sind Villas, welche sich in einem Parkverbund
@@ -23502,7 +23267,9 @@ usw.]]></programlisting>
 							<para xml:id="de_4274" xml:lang="de">GeneralIncludedServices</para><para xml:id="en_4274" xml:lang="en">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_4275" xml:lang="de">GeneralExcludedServices (V1.9)</para><para xml:id="en_4275" xml:lang="en">GeneralExcludedServices (V1.9)</para>
+							<para xml:id="de_4275" xml:lang="de">MandatoryServicesPaidAtLocation (V1.9.1) (zuvor:
+								GeneralExcludedServices, V1.9)</para><para xml:id="en_4275" xml:lang="en">MandatoryServicesPaidAtLocation (V1.9.1) (previously:
+								GeneralExcludedServices, v1.9)</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_4276" xml:lang="de">AccommodationAddress</para><para xml:id="en_4276" xml:lang="en">AccommodationAddress</para>
@@ -23598,7 +23365,9 @@ usw.]]></programlisting>
 							<para xml:id="de_4302" xml:lang="de">GeneralIncludedServices</para><para xml:id="en_4302" xml:lang="en">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_4303" xml:lang="de">GeneralExcludedServices (V1.9)</para><para xml:id="en_4303" xml:lang="en">GeneralExcludedServices (V1.9)</para>
+							<para xml:id="de_4303" xml:lang="de">MandatoryServicesPaidAtLocation (V1.9.1), (zuvor:
+								GeneralExcludedServices, V1.9)</para><para xml:id="en_4303" xml:lang="en">MandatoryServicesPaidAtLocation (V1.9.1), (previously:
+								GeneralExcludedServices, V1.9)</para>
 						</listitem>
 					</itemizedlist>
 					
@@ -23890,7 +23659,9 @@ usw.]]></programlisting>
 							<para xml:id="de_4389" xml:lang="de">GeneralIncludedServices</para><para xml:id="en_4389" xml:lang="en">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_4390" xml:lang="de">GeneralExcludedServices (V1.9)</para><para xml:id="en_4390" xml:lang="en">GeneralExcludedServices (V1.9)</para>
+							<para xml:id="de_4390" xml:lang="de">MandatoryServicesPaidAtLocation (V1.9.1), (zuvor:
+								GeneralExcludedServices, V1.9)</para><para xml:id="en_4390" xml:lang="en">MandatoryServicesPaidAtLocation (V1.9.1), (previously:
+								GeneralExcludedServices, v1.9)</para>
 						</listitem>
 					</itemizedlist>
 					
@@ -24152,7 +23923,9 @@ usw.]]></programlisting>
 							<para xml:id="de_4438" xml:lang="de">GeneralIncludedServices</para><para xml:id="en_4438" xml:lang="en">GeneralIncludedServices</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_4439" xml:lang="de">GeneralExcludedServices (V1.9)</para><para xml:id="en_4439" xml:lang="en">GeneralExcludedServices (V1.9)</para>
+							<para xml:id="de_4439" xml:lang="de">MandatoryServicesPaidAtLocation (V1.9.1) (zuvor:
+								GeneralExcludedServices, V1.9)</para><para xml:id="en_4439" xml:lang="en">MandatoryServicesPaidAtLocation (v1.9.1), (previously:
+								GeneralExcludedServices, v1.9)</para>
 						</listitem>
 					</itemizedlist>
 					<para xml:id="de_4440" xml:lang="de">Die Service-Typen der Zusatzleistungen sind, wie oben
@@ -24584,11 +24357,12 @@ usw.]]></programlisting>
 					</itemizedlist>
 				</section>
 				<section xml:id="AnhangPropertiesPriceTypes">
-					<title><phrase xml:id="de_4551" xml:lang="de">Properties - GeneralIncluded, GeneralExcluded
-							(Version 1.9, V1.9), PriceType, TextInformation</phrase><phrase
-							xml:id="en_4551" xml:lang="en">Properties - GeneralIncluded,
-							GeneralExcluded (version 1.9, v1.9), PriceType,
-						TextInformation</phrase></title>
+					<title><phrase xml:id="de_4551" xml:lang="de">Properties - GeneralIncluded,
+							MandatoryServicesPaidAtLocation (Version 1.9.1, zuvor: GeneralExcluded,
+							V1.9), PriceType, TextInformation</phrase><phrase xml:id="en_4551"
+							xml:lang="en">Properties - GeneralIncluded,
+							MandatoryServicesPaidAtLocation (version 1.9.1, previously:
+							GeneralExcluded, v1.9), PriceType, TextInformation</phrase></title>
 					
 						<informaltable border="0" style="border-collapse:  collapse;width:1008pt" width="1344">
 							<col width="121.0px"/>
@@ -24822,7 +24596,8 @@ usw.]]></programlisting>
 								<para xml:id="de_4639" xml:lang="de">&gt;= ReturnFlight/Outbound</para><para xml:id="en_4639" xml:lang="en">&gt;= ReturnFlight/Outbound</para>
 								<para xml:id="de_4640" xml:lang="de">&gt;= ReturnFlight/Inbound</para><para xml:id="en_4640" xml:lang="en">&gt;= ReturnFlight/Inbound</para>
 							</td>
-							<td rowspan="1" colspan="1">GeneralExcludedService (V1.9)</td>
+							<td rowspan="1" colspan="1">MandatoryServicesPaidAtLocation (V1.9.1) (previously:
+								GeneralExcludedService, v1.9)</td>
 							<td rowspan="1" colspan="1">
 								<itemizedlist>
 									<listitem>
@@ -24851,9 +24626,7 @@ usw.]]></programlisting>
 									</listitem>
 								</itemizedlist>
 							</td>
-								<td rowspan="1" colspan="1">Zusatzleistungen die zusätzliche Kosten vor Ort verursachen. Einige Zusatzleistungen
-								sind Bestandteil des Angebots und können nicht abgewählt werden kann. Andere sind
-								optional.</td>
+								<td rowspan="1" colspan="1">Zusatzleistungen, die obligatorischer Bestandteil des Angebotes sind und zusätzliche Kosten vor Ort verursachen.</td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -25636,7 +25409,7 @@ usw.]]></programlisting>
 										<entry/>
 									</row>
 								<row>
-									<entry>GeneralExcludedService (V1.9)</entry>
+									<entry>MandatoryServicesPaidAtLocation (V1.9.1)</entry>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
@@ -28025,7 +27798,7 @@ usw.]]></programlisting>
 		<section role="Anhang" xml:id="XMLExamples">
 			<title><phrase xml:id="de_4950" xml:lang="de">Anhang: XML-Beispiele</phrase><phrase xml:id="en_4950" xml:lang="en">Appendix: XML examples</phrase></title>
 			<para xml:id="de_4951" xml:lang="de">Beispiel: Demo_Angebotskalkulation.xml </para><para xml:id="en_4951" xml:lang="en">Example: Demo_Angebotskalkulation.xml</para>
-			<programlisting language="XML"><xi:include href="example/Demo_Angebotskalkulation.xml" parse="text"/></programlisting>
+			<programlisting language="XML"><![CDATA[<xi:include href="example/Demo_Angebotskalkulation.xml" parse="text"/>]]></programlisting>
 		</section>
 	</appendix>
 </article>
