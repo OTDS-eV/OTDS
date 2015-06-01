@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.0">
-	<Products>
-		<Product Key="AccomOnly" ProductType="AccommodationOnly">
-			<Components>
-				<Accommodation/>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.9.1" UpdateMode="New">
+	<Products UpdateMode="New">
+		<Product Key="AccomOnly" ProductType="AccommodationOnly" UpdateMode="New">
+			<Components UpdateMode="New">
+				<Accommodation DayAllocationLevel="0"/>
 			</Components>
 		</Product>
 	</Products>
-	<Brands>
-		<Brand Key="TO1">
-			<Booking>
-				<BookingGroup Source="ThisComponent" Area="GlobalArea" Class="Default">
-					<BookingParameter Field="BrandCode">
+	<Brands UpdateMode="New">
+		<Brand Key="TO1" UpdateMode="New">
+			<Booking UpdateMode="New">
+				<BookingGroup Source="ThisComponent" Area="GlobalArea" Class="Default" Priority="0">
+					<BookingParameter Field="BrandCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
 						<Value>TO1</Value>
 					</BookingParameter>
 				</BookingGroup>
 			</Booking>
 		</Brand>
 	</Brands>
-	<Accommodations>
+	<Accommodations UpdateMode="New">
 		<!--Exemplarische Accommodation. -->
 		<!-- Auf eine ausführliche Definition wird verzichtet, hier lediglich terminabhängige Properties demonstriert werden sollen. -->
-		<Accommodation Key="12345">
+		<Accommodation Key="12345" UpdateMode="New">
 			<!-- Hotelbeispiel mit datumsabhängigen Properties -->
-			<Properties Key="1">
+			<Properties Key="1" UpdateMode="New">
 				<!-- Für jede Kategorie wird eine PropertyGroup eröffnet, die eine Date-Condition enthalten kann. -->
-				<PropertyGroup>
+				<PropertyGroup Priority="0">
 					<!-- Keine Terminangabe, dies sind die default-Properties. -->
 					<!-- Diese werden ggfs. von Properties einer anderen Group mit höherer Priority überschrieben, sofern die jeweilige Condition zutrifft. -->
 					<AccommodationCity>El Arenal</AccommodationCity>
+					<AccommodationType>BoutiqueAccommodationStyle</AccommodationType>
 					<AccommodationName>Hotel Estrella</AccommodationName>
 					<AccommodationOfficialCategory>2</AccommodationOfficialCategory>
 					<AccommodationOperatorCategory>2</AccommodationOperatorCategory>
@@ -36,10 +37,28 @@
 					<AccommodationSportsFacilities>BeachVolleballCourt BikeRental TennisCourt</AccommodationSportsFacilities>
 					<AccommodationWellnessFacilities>Thermalbad Ayurveda MedicalWellness</AccommodationWellnessFacilities>
 					<AccommodationSeniorFacilities>Lift HandicappedAccessible</AccommodationSeniorFacilities>
+					<AccomodationTargetgroups>AccomodationForCityTravellers AccomodationForCulturalTravellers AccomodationForNatureTravellers AdultsOnly DogOwner Families GourmetTravellers Homosexuals RomanticCouples SeniorTravellers SeniorTravellers ShortstayTravellers Singles SportTravellers WellnessTravellers YoungPeople</AccomodationTargetgroups>
+					<AccommodationInternetAccess InternetAccessCharge="ForFree" InternetAccessLocation="Lobby" InternetAccessType="WIFI"/>
+					<AccommodationInternetAccess InternetAccessCharge="WithCharge" InternetAccessLocation="EntireHotel" InternetAccessType="WIFI"/>
+					<AccommodationInternetAccess InternetAccessCharge="ForFree" InternetAccessLocation="Room" InternetAccessType="ViaCable"/>
+					<UnitFacilities>InnercourtView Minibar CityView MountainView</UnitFacilities>
+					<AddonServiceType>
+						<Insurance>SportsEquipmentInsurance</Insurance>
+					</AddonServiceType>
+					<GeneralIncludedServices>
+						<GeneralIncludedService ShortServiceAnnotation="Mietwagen Typ B">CarRental</GeneralIncludedService>
+						<GeneralIncludedService>RailAndFly</GeneralIncludedService>
+						<GeneralIncludedService>SkiLessons</GeneralIncludedService>
+						<GeneralIncludedService>SnowboardLessons</GeneralIncludedService>
+					</GeneralIncludedServices>
+					<MandatoryServicesPaidAtLocation>
+						<MandatoryServicePaidAtLocation ShortServiceAnnotation="On weekly base">CleaningService</MandatoryServicePaidAtLocation>
+					</MandatoryServicesPaidAtLocation>
 				</PropertyGroup>
 				<PropertyGroup Priority="1">
 					<!-- Umbenennung des Hotels während des Jahres -->
 					<!-- Überschreibt wg. der Priority obigen default-Wert -->
+					<!-- Ab dem ZEitpunkt ist dann auch eine TransPort -->
 					<AccommodationName>Hotel Dos Estrellas</AccommodationName>
 					<Condition>
 						<Date Source="ThisComponent" DayType="CheckIn">
@@ -140,6 +159,28 @@
 								<Insurance>TheftProtection</Insurance>
 							</CarInsurance>
 						</AddonCarRentalProperties>
+					</PropertyGroup>
+				</Properties>
+			</Service>
+		</Addon>
+		<Addon Key="Insurances">
+			<Service Key="SkiBoardBreakInsurance">
+				<Properties Key="1">
+					<PropertyGroup>
+						<AddonServiceType>
+							<Insurance>SportsEquipmentInsurance</Insurance>
+						</AddonServiceType>
+						<AddonServiceName>Ski- / Snowboard-Bruchversicherung</AddonServiceName>
+					</PropertyGroup>
+				</Properties>
+			</Service>
+			<Service Key="TravelCraftDamageInsurance">
+				<Properties Key="1">
+					<PropertyGroup>
+						<AddonServiceType>
+							<Insurance>TransportInsurance</Insurance>
+						</AddonServiceType>
+						<AddonServiceName>Reise PKW Pannenversicherung</AddonServiceName>
 					</PropertyGroup>
 				</Properties>
 			</Service>
