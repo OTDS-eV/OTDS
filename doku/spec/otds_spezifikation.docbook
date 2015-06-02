@@ -3315,6 +3315,8 @@
 								restriction with the aid of "DayFilter" can i.e. be helpful, when in
 								the context of a duration discount specific days within a date range
 								shall be reduced in price.</para>
+							<para xml:id="de_5515" xml:lang="de">Da die ImpactExecutionOrder=Last gefordert ist, ist hier die Anwendung der dreiwertigen Auswertungslogik zwingend erforderlich. Mehr Details hierzu s. Section 3.3.2.5 <xref linkend="OtdsProcessConditionsThreeway"/>.</para>
+							<para xml:id="en_5515" xml:lang="en">As the ImpactExecutionOrder=Last is requested, the application of the triadic analysis logic is mandatory. For more details please see Section 3.3.2.5 <xref linkend="OtdsProcessConditionsThreeway"/>.</para>
 							<para xml:id="de_1000" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technischen
 									Dokumentation für OTDS </link>.</para><para xml:id="en_1000" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technical documentation for OTDS</link>.</para>
 						</section>
@@ -6697,7 +6699,7 @@ usw.]]></programlisting>
 			          </itemizedlist> 
 			        </listitem>
 			        <listitem>
-			          <para xml:id="de_5209" xml:lang="de">Treshold</para><para xml:id="en_5209" xml:lang="en">Threshold</para>
+			          <para xml:id="de_5209" xml:lang="de">Threshold</para><para xml:id="en_5209" xml:lang="en">Threshold</para>
 			          <itemizedlist>
 			            <listitem>
 			              <para xml:id="de_5210" xml:lang="de">Definiert den Grenzwert als einstellige
@@ -6770,6 +6772,9 @@ usw.]]></programlisting>
 			        <listitem>
 			          <para xml:id="de_5223" xml:lang="de">All</para><para xml:id="en_5223" xml:lang="en">All</para>
 			        </listitem>
+			      	<listitem>
+			      		<para xml:id="de_5516" xml:lang="de">GenericAbsolute</para><para xml:id="en_5516" xml:lang="en">GenericAbsolute</para>
+			      	</listitem>
 			      </orderedlist> 
 			      <para xml:id="de_5224" xml:lang="de">Default ist "All" und wird auch benutzt, wenn das Attribut nicht gesetzt ist.</para><para xml:id="en_5224" xml:lang="en">The default is "All" and is also used when the attribute is not placed.</para>
 			      <bridgehead xml:lang="de" xml:id="de_5225">Definition zu berücksichtigender PriceTags oder auszuschließender PriceTags</bridgehead><bridgehead xml:lang="en" xml:id="en_5225">Definition of PriceTags to be considered or PriceTags to be excluded.</bridgehead>
@@ -7519,12 +7524,20 @@ usw.]]></programlisting>
 						"available" and on the SellingUnit level the same day is defined as "not
 						available", then the definition of "not available" for the relevant
 						SellingUnit is prioritised.</para>
-					<para xml:id="de_5512" xml:lang="de">Mit Hilfe des Attributes <emphasis role="italic">MatchAvailability"</emphasis> wird ausgedrückt, dass sich im Flug-Bereich die Availability auf die Anzahl der Personen bezieht; in den anderen Availabilities (Accommodation, Addon) hingegen nicht. Das Attribut wird in der Occupancy am Person-Knoten definiert.</para>
-					<para xml:id="en_5512" xml:lang="en">The attribute <emphasis role="italic">MatchAvailability"</emphasis> expresses, that the availability within the flight-context refers to the number of persons; within the other availabilities (accommodation, addon) in contrary it does not. The attribute is being defined at the person-node in the Occupancy.</para>	
-					<programlisting><![CDATA[MatchAvailability="MatchCount"|"Ignore"      ]]></programlisting>	
-					
-					<para xml:id="de_5513" xml:lang="de">"MatchCount" bedeutet, dass die Anzahl der in Occupancy mit MatchCount markierten Personen kleiner oder gleich dem Value in DayState/Open sein muss, damit das Angebot verfügbar ist. "Ignore" bedeutet, dass der Value in DayState/Open keinen Bezug zu den Personen hat. Das Attribut ist optional und hat einen kontextabhängigen Default: In SellingUnit ist der Default="Ignore". In BookingClass ist der Default="MatchCount".</para>
-					<para xml:id="en_5513" xml:lang="en">"MatchCount" means, that the number of persons marked as MatchCount in Occupancy is smaller than or equal the Value in DayState/Open, in order for the offer to be available. "Ignore" means, that the Value in DayState/Open does not have any relation to the persons. The attribute is optional and has a contextual default: In SellingUnit the default="Ignore". In BookingClass the default="MatchCount".</para>
+					<para xml:id="de_5512" xml:lang="de">Mit Hilfe des Attributes <emphasis role="italic"
+							>MatchAvailability"</emphasis> (definiert in der Occupancy am
+						Person-Knoten) wird ausgedrückt, dass sich im Flug-Bereich die Availability
+						auf die Anzahl der Personen bezieht; in den anderen Availabilities
+						(Accommodation, Addon) hingegen nicht. MatchAvailability bestimmt, ob es
+						einen Bezug zwischen der Anzahl der Personen und der in der
+						Availability/DayState/Open angegebenen Zahl gibt. </para>
+					<para xml:id="en_5512" xml:lang="en">The attribute <emphasis role="italic"
+							>"MatchAvailability"</emphasis> (defined at the person-node in the
+						Occupancy) expresses, that the availability within the flight-context refers
+						to the number of persons; within the other availabilities (accommodation,
+						addon) in contrary it does not. MatchAvailability defines whether there is a
+						correlation between the number of persons and the number stated in
+						Availability/DayState/Open. </para>	
 					<programlisting><![CDATA[     
 						<Occupancy>
  							<Person> MatchAvailability="MatchCount"|"Ignore"
@@ -7532,7 +7545,14 @@ usw.]]></programlisting>
  							</Person>
  									...
 						</Occupancy>
-					 ]]></programlisting>	
+					 ]]></programlisting>
+					<para xml:id="de_5513" xml:lang="de">Das Attribut <emphasis role="italic"
+						>"MatchAvailability"</emphasis> ist optional und hat einen kontextabhängigen Default:
+						In SellingUnit beschreibt der Default, dass für Personen unter 2 Jahren MatchAvailability="Ignore" gesetzt ist. Babies besetzen also keinen der verfügbaren Plätze. Ignore bedeutet, dass der Value in DayState/Open keinen Bezug zu den Personen hat. 
+						In BookingClass ist der Default MatchAvailability="MatchCount". Der Wert in Availability/DayState/Open eines Angebotes muss größer gleich der Anzahl der mit "MatchCount" markierten Personen sein.</para>
+					<para xml:id="en_5513" xml:lang="en">The attribute <emphasis role="italic">"MatchAvailability"</emphasis> is optional and has a contextual default: In SellingUnit the default describes that for persons under the age of 2 years MatchAvailability="Ignore". Hence Babies do not occupy any of the available seats. 
+						"Ignore" means, that the Value in DayState/Open does not have any relation to the persons. In BookingClass the default is MatchAvailability="MatchCount". The value in Availability/DayState/Open of an offer has to be larger than or equal the nuber of the persons marked by "MatchCount".</para>
+					<programlisting><![CDATA[MatchAvailability="MatchCount"|"Ignore"      ]]></programlisting>		
 				</section>
 					<section xml:id="OtdsStrategyAvailabilities">
 						<title><phrase xml:id="de_1457" xml:lang="de">Availabilities</phrase><phrase xml:id="en_1457" xml:lang="en">Availabilities</phrase></title>
