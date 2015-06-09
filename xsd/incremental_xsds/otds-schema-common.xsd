@@ -551,7 +551,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
                      <xs:complexType>
                         <xs:complexContent>
                            <xs:extension base="OccupancyPersonType">
-                              <xs:attribute name="MatchAvaillability" type="MatchAvailabilityEnum">
+                              <xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
                                  <xs:annotation>
                                     <xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
 Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
@@ -587,7 +587,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
             <xs:complexType>
                <xs:complexContent>
                   <xs:extension base="BaseOccupancyPersonType">
-                     <xs:attribute name="MatchAvaillability" type="MatchAvailabilityEnum">
+                     <xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
                         <xs:annotation>
                            <xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
 Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
@@ -1808,8 +1808,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
-   <!--Begin of  property definition-->
-   <xs:complexType name="PropertiesWithoutNodeType">
+   <!--Begin of  property definition--><xs:complexType name="PropertiesWithoutNodeType">
       <xs:group ref="PropertiesWithoutNodeGroup"/>
    </xs:complexType>
    <xs:group name="PropertiesWithoutNodeGroup">
@@ -2058,7 +2057,10 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
             </xs:annotation>
             <xs:complexType>
                <xs:sequence>
-                  <xs:element name="GeneralIncludedService" minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="GeneralIncludedService"
+                              minOccurs="0"
+                              maxOccurs="unbounded"
+                              internal:otdsversion="1.9.1">
                      <xs:complexType>
                         <xs:simpleContent>
                            <xs:extension base="GeneralIncludedServiceEnum">
@@ -2578,7 +2580,9 @@ The attribution is carried out according to hotel chain ID. A list of references
                <xs:list itemType="AccommodationSeniorFacilitiesEnum"/>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="AccomodationTargetgroups" minOccurs="0">
+         <xs:element name="AccomodationTargetgroups"
+                     minOccurs="0"
+                     internal:otdsversion="1.9.1">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="de_211">Angebote für bestimmte Zielgruppen</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_211">Offers for special target groups</xs:documentation>
@@ -2590,7 +2594,8 @@ The attribution is carried out according to hotel chain ID. A list of references
          <xs:element name="AccommodationInternetAccess"
                      type="AccommodationInternetAccessType"
                      minOccurs="0"
-                     maxOccurs="unbounded">
+                     maxOccurs="unbounded"
+                     internal:otdsversion="1.9.1">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="de_211">Internetangebot im Hotel</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_211">Accessing internet in accommodation/hotel</xs:documentation>
@@ -2671,11 +2676,13 @@ Default = "All"</xs:documentation>
 - Absolutes: Es werden nur absolute PriceItems berücksichtigt.
 - Percents: Es werden nur Percent-PriceItems berücksichtigt.
 - All: Es werden alle PriceItems berücksichtigt.
+- GenericAbsolute
 Default = "All"</xs:documentation>
             <xs:documentation xml:lang="en">This element defines which kind of PriceItems will be considered. A list of values separated by space can be indicated. The following values may be used:
 					- Absolutes: only absolute PriceItems are considered.
 					- Percents: only Percent-PriceItems are considered.
 					- All: all PriceItems are considered.
+					- GenericAbsolute
 					Default = "All"</xs:documentation>
          </xs:annotation>
       </xs:attribute>
@@ -2777,8 +2784,7 @@ Default = "All"</xs:documentation>
          <xs:element name="PersonBase" type="EmptyElementType"/>
       </xs:sequence>
    </xs:group>
-   <!-- Base Types and Elements -->
-   <xs:complexType name="DayAllocationType">
+   <!-- Base Types and Elements --><xs:complexType name="DayAllocationType">
       <xs:complexContent>
          <xs:extension base="SimpleUpdateNodeType">
             <xs:sequence>
@@ -3776,9 +3782,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          </xs:element>
       </xs:sequence>
    </xs:complexType>
-   <!-- Base Enums -->
-   <!-- Start Property Enums -->
-   <xs:complexType name="CheckInOutOffsetType">
+   <!-- Base Enums --><!-- Start Property Enums --><xs:complexType name="CheckInOutOffsetType">
       <xs:simpleContent>
          <xs:extension base="xs:int">
             <xs:attribute name="Component" type="ComponentAttributeType">
@@ -4346,8 +4350,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          <xs:enumeration value="First"/>
       </xs:restriction>
    </xs:simpleType>
-   <!-- End Property Enums -->
-   <xs:simpleType name="OTDSVersionEnum">
+   <!-- End Property Enums --><xs:simpleType name="OTDSVersionEnum">
       <xs:restriction base="xs:string">
          <xs:enumeration value="1.9"/>
          <xs:enumeration value="1.9.1"/>
@@ -4789,8 +4792,7 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
          <xs:enumeration value="AwayFromZero"/>
       </xs:restriction>
    </xs:simpleType>
-   <!--Begin of  rules definition-->
-   <xs:complexType name="DayAllocationStartType">
+   <!--Begin of  rules definition--><xs:complexType name="DayAllocationStartType">
       <xs:attribute name="Source" type="SourceAttributeType" default="Product">
          <xs:annotation>
             <xs:documentation xml:lang="de" xml:id="de_281">Dieses Attribut referenziert eine bereits
@@ -4988,9 +4990,7 @@ The value "External" is also allowed and this indicates that the choice of the s
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
-   <!--Begin of  condition definition-->
-   <!--Begin of Condition enums-->
-   <xs:simpleType name="DayTypeEnum">
+   <!--Begin of  condition definition--><!--Begin of Condition enums--><xs:simpleType name="DayTypeEnum">
       <xs:restriction base="xs:string">
          <xs:enumeration value="CheckIn">
             <xs:annotation>
@@ -5026,9 +5026,7 @@ The value "External" is also allowed and this indicates that the choice of the s
          <xs:enumeration value="SignificantOffers"/>
       </xs:restriction>
    </xs:simpleType>
-   <!--End of Condition enums-->
-   <!--Begin of abstract condition types-->
-   <xs:complexType name="DateConditionType">
+   <!--End of Condition enums--><!--Begin of abstract condition types--><xs:complexType name="DateConditionType">
       <xs:annotation>
          <xs:documentation xml:lang="de" xml:id="de_303">Einschränkungen auf ein Datumsintervall oder eine
 				Liste von Einzelterminen.</xs:documentation>
@@ -5743,8 +5741,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
          </xs:element>
       </xs:choice>
    </xs:complexType>
-   <!--Start of price definition-->
-   <xs:complexType name="PriceItemsType">
+   <!--Start of price definition--><xs:complexType name="PriceItemsType">
       <xs:annotation>
          <xs:documentation xml:lang="de" xml:id="de_354">Definition der Preisbestandteile (PriceItem) bei
 				Unterbringungen.</xs:documentation>
@@ -6695,8 +6692,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
          </xs:element>
       </xs:choice>
    </xs:group>
-   <!-- product specific Types -->
-   <xs:complexType name="TagsType">
+   <!-- product specific Types --><xs:complexType name="TagsType">
       <xs:complexContent>
          <xs:extension base="SimpleUpdateNodeType">
             <xs:sequence>
@@ -6814,9 +6810,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
          </xs:element>
       </xs:choice>
    </xs:complexType>
-   <!--  Availability Types definitions -->
-   <!--  Availability definitions -->
-   <xs:complexType name="AvailabilitiesType">
+   <!--  Availability Types definitions --><!--  Availability definitions --><xs:complexType name="AvailabilitiesType">
       <xs:annotation>
          <xs:documentation xml:lang="de" xml:id="de_407">Unter diesem Zweig werden die Verfügbarkeiten
 				eines Objektes definiert. Im Zusammenspiel mit den Conditions und entsprechenden
@@ -7185,8 +7179,7 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
       </xs:union>
    </xs:simpleType>
    <xs:complexType name="AvailabilityEmptyType"/>
-   <!-- Begin of ConditionalTagCondition type-->
-   <xs:group name="ConditionOfConditionalTagGroup">
+   <!-- Begin of ConditionalTagCondition type--><xs:group name="ConditionOfConditionalTagGroup">
       <xs:choice>
          <xs:group ref="AtomicBaseConditionGroup"/>
          <xs:group ref="AtomicPersonImpactConditionGroup"/>
@@ -7268,8 +7261,7 @@ Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd yo
          </xs:element>
       </xs:choice>
    </xs:group>
-   <!-- Begin of new Condition types-->
-   <xs:complexType name="DayCountConditionType">
+   <!-- Begin of new Condition types--><xs:complexType name="DayCountConditionType">
       <xs:sequence>
          <xs:group ref="CountMinMaxConditionGroup"/>
          <xs:element name="DayFilter"
@@ -7503,9 +7495,12 @@ It is rare to use a positive value in relation to "From", i.e. "From=x", and it 
                <xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
             </xs:annotation>
          </xs:group>
-         <xs:element name="DayFilter" type="DayFilterType" minOccurs="0">
+         <xs:element name="DayFilter"
+                     type="DayFilterType"
+                     minOccurs="0"
+                     internal:otdsversion="1.9.1">
             <xs:annotation>
-               <xs:documentation>Der DayFIlter schränkt die betrachteten Tage auf bestimmte Tage ein. Die eingeschränkten Tage müssen alle Bedingungen hinsichtlich der angegebenen Date, Weekdays und ConditionalTags erfüllen.</xs:documentation>
+               <xs:documentation>Der DayFilter schränkt die betrachteten Tage auf bestimmte Tage ein. Die eingeschränkten Tage müssen alle Bedingungen hinsichtlich der angegebenen Date, Weekdays und ConditionalTags erfüllen.</xs:documentation>
             </xs:annotation>
          </xs:element>
       </xs:sequence>
@@ -7553,8 +7548,7 @@ The default is "Stay".</xs:documentation>
          </xs:extension>
       </xs:simpleContent>
    </xs:complexType>
-   <!-- Begin of Definition of condition groups-->
-   <xs:group name="AtomicBaseConditionGroup">
+   <!-- Begin of Definition of condition groups--><xs:group name="AtomicBaseConditionGroup">
       <xs:choice>
          <xs:element name="Date" type="DateConditionType">
             <xs:annotation>
@@ -7980,7 +7974,10 @@ Indices="1 3 -3 -1" defines the check-in day and 2 following days as well as the
                                        </xs:annotation>
                                     </xs:element>
                                  </xs:choice>
-                                 <xs:element name="DayFilter" type="DayFilterType" minOccurs="0"/>
+                                 <xs:element name="DayFilter"
+                                             type="DayFilterType"
+                                             minOccurs="0"
+                                             internal:otdsversion="1.9.1"/>
                               </xs:sequence>
                            </xs:extension>
                         </xs:complexContent>
@@ -8202,8 +8199,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
          <xs:element name="PriceItemIsCombinable" type="PriceItemIsCombinableType"/>
       </xs:choice>
    </xs:group>
-   <!-- Begin of General condition type-->
-   <xs:group name="ConditionGroup">
+   <!-- Begin of General condition type--><xs:group name="ConditionGroup">
       <xs:choice>
          <xs:group ref="AtomicBaseConditionGroup"/>
          <xs:group ref="AtomicGenericTagConditionGroup"/>
@@ -8348,8 +8344,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
-   <!-- Begin of Combination condition type-->
-   <xs:group name="CombinationConditionGroup">
+   <!-- Begin of Combination condition type--><xs:group name="CombinationConditionGroup">
       <xs:choice>
          <xs:group ref="AtomicBaseConditionGroup"/>
          <xs:group ref="AtomicComponentConditionGroup"/>
@@ -8389,8 +8384,7 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
          </xs:element>
       </xs:choice>
    </xs:group>
-   <!-- Begin of Pricecondition type-->
-   <xs:group name="DayPriceIndexConditionGroup">
+   <!-- Begin of Pricecondition type--><xs:group name="DayPriceIndexConditionGroup">
       <xs:choice>
          <xs:group ref="AtomicDayPriceIndexConditionGroup"/>
          <xs:element name="And">
