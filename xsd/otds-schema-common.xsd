@@ -527,7 +527,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 										<xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
 											<xs:annotation>
 												<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
-Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
+Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
 											</xs:annotation>
 										</xs:attribute>
 									</xs:extension>
@@ -563,7 +563,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl de
 							<xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
 								<xs:annotation>
 									<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
-Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
+Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
 						</xs:extension>
@@ -4423,7 +4423,9 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+					<xs:pattern
+						value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"
+					/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -7247,6 +7249,57 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 				all days befor the x-last day: Until=-x. In addition combinations of "From" and
 				"Until" are possible as well as specifying a list of indices.</xs:documentation>
 		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Until" type="xs:int">
+						<xs:annotation>
+							<xs:documentation xml:id="de_444" xml:lang="de">Definiert innerhalb der zeitlich aufsteigenden
+							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
+							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
+							negativen Index wird der Tag von hinten gezählt. Until=1 ist dabei der
+							CheckIn-Tag. Until=-1 ist der CheckOut-Tag und alle davor liegenden
+							Tage. </xs:documentation>
+							<xs:documentation xml:id="en_444" xml:lang="en">Days within the defined time period and all
+							indices appearing before "Until" will be found in the index as well as
+							the specified index itself. When using a negative index the day is
+							counted in reverse. Until=1 is the check-in day Until=-1 is the
+							check-out day and all other days prior to it.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="From" type="xs:int">
+						<xs:annotation>
+							<xs:documentation xml:id="de_445" xml:lang="de">Definiert innerhalb der zeitlich aufsteigenden
+							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
+							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
+							negativen Index wird der Index vom letzten Tag aus gezählt. From=1 ist
+							dabei der CheckIn-Tag und alle folgenden. From=-1 ist der
+							CheckOut-Tag.</xs:documentation>
+							<xs:documentation xml:id="en_445" xml:lang="en">Within the days in ascending chronological
+							order, this defines all indices appearing after the index found in
+							"From" as well as the specified index itself. If a negative index is
+							entered, the index is counted backwards from the last day. From=1 is the
+							check-in day and all following days. From=-1 is the check-out
+							day.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="Indices" type="IntegerListType">
+					<xs:annotation>
+						<xs:documentation xml:id="de_446" xml:lang="de">Es kann eine Liste an Indizes von Tagen der
+						Reise angegeben werden. Die einzelnen Indizes müssen durch Space voneinander
+						separiert sein. Bei Angabe eines negativen Index wird der Index vom letzten
+						Tag aus gezählt. Indices="1 3 -3 -1" definiert den CheckIn Tag und den Tag
+						zwei Tage später sowie den CheckOut Tag und den Tag zwei Tage
+						vorher.</xs:documentation>
+						<xs:documentation xml:id="en_446" xml:lang="en">A list of indices for the days of the journey can be specified. The individual indices must be separated from each other by a space.
+If a negative index is entered, the index is counted backwards from the last day.
+Indices="1 3 -3 -1" defines the check-in day and 2 following days as well as the check-out day and and the 2 days prior to it.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element internal:otdsversion="1.9.1" minOccurs="0" name="DayFilter" type="DayFilterType"/>
+		</xs:sequence>
 		<xs:attribute name="Repeat" type="xs:positiveInteger">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_447">Dieses Attribut gibt an, dass es sich um ein
@@ -7696,7 +7749,7 @@ Prices which are linked to a DayImpactCondition are valid only for certain days 
 								<xs:documentation xml:lang="en" xml:id="en_470">Limitations with respect to the dates of specific travel days. The condition is fulfilled for travel days that meet the applicable date conditions (greater=Min and lower=Max and fits the "DayType" attribute).</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="DayIndex">
+						<xs:element name="DayIndex" type="DayIndexConditionType">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_471">Einschränkung auf bestimmte Tage des
 									Reiseverlaufs. Dieses Element definiert eine Gültigkeit für
@@ -7734,63 +7787,6 @@ To address certain periods, there are four typical cases:
 
 Additionally, combinations of "From" and "Until" can be used as definitions in a list of indices. More details can be found in the description of the "Indices" element.</xs:documentation>
 							</xs:annotation>
-							<xs:complexType>
-								<xs:complexContent>
-									<xs:extension base="DayIndexConditionType">
-										<xs:sequence>
-											<xs:choice>
-												<xs:sequence>
-													<xs:element name="Until" type="xs:int" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
-							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
-							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
-							negativen Index wird der Tag von hinten gezählt. Until=1 ist dabei der
-							CheckIn-Tag. Until=-1 ist der CheckOut-Tag und alle davor liegenden
-							Tage. </xs:documentation>
-															<xs:documentation xml:lang="en" xml:id="en_444">Days within the defined time period and all
-							indices appearing before "Until" will be found in the index as well as
-							the specified index itself. When using a negative index the day is
-							counted in reverse. Until=1 is the check-in day Until=-1 is the
-							check-out day and all other days prior to it.</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="From" type="xs:int" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
-							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
-							Index befinden sowie den angegebenen Index selbst. Bei Angabe eines
-							negativen Index wird der Index vom letzten Tag aus gezählt. From=1 ist
-							dabei der CheckIn-Tag und alle folgenden. From=-1 ist der
-							CheckOut-Tag.</xs:documentation>
-															<xs:documentation xml:lang="en" xml:id="en_445">Within the days in ascending chronological
-							order, this defines all indices appearing after the index found in
-							"From" as well as the specified index itself. If a negative index is
-							entered, the index is counted backwards from the last day. From=1 is the
-							check-in day and all following days. From=-1 is the check-out
-							day.</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-												</xs:sequence>
-												<xs:element name="Indices" type="IntegerListType">
-													<xs:annotation>
-														<xs:documentation xml:lang="de" xml:id="de_446">Es kann eine Liste an Indizes von Tagen der
-						Reise angegeben werden. Die einzelnen Indizes müssen durch Space voneinander
-						separiert sein. Bei Angabe eines negativen Index wird der Index vom letzten
-						Tag aus gezählt. Indices="1 3 -3 -1" definiert den CheckIn Tag und den Tag
-						zwei Tage später sowie den CheckOut Tag und den Tag zwei Tage
-						vorher.</xs:documentation>
-														<xs:documentation xml:lang="en" xml:id="en_446">A list of indices for the days of the journey can be specified. The individual indices must be separated from each other by a space.
-If a negative index is entered, the index is counted backwards from the last day.
-Indices="1 3 -3 -1" defines the check-in day and 2 following days as well as the check-out day and and the 2 days prior to it.</xs:documentation>
-													</xs:annotation>
-												</xs:element>
-											</xs:choice>
-											<xs:element name="DayFilter" type="DayFilterType" minOccurs="0" internal:otdsversion="1.9.1"/>
-										</xs:sequence>
-									</xs:extension>
-								</xs:complexContent>
-							</xs:complexType>
 						</xs:element>
 						<xs:element name="Weekdays" type="WeekdayConditionType">
 							<xs:annotation>
