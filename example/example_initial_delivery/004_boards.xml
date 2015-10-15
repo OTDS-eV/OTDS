@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../../xsd/incremental_xsds/otds.xsd" Version="1.9" UpdateMode="Merge">
+	<!-- separate Lieferung der Boards in Abhängigkeit von den Accommodations, werde in SellingAccom gemerged -->
+	<Accommodations UpdateMode="Merge">
+		<Accommodation Key="XPMIOYK" UpdateMode="Merge">
+			<SellingAccom Key="XPMIOYK" UpdateMode="Merge">
+				<Board Key="H">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Halbpension</BoardName>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="I">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>I</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>AllInclusive</BoardName>
+							<BoardType>AllInclusive</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>14</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A B</ConditionalTags>
+								</Impact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>17</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C D E</ConditionalTags>
+								</Impact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>3</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>2</Min>
+											<Max>6</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>6</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>2</Min>
+											<Max>6</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B C D E</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>7</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>7</Min>
+											<Max>14</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>10</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>7</Min>
+											<Max>14</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B C D E</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+			</SellingAccom>
+		</Accommodation>
+		<Accommodation Key="XPMIAQK" UpdateMode="Merge">
+			<SellingAccom Key="XPMIAQK" UpdateMode="Merge">
+				<Board Key="U">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="ThisComponent">
+							<BookingParameter Field="BoardCode">
+								<Value>U</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Ohne Verpflegung</BoardName>
+							<BoardType>None</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="H">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="ThisComponent">
+							<BookingParameter Field="BoardCode">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Halbpension</BoardName>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>17</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A B C F G</ConditionalTags>
+								</Impact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>20</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>13</Min>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">D E</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>14</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>13</Min>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">H I</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>5</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>2</Min>
+										<Max>12</Max>
+									</PersonAge>
+								</PersonImpact>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>10</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>2</Min>
+											<Max>12</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A B C F G H I</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>11</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>2</Min>
+											<Max>12</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">D E</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+</Otds>
