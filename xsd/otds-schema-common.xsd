@@ -1630,15 +1630,18 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 		<xs:sequence>
 			<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems
-						eines bestimmten Types und/oder mit bestimmten PriceTags. Die Auswahl
-						erfolgt in der folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß
-						PriceFilter 2. ggf. Ergänzung der IncludedDescendants. Bei mehrfacher Angabe
-						des Elementes besteht die finale Menge der PriceItems aus einem Merge der
-						PriceItems der einzelnen ConsideredPriceItems-Auswertungen. Es findet keine
-						Duplizierung von PriceItems statt. Falls ConsideredPriceItems kein Element
-						enthält, so werden alle PriceItems gemäß der Angaben in den Attributen
-						"Source" und "ConsideredPriceItemType" berücksichtigt.</xs:documentation>
+					<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte Menge von PriceItems 
+eines bestimmten Types und/oder mit bestimmten PriceTags oder PriceClasses. Je Element "ConsideredPriceItems" wird eine Menge von PriceItems definiert.
+Bei mehrfacher Angabe des Elementes werden die einzelnen Mengen ver-ODER-ert.
+Es findet keine Duplizierung von PriceItems statt. 
+Falls ConsideredPriceItems kein Unterelement enthält, so werden alle PriceItems gemäß der Angaben in den Attributen "Source" und "ConsideredPriceItemType" berücksichtigt.
+
+Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt in der folgenden Reihenfolge: 
+1. Auswahl der PriceItems gemäß der Attribute "Source" und "ConsideredPriceItemType"	
+
+2. Einschränkung der Auswahl der PreisItems auf bestimmte PriceClasses und PriceTags. Bei der Angabe mehrerer Unterelemente werden die einzelnen Einschränkungen bzgl. Tags und Classes ver-UND-et.
+
+3. Ergänzung der IncludedDescendants. </xs:documentation>
 					<xs:documentation xml:lang="en">Restricts the PriceItems that need to be considered to specific
 						PriceItems of a specific type and/or with specific PriceTags. The selection
 						takes place in the following order: 1. selection of the PriceItems according
@@ -2524,8 +2527,8 @@ The attribution is carried out according to hotel chain ID. A list of references
 				"ConsideredPriceItemType".</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:group ref="PriceItemFilterGroup"/>
-			<xs:element name="IncludeAppliedDescendants" minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
+			<xs:element name="IncludeAppliedDescendants" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Ist dieses Element angegeben, werden zu den in PriceItemCollection
 						definierten PriceItems auch deren Descendants ergänzt. Descendendants sind
@@ -2547,22 +2550,8 @@ The attribution is carried out according to hotel chain ID. A list of references
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:group ref="PriceItemFilterGroup"/>
+						<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
 					</xs:sequence>
-					<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum">
-						<xs:annotation>
-							<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
-								- Absolutes: Es werden nur absolute PriceItems berücksichtigt.
-								- Percents: Es werden nur Percent-PriceItems berücksichtigt.
-								- All: Es werden alle PriceItems berücksichtigt.
-Default = "All"</xs:documentation>
-							<xs:documentation xml:lang="en">This element defines which kind of PriceItems will be considered. A list of values separated by space can be indicated. The following values may be used:
-								- Absolutes: only absolute PriceItems are considered.
-								- Percents: only Percent-PriceItems are considered.
-								- All: all PriceItems are considered.
-								Default = "All"</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -2586,18 +2575,26 @@ Default = "All"</xs:documentation>
 	</xs:complexType>
 	<xs:group name="PriceItemFilterGroup">
 		<xs:sequence>
-			<xs:element name="ConsideredPriceTags" type="ConsideredPriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
-					<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="ExcludeConsideredPriceTags" type="ConsideredPriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
-					<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="ConsideredPriceTags" type="ConsideredPriceTagsReferenceType">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
+						<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="NotConsideredPriceTags" type="ConsideredPriceTagsReferenceType">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
+						<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:group ref="ConsideredPriceItemsGroup">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" zw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
+					</xs:annotation>
+				</xs:group>
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="AllocationBaseGroup">
