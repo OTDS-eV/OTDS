@@ -2255,7 +2255,7 @@ For the complete list see the technical documentation.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_186">The Land element specifies the map reference for the hotel.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
-								<xs:attribute name="Code" type="ISO3166Country" use="required">
+								<xs:attribute name="Code" type="ISO3166CountryType" use="required">
 									<xs:annotation>
 										<xs:documentation xml:lang="de" xml:id="de_187">Beinhaltet den ISO-3166 Ländercode. Der Wert ist auf 2 Zeichen begrenzt und ist verpflichtend. 
 Länderkürzel nach ISO-3166 Alpha-2: 
@@ -2788,8 +2788,28 @@ A more detailed description of the attributes can be found in the "Thematic docu
 						<xs:element name="AgencyCode" type="xs:string"/>
 						<xs:element name="BrandCode" type="xs:string"/>
 					</xs:sequence>
-					<xs:element name="SalesChannel" type="SalesChannelEnum"/>
-					<xs:element name="SalesMarket" type="SalesMarketType" internal:otdsversion="1.9"/>
+					<xs:element name="SalesChannel" type="SalesChannelEnum">
+						<xs:annotation>
+							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten SalesChannel. Die möglichen Werte sind:
+
+- OnlineTravelAgency
+Vermarktung der Angebote über Webseiten
+- TravelAgency
+Vermarktung der Angebote über Reisebüros
+- Intern
+Innerbetriebliche Vermarktung der Reisen </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SalesMarket" type="ISO3166CountryType" internal:otdsversion="1.9">
+						<xs:annotation>
+							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten Markt, welcher einem Land entspricht. Die Währung folgt der Definition gemäß der ISO3166 Norm für Länder.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Currency" type="ISO4217CurrencyType" internal:otdsversion="1.9.2">
+						<xs:annotation>
+							<xs:documentation>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
@@ -3039,14 +3059,18 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	<xs:simpleType name="TagNameType">
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1"/>
-			<xs:maxLength value="30"/>
+			<xs:maxLength value="128"/>
 			<xs:pattern value="[A-Za-z0-9\.\-_|]+"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TagClassType">
-		<xs:restriction base="xs:string"/>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="128"/>
+			<xs:pattern value="[A-Za-z0-9\.\-_|]+"/>
+		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="ISO3166Country">
+	<xs:simpleType name="ISO3166CountryType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_225">Beinhaltet den ISO-3166 Ländercode. Der Wert ist
 				auf zwei Zeichen begrenzt und ist verpflichtend. Länderkürzel nach ISO-3166 Alpha-2:
@@ -3055,18 +3079,22 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 				limited to two characters and is mandatory. Country codes according to ISO-3166
 				alpha-2: DE Germany</xs:documentation>
 		</xs:annotation>
-		<xs:union>
-			<xs:simpleType>
-				<xs:restriction base="xs:string">
-					<xs:length value="0"/>
-				</xs:restriction>
-			</xs:simpleType>
-			<xs:simpleType>
-				<xs:restriction base="xs:string">
-					<xs:length value="2"/>
-				</xs:restriction>
-			</xs:simpleType>
-		</xs:union>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ISO4217CurrencyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_225">Beinhaltet den ISO-3166 Ländercode. Der Wert ist
+				auf zwei Zeichen begrenzt und ist verpflichtend. Länderkürzel nach ISO-3166 Alpha-2:
+				DE Deutschland </xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_225">States the ISO-3166 country code. This value is
+				limited to two characters and is mandatory. Country codes according to ISO-3166
+				alpha-2: DE Germany</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{3}"/>
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="DateListType">
 		<xs:annotation>
@@ -3571,11 +3599,6 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	<xs:simpleType name="IntBooleanType">
 		<xs:restriction base="xs:int">
 			<xs:pattern value="[0-1]"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="SalesMarketType">
-		<xs:restriction base="xs:string">
-			<xs:pattern value="[A-Z][A-Z]"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="IncludeAttributeEnum">
