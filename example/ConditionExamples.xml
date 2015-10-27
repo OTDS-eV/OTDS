@@ -72,24 +72,6 @@
 								<!--All Accommodation Conditions-->
 								<Condition>
 									<And>
-										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
-											<PersonIndex Source="Product" DayAllocation="All" EvaluationMode="Any">
-												<Until>4</Until>
-												<From>3</From>
-												<PersonFilter>
-													<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
-														<Min>2</Min>
-														<Max>6</Max>
-													</PersonAge>
-												</PersonFilter>
-											</PersonIndex>
-										</PersonImpact>
-										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
-											<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
-												<Min>3</Min>
-												<Max>12</Max>
-											</PersonAge>
-										</PersonImpact>
 										<Date Source="Product" DayType="CheckIn">
 											<Min>2012-03-30</Min>
 											<Max>2012-04-30</Max>
@@ -112,7 +94,7 @@
 											<Max>60</Max>
 										</BookingDateOffset>
 										<Weekdays Source="Accommodation" DayType="CheckIn">Mon Tue</Weekdays>
-										<PersonGroup Source="Accommodation" DayAllocation="All" EvaluationMode="Any">
+										<PersonGroup Source="Accommodation">
 											<Person>
 												<Count>1</Count>
 											</Person>
@@ -122,12 +104,29 @@
 												<Count>1</Count>
 											</Person>
 										</PersonGroup>
-										<Keys Source="Accommodation" DayAllocation="All" EvaluationMode="Any">PMI215</Keys>
-										<Keys Source="Accommodation.SellingAccom.Unit" DayAllocation="All" EvaluationMode="Any">DZ</Keys>
-										<Keys Source="Accommodation.SellingAccom.Board" DayAllocation="All" EvaluationMode="Any">AI</Keys>
-										<Tags Source="Accommodation.SellingAccom.Unit" Class="KennzeichenA" DayAllocation="All" EvaluationMode="Any">AB1</Tags>
-										<Tags Source="Accommodation" Offset="0" Length="4" Class="AccomCode" DayAllocation="All" EvaluationMode="Any">PMI1</Tags>
-										<!-- CheckIn oder Stay wird beim Setzen des Tags über den Type des Datums definiert.   -->
+										<Keys Source="Accommodation">PMI215</Keys>
+										<Keys Source="Accommodation.SellingAccom.Unit">DZ</Keys>
+										<Keys Source="Accommodation.SellingAccom.Board">AI</Keys>
+										<Tags Source="Accommodation.SellingAccom.Unit" Class="KennzeichenA">AB1</Tags>
+										<Tags Source="Accommodation" Offset="0" Length="4" Class="AccomCode">PMI1</Tags>
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonIndex Source="Product">
+												<Until>4</Until>
+												<From>3</From>
+												<PersonFilter>
+													<PersonAge Source="Product">
+														<Min>2</Min>
+														<Max>6</Max>
+													</PersonAge>
+												</PersonFilter>
+											</PersonIndex>
+										</PersonImpact>
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonAge Source="Product">
+												<Min>3</Min>
+												<Max>12</Max>
+											</PersonAge>
+										</PersonImpact>
 										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
 											<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
 												<Min>6</Min>
@@ -135,19 +134,34 @@
 											</PersonAge>
 										</PersonImpact>
 										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
-											<PersonIndex Source="Product" DayAllocation="All" EvaluationMode="Any">
-												<Indices>1 3 7</Indices>
+											<PersonIndex Source="Product">
+												<Indices>1 2</Indices>
+											</PersonIndex>
+										</PersonImpact>
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonIndex Source="Product">
+												<Until>2</Until>
+											</PersonIndex>
+										</PersonImpact>
+										<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<PersonIndex Source="Product">
+												<From>-2</From>
 											</PersonIndex>
 										</PersonImpact>
 										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
-											<Date Source="Product" DayType="CheckIn">
-												<Min>2012-12-24</Min>
-												<Max>2013-01-02</Max>
+											<Date Source="Product" DayType="Stay">
+												<Dates>2012-12-24 2012-12-31</Dates>
+											</Date>
+										</DayImpact>
+										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<Date Source="Product" DayType="Stay">
+												<Min>2012-03-30</Min>
+												<Max>2012-04-30</Max>
 											</Date>
 										</DayImpact>
 										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
 											<DayIndex Source="Product" IntervalType="Stay">
-												<Indices>1</Indices>
+												<Indices>1 3</Indices>
 											</DayIndex>
 										</DayImpact>
 										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
@@ -159,6 +173,9 @@
 											<DayIndex Source="Product" Repeat="7" IntervalType="Stay">
 												<Indices>1 2</Indices>
 											</DayIndex>
+										</DayImpact>
+										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+											<Weekdays Source="Accommodation" DayType="CheckIn">Fri Sat Sun</Weekdays>
 										</DayImpact>
 										<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
 											<Weekdays Source="Accommodation" DayType="CheckIn">Fri Sat Sun</Weekdays>
