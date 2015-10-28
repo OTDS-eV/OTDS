@@ -2665,10 +2665,29 @@
 								den Dauern ist die nähere Bestimmung des Kontextes dann
 								entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann
 								kann die Dauer der Unterkunft von der Dauer der Reise abweichen,
-								wenn Übernachtflüge benutzt werden. Die Bedingung kann minimale,
-								maximale und auch einzelne Dauern enthalten. Außerdem kann die Dauer
-								in unterschiedlichen Einheiten (Nächten, Stunden, Minuten) geliefert
-								werden (siehe Attribut "DurationUnit").</para><para xml:id="en_887" xml:lang="en">The element "Duration" defines the condition of whether the currently viewed trip duration is included in a list of durations. Permitted durations can be explicitly entered, or restrictions for valid durations (minimum or maximum valid duration) can be provided. It is also possible to enter durations in increments, e.g. in multiples of 7 days. The regarded context (travel, accommodation, etc.) is more closely defined via the attribute "Source". For durations, a more precise definition of the context is crucial if it concerns package offers for long-distance trips. This is because the duration of the accommodation may differ from the duration of the trip if overnight flights are taken. The condition can contain minimum, maximum and also individual durations. The duration can also be delivered in different units (nights, hours, minutes). See the attribute "DurationUnit".</para>
+								wenn Übernachtflüge benutzt werden. Sonderfall: Wenn im
+								Zusammenspiel mit der Dauer die Source="Returnflight" angegeben
+								wird, dann wird damit die Dauer vom CheckIn des Hinfluges bis zum
+								CheckIn des Rückfluges addressiert. Will man die Dauer vom CheckIn
+								des Hinfluges bis zum CheckOut des Rückfluges addressieren, dann
+								muss man Source="Product" wählen.</para><para xml:id="en_887" xml:lang="en">The element "Duration" defines the condition of whether the
+								currently viewed trip duration is included in a list of durations.
+								Permitted durations can be explicitly entered, or restrictions for
+								valid durations (minimum or maximum valid duration) can be provided.
+								The condition can contain minimum, maximum and also individual
+								durations. It is also possible to enter durations in increments,
+								e.g. in multiples of 7 days. The regarded context (travel,
+								accommodation, etc.) is more closely defined via the attribute
+								"Source". For durations, a more precise definition of the context is
+								crucial if it concerns package offers for long-distance trips. This
+								is because the duration of the accommodation may differ from the
+								duration of the trip if overnight flights are taken. Special case:
+								In combination with the duration condition the Source="Returnflight"
+								has a specific interpretation. In this case the duration starts with
+								the CheckIn of the outbound flight and ends with the CheckIn of the
+								inbound flight. If you want to address the duration from CheckIn of
+								the outbound flight to CheckOut of the inbound flight you have to
+								use Source="Product". </para>
 							<para xml:id="de_888" xml:lang="de">Es folgen zwei Beispiele für Duration-Conditions:</para><para xml:id="en_888" xml:lang="en">The following are two examples of Duration conditions:</para>
 							<programlisting><![CDATA[
 <Condition>
@@ -15284,6 +15303,9 @@ usw.]]></programlisting>
 							</listitem>
 						</varlistentry>
 					</variablelist>
+					<para xml:id="de_4955" xml:lang="de">Diese Bedingung überprüft die Dauer einer Komponente.</para>
+					<para xml:id="en_4955" xml:lang="en">This condition checks the duration of a component.</para>
+					
 				</section>
 				<section xml:id="OtdsProcessConditionsPersonAge">
 					<title><phrase xml:id="de_2726" xml:lang="de"><code>PersonAge</code> Bedingung</phrase><phrase xml:id="en_2726" xml:lang="en"><code>PersonAge</code> condition</phrase></title>
@@ -20270,9 +20292,9 @@ usw.]]></programlisting>
 									<code>CombintaionIndex</code> definiert, ist der Test wahr.</para><para xml:id="en_3570" xml:lang="en"><code>CombinationIndexMax</code> : Defines a test of the <code>CombinationIndex</code>  entered in the <code>Combinatorics</code>  of the other PriceItem. Here the <code>CombinationIndex</code> may be no higher than the specified value. If no <code>CombintaionIndex</code> is defined in the <code>Combinatorics</code> of the other PriceItem, the test is true.</para>
 						</listitem>
 					</itemizedlist>
-					<para xml:id="de_4955" xml:lang="de">Die drei Tests <code>CombinationCode</code>,
+					<para xml:id="de_4951" xml:lang="de">Die drei Tests <code>CombinationCode</code>,
 						<code>CombinationIndexMin</code> und <code>CombinationIndexMax</code> können über
-					die boolschen Operatoren miteinander verknüpft werden.</para><para xml:id="en_4955" xml:lang="en">The three tests <code>CombinationCode</code> , <code>CombinationIndexMin</code> and <code>CombinationIndexMax</code>  can be connected with one another via the Boolean operators.</para>
+					die boolschen Operatoren miteinander verknüpft werden.</para><para xml:id="en_4951" xml:lang="en">The three tests <code>CombinationCode</code> , <code>CombinationIndexMin</code> and <code>CombinationIndexMax</code>  can be connected with one another via the Boolean operators.</para>
 
 					<bridgehead xml:id="de_3571" xml:lang="de">ExcludePriceItemClasses</bridgehead><bridgehead xml:id="en_3571" xml:lang="en">ExcludePriceItemClasses</bridgehead>
 					<para xml:id="de_3572" xml:lang="de">Ein <code>Combinatorics</code> kann Unkombinierbarkeiten mit PriceItems durch
@@ -27829,7 +27851,7 @@ usw.]]></programlisting>
 		</section>
 		<section role="Anhang" xml:id="XMLExamples">
 			<title><phrase xml:id="de_4950" xml:lang="de">Anhang: XML-Beispiele</phrase><phrase xml:id="en_4950" xml:lang="en">Appendix: XML examples</phrase></title>
-			<para xml:id="de_4951" xml:lang="de">Beispiel: Demo_Angebotskalkulation.xml </para><para xml:id="en_4951" xml:lang="en">Example: Demo_Angebotskalkulation.xml</para>
+			<para xml:id="de_4959" xml:lang="de">Beispiel: Demo_Angebotskalkulation.xml </para><para xml:id="en_4959" xml:lang="en">Example: Demo_Angebotskalkulation.xml</para>
 			<programlisting language="XML"><![CDATA[<xi:include href="example/Demo_Angebotskalkulation.xml" parse="text"/>]]></programlisting>
 		</section>
 	</appendix>
