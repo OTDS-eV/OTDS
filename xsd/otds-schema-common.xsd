@@ -2815,7 +2815,7 @@ Innerbetriebliche Vermarktung der Reisen </xs:documentation>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:attributeGroup name="TagAttributeGroup">
-		<xs:attribute name="Class" type="TagClassType" use="required">
+		<xs:attribute name="Class" type="TokenType" use="required">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_402">Mit diesem Attribut kann man das Tag weiter
 					spezifizieren, auf dessen Knoten sich der Inhalt bezieht.</xs:documentation>
@@ -3025,13 +3025,6 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:pattern value="[A-Za-z0-9]+"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="CodeType">
-		<xs:restriction base="xs:string">
-			<xs:minLength value="1"/>
-			<xs:maxLength value="30"/>
-			<xs:pattern value="[A-Za-z0-9\.\-_|]+"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="PositiveInteger">
 		<xs:restriction base="xs:unsignedInt"/>
 	</xs:simpleType>
@@ -3056,18 +3049,11 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:pattern value="[A-Z]{3}"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="TagNameType">
+	<xs:simpleType name="TokenType">
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1"/>
 			<xs:maxLength value="128"/>
-			<xs:pattern value="[A-Za-z0-9\.\-_|]+"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="TagClassType">
-		<xs:restriction base="xs:string">
-			<xs:minLength value="1"/>
-			<xs:maxLength value="128"/>
-			<xs:pattern value="[A-Za-z0-9\.\-_|]+"/>
+			<xs:pattern value="[^\s]+"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ISO3166CountryType">
@@ -3338,7 +3324,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:simpleType>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="[A-Za-z0-9\.\-_|]+"/>
+					<xs:pattern value="[^\s]+"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -5143,21 +5129,6 @@ This is based on the total number of nights For this reason the return date is e
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="BookingClassConditionType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_321">In diesem Element werden Einschränkungen auf die Flug-Buchungsklasse definiert.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_321">This element defines restrictions on the flight booking class.</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="BookingClassCode" type="CodeType">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_322">In diesem Element wird eine Einschränkung auf die Flug-Buchungsklasse definiert.
-					</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_322">This element defines a restriction on the flight booking class.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
 	<xs:complexType name="AgeConditionType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_323">In diesem Element werden Einschränkungen auf das
@@ -5210,7 +5181,7 @@ This is based on the total number of nights For this reason the return date is e
 			<xs:extension base="BaseTagTypeList">
 				<xs:attributeGroup ref="ConditionAttributeGroup"/>
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
-				<xs:attribute name="Class" type="TagClassType" use="required">
+				<xs:attribute name="Class" type="TokenType" use="required">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_329">Diese Attribut bietet eine zusätzliche
 							Bedingung an die Tags des Zielknotens. Ein Zielknoten kann die Bedingung
@@ -5260,7 +5231,7 @@ This is based on the total number of nights For this reason the return date is e
 			<xs:extension base="EmptyTagType">
 				<xs:attributeGroup ref="ConditionAttributeGroup"/>
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
-				<xs:attribute name="Class" type="TagClassType" use="required">
+				<xs:attribute name="Class" type="TokenType" use="required">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_333">Diese Attribut bietet eine zusätzliche
 							Bedingung an die Tags des Zielknotens. Ein Zielknoten kann die Bedingung
@@ -5308,7 +5279,7 @@ This is based on the total number of nights For this reason the return date is e
 			<xs:extension base="BaseTagTypeList">
 				<xs:attributeGroup ref="ConditionAttributeGroup"/>
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
-				<xs:attribute name="Class" type="TagClassType" use="required">
+				<xs:attribute name="Class" type="TokenType" use="required">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_338">Class benennt das Tag und ist somit eine weitere Spezifizierung.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_338">Class names the tag and is therefore a further specification.</xs:documentation>
@@ -6597,7 +6568,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 	</xs:complexType>
 	<xs:complexType name="TagType">
 		<xs:simpleContent>
-			<xs:extension base="TagNameType">
+			<xs:extension base="TokenType">
 				<xs:attributeGroup ref="TagAttributeGroup"/>
 			</xs:extension>
 		</xs:simpleContent>
@@ -6623,6 +6594,17 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 			<xs:element name="Tag" type="EmptyTagConditionType">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_405">Dieses Element adressiert ein bestimmtes Tag innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="en_405">This element addresses a specific tag within
+						the offer context. The offer context consists of all possible combinations
+						of the components specified in the ProductRule. The combinatorics go down to
+						the date level.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConditionalTag" type="EmptyTagConditionType" internal:otdsversion="1.9.2">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_405">Dieses Element adressiert ein bestimmtes ConditionalTag innerhalb des Angebotskontextes. 
+Bei der Auswertung, reicht es wenn das ConditionalTag in einem Day- oder PersonKnoten identisch ist.
+Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.</xs:documentation>
 					<xs:documentation xml:lang="de" xml:id="en_405">This element addresses a specific tag within
 						the offer context. The offer context consists of all possible combinations
 						of the components specified in the ProductRule. The combinatorics go down to
@@ -7465,20 +7447,7 @@ This condition explicitly does not check whether or not certain days of a trip f
 			</xs:group>
 			<xs:element name="Duration" type="DurationConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die
-						gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei
-						können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen
-						für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige
-						Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten
-						anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann
-						die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere
-						Bestimmung der betrachteten Dauer dann entscheidend, wenn es um
-						Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von
-						der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Die
-						Bedingung kann minimale, maximale und auch einzelne Dauern enthalten.
-						Außerdem kann die Dauer in unterschiedlichen Einheiten (Nächten, Stunden,
-						Minuten) geliefert werden (Siehe Attribut
-						"DurationUnit").</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfall: Wenn im Zusammenspiel mit der Dauer die Source="Returnflight" angegeben wird, dann wird damit die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges addressiert. Will man die Dauer vom CheckIn des Hinfluges bis zum CheckOut des Rückfluges addressieren, dann muss man Source="Product" wählen.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_458">This element defines the condition as to whether a list of duration contains the travel duration currently being viewed. Specific allowed durations can be entered or restrictions for valid durations (minimum or maximum valid duration). It is also possible to enter durations in increments, e.g. in multiples of 7 days.
 The "Source" attribute allows the viewed duration to be more precisely defined.
 For durations, the more precise definition of the current duration is crucial when dealing with package deals for long-haul journeys. This is because the duration of the accommodation may differ from the duration of the journey if overnight flights are taken. The condition can contain minimum, maximum and also individual durations. The duration can also be delivered in different units (nights, hours, minutes). See the "DurationUnit" attribute.</xs:documentation>
