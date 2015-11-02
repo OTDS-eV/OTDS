@@ -5675,23 +5675,8 @@ It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impactin
 			</xs:element>
 			<xs:element name="Combinatorics" type="CombinatoricsType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_359">In diesem Element wird definiert, wie
-						PriceItems miteinander kombiniert werden können oder auch nicht kombiniert
-						werden dürfen. Dies kann auf unterschiedlichen voneinander unabhängigen
-						Ebenen erfolgen. Dieses Element definiert einen solchen Combinatorics-Layer.
-						Dieses Element definiert einen eigenen Combinatorics Layer. Diese Layer sind
-						durch ihren Namen und einen Level identifiziert. Keine zwei Combinatorics
-						Layer innerhalb eines PriceItem dürfen denselben Name und Level haben. Wird
-						kein Name oder Level angegeben. Die Kombinatorik innerhalb eines Layers wird
-						unabhängig von allen anderen Layern ausgewertet: Jeder Layer definiert
-						seinen eigenen CombinationCodes, CombinationLevel usw. Das Ergebnis der
-						Kombinatorik ist jedoch für Layer mit größerem LayerLevel sichtbar: In einem
-						Layer mit kleinerem LayerLevel ausgeschlossene PriceItems sind für
-						LayerLevel mit größerem LayerLevel nicht mehr sichtbar.
-						@ToDo</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_359">This element defines how PriceItems can be combined with each other or how they cannot be combined. This can be done at different levels independent of one another. This element defines such a Combinatorics-Layer.
-This element defines a separate Combinatorics Layer. These layers are identified by their name and a level. No two Combinatorics Layers within a single PriceItem may have the same name and level. No name or level is specified.
-Combinations within a layer are analysed independent of all other layers: Each layer is defined by its own CombinationCodes, CombinationLevel, etc. However, the result of combinations can be seen in layers with a larger LayerLevel: PriceItems excluded from a layer with a smaller LayerLevel are no longer visible at a greater LayerLevel.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_359">In diesem Element wird definiert, wie PriceItems miteinander kombiniert werden können oder auch nicht kombiniert werden dürfen. Die Auswertung der "Verträglichkeit" aller Combinatorics-Elemente eines Combinatoric-Layers wird unabhängig von allen anderen Layern ausgewertet. Jedes Combinatorics-Element ist einen solchen Combinatorics-Layer durch seine Attribute "LayerName" und "LayerLevel" eindeutig zugeordnet. Keine zwei Combinatorics-Elemente innerhalb eines PriceItem dürfen denselben LayerName und LayerLevel haben. Wird kein LayerName angegeben, so wird als Defaultwert "Default" angenommen. Wird kein LayerLevel angegeben, so wird als Defaultwert "0" angenommen. Die Auswertung der Kombinatorik erfolgt aufsteigend nach LayerLevel. Combinatic-Elemente aus ausgeschlossenen PriceItems werden bei der Auswertung der CombinaticsLayer mit höherem LayerLevel nicht mehr berücksichtigt. Jedes Combinatorics-Element kann CombinationCodes bzw. CombinationIndices definieren und auch Bedingungen definieren, mit welchen CombinationCodes bzw. CombinationIndices eine "Unverträglichkeit" besteht. Die Auswertung eines Combinatorics-Layer bestimmt, welche PriceItems aufgrund der "Unverträglichkeit" nicht mehr gültig ist. Die Auswertung erfolgt separat für jeden Einzelnen Kostenknoten.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_359">With this element you can define, which PriceItes can be combined with eachother or cannot be combined with eachother. The evalution of the "incompatibility" will be processed independantly per Combinatoircs-Layer. Each Combinatorics-Element is assigned to a Combinatorics-Layer with its attributes "LayerName" and LayerLevel". Within each PriceItem the Combinatorics-Element needs to be unique regarding its attribute combination of "LayerName" and "LayerLevel". If the "LayerName" is not defined it gets the default value "Default". If the "LayerLevel" is not defined it gets the default value "0". The evaluation will be processed per Layer in ascending order of the LayerLevel. Combinatics-Elements of already "excluded" PriceItems will no be cosiderded in the evaluation of higher Combinatorics-Layers. Each Combinatoics-Element can define CombinationCodes and/or CombinationIndices and also a condition about the compatibility with the CombinationCodes and/or CombinationIndices of other PriceItems CombinaticsElements. The evaluation of a complete CombinatoricsLayer defines which PriceItems needs to be excluded from the calcualtion. This evalution is processed per single PriceNode seperatly.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Booking" type="BookingWithoutNodeType" minOccurs="0">
