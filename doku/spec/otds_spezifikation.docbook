@@ -3050,7 +3050,7 @@
     </DayImpact>
   </DayFilter>
 </DayCount>]]></programlisting>
-				  	<para xml:lang="de" xml:id="de_5500">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann
+				  	<para xml:lang="de" xml:id="de_5010">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann
 							eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung
 							kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug
 							auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage
@@ -3059,7 +3059,7 @@
 							hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage innerhalb
 							einer bestimmten Datumsrange preisreduziert werden sollen. ("DayFilter"
 							kann auch bei "DayIndex" und "DayPriceIndex" eingesetzt werden.)</para>
-				  	<para xml:lang="en" xml:id="en_5500">With the aid of the „DayFilter“ within „DayCount“ a
+				  	<para xml:lang="en" xml:id="en_5010">With the aid of the „DayFilter“ within „DayCount“ a
 							regarded range of days can be restricted. The restriction can be
 							achieved by limiting certain days of the week, but also through a
 							reference to a ConditionalTag, which marks specific days. The indices
@@ -3283,9 +3283,9 @@
 							<para xml:id="de_995" xml:lang="de"><emphasis role="bold">Indices="1 3 -2 -1</emphasis> definiert den 1. Tag,
 								den 3. Tag, den vorletzten Tag und den letzten Tag als gültige Tage.</para><para xml:id="en_995" xml:lang="en">
 								<emphasis role="bold">Indices="1 3 -2 -1"</emphasis> defines the 1st day, the 3rd day, the 2nd to last day and the last day as valid days.</para>
-						  <para xml:lang="de" xml:id="de_5010">Die Elemente Until, From und Indices sind
+						  <para xml:lang="de" xml:id="de_5011">Die Elemente Until, From und Indices sind
 								UND-verknüpft. Im folgenden Beispiel würde nur der letzte Stay-Tag
-								adressiert. </para><para xml:lang="en" xml:id="en_5010">The elements Until, From and Indices are AND-connected. In the
+								adressiert. </para><para xml:lang="en" xml:id="en_5011">The elements Until, From and Indices are AND-connected. In the
 								following example, only the last stay day is addressed.</para>
 							<programlisting><![CDATA[<Condition>
   <DayImpact>
@@ -3531,9 +3531,9 @@
 								Person, die drittälteste Person, die zweitjüngste Person und die jüngste
 								Person als gültige Personen.</para><para xml:id="en_1041" xml:lang="en">
 								<emphasis role="bold">Indices="1 3 -2 -1"</emphasis> defines the oldest person, the third-oldest person, the second-youngest person and the youngest person as valid persons.</para>
-						  <para xml:lang="de" xml:id="de_5011">Die Elemente Until, &gt;From und Indices sind
+						  <para xml:lang="de" xml:id="de_5349">Die Elemente Until, &gt;From und Indices sind
 								UND-Verknüpft. Im folgenden Beispiel würde nur die älteste Person
-								adressiert. </para><para xml:lang="en" xml:id="en_5011">The elements Until, From and Indices are AND-connected. In the
+								adressiert. </para><para xml:lang="en" xml:id="en_5349">The elements Until, From and Indices are AND-connected. In the
 								following example, only the eldest person is addressed.</para>
 							<programlisting><![CDATA[<Condition>
   <PersonImpact>
@@ -7017,7 +7017,8 @@ usw.]]></programlisting>
 						gültig sind oder verworfen werden. Für diesen Zweck kann jedes PriceItem
 						Codes oder Indizes erhalten sowie Bedingungen zur Kombinierbarkeit mit
 						anderen PriceItems. Die komplette Kombinatorik der PriceItems wird in den
-						Elementen <code>Combinatorics</code> definiert.</para><para xml:id="en_1385" xml:lang="en">The combinatorics of PriceItems are used to describe and evaluate dependencies between PriceItems. Existing PriceItems are checked to see whether they are valid when dependant on other PriceItems or whether they should be discarded. For this purpose, each PriceItem can be given codes or indices as well as conditions for combinability with other PriceItems. The complete combinatorics of PriceItems are defined in the <code>Combinatorics</code> elements.</para>
+						Elementen <code>Combinatorics</code> definiert. Die Auswertung der Abhängigkeiten erfolgt unabhängig auf sogenannten CombinaticsLayern. Jedes Combinatorics-Element ist über die Attribute <code>LayerName</code> und <code>LayerLevel</code> genau einem Combinatorics-Layer zugeordnet. Dementsprechend dürfen innerhalb eines PriceItems keine 2 Combinatorics-Elemente eine identische Kombination aus <code>LayerName</code> und <code>LayerLevel</code> haben.  </para>
+					<para xml:id="en_1385" xml:lang="en">The combinatorics of PriceItems are used to describe and evaluate dependencies between PriceItems. Existing PriceItems are checked to see whether they are valid when dependant on other PriceItems or whether they should be discarded. For this purpose, each PriceItem can be given codes or indices as well as conditions for combinability with other PriceItems. The complete combinatorics of PriceItems are defined in the <code>Combinatorics</code> elements. The evaluation of the compatibility is processed independantly per so called "Combinatics-Layers". Each Combinatorics-Element is assigned by its attributes <code>LayerName</code> and <code>LayerLevel</code> to a unique Combinatorics-Layer. Following to this within a single PriceItems it is not allowed that 2 Combinatorics-Elements have an identical combined value of <code>LayerName</code> and <code>LayerLevel</code>.  </para>
 					<bridgehead xml:id="de_1386" xml:lang="de">Parameter der Kombinatorik</bridgehead><bridgehead xml:id="en_1386" xml:lang="en">Parameters of the combinatorics</bridgehead>
 					<para xml:id="de_1387" xml:lang="de">Die Kompatibilität zwischen PriceItems kann über Kombinatorik-Codes
 							(<code>CombinationCode</code>) definiert werden. Ein <code>CombinationCode</code>
@@ -19306,8 +19307,13 @@ usw.]]></programlisting>
 					<para xml:id="de_3316" xml:lang="de">Die Kombinatorik lässt sich anhand eines einfachen Modelles definieren:</para><para xml:id="en_3316" xml:lang="en">The combinatorics can be defined using a simple model:</para>
 					<orderedlist>
 						<listitem>
-							<para xml:id="de_3317" xml:lang="de">Alle <code>PriceItem</code> Elemente nehmen an der Kombinatorik in jedem
-								definierten Layer teil.</para><para xml:id="en_3317" xml:lang="en">All <code>PriceItem</code> elements participate in the combinatorics in each defined Layer.</para>
+							<para xml:id="de_3317" xml:lang="de">Die Auswertung der Kombinatoirk erfolgt in sogenannten "Kombinatorik-Layern", die unabhängig voneinander ausgewertet werden. Jedes <code>PriceItem</code> definiert <code>Combinatoric</code>-Elemente, die über den <code>LayerName</code> und den <code>LayerLevel</code> genau einem "Kombinatorik-Layer" zugeordnet sind. Dem entsoprechend dürfen innerhalb eines  <code>PriceItem</code> keine Combinatoric-Elemente mit der identischen Kombination aus <code>LayerName</code> und den <code>LayerLevel</code> vorkommen.
+							</para>
+							<para xml:id="en_3317" xml:lang="en">The avaluation of the compatibility of <code>PriceItems</code> will be processed in so called "Combinatoric-Layers", which are processed independantly. Each  <code>PriceItem</code> defines <code>Combinatoric</code> elements, which are assigned nonambigiously to a "Combinatoric-Layer". Following this it is not allowed that within a <code>PriceItem</code> there are existing <code>Combinatoric</code> elements with the same combination of <code>LayerName</code> and <code>LayerLevel</code>. </para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_5348" xml:lang="de">Alle <code>PriceItem</code> Elemente nehmen an der Kombinatorik in jedem
+								definierten Layer teil.</para><para xml:id="en_5348" xml:lang="en">All <code>PriceItem</code> elements participate in the combinatorics in each defined Layer.</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_3318" xml:lang="de">Definiert ein <code>PriceItem</code> in einem Layer keine Kombinatorik (es
@@ -27851,7 +27857,7 @@ usw.]]></programlisting>
 		</section>
 		<section role="Anhang" xml:id="XMLExamples">
 			<title><phrase xml:id="de_4950" xml:lang="de">Anhang: XML-Beispiele</phrase><phrase xml:id="en_4950" xml:lang="en">Appendix: XML examples</phrase></title>
-			<para xml:id="de_4959" xml:lang="de">Beispiel: Demo_Angebotskalkulation.xml </para><para xml:id="en_4959" xml:lang="en">Example: Demo_Angebotskalkulation.xml</para>
+			<para xml:id="de_5350" xml:lang="de">Beispiel: Demo_Angebotskalkulation.xml </para><para xml:id="en_5350" xml:lang="en">Example: Demo_Angebotskalkulation.xml</para>
 			<programlisting language="XML"><![CDATA[<xi:include href="example/Demo_Angebotskalkulation.xml" parse="text"/>]]></programlisting>
 		</section>
 	</appendix>
