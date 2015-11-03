@@ -4154,12 +4154,17 @@
 						
 					</section>					
 					<section xml:id="OtdsStrategyConditionBasicsGlobalValues">
-						<title><phrase xml:id="de_1095" xml:lang="de">Konfigurationsparameter (GlobalValues)</phrase><phrase xml:id="en_1095" xml:lang="en">Configuration parameter (GlobalValues)</phrase></title>
-						<para xml:id="de_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS durch das Vertriebssystem von außen
-							vorgegeben werden. Die Angabe der GlobalValues erfolgt in dem Zweig "Products".
-							Die Werte fließen in die Produktbildung und Preisberechnung mit ein. Beispiele für
-							GlobalValues sind die Angabe von Subcontractors (Exklusivkunden) oder spezifischen
-							SalesChannel wie Onlinevertrieb und Reisebürovertrieb. </para><para xml:id="en_1096" xml:lang="en">GlobalValues are values which are predefined externally by the sales system in OTDS. The specification of the GlobalValues is carried out in the "Products" branch. The values enter into the product creation and price calculation. Examples for GlobalValues are the specification of subcontractors (exclusive clients) or specific SalesChannels such as online sales and travel agency sales.</para>
+						<title><phrase xml:id="det_1095" xml:lang="de">Konfigurationsparameter (GlobalValues)</phrase><phrase xml:id="en_1095" xml:lang="en">Configuration parameter (GlobalValues)</phrase></title>
+						<para xml:id="de_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS durch den Liefersanten vorgegeben werden, um in einem bestimmten Kontext zu dem gewünschten Ergebnis zu kommen.
+							Jeder GlobalValue steht für einen bestimmten Kontext. Derzeit werden folgende Kontexte durch GlobalValues abgedeckt:
+							- Exklusivangebote (Exklusivpreise)
+							- SalesChannel
+							- SalesMarkets
+							- Currency
+							- DistributionChannels
+							Die Angabe der GlobalValues erfolgt in dem Zweig "Products".
+							Die Werte fließen in die Produktbildung und Preisberechnung mit ein. 
+							Die GlobalValues werden gültig, wenn der definierte Kontext im Vergleich mit dem ParmeterSet übereinstimmt.</para><para xml:id="en_1096" xml:lang="en">GlobalValues are values which are predefined externally by the sales system in OTDS. The specification of the GlobalValues is carried out in the "Products" branch. The values enter into the product creation and price calculation. Examples for GlobalValues are the specification of subcontractors (exclusive clients) or specific SalesChannels such as online sales and travel agency sales.</para>
 						<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Keys-Conditions und Tags-Conditions
 							Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Keys conditions and Tags conditions.</para>
 						<figure>
@@ -4175,6 +4180,181 @@
 								</textobject>
 							</mediaobject>
 						</figure>
+						<para>Nachfolgend ein paar klassische Beispiele:</para>
+						
+						<bridgehead>SalesChannel</bridgehead>
+						<programlisting><![CDATA[
+<OTDS>
+   <Products>
+        <GlobalValues>
+            <GlobalValue Key="SalesOnline">
+               <ParameterSet Key="1">
+                       <SalesChannel>OnlineTravelAgency</SalesChannel>
+               </ParameterSet>
+            </GlobalValue>
+            <GlobalValue Key="SalesOffline">
+               <ParameterSet Key="1">
+                       <SalesChannel>TravelAgency</SalesChannel>
+               </ParameterSet>
+            </GlobalValue>
+    </GlobalValues>
+
+                ...
+   <Products>
+   ...
+</OTDS>
+]]></programlisting>
+						<para>Die Definition der möglichen SalesChannel folgt dem obigen Beispiel. Will man nun Bedingungen für bestimmte SalesChannel innerhalb von OTDS ausdrücken. Die folgende Zeile definiert eine Bedingung, die nur gültig wird, wenn die Auswertung des OTDS sich im Kontext des SalesChannels "OnlineTravelAgency" befindet.</para>
+						<programlisting><![CDATA[
+<Keys Source="global:GlobalValue">SalesOnline</Keys>
+]]></programlisting>
+						<para>Klassisch erfolgt die Einschränkung bestimmter Hotels auf einen bestimmten SalesChannel durch einen zusätzlichen Bezug auf ein Tag in den Unterkünften.</para>
+						<programlisting><![CDATA[
+<OTDS>
+   <Products>
+   		…
+		<Product …>
+		     …
+		     <Filter Key="1">
+		          <And>
+		             …                                                                       
+		             <Imply>
+		                  <If>
+		                      <Tags Source="SellingAccom" Class="SalesChannel">OnlySalesOffline</Tags>
+		                  </If>
+		                  <Then>
+		                      <Keys Source="global:GlobalValue">SalesOffline</Keys>
+		                  </Then>
+		             </Imply>
+		             …
+		         </And>
+		     </Filter>
+		</Product>
+		 …
+   <Products>
+   ...
+</OTDS> 
+]]></programlisting>
+						<para>Die möglichen Werte für SalesChannel sind: <code>TravelAgency</code>, <code>OnlineTravelAgency</code>, <code>Intern</code>.</para>
+						<bridgehead>SalesMarket</bridgehead>
+						<programlisting><![CDATA[
+<OTDS>
+   <Products>
+       <GlobalValues>
+            <GlobalValue Key="DE">
+               <ParameterSet Key="1">
+                       <SalesMarket>DE</SalesMarket>
+               </ParameterSet>
+            </GlobalValue>
+            <GlobalValue Key="CH">
+               <ParameterSet Key="1">
+                       <SalesMarket>CH</SalesMarket>
+               </ParameterSet>
+            </GlobalValue>
+       </GlobalValues>
+
+
+                ...
+   <Products>
+   ...
+</OTDS>
+]]></programlisting>
+						<para>Die Definition der möglichen SalesMarkets folgt dem obigen Beispiel. Will man nun Bedingungen für bestimmte SalesMarkets innerhalb von OTDS ausdrücken. Die folgende Zeile definiert eine Bedingung, die nur gültig wird, wenn die Auswertung des OTDS sich im Kontext des deutschen Markets "DE" befindet.</para>
+						<programlisting><![CDATA[
+<Keys Source="global:GlobalValue">DE</Keys>
+]]></programlisting>
+						<para>Diese Zeile taucht dann wahlweise in Filtern oder PriceItem-Conditions auf, um eine Abweichung für einen bestimmten Markt zu definieren.</para>
+						<para>Die möglichen Werte für SalesMarket folgenden dem ISO-3166-Standard für Länder (2 Buchstaben).</para>
+						
+						<bridgehead>Currency</bridgehead>
+						<programlisting><![CDATA[
+<OTDS>
+   <Products>
+       <GlobalValues>
+            <GlobalValue Key="EUR">
+               <ParameterSet Key="1">
+                       <Currency>EUR</Currency>
+               </ParameterSet>
+            </GlobalValue>
+            <GlobalValue Key="CHF">
+               <ParameterSet Key="1">
+                       <Currency>CHF</Currency>
+               </ParameterSet>
+            </GlobalValue>
+       </GlobalValues>
+
+
+                ...
+   <Products>
+   ...
+</OTDS>
+]]></programlisting>
+						<para>Die Definition der möglichen Currencies folgt dem obigen Beispiel. Will man nun Bedingungen für bestimmte SalesMarkets mit bestimmten Currencies ausdrücken. Die folgende Zeile definiert eine Bedingung, die nur gültig wird, wenn die Auswertung des OTDS sich im Kontext der Währung "CHF" befindet.</para>
+						<programlisting><![CDATA[
+<Keys Source="global:GlobalValue">CHF</Keys>
+]]></programlisting>
+						
+						<para>Diese Zeile taucht dann in der Regel in PriceItem-Conditions auf, um eine Umrechnung auf Schweizer Franken zu erwirken oder um bestimmte Angebote nur für bestimmte Währungen anzuwenden.</para>
+						<para>Die Datenlieferung ist dafür verantwortlich, dass für die Umrechnung auf eine bestimmte Währung zum korrekten Ergebnis führt.</para>
+						<para>Die möglichen Werte für Currency folgenden dem ISO-4217-Standard für Währungen (3 Buchstaben).</para>
+						
+						<bridgehead>Exklusivangebote (Exklusivpreise)</bridgehead>
+						<programlisting><![CDATA[
+<OTDS>
+   <Products>
+        <GlobalValues>
+            <GlobalValue Key="Kunde123456">
+               <ParameterSet Key="1">
+                       <CrsSytem>TOMA</CrsSytem>
+                       <AgencyCode>A-12344667</AgencyCode>
+                       <BrandCode>OLI</BrandCode>
+               </ParameterSet>
+            </GlobalValue>
+            ...
+        </GlobalValues>
+        ...
+   <Products>
+   ...
+</OTDS>
+]]></programlisting>
+						<para>OTDS erlaubt die Definition bestimmter Kunden oder Kundengruppen des Lieferanten (siehe oben aufgeführtes Beispiel), für die besondere Preise oder besondere Angebote zur Verfügung stehen. Die Definition der Kunden erfolgt über die Definition eines CRS-Systems in Verbindung mit einer Agenturnummer und des Brandcodes der dazugehört.
+							Die folgende Zeile definiert eine Bendigung, die nur gültig wird, wenn die Auswertung des OTDS sich im Kontext des Kunden "Kunde123456" befindet.</para>
+						<programlisting><![CDATA[
+<Keys Source="global:GlobalValue">Kunde123456</Keys>
+]]></programlisting>
+						
+						<bridgehead>DistributionChannel (Neu in Version 1.9.2)</bridgehead>
+						<para>OTDS erlaubt die Definition bestimmter DistributionsChannels, die nur bestimmte Daten in einer bestimmten Form verarbeiten sollen.</para>
+						<programlisting><![CDATA[
+<OTDS>
+   <Products>
+       <GlobalValues>
+            <GlobalValue Key="TT">
+               <ParameterSet Key="1">
+                       <DistributionChannel>TravelTainment</DistributionChannel>
+               </ParameterSet>
+            </GlobalValue>
+            <GlobalValue Key="Traffics">
+               <ParameterSet Key="1">
+                       <DistributionChannel>Traffics</DistributionChannel>
+               </ParameterSet>
+            </GlobalValue>
+       </GlobalValues>
+
+
+                ...
+   <Products>
+   ...
+</OTDS>
+]]></programlisting>
+						<para>Die Definition der möglichen DistributionsChannels folgt dem obigen Beispiel. Die folgende Zeile definiert eine Bendigung, die nur gültig wird, wenn die Auswertung des OTDS sich im Kontext des DistributionChannels "TT" befindet.</para>
+						<programlisting><![CDATA[
+<Keys Source="global:GlobalValue">TT</Keys>
+]]></programlisting>
+						
+						<para>Die möglichen Werte für DistributionChannel sind: <code>TravelTainment</code>, <code>Traffics</code>, <code>Bewotec</code>.</para>
+						<para>Weitere Werte sind in jeder BugFix version bei Bedarf ergänzbar. Es gibt dafür auch eine Interimslösung, falls kurzfristig eine benötigt wird. Sprechen Sie uns an.</para>
+						
 						<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 								Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
 
