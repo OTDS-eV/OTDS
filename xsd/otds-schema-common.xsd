@@ -2,6 +2,119 @@
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+<xs:simpleType name="SourceAttributeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de">
+		Die Source Angabe folgt folgender Syntax
+		
+			source = ( Eigenschaft1+Eigenschaft2+... ":" ) ? steps
+		
+			Eigenschaft1 = "local" | "global"
+			
+			Eigenschaft2 ="real" | "virtual" | "ComponentType.all"
+			
+			Eigenschaft3 ="self" | "ancestors" | "descendants" | "Hierarchy.all"
+
+			Eigenschaft4 = "first" | "last" | "DayAllocation.all"
+
+			Falls Eigenschaften angegeben werden muss zwingend die oben angegebene Reihenfolge der Eigenschaften eingehalten werden.
+		
+			steps = oneOrMoreNameSteps | zeroOrMoreNameSteps | componentSteps
+		
+			oneOrMoreNameSteps = nameStep ( "." nameStep ) *
+		
+			zeroOrMoreNameSteps = ( nameStep "." ) *
+		
+			nameStep = "#" name
+		
+			name ist eine Folge von Zeichen aus der Menge "A"-"Z", "a"-"z", "0"-"9", "-" und "_". Keine Umlaute. Mindestens ein Zeichen
+		
+			componentSteps ist eine Liste gültiger Werte, siehe im folgenden
+				
+		Gültige 'componentSteps' sind zunächst:
+		
+			- GlobalValue
+			- Product
+			- Product.Brand
+			- Product.Accommodation
+			- Product.Accommodation.SellingAccom
+			- Product.Accommodation.SellingAccom.Board
+			- Product.Accommodation.SellingAccom.Unit
+			- Product.Accommodation.SellingAccom.Unit.SellingUnit
+			- Product.OnewayFlight
+			- Product.OnewayFlight.BookingClass
+			- Product.ReturnFlight
+			- Product.ReturnFlight.BookingClass
+			- Product.ReturnFlight.Inbound
+			- Product.ReturnFlight.Outbound
+			- Product.Addon
+			- Product.Addon.Service
+			- Product.Addon.ServiceFeature				
+		
+		Desweiteren sind alle Unterschrittfolgen aus obigen Pfaden erlaubt, also 'Board', 'Accommodation.SellingAccom' oder 'SellingAccom.Unit.SellingUnit'. 
+		'Accommodation.Unit' hingegen ist nicht erlaubt, da in diesem Fall einige Zwischenschritte fehlen.
+		
+				</xs:documentation>
+			<xs:documentation xml:lang="en">
+				The Source specification obeys the following syntax
+				
+				source = ( Feature1+Feature2+... ":" ) ? steps
+				
+				Feature1 = "local" | "global"
+				
+				Feature2 ="real" | "virtual" | "ComponentType.all"
+				
+				Feature3 ="self" | "ancestors" | "descendants" | "Hierarchy.all"
+				
+				Feature4 = "first" | "last" | "DayAllocation.all"
+				
+				If features are specified, the order of features as given above has strictly to be followed.
+				
+				steps = oneOrMoreNameSteps | zeroOrMoreNameSteps | componentSteps
+				
+				oneOrMoreNameSteps = nameStep ( "." nameStep ) *
+				
+				zeroOrMoreNameSteps = ( nameStep "." ) *
+				
+				nameStep = "#" name
+				
+				name is a string of characters from "A"-"Z", "a"-"z", "0"-"9", "-" and "_". No umlauts allowed, one character is minimum.
+				
+				componentSteps is a list of valid values, see below.
+				
+				Valid 'componentSteps' are:
+				
+				- GlobalValue
+				- Product
+				- Product.Brand
+				- Product.Accommodation
+				- Product.Accommodation.SellingAccom
+				- Product.Accommodation.SellingAccom.Board
+				- Product.Accommodation.SellingAccom.Unit
+				- Product.Accommodation.SellingAccom.Unit.SellingUnit
+				- Product.OnewayFlight
+				- Product.OnewayFlight.BookingClass
+				- Product.ReturnFlight
+				- Product.ReturnFlight.BookingClass
+				- Product.ReturnFlight.Inbound
+				- Product.ReturnFlight.Outbound
+				- Product.Addon
+				- Product.Addon.Service
+				- Product.Addon.ServiceFeature				
+				
+				In addition to that all subsequent steps from the paths above are permitted, that is 'Board', 'Accommodation.SellingAccom' or 'SellingAccom.Unit.SellingUnit'. 
+				'Accommodation.Unit' in the contrary is not permitted, as here some intermediate steps are missing.
+				
+			</xs:documentation>
+		</xs:annotation>
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:attributeGroup name="ProductComponentGroup">
 		<xs:attribute name="Name" type="NameType">
 			<xs:annotation>
@@ -4333,119 +4446,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
-	<xs:simpleType name="SourceAttributeType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de">
-		Die Source Angabe folgt folgender Syntax
-		
-			source = ( Eigenschaft1+Eigenschaft2+... ":" ) ? steps
-		
-			Eigenschaft1 = "local" | "global"
-			
-			Eigenschaft2 ="real" | "virtual" | "ComponentType.all"
-			
-			Eigenschaft3 ="self" | "ancestors" | "descendants" | "Hierarchy.all"
-
-			Eigenschaft4 = "first" | "last" | "DayAllocation.all"
-
-			Falls Eigenschaften angegeben werden muss zwingend die oben angegebene Reihenfolge der Eigenschaften eingehalten werden.
-		
-			steps = oneOrMoreNameSteps | zeroOrMoreNameSteps | componentSteps
-		
-			oneOrMoreNameSteps = nameStep ( "." nameStep ) *
-		
-			zeroOrMoreNameSteps = ( nameStep "." ) *
-		
-			nameStep = "#" name
-		
-			name ist eine Folge von Zeichen aus der Menge "A"-"Z", "a"-"z", "0"-"9", "-" und "_". Keine Umlaute. Mindestens ein Zeichen
-		
-			componentSteps ist eine Liste gültiger Werte, siehe im folgenden
-				
-		Gültige 'componentSteps' sind zunächst:
-		
-			- GlobalValue
-			- Product
-			- Product.Brand
-			- Product.Accommodation
-			- Product.Accommodation.SellingAccom
-			- Product.Accommodation.SellingAccom.Board
-			- Product.Accommodation.SellingAccom.Unit
-			- Product.Accommodation.SellingAccom.Unit.SellingUnit
-			- Product.OnewayFlight
-			- Product.OnewayFlight.BookingClass
-			- Product.ReturnFlight
-			- Product.ReturnFlight.BookingClass
-			- Product.ReturnFlight.Inbound
-			- Product.ReturnFlight.Outbound
-			- Product.Addon
-			- Product.Addon.Service
-			- Product.Addon.ServiceFeature				
-		
-		Desweiteren sind alle Unterschrittfolgen aus obigen Pfaden erlaubt, also 'Board', 'Accommodation.SellingAccom' oder 'SellingAccom.Unit.SellingUnit'. 
-		'Accommodation.Unit' hingegen ist nicht erlaubt, da in diesem Fall einige Zwischenschritte fehlen.
-		
-				</xs:documentation>
-			<xs:documentation xml:lang="en">
-				The Source specification obeys the following syntax
-				
-				source = ( Feature1+Feature2+... ":" ) ? steps
-				
-				Feature1 = "local" | "global"
-				
-				Feature2 ="real" | "virtual" | "ComponentType.all"
-				
-				Feature3 ="self" | "ancestors" | "descendants" | "Hierarchy.all"
-				
-				Feature4 = "first" | "last" | "DayAllocation.all"
-				
-				If features are specified, the order of features as given above has strictly to be followed.
-				
-				steps = oneOrMoreNameSteps | zeroOrMoreNameSteps | componentSteps
-				
-				oneOrMoreNameSteps = nameStep ( "." nameStep ) *
-				
-				zeroOrMoreNameSteps = ( nameStep "." ) *
-				
-				nameStep = "#" name
-				
-				name is a string of characters from "A"-"Z", "a"-"z", "0"-"9", "-" and "_". No umlauts allowed, one character is minimum.
-				
-				componentSteps is a list of valid values, see below.
-				
-				Valid 'componentSteps' are:
-				
-				- GlobalValue
-				- Product
-				- Product.Brand
-				- Product.Accommodation
-				- Product.Accommodation.SellingAccom
-				- Product.Accommodation.SellingAccom.Board
-				- Product.Accommodation.SellingAccom.Unit
-				- Product.Accommodation.SellingAccom.Unit.SellingUnit
-				- Product.OnewayFlight
-				- Product.OnewayFlight.BookingClass
-				- Product.ReturnFlight
-				- Product.ReturnFlight.BookingClass
-				- Product.ReturnFlight.Inbound
-				- Product.ReturnFlight.Outbound
-				- Product.Addon
-				- Product.Addon.Service
-				- Product.Addon.ServiceFeature				
-				
-				In addition to that all subsequent steps from the paths above are permitted, that is 'Board', 'Accommodation.SellingAccom' or 'SellingAccom.Unit.SellingUnit'. 
-				'Accommodation.Unit' in the contrary is not permitted, as here some intermediate steps are missing.
-				
-			</xs:documentation>
-		</xs:annotation>
-		<xs:union>
-			<xs:simpleType>
-				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
-				</xs:restriction>
-			</xs:simpleType>
-		</xs:union>
-	</xs:simpleType>
+	
 	<xs:simpleType name="PriceTypeEnum">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_270">In diesem Element werden die verschiedenen Arten von PriceItems aufgeführt, die keine impliziten Regeln enthalten:
