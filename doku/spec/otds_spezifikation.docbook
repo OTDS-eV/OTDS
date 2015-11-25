@@ -3222,12 +3222,68 @@
 								nach Reiseverlauf sortiert und bekommen dann jeweils einen von 1
 								aufsteigenden Index. Gleichzeitig werden auch alle Tage
 								entgegengesetzt sortiert und bekommen einen zusätzlichen negativen
-								Index von -1 absteigend. Jeder betrachtetet Tag der Reise erhält
-								dadurch also 2 Inidizes: einen positiven und einen negativen. Die
-								Bedingung prüft nun durch Vergleich der Indizes, welche Tage die
-								DayIndex-Bedingung erfüllen. Der Vergleich erfolgt entweder durch
-								eine durch Space getrennte Liste von einzelnen Indizes oder über die
-								Angabe der Werte "Until" bzw. "From".</para><para xml:id="en_984" xml:lang="en">The "DayIndex" element defines a validity for specific days of an itinerary. All days are sorted according to the itinerary and placed in an index which ascends starting from 1. Simultaneously, all days are inversely sorted and given an additional descending negative value starting from -1. Every day of travel under consideration therefore has two indices: A positive and a negative. The indices are compared to determine which days meet the DayIndex condition. The comparison is done either through a list of individual indices separated by space or the through the specification of the values "Until" or "From".</para>
+								Index von -1 absteigend. Jeder betrachtete Tag der Reise erhält
+								dadurch also 2 Indizes: einen positiven und einen negativen. </para>
+							<para xml:id="de_5522" xml:lang="de">Für eine beispielhafte Reise vom 3. April bis zum
+								10. April sehen die Indizes demnach aus wie folgt:</para><para xml:id="en_5522" xml:lang="en">For an exemplified trip from April 3 until April 10 the indices are set as followed:</para>
+							<table frame="all">
+								<title><phrase xml:id="de_5523" xml:lang="de">Beispiel für Indizierung von DayIndex</phrase><phrase xml:id="en_5523" xml:lang="de">Example for indices for DayIndex</phrase></title>
+								<tgroup cols="9">
+
+									<thead>
+										<row>
+											<entry/>
+											<entry>3. April</entry>
+											<entry>4. April</entry>
+											<entry>5. April</entry>
+											<entry>6. April</entry>
+											<entry>7. April</entry>
+											<entry>8. April</entry>
+											<entry>9. April</entry>
+											<entry>10. April</entry>
+										</row>
+									</thead>
+									<tbody>
+										<row>
+											<entry>Tag/Day</entry>
+											<entry>Tag/Day 1</entry>
+											<entry>Tag/Day 2</entry>
+											<entry>Tag/Day 3</entry>
+											<entry>Tag/Day 4</entry>
+											<entry>Tag/Day 5</entry>
+											<entry>Tag/Day 6</entry>
+											<entry>Tag/Day 7</entry>
+											<entry>Tag/Day 8</entry>
+										</row>
+										<row>
+											<entry>positiver/positive Index</entry>
+											<entry>1</entry>
+											<entry>2</entry>
+											<entry>3</entry>
+											<entry>4</entry>
+											<entry>5</entry>
+											<entry>6</entry>
+											<entry>7</entry>
+											<entry>8</entry>
+										</row>
+										<row>
+											<entry>negativer/negative Index</entry>
+											<entry>-8</entry>
+											<entry>-7</entry>
+											<entry>-6</entry>
+											<entry>-5</entry>
+											<entry>-4</entry>
+											<entry>-3</entry>
+											<entry>-2</entry>
+											<entry>-1</entry>
+										</row>
+									</tbody>
+								</tgroup>
+							</table>
+							<para xml:lang="de">Die Bedingung prüft nun durch Vergleich der Indizes,
+								welche Tage die DayIndex-Bedingung erfüllen. Der Vergleich erfolgt
+								entweder durch eine durch Space getrennte Liste von einzelnen
+								Indizes oder über die Angabe der Werte "Until" bzw. "From".</para><para xml:id="en_984" xml:lang="en">The "DayIndex" element defines a validity for specific days of an itinerary. All days are sorted according to the itinerary and placed in an index which ascends starting from 1. Simultaneously, all days are inversely sorted and given an additional descending negative value starting from -1. Every day of travel under consideration therefore has two indices: A positive and a negative. The indices are compared to determine which days meet the DayIndex condition. The comparison is done either through a list of individual indices separated by space or the through the specification of the values "Until" or "From".</para>
 							<para xml:id="de_985" xml:lang="de"><emphasis role="bold">Until=X</emphasis> definiert in
 								einer zeitlich aufsteigenden Liste der Tage, dass alle Tage dieser
 								Liste bis zum Index X die Bedingung erfüllen. Die Auswertung ist
@@ -15696,9 +15752,12 @@ usw.]]></programlisting>
 
 						<listitem>
 							<para xml:id="de_2808" xml:lang="de">Alle Dateinamen (außer <code>delivery.xml</code>)
-									<emphasis>müssen</emphasis> mit einer 3-stelligen Ziffernfolge beginnen.
-								Ist die Zahl zu klein, wird diese mit vorangestellten 0-en auf 3 Stellen
-								gebracht.</para><para xml:id="en_2808" xml:lang="en">All file names (except <code>delivery.xml</code> ) <emphasis>must</emphasis> begin with a three-digit number. If the number is too small, zeros will be placed at the beginning of the number to bring it up to three digits.</para>
+									<emphasis>müssen</emphasis> mit einer 5-stelligen Ziffernfolge
+								beginnen. Ist die Zahl zu klein, wird diese mit vorangestellten 0-en
+								auf 5 Stellen gebracht.</para><para xml:id="en_2808" xml:lang="en">All file names (except <code>delivery.xml</code> )
+									<emphasis>must</emphasis> begin with a five-digit number. If the
+								number is too small, zeros will be placed at the beginning of the
+								number to bring it up to five digits.</para>
 						</listitem>
 
 						<listitem>
@@ -15706,10 +15765,15 @@ usw.]]></programlisting>
 						</listitem>
 
 						<listitem>
-							<para xml:id="de_2810" xml:lang="de">Dateinamen können nach den 3 Ziffern optional weitere Zeichen enthalten.
-								Diese Zeichen dürfen <emphasis>ausschließlich</emphasis> aus der Menge
-									<code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code>-</code> und
-									<code>_</code> stammen.</para><para xml:id="en_2810" xml:lang="en">File names can optionally contain additional characters after the three-digit number. These characters can <emphasis>only</emphasis> be selected from the ranges <code>a-z</code> , <code>A-Z</code> , <code>0-9</code> , <code>-</code> and <code>_</code> .</para>
+							<para xml:id="de_2810" xml:lang="de">Dateinamen können nach den 5 Ziffern optional weitere
+								Zeichen enthalten. Diese Zeichen dürfen
+									<emphasis>ausschließlich</emphasis> aus der Menge
+									<code>a-z</code>, <code>A-Z</code>, <code>0-9</code>,
+									<code>-</code> und <code>_</code> stammen.</para><para xml:id="en_2810" xml:lang="en">File names can optionally contain additional characters after
+								the five-digit number. These characters can
+									<emphasis>only</emphasis> be selected from the ranges
+									<code>a-z</code> , <code>A-Z</code> , <code>0-9</code> ,
+									<code>-</code> and <code>_</code> .</para>
 						</listitem>
 
 						<listitem>
