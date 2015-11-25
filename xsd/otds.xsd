@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:toma="http://otds-group.org/otds/booking/toma" xmlns:merlin="http://otds-group.org/otds/booking/merlin" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+	<xs:include schemaLocation="otds-schema-common.xsd"/>
+	<xs:include schemaLocation="otds-schema-accommodation.xsd"/>
+	<xs:include schemaLocation="otds-schema-flight.xsd"/>
+	<xs:include schemaLocation="otds-schema-addon.xsd"/>
+	<xs:include schemaLocation="otds-schema-products.xsd"/>
+	<xs:import namespace="http://otds-group.org/otds/booking/merlin" schemaLocation="otds-booking-merlin.xsd"/>
+	<xs:import namespace="http://otds-group.org/otds/booking/toma" schemaLocation="otds-booking-toma.xsd"/>
+	<xs:element name="Otds">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_520">Dies ist das Wurzelelement einer OTDS-Datenlieferung.
+In OTDS wird zwischen Reisekomponenten und Produkten unterschieden.
+Reisekomponenten sind Unterbringungen, Kreuzfahrten, Flüge und Zusatzleistungen. Mit Produkten werden diese Komponenten einzeln oder kombiniert verkäuflich gemacht. 
+Das Update-Konzept nutzt die hierarchische Struktur von OTDS. Jeder wichtige logische Knoten innerhalb des Datenbaumes hat die Attribute "Key" und "UpdateMode". Die unterschiedlichen UpdateModes erlauben mehrere Möglichkeiten direkter Updates der logischen Knoten.
+<a href="../otds_spezifikation.html#OtdsSpecInfo">OTDS</a>
+			</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_520">This is the root element of an OTDS data supply.
+OTDS differentiates between travel components and products.
+Travel components include accommodation, cruises, flights and additional services. Products are these individual components or combined components made available for sale.
+The update concept uses the hierarchical structure of OTDS. Every important logical node within a data tree has the attributes "Key" and "UpdateMode". The various different UpdateModes allow several options for direct updates of the logical nodes.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CompositeUpdateNodeType">
+					<xs:sequence>
+						<xs:element name="Products" type="ProductsType" minOccurs="0"/>
+						<xs:element name="Brands" type="BrandsType"/>
+						<xs:element name="Accommodations" type="AccommodationsType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="de_521">Reisekomponente für Unterbringungen
+Dieser Zweig enthält alle relevanten Daten für alle gelieferten Unterbringungen wie Hotels, Ferienwohnungen und Ferienhäusern. </xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_521">Travel components for accommodation
+This branch contains all relevant information for the accommodation supplied, such as hotels, holiday apartments and holiday homes.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Flights" type="FlightsType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="de_522">Reisekomponente für Flüge (Flights). 
+Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen (ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so kann dies regelbasiert mit den ReturnFlightRules gemacht werden.
+In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich, die aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können.
+                </xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_522">Travel components for flights (Flights).
+Flight offers consist of one-way (OnewayFlight) and return (ReturnFlight) flights. If further flights are to be added to a single flight, this can be done based on the ReturnFlightRules.
+In the OTDS structure, extended flight offers(CombiRules) are also available, which can consist of several one-way or return flights.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Addons" type="AddonsType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="de_523">Reisekomponente für Zusatzangebote (Addons). 
+Zusatzangebote sind z.B. der Transfer, Sportangebote, Gesundheits- oder Wellnessleistungen, besonderer Hotelservice oder besondere touristische Angebote. 
+Hier werden alle dazugehörigen Daten und Eigenschaften erfasst inkl. der Preise und Verfügbarkeiten.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_523">Travel components for additional offers (Addons).
+Additional offers can be, for example, transfers, sporting activities, health and spa services, special hotel services or other additional tourist offers.
+All associated information and properties are included here, such as price and availability.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DefinedComponents" type="CombiComponentsType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="de_524">Unter diesem Element werden kombinierte Componenten definiert, die aus mehreren Einzelkomponenten bestehen.
+								Die XML-Definition erluabt aktuell ausdrücklich nur die Kombination von Flügen gleichen Typs. So können hier aus Einzelflügen Returnflüge zusammengestellt werden. Und es können auch Einzelflüge mit Zubringern erweitern werden. Genauso können Returnflüge mit Zubringern erweitert werden. Es ist denkbar, dass in zukünftigen Versionen auch andere Komponenten kombiniert werden können.
+                </xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_524">Combined components, consisting of several individual components, are defined under this element.
+The XML definition currently only allows flights of the same type to be combined. This allows return flights to be put together from single flights. Feeder flights can also be added to single flights. Just as feeder flights can also be added to return flights. It is conceivable that in future versions it will also be possible to combine other components.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Version" type="OTDSVersionEnum" use="required">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_525">OTDS Version der Datenlieferung:
+Dieses Element enthält die OTDS-Version die der Datenlieferung zu Grunde liegt.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_525">OTDS version of data delivery:
+This element contains the OTDS version which is based upon the data delivery.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

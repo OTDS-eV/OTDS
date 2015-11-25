@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Brands/>
+	<Accommodations>
+		<Accommodation Key="PMI8172">
+			<SellingAccom Key="PMI817201">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI210</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="154">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Double</UnitType>
+						</PropertyGroup>
+					</Properties>
+					<!--In diesem Zimmer werden zur Demonstration viele verschiedene Belegungen definiert, die in der Form selten gemeinsam aufreten sollten.
+						Es ist prinzipiell erlaubt, in einem Zimmer mehrere Occupancies hintereinander zu definieren. Dadurch sind beide Occupancies gültige Belegungsvarianten.
+						Die Personen in der Occupancy-Definition müssen dem Alter nach absteigend definiert werden. 
+						Wird eine Belegung gegen die Occupancy geprüft, so wird dabei auch nach Alter absteigend die älteste Person zuerst geprüft.
+						Die Occupancy selbst ist eine reine Definition der Belegung.
+						Die Definition der Vollzahler-Regeln findet mit Hilfe von ConditionalTags statt. 
+					-->
+					<SellingUnit Key="154">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+							<ConditionalTag>
+								<Tag Class="PersonPriceClass">ReducedChild</Tag>
+								<Condition>
+									<Or>
+										<And>
+											<PersonImpact>
+												<PersonIndex Source="Product">
+													<From>-2</From>
+													<PersonFilter>
+														<PersonAge Source="Product">
+															<Max>14</Max>
+														</PersonAge>
+													</PersonFilter>
+												</PersonIndex>
+											</PersonImpact>
+											<PersonGroup Source="Product">
+												<Person>
+													<MinAge>18</MinAge>
+													<Count>1</Count>
+												</Person>
+												<Person>
+													<MinCount>0</MinCount>
+												</Person>
+											</PersonGroup>
+										</And>
+										<And>
+											<PersonImpact>
+												<PersonIndex Source="Product">
+													<From>-4</From>
+													<PersonFilter>
+														<PersonAge Source="Product">
+															<Max>14</Max>
+														</PersonAge>
+													</PersonFilter>
+												</PersonIndex>
+											</PersonImpact>
+											<PersonGroup Source="Accommodation">
+												<Person>
+													<MinAge>18</MinAge>
+													<Count>2</Count>
+												</Person>
+												<Person>
+													<MinCount>0</MinCount>
+												</Person>
+											</PersonGroup>
+										</And>
+									</Or>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>TR</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Standard Double</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<!--   2/1 und 2/0  Kind bis 12 Jahre  -->
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>12</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<MaxAge>12</MaxAge>
+								<MinCount>0</MinCount>
+								<MaxCount>1</MaxCount>
+							</Person>
+						</Occupancy>
+						<!--  2E und 0-3 Kinder + optionales Baby -->
+						<!--1-4 Personen: 1 Erwachsener Pflicht, zusätzlich bis zu 3 beliebige Personen möglich  -->
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>10</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<!--1-4 Personen: 1 Erwachsener Pflicht, zusätzlich bis zu 3 beliebige Personen möglich, zusätzlich generell 1 Baby möglich -->
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>10</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<MaxCount>3</MaxCount>
+							</Person>
+							<Person>
+								<MaxAge>1</MaxAge>
+								<MaxCount>1</MaxCount>
+							</Person>
+						</Occupancy>
+						<!--1-4 Personen max 2 Kinder max 12 Jahre möglich   -->
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>10</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<MaxCount>3</MaxCount>
+							</Person>
+							<Exclude>
+								<Person>
+									<MinAge>10</MinAge>
+									<Count>1</Count>
+								</Person>
+								<Person>
+									<MaxAge>12</MaxAge>
+									<Count>3</Count>
+								</Person>
+							</Exclude>
+						</Occupancy>
+						<!--  4 Personen, die letzte Person darf kein Kind sein, wenn schon 2 Kinder dabei sind   -->
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>14</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>3</MaxCount>
+							</Person>
+							<Exclude>
+								<Person>
+									<MinAge>14</MinAge>
+									<Count>1</Count>
+								</Person>
+								<Person>
+									<MaxAge>13</MaxAge>
+									<Count>3</Count>
+								</Person>
+							</Exclude>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+</Otds>

@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:merlin="http://otds-group.org/otds/booking/merlin" xmlns:toma="http://otds-group.org/otds/booking/toma" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd  http://otds-group.org/otds/booking/merlin ../xsd/otds-booking-merlin.xsd http://otds-group.org/otds/booking/toma ../xsd/otds-booking-toma.xsd">
+	<Products>
+		<Product Key="Accommodation" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+		</Product>
+		<Product Key="FlightAccommodation1" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<DefinedComponent UseRole="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<MatchEqual>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+					<Element Source="Outbound">ArrivalAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</Product>
+		<Product Key="FlightAccommodation2" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<DefinedComponent UseRole="ReturnFlight"/>
+				<Addon DayAllocationLevel="1"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<Keys Source="Addon">MW-C</Keys>
+				</And>
+			</Filter>
+			<DayAllocation>
+				<DayAllocationStart DayAllocationLevel="1" Source="Accommodation"/>
+				<DayAllocationEnd DayAllocationLevel="1" Source="Accommodation"/>
+			</DayAllocation>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TO1">
+			<Tags>
+				<ConditionalTag>
+					<Tag Class="PersonBookingType">Adult</Tag>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Adult</ConditionalTags>
+						</Impact>
+					</Condition>
+				</ConditionalTag>
+				<ConditionalTag>
+					<Tag Class="PersonBookingType">Child</Tag>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Child</ConditionalTags>
+						</Impact>
+					</Condition>
+				</ConditionalTag>
+				<ConditionalTag>
+					<Tag Class="PersonBookingType">Baby</Tag>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Baby</ConditionalTags>
+						</Impact>
+					</Condition>
+				</ConditionalTag>
+			</Tags>
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<toma:BookingParameter Field="BrandCode">
+						<Value>TO1</Value>
+					</toma:BookingParameter>
+					<merlin:BookingParameter Field="BrandCode">
+						<Value>TO2</Value>
+					</merlin:BookingParameter>
+					<BookingParameter Field="BrandCode">
+						<Value>FTI</Value>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product">
+					<BookingParameter Field="Title">
+						<Value>H</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Male Undefined</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product">
+					<BookingParameter Field="Title">
+						<Value>D</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Female</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product">
+					<BookingParameter Field="Title">
+						<Value>K</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="Brand" Class="PersonBookingType">Child</ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product">
+					<BookingParameter Field="Title">
+						<Value>B</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="Brand" Class="PersonBookingType">Baby</ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product">
+					<BookingParameter Field="Age">
+						<PersonAge AgeType="TravelAge"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:SellingAccom">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Accommodation"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckOut" Source="global:Accommodation"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:OnewayFlight">
+					<BookingParameter Field="DateStart">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Outbound"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Inbound"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="S11-PMI007">
+			<SellingAccom Key="S11-PMI007">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="PersonType">Adult</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>16</Min>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Child</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>2</Min>
+									<Max>15</Max>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Baby</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Max>2</Max>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI007</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="F">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<!--In diesem Fall wird der Boardcode an den Zimmercode angefügt, wie es in aktuellen Buchungssystemen üblich ist.
+								Die Angabe des Namens ist Vorraussetzung dafür, dass ein "Field" nicht überschrieben wird, sondern die Inhalte zusamengesetzt werden.
+								 Der Index definiert dabei die Reihenfolge der Zusammensetzung. Der Zimmercode hat keinen Index (also Default=o). Somit wird der BoardCode an den Zimmercode angefügt.
+								Siehe auch dazu: weiter unten die Definition des Zimmercodes unter SellingUnit.
+								-->
+								<Value>F</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Frühstück</BoardName>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="H">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Halbpension</BoardName>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Unit Key="A12">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Apartment</UnitType>
+							<UnitFacilities>SeparateBedroom</UnitFacilities>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="A12_F">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="SellingAccom">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<!-- Das Attribute "PadLength" ist ein Hinweis daruf, dass in diesem Feld Parameter zusammengesetzt werden. Der Zimmercode wird dabei auf eine Zeichenlänge von 3 Stellen gebracht, in dem Spaces am Ende eingefügt werden.
+											Die Art des Paddings kann spezifisch definiert werden. Bitte dazu die Beschreibung der anderen Attribute in der technischen Doku anschauen.
+									 -->
+									<Value>A12</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>APP. 1 SCHLAFZ. 2 ERW.</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<MaxAge>12</MaxAge>
+								<MinCount>0</MinCount>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="A12_F">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="DUSPMI">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>DUS PMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>X3</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-04" StartDate="2012-04-01" EndDate="2012-10-31">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed Fri</Weekdays>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>50</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-04-11</Min>
+										<Max>2012-05-11</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-06-08</Min>
+										<Max>2012-06-29</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-05-18 2012-05-23 2012-05-30 2012-06-01</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="PMIDUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>GHY</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-08" StartDate="2012-04-08" EndDate="2012-10-28">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Thu Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+		</OnewayFlights>
+		<ReturnFlights>
+			<!-- Hier ein Beispiel für einen ReturnFlight, der 2 Buchungszeilen für diese Komponente benötigt. Das Beispiel beschränkt sich rein auf die Buchungsparameter.-->
+			<ReturnFlight Key="DUSPMIDUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>DUS PMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Outbound>
+					<DepartureAirport>DUS</DepartureAirport>
+					<ArrivalAirport>PMI</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<DepartureAirport>PMI</DepartureAirport>
+					<ArrivalAirport>DUS</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="YX">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+						<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>X</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+				</BookingClass>
+			</ReturnFlight>
+		</ReturnFlights>
+	</Flights>
+	<Addons>
+		<Addon Key="MW-C">
+			<Booking>
+				<BookingGroup Area="ServiceArea" Source="global:SellingAccom" Class="Default">
+					<BookingParameter Name="AddonSuffix" Field="ServiceCode" LeftSeparator="" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" Padding=" ">
+						<Value>A</Value>
+					</BookingParameter>
+					<!--	Die Source="global:SellingAccom" definiert, dass die BookingParameter in die gleiche Leistungszeile wie das SeelingAccom geschrieben werden 
+Der unterschiedliche Wert des Attributs "Name" definiert, dass es sich nicht um Ergänzung handelt.	
+								Das Attribut "Index" definiert die Position der Stringverknüpfung.
+							Source definiert um welche Komponente es geht. Standard ist "ThisComponent".	
+ -->
+				</BookingGroup>
+			</Booking>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AddonName>MIETWAGEN KLASSE C</AddonName>
+					<GeneralIncludedServices>
+						<GeneralIncludedService>CarRental</GeneralIncludedService>
+					</GeneralIncludedServices>
+				</PropertyGroup>
+			</Properties>
+			<Service Key="1">
+				<Occupancy Key="1">
+					<Person>
+						<MinCount>1</MinCount>
+					</Person>
+				</Occupancy>
+			</Service>
+		</Addon>
+		<Addon Key="AdventurePackage">
+			<Booking>
+				<BookingGroup Area="ServiceArea" Source="global:SellingAccom" Class="Default">
+					<!--	Der Default Name ist beim ServiceCode der Accommodation gleich. Damit wird definiert, dass es sich um eine Überschreibung handelt.	 -->
+					<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>SPC10007</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AddonName>AdventurePackage</AddonName>
+					<AddonServiceType>
+						<TourArrangement>AdventureTour</TourArrangement>
+					</AddonServiceType>
+				</PropertyGroup>
+			</Properties>
+			<Service Key="1">
+				<Occupancy Key="1">
+					<Person>
+						<MinCount>0</MinCount>
+					</Person>
+				</Occupancy>
+			</Service>
+		</Addon>
+	</Addons>
+	<DefinedComponents>
+		<DefineComponent Key="HR" Role="ReturnFlight">
+			<Booking>
+				<!-- Definition einer Flughülle, die die Buchungsparameter aller beteiligten Einzelflüge ersetzt und danach neu definiert-->
+				<!-- zunächst alle möglicherweise durch Flüge angelegte Buchungszeilen löschen -->
+				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
+					<BookingReplace Source="OnewayFlight" Class="*"/>
+					<BookingReplace Source="ReturnFlight" Class="*"/>
+					<BookingReplace Source="BookingClass" Class="*"/>
+					<!-- neue generisch Buchungszeile (Flughülle) -->
+					<BookingParameter Field="RequestCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>Y</Value>
+					</BookingParameter>
+					<BookingParameter Field="DateStart" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date Source="Outbound" DayType="CheckIn"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date Source="Inbound" DayType="CheckIn"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
+					<!-- Eine von den Flughäfen abhängiger ServiceCode der Flughülle -->
+					<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>DUSPMI</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
+							<Airports Source="Outbound" AirportType="Arrival">PMI</Airports>
+						</And>
+					</Condition>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
+					<OnewayFlight Name="OutFlight"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
+					<OnewayFlight Name="InFlight"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">DepartureAirport</Element>
+						<Element Source="Inbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">DepartureAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>
