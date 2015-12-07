@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:toma="http://otds-group.org/otds/booking/toma" xmlns:merlin="http://otds-group.org/otds/booking/merlin" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+	<xs:element name="Otds">
+		<xs:annotation>
+			<xs:documentation xml:lang="de">Dies ist das Wurzelelement einer OTDS-Datenlieferung.
+In OTDS wird zwischen Reisekomponenten und Produkten unterschieden.
+Reisekomponenten sind Unterbringungen, Kreuzfahrten, Flüge und Zusatzleistungen. Mit Produkten werden diese Komponenten einzeln oder kombiniert verkäuflich gemacht. 
+Das Update-Konzept nutzt die hierarchische Struktur von OTDS. Jeder wichtige logische Knoten innerhalb des Datenbaumes (logical node) hat die optionalen Attribute Key und UpdateMode. Die unterschiedlichen UpdateModes erlauben mehrere Möglichkeiten direkter Updates der logischen Knoten.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			
+					<xs:sequence>
+						<xs:element name="Brands">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Brand1"/>
+									<xs:element name="Brand2"/>
+									<xs:element name="Brand3"/>
+									<xs:element name="..."/>
+									<xs:element name="BrandX">
+										<xs:annotation>
+											<xs:documentation> 
+
+</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Products" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Product1"/>
+									<xs:element name="Product2"/>
+									<xs:element name="Product3"/>
+									<xs:element name="..."/>
+									<xs:element name="ProductX"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Accommodations" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="de">Reisekomponente für Unterbringungen
+Dieser Zweig enthält alle relevanten Daten für alle gelieferten Unterbringungen wie Hotels, Ferienwohnungen und Ferienhäusern. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Flights" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="de">Reisekomponente für Flüge (Flights). 
+Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen (ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so kann dies regelbasiert mit den ReturnFlightRules gemacht werden.
+In der OTDS-Struktur sind auch erweiterte Flugangebote ( ...CombiRules) möglich, die aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können.
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Addons" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Reisekomponente für Zusatzangebote (Addons). 
+Zusatzangebote sind z.B. der Transfer, Sportangebote, Gesundheits- oder Wellnessleistungen, besonderer Hotelservice oder besondere touristische Angebote. 
+Hier werden alle dazugehörigen Daten und Eigenschaften erfasst inkl. der Preise und Verfügbarkeiten.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CombiComponents" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation xml:lang="de">Unter diesem Element werden kombinierte Componenten definiert, die aus mehreren Einzelkomponenten bestehen.
+								Die XML-Definition erluabt aktuell ausdrücklich nur die Kombination von Flügen gleichen Typs. So können hier aus Einzelflügen Returnflüge zusammengestellt werden. Und es können auch Einzelflüge mit Zubringern erweitern werden. Genauso können Returnflüge mit Zubringern erweitert werden. Es ist denkbar, dass in zukünftigen Versionen auch andere Komponenten kombiniert werden können.
+                </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+	</xs:element>
+</xs:schema>
