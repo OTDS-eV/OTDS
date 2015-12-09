@@ -2,7 +2,7 @@
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
-<xs:simpleType name="SourceAttributeType">
+	<xs:simpleType name="SourceAttributeType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de">
 		Die Source Angabe folgt folgender Syntax
@@ -212,19 +212,14 @@ The default is 0.</xs:documentation>
 		<xs:annotation>
 			<xs:documentation>Attributsgruppe zur Steuerung aller Applies wie z.B.: ApplyTo, AppliedBy, etc.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="Component" type="ComponentAttributeType" use="optional" default="ThisComponent">
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
 			<xs:annotation>
-				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Per Default sind die Komponenten des PriceItems und die des assozierten PriceItems gleich (ThisComponent). Durch die explizite Angabe einer anderen Komponente ist es aber möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Durch die Integration von Source an dieser Stelle wird die Component zum Auslaufmodel. Component wird nur noch bis zur Version 4.0 unterstützt. </xs:documentation>
+				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="local+Hierarchy.all:ThisComponent">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
 			<xs:annotation>
-				<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. Um
-					die Kompatibilität zu Version 1.0 zu erhalten, wird der Defaultwert
-					Source="Hierarchy.all:ThisComponent". Dieser Wert entspricht dann zu 100% dem
-					Attribut Component=ThisComponent. Im Zuge der Einführung von Source wird
-					Component zu einem Auslaufmodell. Component wird an dieser Stelle nur noch bis
-					zur Version 4.0 unterstützt.</xs:documentation>
+				<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. </xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
@@ -1877,6 +1872,30 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:complexType name="IncludeAppliedDescendantsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de">Ist dieses Element angegeben, werden zu den in PriceItemCollection
+				definierten PriceItems auch deren Descendants ergänzt. Descendendants sind
+				in dem Zusammenhang alle PriceItems, die durch ApplyTo und AppliedBy der
+				PriceItemCollection-PriceItems adressiert werden. So kann man in der
+				Collection bestimmte PercentPriceItems auswählen und zusätzlich alle
+				PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses
+				PriceItem beziehen. Die Auswahl der Descendants lässt sich wiederum durch
+				den PriceItemFilter separat einschränken. Bei der Auswahl der Descendants
+				wird nur Apply-Hierarchie berücksichtigt! Sollte ein Bezug auf ein
+				generisches Absolute hergestellt werden, so wird hierbei dessen Include
+				nicht mitberücksichtigt.</xs:documentation>
+			<xs:documentation xml:lang="en">In case this element is indicated, the descendants of PriceItems defined in PriceItemCollection 
+				are complemented to those. Descendendants in this respect are all PriceItems that can be addressed by ApplyTo and AppliedBy 
+				of the PriceItemCollection-PriceItems. Hence one can choose specific PercentPriceItems in the collection and additionally 
+				include all PriceItems that refer to this PriceItem via ApplyTo and AppliedBy. The selection of the descendants can be in turn 
+				restricted separately by the PriceItemFilter. For the selection of the descendants only the Apply hierarchy is considered! 
+				If a reference to a generic Absolute is constructed, its Include will not be considered.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
 	<!--Begin of  property definition-->
 	<xs:complexType name="PropertiesWithoutNodeType">
 		<xs:group ref="PropertiesWithoutNodeGroup"/>
@@ -2641,7 +2660,7 @@ The attribution is carried out according to hotel chain ID. A list of references
 		</xs:annotation>
 		<xs:sequence>
 			<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
-			<xs:element name="IncludeAppliedDescendants" minOccurs="0">
+			<xs:element name="IncludeAppliedDescendants" type="IncludeAppliedDescendantsType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Ist dieses Element angegeben, werden zu den in PriceItemCollection
 						definierten PriceItems auch deren Descendants ergänzt. Descendendants sind
@@ -2661,14 +2680,27 @@ The attribution is carried out according to hotel chain ID. A list of references
 						restricted separately by the PriceItemFilter. For the selection of the descendants only the Apply hierarchy is considered! 
 						If a reference to a generic Absolute is constructed, its Include will not be considered.</xs:documentation>
 				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
-					</xs:sequence>
-				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
-		<xs:attributeGroup ref="SourceAttributeGroup"/>
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="det_266">Dieses Attribut gibt den Type einer Komponente
+					an. Folgende Typen stehen zur Auswahl: -
+					Accommodation, - Flight, - Addon, ThisComponent.
+					Mit der Source kann man die Addressierung noch verfeinern.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.
+					</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_266">This attribute specifies the type of a
+					component. In the case of a CombiComponent, type refers to the first
+					component indicated. The following types are available: - Accommodation,
+					- Flight, - Add-on</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Source" type="SourceAttributeType">
+			<xs:annotation>
+				<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
 			<xs:annotation>
 				<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
@@ -2964,7 +2996,7 @@ Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
 		</xs:attribute>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="SourceAttributeGroup">
-		<xs:attribute name="Source" type="SourceAttributeType" use="required">
+		<xs:attribute name="Source" type="SourceAttributeType">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_215">Dieses Attribut dient der Identifizierung einer
 					Unterkomponente bzw. eines Zielknotens im OTDS-XML-Baum bezogen auf das aktuell
@@ -3178,7 +3210,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1"/>
 			<xs:maxLength value="128"/>
-			<xs:pattern value="[^\s]+"/>
+			<xs:pattern value="[\S]+"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ISO3166CountryType">
@@ -3777,6 +3809,11 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="NotConsideredPriceItemClassesType">
+		<xs:simpleContent>
+			<xs:extension base="PriceItemClassTypeList"/>
+		</xs:simpleContent>
+	</xs:complexType>
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
@@ -3785,8 +3822,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 				<xs:attribute name="Component" type="ComponentAttributeType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_266">Dieses Attribut gibt den Type einer Komponente
-							an. Im Falle einer CombiComponent ist hierbei der Typ der zeitlich
-							ersten Komponente gemeint. Folgende Typen stehen zur Auswahl: -
+							an. Folgende Typen stehen zur Auswahl: -
 							Accommodation, - Flight, - Addon </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_266">This attribute specifies the type of a
 							component. In the case of a CombiComponent, type refers to the first
@@ -4108,6 +4144,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:enumeration value="SportTravellers"/>
 			<xs:enumeration value="ShortstayTravellers"/>
 			<xs:enumeration value="DogOwner"/>
+			<xs:enumeration value="HoneyMooner"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="InternetAccessLocationEnum">
@@ -4446,7 +4483,6 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
-	
 	<xs:simpleType name="PriceTypeEnum">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_270">In diesem Element werden die verschiedenen Arten von PriceItems aufgeführt, die keine impliziten Regeln enthalten:
@@ -5830,15 +5866,18 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 								<xs:complexType>
 									<xs:simpleContent>
 										<xs:extension base="PriceItemClassTypeList">
-											<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
+											<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
 												<xs:annotation>
-													<xs:documentation xml:lang="de" xml:id="de_371">Das Attribut Component gibt an, auf
+													<xs:documentation xml:lang="de" xml:id="det_371">Das Attribut Component gibt an, auf
 												welche Komponente sich die PriceItemClasses
-												beziehen. Per Default="ThisComponent" definiert,
-												dass es die Komponente ist, in der dieses Attribut
-												definiert ist. Es ist aber möglich, auf andere
-												Komponenten zu verweisen.</xs:documentation>
+												beziehen. Mit der Source kann man die Addressierung noch verfeinern.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
 													<xs:documentation xml:lang="en" xml:id="en_371">The attribute component indicates which components the PriceItemClasses refer to. By default, "ThisComponent" is defined by the fact that it is the component in which this attribute is defined. It is however possible to refer to other components.</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+											<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+												<xs:annotation>
+													<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. </xs:documentation>
 												</xs:annotation>
 											</xs:attribute>
 										</xs:extension>
@@ -5933,22 +5972,21 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 									<xs:documentation xml:lang="en" xml:id="en_375">This group refers to the group stated in the CombinationCode</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
-							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType">
 								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_376">Das Attribut Component beschränkt den
+									<xs:documentation xml:lang="de" xml:id="det_376">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
-										bestimmten Komponente. Per Default beschränkt sich die
-										Kombinatorik auf PriceItems aus derselben Komponente
-										(ThisComponent). Wenn die Kombinatorikbedingungen auf ein
+										bestimmten Komponente. Wenn die Kombinatorikbedingungen auf ein
 										PriceItem einer anderen Komponente wirken sollen, muss dies
-										hier explizit angegeben werden. Der Bezug in Preisen auf
-										eine CombiComponente wird in OTDS V1.0 ausdrücklich nicht
-										erlaubt. Dieser Value existiert. um deutlich zu machen, dass
-										die PriceItems der Einzelbestandteile einer CombiComponent
-										nicht in die Kombinatorik mit einbezogen werden
-										können.</xs:documentation>
+										hier explizit angegeben werden. Mit der Source kann man die Addressierung noch verfeinern.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
 									<xs:documentation xml:lang="en" xml:id="en_376">The component attribute limits the scope of possible combinations to PriceItems of a specific component. By default, the combinations are limited to PriceItems from the same component (ThisComponent). If the combination conditions are to have an effect on a PriceItem of another component, this must be explicitly stated here.
 Reference to a combined component. Reference to prices for a CombiComponent is expressly prohibited in OTDS V1.0. This value exists to make it clear that the PriceItems of the individual components of a CombiComponent cannot be included in the combinations.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+								<xs:annotation>
+									<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. </xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
 						</xs:extension>
@@ -5972,22 +6010,21 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 										the CombinationIndexn</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
-							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
 								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_379">Das Attribut Component beschränkt den
+									<xs:documentation xml:lang="de" xml:id="det_379">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
-										bestimmten Komponente. Per Default beschränkt sich die
-										Kombinatorik auf PriceItems aus derselben Komponente
-										(ThisComponent). Wenn die Kombinatorikbedingungen auf ein
+										bestimmten Komponente. Wenn die Kombinatorikbedingungen auf ein
 										PriceItem einer anderen Komponente wirken sollen, muss dies
-										hier explizit angegeben werden. Der Bezug in Preisen auf
-										eine CombiComponente wird in OTDS V1.0 ausdrücklich nicht
-										erlaubt. Dieser Value existiert um deutlich zu machen, dass
-										die PriceItems der Einzelbestandteile einer CombiComponent
-										nicht in die Kombinatorik mit einbezogen werden
-										können.</xs:documentation>
+										hier explizit angegeben werden. Mit der Source kann man die Addressierung noch verfeinern.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
 									<xs:documentation xml:lang="en" xml:id="en_379">The component attribute limits the scope of possible combinations to PriceItems of a specific component. By default, the combinations are limited to PriceItems from the same component (ThisComponent). If the combination conditions are to have an effect on a PriceItem of another component, this must be explicitly stated here.
 Reference to a combined component. Reference to prices for a CombiComponent is expressly prohibited in OTDS V1.0. This value exists to make it clear that the PriceItems of the individual components of a CombiComponent cannot be included in the combinations.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+								<xs:annotation>
+									<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. </xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
 						</xs:extension>
@@ -6010,22 +6047,21 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 										the CombinationIndex.</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
-							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
+							<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
 								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_382">Das Attribut Component beschränkt den
+									<xs:documentation xml:lang="de" xml:id="det_382">Das Attribut Component beschränkt den
 										Wirkungsradius der Kombinatorik auf PriceItems einer
-										bestimmten Komponente. Per Default beschränkt sich die
-										Kombinatorik auf PriceItems aus der selben Komponente
-										(ThisComponent). Wenn die Kombinatorikbedingungen auf ein
+										bestimmten Komponente. Wenn die Kombinatorikbedingungen auf ein
 										PriceItem einer anderen Komponente wirken sollen, muss dies
-										hier explizit angegeben werden. Der Bezug in Preisen auf
-										eine CombiComponente wird in OTDS V1.0 ausdrücklich nicht
-										erlaubt. Dieser Value existiert um deutlich zu machen, dass
-										die PriceItems der Einzelbestandteile einer CombiComponent
-										nicht in die Kombinatorik mit einbezogen werden
-										können.</xs:documentation>
+										hier explizit angegeben werden. Mit der Source kann man die Addressierung noch verfeinern.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
 									<xs:documentation xml:lang="en" xml:id="en_382">The component attribute limits the scope of possible combinations to PriceItems of a specific component. By default, the combinations are limited to PriceItems from the same component (ThisComponent). If the combination conditions are to have an effect on a PriceItem of another component, this must be explicitly stated here.
 Reference to a combined component. Reference to prices for a CombiComponent is expressly prohibited in OTDS V1.0. This value exists to make it clear that the PriceItems of the individual components of a CombiComponent cannot be included in the combinations.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+								<xs:annotation>
+									<xs:documentation>Das Attribut Soure stellt eine Erweiterung des Attributs "Component" dar. </xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
 						</xs:extension>
@@ -6203,97 +6239,31 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
-						<xs:element name="ConsideredPriceItems" maxOccurs="unbounded">
+						<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 							<xs:annotation>
-								<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden PriceItems auf
-									bestimmte PriceItems eines bestimmten Types und/oder mit
-									bestimmten PriceTags. Die Auswahl erfolgt in der folgenden
-									Reihenfolge: 1. Auswahl der PriceItems gemäß PriceFilter 2. Ggf.
-									Ergänzung der IncludedDescendants. Bei mehrfacher Angabe des
-									Elementes besteht die finale Menge der PriceItems aus einem
-									Merge der PriceItems der einzelnen
-									ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung
-									von PriceItems statt. </xs:documentation>
-								<xs:documentation xml:lang="en">Restricts the PriceItems to be considered to certain
-									PriceItems of a specific type and/or with certain Pricetags. The
-									selection is made in the following order: 1. selection of the
-									PriceItems according to PriceFilter. 2. If necessary supplement
-									of the IncludedDescendants. If the element occurs multiple
-									times, the final amount of the PriceItems consists from a merge
-									of the PriceItems of the individual ConsideredPriceItems
-									evaluations. There will be no duplication of
-									PriceItems.</xs:documentation>
+								<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte Menge von PriceItems 
+			eines bestimmten Types und/oder mit bestimmten PriceTags oder PriceClasses. Je Element "ConsideredPriceItems" wird eine Menge von PriceItems definiert.
+			Bei mehrfacher Angabe des Elementes werden die einzelnen Mengen ver-ODER-ert.
+			Es findet keine Duplizierung von PriceItems statt. 
+			Falls ConsideredPriceItems kein Unterelement enthält, so werden alle PriceItems gemäß der Angaben in den Attributen "Source" und "ConsideredPriceItemType" berücksichtigt.
+			
+			Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt in der folgenden Reihenfolge: 
+			1. Auswahl der PriceItems gemäß der Attribute "Source" und "ConsideredPriceItemType"	
+			
+			2. Einschränkung der Auswahl der PreisItems auf bestimmte PriceClasses und PriceTags. Bei der Angabe mehrerer Unterelemente werden die einzelnen Einschränkungen bzgl. Tags und Classes ver-UND-et.
+			
+			3. Ergänzung der IncludedDescendants. </xs:documentation>
+								<xs:documentation xml:lang="en">Restricts the PriceItems that need to be considered to specific
+									PriceItems of a specific type and/or with specific PriceTags. The selection
+									takes place in the following order: 1. selection of the PriceItems according
+									to the PriceFilter 2. if applicable complement of the IncludedDescendants.
+									If the element is indicated several times the final amount of PriceItems
+									consists from a merge of PriceItems of the single ConsideredPriceItems
+									evaluation. There will be no duplication of PriceItems. If
+									ConsideredPriceItems contain no element, all PriceItems will be considered
+									according to the values in the attributes "Source" and
+									"ConsideredPriceItemType".</xs:documentation>
 							</xs:annotation>
-							<xs:complexType>
-								<xs:sequence>
-									<xs:group ref="PriceItemFilterGroup"/>
-									<xs:element name="IncludeAppliedDescendants" minOccurs="0" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation xml:lang="de">Ist dieses Element angegeben, werden zu den in PriceItemCollection
-												definierten Priceitems auch deren Descendants
-												ergänzt. Descendendants sind in dem Zusammenhang
-												alle PriceItems, die durch ApplyTo und AppliedBy der
-												PrideItemCollection-Pricetems adressiert werden. So
-												kann man in der Collection bestimmte
-												PercentPriceItems auswählen und zusätzlich alle
-												PriceItems inkludieren, die sich über ApplyTo und
-												AppliedBy auf dieses PriceItem beziehen. Die Auswahl
-												der Descendants lässt sich wiederum durch den
-												PriceItemFilter separat einschränken. Bei der
-												Auswahl der Descendants wird nur Apply-Hierarchie
-												berücksichtigt! Sollte ein Bezug auf ein generisches
-												Abolute hergestellt werden, so wird hierbei dessen
-												Include nicht mitberücksichtigt.</xs:documentation>
-											<xs:documentation xml:lang="en">Include="ApplyDescandents" allows to include further PriceItems which are applied by the addressed PriceItems. By doing so specific PercentPriceItems can be assigned. In addition all PriceItems can be included that refer to this specific PriceItem via ApplyTo and AppliedBy. This attribute only considers one apply hierarchy! If a reference to a generic absolute is being established, its Include will not be considered.</xs:documentation>
-										</xs:annotation>
-										<xs:complexType>
-											<xs:sequence>
-												<xs:group ref="PriceItemFilterGroup"/>
-											</xs:sequence>
-											<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum">
-												<xs:annotation>
-													<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
-- Absolutes
-Es werden nur absolute PriceItems berücksichtigt.
-
-- Percents
-Es werden nur Percent-PriceItems berücksichtigt.
-
-
-- All
-Es werden alle PriceItems berücksichtigt.
-Default = "All"</xs:documentation>
-													<xs:documentation xml:lang="en">This element defines which type of PriceItems should be considered. A list of values separated by space can be specified. The following values are possible: 
-														- Absolute: Only absolute PriceItems are considered. 
-														- Percents: Only Percent-PriceItems are considered. 
-														- All: all PriceItems are considered. Default = "All"</xs:documentation>
-												</xs:annotation>
-											</xs:attribute>
-										</xs:complexType>
-									</xs:element>
-								</xs:sequence>
-								<xs:attributeGroup ref="SourceAttributeGroup"/>
-								<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
-									<xs:annotation>
-										<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
-- Absolutes
-Es werden nur absolute PriceItems berücksichtigt.
-
-- Percents
-Es werden nur Percent-PriceItems berücksichtigt.
-
-
-- All
-Es werden alle PriceItems berücksichtigt.
-
-Default = "All"</xs:documentation>
-										<xs:documentation xml:lang="en">This element defines which type of PriceItems should be considered. A list of values separated by space can be specified. The following values are possible: 
-											- Absolute: Only absolute PriceItems are considered. 
-											- Percents: Only Percent-PriceItems are considered. 
-											- All: all PriceItems are considered. Default = "All"</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="Method" type="RoundMethodEnum" default="Down">
@@ -6468,27 +6438,7 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
-						<xs:extension base="PriceItemClassTypeList">
-							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
-								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_398">Das Attribut Component beschränkt den
-										Wirkungsradius der Kombinatorik auf PriceItems einer
-										bestimmte Komponente. Per Default beschränkt sich die
-										Kombinatorik auf PriceItems aus derselben Komponente
-										(ThisComponent). Wenn die Kombinatorikbedingungen auf ein
-										PriceItem einer anderen Komponente wirken sollen, muss dies
-										hier explizit angegeben werden. Ein Bezug auf eine
-										zusammengesetzte Komponente. Der Bezug in Preisen auf eine
-										CombiComponente wird in OTDS V1.0 ausdrücklich nicht
-										erlaubt. Dieser Value existiert, um deutlich zu machen, dass
-										die PriceItems der Einzelbestandteile einer CombiComponent
-										nicht in die Kombinatorik mit einbezogen werden
-										können.</xs:documentation>
-									<xs:documentation xml:lang="en" xml:id="en_398">The component attribute limits the scope of possible combinations to PriceItems of a specific component. By default, the combinations are limited to PriceItems from the same component (ThisComponent). If the combination conditions are to have an affect on a PriceItem of another component, this must be explicitly stated here.
-Reference to a combined component. Reference to prices for a CombiComponent is expressly prohibited in OTDS V1.0. This value exists to make it clear that the PriceItems of the individual components of a CombiComponent cannot be included in the combinations.</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
+						<xs:extension base="PriceItemClassTypeList"/>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
@@ -6498,29 +6448,9 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 					<xs:documentation xml:lang="en" xml:id="en_399">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="PriceItemClassTypeList">
-							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
-								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_400">Das Attribut Component beschränkt den
-										Wirkungsradius der Kombinatorik auf PriceItems einer
-										bestimmte Komponente. Per Default beschränkt sich die
-										Kombinatorik auf PriceItems aus der selben Komponente
-										(ThisComponent). Wenn die Kombinatorikbedingungen auf ein
-										PriceItem einer anderen Komponente wirken sollen, muss dies
-										hier explizit angegeben werden. Ein Bezug auf eine
-										zusammengesetzte Komponente. Der Bezug in Preisen auf eine
-										CombiComponente wird in OTDS V1.0 ausdrücklich nicht
-										erlaubt. Dieser Value existiert, um deutlich zu machen, dass
-										die PriceItems der Einzelbestandteile einer CombiComponent
-										nicht in die Kombinatorik mit einbezogen werden
-										können.</xs:documentation>
-									<xs:documentation xml:lang="en" xml:id="en_400">The component attribute limits the scope of possible combinations to PriceItems of a specific component. By default, the combinations are limited to PriceItems from the same component (ThisComponent). If the combination conditions are to have an affect on a PriceItem of another component, this must be explicitly stated here.
-Reference to a combined component. Reference to prices for a CombiComponent is expressly prohibited in OTDS V1.0. This Value exists to make it clear that the PriceItems of the individual components of a CombiComponent cannot be included in the combinations.</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
-					</xs:simpleContent>
+					<xs:complexContent>
+						<xs:extension base="NotConsideredPriceItemClassesType"/>
+					</xs:complexContent>
 				</xs:complexType>
 			</xs:element>
 		</xs:choice>
