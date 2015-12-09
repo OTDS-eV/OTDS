@@ -6590,7 +6590,7 @@ usw.]]></programlisting>
         </GroupAbsolutePriceItemsBy>
         <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
           <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-          <IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
+          <IncludeAppliedDescendants/>
         </ConsideredPriceItems>
       </Round>
     </GenericValue>
@@ -6881,19 +6881,21 @@ usw.]]></programlisting>
 			        PriceItem-Knoten.</para><para xml:id="en_5226" xml:lang="en">PriceTags are the new tags (Tags) of individual PriceItems, which have been added directly onto the PriceItem node in version 1.9.</para>
 			      <para xml:id="de_5227" xml:lang="de">Mit Hilfe des Elementes <code>ConsideredPriceTags</code> kann man einschränken, dass nur PriceItems mit bestimmten 
 			        PriceTags benutzt werden. Alternativ kann man auch PriceItems mit bestimmten PriceTags durch Verwendung des Elementes 
-			        <code>ExcludeConsideredPriceTags</code> explizit von der Verwendung ausschließen.</para><para xml:id="en_5227" xml:lang="en">With the element <code>ConsideredPriceTags</code> , it is possible to restrict the PriceItems used to those with specific PriceTags. Alternatively, it is also possible to explicitly exclude PriceItems with specific PriceTags from use, using the element <code>ExcludeConsideredPriceTags</code> .</para>
-			      <programlisting><![CDATA[<GenericAbsolute>
+			        <code>NotConsideredPriceTags</code> explizit von der Verwendung ausschließen.</para><para xml:id="en_5227" xml:lang="en">With the element <code>ConsideredPriceTags</code> , it is possible to restrict the PriceItems used to those with specific PriceTags. Alternatively, it is also possible to explicitly exclude PriceItems with specific PriceTags from use, using the element <code>NotConsideredPriceTags</code> .</para>
+			    	<para>Neben den PrcieTags, kann man sich mit <code>ConsideredPriceItemClasses</code> und <code>NotConsideredPriceItemClasses</code> direkt auf PriceItemCLasses beziehen.</para>
+			    	<programlisting><![CDATA[<GenericAbsolute>
     <GenericValue>
         <Round ...>
             ...
             <ConsideredPriceItems ...>
                 <ConsideredPriceTags Class="Currency">EUR CHF</PriceTags>
-                <ExcludeConsideredPriceTags Class="Rounding">NoRounding</ExcludeConsideredPriceTags>
+                <NotConsideredPriceTags Class="Rounding">NoRounding</NotConsideredPriceTags>
             </ConsideredPriceItems>
         </Round>
     </GenericValue>
     ...
     </GenericAbsolute>]]></programlisting>
+			    	<para>Hierbei muss berücksichtigt werden, dass die Definition von mehreren <code>ConsideredPriceItem</code> wie ein ODER interpretiert wird. Die mehrfache Angabe von <code>ConsideredPriceTags</code>, <code>NotConsideredPriceTags</code>, <code>ConsideredPriceItemClasses</code>, <code>NotConsideredPriceItemClasses</code> werden jedoch verundet müssen also alle erfüllt werden, damit ein PriceItem bei der Berechnung berücksichtigt wird. Somit lassen sich komplexe Kombinationen von UND und ODER formulieren.</para>
 			      <bridgehead xml:lang="de" xml:id="de_5228">Die Eigenschaft "Hierarchy" des Source-Attributes</bridgehead><bridgehead xml:lang="en" xml:id="en_5228">The property "Hierarchy" of the Source attribute</bridgehead>
 			      <para xml:id="de_5229" xml:lang="de">In Version 1.9 wird das Attribute <emphasis
 								role="bold">Source</emphasis> um mehrere Eigenschaften erweitert, so
@@ -6946,8 +6948,9 @@ usw.]]></programlisting>
 			      Class="CurrencyFactor" wirkt. </para><para xml:id="en_5247" xml:lang="en">The use case is the rounding of all absolutes which influence a Percent-PriceItem with a PriceTag of the Class="CurrencyFactor".</para>
 			      <programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
     <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-    <IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
+    <IncludeAppliedDescendants/>
     </ConsideredPriceItems> ]]></programlisting>
+			    	
 			      <para xml:id="de_5248" xml:lang="de">Hier werden im ersten Schritt nur alle
 								<code>Percent</code>-PriceItems berücksichtigt. Durch das
 							"IncludeAppliedDescendants" werden zusätzlich alle dazu passenden
@@ -6960,9 +6963,10 @@ usw.]]></programlisting>
     ...
     <IncludeAppliedDescendants ...>
         <ConsideredPriceTags ... >A B</ConsideredPriceTags>
-        <ExcludeConsideredPriceTags ... >NoRounding</ExcludeConsideredPriceTags>
+        <NotConsideredPriceTags ... >NoRounding</NotConsideredPriceTags>
     </IncludeAppliedDescendants>
     </ConsideredPriceItems>]]></programlisting>
+			    	<para>Alternativ zum hier aufgeführten Beispiel können auch auf mit <code>ConsideredPriceItemClasses</code> nur auf PriceItems mit bestimmten <code>Classes</code>eingeschränkt werden.</para> 
 			      <bridgehead xml:lang="de" xml:id="de_5250">Verschachtelte Rundung (ExecutionPriority)</bridgehead><bridgehead xml:lang="en" xml:id="en_5250">Encapsulated rounding (ExecutionPriority)</bridgehead>
 			      <para xml:id="de_5251" xml:lang="de">Die Berechnung der <code>GenericAbsolute</code>'s findet nach der Auswertung der Combinatoric statt.
 			        Für die Auswertung der <code>GenericAbsolute</code>'s wird eine Abarbeitungsreihenfolge definiert.
@@ -11620,7 +11624,7 @@ usw.]]></programlisting>
                 </GroupAbsolutePriceItemsBy>
                 <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
                     <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-                    <IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
+                    <IncludeAppliedDescendants/>
                 </ConsideredPriceItems>
             </Round>
         </GenericValue>
@@ -27963,7 +27967,7 @@ usw.]]></programlisting>
 		</section>
 		<section role="Anhang" xml:id="XMLExamples">
 			<title><phrase xml:id="de_4950" xml:lang="de">Anhang: XML-Beispiele</phrase><phrase xml:id="en_4950" xml:lang="en">Appendix: XML examples</phrase></title>
-			<para xml:id="de_4951" xml:lang="de">Beispiel: Demo_Angebotskalkulation.xml </para><para xml:id="en_4951" xml:lang="en">Example: Demo_Angebotskalkulation.xml</para>
+			<para xml:id="de_5348" xml:lang="de">Beispiel: Demo_Angebotskalkulation.xml </para><para xml:id="en_5348" xml:lang="en">Example: Demo_Angebotskalkulation.xml</para>
 			<programlisting language="XML"><![CDATA[<xi:include href="example/Demo_Angebotskalkulation.xml" parse="text"/>]]></programlisting>
 		</section>
 	</appendix>
