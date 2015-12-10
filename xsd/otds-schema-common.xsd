@@ -2804,17 +2804,38 @@ Default = "All"</xs:documentation>
 	</xs:group>
 	<xs:group name="AllocationBaseConditionGroup">
 		<xs:sequence>
-			<xs:element name="DayBase">
+			<xs:element name="DayBase" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ist dieses Element angegeben, so werden nur die mit Source und IntervalType definierten Tage bei der Auswertung betrachtet. Ist das Element "PersonBase" nicht angegeben, so gilt die Condition für einen betrachteten Tag als erfüllt, wenn an diesem Tag für wenigstens 1 Person die Condition erfüllt ist.
+
+Falls das Element "PersonBase" angegeben ist, so werden alle Kostenknoten einzeln betrachtet und gemäß des Evaluationmodes ausgewertet. </xs:documentation>
+				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="EmptyElementType">
-							<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent"/>
-							<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay"/>
+							<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
+								<xs:annotation>
+									<xs:documentation>Hier können über einen Bezug zu einer Komponent-Instanz bestimmte Tage addressiert werden. Der Default ist "ThisComponent". </xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay">
+								<xs:annotation>
+									<xs:documentation>Mit diesem Attribut können über einen bestimmten  IntervalType bestimmte Tage addressiert werden. Mögliche Werte sind:
+- Stay
+- CheckInOut</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
 						</xs:extension>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="PersonBase" type="EmptyElementType"/>
+			<xs:element name="PersonBase" type="EmptyElementType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ist dieses Element angegeben, so werden die Personen betrachtet und gemäß dem angegebenen EvaluationMode ausgewertet. Ist das Element "DayBase" nicht angegeben, so gilt die Condition für eine betrachtete Person als erfüllt, wenn für diese Person wenigstens an einem Tag die Condition erfüllt ist.
+
+Falls das Element "DayBase" angegeben ist, so werden alle Kostenknoten (ggf. eingeschränkt durch SOurce und IntervalType) einzeln betrachtet und gemäß des Evaluationmodes ausgewertet. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:group>
 	<!-- Base Types and Elements -->
@@ -3228,10 +3249,10 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="ISO4217CurrencyType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_225">Beinhaltet den ISO-3166 Ländercode. Der Wert ist
+			<xs:documentation xml:lang="de" xml:id="de_533">Beinhaltet den ISO-3166 Ländercode. Der Wert ist
 				auf zwei Zeichen begrenzt und ist verpflichtend. Länderkürzel nach ISO-3166 Alpha-2:
 				DE Deutschland </xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_225">States the ISO-3166 country code. This value is
+			<xs:documentation xml:lang="en" xml:id="en_533">States the ISO-3166 country code. This value is
 				limited to two characters and is mandatory. Country codes according to ISO-3166
 				alpha-2: DE Germany</xs:documentation>
 		</xs:annotation>
@@ -3526,19 +3547,10 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	<xs:simpleType name="PersonAgeType">
 		<xs:restriction base="PositiveInteger"/>
 	</xs:simpleType>
-	<xs:simpleType name="PriceItemClassType">
-		<xs:union>
-			<xs:simpleType>
-				<xs:restriction base="xs:string">
-					<xs:pattern value="[A-Za-z0-9\.\-_|\+]+"/>
-				</xs:restriction>
-			</xs:simpleType>
-		</xs:union>
-	</xs:simpleType>
 	<xs:simpleType name="PriceItemClassTypeList">
 		<xs:restriction>
 			<xs:simpleType>
-				<xs:list itemType="PriceItemClassType"/>
+				<xs:list itemType="TokenType"/>
 			</xs:simpleType>
 			<xs:minLength value="1"/>
 		</xs:restriction>
@@ -3821,10 +3833,10 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:extension base="xs:int">
 				<xs:attribute name="Component" type="ComponentAttributeType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_266">Dieses Attribut gibt den Type einer Komponente
+						<xs:documentation xml:lang="de" xml:id="de_537">Dieses Attribut gibt den Type einer Komponente
 							an. Folgende Typen stehen zur Auswahl: -
 							Accommodation, - Flight, - Addon </xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_266">This attribute specifies the type of a
+						<xs:documentation xml:lang="en" xml:id="en_537">This attribute specifies the type of a
 							component. In the case of a CombiComponent, type refers to the first
 							component indicated. The following types are available: - Accommodation,
 							- Flight, - Add-on</xs:documentation>
@@ -4565,8 +4577,8 @@ For the complete list see the technical documentation.</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="DistributionChannelEnum">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_274">Definiert verschiedene DistributionChannel</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_274">Defines various DistributionChannels</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_536">Definiert verschiedene DistributionChannel</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_536">Defines various DistributionChannels</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Bewotec"/>
@@ -5758,7 +5770,7 @@ In addition, at this point, a price type must be specified. This price type is o
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="Class" type="PriceItemClassType" use="required">
+		<xs:attribute name="Class" type="TokenType" use="required">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_362">Gibt einen frei vergebbaren Klassennamen für das
 					PriceItem an, auf den in Combinatorics Bezug genommen werden kann. Es wird
@@ -6438,7 +6450,16 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
-						<xs:extension base="PriceItemClassTypeList"/>
+						<xs:extension base="PriceItemClassTypeList">
+							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
+								<xs:annotation>
+									<xs:documentation xml:lang="de" xml:id="de_398">Das Attribut Component beschränkt den Wirkungsradius der hier definierten Classes auf PriceItems einer bestimmte Komponente. Per Default beschränkt sich die Kombinatorik auf PriceItems aus der selben Komponente (ThisComponent). Wenn die Kombinatorikbedingungen auf ein PriceItem einer anderen Komponente wirken sollen, muss dies hier explizit angegeben werden. 
+Ein Bezug auf eine zusammengesetzte Komponente.</xs:documentation>
+									<xs:documentation xml:lang="en" xml:id="en_398">The component attribute limits the scope of possible combinations to PriceItems of a specific component. By default, the combinations are limited to PriceItems from the same component (ThisComponent). If the combination conditions are to have an affect on a PriceItem of another component, this must be explicitly stated here.
+Reference to a combined component. Reference to prices for a CombiComponent is expressly prohibited in OTDS V1.0. This value exists to make it clear that the PriceItems of the individual components of a CombiComponent cannot be included in the combinations.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
@@ -6449,7 +6470,16 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:complexContent>
-						<xs:extension base="NotConsideredPriceItemClassesType"/>
+						<xs:extension base="NotConsideredPriceItemClassesType">
+							<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent">
+								<xs:annotation>
+									<xs:documentation xml:lang="de" xml:id="de_534">Das Attribut Component beschränkt den Wirkungsradius der hier definierten Classes auf PriceItems einer bestimmte Komponente. Per Default beschränkt sich die Kombinatorik auf PriceItems aus der selben Komponente (ThisComponent). Wenn die Kombinatorikbedingungen auf ein PriceItem einer anderen Komponente wirken sollen, muss dies hier explizit angegeben werden. 
+Ein Bezug auf eine zusammengesetzte Komponente.</xs:documentation>
+									<xs:documentation xml:lang="en" xml:id="en_534">The component attribute limits the scope of possible combinations to PriceItems of a specific component. By default, the combinations are limited to PriceItems from the same component (ThisComponent). If the combination conditions are to have an affect on a PriceItem of another component, this must be explicitly stated here.
+Reference to a combined component. Reference to prices for a CombiComponent is expressly prohibited in OTDS V1.0. This value exists to make it clear that the PriceItems of the individual components of a CombiComponent cannot be included in the combinations.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
 					</xs:complexContent>
 				</xs:complexType>
 			</xs:element>
@@ -6541,10 +6571,10 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 			</xs:element>
 			<xs:element name="ConditionalTag" type="EmptyTagConditionType" internal:otdsversion="1.9.2">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_405">Dieses Element adressiert ein bestimmtes ConditionalTag innerhalb des Angebotskontextes. 
+					<xs:documentation xml:lang="de" xml:id="de_535">Dieses Element adressiert ein bestimmtes ConditionalTag innerhalb des Angebotskontextes. 
 Bei der Auswertung, reicht es wenn das ConditionalTag in einem Day- oder PersonKnoten identisch ist.
 Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter.</xs:documentation>
-					<xs:documentation xml:lang="de" xml:id="en_405">This element addresses a specific tag within
+					<xs:documentation xml:lang="de" xml:id="en_535">This element addresses a specific tag within
 						the offer context. The offer context consists of all possible combinations
 						of the components specified in the ProductRule. The combinatorics go down to
 						the date level.</xs:documentation>
@@ -7976,12 +8006,25 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="NonImpact" internal:otdsversion="1.9">
+				<xs:annotation>
+					<xs:documentation>Mit dem NonImpact Wrapper kann man ausdrücken, dass einen komplexe Bedingung, die auch ImpactBedingungen enthält am Ende doch als NICHT-Impact ausgewertet wird. 
+Zum Beispiel die Bedingung ein Preis gilt, wenn ein Freitag mit einer Saison A enthalten ist. Das ist erreichbar, indem man 2 ImpactBedingungen verundet und diese dann mit dem NonImpact-Wrapper umschließt.
+Der NonIMpact-Wrapper kann auch dabei helfen, wenn man kombinierte CheckIn- und StaySeasons mt nur einem ConditionalTag ausdrücken will.
+Dabei kann mit den Elementen DayBase und PersonBase definiert werden, welche Kostenknoten überhaupt bei der Auswertung berücksichtigt werden.
+Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen müssen.
+
+</xs:documentation>
+				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
 						<xs:group ref="AllocationBaseConditionGroup"/>
 						<xs:element name="Condition" type="ConditionType"/>
 					</xs:sequence>
-					<xs:attribute name="EvaluationMode" type="EvaluationModeEnum" default="Any"/>
+					<xs:attribute name="EvaluationMode" type="EvaluationModeEnum" default="Any">
+						<xs:annotation>
+							<xs:documentation>Mit diesem Attribut definiert man, ob die NonImpact Bedingung erfüllt ist wenn ein beliebiger ("Any") Kostenknoten die condition erfüllt oder wenn alle ("All") durch DayBase und PersonBase  definierten Kostenknoten die Condition erfüllen.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
 		</xs:choice>
