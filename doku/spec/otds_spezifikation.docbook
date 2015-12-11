@@ -4389,42 +4389,58 @@
 </Condition>]]></programlisting>
 					</section>
 					<section xml:id="OtdsStrategyConditionNonImpact">
-						<title><phrase>NonImpact</phrase></title>
-						<para>Mit dem NonImpact-Wrapper kann man aus mehreren Bedingungen, die eine oder mehrere
-							ImpactBedinungen enthalten, am Ende auswerten, dass die Bedingung ganz
-							oder gar nicht erfüllt ist (also ohne Impact auf einezlne Tage oder
-							Personen).</para>	
+						<title><phrase xml:id="de_5379" xml:lang="de">NonImpact</phrase><phrase xml:id="en_5379" xml:lang="en">NonImpact</phrase></title>
+						<para xml:id="de_5369" xml:lang="de">Mit dem NonImpact-Wrapper kann man aus mehreren
+							Bedingungen, die eine oder mehrere ImpactBedingungen enthalten, am Ende
+							auswerten, dass die Bedingung entweder ganz oder gar nicht erfüllt ist
+							(also ohne Impact auf einzelne Tage oder Personen).</para>
+						<para xml:id="en_5369" xml:lang="en">By using the NonImpact Wrapper it is possible to evaluate – considering several conditions containing
+							one or more Impact conditions – if a condition is completely fulfilled or not at all (which means it has no impact on single days or persons).</para>	
 						<figure>
 							<info>
-								<title><phrase xml:id="de_5367" xml:lang="de">NonImpact</phrase><phrase xml:id="en_5367" xml:lang="en">NonImpact</phrase></title>
+								<title><phrase xml:id="de_5367" xml:lang="de">NonImpact</phrase></title>
+								<title><phrase xml:id="en_5367" xml:lang="en">NonImpact</phrase></title>
 							</info>
 							<mediaobject>
 								<imageobject>
 									<imagedata fileref="figures/nonimpact.png" format="PNG" contentwidth="80%"/>
 								</imageobject>
 								<textobject>
-									<para xml:id="de_5368" xml:lang="de">NonImpact</para><para xml:id="en_5368" xml:lang="en">NonImpact</para>
+									<para xml:id="de_5368" xml:lang="de">NonImpact</para>
+									<para xml:id="en_5368" xml:lang="en">NonImpact</para>
 								</textobject>
 							</mediaobject>
 						</figure>
-						<para>Mit dem NonImpact-Wrapper kann man ausdrücken, dass einen komplexe Bedingung, die auch
+						<para xml:id="de_5370" xml:lang="de">Mit dem NonImpact-Wrapper kann man ausdrücken, dass eine komplexe Bedingung, die auch
 							Impact-Bedingungen enthält, am Ende doch als NICHT-Impact ausgewertet
-							wird. Zum Beispiel die Bedingung "ein Preis gilt, wenn ein Freitag mit
+							wird. Zum Beispiel die Bedingung: "Ein Preis gilt, wenn ein Freitag mit
 							einer Saison A enthalten ist". Das ist erreichbar, indem man zwei
 							Impact-Bedingungen verwendet und diese dann mit dem NonImpact-Wrapper
-							umschließt. Der NonImpact-Wrapper kann auch dabei helfen, wenn man
-							kombinierte CheckIn- und StaySeasons mit nur einem ConditionalTag
-							ausdrücken will. Dabei kann mit den Elementen DayBase und PersonBase
-							definiert werden, welche Kostenknoten überhaupt bei der Auswertung
-							berücksichtigt werden. Das Attribut "EvaluationMode" definiert, ob ein
-							Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen
-							müssen. </para>
-						<para>Mit dem Attribut "EvaluationMode" definiert man, wie die einzelnen Person-/Dayknoten
-							ausgewertet werden. Mit "Any", ist die NonImpact-Bedingung erfüllt, wenn
-							ein beliebiger Knoten die Condition erfüllt. Mit "All" ist die
-							NonImpact-Bedingung erfüllt, wenn die durch DayBase und PersonBase
-							definierten Kostenknoten die Condition erfüllen.</para>
-						<para>Ist das Element "DayBase" angegeben, so werden nur die mit Source und IntervalType
+							umschließt.</para>
+						<para xml:id="en_5370" xml:lang="en">The NonImpact Wrapper allows to express, that a complex condition which also contains 
+							ImpactConditions in the end is to be evaluated as a NON-Impact. For instance the condition: “A price is valid, if a 
+							Friday and a season A is included.” This can be achieved by using two ImpactConditions and then wrapping those with the NonImpact Wrapper.</para> 
+						<para xml:id="de_5371" xml:lang="de">Der NonImpact-Wrapper kann auch dabei helfen, wenn man 
+							kombinierte CheckIn- und StaySeasons mit nur einem ConditionalTag ausdrücken will. Dabei 
+							kann mit den Elementen DayBase und PersonBase definiert werden, welche Kostenknoten überhaupt 
+							bei der Auswertung berücksichtigt werden. Das Attribut "EvaluationMode" definiert, ob ein 
+							Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen müssen. Das Attribut 
+							"EvaluationMode" definiert die spezifische Auswertung der Condition auf der Ebene der 
+							Kostenknoten (Day-/Personknoten). Ist der Wert "Any" gesetzt, so ist die Conditon bereits 
+							erfüllt, wenn nur ein einzelner Kostenknoten die Bedingung erfüllt. Ist der Wert "All" gesetzt, 
+							so ist die Condition nur erfüllt, wenn alle Kostenknoten die Bedingung erfüllen.</para>
+						<para xml:id="en_5371" xml:lang="en">The NonImpact Wrapper can also help to express combined CheckIn- and StaySeasons with 
+							only one ConditionalTag. Here the elements DayBase and PersonBase define, which cost nodes are to be considered in the 
+							evaluation. The attribute “EvaluationMode” defines the specific evaluation of the Condition on the level of cost nodes 
+							(Day-/PersonNode). If “Any” is stadet, the condition is fulfilled as soon as a single cost nodes fulfills it. If “All” 
+							is stated, the condition is only fulfilled when all cost nodes fulfill it.</para>
+						<para xml:id="de_5372" xml:lang="de">Mit dem Attribut "EvaluationMode" definiert man, wie die einzelnen Person-/Dayknoten
+							ausgewertet werden. Mit "Any", ist die NonImpact-Bedingung erfüllt, wenn ein beliebiger Knoten die Condition erfüllt. Mit 
+							"All" ist die NonImpact-Bedingung erfüllt, wenn die durch DayBase und PersonBase definierten Kostenknoten die Condition erfüllen.</para>
+						<para xml:id="en_5372" xml:lang="en">The attribute „EvaluationMode“ is used to define how the specific Person-/DayNodes have to be evaluated. 
+							“Any”: The NonImpact Condition is fulfilled, if an arbitrary node fulfills the condition. “All”: The NonImpact Condition is fulfilled, 
+							if the cost nodes defined by DayBase and PersonBase fulfill the condition.</para>
+						<para xml:id="de_5373" xml:lang="de">Ist das Element "DayBase" angegeben, so werden nur die mit Source und IntervalType
 							definierten Tage bei der Auswertung betrachtet. Ist das Element
 							"PersonBase" nicht angegeben, so gilt die Condition für einen
 							betrachteten Tag als erfüllt, wenn an diesem Tag für wenigstens eine
@@ -4435,15 +4451,26 @@
 							"ThisComponent". Mit dem Attribut "IntervalType" können bestimmte Tage
 							einer Komponente adressiert werden. Mögliche Werte sind: - Stay -
 							CheckInOut </para>
-						<para>Ist das Element "PersonBase" angegeben, so werden die Personen betrachtet und gemäß dem angegebenen EvaluationMode ausgewertet. 
+						<para xml:id="en_5373" xml:lang="en">If the element „DayBase“ is stated, only those days are considered in the evaluation that are 
+							defined by Source and IntervalType. If the element “PersonBase” is not stated, the condition for the examined day is considered 
+							fulfilled, if for that specific day the condition is fulfilled at least for one person. If the element “PersonBase” is stated, 
+							all cost nodes are regarded separately and evaluated according to the EvaluationMode. Via the attribute “Source” a relation to 
+							the days of a compontent instance is defined. Default is “ThisComponent”. By using the attribute “IntervalType” specific days of 
+							a component can be addressed. Possible values are: “Stay”, “CheckInOut”.</para>
+						<para xml:id="de_5374" xml:lang="de">Ist das Element "PersonBase" angegeben, so werden die Personen betrachtet und gemäß dem angegebenen EvaluationMode ausgewertet. 
 							Ist das Element "DayBase" nicht angegeben, so gilt die Condition für eine betrachtete Person als erfüllt, wenn für diese Person wenigstens an einem Tag die Condition erfüllt ist.
-							Falls das Element "DayBase" angegeben ist, so werden alle Kostenknoten (ggf. eingeschränkt durch Source und IntervalType) einzeln betrachtet und gemäß des Evaluationmodes ausgewertet. 
-						</para>
-						<para>Der NonImpact Wrapper wird auch gerne benutzt, wenn Saisonbuchstaben sowohl als
-							Stay-Seasons als auch als CheckIn-Season benutzt werden. Dank des
-							NonImpact-Wrappers muss man die ConditionalTags der Seasons nur einmal
-							definieren.</para>
-						<para>Hier ein Beispiel:</para>
+							Falls das Element "DayBase" angegeben ist, so werden alle Kostenknoten (ggf. eingeschränkt durch Source und IntervalType) einzeln betrachtet und gemäß des Evaluationmodes ausgewertet.</para>
+						<para xml:id="en_5374" xml:lang="en">If the element „PersonBase“ is stated, the persons are considered and evaluated according to the EvaluationMode. 
+							If the element “DayBase” is not stated, the condition for an examined person is considered fulfilled, when for this specific person the condition 
+							is fulfilled at least on one day. If the element “DayBase” is stated, all cost nodes (as the case may be restricted by Source and IntervalType) are 
+							regarded separately and evaluated according to the EvaluationMode.</para>
+						<para xml:id="de_5375" xml:lang="de">Der NonImpact Wrapper wird auch gerne benutzt, wenn Saisonbuchstaben sowohl als
+							Stay-Seasons als auch als CheckIn-Season benutzt werden. Dank des NonImpact-Wrappers 
+							muss man die ConditionalTags der Seasons nur einmal definieren.</para>
+						<para xml:id="en_5375" xml:lang="en">The NonImpact Wrapper is of great help if Season Characters (e.g. Season “A”) are used as Stay-Season 
+							as well as CheckIn-Season. Thanks to the NonImpact Wrapper the ConditionalTags of the seasons have only be to defined once.</para>
+						<para xml:id="de_5376" xml:lang="de">Hier ein Beispiel:</para>
+						<para xml:id="en_5376" xml:lang="en">Here is an example:</para>
 						<programlisting><![CDATA[<ConditionalTag>
 	<Tag Class="SeasonCheckIn">A</Tag>
 	<Condition>
@@ -4466,9 +4493,10 @@
 		</DayImpact>
 	</Condition>
 </ConditionalTag>]]></programlisting>
-						<para>Das erste ConditionalTag wäre notwendig, um eine klassische CheckInSeason Abhängigkeit abzubilden. "Preis gilt bei Anreise in Saison A"</para>
-						<para>Mit dem NonImpactWrapper kann man nun dieses PriceItem wie folgt auch mit der StaySeason
-							darstellen.</para>
+						<para xml:id="de_5377" xml:lang="de">Das erste ConditionalTag wäre notwendig, um eine klassische CheckInSeason Abhängigkeit abzubilden. "Preis gilt bei Anreise in Saison A"</para>
+						<para xml:id="en_5377" xml:lang="en">The first ConditionalTag would be necessary to describe a typical CheckInSeason dependency: “Price applies to arrival in Season A”.</para>
+						<para xml:id="de_5378" xml:lang="de">Mit dem NonImpactWrapper kann man nun dieses PriceItem wie folgt auch mit der StaySeason darstellen.</para>
+						<para xml:id="en_5378" xml:lang="en">By using the NonImpact Wrapper this PriceItem can now be described with the StaySeason as follows:</para>
 						<programlisting><![CDATA[<PriceItems Key="Hotelbasispreise">
 	<PriceItem Class="PAUSCH">
 		<Absolute>
@@ -4496,8 +4524,8 @@
 		</Condition>
 	</PriceItem>
 </PriceItems>]]></programlisting>
+							</section>
 					</section>
-				</section>
 				<section xml:id="OtdsStrategyConditionBasicsGlobalValues">
 					<title><phrase xml:id="de_1095" xml:lang="de">Konfigurationsparameter (GlobalValues)</phrase><phrase xml:id="en_1095" xml:lang="en">Configuration parameter (GlobalValues)</phrase></title>
 					<para xml:id="de_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS durch das Vertriebssystem von außen
