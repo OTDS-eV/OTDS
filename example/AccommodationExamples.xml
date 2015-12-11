@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Products>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+			<Filter Key="1">
+				<Tags Source="Accommodation" Class="PackageOnly"/>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TO1">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>TO1</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="12345">
+			<!-- Hotelbeispiel mit Stammdatenlevel und Kalkulationsdatenlevel (Reiseart und Leistungscode)
+
+
+-->
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationCity>El Arenal</AccommodationCity>
+					<AccommodationName>Hotel La Gumba</AccommodationName>
+					<AccommodationOfficialCategory>4.5</AccommodationOfficialCategory>
+					<AccommodationOperatorCategory>5</AccommodationOperatorCategory>
+					<AccommodationGeneralFacilities>Discothek Airconditioning</AccommodationGeneralFacilities>
+					<AccommodationFamilyFacilities>AquaPark WaterSlide</AccommodationFamilyFacilities>
+					<AccommodationSportsFacilities>BeachVolleballCourt BikeRental TennisCourt</AccommodationSportsFacilities>
+					<AccommodationWellnessFacilities>Thermalbad Ayurveda MedicalWellness</AccommodationWellnessFacilities>
+					<AccommodationSeniorFacilities>Lift HandicappedAccessible</AccommodationSeniorFacilities>
+					<AccommodationLocations>AliveArea DirectBeach Party</AccommodationLocations>
+					<AccommodationAddress>
+						<GeoInfo>
+							<GeoCode>
+								<Latitude>4.5667</Latitude>
+								<Longitude>35.678</Longitude>
+								<Accuracy>1</Accuracy>
+							</GeoCode>
+						</GeoInfo>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="FAMI-12345D">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2011-04-15</Min>
+										<Max>2011-05-27</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2011-10-01</Min>
+										<Max>2011-10-31</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>12345D</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+						<BookingParameter Field="TravelType">
+							<Value>FAMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Filter Key="1">
+					<And>
+						<BookingDateOffset Source="Product">
+							<Min>3</Min>
+						</BookingDateOffset>
+						<Duration Source="Product">
+							<Min>4</Min>
+						</Duration>
+					</And>
+				</Filter>
+				<Board Key="OV">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>OV</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Ohne Verpflegung</BoardName>
+							<BoardType>None</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="FR">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>FR</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Frühstück</BoardName>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<Filter Key="1">
+						<Not>
+							<Date Source="Product" DayType="CheckIn">
+								<Min>2011-11-01</Min>
+								<Max>2011-11-30</Max>
+							</Date>
+						</Not>
+					</Filter>
+					<PriceItems Key="1">
+						<PriceItem Class="BoardPrice">
+							<Absolute>
+								<Value>5</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Unit Key="DZT">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Double</UnitType>
+							<UnitFacilities>BalconyTerrace NonSmokerRoom</UnitFacilities>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="DZT-2-2">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZT</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Familienzimmer 2 Erw. + 2 Kinder</UnitName>
+								<UnitType>Family</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MaxAge>11</MaxAge>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="DailyPrice">
+								<Absolute>
+									<Value>108.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							<PriceItem Class="BasePrice">
+								<Absolute>
+									<Value>128.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>x</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="DZT-2-2">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					<SellingUnit Key="DZT-2-0">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZT</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer 2 Erwachsene</UnitName>
+								<UnitType>Double</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="DailyPrice">
+								<Absolute>
+									<Value>108.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							<PriceItem Class="BasePrice">
+								<Absolute>
+									<Value>128.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>x</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="DZT-2-0">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="DZM">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Double</UnitType>
+							<UnitFacilities>SeaView BalconyTerrace NonSmokerRoom</UnitFacilities>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="DZM-2-2">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZM</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Familienzimmer 2 Erw. + 2 Kinder Meerblick</UnitName>
+								<UnitType>Family</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MaxAge>11</MaxAge>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="DailyPrice">
+								<Absolute>
+									<Value>108.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							<PriceItem Class="BasePrice">
+								<Absolute>
+									<Value>128.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>x</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="DZM-2-2">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					<SellingUnit Key="DZM-2-0">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZM</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer 2 Erwachsene</UnitName>
+								<UnitType>Double</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="DailyPrice">
+								<Absolute>
+									<Value>108.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+							<PriceItem Class="BasePrice">
+								<Absolute>
+									<Value>128.00</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>x</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="DTZM-2-0">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+		<PriceItems Key="1">
+			<PriceItem Class="MallorcaCalaRatjadaDiscount">
+				<Percent>
+					<Value>-100</Value>
+					<NotApplyTo Component="ThisComponent">SOF</NotApplyTo>
+				</Percent>
+				<Condition>
+					<And>
+						<PersonImpact>
+							<PersonAge Source="Product">
+								<Min>0</Min>
+								<Max>1</Max>
+							</PersonAge>
+						</PersonImpact>
+						<Not>
+							<Tags Source="Accommodation" Class="NoBabysForFree"/>
+						</Not>
+					</And>
+				</Condition>
+			</PriceItem>
+			<PriceItem Class="FamilyBrochureDiscount">
+				<Percent>
+					<Value>-100</Value>
+					<NotApplyTo Component="ThisComponent">SOF</NotApplyTo>
+				</Percent>
+				<Condition>
+					<And>
+						<PersonImpact>
+							<PersonIndex Source="Product">
+								<Until>1</Until>
+								<PersonFilter>
+									<PersonAge Source="Product">
+										<Min>2</Min>
+										<Max>14</Max>
+									</PersonAge>
+								</PersonFilter>
+							</PersonIndex>
+						</PersonImpact>
+						<PersonImpact>
+							<PersonAge Source="Product">
+								<Min>2</Min>
+								<Max>6</Max>
+							</PersonAge>
+						</PersonImpact>
+					</And>
+				</Condition>
+			</PriceItem>
+		</PriceItems>
+	</Accommodations>
+</Otds>

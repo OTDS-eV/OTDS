@@ -1,0 +1,2159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../../xsd/otds.xsd" Version="1.9">
+	<Products>
+		<GlobalValues>
+			<GlobalValue Key="OTA">
+				<Tags>
+					<Tag Class="SalesChannel">OTA</Tag>
+				</Tags>
+				<ParameterSet Key="1">
+					<SalesChannel>OnlineTravelAgency</SalesChannel>
+				</ParameterSet>
+			</GlobalValue>
+			<GlobalValue Key="Expodo">
+				<ParameterSet Key="1">
+					<CrsSystem>Toma</CrsSystem>
+					<AgencyCode>123-345678-678</AgencyCode>
+					<BrandCode>GTI</BrandCode>
+				</ParameterSet>
+				<ParameterSet Key="2">
+					<CrsSystem>Merlin</CrsSystem>
+					<AgencyCode>133-34563-234</AgencyCode>
+					<BrandCode>GTI</BrandCode>
+				</ParameterSet>
+			</GlobalValue>
+		</GlobalValues>
+		<Product Key="Package" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<DefinedComponent Name="ReturnFlight" UseRole="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<MatchEqual>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+					<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</Product>
+		<Product Key="HotelOnly" ProductType="AccommodationOnly">
+			<Tags>
+				<Tag Class="Product">HotelOnly</Tag>
+			</Tags>
+			<Components>
+				<Accommodation/>
+			</Components>
+			<Filter Key="1">
+				<Tags Class="Type" Source="Accommodation.SellingAccom">HotelOnlyHotel</Tags>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="GTI">
+			<Booking>
+				<BookingGroup Area="GlobalArea" Source="ThisComponent">
+					<BookingParameter Field="BrandCode">
+						<Value>GTI</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="XPMIOYK">
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationName>Hotel Don Miguel Playa</AccommodationName>
+					<AccommodationOfficialCategory>3</AccommodationOfficialCategory>
+					<AccommodationLocations>NearShoppingFacilities</AccommodationLocations>
+					<AccommodationAddress>
+						<City>Playa de Palma</City>
+						<Country>Spain</Country>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="XPMIOYK">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="Season">B</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-05-17</Min>
+										<Max>2012-06-03</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-09-26</Min>
+										<Max>2012-10-11</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-04-01</Min>
+										<Max>2012-05-16</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-10-12</Min>
+										<Max>2012-10-30</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">C</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-06-04</Min>
+									<Max>2012-07-11</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">D</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-07-12</Min>
+									<Max>2012-08-26</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">E</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-08-27</Min>
+									<Max>2012-09-25</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="ThisComponent">
+						<BookingParameter Field="ServiceCode">
+							<Value>XPMIOYK</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="H">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="ThisComponent">
+							<BookingParameter Field="BoardCode">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Halbpension</BoardName>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="I">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="ThisComponent">
+							<BookingParameter Field="BoardCode">
+								<Value>I</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>AllInclusive</BoardName>
+							<BoardType>AllInclusive</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>14</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A B</ConditionalTags>
+								</Impact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>17</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C D E</ConditionalTags>
+								</Impact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>3</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>2</Min>
+											<Max>6</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>6</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>2</Min>
+											<Max>6</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B C D E</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>7</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>7</Min>
+											<Max>14</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>10</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<PersonImpact>
+										<PersonAge Source="Product">
+											<Min>7</Min>
+											<Max>14</Max>
+										</PersonAge>
+									</PersonImpact>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B C D E</ConditionalTags>
+									</Impact>
+								</And>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Unit Key="DS1">
+					<SellingUnit Key="DS1-3-3">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>3</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DS1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer+ZB Balkon oder Terrasse Sparzimmer</UnitName>
+								<UnitType>Double</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>15</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>23</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>24</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>32</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>43</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">D</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>39</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">E</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-09-25">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					<SellingUnit Key="DS1-3-2">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DS1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer+ZB Balkon oder Terrasse Sparzimmer</UnitName>
+								<UnitType>Double</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>15</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>26</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>27</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>35</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>48</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">D</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>43</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">E</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-09-25">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="DO1">
+					<SellingUnit Key="DO1-3-3">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>3</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DO1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer+ZB Balkon oder Terrasse</UnitName>
+								<UnitType>Double</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>15</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>27</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>28</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>37</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>50</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">D</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>46</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">E</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-09-25">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					<SellingUnit Key="DO1-3-2">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DO1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer+ZB</UnitName>
+								<UnitType>Double</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>15</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>30</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>32</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>41</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>56</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">D</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>51</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">E</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-09-25">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="EO1">
+					<SellingUnit Key="EO1-1-1">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>1</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="ThisComponent">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>EO1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer Balkon oder Terrasse Alleinbenutzung</UnitName>
+								<UnitType>Single</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>15</MinAge>
+								<Count>1</Count>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>49</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>50</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>60</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>74</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">D</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>69</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">E</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-09-25">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="1">
+					<PriceItem Class="Child">
+						<Percent>
+							<Value>-100</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>2</Min>
+										<Max>6</Max>
+									</PersonAge>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="Child">
+						<Percent>
+							<Value>-50</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>7</Min>
+										<Max>14</Max>
+									</PersonAge>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-17</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Accommodation">
+									<Max>2012-04-30</Max>
+								</BookingDate>
+								<Duration Source="Accommodation">
+									<Min>7</Min>
+								</Duration>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-15</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<BookingDate Source="Accommodation">
+									<Max>2012-04-30</Max>
+								</BookingDate>
+								<Duration Source="Accommodation">
+									<Min>5</Min>
+									<Max>6</Max>
+								</Duration>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="Spar">
+						<Percent>
+							<Value>-100</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<Or>
+									<Date Source="Product" DayType="CheckIn">
+										<Min>2012-04-01</Min>
+										<Max>2012-04-20</Max>
+									</Date>
+									<Date Source="Product" DayType="CheckIn">
+										<Min>2012-05-20</Min>
+										<Max>2012-05-22</Max>
+									</Date>
+									<Date Source="Product" DayType="CheckIn">
+										<Min>2012-10-07</Min>
+										<Max>2012-10-30</Max>
+									</Date>
+								</Or>
+								<Or>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<Indices>-1</Indices>
+											</DayIndex>
+										</DayImpact>
+										<Duration Source="Product">
+											<Min>7</Min>
+											<Max>13</Max>
+										</Duration>
+									</And>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<From>-2</From>
+											</DayIndex>
+										</DayImpact>
+										<Duration Source="Product">
+											<Min>14</Min>
+											<Max>20</Max>
+										</Duration>
+									</And>
+									<And>
+										<DayImpact>
+											<DayIndex Source="Product">
+												<From>-3</From>
+											</DayIndex>
+										</DayImpact>
+										<Duration Source="Product">
+											<Min>21</Min>
+										</Duration>
+									</And>
+								</Or>
+							</And>
+						</Condition>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="XLPARMK">
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationName>Rio Club Maspalomas II - Canary Garden Club</AccommodationName>
+					<AccommodationAddress>
+						<City>Maspalomas</City>
+						<Country>Spain</Country>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="XLPARMK">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="Season">C</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-08-13</Min>
+									<Max>2012-10-07</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">B</Tag>
+						<Condition>
+							<Or>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-10-08</Min>
+										<Max>2012-10-31</Max>
+									</Date>
+								</DayImpact>
+								<DayImpact>
+									<Date Source="Product">
+										<Min>2012-07-16</Min>
+										<Max>2012-08-12</Max>
+									</Date>
+								</DayImpact>
+							</Or>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="Season">A</Tag>
+						<Condition>
+							<DayImpact>
+								<Date Source="Product">
+									<Min>2012-05-01</Min>
+									<Max>2012-07-15</Max>
+								</Date>
+							</DayImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>XLPARMK</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="U">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>U</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Ohne Verpflegung</BoardName>
+							<BoardType>None</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Board Key="G">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>G</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Frühstück</BoardName>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>5</Value>
+								<DayBase Source="ThisComponent">1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>13</Min>
+									</PersonAge>
+								</PersonImpact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>3</Value>
+								<DayBase Source="ThisComponent">1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>7</Min>
+										<Max>14</Max>
+									</PersonAge>
+								</PersonImpact>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Board Key="H">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Halbpension</BoardName>
+							<BoardType>HalfBoard</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>15</Value>
+								<DayBase Source="ThisComponent">1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>13</Min>
+									</PersonAge>
+								</PersonImpact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>8</Value>
+								<DayBase Source="ThisComponent">1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>7</Min>
+										<Max>14</Max>
+									</PersonAge>
+								</PersonImpact>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Board Key="I">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>I</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>AllInclusive</BoardName>
+							<BoardType>AllInclusive</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<PriceItems Key="1">
+						<PriceItem Class="Board">
+							<Absolute>
+								<Value>28</Value>
+								<DayBase Source="ThisComponent">1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>13</Min>
+									</PersonAge>
+								</PersonImpact>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="CH-Board">
+							<Absolute>
+								<Value>15</Value>
+								<DayBase Source="ThisComponent">1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>7</Min>
+										<Max>14</Max>
+									</PersonAge>
+								</PersonImpact>
+							</Condition>
+							<Combinatorics LayerLevel="-1" LayerName="ResetPrice">
+								<ExcludePriceItemClasses>
+									<ExcludePriceItemClass Component="ThisComponent">Board</ExcludePriceItemClass>
+								</ExcludePriceItemClasses>
+							</Combinatorics>
+						</PriceItem>
+					</PriceItems>
+				</Board>
+				<Unit Key="BO5">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitFacilities>BalconyTerrace Airconditioning</UnitFacilities>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="BO5-4-3">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>3</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>BO5</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Bungalow Standard</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>13</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>12</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>16</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>14</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-05-01" EndDate="2012-10-07">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					<SellingUnit Key="BO5-4-2">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>2</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>BO5</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Bungalow Standard</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>13</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>18</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>24</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>22</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-05-01" EndDate="2012-10-07">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					<SellingUnit Key="BO5-4-1">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>1</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>BO5</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Bungalow Standard</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>13</MinAge>
+								<Count>1</Count>
+							</Person>
+							<Person>
+								<MaxCount>3</MaxCount>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>36</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>48</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">B</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+							<PriceItem Class="Day">
+								<Absolute>
+									<Value>43</Value>
+									<DayBase Source="ThisComponent">1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+								<Condition>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">C</ConditionalTags>
+									</Impact>
+								</Condition>
+							</PriceItem>
+						</PriceItems>
+						<Availabilities Key="1">
+							<Availability Key="2012-04-01" StartDate="2012-05-01" EndDate="2012-10-07">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="1">
+					<PriceItem Class="Child">
+						<Percent>
+							<Value>-100</Value>
+							<ApplyTo>Day Board</ApplyTo>
+						</Percent>
+						<Condition>
+							<And>
+								<PersonImpact>
+									<PersonAge Source="Product">
+										<Min>2</Min>
+										<Max>6</Max>
+									</PersonAge>
+								</PersonImpact>
+								<Not>
+									<Impact>
+										<ConditionalTags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="PersonType">FullPayer</ConditionalTags>
+									</Impact>
+								</Not>
+							</And>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-18</Value>
+							<ApplyTo>Day Board</ApplyTo>
+						</Percent>
+						<Condition>
+							<Or>
+								<BookingDate Source="Accommodation">
+									<Max>2011-12-31</Max>
+								</BookingDate>
+								<And>
+									<Or>
+										<Date Source="Product" DayType="CheckIn">
+											<Min>2012-05-01</Min>
+											<Max>2012-05-10</Max>
+										</Date>
+										<Date Source="Product" DayType="CheckIn">
+											<Min>2012-06-01</Min>
+											<Max>2012-06-10</Max>
+										</Date>
+										<Date Source="Product" DayType="CheckIn">
+											<Min>2012-10-12</Min>
+											<Max>2012-10-22</Max>
+										</Date>
+									</Or>
+									<Duration Source="Accommodation">
+										<Min>7</Min>
+										<Max>21</Max>
+									</Duration>
+								</And>
+							</Or>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-15</Value>
+							<ApplyTo>Day Board</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDate Source="Accommodation">
+								<Min>2012-01-01</Min>
+								<Max>2012-02-29</Max>
+							</BookingDate>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-15</Value>
+							<ApplyTo>Day</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDate Source="Accommodation">
+								<Min>2012-03-01</Min>
+								<Max>2012-04-30</Max>
+							</BookingDate>
+						</Condition>
+					</PriceItem>
+					<PriceItem Class="EB">
+						<Percent>
+							<Value>-12</Value>
+							<ApplyTo>Day Board</ApplyTo>
+						</Percent>
+						<Condition>
+							<BookingDate Source="Accommodation">
+								<Min>2012-03-01</Min>
+								<Max>2012-04-30</Max>
+							</BookingDate>
+						</Condition>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>LPA</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+	<!--Flights-->
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="DUSPMI">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>DUS PMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>X3</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-04" StartDate="2012-04-01" EndDate="2012-10-31">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed Fri</Weekdays>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>50</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-04-11</Min>
+										<Max>2012-05-11</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-06-08</Min>
+										<Max>2012-06-29</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-05-18 2012-05-23 2012-05-30 2012-06-01</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>65</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-05-25 2012-06-06 2012-07-04</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>80</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed</Weekdays>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-08-15</Min>
+										<Max>2012-09-26</Max>
+									</Date>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>85</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Fri</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-08-17</Min>
+											<Max>2012-09-28</Max>
+										</Date>
+									</And>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-07-06</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>99</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed Fri</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-10-17</Min>
+											<Max>2012-10-31</Max>
+										</Date>
+									</And>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-10-03 2012-10-05</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>119</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Min>2012-07-11</Min>
+									<Max>2012-08-10</Max>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>130</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-04-04 2012-04-06 2012-10-10 2012-10-12</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="PMIDUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>GHY</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-10-31">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed Thu Fri Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="DUSLPA">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>DUS LPA</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>AB</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>LPA</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-10-31">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="Accommodation" DayType="CheckIn">Wed Fri Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>70</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed</Weekdays>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-05-02</Min>
+										<Max>2012-06-20</Max>
+									</Date>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>80</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-05-06</Min>
+										<Max>2012-06-17</Max>
+									</Date>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>90</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-06-27</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>95</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-06-24</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>115</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Date Source="OnewayFlight" DayType="CheckIn">
+									<Dates>2012-07-04</Dates>
+								</Date>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>120</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<And>
+									<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed</Weekdays>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-07-11</Min>
+										<Max>2012-10-31</Max>
+									</Date>
+								</And>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>135</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-08-19</Min>
+											<Max>2012-09-30</Max>
+										</Date>
+									</And>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-10-21</Min>
+											<Max>2012-10-28</Max>
+										</Date>
+									</And>
+								</Or>
+							</Condition>
+						</PriceItem>
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>139</Value>
+								<DayBase Source="ThisComponent">x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-07-01</Min>
+											<Max>2012-08-12</Max>
+										</Date>
+									</And>
+									<And>
+										<Weekdays Source="OnewayFlight" DayType="CheckIn">Sun</Weekdays>
+										<Date Source="OnewayFlight" DayType="CheckIn">
+											<Min>2012-10-07</Min>
+											<Max>2012-10-14</Max>
+										</Date>
+									</And>
+								</Or>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="LPADUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>LPA DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Operating>
+									<Carrier>
+										<Identifier>AB</Identifier>
+									</Carrier>
+								</Operating>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>LPA</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2012-04-01" StartDate="2012-04-01" EndDate="2012-10-31">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="Accommodation" DayType="CheckIn">Wed Fri Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<PriceItems Key="1">
+				<PriceItem Class="Base">
+					<Absolute>
+						<Value>249</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>2</Min>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">PMI</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="Base">
+					<Absolute>
+						<Value>499</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>2</Min>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">LPA</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="Base">
+					<Absolute>
+						<Value>499</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>2</Min>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">FUE</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="Infant">
+					<Absolute>
+						<Value>40</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Max>1</Max>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">PMI</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="Infant">
+					<Absolute>
+						<Value>40</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Max>1</Max>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">LPA</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="Infant">
+					<Absolute>
+						<Value>40</Value>
+						<DayBase Source="ThisComponent">x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Max>1</Max>
+								</PersonAge>
+							</PersonImpact>
+							<Airports Source="OnewayFlight" AirportType="Arrival">FUE</Airports>
+						</And>
+					</Condition>
+				</PriceItem>
+			</PriceItems>
+		</OnewayFlights>
+	</Flights>
+	<DefinedComponents>
+		<DefineComponent Key="HR" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight Name="OutFlight"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight Name="InFlight"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">DepartureAirport</Element>
+						<Element Source="Inbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">DepartureAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>

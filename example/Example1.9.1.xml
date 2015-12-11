@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:functx="http://www.functx.com"
+  xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.9.1" UpdateMode="New">
+  <!-- vereinfachte Products zur Veranschaulichung der Änderungen in 1.9.1 -->
+  <Products>
+    <Product Key="AccomOnly" ProductType="AccommodationOnly">
+      <Components>
+        <Accommodation/>
+      </Components>
+    </Product>
+  </Products>
+  <Brands>
+    <Brand Key="TO1">
+      <Booking>
+        <BookingGroup Source="ThisComponent" Area="GlobalArea" Class="Default">
+          <BookingParameter Field="BrandCode">
+            <Value>TO1</Value>
+          </BookingParameter>
+        </BookingGroup>
+      </Booking>
+    </Brand>
+  </Brands>
+  <!--vereinfachte Accommodations zur Veranschaulichung der Änderungen in 1.9.1 -->
+  <Accommodations UpdateMode="New">
+    <Accommodation Key="BAD020" UpdateMode="New">
+      <Tags>
+        <Tag Class="Accomodation">BAD020</Tag>
+        <Tag Class="CatchmentAirport">Single</Tag>
+      </Tags>
+      <Properties Key="1">
+        <PropertyGroup>
+          <AccommodationCity>KOLOBRZEG</AccommodationCity>
+          <!-- in 1.9.1 ergänzter Unterkunftstyp u.a. DesignAccommodationStyle, HistoricAccommodationStyle, BoutiqueAccommodationStyle etc. -->          
+          <AccommodationType>HistoricAccommodationStyle</AccommodationType>          
+          <AccommodationName>SOLNY RESORT &amp; SPA</AccommodationName>
+          <!-- in 1.9.1 hinzugefügte Eigenschaften für Zielgruppen u.a. GourmetTravelers, Families, AdultOnly etc. -->          
+          <AccomodationTargetgroups>Families</AccomodationTargetgroups>
+          <!-- in 1.9.1 hinzugefügte Eigenschaften für Internetzugänge u.a. Lobby WiFi kostenfrei, gesamte Hotel Wifi gegen Gebühr etc. -->          
+          <AccommodationInternetAccess InternetAccessCharge="ForFree" InternetAccessLocation="Lobby" InternetAccessType="WIFI"/>
+          <AccommodationInternetAccess InternetAccessCharge="WithCharge" InternetAccessLocation="EntireHotel" InternetAccessType="WIFI"/>
+          <AccommodationAddress>
+            <Street>UL. FREDRY 5</Street>
+            <ZipCode>78100</ZipCode>
+            <City>KOLOBRZEG</City>
+            <Country>POLEN</Country>
+            <Phone>+48 94 35 45700</Phone>
+          </AccommodationAddress>
+          <GeneralIncludedServices>
+            <GeneralIncludedService>Transfer</GeneralIncludedService>
+            <!-- in 1.9.1 hinzugefügte Werte für inkludierte Zusatzleistungen u.a. RailAndFly, SkiLessons, SnowboardLessons etc. --> 
+            <GeneralIncludedService>SkiLessons</GeneralIncludedService>
+            <GeneralIncludedService>RailAndFly</GeneralIncludedService>
+            <!-- in 1.9.1 hinzugefügtes Attribut für inklusive Zusatzleistungen u.a. ShortServiceAnnotation z.B. für Mietwagentyp etc. --> 
+            <GeneralIncludedService ShortServiceAnnotation="Mietwagen Typ B">CarRental</GeneralIncludedService>
+          </GeneralIncludedServices>
+          <!-- in 1.9.1 hinzugefügte Eigenschaften für nicht-inklusive Zusatzleistungen u.a. BedLinen, Parking etc. mit ShortServiceAnnotation z.B. Bettwäsche etc. --> 
+          <MandatoryServicesPaidAtLocation>
+            <MandatoryServicePaidAtLocation ShortServiceAnnotation="Bettwäsche">BedLinen</MandatoryServicePaidAtLocation>
+          </MandatoryServicesPaidAtLocation>
+        </PropertyGroup>
+      </Properties>
+      <SellingAccom Key="S5-BAD020">
+        <Tags>
+          <Tag Class="DistributionSeason">Summer</Tag>
+          <Tag Class="Hotelcode">BAD020</Tag>
+          <Tag Class="Saisonbereiche">S5</Tag>
+          <ConditionalTag>
+                  <Tag Class="SeasonCheckIn">B</Tag>
+                  <Condition>
+                     <And>
+                        <DayImpact>
+                           <Date Source="SellingAccom" DayType="CheckIn">
+                              <Min>2015-05-12</Min>
+                              <Max>2015-05-16</Max>
+                           </Date>
+                        </DayImpact>
+                        <Duration Source="SellingAccom">
+                           <Min>3</Min>
+                           <Max>7</Max>
+                        </Duration>
+                     </And>
+                  </Condition>
+               </ConditionalTag>
+          <ConditionalTag>
+                  <Tag Class="SeasonStay">B</Tag>
+                  <Condition>
+                     <And>
+                        <DayImpact>
+                           <Date Source="SellingAccom" DayType="Stay">
+                              <Min>2015-05-12</Min>
+                              <Max>2015-05-16</Max>
+                           </Date>
+                        </DayImpact>
+                        <Duration Source="SellingAccom">
+                           <Min>3</Min>
+                           <Max>7</Max>
+                        </Duration>
+                     </And>
+                  </Condition>
+               </ConditionalTag>
+        </Tags>
+        <Booking>
+          <BookingGroup Area="ServiceArea" Source="Accommodation">
+            <BookingParameter Field="RequestCode">
+              <Value>H</Value>
+            </BookingParameter>
+            <BookingParameter Field="ServiceCode">
+              <Value>BAD020</Value>
+            </BookingParameter>
+          </BookingGroup>
+        </Booking>
+        <Board Key="K">
+          <Tags>
+            <Tag Class="Key">K</Tag>
+          </Tags>
+          <Booking>
+            <BookingGroup Area="ServiceArea" Source="Accommodation">
+              <BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+                <Value>K</Value>
+              </BookingParameter>
+            </BookingGroup>
+          </Booking>
+          <Properties Key="1">
+            <PropertyGroup>
+              <BoardType>HalfBoardPlus</BoardType>
+            </PropertyGroup>
+          </Properties>
+          <Filter Key="1">
+            <Keys Source="global:Unit">DZ EZ Y</Keys>
+          </Filter>
+        </Board>
+        <Unit Key="DZ">
+          <Tags>
+            <Tag Class="Key">DZ</Tag>
+          </Tags>
+          <Properties Key="1">
+            <PropertyGroup>
+              <!-- in 1.9.1 hinzugefügte Eigenschaften für Unterbringung u.a. Minibar CityView etc. -->   
+              <UnitFacilities>Minibar CityView</UnitFacilities>
+            </PropertyGroup>
+          </Properties>
+          <SellingUnit Key="DZ-2-0-0-K">
+            <Booking>
+              <BookingGroup Area="ServiceArea" Source="Accommodation">
+                <BookingParameter Field="ServiceFeatureCode" PadLength="3">
+                  <Value>DZ</Value>
+                </BookingParameter>
+              </BookingGroup>
+            </Booking>
+            <Properties Key="1">
+              <PropertyGroup>
+                <UnitName>Doppelzimmer</UnitName>
+                <UnitType>Other</UnitType>
+              </PropertyGroup>
+            </Properties>
+            <Occupancy Key="Unit">
+              <Person>
+                <MinAge>12</MinAge>
+                <Count>2</Count>
+              </Person>
+            </Occupancy>
+          </SellingUnit>
+        </Unit> 
+        <PriceItems Key="HotelOnlyPrices">
+          <PriceItem Class="Baseprice">
+            <Absolute>
+              <Value>79</Value>
+              <DayBase>x</DayBase>
+              <PersonBase>1</PersonBase>
+            </Absolute>
+            <Condition>
+              <And>
+                <ConditionalTags Source="Accommodation.SellingAccom" Class="SeasonCheckIn"
+                  >B</ConditionalTags>
+                <Tags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="UNIT">DZ</Tags>
+                <Tags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="BOARD">K</Tags>
+                <Tags Source="Product" Class="Product">NurHotel</Tags>
+              </And>
+            </Condition>
+          </PriceItem>
+          <PriceItem Class="Extraday">
+            <Absolute>
+              <Value>15</Value>
+              <DayBase>1</DayBase>
+              <PersonBase>1</PersonBase>
+            </Absolute>
+             <Condition>
+              <And>
+                <ConditionalTags Source="Accommodation.SellingAccom" Class="SeasonCheckIn"
+                  >B</ConditionalTags>
+                <Tags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="UNIT">DZ</Tags>
+                <Tags Source="Accommodation.SellingAccom.Unit.SellingUnit" Class="BOARD">K</Tags>
+                <Tags Source="Product" Class="Product">NurHotel</Tags>
+              </And>
+            </Condition>
+          </PriceItem>
+          <PriceItem Class="DurationReduction">
+            <Percent>
+              <Value>-100</Value>
+              <ApplyTo>Extraday</ApplyTo>
+            </Percent>
+            <Condition>
+              <And>
+                <Duration Source="Accommodation">
+                  <Min>14</Min>
+                  <Max>21</Max>
+                </Duration>
+                <DayImpact>
+                  <!-- in 1.9.1 ist Repeat auch in DayPriceIndex möglich analog zu DayIndex -->                     
+                  <DayPriceIndex Source="ThisComponent" Repeat="2">
+                    <From>2</From>
+                    <ConsideredPriceItemClasses Component="ThisComponent">DurationReduction</ConsideredPriceItemClasses>
+                  </DayPriceIndex>
+                </DayImpact>
+              </And>
+            </Condition>
+          </PriceItem>
+        </PriceItems>
+      </SellingAccom>
+      <CatchmentAirports>BAD</CatchmentAirports>
+    </Accommodation>
+  </Accommodations>
+</Otds>

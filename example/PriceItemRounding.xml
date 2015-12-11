@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
+	<Products UpdateMode="New">
+		<Product Key="Package" ProductType="FlightAccommodation" UpdateMode="New">
+			<Components UpdateMode="New">
+				<Accommodation DayAllocationLevel="0"/>
+				<DefinedComponent UseRole="ReturnFlight" DayAllocationLevel="0"/>
+			</Components>
+			<Filter Key="1" UpdateMode="New">
+				<MatchEqual>
+					<Element Source="Accommodation" DayAllocation="All" EvaluationMode="Any">CatchmentAirport</Element>
+					<Element Source="Outbound" DayAllocation="All" EvaluationMode="Any">ArrivalAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands UpdateMode="New">
+		<Brand Key="FTI" UpdateMode="New">
+			<Booking UpdateMode="New">
+				<BookingGroup Area="GlobalArea" Priority="0" Class="Default" Source="ThisComponent">
+					<BookingParameter Field="BrandCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>FTI</Value>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Priority="0" Class="Default" Source="ThisComponent">
+					<BookingParameter Field="Title" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>H</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact ImpactExecutionOrder="BeforeCombinatorics">
+								<ConditionalTags Source="global:SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Adult </ConditionalTags>
+							</Impact>
+							<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+								<PersonGenders Source="Product" DayAllocation="All" EvaluationMode="Any">Male Undefined</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Priority="0" Class="Default" Source="ThisComponent">
+					<BookingParameter Field="Title" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>D</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Impact ImpactExecutionOrder="BeforeCombinatorics">
+								<ConditionalTags Source="global:SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Adult </ConditionalTags>
+							</Impact>
+							<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+								<PersonGenders Source="Product" DayAllocation="All" EvaluationMode="Any">Female</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Source="Product" Class="Default" Priority="0">
+					<BookingParameter Field="Title" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>K</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact ImpactExecutionOrder="BeforeCombinatorics">
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Child </ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Priority="0" Class="Default" Source="ThisComponent">
+					<BookingParameter Field="Title" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>B</Value>
+					</BookingParameter>
+					<Condition>
+						<Impact ImpactExecutionOrder="BeforeCombinatorics">
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Baby </ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingGroup>
+				<BookingGroup EvaluationBase="Person" Area="PersonArea" Priority="0" Class="Default" Source="ThisComponent">
+					<BookingParameter Field="Age" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<PersonAge AgeType="TravelAge" DateFormat="[D01][M01][Y01]"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:SellingAccom" Class="Default" Priority="0">
+					<BookingParameter Field="DateStart" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Accommodation"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckOut" Source="global:Accommodation"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:Outbound" Priority="0" Class="Default">
+					<BookingParameter Field="DateStart" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Outbound"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckOut" Source="global:Outbound"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Area="ServiceArea" Source="global:Inbound" Priority="0" Class="Default">
+					<BookingParameter Field="DateStart" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Inbound"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Inbound"/>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations UpdateMode="New">
+		<Accommodation Key="A" UpdateMode="New">
+			<SellingAccom Key="A" UpdateMode="New">
+				<Booking UpdateMode="New">
+					<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+						<BookingParameter Field="ServiceCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>A</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="F" UpdateMode="New">
+					<Booking UpdateMode="New">
+						<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1" LeftSeparator="" RightSeparator="" Padding=" " PadCondition="Always" PadLength="0" PadOrientation="Right">
+								<Value>A</Value>
+							</BookingParameter>
+							<BookingParameter Field="RequestCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+								<Value>H</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+				</Board>
+				<Unit Key="AZ" UpdateMode="New">
+					<SellingUnit Key="AZ-2" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadOrientation="Right">
+									<Value>AZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1" UpdateMode="New">
+							<PropertyGroup Priority="0">
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1" UpdateMode="New">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="BZ" UpdateMode="New">
+					<SellingUnit Key="BZ-2" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadOrientation="Right">
+									<Value>BZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1" UpdateMode="New">
+							<PropertyGroup Priority="0">
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1" UpdateMode="New">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="CZ" UpdateMode="New">
+					<SellingUnit Key="CZ-2" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadOrientation="Right">
+									<Value>CZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1" UpdateMode="New">
+							<PropertyGroup Priority="0">
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1" UpdateMode="New">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="DZ" UpdateMode="New">
+					<SellingUnit Key="DZ-2" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadOrientation="Right">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1" UpdateMode="New">
+							<PropertyGroup Priority="0">
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1" UpdateMode="New">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="EZ" UpdateMode="New">
+					<SellingUnit Key="EZ-2" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadOrientation="Right">
+									<Value>EZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1" UpdateMode="New">
+							<PropertyGroup Priority="0">
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1" UpdateMode="New">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<Unit Key="FZ" UpdateMode="New">
+					<SellingUnit Key="FZ-2" UpdateMode="New">
+						<Booking UpdateMode="New">
+							<BookingGroup Area="ServiceArea" Source="SellingAccom" Priority="0" Class="Default">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadOrientation="Right">
+									<Value>FZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1" UpdateMode="New">
+							<PropertyGroup Priority="0">
+								<UnitName>Doppelzimmer</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1" UpdateMode="New">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports UpdateMode="New">PMI</CatchmentAirports>
+			<Availabilities Key="1" UpdateMode="New">
+				<Availability Key="2013-11-01" StartDate="2013-11-01" EndDate="2013-11-30" UpdateMode="New">
+					<DefaultDayState UpdateMode="New">
+						<Open/>
+						<CheckIn/>
+						<CheckOut/>
+					</DefaultDayState>
+				</Availability>
+			</Availabilities>
+		</Accommodation>
+		<PriceItems Key="OfferPrices" UpdateMode="New">
+			<PriceItem Class="Baseprice">
+				<Absolute>
+					<Value>250</Value>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
+					<PersonBase>1</PersonBase>
+				</Absolute>
+			</PriceItem>
+			<PriceItem Class="Extraday">
+				<!--DE: Tagespreis  -->
+				<!--GB: Daily price  -->
+				<Absolute>
+					<Value>15</Value>
+					<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
+					<PersonBase>1</PersonBase>
+				</Absolute>
+			</PriceItem>
+			<PriceItem Class="ChildReduction">
+				<!--DE: Prozentuale Kinderermäßigung auf Basispreis und Extratag für das 2. Kind 6-14 (Alter aufsteigend). 
+									Kind sind alle Personen zwischen 2-16-->
+				<!--GB: Child reduction based on percent of Base price and extra day for the second child (ascending ages). 
+									Children are passengers between 2 - 16.-->
+				<Percent>
+					<Value>-60</Value>
+					<ApplyTo Component="ThisComponent" Source="local+Hierarchy.all:ThisComponent">Extraday BasePrice</ApplyTo>
+				</Percent>
+				<Condition>
+					<And>
+						<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+							<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
+								<Min>6</Min>
+								<Max>14</Max>
+							</PersonAge>
+						</PersonImpact>
+						<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
+							<PersonIndex Source="Product" DayAllocation="All" EvaluationMode="Any">
+								<Indices>-2 -5</Indices>
+								<PersonFilter>
+									<PersonAge Source="Product" DayAllocation="All" EvaluationMode="Any">
+										<Min>2</Min>
+										<Max>16</Max>
+									</PersonAge>
+								</PersonFilter>
+							</PersonIndex>
+						</PersonImpact>
+					</And>
+				</Condition>
+			</PriceItem>
+			<PriceItem Class="EarlyBird">
+				<!--DE: Frühbucher, der auf Basispreis und Extraday angewendet wird.  -->
+				<!--GB: Early bird, used for base price and Extraday   -->
+				<Percent>
+					<Value>-15</Value>
+					<ApplyTo Component="ThisComponent" Source="local+Hierarchy.all:ThisComponent">Extraday BasePrice</ApplyTo>
+				</Percent>
+				<Condition>
+					<BookingDate Source="Product">
+						<Max>2011-12-31</Max>
+					</BookingDate>
+				</Condition>
+			</PriceItem>
+		</PriceItems>
+		<PriceItems Key="Rounding" UpdateMode="New">
+			<PriceItem Class="RoundingOfPersons">
+				<GenericAbsolute ExecutionPriority="0">
+					<GenericValue>
+						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
+						</Round>
+					</GenericValue>
+					<DayBase>x</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<PersonImpact>
+						<GroupedPerson/>
+					</PersonImpact>
+				</Condition>
+			</PriceItem>
+			<!-- Beispiel einer Blank Rundung:
+				Die Blankrundung kann sich dabei in mehrere RUndungen aufsplittem, die unterschiedliche Bereiche abdeckt.
+				So ist es denkbar, dass die Rundung je Person separat für die Basispreise, die Zuschläge und die Sonderzuschläge durchgeführt wird. 
+Hier ein Beispiel:
+RUNDEN((Startpreis + (Tagespreise * Dauer * FrühbucherProzentual * ErmäßigungProzentual)) * KFANGProzentual)
++ RUNDEN(Verpflegung * Dauer * FrühbucherProzentual * ErmäßigungProzentual * KFANGProzentual)
++ RUNDEN((KFANGFix + FrühbucherFix) * FrühbucherProzentual * ErmäßigungProzentual * KFANGProzentual)
+-->
+			<PriceItem Class="BlankBasePriceRounding">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
+								<ConsideredPriceTags Class="OTDS-PriceClass">Startpreis Tagespreise FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>x</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<PersonImpact>
+						<GroupedPerson/>
+					</PersonImpact>
+				</Condition>
+			</PriceItem>
+			<PriceItem Class="BlankAddPriceRounding">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
+								<ConsideredPriceTags Class="OTDS-PriceClass">Verpflegung FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>x</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+			</PriceItem>
+			<PriceItem Class="BlankSpecialPriceRounding">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
+								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>x</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<PersonImpact>
+						<GroupedPerson/>
+					</PersonImpact>
+				</Condition>
+			</PriceItem>
+			<!-- Manchmal runden Veranstaltersysteme Komponenten bezogen separat. 
+Für ein Pauschalprodukt müssten dann die folgenden 3 PriceItems geliefert werden.
+			-->
+			<PriceItem Class="RoundingOfOutbound">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+descendants:Outbound">
+								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							</ConsideredPriceItems>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
+								<ConsideredPriceTags Class="ComponentType">Outbound</ConsideredPriceTags>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>x</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<PersonImpact>
+						<GroupedPerson/>
+					</PersonImpact>
+				</Condition>
+			</PriceItem>
+			<PriceItem Class="RoundingOfInbound">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+descendants:Outbound">
+								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							</ConsideredPriceItems>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
+								<ConsideredPriceTags Class="ComponentType">Inbound</ConsideredPriceTags>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>x</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+			</PriceItem>
+			<PriceItem Class="RoundingOfAccommodation">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+descendants:Outbound">
+								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							</ConsideredPriceItems>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
+								<ConsideredPriceTags Class="ComponentType">Accommodation</ConsideredPriceTags>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>x</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<PersonImpact>
+						<GroupedPerson/>
+					</PersonImpact>
+				</Condition>
+			</PriceItem>
+			<!-- Manchmal brechen Veranstaltersysteme grundsätzlich alle reisebezogenen Preise auf Tage und Personen runter und runden dann direkt.
+			Das folgende PriceItem zeigt, wie man so etwas liefern müsste, wenn die Absoluten mit einem <PriceTag Class="RoundingType">TravelBased</> markiert sind.
+            Alle Percent-PriceItems bleiben hier unberücksichtigt. 
+			-->
+			<PriceItem Class="RoundingReisezuschlag">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+								<Day/>
+								<AbsolutePriceItem/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute">
+								<ConsideredPriceTags Class="RoundingType">TravelBased</ConsideredPriceTags>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>1</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<And>
+						<PersonImpact>
+							<GroupedPerson/>
+						</PersonImpact>
+						<DayImpact>
+							<GroupedDay/>
+						</DayImpact>
+						<Impact>
+							<GroupedAbsolute/>
+						</Impact>
+					</And>
+				</Condition>
+			</PriceItem>
+			<!-- Manchmal rechnen Veranstaltersysteme die Währung auf der unterster Ebene um und runden dann direkt bevor weitere Berechnungen stattfinden.
+			Das folgende PriceItem zeigt, wie man so etwas liefern müsste. Die PriceItems der Währungsumrechnungsfaktoren müssten dazu aber auch entsprechende PriceTags 	bekommen.	-->
+			<PriceItem Class="RoundingOfAllCurrencyTouchedPriceItems">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+								<Day/>
+								<AbsolutePriceItem/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
+								<ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
+								<IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
+							</ConsideredPriceItems>
+						</Round>
+					</GenericValue>
+					<DayBase>1</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<And>
+						<PersonImpact>
+							<GroupedPerson/>
+						</PersonImpact>
+						<DayImpact>
+							<GroupedDay/>
+						</DayImpact>
+						<Impact>
+							<GroupedAbsolute/>
+						</Impact>
+					</And>
+				</Condition>
+			</PriceItem>
+			<PriceItem Class="RoundingCombinedAbsolutes">
+				<GenericAbsolute>
+					<GenericValue>
+						<Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Threshold="0.5">
+							<GroupAbsolutePriceItemsBy>
+								<Person/>
+								<Day/>
+								<AbsolutePriceItem/>
+								<PriceTagValue Source="global+Hierarchy.all:Product" Class="RoundGrouping"/>
+							</GroupAbsolutePriceItemsBy>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute"/>
+						</Round>
+					</GenericValue>
+					<DayBase>1</DayBase>
+					<PersonBase>1</PersonBase>
+				</GenericAbsolute>
+				<Condition>
+					<And>
+						<PersonImpact>
+							<GroupedPerson/>
+						</PersonImpact>
+						<DayImpact>
+							<GroupedDay/>
+						</DayImpact>
+						<Impact>
+							<GroupedAbsolute/>
+						</Impact>
+					</And>
+				</Condition>
+			</PriceItem>
+		</PriceItems>
+	</Accommodations>
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="Hin">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>DUSPMI</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Availabilities Key="1">
+						<Availability Key="2013-11-01" StartDate="2013-11-01" EndDate="2013-11-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="Flug">
+						<PriceItem Class="Basis">
+							<Absolute>
+								<Value>9</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<OnewayFlight Key="Rueck">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMIDUS</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Availabilities Key="1">
+						<Availability Key="2013-11-01" StartDate="2013-11-01" EndDate="2013-11-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+					</Availabilities>
+					<PriceItems Key="Flug">
+						<PriceItem Class="Basis">
+							<Absolute>
+								<Value>7</Value>
+								<DayBase>1</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+		</OnewayFlights>
+	</Flights>
+	<DefinedComponents>
+		<DefineComponent Key="ReturnFlight" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
+					<OnewayFlight/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">ArrivalAirport</Element>
+						<Element Source="Outbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>
