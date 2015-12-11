@@ -4390,7 +4390,10 @@
 					</section>
 					<section xml:id="OtdsStrategyConditionNonImpact">
 						<title><phrase>NonImpact</phrase></title>
-						<para>Mit dem NonImpact-Wrapper kann man aus mehreren Bedingungen, die eine oder mehrere ImpactBedinungen enthalten am Ende auswerten, dass die Bedingung ganz oder gar nicht erfüllt ist (also ohne Impact auf einezlne Tage oder Personen.</para>	
+						<para>Mit dem NonImpact-Wrapper kann man aus mehreren Bedingungen, die eine oder mehrere
+							ImpactBedinungen enthalten, am Ende auswerten, dass die Bedingung ganz
+							oder gar nicht erfüllt ist (also ohne Impact auf einezlne Tage oder
+							Personen).</para>	
 						<figure>
 							<info>
 								<title><phrase xml:id="de_5367" xml:lang="de">NonImpact</phrase><phrase xml:id="en_5367" xml:lang="en">NonImpact</phrase></title>
@@ -4404,28 +4407,42 @@
 								</textobject>
 							</mediaobject>
 						</figure>
-						<para>Mit dem NonImpact-Wrapper kann man ausdrücken, dass einen komplexe Bedingung, die auch ImpactBedingungen enthält am Ende doch als NICHT-Impact ausgewertet wird. 
-							Zum Beispiel die Bedingung ein Preis gilt, wenn ein Freitag mit einer Saison A enthalten ist. Das ist erreichbar, indem man 2 ImpactBedingungen verundet und diese dann mit dem NonImpact-Wrapper umschließt.
-							Der NonIMpact-Wrapper kann auch dabei helfen, wenn man kombinierte CheckIn- und StaySeasons mt nur einem ConditionalTag ausdrücken will.
-							Dabei kann mit den Elementen DayBase und PersonBase definiert werden, welche Kostenknoten überhaupt bei der Auswertung berücksichtigt werden.
-							Das Attribut "EvaluationMode" definiert, ob ein Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen müssen.
-						</para>
-						<para>Mit dem Attribut "EvaluationMode" definiert man, wie die einzelnen Person-/Dayknoten ausgewertet werden.
-						Mit "Any", ist die NonImpact Bedingung erfüllt, wenn ein beliebiger Knoten die Condition erfüllt. 
-						Mit "All" ist die NonImpact Bedingung erfüllt, wenn die durch DayBase und PersonBase  definierten Kostenknoten die Condition erfüllen.</para>
-						<para>Ist das Element "DayBase" angegeben, so werden nur die mit Source und IntervalType definierten Tage bei der Auswertung betrachtet. 
-							Ist das Element "PersonBase" nicht angegeben, so gilt die Condition für einen betrachteten Tag als erfüllt, wenn an diesem Tag für wenigstens 1 Person die Condition erfüllt ist.
-							Falls das Element "PersonBase" angegeben ist, so werden alle Kostenknoten einzeln betrachtet und gemäß des Evaluationmodes ausgewertet.
-							Über das Attribut "Source" definiert man einen Bezug zu den Tagen einer Komponenten-Instanz. Der Default ist "ThisComponent". 
-							Mit dem Attribut "IntervalType" können bestimmte Tage einer Komponente addressiert werden. Mögliche Werte sind:
-							- Stay
-							- CheckInOut
-						</para>
+						<para>Mit dem NonImpact-Wrapper kann man ausdrücken, dass einen komplexe Bedingung, die auch
+							Impact-Bedingungen enthält, am Ende doch als NICHT-Impact ausgewertet
+							wird. Zum Beispiel die Bedingung "ein Preis gilt, wenn ein Freitag mit
+							einer Saison A enthalten ist". Das ist erreichbar, indem man zwei
+							Impact-Bedingungen verwendet und diese dann mit dem NonImpact-Wrapper
+							umschließt. Der NonImpact-Wrapper kann auch dabei helfen, wenn man
+							kombinierte CheckIn- und StaySeasons mit nur einem ConditionalTag
+							ausdrücken will. Dabei kann mit den Elementen DayBase und PersonBase
+							definiert werden, welche Kostenknoten überhaupt bei der Auswertung
+							berücksichtigt werden. Das Attribut "EvaluationMode" definiert, ob ein
+							Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen
+							müssen. </para>
+						<para>Mit dem Attribut "EvaluationMode" definiert man, wie die einzelnen Person-/Dayknoten
+							ausgewertet werden. Mit "Any", ist die NonImpact-Bedingung erfüllt, wenn
+							ein beliebiger Knoten die Condition erfüllt. Mit "All" ist die
+							NonImpact-Bedingung erfüllt, wenn die durch DayBase und PersonBase
+							definierten Kostenknoten die Condition erfüllen.</para>
+						<para>Ist das Element "DayBase" angegeben, so werden nur die mit Source und IntervalType
+							definierten Tage bei der Auswertung betrachtet. Ist das Element
+							"PersonBase" nicht angegeben, so gilt die Condition für einen
+							betrachteten Tag als erfüllt, wenn an diesem Tag für wenigstens eine
+							Person die Condition erfüllt ist. Falls das Element "PersonBase"
+							angegeben ist, so werden alle Kostenknoten einzeln betrachtet und gemäß
+							des Evaluationmodes ausgewertet. Über das Attribut "Source" definiert
+							man einen Bezug zu den Tagen einer Komponenten-Instanz. Der Default ist
+							"ThisComponent". Mit dem Attribut "IntervalType" können bestimmte Tage
+							einer Komponente adressiert werden. Mögliche Werte sind: - Stay -
+							CheckInOut </para>
 						<para>Ist das Element "PersonBase" angegeben, so werden die Personen betrachtet und gemäß dem angegebenen EvaluationMode ausgewertet. 
 							Ist das Element "DayBase" nicht angegeben, so gilt die Condition für eine betrachtete Person als erfüllt, wenn für diese Person wenigstens an einem Tag die Condition erfüllt ist.
 							Falls das Element "DayBase" angegeben ist, so werden alle Kostenknoten (ggf. eingeschränkt durch Source und IntervalType) einzeln betrachtet und gemäß des Evaluationmodes ausgewertet. 
 						</para>
-						<para>Der NonImpact Wrapper wird auch gerne benutzt, wenn Saisonbuchstaben sowohl als Stay-Seasons alsauch als CheckIn-Seasona benutzt werden. Dank des NonImpact-Wrappers muss man die ConditionalTags der Sessons nur einmal definieren.</para>
+						<para>Der NonImpact Wrapper wird auch gerne benutzt, wenn Saisonbuchstaben sowohl als
+							Stay-Seasons als auch als CheckIn-Season benutzt werden. Dank des
+							NonImpact-Wrappers muss man die ConditionalTags der Seasons nur einmal
+							definieren.</para>
 						<para>Hier ein Beispiel:</para>
 						<programlisting><![CDATA[<ConditionalTag>
 	<Tag Class="SeasonCheckIn">A</Tag>
@@ -4450,7 +4467,8 @@
 	</Condition>
 </ConditionalTag>]]></programlisting>
 						<para>Das erste ConditionalTag wäre notwendig, um eine klassische CheckInSeason Abhängigkeit abzubilden. "Preis gilt bei Anreise in Saison A"</para>
-						<para>Mit dem NonImpactWrapper kann man nun dieses PriceiTem wie folgt auch mit der StaySeason darstellen.</para>
+						<para>Mit dem NonImpactWrapper kann man nun dieses PriceItem wie folgt auch mit der StaySeason
+							darstellen.</para>
 						<programlisting><![CDATA[<PriceItems Key="Hotelbasispreise">
 	<PriceItem Class="PAUSCH">
 		<Absolute>
