@@ -6737,11 +6737,12 @@ usw.]]></programlisting>
 						welche über <code>Round</code> angesprochen wird. Die Struktur ist aber
 						erweiterbar für beliebige weitere Funktionen, die in späteren Versionen
 						notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Currently there is just one function for rounding up which is accessed via <code>Round</code> . The structure can be expanded, however, to include as many functions as you wish that are required in later versions.</para>
-			    <para xml:lang="de" xml:id="de_5166">Die Definition der Gruppierung der PriceItems befindet sich in dem Element <code>GroupPriceItemsBy</code>. 
-			      Hier können Preise nach Personen, Tagen, einzelnen <code>Absolute</code>-PriceItems oder auch bestimmten PriceTagValues gruppiert 
-			      werden. Die Verteilung auf die Kostenmatrix ist genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente 
-			      <code>DayBase</code> und <code>PersonBase</code> bestimmt.
-			    </para><para xml:lang="en" xml:id="en_5166">The definition of the grouping of PriceItems takes place in the <code>GroupPriceItemsBy</code> element. Here prices can be grouped according to persons, days, individual <code>Absolute</code> PriceItems or also certain PriceTagValues. Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
+			    <para xml:lang="de" xml:id="de_5166">Die Definition der Gruppierung der PriceItems befindet
+						sich in dem Element <code>GroupPriceItemsBy</code>. Hier können Preise nach
+						Personen, Tagen, einzelnen <code>Absolute</code>-PriceItems oder auch
+						bestimmten Price gruppiert werden. Die Verteilung auf die Kostenmatrix ist
+						genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente
+							<code>DayBase</code> und <code>PersonBase</code> bestimmt. </para><para xml:lang="en" xml:id="en_5166">The definition of the grouping of PriceItems takes place in the <code>GroupPriceItemsBy</code> element. Here prices can be grouped according to persons, days, individual <code>Absolute</code> PriceItems or also certain PriceTagValues. Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
 			    <para xml:lang="de" xml:id="de_5167">Innerhalb von <code>Round</code> kann über das Element <code>ConsideredPriceItems</code> definiert werden, 
 			      welche PriceItems für die Berechnung der Rundungsfunktion herangezogen werden. Dabei kann auch mit Hilfe des Elementes 
 			      <code>IncludeAppliedPriceItems</code> definiert werden, dass auch die nächste Apply-Hierarchiestufe von adressierten PriceItems 
@@ -7058,7 +7059,8 @@ usw.]]></programlisting>
 			      <para xml:id="de_5227" xml:lang="de">Mit Hilfe des Elementes <code>ConsideredPriceTags</code> kann man einschränken, dass nur PriceItems mit bestimmten 
 			        PriceTags benutzt werden. Alternativ kann man auch PriceItems mit bestimmten PriceTags durch Verwendung des Elementes 
 			        <code>NotConsideredPriceTags</code> explizit von der Verwendung ausschließen.</para><para xml:id="en_5227" xml:lang="en">With the element <code>ConsideredPriceTags</code> , it is possible to restrict the PriceItems used to those with specific PriceTags. Alternatively, it is also possible to explicitly exclude PriceItems with specific PriceTags from use, using the element <code>NotConsideredPriceTags</code> .</para>
-			    	<para>Neben den PrcieTags, kann man sich mit <code>ConsideredPriceItemClasses</code> und <code>NotConsideredPriceItemClasses</code> direkt auf PriceItemCLasses beziehen.</para>
+			    	<para xml:id="de_5385" xml:lang="de">Neben den PriceTags kann man sich mit <code>ConsideredPriceItemClasses</code> und <code>NotConsideredPriceItemClasses</code> direkt auf PriceItemClasses beziehen.</para>
+			    	<para xml:id="en_5385" xml:lang="en">Besides PriceTags one can refer directly to PriceItemCLasses by using <code>ConsideredPriceItemClasses</code> and <code>NotConsideredPriceItemClasses</code>.</para>
 			    	<programlisting><![CDATA[<GenericAbsolute>
     <GenericValue>
         <Round ...>
@@ -7071,7 +7073,12 @@ usw.]]></programlisting>
     </GenericValue>
     ...
     </GenericAbsolute>]]></programlisting>
-			    	<para>Hierbei muss berücksichtigt werden, dass die Definition von mehreren <code>ConsideredPriceItem</code> wie ein ODER interpretiert wird. Die mehrfache Angabe von <code>ConsideredPriceTags</code>, <code>NotConsideredPriceTags</code>, <code>ConsideredPriceItemClasses</code>, <code>NotConsideredPriceItemClasses</code> werden jedoch verundet müssen also alle erfüllt werden, damit ein PriceItem bei der Berechnung berücksichtigt wird. Somit lassen sich komplexe Kombinationen von UND und ODER formulieren.</para>
+			    	<para xml:id="de_5386" xml:lang="de">Hierbei muss berücksichtigt werden, dass die Definition von mehreren <code>ConsideredPriceItem</code> wie ein ODER interpretiert wird. Die mehrfache Angabe 
+			    	von <code>ConsideredPriceTags</code>, <code>NotConsideredPriceTags</code>, <code>ConsideredPriceItemClasses</code>, <code>NotConsideredPriceItemClasses</code> werden jedoch verundet, müssen also
+			    	alle erfüllt werden, damit ein PriceItem bei der Berechnung berücksichtigt wird. Somit lassen sich komplexe Kombinationen von UND und ODER formulieren.</para>
+			    	<para xml:id="en_5386" xml:lang="en">In doing so it has to be considered, that the definition of several <code>ConsideredPriceItems</code> are interpreted as an "OR". The multiple indication of 
+			    		<code>ConsideredPriceTags</code>, <code>NotConsideredPriceTags</code>, <code>ConsideredPriceItemClasses</code>, and/or <code>NotConsideredPriceItemClasses</code> are being rounded, thus have
+			    		to be fulfulled completely, in order to assure that a PriceItem is being considered for the calulation. Hereby complex combinations of "AND" and "OR" can be expressed.</para>
 			      <bridgehead xml:lang="de" xml:id="de_5228">Die Eigenschaft "Hierarchy" des Source-Attributes</bridgehead><bridgehead xml:lang="en" xml:id="en_5228">The property "Hierarchy" of the Source attribute</bridgehead>
 			      <para xml:id="de_5229" xml:lang="de">In Version 1.9 wird das Attribute <emphasis
 								role="bold">Source</emphasis> um mehrere Eigenschaften erweitert, so
@@ -7142,7 +7149,8 @@ usw.]]></programlisting>
         <NotConsideredPriceTags ... >NoRounding</NotConsideredPriceTags>
     </IncludeAppliedDescendants>
     </ConsideredPriceItems>]]></programlisting>
-			    	<para>Alternativ zum hier aufgeführten Beispiel können auch auf mit <code>ConsideredPriceItemClasses</code> nur auf PriceItems mit bestimmten <code>Classes</code>eingeschränkt werden.</para> 
+			    	<para xml:id="de_5387" xml:lang="de">Alternativ zum hier aufgeführten Beispiel können auch auf mit <code>ConsideredPriceItemClasses</code> nur auf PriceItems mit bestimmten <code>Classes</code> eingeschränkt werden.</para>
+			    	<para xml:id="en_5387" xml:lang="en">Alternatively to the example shown here auf mit <code>ConsideredPriceItemClasses</code> nur auf PriceItems mit bestimmten <code>Classes</code>eingeschränkt werden.</para>
 			      <bridgehead xml:lang="de" xml:id="de_5250">Verschachtelte Rundung (ExecutionPriority)</bridgehead><bridgehead xml:lang="en" xml:id="en_5250">Encapsulated rounding (ExecutionPriority)</bridgehead>
 			      <para xml:id="de_5251" xml:lang="de">Die Berechnung der <code>GenericAbsolute</code>'s findet nach der Auswertung der Combinatoric statt.
 			        Für die Auswertung der <code>GenericAbsolute</code>'s wird eine Abarbeitungsreihenfolge definiert.
@@ -7461,7 +7469,8 @@ usw.]]></programlisting>
 						Level und ein Name zugeordnet werden. Jede eindeutige Kombination aus
 							<code>LayerLevel</code> und <code>LayerName</code> definiert eine
 						Kombinatorikebene.</para><para xml:id="en_1408" xml:lang="en">Several combinatorics layers (<code>Combinatorics</code> -Layer) are defined by several <code>Combinatorics</code> elements. Each <code>Combinatorics</code> element can be allocated a level and a name via the attributes <code>LayerLevel</code> and <code>LayerName</code> . Every distinct combination of <code>LayerLevel</code> and <code>LayerName</code> defines a combinatorics layer.</para>
-					<para>Innerhalb eines PriceItems müssen die Combinatorics hinsichtlich der Kombination von LayerName und LayerLevel eindeutig sein.</para>
+					<para xml:id="de_5381" xml:lang="de">Innerhalb eines PriceItems müssen die Combinatorics hinsichtlich der Kombination von LayerName und LayerLevel eindeutig sein.</para>
+					<para xml:id="en_5381" xml:lang="en">Within a PriceItems the Combinatorics regarding the combination of LayerName and LayerLevel have to be unambiguous.</para>
 					<bridgehead xml:id="de_1409" xml:lang="de">Abarbeitung von Kombinatorikebenen</bridgehead><bridgehead xml:id="en_1409" xml:lang="en">Processing of combinatorics layers</bridgehead>
 					<para xml:id="de_1410" xml:lang="de">Kombinatorikebenen werden unabhängig voneinander ausgewertet, d.h.
 						Kombinatorikbedingungen an Kombinationscodes oder Kombinationsindizes wirken immer nur
@@ -13187,8 +13196,10 @@ usw.]]></programlisting>
 									abzudecken, wird diese Verarbeitung über alle Dauern dieses Intervalls
 									iteriert (d.h. die Verarbeitung wird für jede Dauer einzeln
 									durchgeführt).</para><para xml:id="en_2312" xml:lang="en">The formal processing model presented here always considers travel in relation to a predetermined duration. To cover an interval from durations, this processing is iterated across all durations of the stated interval (i.e. the processing of each duration is performed individually).</para>
-								<para>Im Falle der Dauerbedingung gibt es derzeit einen Sonderfall, der daraus resultiert, dass aus historischen Gründen einie Touristiker eine eigenartige Definition der Dauer zu Grunde legen.
+								<para xml:id="de_5380" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit einen Sonderfall, der daraus resultiert, dass aus historischen Gründen einige Touristiker eine eigenartige Definition der Dauer zu Grunde legen.
 									Laut Definition ist dann die Dauer durch den Abflug des Hinfluges und durch den Abflug des Rückfluges begrenzt. Dieses lässt sich abweichend von der eigentlichen Source-Definition mit der Source="ReturnFlight" abbilden. Ab Version 2.0 wird es dafür eine ordentliche Lösung geben.</para>
+								<para xml:id="en_5380" xml:lang="en">In the case of duration condition there currently exists an exception, which results from the historic fact, that some tourism professionals work with a rather strange definition of duration.
+									According to the definition the duration is limited by the departure of the outgoing flight and the departure of the return flight. This can be expressed - in deviation of the actual Source-Definition - by Source="ReturnFlight". From version 2.0 on there will be a proper solution.</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
@@ -21716,6 +21727,7 @@ usw.]]></programlisting>
 			<para xml:id="de_3802" xml:lang="de">Flight 3UnknownSegments.xml </para><para xml:id="en_3802" xml:lang="en">Flight 3UnknownSegments.xml</para>
 			<para xml:id="de_3803" xml:lang="de">Flight Rules Example.xml </para><para xml:id="en_3803" xml:lang="en">Flight Rules Example.xml</para>
 			<para xml:id="de_3804" xml:lang="de">Flight3Segments.xml </para><para xml:id="en_3804" xml:lang="en">Flight3Segments.xml</para>
+			<para xml:id="de_5388" xml:lang="de">HolidayHomeExample.xml</para><para xml:id="en_5388" xml:lang="en">HolidayHomeExample.xml</para>
 			<para xml:id="de_3805" xml:lang="de">OccupancyExample.xml </para><para xml:id="en_3805" xml:lang="en">OccupancyExample.xml</para>
 			<para xml:id="de_3806" xml:lang="de">OneWayFlight.xml </para><para xml:id="en_3806" xml:lang="en">OneWayFlight.xml</para>
 			<para xml:id="de_3807" xml:lang="de">OneWayFlightBookingClassAvailability.xml </para><para xml:id="en_3807" xml:lang="en">OneWayFlightBookingClassAvailability.xml</para>
@@ -21725,7 +21737,22 @@ usw.]]></programlisting>
 			<para xml:id="de_3811" xml:lang="de">ProductsRulesExamples.xml </para><para xml:id="en_3811" xml:lang="en">ProductsRulesExamples.xml</para>
 			<para xml:id="de_3812" xml:lang="de">PropertiesExamples.xml </para><para xml:id="en_3812" xml:lang="en">PropertiesExamples.xml</para>
 			<para xml:id="de_3813" xml:lang="de">ReturnFlight.xml</para><para xml:id="en_3813" xml:lang="en">ReturnFlight.xml</para>
-			<para xml:id="de_3814" xml:lang="de">In den Beispieldateien befinden sich zu den einzelnen Abschnitten Kommentare in deutsch und
+			<bridgehead><para xml:id="de_5389" xml:lang="de">Verzeichnis example_initial_delivery</para><para xml:id="en_5389" xml:lang="en">Directory example_initial_delivery</para></bridgehead>
+				<para xml:id="de_5390" xml:lang="de">example_initial_delivery/001_base.xml</para><para xml:id="en_5390" xml:lang="en">example_initial_delivery/001_base.xml</para>
+				<para xml:id="de_5391" xml:lang="de">example_initial_delivery/002_accom.xml</para><para xml:id="en_5391" xml:lang="en">example_initial_delivery/002_accom.xml</para>
+				<para xml:id="de_5392" xml:lang="de">example_initial_delivery/003_flights.xml</para><para xml:id="en_5392" xml:lang="en">example_initial_delivery/003_flights.xml</para>
+				<para xml:id="de_5393" xml:lang="de">example_initial_delivery/004_boards.xml</para><para xml:id="en_5393" xml:lang="en">example_initial_delivery/004_boards.xml</para>
+				<para xml:id="de_5394" xml:lang="de">example_initial_delivery/005_units.xml</para><para xml:id="en_5394" xml:lang="en">example_initial_delivery/005_units.xml</para>
+			<bridgehead><para xml:id="de_5395" xml:lang="de">Verzeichnis example_update</para><para xml:id="en_5395" xml:lang="en">Directory example_update</para></bridgehead>
+			<para xml:id="de_5396" xml:lang="de">example_update/ReadMe.txt</para><para xml:id="en_5396" xml:lang="en">example_update/ReadMe.txt</para>
+			<para xml:id="de_5397" xml:lang="de">example_update/001_initial.xml</para><para xml:id="en_5397" xml:lang="en">example_update/001_initial.xml</para>
+			<para xml:id="de_5398" xml:lang="de">example_update/002_avail_XPMIOYK.xml</para><para xml:id="en_5398" xml:lang="en">example_update/002_avail_XPMIOYK.xml</para>
+			<para xml:id="de_5399" xml:lang="de">example_update/003_deleteUnit_XPMIOYK.xml	</para><para xml:id="en_5399" xml:lang="en">example_update/003_deleteUnit_XPMIOYK.xml</para>
+			<para xml:id="de_5400" xml:lang="de">example_update/004_add_FUE_acco.xml</para><para xml:id="en_5400" xml:lang="en">example_update/004_add_FUE_acco.xml</para>
+			<para xml:id="de_5401" xml:lang="de">example_update/005_add_FUE_flight.xml</para><para xml:id="en_5401" xml:lang="en">example_update/005_add_FUE_flight.xml</para>
+			<para xml:id="de_5402" xml:lang="de">example_update/006_priceReduction_AllAcco.xml</para><para xml:id="en_5402" xml:lang="en">example_update/006_priceReduction_AllAcco.xml</para>
+			<para xml:id="de_5403" xml:lang="de">example_update/007_add_FUE_flightRouting.xml</para><para xml:id="en_5403" xml:lang="en">example_update/007_add_FUE_flightRouting.xml</para>
+						<para xml:id="de_3814" xml:lang="de">In den Beispieldateien befinden sich zu den einzelnen Abschnitten Kommentare in deutsch und
 				englisch, die die speziellen Lösungen näher beschreiben. </para><para xml:id="en_3814" xml:lang="en">In the example files there are comments in German and English for the individual paragraphs, which describe certain solutions in more detail.</para>
 		</section>
 		<section role="Anhang" xml:id="AppendixNormsystem">
