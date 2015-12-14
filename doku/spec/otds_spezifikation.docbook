@@ -2246,13 +2246,16 @@
 									</tbody>
 								</tgroup>
 							</table>
-						<para xml:id="de_839" xml:lang="de">
-						Die erste Zeile der folgenden Tabelle drückt beispielsweise aus, dass die
-							Date-Condition überall verwendet werden kann. Die ConditonalTags-Condition in der
-							zehnten Zeile kann nur innerhalb der PriceItems verwendet werden. Bitte beachten
-							Sie diese Restriktionen. Die aktuellen OTDS-Validierungsmaßnahmen machen diesbzgl.
-							keine Einschränkungen. 
-						</para><para xml:id="en_839" xml:lang="en">The first line of the following table, for example, shows that the Date condition can be used everywhere. The ConditonalTags condition in the tenth row can only be used within the PriceItems. Please take note of these restrictions. The current OTDS validation measures make no restrictions in this regard.</para>
+						<para xml:id="de_839" xml:lang="de"> Die erste Zeile der folgenden Tabelle drückt
+							beispielsweise aus, dass die Date-Condition überall verwendet werden
+							kann. Die ConditionalTags-Condition in der zehnten Zeile kann nur
+							innerhalb der PriceItems verwendet werden. Bitte beachten Sie diese
+							Restriktionen. Die aktuellen OTDS-Validierungsmaßnahmen machen diesbzgl.
+							keine Einschränkungen. </para><para xml:id="en_839" xml:lang="en">The first line of the following table, for example, shows that
+							the Date condition can be used everywhere. The ConditionalTags condition
+							in the tenth row can only be used within the PriceItems. Please take
+							note of these restrictions. The current OTDS validation measures make no
+							restrictions in this regard.</para>
 							<table frame="all">
 								<title><phrase xml:id="de_840" xml:lang="de">Verwendbarkeit der einzelnen Conditions</phrase><phrase xml:id="en_840" xml:lang="en">Applicability of the individual conditions</phrase></title>
 								<tgroup cols="5" align="left" colsep="1" rowsep="1">
@@ -3104,13 +3107,18 @@
 							<para xml:id="de_959" xml:lang="de">Es werden immer zwei oder mehrere Tags auf Gleichheit
 								überprüft. Dem entsprechend ist das Element "Tag" in MatchEqual ein
 								leeres Element, gibt also keinen eigenen Value vor. </para><para xml:id="en_959" xml:lang="en">Two or more Tags are always checked for parity. Accordingly, the element "Tag" in MatchEqual is an empty element and does not have its own value.</para>
-							<para>Die Auswertung bzgl. der ConditionalTags erfolgt analog bis auf die Tatsache, dass
+							<para xml:id="de_5380" xml:lang="de">Die Auswertung bzgl. der ConditionalTags erfolgt analog - bis auf die Tatsache, dass
 								zuerst geprüft wird, ob die ConditionalTags überhaupt valide sind.
 								Handelt es sich um ConditionalTags, die nur für einzelne Tage oder
 								Personen gültig sind, so ist die Matchequal-Bedingung dann erfüllt,
 								wenn ein Value an einem Tag oder einer Person zu einem Value des
 								anderen ConditionalTags an einem beliebigen Tag oder Person
-								identsich ist. </para>
+								identisch ist.</para>
+							<para xml:id="en_5380" xml:lang="en">The evaluation regarding the ConditionalTags takes place analogical - 
+								except for the fact that there is a check if the ConditionalTags are valid in the first place.
+								For ConditionalTags that are valid for single days or persons, the Matchequal Condition is fulfilled if a 
+								value attached to a day or to a person is identical to a value of another ConditionalTag regarding 
+								an arbitrary day or person.</para>
 							<para xml:id="de_960" xml:lang="de">Neben den Tags können auch Felder miteinander verglichen
 								werden. Auch hier wird die betrachtete Komponente/Unterkomponente
 								durch das Attribute "Source" definiert. Der Wert des Elementes
@@ -3295,10 +3303,12 @@
 									</tbody>
 								</tgroup>
 							</table>
-							<para xml:lang="de">Die Bedingung prüft nun durch Vergleich der Indizes,
+							<para xml:id="de_984" xml:lang="de">Die Bedingung prüft nun durch Vergleich der Indizes,
 								welche Tage die DayIndex-Bedingung erfüllen. Der Vergleich erfolgt
 								entweder durch eine durch Space getrennte Liste von einzelnen
-								Indizes oder über die Angabe der Werte "Until" bzw. "From".</para><para xml:id="en_984" xml:lang="en">The "DayIndex" element defines a validity for specific days of an itinerary. All days are sorted according to the itinerary and placed in an index which ascends starting from 1. Simultaneously, all days are inversely sorted and given an additional descending negative value starting from -1. Every day of travel under consideration therefore has two indices: A positive and a negative. The indices are compared to determine which days meet the DayIndex condition. The comparison is done either through a list of individual indices separated by space or the through the specification of the values "Until" or "From".</para>
+								Indizes oder über die Angabe der Werte "Until" bzw. "From".</para>
+							<para xml:id="en_984" xml:lang="en">The condition now validates by comparing the indices, which days fulfill the "DayIndex" condition. The comparison is done either through a list of individual 
+								indices separated by space or the through the specification of the values "Until" or "From".</para>
 							<para xml:id="de_985" xml:lang="de"><emphasis role="bold">Until=X</emphasis> definiert in
 								einer zeitlich aufsteigenden Liste der Tage, dass alle Tage dieser
 								Liste bis zum Index X die Bedingung erfüllen. Die Auswertung ist
@@ -4420,20 +4430,26 @@
 						<para xml:id="en_5370" xml:lang="en">The NonImpact Wrapper allows to express, that a complex condition which also contains 
 							ImpactConditions in the end is to be evaluated as a NON-Impact. For instance the condition: “A price is valid, if a 
 							Friday and a season A is included.” This can be achieved by using two ImpactConditions and then wrapping those with the NonImpact Wrapper.</para> 
-						<para xml:id="de_5371" xml:lang="de">Der NonImpact-Wrapper kann auch dabei helfen, wenn man 
-							kombinierte CheckIn- und StaySeasons mit nur einem ConditionalTag ausdrücken will. Dabei 
-							kann mit den Elementen DayBase und PersonBase definiert werden, welche Kostenknoten überhaupt 
-							bei der Auswertung berücksichtigt werden. Das Attribut "EvaluationMode" definiert, ob ein 
-							Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen müssen. Das Attribut 
-							"EvaluationMode" definiert die spezifische Auswertung der Condition auf der Ebene der 
-							Kostenknoten (Day-/Personknoten). Ist der Wert "Any" gesetzt, so ist die Conditon bereits 
-							erfüllt, wenn nur ein einzelner Kostenknoten die Bedingung erfüllt. Ist der Wert "All" gesetzt, 
-							so ist die Condition nur erfüllt, wenn alle Kostenknoten die Bedingung erfüllen.</para>
-						<para xml:id="en_5371" xml:lang="en">The NonImpact Wrapper can also help to express combined CheckIn- and StaySeasons with 
-							only one ConditionalTag. Here the elements DayBase and PersonBase define, which cost nodes are to be considered in the 
-							evaluation. The attribute “EvaluationMode” defines the specific evaluation of the Condition on the level of cost nodes 
-							(Day-/PersonNode). If “Any” is stadet, the condition is fulfilled as soon as a single cost nodes fulfills it. If “All” 
-							is stated, the condition is only fulfilled when all cost nodes fulfill it.</para>
+						<para xml:id="de_5371" xml:lang="de">Der NonImpact-Wrapper kann auch dabei helfen, wenn man
+							kombinierte CheckIn- und StaySeasons mit nur einem ConditionalTag
+							ausdrücken will. Dabei kann mit den Elementen DayBase und PersonBase
+							definiert werden, welche Kostenknoten überhaupt bei der Auswertung
+							berücksichtigt werden. Das Attribut "EvaluationMode" definiert, ob ein
+							Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen
+							müssen. Das Attribut "EvaluationMode" definiert die spezifische
+							Auswertung der Condition auf der Ebene der Kostenknoten
+							(Day-/Personknoten). Ist der Wert "Any" gesetzt, so ist die Condition
+							bereits erfüllt, wenn nur ein einzelner Kostenknoten die Bedingung
+							erfüllt. Ist der Wert "All" gesetzt, so ist die Condition nur erfüllt,
+							wenn alle Kostenknoten die Bedingung erfüllen.</para>
+						<para xml:id="en_5371" xml:lang="en">The NonImpact Wrapper can also help to express combined
+							CheckIn- and StaySeasons with only one ConditionalTag. Here the elements
+							DayBase and PersonBase define, which cost nodes are to be considered in
+							the evaluation. The attribute “EvaluationMode” defines the specific
+							evaluation of the Condition on the level of cost nodes
+							(Day-/PersonNode). If “Any” is stated, the condition is fulfilled as
+							soon as a single cost nodes fulfills it. If “All” is stated, the
+							condition is only fulfilled when all cost nodes fulfill it.</para>
 						<para xml:id="de_5372" xml:lang="de">Mit dem Attribut "EvaluationMode" definiert man, wie die einzelnen Person-/Dayknoten
 							ausgewertet werden. Mit "Any", ist die NonImpact-Bedingung erfüllt, wenn ein beliebiger Knoten die Condition erfüllt. Mit 
 							"All" ist die NonImpact-Bedingung erfüllt, wenn die durch DayBase und PersonBase definierten Kostenknoten die Condition erfüllen.</para>
@@ -6368,7 +6384,10 @@ usw.]]></programlisting>
 						Werte als Aufschlag. Der absolute Wert wird im Element <code>Value</code> angegeben. </para><para xml:id="en_1314" xml:lang="en">Many surcharges or discounts are depicted as absolute amounts. The surcharges or discounts, which are delivered as absolute values, are accumulated with the corresponding price components in accordance with the accompanying rules. The absolute value is given in the element <code>Value</code> .</para>
 					<para xml:id="de_1315" xml:lang="de">Für ein absolutes PriceItem muss die Bezugsbasis festgelegt werden, d.h. wie der
 						angegebene Preis auf einzelne Tage (<code>DayBase</code>) und auf einzelne Personen
-							(<code>PersonBase</code>) verteilt wird. </para><para xml:id="en_1315" xml:lang="en">For an absolute PriceItem the reference base has to be defined, i.e. how the given price is spread over individual days (<code>DayBase</code> ) and individual persons (<code>PersonBase</code> ).</para>
+							(<code>PersonBase</code>) verteilt wird. </para><para xml:id="en_1315" xml:lang="en">For an absolute PriceItem the reference base has to be defined,
+						i.e. how the given price is spread over individual days
+							(<code>DayBase</code>) and individual persons
+						(<code>PersonBase</code>).</para>
 
 					<bridgehead xml:id="de_1316" xml:lang="de">DayBase</bridgehead><bridgehead xml:id="en_1316" xml:lang="en">DayBase</bridgehead>
 					<para xml:id="de_1317" xml:lang="de">In <code>DayBase</code> wird definiert, wie sich der Value
@@ -14987,8 +15006,11 @@ usw.]]></programlisting>
 				<section xml:id="OtdsProcessConditionsConditionalTags">
 					<title><phrase xml:id="de_2607" xml:lang="de"><code>ConditionalTags</code> Bedingung</phrase><phrase xml:id="en_2607" xml:lang="en"><code>ConditionalTags</code> condition</phrase></title>
 
-					<para xml:id="de_2608" xml:lang="de">Diese Bedingung entspricht der <code>Tags</code> Bedingung, überprüft aber die
-							<code>ConditonalTag</code> Angaben der Kontext-Instanz.</para><para xml:id="en_2608" xml:lang="en">This condition is equivalent to the <code>Tags</code>  condition, but processes context instance of the<code>ConditonalTag</code> .</para>
+					<para xml:id="de_2608" xml:lang="de">Diese Bedingung entspricht der <code>Tags</code>
+						Bedingung, überprüft aber die <code>ConditionalTag</code> Angaben der
+						Kontext-Instanz.</para><para xml:id="en_2608" xml:lang="en">This condition is equivalent to the <code>Tags</code>
+						condition, but processes context instance of the <code>ConditionalTag</code>
+						.</para>
 
 					<para xml:id="de_2609" xml:lang="de">Im ersten Schritt werden die Bedingungen aller <code>ConditionalTag</code> Angaben
 						der Kontext-Instanz ausgewertet. Nur die <code>Tags</code> Kinder <code>True</code>
