@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://otds-group.org/otds"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:internal="http://otds-group.org/otds/internal"
+           xmlns:z="http://www.xsdr.org/ns/structure"
+           targetNamespace="http://otds-group.org/otds"
+           elementFormDefault="qualified">
+   <xs:include schemaLocation="otds-schema-common.xsd"/>
+   <xs:include schemaLocation="otds-schema-addon.xsd"/>
+   <xs:complexType name="AccommodationsType">
+      <xs:complexContent>
+         <xs:extension base="CompositeUpdateNodeType">
+            <xs:sequence>
+               <xs:element name="Accommodation"
+                           type="AccommodationType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_2">Reisekomponente für Unterbringungen
+Dieser Zweig enthält alle relevanten Daten (Stammdaten, Preise, Verfügbarkeiten) für Unterbringungen wie Hotels, Ferienwohnungen und Ferienhäusern. 
+Jede Reisekomponente kann unter Produkte (Products) alleine oder mit anderen Komponenten zu verkausfertigen Angeboten zusammengefasst werden.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_2">Travel component for accommodation
+This branch contains all of the relevant information (master data, prices, availability) for accommodation options, such as hotels, holiday apartments and holiday homes.
+All travel components can be pooled under Products either on their own or with other components as ready-for-sale product offers.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_3">Preisberechnung auf Accomodations-Ebene
+Preise, die für alle Unterkünfte in der Datenlieferung gelten
+</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_3">Calculating the price at accommodation level
+Prices, which are valid for all accommodation in the data delivery</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="AccommodationType">
+      <xs:annotation>
+         <xs:documentation xml:lang="de" xml:id="de_5">Beschreibung der Unterkunft / des Hotels - 
+Name - Adresse - Besonderheiten und Einrichtungen - 
+Preise - Verfügbarkeiten - Belegungen </xs:documentation>
+         <xs:documentation xml:lang="en" xml:id="en_5">Description of the accommodation/hotel -
+name - address - features and facilities -
+prices - room availability - occupancy</xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Properties"
+                           type="PropertiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Unterbringung:
+Name, Adresse, Lage der Unterkunft, Kategorien
+Merkmale und Eigenschaften der Unterkunft</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_6">Master data for accommodation:
+Name, address, location of accommodation, category
+Features and characteristics of the property</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Filter"
+                           type="FilterSimpleNodeType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de">Bedingungen auf Accommodation-Ebene
+Hier können Regeln und Einschränkungen auf Hotelebene definiert werden.</xs:documentation>
+                     <xs:documentation xml:lang="en">Conditions at accommodation level
+Here, rules and restrictions are defined at the hotel level.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="SellingAccom"
+                           type="SellingAccomType"
+                           maxOccurs="unbounded"
+                           internal:otdsversion="1.9"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_7">Verkaufsrelevante Daten der Unterbringung:
+enthält u.a. Preise und Verfügbarkeiten.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_7">Data relevant to the sale of accommodation:
+including price and availability amongst other factors.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="CatchmentAirports"
+                           type="SimpleNodeIataAirportCodeListType"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_8">Alle Flughäfen, die im Einzugsgebiet der Accommodation liegen.
+Angaben erfolgen als (IATA Airport-Code). Es ist in Form einer XML-List auch die Angabe mehrerer Flughäfen durch Space getrennt möglich.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_8">All airports situated in the catchment area of the accommodation.
+Information is given as (IATA airport code). It is also possible, in the form of an XML list, to specify several airports using a space between each.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de">Preisbestandteile auf Accommodation-Ebene</xs:documentation>
+                     <xs:documentation xml:lang="en">Pricing at accommodation level</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Availabilities"
+                           type="AvailabilitiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_9">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Aailabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
+Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
+Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_9">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:element name="SellingAccom"
+               type="SellingAccomType"
+               internal:otdsversion="1.9">
+      <xs:annotation>
+         <xs:documentation xml:lang="de" xml:id="de_10">Verkaufsrelevante Daten der Unterbringung:
+enthält u.a. Preise und Verfügbarkeiten.</xs:documentation>
+         <xs:documentation xml:lang="en" xml:id="en_10">Data relevant to the sale of accommodation:
+including price and availability amongst other factors.</xs:documentation>
+      </xs:annotation>
+      <xs:unique name="UniqueUnit">
+         <xs:selector xpath="./Unit"/>
+         <xs:field xpath="@Key"/>
+      </xs:unique>
+   </xs:element>
+   <xs:complexType name="SellingAccomType">
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Booking" type="BookingType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_11">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_11">In this element, all values ​​required for booking are combined. Other namespaces can be added to the BookingEntry later, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Properties"
+                           type="PropertiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_12">Merkmale und Eigenschaften der Unterkunft, inkludierte Zusatzleistungen</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_12">Features and characteristics of the accommodation, included add-ons.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Filter"
+                           type="FilterSimpleNodeType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_13">Bedingungen auf Unterkunft-/Hotelebene
+Hier können Regeln und Einschränkungen auf Hotelebene definiert werden.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_13">Conditions at accommodation/hotel level
+Here, rules and restrictions are defined at the hotel level.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Board"
+                           type="BoardType"
+                           maxOccurs="unbounded"
+                           minOccurs="0"/>
+               <xs:element name="Unit" type="UnitType" maxOccurs="unbounded" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_14">Definition auf Unitebene
+In Unit werden die Stammdaten der Unit festgelegt.
+Belegung und Preisbestandteile werden in SellingUnit geliefert.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_14">Definition at the unit level
+At the unit level the master data of the unit can be specified.
+Occupancy and pricing components are specified in the SellingUnit.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_15">Preisberechnung auf Unterkunfts- / Hotelebene </xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_15">Pricing at accommodation / hotel level</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="NeighbourComponentCorrection"
+                           type="NeighbourComponentCorrectionType"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_16">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Componenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen.
+Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt.
+Wie gesagt für Accommodation ist zur Zeit kein Fallbeispiel bekannt.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_16">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined.. We are currently only aware of flight implications.
+This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
+As previously stated there is currently no other known factor that would influence the Accommodation dates.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="BoardType">
+      <xs:annotation>
+         <xs:documentation xml:lang="de" xml:id="de_17">Definition der Verpflegung</xs:documentation>
+         <xs:documentation xml:lang="en" xml:id="en_17">Definition of catering</xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Booking" type="BookingType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_18">In diesem Element werden alle Daten zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Werte zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_18">In this element, all values ​​required for booking are combined. Other namespaces can later be added to the BookingEntry, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Properties"
+                           type="PropertiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_19">Genauere Spezifizierung der Verpflegung</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_19">More detailed specification of catering</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Filter"
+                           type="FilterSimpleNodeType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_20">Einschränkungen in Bezug auf die Verpflegung (Board)</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_20">Restrictions with reference to catering</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_21">Preisberechnung der Verpflegung</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_21">Pricing of catering</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="UnitType">
+      <xs:annotation>
+         <xs:documentation xml:lang="de" xml:id="de_22">Art der Unterkunft
+Single
+Double
+Apartment
+Studio
+Bungalow
+Triple
+Suite
+Other
+</xs:documentation>
+         <xs:documentation xml:lang="en" xml:id="en_22">Type of accommodation
+Single
+Double
+Apartment
+Studio
+Bungalow
+Triple
+Suite
+Other</xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Properties"
+                           type="PropertiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_23">Stammdaten und Ausstattung des Zimmers / der Ferienwohnung</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_23">Master data and amenities of the room/ holiday apartment</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="SellingUnit"
+                           type="SellingUnitType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_24">Verkaufsdaten auf Zimmerebene
+Buchungsdaten, Belegung, Verfügbarkeiten, Preisbestandteile</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_24">Price data at the room level
+Booking data, occupancy, availability, price components</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="SellingUnitType">
+      <xs:annotation>
+         <xs:documentation xml:lang="de" xml:id="de_25">Der logische Knoten definiert Unterbringungsangebote wie Hotelzimmer oder 	Ferienhaustypen.
+						</xs:documentation>
+         <xs:documentation xml:lang="en" xml:id="en_25">The logical node defines the accommodation offer, the hotel room or holiday home type.</xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+            <xs:sequence>
+               <xs:element name="Booking" type="BookingType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_26">Buchungsdaten des Zimmers:
+											UnitCode</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_26">Booking data for the room:
+UnitCode</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Properties"
+                           type="PropertiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_27">Ausstattungsvarianten und inkudierte Zusatzleistungen der Unterkunft</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_27">Variations in amenities and add-ons included with the accommodation</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Filter"
+                           type="FilterSimpleNodeType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_28">Bedingungen, die für ein bestimmtes Zimmer/App. gelten.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_28">Conditions for a specific room/apartment</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Occupancy"
+                           type="OccupancyType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_29">Belegungsvarianten der Unterkünfe/Zimmer
+Personen werden nach Alter absteigend definiert.
+Exclude ermöglicht den Ausschluss von Belegungsmöglichkeiten.</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_29">Occupancy variations for a room/apartment
+Persons are defined in descending order by age.
+Exclude allows for restricted occupancy criteria.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="PriceItems"
+                           type="PriceItemsType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_30">Preisberechnung auf Zimmerebene</xs:documentation>
+                     <xs:documentation xml:lang="en" xml:id="en_30">Price data at room level</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="Availabilities"
+                           type="AvailabilitiesType"
+                           maxOccurs="unbounded"
+                           minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation>Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Aailabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
+Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
+Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken.</xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+</xs:schema>

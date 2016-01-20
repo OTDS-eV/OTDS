@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified" xmlns:internal="http://otds-group.org/otds/internal">
+	<xs:include schemaLocation="otds-schema-common.xsd"/>
+	<xs:include schemaLocation="otds-schema-flight.xsd"/>
+	<xs:include schemaLocation="otds-schema-accommodation.xsd"/>
+	<xs:complexType name="ProductsType">
+		<xs:complexContent>
+			<xs:extension base="CompositeUpdateNodeType">
+				<xs:sequence>
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0"/>
+					<xs:element name="GlobalValues" type="GlobalValuesType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_518">Definition der GlobalValues wie Subcontractors (Exklusivkunden) und spezifische Saleschannel</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_518">Definition of the GlobalValues such as Subcontractors (exclusive customers) and specific sales channels.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Booking" type="BookingType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_291">Diese Buchungsinformationen, die benutzt werden um in einer Rule die Buchungsparameter der Einzelkomponenten komplett zu überschreiben. Im Flugbereich wird dies häufig bei der Definition von Flughülsen verwendet, die die Buchungsinformationen der beteiligten Einzelflüge überschreiben.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_291">This booking information is used to completely override the booking parameters of the individual components in a rule. In the context of flights, this is commonly used in defining flight envelopes that override the booking information of the individual flights involved.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Unterbringung:
+Name, Adresse, Lage der Unterkunft, Kategorien
+Merkmale und Eigenschaften der Unterkunft</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_6">Master data for accommodation:
+Name, address, location of accommodation, category
+Features and characteristics of the property</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Product" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="RulesType">
+									<xs:attribute name="ProductType" type="ProductTypeEnum" use="required">
+										<xs:annotation>
+											<xs:documentation xml:lang="de" xml:id="de_519">In diesem Attrinbut wird angegeben, welche Art von Produkt mit dieser Rule definiert wird. Folgende Werte sind zugelassen:
+- AccommodationOnly
+  Beinhaltet alle Nur-Hotel Angebote, die ggf. auch PflichtAddons enthalten können.
+
+- OnewayFlightOnly
+   Beinhaltet alle Nur-Flug Angebote von Oneways, die ggf. auch PflichtAddons enthalten können.
+
+- ReturnFlightOnly
+  Beinhaltet alle Nur-Flug Angebote von Returns, die ggf. auch PflichtAddons enthalten können.
+
+- FlightAccommodation
+ Beinhaltet alle Pauschalangebote bestehend aus Hin- und Rückflug + Unterkunft, die ggf. auch PflichtAddons enthalten können.
+
+- OptionalAccommodationAddons
+ Beinhaltet die Regeln für die optinal zu Unterkünften zubuchbaren Addons. Diese Regeln sind zur Auswertung im Aftersales-Bereich gedacht.
+
+- OptionalOnewayFlightAddons
+ Beinhaltet die Regeln für die optinal zu Oneways zubuchbaren Addons. Diese Regeln sind zur Auswertung im Aftersales-Bereich gedacht.
+
+- OptionalReturnFlightAddons
+ Beinhaltet die Regeln für die optinal zu Returns zubuchbaren Addons. Diese Regeln sind zur Auswertung im Aftersales-Bereich gedacht.
+</xs:documentation>
+											<xs:documentation xml:lang="en" xml:id="en_519">The type of product defined with this rule is specified in this attribute. The following values are permitted:
+- AccommodationOnly
+Contains all hotel-only offers, which can also contain CompulsoryAddons.
+
+- OnewayFlightOnly
+Contains all one-way flight-only offers, which can also contain CompulsoryAddons.
+
+- ReturnFlightOnly
+Contains all return flight-only offers, which can also contain CompulsoryAddons.
+
+- FlightAccommodation
+Contains all package deals consisting of outbound and return flights + accommodation, which can also contain CompulsoryAddons.
+
+- OptionalAccommodationAddons
+Contains the rules for the Addons that are optionally bookable with accommodation. These rules are intended for evaluation in the after-sales area.
+
+- OptionalOnewayFlightAddons
+Contains the rules for the Addons that are optionally bookable with one-way flights. These rules are intended for evaluation in the after-sales area.
+
+- OptionalReturnFlightAddons
+Contains the rules for the Addons optionally bookable with return flights. These rules are intended for evaluation in the after-sales area.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="ProductFeatures" type="ProductFeaturesAttributeListType">
+										<xs:annotation>
+											<xs:documentation>Hier können ProductFeatures  angegeben werden, die von der OTDS-Datenlieferung unterstützt werden. 
+Mögliche Values sind:
+
+- PartyPriceProduction
+- AdultPriceProduction
+- CityPairProduction
+
+Es kann eine durch Space getrennte Liste der Values angegeben werden. 
+
+Falls die Features hier gesetzt sind, können entsprechende externe Parameter bei der Verarbeitung gesetzt werden, die sich auf die Produktion auswirken. Das wird durch GenericTags erreicht, die den Value des externen Parameters annehmen.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="det">Preisbestandteile auf globaler Ebene, die für alle Produkte gelten.
+							Beachten Sie das AbsolutePriceItems nur einmal in die Berechnung einbezogen werden und nicht für jede Komponente einmal.
+</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GlobalValuesType">
+		<xs:complexContent>
+			<xs:extension base="CompositeUpdateNodeType">
+				<xs:sequence>
+					<xs:element name="GlobalValue" type="GlobalValueType" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GlobalValueType">
+		<xs:complexContent>
+			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+				<xs:sequence>
+					<xs:element name="ParameterSet" type="ParameterSetType" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
