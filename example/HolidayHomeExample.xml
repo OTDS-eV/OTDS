@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Products>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+			<Filter Key="1">
+				<Tags Source="Accommodation" Class="PackageOnly"/>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="FWO1">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>FWO1</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+	  <Accommodation Key="FR3350.17.1">
+			<!-- DE Ferienhausbeispiel mit Dummy-Zimmer -->
+	    <!-- EN Holiday Home Example with dummy Unit -->
+			<Properties Key="1">
+				<PropertyGroup>
+				  <AccommodationCity>Lacanau</AccommodationCity>
+				  <AccommodationName>Ferienhaus Dominique</AccommodationName>
+					<AccommodationOperatorCategory>2</AccommodationOperatorCategory>
+					<AccommodationGeneralFacilities>ParkingArea</AccommodationGeneralFacilities>
+					<AccommodationLocations>QuietArea</AccommodationLocations>
+					<AccommodationAddress>
+						<GeoInfo>
+							<GeoCode>
+							  <Latitude>44.996028</Latitude>
+							  <Longitude>-1.196188</Longitude>
+								<Accuracy>2</Accuracy>
+							</GeoCode>
+						</GeoInfo>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+	    <SellingAccom Key="FW-FR3350.17.1">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+						  <Value>FR3350.17.1</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>FW</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Filter Key="1">
+					<And>
+						<BookingDateOffset Source="Product">
+							<Min>3</Min>
+						</BookingDateOffset>
+						<Duration Source="Product">
+							<Min>4</Min>
+						</Duration>
+					</And>
+				</Filter>
+				<Board Key="OV">
+					<Booking>
+						<BookingGroup Area="ServiceArea">
+							<BookingParameter Field="BoardCode">
+								<Value>OV</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Ohne Verpflegung</BoardName>
+							<BoardType>None</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Unit Key="DUMMY">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>HolidayHome</UnitType>
+						  <UnitFacilities>BalconyTerrace Dishwasher TV WashingMachine</UnitFacilities>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="DUMMY">
+						<Tags>
+							<ConditionalTag>
+								<Tag Class="PersonType">FullPayer</Tag>
+								<Condition>
+									<PersonImpact>
+										<PersonIndex Source="Product">
+											<Until>6</Until>
+										</PersonIndex>
+									</PersonImpact>
+								</Condition>
+							</ConditionalTag>
+						</Tags>
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+							  <!-- DE Dummy-Zimmer hat keine Unterbringung -->
+							  <!-- EN dummy unit has no ServiceFeatureCode -->
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value></Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+							  <UnitName>5 Zimmer / 3 Schlafzimmer</UnitName>
+								<UnitType>HolidayHome</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							  <MaxCount>6</MaxCount>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+	    </SellingAccom>
+	  </Accommodation>
+	</Accommodations>
+</Otds>

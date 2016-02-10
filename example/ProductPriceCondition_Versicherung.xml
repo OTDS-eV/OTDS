@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.9">
+	<Products>
+		<Product Key="Accom" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+		</Product>
+		<Product Key="Package" ProductType="FlightAccommodation">
+			<Components>
+				<DefinedComponent UseRole="ReturnFlight"/>
+				<Accommodation/>
+			</Components>
+		</Product>
+		<!-- Versicherungen die eine Preisabhängigkeit beinhalten, können immer nur als AddOn Komponente mit einer bestehenden Produktkomponente auftreten.
+        Die Produktkomponente ist die Komponente auf die sich der Versicherungspreise beziehen -->
+		<Product ProductType="Addon" Key="Versicherung">
+			<Components>
+				<ProductComponent Name="ProductForInsurance" ProductType="FlightAccommodation"/>
+				<Addon/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="main">
+			<Booking>
+				<BookingGroup Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>XYZ</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<!-- Beispiel Unterbringung, Details der Unterbringung sind für dieses Beispiel nicht relevant -->
+		<Accommodation Key="12345">
+			<SellingAccom Key="1">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>12345</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="DZ">
+					<SellingUnit Key="DZ">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="A">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+						<PriceItems Key="1">
+							<PriceItem Class="Base">
+								<Absolute>
+									<Value>65</Value>
+									<DayBase>1</DayBase>
+									<PersonBase>1</PersonBase>
+								</Absolute>
+							</PriceItem>
+						</PriceItems>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+	<Addons>
+		<!--  Versicherungsleistung. Der Preis der Versicherung ist abhängig vom Gesamtbuchungspreis-->
+		<Addon Key="VERS1">
+			<Booking>
+				<BookingGroup Area="ServiceArea">
+					<BookingParameter Field="ServiceCode">
+						<Value>VERS1</Value>
+					</BookingParameter>
+					<BookingParameter Field="RequestCode">
+						<Value>V</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AddonName>Versicherung 1</AddonName>
+					<AddonServiceType>
+						<Insurance>CancelationInsurance</Insurance>
+					</AddonServiceType>
+				</PropertyGroup>
+			</Properties>
+			<Service Key="1">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceFeatureCode">
+							<Value>A</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+			</Service>
+			<PriceItems Key="Prices">
+				<!-- Preis der Versicherung ist abhängig vom Gesamtpreis der anderen Komponenten -->
+				<PriceItem Class="VERS">
+					<Absolute>
+						<Value>12</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<ProductPrice ConsiderationBase="Total">
+							<Max>1000.00</Max>
+						</ProductPrice>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="VERS">
+					<Absolute>
+						<Value>17</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<ProductPrice ConsiderationBase="Total">
+							<Min>1000.01</Min>
+							<Max>1500.00</Max>
+						</ProductPrice>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="VERS">
+					<Absolute>
+						<Value>20</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<ProductPrice ConsiderationBase="Total">
+							<Min>1500.01</Min>
+						</ProductPrice>
+					</Condition>
+				</PriceItem>
+			</PriceItems>
+		</Addon>
+		<!--  Versicherungsleistung. Der Preis der Versicherung ist abhängig vom Gesamtbuchungspreis je Teilnehmer-->
+		<Addon Key="VERS2">
+			<Booking>
+				<BookingGroup Area="ServiceArea">
+					<BookingParameter Field="ServiceCode">
+						<Value>VERS2</Value>
+					</BookingParameter>
+					<BookingParameter Field="RequestCode">
+						<Value>V</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AddonName>Versicherung 2</AddonName>
+					<AddonServiceType>
+						<Insurance>CancelationInsurance</Insurance>
+					</AddonServiceType>
+				</PropertyGroup>
+			</Properties>
+			<Service Key="1">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceFeatureCode">
+							<Value>A</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+			</Service>
+			<PriceItems Key="Prices">
+				<!-- Preis der Versicherung ist abhängig vom Preis des Reisenden in den anderen Komponenten des Angebots -->
+				<PriceItem Class="VERS">
+					<Absolute>
+						<Value>7</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<PersonImpact>
+							<ProductPrice ConsiderationBase="Person">
+								<Max>500.00</Max>
+							</ProductPrice>
+						</PersonImpact>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="VERS">
+					<Absolute>
+						<Value>9</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<PersonImpact>
+							<ProductPrice ConsiderationBase="Person">
+								<Min>500.01</Min>
+								<Max>1000.00</Max>
+							</ProductPrice>
+						</PersonImpact>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="VERS">
+					<Absolute>
+						<Value>13</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<PersonImpact>
+							<ProductPrice ConsiderationBase="Person">
+								<Min>1000.01</Min>
+							</ProductPrice>
+						</PersonImpact>
+					</Condition>
+				</PriceItem>
+			</PriceItems>
+		</Addon>
+	</Addons>
+</Otds>
