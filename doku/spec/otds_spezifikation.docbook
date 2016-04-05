@@ -9101,10 +9101,14 @@ usw.]]></programlisting>
 				<Booking>
 					<BookingGroup Area="ServiceArea" Source="SellingAccom">
 						<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
-							<!--In diesem Fall wird der Boardcode an den Zimmercode angefügt, wie es in aktuellen Buchungssystemen üblich ist.
-								Die Angabe des Namens ist Vorraussetzung dafür, dass ein "Field" nicht überschrieben wird, sondern die Inhalte zusamengesetzt werden.
+							<!-- In diesem Fall wird der Boardcode an den Zimmercode angefügt, wie es in aktuellen Buchungssystemen üblich ist.
+								Die Angabe des Namens ist Voraussetzung dafür, dass ein "Field" nicht überschrieben wird, sondern die Inhalte zusamengesetzt werden.
 								 Der Index definiert dabei die Reihenfolge der Zusammensetzung. Der Zimmercode hat keinen Index (also Default=o). Somit wird der BoardCode an den Zimmercode angefügt.
 								Siehe auch dazu: weiter unten die Definition des Zimmercodes unter SellingUnit.
+								-->
+							<!-- English remark: In this case the board code is being attached to the room code as common in recent booking systems. Indicating the name is a prerequisite for not overwriting a "field".  
+								The content parts will rather be combined. The index in this context defines the order of combination. The room code as no index (thus Default=o), so that the board code is being attached
+								to the room code. Please also refer to the definition of the room code in "SellingUnit" below.
 								-->
 							<Value>F</Value>
 						</BookingParameter>
@@ -9119,9 +9123,12 @@ usw.]]></programlisting>
 						<Booking>
 							<BookingGroup Area="ServiceArea" Source="SellingAccom">
 								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
-									<!-- Das Attribute "PadLength" ist ein Hinweis daruf, dass in diesem Feld Parameter zusammengesetzt werden. Der Zimmercode wird dabei auf eine Zeichenlänge von 3 Stellen gebracht, in dem Spaces am Ende eingefügt werden.
-											Die Art des Paddings kann spezifisch definiert werden. Bitte dazu die Beschreibung der anderen Attribute in der technischen Doku anschauen.
-									 -->
+									<!-- Das Attribut "PadLength" ist ein Hinweis daruf, dass in diesem Feld Parameter zusammengesetzt werden. Der Zimmercode wird dabei auf eine Zeichenlänge von 3 Stellen gebracht, in dem Spaces am Ende eingefügt werden.
+										 Die Art des Paddings kann spezifisch definiert werden. Bitte dazu die Beschreibung der anderen Attribute in der technischen Doku anschauen.
+										 -->
+									<!-- English remark: The attribute "PadLength" indicates that in this field parameters are being combined. The room code is being limited to 3 digits with spaces at the end.  
+										The kind of padding can be defined specifically. Please also refer to the descriptiono of the other attributes within the Technical Specification.
+										-->
 									<Value>A12</Value>
 								</BookingParameter>
 							</BookingGroup>
@@ -9137,6 +9144,7 @@ usw.]]></programlisting>
 	...
 	<OnewayFlights>
 		<!-- Der Returnflight wird hier aus 2 OnewayFlights zusammengesetzt, was in dem Beispiel nicht weiter ausgeführt wird -->
+		<!-- English remark: Thereturn flight is being set up from two OnewayFlights, which is not being elaborated on in the example -->
 		<OnewayFlight Key="DUSPMI">
 			<Booking>
 				<BookingGroup Area="ServiceArea" Source="OnewayFlight">
@@ -9478,7 +9486,9 @@ usw.]]></programlisting>
 								<entry align="left">
 									<para xml:id="de_1738" xml:lang="de">Abbildbare Produkte</para><para xml:id="en_1738" xml:lang="en">Representative products</para>
 								</entry>
-								<entry align="left">Bestandteile</entry>
+								<entry align="left">
+									<para xml:id="de_5604" xml:lang="de">Bestandteile</para><para xml:id="en_5604" xml:lang="en">Components</para>
+								</entry>
 							</row>
 						</thead>
 						<tbody>
@@ -9536,7 +9546,9 @@ usw.]]></programlisting>
 			<para xml:id="det_1751" xml:lang="de"/>
 			<para xml:id="det_1752" xml:lang="de"/>
 			<para xml:id="de_1753" xml:lang="de">In der Datenlieferung werden also die verschiedenen <emphasis role="bold">Reisekomponenten</emphasis> definiert, um sie alleine oder in Kombination mit anderen
-				Komponenten zu Produkten zusammenzufassen. </para><para xml:id="en_1753" xml:lang="en">The data delivery defines various <emphasis role="bold"> travel components</emphasis>either alone or in combination with others to assemble products.</para>
+				Komponenten zu Produkten zusammenzufassen. </para><para xml:id="en_1753" xml:lang="en">The data delivery defines various <emphasis role="bold">travel
+					components</emphasis> either alone or in combination with others to assemble
+				products.</para>
 			<para xml:id="det_1754" xml:lang="de"/>
 			<para xml:id="de_1755" xml:lang="de">So ist es möglich, <emphasis role="italic">Nur-Hotel</emphasis> (AccommodationOnly) oder
 					<emphasis role="italic">Pauschalangebote mit Flug und Hotel</emphasis>-Daten
@@ -9545,12 +9557,19 @@ usw.]]></programlisting>
 				Pauschalangebot zusammengefasst werden. Zusatzleistungen können in der Produktdefinition
 				geliefert werden, sind dann aber verpflichtende Addons. </para><para xml:id="en_1755" xml:lang="en">Thus it is possible to combine <emphasis role="italic">hotel only</emphasis> (AccommodationOnly) or <emphasis role="italic"> package deals with airfare and hotel</emphasis> data (FlightAccommodation) in a consignment. Here a hotel offer can for example be summarised as a standalone product, but also in combination with a return flight to create a package offer. Additional services can be specified in the product definition as obligatory.</para>
 			<para xml:id="de_1756" xml:lang="de">In der Datenlieferung werden die verschiedenen <emphasis role="bold">Reisekomponenten</emphasis> definiert, um sie später alleine oder in Kombination mit
-				anderen Komponenten zu Produkten zusammenzufassen. </para><para xml:id="en_1756" xml:lang="en">In the data delivery the various <emphasis role="bold"> travel components</emphasis> are defined which later (alone or in combination with other components) will be assembled into products.</para>
+				anderen Komponenten zu Produkten zusammenzufassen. </para><para xml:id="en_1756" xml:lang="en">In the data delivery the various <emphasis role="bold">travel
+					components</emphasis> are defined which later (alone or in combination with
+				other components) will be assembled into products.</para>
 			<para xml:id="de_1757" xml:lang="de">Es ist also möglich, Komponenten sowohl für <emphasis role="italic">Nur-Unterbringung</emphasis> als auch für Pauschalangebote (Flug und Unterbringung) in
 				einer Lieferung zusammenzufassen. Dabei kann z.B. eine Hotelkomponente ein eigenständiges
 				Produkt sein, aber auch als Komponente zusammen mit einem Hin- und Rückflug zu einem
 				Pauschalangebot zusammengefasst werden. Zusatzleistungen können sowohl als optionale als auch
-				als Pflichtkomponente innerhalb eines Produktes definiert werden.</para><para xml:id="en_1757" xml:lang="en">It is therefore possible to combine both components <emphasis role="italic"> accommodation only</emphasis> as well as packages (flight and accommodation) in a single delivery. Thus, for example, a hotel component can be both a standalone product or a component grouped together with a return flight to constitute a package. Additional services can be defined as either optional or obligatory components within a product.</para>
+				als Pflichtkomponente innerhalb eines Produktes definiert werden.</para><para xml:id="en_1757" xml:lang="en">It is therefore possible to combine both components <emphasis
+					role="italic">accommodation only</emphasis> as well as packages (flight and
+				accommodation) in a single delivery. Thus, for example, a hotel component can be
+				both a standalone product or a component grouped together with a return flight to
+				constitute a package. Additional services can be defined as either optional or
+				obligatory components within a product.</para>
 			<para xml:id="de_1758" xml:lang="de">Unterbringungen werden in Produkte (Products) zu verkaufsfertigen Produkten zusammengefasst.
 				Diese Produkte können Nur-Hotel (AccommodationOnly)-Angebote sein oder in Kombination mit
 				einem Flug zu einer Pauschalreise verknüpft werden. Das Produkt kann wiederum in den Bedingung
@@ -9563,7 +9582,13 @@ usw.]]></programlisting>
 				(Accommodations) enthält alle Eigenschaften der Unterkunft, die für die Suche,
 				Buchung und Preisberechnung der Unterkünfte notwendig sind. Beachte: Wohnmobile
 				zählen nicht zu den Unterkünften, sondern werden unter Zusatzleistungen
-				(AddonServices) als Mietwagen mit besonderen Attributen geliefert. </para><para xml:id="en_1760" xml:lang="en">One of the travel components is accommodation, which does not only contain hotels, but also holiday apartments and other local, fixed accommodation. The "accommodation" component (Accommodations) includes all the features of the accommodation needed for the search, booking and pricing of accommodation. Note: Mobile homes are not included in accommodation but may be provided under supplementary services (AddonServices) as a hire car with special attributes.</para>
+				(AddonServices) als Mietwagen mit besonderen Attributen geliefert. </para><para xml:id="en_1760" xml:lang="en">One of the travel components is accommodation, which does not
+				only contain hotels, but also holiday apartments and other local, fixed
+				accommodation. The "accommodation" component (Accommodations) includes all the
+				features of the accommodation needed for the search, booking and pricing of
+				accommodation. Note: Mobile homes are not included in accommodation but may be
+				provided under supplementary services (AddonServices) as a rental car with special
+				attributes.</para>
 			
 			
 			<bridgehead xml:id="de_1761" xml:lang="de">Flüge</bridgehead><bridgehead xml:id="en_1761" xml:lang="en">Flights</bridgehead>
@@ -9916,14 +9941,14 @@ usw.]]></programlisting>
 					</figure>
 					<para xml:id="de_1848" xml:lang="de">Nachfolgend werden einige typische Beispiel für Occupancy-Lieferungen
 						dargestellt.</para><para xml:id="en_1848" xml:lang="en">Some typical example of occupancy deliveries are presented below.</para>
-					<programlisting><![CDATA[<!-- Belegung für genau zwei Erwachsene -->
+					<programlisting><![CDATA[<!-- Belegung für genau zwei Erwachsene --> <!-- Occupancy for exactly two adults -->
 <Occupancy>
 	<Person>
 		<MinAge>18</MinAge>
 		<Count>2</Count>
 	<Person>
 </Occupancy>]]></programlisting>
-					<programlisting><![CDATA[<!-- Belegung für einen Erwachsenen und eine beliebige zweite Person -->
+					<programlisting><![CDATA[<!-- Belegung für einen Erwachsenen und eine beliebige zweite Person --> <!-- Occupancy for one adult any other person -->
 <Occupancy>
 	<Person>
 		<MinAge>18</MinAge>
@@ -9933,7 +9958,7 @@ usw.]]></programlisting>
 		<Count>1</Count>
 	<Person>
 </Occupancy>]]></programlisting>
-					<programlisting><![CDATA[<!-- Belegung für zwei Erwachsenen und ein optionales Kind bis 14 -->
+					<programlisting><![CDATA[<!-- Belegung für zwei Erwachsene und ein optionales Kind bis 14 --> <!-- Occupancy for two adults and an optional child up to the age of 14 -->
 <Occupancy>
 	<Person>
 		<MinAge>18</MinAge>
@@ -9944,7 +9969,7 @@ usw.]]></programlisting>
 		<MaxCount>1</MaxCount>
 	<Person>
 </Occupancy>]]></programlisting>
-					<programlisting><![CDATA[<!-- Belegung für zwei Erwachsenen und ein Kind bis 14 und eine unbegrenzte Anzahl an Babys -->
+					<programlisting><![CDATA[<!-- Belegung für zwei Erwachsene und ein Kind bis 14 und eine unbegrenzte Anzahl an Babys --> <!-- Occupancy for two adults and a child up to the age of 14 and an unlimited number of babies -->
 <Occupancy>
 	<Person>
 		<MinAge>18</MinAge>
@@ -9958,23 +9983,9 @@ usw.]]></programlisting>
 		<MaxAge>1</MaxAge>
 	<Person>
 </Occupancy>]]></programlisting>
-					<programlisting><![CDATA[<!-- Belegung für zwei Erwachsenen und ein Kind bis 14 und eine unbegrenzte Anzahl an Babys -->
-<Occupancy>
-	<Person>
-		<MinAge>18</MinAge>
-		<Count>2</Count>
-	<Person>
-	<Person>
-		<MaxAge>14</MaxAge>
-		<Count>1</Count>
-	<Person>
-	<Person>
-		<MaxAge>1</MaxAge>
-	<Person>
-</Occupancy>]]></programlisting>
-					<para xml:id="de_1849" xml:lang="de">
-						<link xlink:href="example/OccupancyExample.xml">Mehr Belegungsbeispiele aus der
-							Praxis</link>
+					
+					<para xml:id="de_1849" xml:lang="de"><link xlink:href="example/OccupancyExample.xml">Mehr
+							Belegungsbeispiele aus der Praxis</link>
 					</para><para xml:id="en_1849" xml:lang="en"><link xlink:href="example/OccupancyExample.xml">Further practical examples relating to occupancy</link></para>
 				</section>
 				<section>
@@ -9984,7 +9995,7 @@ usw.]]></programlisting>
 						werden.</para><para xml:id="en_1851" xml:lang="en">An exclusion option (Exclude) prevents certain occupancy variants.</para>
 					<para xml:id="de_1852" xml:lang="de">Nachfolgend ein Beispiel für eine Occupancy-Lieferung, bei
 						denen eine bestimmte Belegung ausgeschlossen wird.</para><para xml:id="en_1852" xml:lang="en">Below is an example of an occupancy delivery where certain combinations are excluded.</para>
-					<programlisting><![CDATA[<!-- Belegung für bis zu vier Personen, die vierste Person darf kein Kind sein, wenn bereits zwei Kinder dabei sind -->
+					<programlisting><![CDATA[<!-- Belegung für bis zu vier Personen, die vierte Person darf kein Kind sein, wenn bereits zwei Kinder dabei sind --> <!-- Occupany of up to four persons, the 4th person cannot be a child if there are already two children included -->
 <Occupancy>
 	<Person>
 		<MinAge>18</MinAge>
@@ -10197,42 +10208,42 @@ usw.]]></programlisting>
 					<para xml:id="de_1907" xml:lang="de">Im Knoten SellingAccom befindet sich das Booking Element,
 						in dem die Buchungsdaten geliefert werden, welche sich auf die gesamte
 						Unterbringung beziehen. In diesem Knoten werden die schon oben beschriebenen
-						notwendigen Angaben gemacht. </para><para xml:id="en_1907" xml:lang="en">The node SellingAccom contains the booking element, in which the booking data referring to the entire accommodation is delivered. In this node the above-mentioned necessary details are made.</para>
+						notwendigen Angaben gemacht.</para><para xml:id="en_1907" xml:lang="en">The node SellingAccom contains the booking element, in which the booking data referring to the entire accommodation is delivered. In this node the above-mentioned necessary details are made.</para>
 					<table frame="all">
 						<title><phrase xml:id="de_1908" xml:lang="de">Notwendige Buchungsparameter</phrase><phrase xml:id="en_1908" xml:lang="en">Necessary booking parameters</phrase></title>
 						<tgroup cols="3">
 							<thead>
 								<row>
-									<entry>Buchungsparameter</entry>
-									<entry>BookingGroup Area</entry>
-									<entry>BookingParameter Field</entry>
+									<entry><para xml:id="de_5606" xml:lang="de">Buchungsparameter</para><para xml:id="en_5606" xml:lang="en">Booking parameter</para></entry>
+									<entry><para xml:id="de_5607" xml:lang="de">BookingGroup Area</para><para xml:id="en_5607" xml:lang="en">BookingGroup Area</para></entry>
+									<entry><para xml:id="de_5608" xml:lang="de">BookingParameter Field</para><para xml:id="en_5608" xml:lang="en">BookingParameter Field</para></entry>
 								</row>
 							</thead>
 							<tbody>
 								<row>
-									<entry>Code der Marke (BrandCode)</entry>
-									<entry>GlobalArea</entry>
-									<entry>Brand</entry>
+									<entry><para xml:id="de_5609" xml:lang="de">Code der Marke</para><para xml:id="en_5609" xml:lang="en">BrandCode</para></entry>
+									<entry><para xml:id="de_5610" xml:lang="de">GlobalArea</para><para xml:id="en_5610" xml:lang="en">GlobalArea</para></entry>
+									<entry><para xml:id="de_5611" xml:lang="de">Brand</para><para xml:id="en_5611" xml:lang="en">Brand</para></entry>
 								</row>
 								<row>
-									<entry>Buchungscode der Leistung</entry>
-									<entry>ServiceArea</entry>
-									<entry>ServiceCode</entry>
+									<entry><para xml:id="de_5612" xml:lang="de">Buchungscode der Leistung</para><para xml:id="en_5612" xml:lang="en">BookingCode of the service</para></entry>
+									<entry><para xml:id="de_5613" xml:lang="de">ServiceArea</para><para xml:id="en_5613" xml:lang="en">ServiceArea</para></entry>
+									<entry><para xml:id="de_5614" xml:lang="de">ServiceCode</para><para xml:id="en_5614" xml:lang="en">ServiceCode</para></entry>
 								</row>
 								<row>
-									<entry>Anforderungscode der Leistung</entry>
-									<entry>ServiceArea</entry>
-									<entry>RequestCode</entry>
+									<entry><para xml:id="de_5615" xml:lang="de">Anforderungscode der Leistung</para><para xml:id="en_5615" xml:lang="en">RequestCode of the service</para></entry>
+									<entry><para xml:id="de_5616" xml:lang="de">ServiceArea</para><para xml:id="en_5616" xml:lang="en">ServiceArea</para></entry>
+									<entry><para xml:id="de_5617" xml:lang="de">RequestCode</para><para xml:id="en_5617" xml:lang="en">RequestCode</para></entry>
 								</row>
 								<row>
-									<entry>Startdatum der Leistung</entry>
-									<entry>ServiceArea</entry>
-									<entry>DateStart</entry>
+									<entry><para xml:id="de_5618" xml:lang="de">Startdatum der Leistung</para><para xml:id="en_5618" xml:lang="en">Startdate of the service</para></entry>
+									<entry><para xml:id="de_5619" xml:lang="de">ServiceArea</para><para xml:id="en_5619" xml:lang="en">ServiceArea</para></entry>
+									<entry><para xml:id="de_5620" xml:lang="de">DateStart</para><para xml:id="en_5620" xml:lang="en">DateStart</para></entry>
 								</row>
 								<row>
-									<entry>Enddatum der Leistung</entry>
-									<entry>ServiceArea</entry>
-									<entry>DateEnd</entry>
+									<entry><para xml:id="de_5621" xml:lang="de">Enddatum der Leistung</para><para xml:id="en_5621" xml:lang="en">Enddate of the service</para></entry>
+									<entry><para xml:id="de_5622" xml:lang="de">ServiceArea</para><para xml:id="en_5622" xml:lang="en">ServiceArea</para></entry>
+									<entry><para xml:id="de_5623" xml:lang="de">DateEnd</para><para xml:id="en_5623" xml:lang="en">DateEnd</para></entry>
 								</row>
 							</tbody>
 						</tgroup>
@@ -10242,14 +10253,14 @@ usw.]]></programlisting>
 						<tgroup cols="3">
 							<thead>
 								<row>
-									<entry>Buchungsparameter</entry>
-									<entry>BookingGroup Area</entry>
-									<entry>BookingParameter Field</entry>
+									<entry><para xml:id="de_5624" xml:lang="de">Buchungsparameter</para><para xml:id="en_5624" xml:lang="en">Booking parameter</para></entry>
+									<entry><para xml:id="de_5625" xml:lang="de">BookingGroup Area</para><para xml:id="en_5625" xml:lang="en">BookingGroup Area</para></entry>
+									<entry><para xml:id="de_5626" xml:lang="de">BookingParameter Field</para><para xml:id="en_5626" xml:lang="en">BookingParameter Field</para></entry>
 								</row>
 							</thead>
 							<tbody>
 								<row>
-									<entry>Reiseart</entry>
+									<entry><para xml:id="de_5627" xml:lang="de">Reiseart</para><para xml:id="en_5627" xml:lang="en">Type of holiday</para></entry>
 									<entry>GlobalArea</entry>
 									<entry>TravelType</entry>
 								</row>
@@ -10267,14 +10278,14 @@ usw.]]></programlisting>
 						<tgroup cols="3">
 							<thead>
 								<row>
-									<entry>Buchungsparameter</entry>
-									<entry>BookingGroup Area</entry>
-									<entry>BookingParameter Field</entry>
+									<entry><para xml:id="de_5628" xml:lang="de">Buchungsparameter</para><para xml:id="en_5628" xml:lang="en">Booking parameter</para></entry>
+									<entry><para xml:id="de_5629" xml:lang="de">BookingGroup Area</para><para xml:id="en_5629" xml:lang="en">BookingGroup Area</para></entry>
+									<entry><para xml:id="de_5630" xml:lang="de">BookingParameter Field</para><para xml:id="en_5630" xml:lang="en">BookingParameter Field</para></entry>
 								</row>
 							</thead>
 							<tbody>
 								<row>
-									<entry>Zimmercode</entry>
+									<entry><para xml:id="de_5631" xml:lang="de">Zimmercode</para><para xml:id="en_5631" xml:lang="en">RoomCode</para></entry>
 									<entry>ServiceArea</entry>
 									<entry>ServiceFeatureCode</entry>
 								</row>
@@ -10293,14 +10304,14 @@ usw.]]></programlisting>
 						<tgroup cols="3">
 							<thead>
 								<row>
-									<entry>Buchungsparameter</entry>
-									<entry>BookingGroup Area</entry>
-									<entry>BookingParameter Field</entry>
+									<entry><para xml:id="de_5632" xml:lang="de">Buchungsparameter</para><para xml:id="en_5632" xml:lang="en">Booking parameter</para></entry>
+									<entry><para xml:id="de_5633" xml:lang="de">BookingGroup Area</para><para xml:id="en_5633" xml:lang="en">BookingGroup Area</para></entry>
+									<entry><para xml:id="de_5634" xml:lang="de">BookingParameter Field</para><para xml:id="en_5634" xml:lang="en">BookingParameter Field</para></entry>
 								</row>
 							</thead>
 							<tbody>
 								<row>
-									<entry>Verpflegungscode</entry>
+									<entry><para xml:id="de_5635" xml:lang="de">Verpflegungscode</para><para xml:id="en_5635" xml:lang="en">BoardCode</para></entry>
 									<entry>ServiceArea</entry>
 									<entry>BoardCode</entry>
 								</row>
@@ -10311,7 +10322,7 @@ usw.]]></programlisting>
 						ist, dann ist es auch möglich, den Verpflegungscode in den
 						Buchungsparametern auf Unit-/Zimmerebene zu liefern.</para><para xml:id="en_1915" xml:lang="en">If the board code is linked to the room type, then it is also
 						possible to deliver the board code in the booking parameters to the
-						unit/room level</para>
+						unit/room level.</para>
 					<para xml:id="de_1916" xml:lang="de">
 						<link xlink:href="example/BookingActionsExamples.xml">Beispiel für die
 							Verwendung des Booking-Elements für eine Unterbringung</link>
@@ -10947,34 +10958,34 @@ usw.]]></programlisting>
 						<tgroup cols="3">
 							<thead>
 								<row>
-									<entry>Buchungsparameter</entry>
-									<entry>BookingGroup Area</entry>
-									<entry>BookingParameter Field</entry>
+									<entry><para xml:id="de_5636" xml:lang="de">Buchungsparameter</para><para xml:id="en_5636" xml:lang="en">Booking parameter</para></entry>
+									<entry><para xml:id="de_5637" xml:lang="de">BookingGroup Area</para><para xml:id="en_5637" xml:lang="en">BookingGroup Area</para></entry>
+									<entry><para xml:id="de_5638" xml:lang="de">BookingParameter Field</para><para xml:id="en_5638" xml:lang="en">BookingParameter Field</para></entry>
 								</row>
 							</thead>
 							<tbody>
 								<row>
-									<entry>Code der Marke (BrandCode)</entry>
+									<entry><para xml:id="de_5639" xml:lang="de">Code der Marke</para><para xml:id="en_5639" xml:lang="en">BrandCode</para></entry>
 									<entry>GlobalArea</entry>
 									<entry>Brand</entry>
 								</row>
 								<row>
-									<entry>Buchungscode des Fluges</entry>
+									<entry><para xml:id="de_5640" xml:lang="de">Buchungscode des Fluges</para><para xml:id="en_5640" xml:lang="en">BookingCode of the flight</para></entry>
 									<entry>ServiceArea</entry>
 									<entry>ServiceCode</entry>
 								</row>
 								<row>
-									<entry>Anforderungscode des Fluges</entry>
+									<entry><para xml:id="de_5641" xml:lang="de">Anforderungscode des Fluges</para><para xml:id="en_5641" xml:lang="en">RequestCode of the flight</para></entry>
 									<entry>ServiceArea</entry>
 									<entry>RequestCode</entry>
 								</row>
 								<row>
-									<entry>Startdatum des Fluges</entry>
+									<entry><para xml:id="de_5642" xml:lang="de">Startdatum des Fluges</para><para xml:id="en_5642" xml:lang="en">Start date of the flight</para></entry>
 									<entry>ServiceArea</entry>
 									<entry>DateStart</entry>
 								</row>
 								<row>
-									<entry>Enddatum des Fluges</entry>
+									<entry><para xml:id="de_5643" xml:lang="de">Enddatum des Fluges</para><para xml:id="en_5643" xml:lang="en">End date of the flight</para></entry>
 									<entry>ServiceArea</entry>
 									<entry>DateEnd</entry>
 								</row>
@@ -10992,14 +11003,15 @@ usw.]]></programlisting>
 						<tgroup cols="3">
 							<thead>
 								<row>
-									<entry>Buchungsparameter</entry>
-									<entry>BookingGroup Area</entry>
-									<entry>BookingParameter Field</entry>
+									<entry><para xml:id="de_5644" xml:lang="de">Buchungsparameter</para><para xml:id="en_5644" xml:lang="en">Booking parameter</para></entry>
+									<entry><para xml:id="de_5645" xml:lang="de">BookingGroup Area</para><para xml:id="en_5645" xml:lang="en">BookingGroup Area</para></entry>
+									<entry><para xml:id="de_5646" xml:lang="de">BookingParameter Field</para><para xml:id="en_5646" xml:lang="en">BookingParameter Field</para></entry>
 								</row>
 							</thead>
 							<tbody>
 								<row>
-									<entry>Code der Buchungsklasse</entry>
+									
+									<entry><para xml:id="de_5647" xml:lang="de">Code der Buchungsklasse</para><para xml:id="en_5647" xml:lang="en">BookingclassCode</para></entry>
 									<entry>ServiceArea</entry>
 									<entry>ServiceFeatureCode</entry>
 								</row>
@@ -11044,7 +11056,8 @@ usw.]]></programlisting>
 					für zum Beispiel FrauenSauna oder ähnliches</para><para xml:id="en_2014" xml:lang="en">Occupancies also require gender specific indicators, e.g. for FemaleSauna or similar.</para>
 				<para xml:id="de_2015" xml:lang="de">Kranken-, Unfall-, Reiserücktritt-,
 					Sportspezialversicherung (z.B. Ski)</para><para xml:id="en_2015" xml:lang="en">Health, accident, travel cancellation or specialised sports insurance (e.g. skiing)</para>
-				<para xml:id="de_2016" xml:lang="de">Mietwagen: Kategorie, Grundpreis, Extratage, Versicherungsupgrades</para><para xml:id="en_2016" xml:lang="en">Hire car: Category, base price, extra days, insurance upgrades</para>
+				<para xml:id="de_2016" xml:lang="de">Mietwagen: Kategorie, Grundpreis, Extratage, Versicherungsupgrades</para><para xml:id="en_2016" xml:lang="en">Rental car: Category, base price, extra days, insurance
+					upgrades</para>
 				<figure>
 					<title><phrase xml:id="de_2017" xml:lang="de">AddonServices</phrase><phrase xml:id="en_2017" xml:lang="en">AddonServices</phrase></title>
 					<mediaobject>
@@ -11270,7 +11283,7 @@ usw.]]></programlisting>
 						Wellnessangebote.</para><para xml:id="en_2069" xml:lang="en">In addition to a hotel offer there are sport offers such as golf, tennis or skiing, or health and spa offers.</para>
 					
 					
-						<bridgehead xml:id="de_2070" xml:lang="de">Unterkunftsbuchung mit Mietwagen</bridgehead><bridgehead xml:id="en_2070" xml:lang="en">Accommodation booking with car hire</bridgehead>
+						<bridgehead xml:id="de_2070" xml:lang="de">Unterkunftsbuchung mit Mietwagen</bridgehead><bridgehead xml:id="en_2070" xml:lang="en">Accommodation booking with rental car</bridgehead>
 						<para xml:id="de_2071" xml:lang="de">Weiteres Beispiel einer verbindlichen Zusatzleistung ist das Angebot Hotel oder
 							Flug mit Mietwagen, z.B. "Fly and Drive". </para><para xml:id="en_2071" xml:lang="en">Another example of a mandatory additional service is the offer of a hotel or flight with a rental car, e.g. "Fly and Drive".</para>
 					
@@ -11304,39 +11317,40 @@ usw.]]></programlisting>
 					<tgroup cols="3">
 						<thead>
 							<row>
-								<entry>Buchungsparameter</entry>
-								<entry>BookingGroup Area</entry>
-								<entry>BookingParameter Field</entry>
+								<entry><para xml:id="de_5648" xml:lang="de">Buchungsparameter</para><para xml:id="en_5648" xml:lang="en">Booking parameter</para></entry>
+								<entry><para xml:id="de_5649" xml:lang="de">BookingGroup Area</para><para xml:id="en_5649" xml:lang="en">BookingGroup Area</para></entry>
+								<entry><para xml:id="de_5650" xml:lang="de">BookingParameter Field</para><para xml:id="en_5650" xml:lang="en">BookingParameter Field</para></entry>
+								
 							</row>
 						</thead>
 						<tbody>
 							<row>
-								<entry>Code der Marke (BrandCode)</entry>
+								<entry><para xml:id="de_5651" xml:lang="de">Code der Marke</para><para xml:id="en_5651" xml:lang="en">BrandCode</para></entry>
 								<entry>GlobalArea</entry>
 								<entry>Brand</entry>
 							</row>
 							<row>
-								<entry>Buchungscode des Addons</entry>
+								<entry><para xml:id="de_5652" xml:lang="de">Buchungscode des Addons</para><para xml:id="en_5652" xml:lang="en">BookingCode for Addon</para></entry>
 								<entry>ServiceArea</entry>
 								<entry>ServiceCode</entry>
 							</row>
 							<row>
-								<entry>Anforderungscode des Addons</entry>
+								<entry><para xml:id="de_5653" xml:lang="de">Anforderungscode des Addons</para><para xml:id="en_5653" xml:lang="en">RequestCode for Addon</para></entry>
 								<entry>ServiceArea</entry>
 								<entry>RequestCode</entry>
 							</row>
 							<row>
-								<entry>Eigenschaft des Addons</entry>
+								<entry><para xml:id="de_5654" xml:lang="de">Eigenschaft des Addons</para><para xml:id="en_5654" xml:lang="en">Character of Addon</para></entry>
 								<entry>ServiceArea</entry>
 								<entry>ServiceCode</entry>
 							</row>
 							<row>
-								<entry>Startdatum des Addons</entry>
+								<entry><para xml:id="de_5655" xml:lang="de">Startdatum des Addons</para><para xml:id="en_5655" xml:lang="en">Start date for Addon</para></entry>
 								<entry>ServiceArea</entry>
 								<entry>DateStart</entry>
 							</row>
 							<row>
-								<entry>Enddatum des Addons</entry>
+								<entry><para xml:id="de_5656" xml:lang="de">Enddatum des Addons</para><para xml:id="en_5656" xml:lang="en">End date for Addon</para></entry>
 								<entry>ServiceArea</entry>
 								<entry>DateEnd</entry>
 							</row>
@@ -11575,11 +11589,16 @@ usw.]]></programlisting>
         <programlisting><![CDATA[RUNDEN((Startpreis + (Tagespreise * Dauer * FrühbucherProzentual * ErmäßigungProzentual)) * KFANGProzentual)
 + RUNDEN(Verpflegung * Dauer * FrühbucherProzentual * ErmäßigungProzentual * KFANGProzentual)
 + RUNDEN((KFANGFix + FrühbucherFix) * FrühbucherProzentual * ErmäßigungProzentual * KFANGProzentual)]]></programlisting>
-        <para xml:lang="de" xml:id="de_5299">Auch hier geht es um eine personenweise Betrachtung. In diesem Fall sind
-        es 3 voneinander unabhängige Rundungen von verschiedenen Gruppen von PriceItems.</para><para xml:lang="en" xml:id="en_5299">Here, too, consideration is person-based. In this case there are 3 mutually independent roundings of different groups of PriceItems.</para> 
-        <para xml:lang="de" xml:id="de_5300"> Wir nehmen an, dass die Variablennamen in der obigen
+        <para xml:lang="de" xml:id="de_5299">Auch hier geht es um eine personenweise Betrachtung. In
+					diesem Fall sind es drei voneinander unabhängige Rundungen von verschiedenen
+					Gruppen von PriceItems.</para><para xml:lang="en" xml:id="en_5299">Here, too, consideration is person-based. In this case there
+					are three mutually independent roundings of different groups of
+					PriceItems.</para> 
+        <para xml:lang="de" xml:id="de_5300">Wir nehmen an, dass die Variablennamen in der obigen
 					Formel den PriceItemClasses entsprechen. Dann sähen die dazugehörigen drei
-					Rundungs-PriceItems so aus:</para><para xml:lang="en" xml:id="en_5300">We assume that the variable names in the above formula correspond to the PriceItemClasses. In this case, the 3 rounding PriceItems belonging to them would look like this:</para>
+					Rundungs-PriceItems so aus:</para><para xml:lang="en" xml:id="en_5300">We assume that the variable names in the above formula
+					correspond to the PriceItemClasses. In this case, the three rounding PriceItems
+					belonging to them would look like this:</para>
         <programlisting><![CDATA[<PriceItem Class="BlankBasePriceRounding">
   <GenericAbsolute>
     <GenericValue>
@@ -14066,17 +14085,19 @@ usw.]]></programlisting>
 
 							<tasksummary>
 								<para xml:id="de_2440" xml:lang="de">Diese Operation wertet <replaceable>Sourceangabe</replaceable>
-									vollständig aus. Es wird:</para><para xml:id="en_2440" xml:lang="en">This operation performs a complete analyses of the<replaceable>Sourceangabe</replaceable> . As such:</para>
+									vollständig aus. Es wird:</para><para xml:id="en_2440" xml:lang="en">This operation performs a complete analyses of the
+										<replaceable>Sourceangabe</replaceable> . As such:</para>
 
 								<itemizedlist>
 									<listitem>
-										<para xml:id="de_2441" xml:lang="de">Die Schrittfolge ausgewertet</para><para xml:id="en_2441" xml:lang="en">The sequence is evaluated</para>
+										<para xml:id="de_2441" xml:lang="de">die Schrittfolge ausgewertet</para><para xml:id="en_2441" xml:lang="en">The sequence is evaluated</para>
 									</listitem>
 									<listitem>
-										<para xml:id="de_2442" xml:lang="de">Die Scope angewendet</para><para xml:id="en_2442" xml:lang="en">The scope is applied</para>
+										<para xml:id="de_2442" xml:lang="de">die Scope angewendet</para><para xml:id="en_2442" xml:lang="en">The scope is applied</para>
 									</listitem>
 									<listitem>
-										<para xml:id="de_2443" xml:lang="de">Der Sonderfall <code>ThisComponent</code> behandelt.</para><para xml:id="en_2443" xml:lang="en">The special case of <code>ThisComponent</code>  is addressed.</para>
+										<para xml:id="de_2443" xml:lang="de">der Sonderfall <code>ThisComponent</code>
+											behandelt.</para><para xml:id="en_2443" xml:lang="en">The special case of <code>ThisComponent</code>  is addressed.</para>
 									</listitem>
 								</itemizedlist>
 
@@ -14292,7 +14313,10 @@ usw.]]></programlisting>
 									<para xml:id="de_2478" xml:lang="de"><replaceable>Ergebnismenge</replaceable> :=
 											<code>Komponentenlookup</code> (
 											<replaceable>Ergebnismenge</replaceable>, "Komponente ist keine
-											<code>CombiComponent</code>" )</para><para xml:id="en_2478" xml:lang="en"><replaceable>Ergebnismenge</replaceable> := <code>Komponentenlookup</code> ( <replaceable>Ergebnismenge</replaceable> , "The compoent is not a <code>CombiComponent</code> " )</para>
+											<code>CombiComponent</code>" )</para><para xml:id="en_2478" xml:lang="en"><replaceable>Ergebnismenge</replaceable> :=
+											<code>Komponentenlookup</code> (
+											<replaceable>Ergebnismenge</replaceable> , "The
+										component is not a <code>CombiComponent</code> " )</para>
 								</step>
 
 								<step>
@@ -15241,7 +15265,8 @@ usw.]]></programlisting>
 							<term xml:id="de_2651" xml:lang="de"><code>Max</code></term><term xml:id="en_2651" xml:lang="en"><code>Max</code> </term>
 							<listitem>
 								<para xml:id="de_2652" xml:lang="de">Erfüllt, wenn der aktuelle Tag &lt;= dem angegebenen
-									<code>Max</code>-Datum ist.</para><para xml:id="en_2652" xml:lang="en">It is met if the current day is &lt;= dem angegebenen <code>Max</code> date.</para>
+									<code>Max</code>-Datum ist.</para><para xml:id="en_2652" xml:lang="en">It is met if the current day is &lt;= the entered
+										<code>Max</code> date.</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
@@ -15604,9 +15629,16 @@ usw.]]></programlisting>
 							</listitem>
 						</varlistentry>
 					</variablelist>
-					<para>Im Falle der Dauerbedingung gibt es derzeit einen Sonderfall, der daraus resultiert, dass aus historischen Gründen einie Touristiker eine eigenartige Definition der Dauer zu Grunde legen.
+					<para xml:id="de_5657" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit einen Sonderfall, der daraus resultiert, dass aus historischen Gründen einige Touristiker eine eigenartige Definition der Dauer zu Grunde legen.
 						Laut Definition ist dann die Dauer durch den Abflug des Hinfluges und durch den Abflug des Rückfluges begrenzt. Dieses lässt sich abweichend von der eigentlichen Source-Definition mit der Source="ReturnFlight" abbilden. Ab Version 2.0 wird es dafür eine ordentliche Lösung geben.
-					</para>
+					</para><para xml:id="en_5657" xml:lang="en">In the case of the duration condition there currently exists a
+						special case resulting form the fact, that due to historic reasons some
+						people in the travel industry have a somewhat peculiar definition of
+						duration. According to this definition the duration is limited by the
+						takeoff of the outbound flight and the takeoff of the inbound flight. This
+						construct can be indicated - deviating form the proper Source definition -
+						with the Source="ReturnFlight". From version 2.0 on there will be a proper
+						solution for this issue.</para> 
 				</section>
 				<section xml:id="OtdsProcessConditionsPersonAge">
 					<title><phrase xml:id="de_2726" xml:lang="de"><code>PersonAge</code> Bedingung</phrase><phrase xml:id="en_2726" xml:lang="en"><code>PersonAge</code> condition</phrase></title>
@@ -15650,15 +15682,15 @@ usw.]]></programlisting>
 					<para xml:id="de_2736" xml:lang="de">Es sind folgende Werte für das Geschlecht möglich:</para><para xml:id="en_2736" xml:lang="en">The following values for gender are possible:</para>
 					<itemizedlist>
 						<listitem>
-							<para xml:id="de_2737" xml:lang="de"><code>Male</code>: Die Person ist männlich.</para><para xml:id="en_2737" xml:lang="en"><code>Male</code> : The person is male.</para>
+							<para xml:id="de_2737" xml:lang="de"><code>Male</code>: Die Person ist männlich.</para><para xml:id="en_2737" xml:lang="en"><code>Male</code>: The person is male.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_2738" xml:lang="de"><code>Female</code>: Die Person ist weiblich.</para><para xml:id="en_2738" xml:lang="en"><code>Female</code> : The person is female.</para>
+							<para xml:id="de_2738" xml:lang="de"><code>Female</code>: Die Person ist weiblich.</para><para xml:id="en_2738" xml:lang="en"><code>Female</code>: The person is female.</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_2739" xml:lang="de"><code>Undefined</code>: Das Geschlecht der Person ist
-								nicht durch die Rahmenparameter definiert.</para><para xml:id="en_2739" xml:lang="en"><code>Undefined</code> : The gender of the person is not
-								defined by the basic parameters.</para>
+								nicht durch die Rahmenparameter definiert.</para><para xml:id="en_2739" xml:lang="en"><code>Undefined</code>: The gender of the person is not defined
+								by the basic parameters.</para>
 						</listitem>
 					</itemizedlist>
 					<para xml:id="de_2740" xml:lang="de">Es ist erlaubt, mehrere Werte anzugeben. Jeder der angegebenen Werte wird für jede
@@ -15815,22 +15847,29 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_2773" xml:lang="de">Es wird für jedes <code>Tag</code> Element die Menge der
 								referenzierten Werte bestimmt. Es ergibt sich also eine Liste von
-								Wertmengen eine Wertmenge je <code>Tag</code> Element.</para><para xml:id="en_2773" xml:lang="en">For every<code>Tag</code> element in the set reference values are established. This produces a list of value ranges, each<code>Tag</code>  element is assigned a value.</para>
+								Wertmengen eine Wertmenge je <code>Tag</code> Element.</para><para xml:id="en_2773" xml:lang="en">For every <code>Tag</code> element in the set reference values
+								are established. This produces a list of value ranges, each
+									<code>Tag</code> element is assigned a value.</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_2774" xml:lang="de">Es wird die Schnittmenge aller dieser Wertmengen
 								gebildet. Ist diese Schnittmenge nicht leer, ist die
-									<code>MatchEqual</code> Bedingung erfüllt.</para><para xml:id="en_2774" xml:lang="en">It is formed at the intersection of all these value sets. If the intersection is not empty the<code>MatchEqual</code> condition is satisfied.</para>
+									<code>MatchEqual</code> Bedingung erfüllt.</para><para xml:id="en_2774" xml:lang="en">It is formed at the intersection of all these value sets. If
+								the intersection is not empty the <code>MatchEqual</code> condition
+								is satisfied.</para>
 						</listitem>
 					</itemizedlist>
 
 					<para xml:id="de_2775" xml:lang="de">Die Bestimmung der Wertmenge zu einem <code>Tag</code>
-						Element erfolgt wie in der <code>Tags</code> Bedingung:</para><para xml:id="en_2775" xml:lang="en">The determination of the value assigned to a <code>Tag</code>  element is the same as in the <code>Tags</code>  condition:</para>
+						Element erfolgt wie in der <code>Tag</code> Bedingung:</para><para xml:id="en_2775" xml:lang="en">The determination of the value assigned to a <code>Tag</code>
+						element is the same as in the <code>Tag</code> condition:</para>
 
 					<itemizedlist>
 						<listitem>
 							<para xml:id="de_2776" xml:lang="de">Aus <code>Source</code> und <code>DayAllocation</code> wird die Menge der
-								referenzierten Komponenteninstanzen erzeugt (Siehe <xref linkend="OtdsProcessConditionsSource"/>).</para><para xml:id="en_2776" xml:lang="en">The value of the component instances referred to is produced by<code>Source</code> and <code>DayAllocation</code>  (see &lt;xref linkend="OtdsProcessConditionsSource" gttsVal=""/&gt;).</para>
+								referenzierten Komponenteninstanzen erzeugt (Siehe <xref linkend="OtdsProcessConditionsSource"/>).</para><para xml:id="en_2776" xml:lang="en">The value of the component instances referred to is produced by
+									<code>Source</code> and <code>DayAllocation</code> (see &lt;xref
+								linkend="OtdsProcessConditionsSource" gttsVal=""/&gt;).</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_2777" xml:lang="de">Zu jeder Komponenteninstanzen werden nun die Tags mit der angegebenen
@@ -15854,16 +15893,35 @@ usw.]]></programlisting>
 
 					<para xml:id="de_2780" xml:lang="de">Jetzt kann die Schnittmenge dieser Wertmengen gebildet
 						werden. Ist diese Schnittmenge leer, ist die <code>MatchEqual</code>
-						Bedingung <code>False</code>, sonst <code>True</code>.</para><para xml:id="en_2780" xml:lang="en">Now the intersection of these value amounts ​​can be formed. Where the intersection is empty, the <code>MatchEqual</code> condition is <code>False</code> , otherwise the condition is <code>True</code> .</para>
+						Bedingung <code>False</code>, sonst <code>True</code>.</para><para xml:id="en_2780" xml:lang="en">Now the intersection of these value amounts ​​can be formed.
+						Where the intersection is empty, the <code>MatchEqual</code> condition is
+							<code>False</code> , otherwise the condition is
+						<code>True</code>.</para>
 					<bridgehead xml:id="de_5366" xml:lang="de">Vergleich von ConditionalTags</bridgehead><bridgehead xml:id="en_5366" xml:lang="en">Comparison of ConditionalTags</bridgehead>
-					<para>Die Auswertung bzgl. der ConditionalTags erfolgt analog bis auf die Tatsache, dass zuerst geprüft wird, ob die ConditionalTags überhaupt valide sind. Handelt es sich um ConditionalTags, die nur für einzelne Tage oder Personen gültig sind, so ist die Matchequal-Bedingung dann erfüllt, wenn ein Value an einem Tag oder einer Person zu einem Value des anderen ConditionalTags an einem beliebiegen tag oder Person passt. </para>
+					<para xml:id="de_5658" xml:lang="de">Die Auswertung bzgl. der ConditionalTags erfolgt analog
+						bis auf die Tatsache, dass zuerst geprüft wird, ob die ConditionalTags
+						überhaupt valide sind. Handelt es sich um ConditionalTags, die nur für
+						einzelne Tage oder Personen gültig sind, so ist die <code>MatchEqual</code>-Bedingung
+						dann erfüllt, wenn ein Value an einem Tag oder einer Person zu einem Value
+						des anderen ConditionalTags an einem beliebigen Tag oder Person
+						passt.</para>
+					<para xml:id="en_5658" xml:lang="en">The evaluation regarding the ConditionalTags takes place
+						analogously except for the fact that at first there is a validity check for
+						the ConditionalTags. Are ConditionalTags valid only for specific days or
+						persons, then the <code>MatchEqual</code> condition is fulfilled if a value on a day or
+						for a person matches a value of the other ConditionalTag on any day or for
+						any person.</para>
 					<bridgehead xml:id="de_2781" xml:lang="de">Vergleich von anderen Werten (Flughäfen)</bridgehead><bridgehead xml:id="en_2781" xml:lang="en">Comparison of different values ​​(airports)</bridgehead>
 
 					<para xml:id="de_2782" xml:lang="de">Alternativ kann ein <code>MatchEqual</code> Element zwei oder mehr
 							<code>Element</code> Elemente enthalten. Auch hier wird zunächst zu jedem
 							<code>Element</code> eine Wertmenge erzeugt. Wieder gilt: Ist die Schnittmenge
 						aller dieser Wertmengen nicht leer, ist die <code>MatchEqual</code> Bedingung
-						erfüllt.</para><para xml:id="en_2782" xml:lang="en">Alternatively a<code>MatchEqual</code> element can contain two or more <code>Element</code> elements. Also here the first action is to generate a value amount to each <code>Element</code> . Again: If the intersection of these value amounts is not empty, then the <code>MatchEqual</code>  condition is fulfilled.</para>
+						erfüllt.</para><para xml:id="en_2782" xml:lang="en">Alternatively a <code>MatchEqual</code> element can contain two
+						or more <code>Element</code> elements. Also here the first action is to
+						generate a value amount to each <code>Element</code>. Again: If the
+						intersection of these value amounts is not empty, then the
+							<code>MatchEqual</code> condition is fulfilled.</para>
 
 					<para xml:id="de_2783" xml:lang="de">Die Bestimmung der Wertmengen zu den <code>Element</code> Elementen erfolgt
 						folgendermaßen:</para><para xml:id="en_2783" xml:lang="en">The value amounts of the<code>Element</code> elements is determined as follows:</para>
@@ -23125,7 +23183,7 @@ usw.]]></programlisting>
 							</itemizedlist>
 						</listitem>
 						<listitem>
-							<para xml:id="de_4113" xml:lang="de">Dem Zielort zugeordnete Flughäfen </para><para xml:id="en_4113" xml:lang="en">The airport/s aööocated to the destination</para>
+							<para xml:id="de_4113" xml:lang="de">Dem Zielort zugeordnete Flughäfen </para><para xml:id="en_4113" xml:lang="en">The airport/s allocated to the destination</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_4114" xml:lang="de">Dem Zielort zugeordnete Bahnstationen </para><para xml:id="en_4114" xml:lang="en">The railway station/s allocated to the destination</para>
@@ -23149,7 +23207,7 @@ usw.]]></programlisting>
 					
 					<itemizedlist>
 						<listitem>
-							<para xml:id="de_4118" xml:lang="de"> Hotelkette</para><para xml:id="en_4118" xml:lang="en">Hotel chain</para>
+							<para xml:id="de_4118" xml:lang="de">Hotelkette</para><para xml:id="en_4118" xml:lang="en">Hotel chain</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_4119" xml:lang="de">Art der Unterkunft (AccommodationType) </para><para xml:id="en_4119" xml:lang="en">Type of accommodation (AccommodationType)</para>
@@ -23608,7 +23666,10 @@ usw.]]></programlisting>
 					<para xml:id="de_4258" xml:lang="de">(Die Hotelkette soll als Attribut umgesetzt werden. Wegen
 						der Möglichkeit, dass sich die Hotelkette ab einem bestimmten Termin ändern
 						kann, ist dieses Attribut terminabhängig. Die wichtigsten Hotelketten am
-						Markt werden eindeutig klassifiziert.)</para><para xml:id="en_4258" xml:lang="en">(The hotel chain attribute should be changed. Due to the option of the hotel chain being changed after a certain date, this attribute is date dependent. The most important hotel chains on the market are classified distinctly.)</para>
+						Markt werden eindeutig klassifiziert.)</para><para xml:id="en_4258" xml:lang="en">(The hotel chain should be executes as an attribute. Due to the
+						option of the hotel chain being changed after a certain date, this attribute
+						is date dependent. The most important hotel chains on the market are
+						classified distinctly.)</para>
 					<para xml:id="de_4259" xml:lang="de">Eine <link linkend="AnhangHotelChain">Liste der Hotelketten</link> ist im Anhang
 						aufgeführt.</para><para xml:id="en_4259" xml:lang="en">A <link linkend="AnhangHotelChain">list of the hotel chains</link> is to be found in the appendix.</para>
 					<para xml:id="de_4260" xml:lang="de"> </para><para xml:id="en_4260" xml:lang="en"/>
@@ -23730,7 +23791,7 @@ usw.]]></programlisting>
 							</itemizedlist>
 						</listitem>
 					</itemizedlist>
-					<bridgehead xml:id="AnhangPropertiesUnits" xml:lang="de">Unterbringungen (Units)</bridgehead>
+					<bridgehead xml:id="AnhangPropertiesUnits"><para xml:id="de_5660" xml:lang="de">Unterbringungen></para><para xml:id="en_5660" xml:lang="en">Units</para></bridgehead>
 					<para xml:id="de_4296" xml:lang="de">Für die Eingabe von Eigenschaften der Units sind folgende Elemente
 						zugelassen:</para><para xml:id="en_4296" xml:lang="en">The following elements are permitted for the entry of unit properties:</para>
 					<itemizedlist>
@@ -24029,7 +24090,7 @@ usw.]]></programlisting>
 							<para xml:id="de_4384" xml:lang="de">ShortenedSeaView (eingeschränkter Meerblick)</para><para xml:id="en_4384" xml:lang="en">ShortenedSeaView (restricted sea views)</para>
 						</listitem>
 					</itemizedlist>
-					<bridgehead xml:id="AnhangPropertiesBoards" xml:lang="de">Verpflegung (Boards)</bridgehead>
+					<bridgehead xml:id="AnhangPropertiesBoards"><para xml:id="de_5661" xml:lang="de">Verpflegung</para><para xml:id="en_5661" xml:lang="en">Boards</para></bridgehead>
 					<para xml:id="de_4385" xml:lang="de">Auch die Verpflegung wird zur Komponente der Accommodations gerechnet. Die gültigen
 						Elemente für die Angabe der Properties sind:</para><para xml:id="en_4385" xml:lang="en">The board is also considered a component of the accommodation.
 						The valid elements for the specification of properties are:</para>
@@ -24132,12 +24193,12 @@ usw.]]></programlisting>
 							<col width="212px"/>
 							<thead>
 								<tr>
-									<td rowspan="1" colspan="1">Komponente</td>
-									<td rowspan="1" colspan="1">Zugelassene Ebenen</td>
-									<td rowspan="1" colspan="1">Element/Path</td>
-									<td rowspan="1" colspan="1">Values</td>
-									<td rowspan="1" colspan="1">Bedeutung</td>
-									<td rowspan="1" colspan="1">Conditions</td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5662" xml:lang="de">Komponente</para><para xml:id="en_5662" xml:lang="en">Component</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5663" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5663" xml:lang="en">Admitted levels</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5664" xml:lang="de">Element/Path</para><para xml:id="en_5664" xml:lang="en">Element/Path</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5665" xml:lang="de">Values</para><para xml:id="en_5665" xml:lang="en">Values</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5666" xml:lang="de">Bedeutung</para><para xml:id="en_5666" xml:lang="en">Meaning</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5667" xml:lang="de">Conditions</para><para xml:id="en_5667" xml:lang="en">Conditions</para></td>
 								</tr>
 							</thead>
 							<tr>
@@ -24145,7 +24206,7 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1">&gt;= Addon</td>
 								<td rowspan="1" colspan="1">AddonName</td>
 								<td rowspan="1" colspan="1">String</td>
-								<td rowspan="1" colspan="1">Name der Zusatzleistung</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5668" xml:lang="de">Name der Zusatzleistung</para><para xml:id="en_5668" xml:lang="en">Name of the addon service</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24153,7 +24214,7 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1">&gt;= Service</td>
 								<td rowspan="1" colspan="1">AddonServiceName</td>
 								<td rowspan="1" colspan="1">String</td>
-								<td rowspan="1" colspan="1">Vollständige Bezeichnung des Service</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5669" xml:lang="de">Vollständige Bezeichnung des Service</para><para xml:id="en_5669" xml:lang="en">Complete description of the addon service</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24201,7 +24262,7 @@ usw.]]></programlisting>
 										</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1">Art des Service</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5670" xml:lang="de">Art des Service</para><para xml:id="en_5670" xml:lang="en">Type of service</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24209,16 +24270,15 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1">&gt;= ServiceFeature</td>
 								<td rowspan="1" colspan="1">AddonServiceFeatureName</td>
 								<td rowspan="1" colspan="1">String</td>
-								<td rowspan="1" colspan="1">Vollständige Bezeichnung des Service Feature</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5671" xml:lang="de">Vollständige Bezeichnung des Service Feature</para><para xml:id="en_5671" xml:lang="en">Complete description of service feature</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
 								<td rowspan="1" colspan="1">&gt;= Addon</td>
 								<td rowspan="1" colspan="1">AddonCatchmentRailwayStation</td>
-								<td rowspan="1" colspan="1">RailwayStationCode / String</td>
-								<td rowspan="1" colspan="1">Bahnstationen im Einzugsgebiet der
-									Zusatzleistung</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5672" xml:lang="de">Bahnstationen im Einzugsgebiet der Zusatzleistung</para><para xml:id="en_5672" xml:lang="en">Railway stations in the catchment area of the addon service</para></td>
+								<td rowspan="1" colspan="1"/>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24243,7 +24303,7 @@ usw.]]></programlisting>
 										</listitem>
 									</itemizedlist>
 								</td>
-							<td>Weitere Eigenschaften für Mietwagen</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5673" xml:lang="de">Weitere Eigenschaften für Mietwagen</para><para xml:id="en_5673" xml:lang="en">Further characteristics of rental cars</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>							
 						</informaltable>
@@ -24618,12 +24678,12 @@ usw.]]></programlisting>
 							<col width="212.0px"/>
 							<thead>
 								<tr>
-									<td rowspan="1" colspan="1">Komponente</td>
-									<td rowspan="1" colspan="1">Zugelassene Ebenen</td>
-									<td rowspan="1" colspan="1">Element/Path</td>
-									<td rowspan="1" colspan="1">Values</td>
-									<td rowspan="1" colspan="1">Bedeutung</td>
-									<td rowspan="1" colspan="1">Conditions</td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5674" xml:lang="de">Komponente</para><para xml:id="en_5674" xml:lang="en">Component</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5675" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5675" xml:lang="en">Admitted levels</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5676" xml:lang="de">Element/Path</para><para xml:id="en_5676" xml:lang="en">Element/Path</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5677" xml:lang="de">Values</para><para xml:id="en_5677" xml:lang="en">Values</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5678" xml:lang="de">Bedeutung</para><para xml:id="en_5678" xml:lang="en">Meaning</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5679" xml:lang="de">Conditions</para><para xml:id="en_5679" xml:lang="en">Conditions</para></td>
 								</tr>
 							</thead>
 							<tr>
@@ -24649,7 +24709,7 @@ usw.]]></programlisting>
 										</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1">Gepäckbestimmungen, unterschieden nach CheckIn Gepäck und Handgepäck</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5680" xml:lang="de">Gepäckbestimmungen, unterschieden nach CheckIn Gepäck und Handgepäck</para><para xml:id="en_5680" xml:lang="en">Baggage allowance, distinguished by checkin luggage and hand baggage</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24702,8 +24762,8 @@ usw.]]></programlisting>
 										</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1">Alle notwendigen Informationen zur Beschreibung
-									der Flug-Route und der Rahmenparameter.</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5681" xml:lang="de">Alle notwendigen Informationen zur Beschreibung der Flug-Route und der Rahmenparameter.</para><para xml:id="en_5681" xml:lang="en">All necessary information to describe the flight route and the
+									framework parameters</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24728,7 +24788,7 @@ usw.]]></programlisting>
 										</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1">Klasse in der sich der Sitz befindet</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5682" xml:lang="de">Klasse, in der sich der Sitz befindet</para><para xml:id="en_5682" xml:lang="en">Class in which the seat is located</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 						</informaltable>
@@ -24767,12 +24827,12 @@ usw.]]></programlisting>
 							<col width="212.0px"/>
 							<thead>
 								<tr>
-									<td rowspan="1" colspan="1">Komponente</td>
-									<td rowspan="1" colspan="1">Zugelassene Ebenen</td>
-									<td rowspan="1" colspan="1">Element/Path</td>
-									<td rowspan="1" colspan="1">Values</td>
-									<td rowspan="1" colspan="1">Bedeutung</td>
-									<td rowspan="1" colspan="1">Conditions</td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5683" xml:lang="de">Komponente</para><para xml:id="en_5683" xml:lang="en">Component</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5684" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5684" xml:lang="en">Admitted levels</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5685" xml:lang="de">Element/Path</para><para xml:id="en_5685" xml:lang="en">Element/Path</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5686" xml:lang="de">Values</para><para xml:id="en_5686" xml:lang="en">Values</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5687" xml:lang="de">Bedeutung</para><para xml:id="en_5687" xml:lang="en">Meaning</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5688" xml:lang="de">Conditions</para><para xml:id="en_5688" xml:lang="en">Conditions</para></td>
 								</tr>
 							</thead>
 							<tr>
@@ -24855,7 +24915,7 @@ usw.]]></programlisting>
 										</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1">Art des Preises</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5689" xml:lang="de">Art des Preises</para><para xml:id="en_5689" xml:lang="en">Price type</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24890,8 +24950,7 @@ usw.]]></programlisting>
 										</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1">Buchungsrelevante Nachrichten, die ggfs. vor der Buchung vom Buchenden
-									bestätigt werden müssen.</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5690" xml:lang="de">Buchungsrelevante Nachrichten, die ggfs. vor der Buchung vom Buchenden bestätigt werden müssen.</para><para xml:id="en_5690" xml:lang="en">Information relevant for booking that might need to be confirmed by the traveller before booking</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -24979,7 +25038,7 @@ usw.]]></programlisting>
 									</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1">Inkludierte Zusatzleistungen</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5691" xml:lang="de">Inkludierte Zusatzleistungen</para><para xml:id="en_5691" xml:lang="en">Included additional services</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -25026,7 +25085,7 @@ usw.]]></programlisting>
 									</listitem>
 								</itemizedlist>
 							</td>
-								<td rowspan="1" colspan="1">Zusatzleistungen, die obligatorischer Bestandteil des Angebotes sind und zusätzliche Kosten vor Ort verursachen.</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5692" xml:lang="de">Zusatzleistungen, die obligatorischer Bestandteil des Angebotes sind und zusätzliche Kosten vor Ort verursachen</para><para xml:id="en_5692" xml:lang="en">Additional services that are mandatory part of the service and cause additional costs at the destination</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
@@ -25047,9 +25106,8 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1">
 									<para xml:id="de_4660" xml:lang="de">In OTDS nicht spezifizierte Unterelemente</para><para xml:id="en_4660" xml:lang="en">Sub-elements not specified in OTDS</para>
 								</td>
-								<td rowspan="1" colspan="1">Unter diesem Element können eigene Eigenschaftern in Absprache mit dem
-									Datenlieferanten eingebunden werden. Eine Validierung im Rahmen von OTDS
-									ist an diese Stelle NICHT vorgesehen!</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5693" xml:lang="de">Unter diesem Element können eigene Eigenschaften in Absprache mit dem Datenlieferanten eingebunden werden. Eine Validierung im Rahmen von OTDS ist an diese Stelle NICHT vorgesehen!</para><para xml:id="en_5693" xml:lang="en">In this element individual values may be integrated in
+									coordination with the data supplier. A validation within the scope of OTDS is NOT intended!</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 						</informaltable>
@@ -25140,12 +25198,12 @@ usw.]]></programlisting>
 							<col width="212.0px"/>
 							<thead>
 								<tr>
-									<td rowspan="1" colspan="1">Komponente</td>
-									<td rowspan="1" colspan="1">Zugelassene Ebenen</td>
-									<td rowspan="1" colspan="1">Element/Path</td>
-									<td rowspan="1" colspan="1">Values</td>
-									<td rowspan="1" colspan="1">Bedeutung</td>
-									<td rowspan="1" colspan="1">Conditions</td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5694" xml:lang="de">Komponente</para><para xml:id="en_5694" xml:lang="en">Component</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5695" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5695" xml:lang="en">Admitted levels</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5696" xml:lang="de">Element/Path</para><para xml:id="en_5696" xml:lang="en">Element/Path</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5697" xml:lang="de">Values</para><para xml:id="en_5697" xml:lang="en">Values</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5698" xml:lang="de">Bedeutung</para><para xml:id="en_5698" xml:lang="en">Meaning</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5699" xml:lang="de">Conditions</para><para xml:id="en_5699" xml:lang="en">Conditions</para></td>
 								</tr>
 							</thead>
 							<tr>
@@ -25188,8 +25246,8 @@ usw.]]></programlisting>
 									</itemizedlist>
 								</td>
 								<td rowspan="1" colspan="1">
-									<para xml:id="de_4701" xml:lang="de">In diesem Element stehen die Orte zur Auswahl für die eine Distanzangabe möglich
-										ist. </para><para xml:id="en_4701" xml:lang="en">This element displays locations for which a distance entry is possible.</para>
+									<para xml:id="de_4701" xml:lang="de">In diesem Element stehen die Orte zur Auswahl, für die
+									eine Distanzangabe möglich ist. </para><para xml:id="en_4701" xml:lang="en">This element displays locations for which a distance entry is possible.</para>
 									<itemizedlist>
 									<listitem>
 										<para xml:id="de_4702" xml:lang="de">Beach (Strand) / Entfernungsangabe in Metern</para><para xml:id="en_4702" xml:lang="en">Beach / distance in metres</para>
@@ -25251,7 +25309,8 @@ usw.]]></programlisting>
 									</listitem>
 									</itemizedlist>
 								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_4722" xml:lang="de">Im Element Facilities stehen vor allem Ausstattungsmerkmale zur Verfügung die näher beschrieben werden können.</para><para xml:id="en_4722" xml:lang="en">The facilities element is primarily used to describe the available facilities in more detail.</para>
+								<td rowspan="1" colspan="1"><para xml:id="de_4722" xml:lang="de">Im Element Facilities stehen vor allem Ausstattungsmerkmale zur
+									Verfügung, die näher beschrieben werden können.</para><para xml:id="en_4722" xml:lang="en">The facilities element is primarily used to describe the available facilities in more detail.</para>
 									<itemizedlist>
 										<listitem>
 											<para xml:id="de_4723" xml:lang="de">AmountBedrooms (Anzahl Schlafzimmer)</para><para xml:id="en_4723" xml:lang="en">AmountBedrooms (amount of bedrooms)</para>
@@ -25297,8 +25356,8 @@ usw.]]></programlisting>
 							<tgroup cols="2">
 								<thead>
 									<row>
-										<entry>Abkürzung</entry>
-										<entry>Pfad in OTDS</entry>
+										<entry><para xml:id="de_5700" xml:lang="de">Abkürzung</para><para xml:id="en_5700" xml:lang="en">Abbreviation</para></entry>
+										<entry><para xml:id="de_5701" xml:lang="de">Pfad in OTDS</para><para xml:id="en_5701" xml:lang="en">Path in OTDS</para></entry>
 									</row>
 								</thead>
 								<tbody>
@@ -26149,8 +26208,8 @@ usw.]]></programlisting>
 							<col width="150px"/>
 							<tr>
 								<td rowspan="1" colspan="1"> ID</td>
-								<td rowspan="1" colspan="1">Hotelkette</td>
-								<td rowspan="1" colspan="1">Verfügbar ab Version</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5702" xml:lang="de"> Hotelkette</para><para xml:id="en_5702" xml:lang="en"> Hotel chain</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5703" xml:lang="de"> Verfügbar ab Version</para><para xml:id="en_5703" xml:lang="en"> Available starting from version</para></td>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1" align="right">1</td>
@@ -27213,14 +27272,15 @@ usw.]]></programlisting>
 						</caption>
 					</mediaobject>
 				</figure>
-				<para xml:id="de_4750" xml:lang="de"> Folgende Tabelle listet alle Pfade für Condition und Filter auf.</para><para xml:id="en_4750" xml:lang="en">The following table lists all the paths for conditions and filters.</para>
+				<para xml:id="de_4750" xml:lang="de">Folgende Tabelle listet alle Pfade für Condition und Filter
+					auf.</para><para xml:id="en_4750" xml:lang="en">The following table lists all the paths for conditions and filters.</para>
 				<table frame="all">
 					<title><phrase xml:id="de_4751" xml:lang="de">Übersicht über die verschiedenen Kontexte für Conditions / Filter</phrase><phrase xml:id="en_4751" xml:lang="en">Overview of the various contexts for conditions/filters</phrase></title>
 					<tgroup cols="2" align="left" colsep="1" rowsep="1">
 						<thead>
 							<row>
-								<entry>Kontext der Condition</entry>
-								<entry>Pfade in OTDS</entry>
+								<entry><para xml:id="de_5704" xml:lang="de"> Kontext der Condition</para><para xml:id="en_5704" xml:lang="en"> Context of the condition</para></entry>
+								<entry><para xml:id="de_5705" xml:lang="de"> Pfad in OTDS</para><para xml:id="en_5705" xml:lang="en"> Path in OTDS</para></entry>
 							</row>
 						</thead>
 						<tbody>
@@ -27238,7 +27298,7 @@ usw.]]></programlisting>
 								</entry>
 							</row>
 							<row>
-								<entry>Filter in Komponenten</entry>
+								<entry>Filter in Components</entry>
 								<entry>
 									<itemizedlist>
 										<listitem>
@@ -27357,8 +27417,8 @@ usw.]]></programlisting>
 						<tgroup cols="2">
 							<thead>
 								<row>
-									<entry>Abkürzung</entry>
-									<entry>Pfad in OTDS</entry>
+									<entry><para xml:id="de_5706" xml:lang="de"> Abkürzung</para><para xml:id="en_5706" xml:lang="en"> Abbreviation</para></entry>
+									<entry><para xml:id="de_5707" xml:lang="de"> Pfad in OTDS</para><para xml:id="en_5707" xml:lang="en"> Path in OTDS</para></entry>
 								</row>
 							</thead>
 							<tbody>
@@ -27839,12 +27899,17 @@ usw.]]></programlisting>
 					<title><phrase xml:id="de_4870" xml:lang="de">Externe Links</phrase><phrase xml:id="en_4870" xml:lang="en">External links</phrase></title>
 					<section>
 						<title><phrase xml:id="de_4871" xml:lang="de">Link zur Technischen Dokumentation</phrase><phrase xml:id="en_4871" xml:lang="en">Link to the technical documentation</phrase></title>
-						<para xml:id="de_4872" xml:lang="de"> Links zur Technischen Spezifikation können kontextbezogen gesetzt werden. </para><para xml:id="en_4872" xml:lang="en">Links to the technical specification can be set related to the context.</para>
-						<para xml:id="de_4873" xml:lang="de">#SuchText: der Text (im Beispiel "SuchText"), der hinter dem # steht wird an die
-							Technische Spezifikation übergeben, die dann mit diesem Suchkriterium geöffnet
-							wird. Suchbegriffe können z.B. die Elementnamen sein, Teile des Namens reichen
-							aus. </para><para xml:id="en_4873" xml:lang="en">#SuchText: the text (in the example of "SuchText"), that comes after the # is passed on to the technical specification, which will then open with this search criteria. Search terms can be names of elements, for example, parts of names also suffice.</para>
-						<para xml:id="de_4874" xml:lang="de">Es mus allerdings auf Groß- und Kleinschreibung geachtet werden!</para><para xml:id="en_4874" xml:lang="en">The entry here is case-sensitive, however.</para>
+						<para xml:id="de_4872" xml:lang="de">Links zur Technischen Spezifikation können kontextbezogen
+							gesetzt werden. </para><para xml:id="en_4872" xml:lang="en">Links to the technical specification can be set related to the context.</para>
+						<para xml:id="de_4873" xml:lang="de">#SuchText: der Text (im Beispiel "SuchText"), der hinter
+							dem # steht, wird an die Technische Spezifikation übergeben, die dann
+							mit diesem Suchkriterium geöffnet wird. Suchbegriffe können z.B. die
+							Elementnamen sein. Teile des Namens reichen aus. </para><para xml:id="en_4873" xml:lang="en">#SuchText: the text (in the example of "SuchText"), that comes
+							after the # is passed on to the technical specification, which will then
+							open with this search criteria. Search terms can be names of elements,
+							for example. Parts of names also suffice.</para>
+						<para xml:id="de_4874" xml:lang="de">Es muss allerdings auf Groß- und Kleinschreibung geachtet
+							werden!</para><para xml:id="en_4874" xml:lang="en">The entry here is case-sensitive, however.</para>
 						<para xml:id="de_4875" xml:lang="de">Der Link, bzw. der Text, der im HTML-Dokument als Link erscheint, kann
 							entsprechend vergeben werden. </para><para xml:id="en_4875" xml:lang="en">The link, or the text that appears in the HTML document as a link, can be entered accordingly.</para>
 						<programlisting><![CDATA[
@@ -27852,7 +27917,9 @@ usw.]]></programlisting>
 ]]></programlisting>
 						<para xml:id="de_4876" xml:lang="de">Es werden auch Verlinkungen von der Technischen Spezifikation zu dieser
 							Thematischen Spezifikation möglich sein, die momentan aber noch nicht ausgeführt
-							sind.</para><para xml:id="en_4876" xml:lang="en">Links from the technical specification to the thematic specification will also be possible, but yet have not yet been implemented.</para>
+							sind.</para><para xml:id="en_4876" xml:lang="en">Links from the Technical Specification to the Thematic
+							Specification will also be possible, but have not been implemented
+							yet.</para>
 					</section>
 					<section>
 						<title><phrase xml:id="de_4877" xml:lang="de">Link zu Beispiel-Dateien</phrase><phrase xml:id="en_4877" xml:lang="en">Link to example files</phrase></title>
