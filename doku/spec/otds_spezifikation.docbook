@@ -13594,7 +13594,18 @@ usw.]]></programlisting>
 								<code>SellingUnit</code> keine <emphasis>direkte</emphasis> Unterkomponente
 							von <code>SellingAccom</code> ist (es wird noch einmal hervorgehoben, dass diese
 							strenge Einschränkung <emphasis>nur</emphasis> für die
-								<emphasis>statische</emphasis> Analyse gilt).</para><para xml:id="en_2370" xml:lang="en">It is important to note that the entry here, also in the context of a static analysis, does not have to start with a main component. It is merely to ensure that there are no gaps between individual steps and that the order makes sense: The following would not make sense, for example: <code>SellingAccom.BookingClass</code> , as <code>SellingAccom</code> does not contain a <code>BookingClass</code> subcomponent, it would mean an incomplete <code>SellingAccom.SellingUnit</code> entry, as <code>SellingUnit</code> is not a <emphasis>direct</emphasis> subcomponent of <code>SellingAccom</code>  (it should be emphasised once more that this strict limitation <emphasis>only</emphasis> applies to the <emphasis>static</emphasis> analysis).</para>
+								<emphasis>statische</emphasis> Analyse gilt).</para><para xml:id="en_2370" xml:lang="en">It is important to note that the entry here, also in the
+							context of a static analysis, does not have to start with a main
+							component. It is merely to ensure that there are no gaps between
+							individual steps and that the order makes sense: The following would not
+							make sense, for example: <code>SellingAccom.BookingClass</code>, as
+								<code>SellingAccom</code> does not contain a
+								<code>BookingClass</code> subcomponent, it would mean an incomplete
+								<code>SellingAccom.SellingUnit</code> entry, as
+								<code>SellingUnit</code> is not a <emphasis>direct</emphasis>
+							subcomponent of <code>SellingAccom</code> (it should be emphasised once
+							more that this strict limitation <emphasis>only</emphasis> applies to
+							the <emphasis>static</emphasis> analysis).</para>
 
 						<para xml:id="de_2371" xml:lang="de">Namensreferenzen werden gesondert verarbeitet: Alle
 							Namensreferenzen müssen einander direkt folgen und jede Namensreferenz
@@ -13608,13 +13619,28 @@ usw.]]></programlisting>
 								<code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV.BookingClass</code>
 							wird <code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV</code>
 							durch die Rolle von <code>#ZubringerCombiOneWayZHV</code>, in diesem
-							Fall wahrscheinlich <code>OnewayFlight</code> ersetzt).</para><para xml:id="en_2371" xml:lang="en">Name references are processed separately: All name references must follow each other directly, and each name reference must refer to a direct subcomponent of the data referred to by the previous name component. To facilitate static analysis the entire sequence of name references is replaced by the role or the type of the last name. Since all name components in an OTDS-1.0 delivery must be clear, each name can be assigned a clear role (or type) (for example: In the<code>Source</code> classification<code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV.BookingClass</code> is <code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV</code> performing the role of <code>#ZubringerCombiOneWayZHV</code> , would in this instance be replaced by<code>OnewayFlight</code> ersetzt).</para>
+							Fall wahrscheinlich <code>OnewayFlight</code> ersetzt).</para><para xml:id="en_2371" xml:lang="en">Name references are processed separately: All name references
+							must follow each other directly, and each name reference must refer to a
+							direct subcomponent of the data referred to by the previous name
+							component. To facilitate static analysis the entire sequence of name
+							references is replaced by the role or the type of the last name. Since
+							all name components in an OTDS-1.0 delivery must be clear, each name can
+							be assigned a clear role (or type) (for example: In the
+								<code>Source</code> classification
+								<code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV.BookingClass</code>
+							<code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV</code> would be
+							replaced by the role of <code>#ZubringerCombiOneWayZHV</code>, in this
+							instance probably by <code>OnewayFlight</code>).</para>
 
 						<para xml:id="de_2372" xml:lang="de">Ein anderer Sonderfall ist <code>ThisComponent</code>. Dieser Wert entspricht
 							immer genau derjenigen Komponenteninstanz, in welcher das ausgewertete
 								<code>Source</code> Attribut notiert wurde. Es wird dabei
 								<emphasis>nur</emphasis> diese Instanz und keine weiteren Instanzen desselben
-							Typs berücksichtigt.</para><para xml:id="en_2372" xml:lang="en">Another special case is <code>ThisComponent</code> . This value always corresponds exactly to the component instance in which the <code>Source</code>  attribute under evaluation was noted. Thus<emphasis> only </emphasis> this instance and no other instances of the same type are considered.</para>
+							Typs berücksichtigt.</para><para xml:id="en_2372" xml:lang="en">Another special case is <code>ThisComponent</code>. This value
+							always corresponds exactly to the component instance in which the
+								<code>Source</code> attribute under evaluation was noted. Thus
+								<emphasis>only</emphasis> this instance and no other instances of
+							the same type are considered.</para>
 
 						<para xml:id="de_2373" xml:lang="de"><emphasis>Scope</emphasis> erlaubt es festzulegen, ob
 							eine Referenz nur innerhalb der aktuellen Komponenteninstanz und ihrer
@@ -13623,7 +13649,14 @@ usw.]]></programlisting>
 							aktuellen Komponenteninstanz. Die Angabe von <code>global</code>
 							ermöglicht es aber, Querbeziehungen zwischen ansonsten unabhängigen
 							Komponenteninstanzen zu definieren (also z.B. Querbedingungen zwischen
-								<code>Accommodation</code> und <code>Flight</code>).</para><para xml:id="en_2373" xml:lang="en"><emphasis> Scope </emphasis> allows you to specify whether a reference should or should not be resolved only in the current component instance and its super-instances and sub-instances. Common references refer always to sub-components or super-components of the current components instance. The entry of <code>global</code> , however, allows interactions between otherwise independent component instances to be defined (e.g. the interaction between <code>Accommodation</code> and <code>Flight</code> ).</para>
+								<code>Accommodation</code> und <code>Flight</code>).</para><para xml:id="en_2373" xml:lang="en"><emphasis> Scope </emphasis> allows you to specify whether a
+							reference should or should not be resolved only in the current component
+							instance and its super-instances and sub-instances. Common references
+							refer always to sub-components or super-components of the current
+							components instance. The entry of  <code>global</code> , however, allows
+							interactions between otherwise independent component instances to be
+							defined (e.g. the interaction between <code>Accommodation</code> and
+								<code>Flight</code> ).</para>
 
 						<para xml:id="de_2374" xml:lang="de">Die eigentliche Auswertung der <emphasis>Scope</emphasis> Angabe erfolgt als
 							letzter Schritt der <code>Source</code> Auswertung. Bis zu diesem letzten Schritt
@@ -13650,7 +13683,8 @@ usw.]]></programlisting>
 						<bridgehead xml:id="de_2377" xml:lang="de">Beispiele</bridgehead><bridgehead xml:id="en_2377" xml:lang="en">Examples</bridgehead>
 
 						<para xml:id="de_2378" xml:lang="de">Bei der <emphasis>statischen</emphasis> Analyse gültige <code>Source</code>
-							Angaben sind zum Beispiel:</para><para xml:id="en_2378" xml:lang="en">For <emphasis>static</emphasis> analysis valid<code>Source</code> information includes, for example:</para>
+							Angaben sind zum Beispiel:</para><para xml:id="en_2378" xml:lang="en">For <emphasis>static</emphasis> analysis valid
+								<code>Source</code> information includes, for example:</para>
 
 						<variablelist>
 							<varlistentry>
@@ -13965,7 +13999,13 @@ usw.]]></programlisting>
 							keine wirkliche neue zusammengesetzte einzelne Komponente, sondern wird
 							so in die Komponentenhierarchie eingefügt, dass die Auswertung der
 								<code>Source</code> Angaben gegen diese zusammengesetzte Komponente
-							den Effekt einer einzelnen synthetisierten Komponente ergibt.</para><para xml:id="en_2420" xml:lang="en">This flexibility allows combined components (<code>CombiComponent</code> ) to be displayed as real components. The <code>CombiComponent</code> does not actually generate any new combined individual components, but they are added as such in the component hierarchy, so that the evaluation of the <code>Source</code> entries has the effect of an individual synthesised component on this combined component.</para>
+							den Effekt einer einzelnen synthetisierten Komponente ergibt.</para><para xml:id="en_2420" xml:lang="en">This flexibility allows combined components
+								(<code>CombiComponent</code>) to be displayed as real components.
+							The <code>CombiComponent</code> does not actually generate any new
+							combined individual components, but they are added as such in the
+							component hierarchy, so that the evaluation of the <code>Source</code>
+							entries has the effect of an individual synthesised component on this
+							combined component.</para>
 
 						<para xml:id="de_2421" xml:lang="de">An dieser Stelle ist sicher ein Beispiel angebracht. Die
 							folgende Notation zeigt ein Beispiel für den expandierten Datenbaum
@@ -14016,7 +14056,13 @@ usw.]]></programlisting>
 										<code>CombiComponent</code> Instanz. Die Auswertung ergibt zunächst
 										eine Pseudokomponente (die <code>Outbound</code>
 										<code>CombiComponent</code>), welche dann bis zu den echten
-										Komponenten (<code>OnewayFlight</code>) überprungen wird.</para><para xml:id="en_2424" xml:lang="en">Dispersed among all <code>OnewayFlight</code> subcomponent instances of the <code>Outbound</code> <code>CombiComponent</code> instance. The evaluation results in a pseudocomponent (the <code>Outbound</code> <code>CombiComponent</code> ), which is then skipped past until the real components (<code>OnewayFlight</code> ).</para>
+										Komponenten (<code>OnewayFlight</code>) überprungen wird.</para><para xml:id="en_2424" xml:lang="en">Dispersed among all <code>OnewayFlight</code> subcomponent
+										instances of the <code>Outbound</code>
+										<code>CombiComponent</code> instance. The evaluation results
+										in a pseudocomponent (the <code>Outbound</code>
+										<code>CombiComponent</code>), which is then skipped past
+										until the real components
+										(<code>OnewayFlight</code>).</para>
 								</listitem>
 							</varlistentry>
 							<varlistentry>
@@ -14098,7 +14144,7 @@ usw.]]></programlisting>
 									)</phrase><phrase xml:id="en_2439" xml:lang="en"><code>Source
 										Evaluation</code> ( <replaceable>Source
 										Indication</replaceable> , <replaceable>Environment
-										Component</replaceable> )</phrase></title>
+										Component</replaceable>)</phrase></title>
 
 							<tasksummary>
 								<para xml:id="de_2440" xml:lang="de">Diese Operation wertet <replaceable>Sourceangabe</replaceable>
@@ -14156,7 +14202,7 @@ usw.]]></programlisting>
 													<replaceable>Sourceangabe</replaceable>,
 													<replaceable>Umgebungskomponente</replaceable>,
 													<replaceable>Komponentenmenge</replaceable> ) als Ergebnis
-												zurück.</para><para xml:id="en_2449" xml:lang="en">Return <code>Scopeauswertung</code> (scope of
+												zurück.</para><para xml:id="en_2449" xml:lang="en">Return <code>Scope Evaluation</code> (scope of
 												<replaceable>Source Indication</replaceable> ,
 												<replaceable>Environment Component</replaceable> ,
 												<replaceable>Component Set</replaceable> ) as the
@@ -14171,11 +14217,10 @@ usw.]]></programlisting>
 										<replaceable>Scope</replaceable>,
 										<replaceable>Umgebungskomponente</replaceable>,
 										<replaceable>Komponentenmenge</replaceable>
-									)</phrase><phrase xml:id="en_2450" xml:lang="en"
-										><code>Scopeauswertung</code> (
-										<replaceable>Scope</replaceable> , <replaceable>Environment
-										Component</replaceable> , <replaceable>Component
-										Set</replaceable> )</phrase></title>
+									)</phrase><phrase xml:id="en_2450" xml:lang="en"><code>Scope
+										Evaluation</code> ( <replaceable>Scope</replaceable> ,
+										<replaceable>Environment Component</replaceable> ,
+										<replaceable>Component Set</replaceable> )</phrase></title>
 
 							<tasksummary>
 								<para xml:id="de_2451" xml:lang="de">Diese Operation übernimmt die durch die <code>Schrittauswertung</code>
@@ -14278,7 +14323,7 @@ usw.]]></programlisting>
 									anderen angewendet. Jedes Zwischenergebnis ist eine Menge von Elementen
 									und dient als Ausgangspunkt für den nächsten Schritt. Begonnen wird diese
 									Operation mit einer Menge, welche die folgenden Elemente enthält:</para><para xml:id="en_2462" xml:lang="en">This operation evaluates the actual
-										<replaceable>Steps</replaceable> . One step is applied after
+										<replaceable>Steps</replaceable>. One step is applied after
 									the other. Each intermediate result consists of an amount of
 									elements and serves as a starting point for the next step. This
 									operation begins with an amount which contains the following
@@ -14295,7 +14340,7 @@ usw.]]></programlisting>
 								</itemizedlist>
 
 								<para xml:id="de_2465" xml:lang="de">Jeder dieser Schritte ist ein <code>Komponentenlookup</code>. Die
-									Bedingung hängt von der Art des Schrittes ab.</para><para xml:id="en_2465" xml:lang="en">Each of these steps is a <code>Component Lookup</code> . The
+									Bedingung hängt von der Art des Schrittes ab.</para><para xml:id="en_2465" xml:lang="en">Each of these steps is a <code>Component Lookup</code>. The
 									condition depends on the type of step.</para>
 
 								<itemizedlist>
@@ -14394,7 +14439,7 @@ usw.]]></programlisting>
 												<replaceable>Ergebnismenge</replaceable>,
 												<replaceable>Bedingung</replaceable> )</para><para xml:id="en_2477" xml:lang="en"><replaceable>Result Set</replaceable> := <code>Component
 												Lookup</code> ( <replaceable>Result
-												Set</replaceable> ,
+												Set</replaceable>,
 												<replaceable>Condition</replaceable> )</para>
 										</step>
 									</procedure>
@@ -14405,7 +14450,7 @@ usw.]]></programlisting>
 											<code>Komponentenlookup</code> (
 											<replaceable>Ergebnismenge</replaceable>, "Komponente ist keine
 											<code>CombiComponent</code>" )</para><para xml:id="en_2478" xml:lang="en"><replaceable>Result Set</replaceable> := <code>Component
-											Lookup</code> ( <replaceable>Result Set</replaceable> ,
+											Lookup</code> ( <replaceable>Result Set</replaceable>,
 										"The component is not a <code>CombiComponent</code>"
 										)</para>
 								</step>
@@ -14447,8 +14492,8 @@ usw.]]></programlisting>
 										<replaceable>Bedingung</replaceable> aufgerufen. Das Ergebnis wird in
 									die Ergebnismenge eingefügt. Formal ergibt sich folgender
 									Algorithmus:</para><para xml:id="en_2482" xml:lang="en">This operation applies the <replaceable>Condition</replaceable>
-									to each element of the <replaceable>Component Set</replaceable>
-									. If the <replaceable>Condition</replaceable> is fulfilled, the
+									to each element of the <replaceable>Component Set</replaceable>.
+									If the <replaceable>Condition</replaceable> is fulfilled, the
 									element is taken up into the range of results. If the condition
 									is <emphasis>not</emphasis> fulfilled, this operation is
 									continued recursively with the subcomponents of the regarded
@@ -14457,8 +14502,8 @@ usw.]]></programlisting>
 									arguments <replaceable>Component Set</replaceable> =
 									subcomponents of the regarded element and
 										<replaceable>Condition</replaceable> =
-										<replaceable>Bedingung</replaceable> . The result is
-									inserted into the range of results. The following algorithm is
+										<replaceable>Bedingung</replaceable>. The result is inserted
+									into the range of results. The following algorithm is
 									created:</para>
 							</tasksummary>
 
@@ -14570,7 +14615,12 @@ usw.]]></programlisting>
 						komplexen Angabe von Schritten erlaubt <code>Component</code> nur die Angabe eines
 						Hauptkomponentennamens oder <code>ThisComponent</code>. Die Angabe
 							<code>ThisComponent</code> referenziert die übergeordnete Hauptkomponenteninstanz
-						der Komponente, in welcher die <code>Component</code> Angabe notiert wurde.</para><para xml:id="en_2497" xml:lang="en"><code>Component</code> follows a much more simple syntax: Instead of the complex specification of steps, <code>Component</code> only allows the specification of a main component name or <code>ThisComponent</code> . The specification <code>ThisComponent</code> refers to the higher-level main component instance of the components, in which the <code>Component</code> specification is noted.</para>
+						der Komponente, in welcher die <code>Component</code> Angabe notiert wurde.</para><para xml:id="en_2497" xml:lang="en"><code>Component</code> follows a much more simple syntax:
+						Instead of the complex specification of steps, <code>Component</code> only
+						allows the specification of a main component name or
+							<code>ThisComponent</code>. The specification <code>ThisComponent</code>
+						refers to the higher-level main component instance of the components, in
+						which the <code>Component</code> specification is noted.</para>
 
 					<para xml:id="de_2498" xml:lang="de">Eine <code>Component</code> referenziert anders als <code>Source</code> nicht nur
 						die referenzierte Hauptkomponente, sondern auch alle ihre direkten und indirekten
@@ -14941,7 +14991,7 @@ usw.]]></programlisting>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
-							<term xml:id="de_2564" xml:lang="de"><emphasis>Impact</emphasis></term><term xml:id="en_2564" xml:lang="en"><emphasis>Impact</emphasis></term>
+							<term xml:id="de_2564" xml:lang="de"><code>Impact</code></term><term xml:id="en_2564" xml:lang="en"><code>Impact</code></term>
 							<listitem>
 								<para xml:id="de_2565" xml:lang="de">Enthält Bedingungen, welche abhängig vom aktuellen
 										<emphasis>Tag</emphasis> und der aktuellen <emphasis>Person</emphasis>
@@ -15063,7 +15113,13 @@ usw.]]></programlisting>
 									Komponenteninstanzen aufgelöst. Aus dieser Liste wird dann der
 									kleinste <code>CheckIn</code> Tag aller Instanzen als
 									Kontext-Tag ausgewählt. Dieser Tag ersetzt im Kontext die
-									Kontext-Instanz.</para><para xml:id="en_2583" xml:lang="en">Evaluating the <code>Source</code>  and the determination of one (or more) contextual instances is replaced by a simplified analysis of the <code>Source</code> : It is first processed <code>Source</code>  as usual in a set of component instances. From this list the first <code>CheckIn</code>  day amongst all instances will be selected as the context day. This day replaces the context instance in context.</para>
+									Kontext-Instanz.</para><para xml:id="en_2583" xml:lang="en">Evaluating the <code>Source</code> and the determination of one
+									(or more) contextual instances is replaced by a simplified
+									analysis of the <code>Source</code>: It is first processed
+										<code>Source</code> as usual in a set of component
+									instances. From this list the first <code>CheckIn</code> day
+									amongst all instances will be selected as the context day. This
+									day replaces the context instance in context.</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
@@ -15073,7 +15129,12 @@ usw.]]></programlisting>
 									mehrerer) Kontext-Instanzen wird ersetzt durch die Auswertung der
 										<code>Source</code> und eines impliziten <code>IntervalType</code>.
 									Siehe <xref linkend="OtdsProcessIntervalType"/>. Das Kontext-Item wird
-									durch die sich ergebende Menge von Kontext-Tagen ersetzt.</para><para xml:id="en_2585" xml:lang="en">The evaluation of the <code>Source</code>  and the determination of one (or more) context instances is replaced by the evaluation of the <code>Source</code>  and an implicit <code>IntervalType</code> . See <xref linkend="OtdsProcessIntervalType"/>. The context item is replaced by the resulting amount of context days.</para>
+									durch die sich ergebende Menge von Kontext-Tagen ersetzt.</para><para xml:id="en_2585" xml:lang="en">The evaluation of the <code>Source</code> and the determination
+									of one (or more) context instances is replaced by the evaluation
+									of the <code>Source</code> and an implicit
+										<code>IntervalType</code>. See <xref
+										linkend="OtdsProcessIntervalType"/>. The context item is
+									replaced by the resulting amount of context days.</para>
 							</listitem>
 						</varlistentry>
 					</variablelist>
@@ -15163,7 +15224,9 @@ usw.]]></programlisting>
 							<listitem>
 								<para xml:id="de_2605" xml:lang="de">Ist dieser Wert angegeben, werden die Tag-Werte der
 									Kontext-Instanz (nach der Auswertung von <code>Offset</code>) an
-									dieser Stelle abgeschnitten.</para><para xml:id="en_2605" xml:lang="en">If this value is provided the tag values of the context instance (after the evaluation of <code>Offset</code> ) are cut at this point.</para>
+									dieser Stelle abgeschnitten.</para><para xml:id="en_2605" xml:lang="en">If this value is provided the tag values of the context
+									instance (after the evaluation of <code>Offset</code>) are cut
+									at this point.</para>
 							</listitem>
 						</varlistentry>
 					</variablelist>
@@ -15174,7 +15237,14 @@ usw.]]></programlisting>
 						Liste leer sein, werden diese aus der Liste entfernt. Stimmt
 							<emphasis>einer</emphasis> der Werte aus dieser Liste mit
 							<emphasis>einem</emphasis> der in der Bedingung angegebenen Vergleichswerte
-						überein, ist die Bedingung <code>True</code>, sonst <code>False</code>.</para><para xml:id="en_2606" xml:lang="en">After the use of <code>Class</code> , <code>Offset</code> and <code>Length</code> a list of values has been extracted from the context instance. Should individual values in this list be empty after the use of <code>Offset</code> or <code>Length</code> , they will be removed from this list. If <emphasis>one</emphasis> of the values from this list complies with <emphasis>one</emphasis> of the comparative values provided in the conditions, then the condition is <code>True</code> ; if not then it is <code>False</code> .</para>
+						überein, ist die Bedingung <code>True</code>, sonst <code>False</code>.</para><para xml:id="en_2606" xml:lang="en">After the use of <code>Class</code>, <code>Offset</code> and
+							<code>Length</code> a list of values has been extracted from the context
+						instance. Should individual values in this list be empty after the use of
+							<code>Offset</code> or <code>Length</code>, they will be removed from
+						this list. If <emphasis>one</emphasis> of the values from this list complies
+						with <emphasis>one</emphasis> of the comparative values provided in the
+						conditions, then the condition is <code>True</code>; if not then it is
+							<code>False</code> .</para>
 				</section>
 				<section xml:id="OtdsProcessConditionsConditionalTags">
 					<title><phrase xml:id="de_2607" xml:lang="de"><code>ConditionalTags</code> Bedingung</phrase><phrase xml:id="en_2607" xml:lang="en"><code>ConditionalTags</code> condition</phrase></title>
@@ -15231,7 +15301,7 @@ usw.]]></programlisting>
 					<itemizedlist>
 						<listitem>
 							<para xml:id="de_2618" xml:lang="de">Es definiert, auf welche Art von Flughafen sich die
-								Bedingung bezieht</para><para xml:id="en_2618" xml:lang="en">It defines what type of airport the condition refers to.</para>
+								Bedingung bezieht.</para><para xml:id="en_2618" xml:lang="en">It defines what type of airport the condition refers to.</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_2619" xml:lang="de">Es legt die genaue Auswertung einer nicht eindeutigen <code>Source</code>
@@ -15243,19 +15313,26 @@ usw.]]></programlisting>
 							<code>DayAllocation</code> und <code>EvaluationMode</code> wird in
 							<code>Airport</code> durch die <code>AirportType</code> Angabe ersetzt. Jeder
 						mögliche Wert von <code>AirportType</code> entspricht einem <code>DayAllocation</code>
-						Wert:</para><para xml:id="en_2620" xml:lang="en">The default restriction of <code>Source</code>  using <code>DayAllocation</code>  and <code>EvaluationMode</code>  is replaced by <code>AirportType</code>  in <code>Airport</code>  . Each possible value of <code>AirportType</code>  corresponds to a <code>DayAllocation</code>  value:</para>
+						Wert:</para><para xml:id="en_2620" xml:lang="en">The default restriction of <code>Source</code> using
+							<code>DayAllocation</code> and <code>EvaluationMode</code> is replaced
+						by <code>AirportType</code> in <code>Airport</code>. Each possible value of
+							<code>AirportType</code> corresponds to a <code>DayAllocation</code>
+						value:</para>
 
 					<variablelist>
 						<varlistentry>
 							<term xml:id="de_2621" xml:lang="de"><code>Departure</code></term><term xml:id="en_2621" xml:lang="en"><code>Departure</code> </term>
 							<listitem>
-								<para xml:id="de_2622" xml:lang="de">Entspricht <code>DayAllocation</code> == <code>First</code></para><para xml:id="en_2622" xml:lang="en">Corresponds to<code>DayAllocation</code> == <code>First</code> </para>
+								<para xml:id="de_2622" xml:lang="de">Entspricht <code>DayAllocation</code> == <code>First</code></para><para xml:id="en_2622" xml:lang="en">Corresponds to <code>DayAllocation</code> == <code>First</code>
+								</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
 							<term xml:id="de_2623" xml:lang="de"><code>Arrival</code></term><term xml:id="en_2623" xml:lang="en"><code>Arrival</code> </term>
 							<listitem>
-								<para xml:id="de_2624" xml:lang="de">Entspricht <code>DayAllocation</code> == <code>Last</code></para><para xml:id="en_2624" xml:lang="en">Is equivalent to<code>DayAllocation</code> == <code>Last</code> </para>
+								<para xml:id="de_2624" xml:lang="de">Entspricht <code>DayAllocation</code> == <code>Last</code></para><para xml:id="en_2624" xml:lang="en">Is equivalent to <code>DayAllocation</code> ==
+										<code>Last</code>
+								</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
@@ -15267,32 +15344,35 @@ usw.]]></programlisting>
 					</variablelist>
 
 					<para xml:id="de_2627" xml:lang="de">Der <code>EvaluationMode</code> ist in jedem Falle auf <code>Any</code> zu
-						setzen.</para><para xml:id="en_2627" xml:lang="en">In each case the<code>EvaluationMode</code>  is set to <code>Any</code> .</para>
+						setzen.</para><para xml:id="en_2627" xml:lang="en">In each case the <code>EvaluationMode</code> is set to
+							<code>Any</code> .</para>
 
 					<para xml:id="de_2628" xml:lang="de">Bei der eigentlichen Auswertung der <code>Airport</code> Bedingung referenziert
 							<code>AirportType</code> dann die Art des Flughafens:</para><para xml:id="en_2628" xml:lang="en">The actual evaluation of the <code>Airport</code>  condition refers to the <code>AirportType</code>  and the specific type of Airport:</para>
 
 					<variablelist>
 						<varlistentry>
-							<term xml:id="de_2629" xml:lang="de"><emphasis>Departure</emphasis></term><term xml:id="en_2629" xml:lang="en"><emphasis>Departure</emphasis></term>
+							<term xml:id="de_2629" xml:lang="de"><code>Departure</code></term><term xml:id="en_2629" xml:lang="en"><code>Departure</code></term>
 							<listitem>
 								<para xml:id="de_2630" xml:lang="de">Referenziert je nach Kontext-Instanz das <code>DepartureAirport</code>
 									Element in <simplelist>
 										<member><code>/Otds/Flights/OnewayFlights/OnewayFlight</code></member>
 										<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/Outbound</code></member>
 										<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/Inbound</code></member>
-									</simplelist></para><para xml:id="en_2630" xml:lang="en">Makes a context dependent reference to the<code>DepartureAirport</code> element.</para>
+									</simplelist></para><para xml:id="en_2630" xml:lang="en">Makes a context dependent reference to the
+										<code>DepartureAirport</code> element.</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
-							<term xml:id="de_2631" xml:lang="de"><emphasis>Arrival</emphasis></term><term xml:id="en_2631" xml:lang="en"><emphasis>Arrival</emphasis></term>
+							<term xml:id="de_2631" xml:lang="de"><code>Arrival</code></term><term xml:id="en_2631" xml:lang="en"><code>Arrival</code></term>
 							<listitem>
 								<para xml:id="de_2632" xml:lang="de">Referenziert je nach Kontext-Instanz das <code>ArrivalAirport</code>
 									Elemente in <simplelist>
 										<member><code>/Otds/Flights/OnewayFlights/OnewayFlight</code></member>
 										<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/Outbound</code></member>
 										<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/Inbound</code></member>
-									</simplelist></para><para xml:id="en_2632" xml:lang="en">Makes a context dependent reference to the<code>ArrivalAirport</code> element.</para>
+									</simplelist></para><para xml:id="en_2632" xml:lang="en">Makes a context dependent reference to the
+										<code>ArrivalAirport</code> element.</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
@@ -15310,7 +15390,10 @@ usw.]]></programlisting>
 					<para xml:id="de_2635" xml:lang="de">Stimmt der Typ der Kontext-Instanz nicht mit einem der hier aufgelisteten Typen
 						überein, ist die Bedingung <code>False</code>. Ansonsten ist die Bedingung erfüllt,
 						wenn das referenzierte Element mindestens einen der in der Bedingung angegebenen
-						Flughafencodes enthält.</para><para xml:id="en_2635" xml:lang="en">If the type of context instance is not the same as one of the types listed here, the condition is <code>False</code> . Otherwise, the condition is met is the referenced element contains at least one on the airport codes entered in the condition.</para>
+						Flughafencodes enthält.</para><para xml:id="en_2635" xml:lang="en">If the type of context instance is not the same as one of the
+						types listed here, the condition is <code>False</code>. Otherwise, the
+						condition is met is the referenced element contains at least one on the
+						airport codes entered in the condition.</para>
 				</section>
 				<section xml:id="OtdsProcessConditionsBookingDate">
 					<title><phrase xml:id="de_2636" xml:lang="de"><code>BookingDate</code> Bedingung</phrase><phrase xml:id="en_2636" xml:lang="en"><code>BookingDate</code> condition</phrase></title>
@@ -16110,23 +16193,31 @@ usw.]]></programlisting>
 						Bedingungen statt:</para><para xml:id="en_2796" xml:lang="en">The prices are examined against the provided conditions:</para>
 					<itemizedlist>
 						<listitem>
-							<para xml:id="de_2797" xml:lang="de"><code>Min</code>: Dieses Element definiert den kleinsten Preis, also die Untergrenze einer Preisspanne.</para><para xml:id="en_2797" xml:lang="en"><code>Min</code> : This element defines the lowest price, i.e. the lower limit of a price range.</para>
+							<para xml:id="de_2797" xml:lang="de"><code>Min</code>: Dieses Element definiert den kleinsten Preis, also die Untergrenze einer Preisspanne.</para><para xml:id="en_2797" xml:lang="en"><code>Min</code>: This element defines the lowest price, i.e.
+								the lower limit of a price range.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_2798" xml:lang="de"><code>Max</code>: Dieses Element definiert den höchsten Preis, also die Obergrenze einer Preisspanne.</para><para xml:id="en_2798" xml:lang="en"><code>Max</code> : This element defines the highest price, i.e. the upper limit of a price range.</para>
+							<para xml:id="de_2798" xml:lang="de"><code>Max</code>: Dieses Element definiert den höchsten Preis, also die Obergrenze einer Preisspanne.</para><para xml:id="en_2798" xml:lang="en"><code>Max</code>: This element defines the highest price, i.e.
+								the upper limit of a price range.</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_2799" xml:lang="de"><code>Prices</code>: In diesem Element kann eine Liste
 								von Preisen oder ein Preis angegeben werden. Wenn der betrachtete
 								Preis mit einem der Preise aus der Liste übereinstimmt, ist die
 								Bedingung erfüllt. Die Preise in der Liste sind durch "Leerzeichen"
-								getrennt.</para><para xml:id="en_2799" xml:lang="en"><code>Prices</code> : In this element a list of prices or one price can be specified. If the considered price matches one of the prices from the list, the condition is fulfilled. The prices in the list are separated by "spaces".</para>
+								getrennt.</para><para xml:id="en_2799" xml:lang="en"><code>Prices</code>: In this element a list of prices or one
+								price can be specified. If the considered price matches one of the
+								prices from the list, the condition is fulfilled. The prices in the
+								list are separated by "spaces".</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_2800" xml:lang="de"><code>ConsiderationBase</code>: Definiert, ob für die
 								Ermittlung des Preises der Gesamtpreis (<code>Total</code>) oder der
 								Preis der gerade betrachteten Person (<code>Person</code>)
-								herangezogen werden soll.</para><para xml:id="en_2800" xml:lang="en"><code>ConsiderationBase</code> : Defines whether the total price (<code>Total</code> ) or the price of the currently considered person (<code>Person</code> ) should be used for the determination of the price.</para>
+								herangezogen werden soll.</para><para xml:id="en_2800" xml:lang="en"><code>ConsiderationBase</code>: Defines whether the total price
+									(<code>Total</code> ) or the price of the currently considered
+								person (<code>Person</code>) should be used for the determination of
+								the price.</para>
 						</listitem>
 					</itemizedlist>
 					
@@ -16224,7 +16315,9 @@ usw.]]></programlisting>
 &lt;/delivery&gt;</programlisting>
 
 					<para xml:id="de_2816" xml:lang="de">Diese Datei enthält zwei UTC-Zeitstempel, beide als <code>xs:dateTime</code> im
-						ISO-Format also z.B. <code>2012-02-08T13:21:50.4598Z</code>:</para><para xml:id="en_2816" xml:lang="en">This file contains two UTC time stamps, both as <code>xs:dateTime</code> in the ISO format, i.e. <code>2012-02-08T13:21:50.4598Z</code> :</para>
+						ISO-Format also z.B. <code>2012-02-08T13:21:50.4598Z</code>:</para><para xml:id="en_2816" xml:lang="en">This file contains two UTC time stamps, both as
+							<code>xs:dateTime</code> in the ISO format, i.e.
+							<code>2012-02-08T13:21:50.4598Z</code>:</para>
 
 					<variablelist>
 						<varlistentry>
@@ -16264,7 +16357,8 @@ usw.]]></programlisting>
 						point is also responsible for the coordination of contents.</para>
 
 					<para xml:id="de_2823" xml:lang="de">Das <emphasis>Base-Timestamp</emphasis> darf ausgelassen werden, wenn es sich bei
-						dieser Lieferung um eine komplette Neulieferung handelt.</para><para xml:id="en_2823" xml:lang="en">The <emphasis> base timestamp </emphasis> may be omitted if the delivery is a completely new delivery.</para>
+						dieser Lieferung um eine komplette Neulieferung handelt.</para><para xml:id="en_2823" xml:lang="en">The <emphasis>base timestamp </emphasis> may be omitted if the
+						delivery is a completely new delivery.</para>
 				</section>
 				<section xml:id="OtdsProcessDataDeliveryProcessing">
 					<title><phrase xml:id="de_2824" xml:lang="de">Lieferungsverarbeitung</phrase><phrase xml:id="en_2824" xml:lang="en">Delivery processing</phrase></title>
@@ -16274,12 +16368,16 @@ usw.]]></programlisting>
 					<itemizedlist>
 						<listitem>
 							<para xml:id="de_2826" xml:lang="de">Die Version der OTDS Daten vor Verarbeitung einer Lieferung heißt
-									<emphasis>Originalversion</emphasis></para><para xml:id="en_2826" xml:lang="en">The version of the OTDS data existing prior to the processing of a delivery is known as the<emphasis>original version</emphasis>.</para>
+									<emphasis>Originalversion</emphasis></para><para xml:id="en_2826" xml:lang="en">The version of the OTDS data existing prior to the processing
+								of a delivery is known as the <emphasis>original
+								version</emphasis>.</para>
 						</listitem>
 
 						<listitem>
 							<para xml:id="de_2827" xml:lang="de">Die Version der OTDS Daten nach der Verarbeitung einer Lieferung heißt
-									<emphasis>aktualisierte Version</emphasis></para><para xml:id="en_2827" xml:lang="en">The version of the OTDS data existing after the processing of a delivery is know as the <emphasis>updated version</emphasis>.</para>
+									<emphasis>aktualisierte Version</emphasis></para><para xml:id="en_2827" xml:lang="en">The version of the OTDS data existing after the processing of a
+								delivery is known as the <emphasis>updated
+								version</emphasis>.</para>
 						</listitem>
 					</itemizedlist>
 
@@ -17230,11 +17328,22 @@ usw.]]></programlisting>
 						der Originalversion gesucht (ist der Knoten <emphasis>Multiple</emphasis>
 						ist dies der Knoten mit demselben <code>Key</code>, ansonsten ist es der
 						Knoten mit demselben Elementnamen). Die Verarbeitung wird dann rekursiv mit
-						diesen beiden Knoten fortgesetzt.</para><para xml:id="en_2865" xml:lang="en">Processing of <code>Merge</code> is based on a recursive algorithm: If the <code>UpdateMode</code> of a node is in the incremental delivery <code>Merge</code> , then the children of this node are processed individually. For each child the corresponding node from the original version is searched for (if the node is <emphasis>Multiple</emphasis> then it is the node with the same <code>Key</code> , otherwise it is the node with the same element name). The processing is continued with both of these nodes recursively.</para>
+						diesen beiden Knoten fortgesetzt.</para><para xml:id="en_2865" xml:lang="en">Processing of <code>Merge</code> is based on a recursive
+						algorithm: If the <code>UpdateMode</code> of a node is in the incremental
+						delivery <code>Merge</code>, then the children of this node are processed
+						individually. For each child the corresponding node from the original
+						version is searched for (if the node is <emphasis>Multiple</emphasis> then
+						it is the node with the same <code>Key</code>, otherwise it is the node with
+						the same element name). The processing is continued with both of these nodes
+						recursively.</para>
 
 					<task>
-						<title><phrase xml:id="de_2866" xml:lang="de"><code>AktualisiereKnoten</code> ( <replaceable>Original</replaceable>,
-								<replaceable>Update</replaceable> )</phrase><phrase xml:id="en_2866" xml:lang="en"><code>AktualisiereKnoten</code> ( <replaceable>Original</replaceable> , <replaceable>Update</replaceable> )</phrase></title>
+						<title><phrase xml:id="de_2866" xml:lang="de"><code>AktualisiereKnoten</code> (
+									<replaceable>Original</replaceable>,
+									<replaceable>Update</replaceable> )</phrase><phrase
+								xml:id="en_2866" xml:lang="en"><code>UpdateNode</code> (
+									<replaceable>Original</replaceable> ,
+									<replaceable>Update</replaceable> )</phrase></title>
 
 						<tasksummary>
 							<para xml:id="de_2867" xml:lang="de">Argumente:</para><para xml:id="en_2867" xml:lang="en">Arguments:</para>
@@ -17259,7 +17368,9 @@ usw.]]></programlisting>
 
 							<para xml:id="de_2873" xml:lang="de">Diese Spezifikation verarbeitet ein <code>Merge</code>
 								ohne entsprechendes Originalelement wie <code>New</code>. Dieser
-								Fall sollte eine Warnung an den Datenlieferanten erzeugen.</para><para xml:id="en_2873" xml:lang="en">This specification processes a <code>Merge</code> without a corresponding original element such as <code>New</code> . This scenario should create a warning for the data deliverer.</para>
+								Fall sollte eine Warnung an den Datenlieferanten erzeugen.</para><para xml:id="en_2873" xml:lang="en">This specification processes a <code>Merge</code> without a
+								corresponding original element such as <code>New</code>. This
+								scenario should create a warning for the data deliverer.</para>
 						</tasksummary>
 
 						<procedure>
@@ -17276,7 +17387,14 @@ usw.]]></programlisting>
 												<replaceable>Original</replaceable> ein. Das Element
 											wird in <emphasis>document-order</emphasis> so weit
 											hinten  in <replaceable>Original</replaceable> eingefügt
-											wie durch die XSD erlaubt .</para><para xml:id="en_2875" xml:lang="en">If <replaceable>Update</replaceable> <code>.UpdateMode</code> not == <code>Delete</code> : Insert <replaceable>Update</replaceable> as the new child element in the parent element of <replaceable>Original</replaceable> . The element is inserted in <emphasis>document-order</emphasis> as far back as the XSD allows it, in <replaceable>Original</replaceable> .</para>
+											wie durch die XSD erlaubt .</para><para xml:id="en_2875" xml:lang="en">If <replaceable>Update</replaceable>
+											<code>.UpdateMode</code> not == <code>Delete</code> :
+											Insert <replaceable>Update</replaceable> as the new
+											child element in the parent element of
+												<replaceable>Original</replaceable>. The element is
+											inserted in <emphasis>document-order</emphasis> as far
+											back as the XSD allows it, in
+												<replaceable>Original</replaceable> .</para>
 									</step>
 								</procedure>
 							</step>
@@ -17391,7 +17509,12 @@ usw.]]></programlisting>
 								Struktur des Angebotes. Weitere Strukturvarianten ergeben sich durch
 								die Verwendung von <code>CombiComponent</code> /
 									<code>DefinedComponent</code>. Siehe hierzu auch <xref
-									linkend="OtdsProcessDataModelSubstitutions"/></para><para xml:id="en_2893" xml:lang="en">Many different rules like this can be applied to a type of product (<code>Product</code> ). Each <code>Product</code> specification describes a possible structure of the offer. Further structural variations can arise from the use of <code>CombiComponent</code> / <code>DefinedComponent</code> . See also <xref linkend="OtdsProcessDataModelSubstitutions"/></para>
+									linkend="OtdsProcessDataModelSubstitutions"/></para><para xml:id="en_2893" xml:lang="en">Many different rules like this can be applied to a type of
+								product (<code>Product</code>). Each <code>Product</code>
+								specification describes a possible structure of the offer. Further
+								structural variations can arise from the use of
+									<code>CombiComponent</code> / <code>DefinedComponent</code> .
+								See also <xref linkend="OtdsProcessDataModelSubstitutions"/></para>
 						</listitem>
 
 						<listitem>
@@ -17410,7 +17533,17 @@ usw.]]></programlisting>
 								Einschränkungen zwischen den Komponenten werden in diesem Schritt noch nicht
 								berücksichtigt, diese Ergebnismenge enthält noch eine große Zahl
 								widerprüchlicher Angebote (z.B. ist der Zielflughafen und der Hotelstandort an
-								dieser Stelle noch vollständig willkürlich kombiniert).</para><para xml:id="en_2895" xml:lang="en">This procedure is not only carried out at the uppermost level, but also at the subcomponent level. Again with the example of a hotel, each board instance (<code>Board</code> ) is combined with each room (<code>Unit</code> ). The result of this multiplication of the full amount of component instances is a (large) amount of offer candidates in the form of the <emphasis>unrestricted</emphasis> combination of individual components. Restrictions between components are not yet considered at this stage, meaning that this range of results will still contain a great number of contradictory offers (e.g. the destination airport still being combined completely at random with the location of the hotel).</para>
+								dieser Stelle noch vollständig willkürlich kombiniert).</para><para xml:id="en_2895" xml:lang="en">This procedure is not only carried out at the uppermost level,
+								but also at the subcomponent level. Again with the example of a
+								hotel, each board instance (<code>Board</code>) is combined with
+								each room (<code>Unit</code>). The result of this multiplication of
+								the full amount of component instances is a (large) amount of offer
+								candidates in the form of the <emphasis>unrestricted</emphasis>
+								combination of individual components. Restrictions between
+								components are not yet considered at this stage, meaning that this
+								range of results will still contain a great number of contradictory
+								offers (e.g. the destination airport still being combined completely
+								at random with the location of the hotel).</para>
 						</listitem>
 
 						<listitem>
@@ -17434,7 +17567,17 @@ usw.]]></programlisting>
 									(<code>CatchmentAirport</code>). Dieser Schritt entfernt somit auch alle
 								unsinnigen Angebote. Ergebnis ist die Menge aller durch den Veranstalter
 								definierten gültigen Angebote, welche zum gegebenen Anfragekontext
-								passen.</para><para xml:id="en_2897" xml:lang="en">Filter conditions (<code>Filter</code> ) can be entered at many different points in OTDS. These filter conditions are now evaluated. Only offer candidates which meet the filter conditions are included. Structural restrictions on the meaningfulness of an offer are also explicitly formulated in these filter conditions and are evaluated here, e.g. restrictions stating that the destination airport of the outbound flight must be close to the hotel (<code>CatchmentAirport</code> ). This step therefore removes all offers that do not meet this condition. The results is a set of all of the offers defined as valid by the tour operator, and matching the request context entered.</para>
+								passen.</para><para xml:id="en_2897" xml:lang="en">Filter conditions (<code>Filter</code>) can be entered at many
+								different points in OTDS. These filter conditions are now evaluated.
+								Only offer candidates which meet the filter conditions are included.
+								Structural restrictions on the meaningfulness of an offer are also
+								explicitly formulated in these filter conditions and are evaluated
+								here, e.g. restrictions stating that the destination airport of the
+								outbound flight must be close to the hotel
+									(<code>CatchmentAirport</code>). This step therefore removes all
+								offers that do not meet this condition. The results is a set of all
+								of the offers defined as valid by the tour operator, and matching
+								the request context entered.</para>
 						</listitem>
 					</orderedlist>
 
@@ -17525,7 +17668,10 @@ usw.]]></programlisting>
 						späteren Auswerten der Filterbedingungen korrekt mit angewendet wird.</para><para xml:id="en_2913" xml:lang="en">The procedure is relatively simple in principle: A defined component that is identified by its <code>Role</code> can be assigned a number of <code>DefineComponent</code> elements. Each of these <code>DefineComponent</code> elements contains both a component description and a filter expression. The expansion process replaces the <code>DefinedComponent</code> element with a <code>CombiComponent</code> , whose content is determined by the component description of one of the referenced <code>DefineComponent</code> elements. The filter condition is noted down as an additional property of the rule, so that it is applied correctly for any later evaluations of the filter conditions.</para>
 
 					<task xml:id="OtdsProcessProductExpandRulesFormal">
-						<title><phrase xml:id="de_2914" xml:lang="de"><code>ExpandiereKomponente</code> ( <replaceable>K</replaceable> )</phrase><phrase xml:id="en_2914" xml:lang="en"><code>ExpandiereKomponente</code> ( <replaceable>K</replaceable> )</phrase></title>
+						<title><phrase xml:id="de_2914" xml:lang="de"><code>ExpandiereKomponente</code> (
+									<replaceable>K</replaceable> )</phrase><phrase xml:id="en_2914"
+								xml:lang="en"><code>Expand Component</code> (
+									<replaceable>K</replaceable> )</phrase></title>
 
 						<tasksummary>
 							<para xml:id="de_2915" xml:lang="de">Gegeben sei</para><para xml:id="en_2915" xml:lang="en">If:</para>
@@ -17541,13 +17687,19 @@ usw.]]></programlisting>
 							<step>
 								<para xml:id="de_2917" xml:lang="de">Wenn <replaceable>K</replaceable> eine echte Komponente
 									oder eine <code>ProductComponent</code> ist, wird die Komponente
-									wie sie ist zurückgegeben.</para><para xml:id="en_2917" xml:lang="en">If <replaceable>K</replaceable>  is a real component or a <code>ProductComponent</code> , the component is returned as it is.</para>
+									wie sie ist zurückgegeben.</para><para xml:id="en_2917" xml:lang="en">If <replaceable>K</replaceable> is a real component or a
+										<code>ProductComponent</code>, the component is returned as
+									it is.</para>
 							</step>
 
 							<step>
 								<para xml:id="de_2918" xml:lang="de">Wenn <replaceable>K</replaceable> eine <code>CombiComponent</code> oder
 									das toplevel <code>Product</code> ist, so wird die Expansion rekursiv in
-									den Unterkomponenten von <replaceable>K</replaceable> fortgesetzt:</para><para xml:id="en_2918" xml:lang="en">If <replaceable>K</replaceable>  is a <code>CombiComponent</code> , or the top level is <code>Product</code> , the expansion continues recursively within the subcomponents of <replaceable>K</replaceable> :</para>
+									den Unterkomponenten von <replaceable>K</replaceable> fortgesetzt:</para><para xml:id="en_2918" xml:lang="en">If <replaceable>K</replaceable> is a
+										<code>CombiComponent</code>, or the top level is
+										<code>Product</code> , the expansion continues recursively
+									within the subcomponents of <replaceable>K</replaceable>
+									:</para>
 								<procedure>
 									<step>
 										<para xml:id="de_2919" xml:lang="de">Zunächst wird ExpandiereKomponente rekursiv für alle
@@ -17564,7 +17716,13 @@ usw.]]></programlisting>
 											Kreuzproduktes ist ein Tupel mit genauso vielen Elementen wie
 												<replaceable>K</replaceable> Unterkomponenten hat. Dieses
 											Tupel enthält genau eine expandierte Komponente für jede
-											Unterkomponete <replaceable>u</replaceable>.</para><para xml:id="en_2920" xml:lang="en">The result of the expansion is generated from the cross product, <replaceable>X</replaceable> , of the ranges <replaceable>Eu</replaceable> . Each element of the cross product is a tuple with exactly as many elements as <replaceable>K</replaceable>  has subcomponents. This tuple contains exactly one expanded component for each subcomponent <replaceable>u</replaceable> .</para>
+											Unterkomponete <replaceable>u</replaceable>.</para><para xml:id="en_2920" xml:lang="en">The result of the expansion is generated from the cross
+											product, <replaceable>X</replaceable>, of the ranges
+												<replaceable>Eu</replaceable> . Each element of the
+											cross product is a tuple with exactly as many elements
+											as <replaceable>K</replaceable> has subcomponents. This
+											tuple contains exactly one expanded component for each
+											subcomponent <replaceable>u</replaceable> .</para>
 									</step>
 
 									<step>
@@ -17591,7 +17749,14 @@ usw.]]></programlisting>
 												<code>Role</code>, welche in
 												<emphasis>document-order</emphasis> nach
 												<replaceable>K</replaceable> stehen (diese Einschränkung dient
-											der Vermeidung von rekursiven Definitionen).</para><para xml:id="en_2923" xml:lang="en">If <replaceable>D</replaceable> is the amount referenced by <code>UseRole</code> in the <code>DefineComponent</code> element (i.e. all <code>DefineComponent</code> elements with <code>Role</code> , which are in <emphasis>document order</emphasis> up until <replaceable>K</replaceable>  (this restriction is used to avoid recursive definitions).</para>
+											der Vermeidung von rekursiven Definitionen).</para><para xml:id="en_2923" xml:lang="en">If <replaceable>D</replaceable> is the amount referenced by
+												<code>UseRole</code> in the
+												<code>DefineComponent</code> element (i.e. all
+												<code>DefineComponent</code> elements with
+												<code>Role</code>, which are in <emphasis>document
+												order</emphasis> up until
+												<replaceable>K</replaceable> (this restriction is
+											used to avoid recursive definitions).</para>
 									</step>
 
 									<step>
@@ -17655,13 +17820,20 @@ usw.]]></programlisting>
 													<replaceable>M</replaceable> ) auf. Ergebnis ist eine
 													Menge von Expansionen von <replaceable>M</replaceable>.
 													Diese Menge wird in die Menge <replaceable>N</replaceable>
-													eingefügt.</para><para xml:id="en_2933" xml:lang="en">Summon recursively expanding component (<replaceable>M</replaceable> ) The result is an amount of expansions of <replaceable>M</replaceable> . This amount is added to the amount of<replaceable>N</replaceable> .</para>
+													eingefügt.</para><para xml:id="en_2933" xml:lang="en">Summon recursively expanding component
+												(<replaceable>M</replaceable> ) The result is an
+												amount of expansions of
+												<replaceable>M</replaceable> . This amount is
+												added to the amount
+												of<replaceable>N</replaceable>.</para>
 											</step>
 										</procedure>
 									</step>
 
 									<step>
-										<para xml:id="de_2934" xml:lang="de">Endergebnis ist die Menge <replaceable>N</replaceable></para><para xml:id="en_2934" xml:lang="en">The end result is the amount <replaceable>N</replaceable> </para>
+										<para xml:id="de_2934" xml:lang="de">Endergebnis ist die Menge
+												<replaceable>N</replaceable>.</para><para xml:id="en_2934" xml:lang="en">The end result is the amount
+											<replaceable>N</replaceable>.</para>
 									</step>
 								</procedure>
 							</step>
@@ -17705,16 +17877,16 @@ usw.]]></programlisting>
 									<para xml:id="de_2941" xml:lang="de">Gegeben seien</para><para xml:id="en_2941" xml:lang="en">Possible are</para>
 									<itemizedlist>
 										<listitem>
-											<para xml:id="de_2942" xml:lang="de">Eine Komponente <emphasis>H</emphasis> mit ihren dynamischen
-												und statischen Eigenschaften</para><para xml:id="en_2942" xml:lang="en">A component <emphasis>H</emphasis> with its dynamic and static characteristics</para>
+											<para xml:id="de_2942" xml:lang="de">Eine Komponente <replaceable>H</replaceable> mit ihren dynamischen
+												und statischen Eigenschaften</para><para xml:id="en_2942" xml:lang="en">A component <replaceable>H</replaceable> with its dynamic and static characteristics</para>
 										</listitem>
 										<listitem>
-											<para xml:id="de_2943" xml:lang="de"><emphasis>K</emphasis>: Eine Menge von Komponenten (die
-												Unterkomponenten von <emphasis>H</emphasis>)</para><para xml:id="en_2943" xml:lang="en"><emphasis>K</emphasis>: An amount of components (the subcomponents of <emphasis>H</emphasis>)</para>
+											<para xml:id="de_2943" xml:lang="de"><replaceable>K</replaceable>: Eine Menge von Komponenten (die
+												Unterkomponenten von <emphasis>H</emphasis>)</para><para xml:id="en_2943" xml:lang="en"><replaceable>K</replaceable>: An amount of components (the subcomponents of <emphasis>H</emphasis>)</para>
 										</listitem>
 										<listitem>
-											<para xml:id="de_2944" xml:lang="de"><emphasis>E</emphasis>: Ein Element, welches zu der Instanz
-												der Komponente <emphasis>H</emphasis> gehört</para><para xml:id="en_2944" xml:lang="en"><emphasis>E</emphasis>: An element, which belongs to the instance of the component <emphasis>H</emphasis></para>
+											<para xml:id="de_2944" xml:lang="de"><replaceable>E</replaceable>: Ein Element, welches zu der Instanz
+												der Komponente <emphasis>H</emphasis> gehört</para><para xml:id="en_2944" xml:lang="en"><replaceable>E</replaceable>: An element, which belongs to the instance of the component <emphasis>H</emphasis></para>
 										</listitem>
 									</itemizedlist>
 								</listitem>
@@ -17729,7 +17901,14 @@ usw.]]></programlisting>
 										<replaceable>Ek</replaceable> :=
 									Elemente(<replaceable>E</replaceable>, <replaceable>k</replaceable>) der
 									zu dieser Komponente gehörenden Elemente aus
-									<replaceable>E</replaceable></para><para xml:id="en_2945" xml:lang="en">For each component <replaceable>k</replaceable> in <replaceable>K</replaceable> , which is not a <code>ProductComponent</code> , create a range <replaceable>Ek</replaceable> := elements(<replaceable>E</replaceable> , <replaceable>k</replaceable> ) the elements from <replaceable>E</replaceable>  belonging to these components</para>
+									<replaceable>E</replaceable></para><para xml:id="en_2945" xml:lang="en">For each component <replaceable>k</replaceable> in
+										<replaceable>K</replaceable>, which is not a
+										<code>ProductComponent</code>, create a range
+										<replaceable>Ek</replaceable> :=
+										elements(<replaceable>E</replaceable> ,
+										<replaceable>k</replaceable> ) the elements from
+										<replaceable>E</replaceable> belonging to these
+									components</para>
 							</step>
 
 							<step>
