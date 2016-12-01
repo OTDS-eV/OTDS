@@ -1690,6 +1690,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 		</xs:choice>
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
+
 	<xs:group name="GroupConditionGroup">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_134">Die GroupCondition definiert genau wie die
@@ -1730,6 +1731,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 			</xs:element>
 		</xs:sequence>
 	</xs:group>
+	
 	<xs:complexType name="SortPriceType">
 		<xs:sequence>
 			<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
@@ -6654,29 +6656,6 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 							<xs:documentation xml:lang="en" xml:id="en_409">This branch defines which additional conditions apply to the availabilities listed under Availability. In general, the key for the Availabilities node should correlate exactly with this condition, so that the key is always unambiguously reproducible for incremental updates.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="GroupCondition" type="GroupConditionSimpleNodeType" minOccurs="0">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_410">Die GroupCondition definiert genau wie die
-								Condition eine Bedingung, die bestimmt, ob ein
-								Availabilities-Element bzw. das übergeordnete Element gültig ist
-								oder nicht. Im Unterschied zur Condition bezieht sich die
-								GroupCondition nicht nur auf Bestandteile des gerade betrachtete
-								Angebotes, sondern auch auf andere Angebote der unter
-								GroupDefinition referenzierten Gruppe von Angeboten. Um zu
-								überprüfen, ob die Bedingung erfüllt ist, werden alle Angebote gemäß
-								der GroupDefinition sortiert. Die Sortierung erfolgt durch
-								Auswertung der Tags und Preise der Angebote. In der dadurch
-								definierten sortierten Liste von Angeboten wird überprüft, ob sich
-								das gerade betrachtete Angebot unter den ersten x Angeboten dieser
-								sortierten Liste befindet. Ist das der Fall, so ist die
-								Filterbedingung erfüllt. Die GroupCondition wird in der Regel zur
-								Priorisierung von Flügen verwendet, die Vorzugsweise vertrieben
-								werden sollen. An dieser Stelle regelt die GroupCondition, dass nur
-								die hoch priorisierten Flüge buchbar sind.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_410">In the same way as the Condition does, the GroupCondition defines a condition that determines whether an Availabilities element or the superordinate element is valid or not. In contrast to the Condition, GroupCondition does not only refer to components of the offer currently being viewed, but also to other offers in the group of offers referenced under GroupDefinition.
-To check whether the condition is satisfied all offers are sorted by the GroupDefinition. The sorting is done by evaluating the tags and offer prices. The hereby defined list of offers is checked to see whether the currently viewed offer is to be found within the first x offers of this selected list. When this is the case, the filter condition is satisfied. GroupCondition is generally used to prioritise flights, which should be sold first. At this point the GroupCondition controls that only the high priority flights can be booked.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -8118,13 +8097,7 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="GroupConditionSimpleNodeType">
-		<xs:complexContent>
-			<xs:extension base="SimpleUpdateNodeType">
-				<xs:group ref="GroupConditionGroup"/>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
+	
 	<!-- Begin of Combination condition type-->
 	<xs:group name="CombinationConditionGroup">
 		<xs:choice>
