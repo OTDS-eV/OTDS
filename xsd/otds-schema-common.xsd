@@ -4628,6 +4628,14 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 		</xs:annotation>
 		<xs:list itemType="WeekdayEnum"/>
 	</xs:simpleType>
+	<xs:simpleType name="NonEmptyWeekdayEnumList">
+		<xs:annotation>
+			<xs:documentation xml:lang="de">Eine nicht-leere Liste von Wochentagen.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="WeekdayEnumList">
+			<xs:minLength value="1"></xs:minLength>
+		</xs:restriction>
+	</xs:simpleType>	
 	<xs:simpleType name="PersonGenderEnumList">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_277">Eine Liste von Angaben zum Geschlecht der Mitreisenden.</xs:documentation>
@@ -5183,7 +5191,7 @@ e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</x
 	</xs:complexType>
 	<xs:complexType name="WeekdayConditionType">
 		<xs:simpleContent>
-			<xs:extension base="WeekdayEnumList">
+			<xs:extension base="NonEmptyWeekdayEnumList">
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
 				<xs:attribute name="DayType" type="DayTypeEnum" default="CheckIn">
 					<xs:annotation>
