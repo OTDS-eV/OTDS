@@ -1382,7 +1382,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 												<xs:attribute name="Source" type="SourceAttributeType"/>
 											</xs:complexType>
 										</xs:element>
-										<xs:element name="Tag" type="EmptyTagConditionType">
+										<xs:element name="Tag" type="EmptyTagGroupedByEqualType">
 											<xs:annotation>
 												<xs:documentation xml:lang="de" xml:id="det_488">Dieses Element adressiert ein
 												bestimmtes Tag innerhalb des Angebotskontextes.
@@ -5363,6 +5363,55 @@ This is based on the total number of nights For this reason the return date is e
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_336">Definiert den TagType des referenzierten Tags. Stimmt der TagType nicht mit dem TagType der TagDefinition überein, so wird als Value für den Tag der Wert="" verwendet.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_336">Defines the TagType of the tags referred to. If the TagType does not match the TagType in the TagDefinition, the value for the tag used is Value="".</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="EmptyTagGroupedByEqualType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de">Der TagConditionType definiert die Bedingung an
+				bestimmte Tags inklusive Angabe der Class, Location und Werte des Tags. Tags sind
+				Wertepaare, die an definierten Knotenpunkten angegeben werden können. Dadurch kann
+				man Einfluss nehmen auf die Angebotserstellung und auch auf die
+				Preisberechnung.</xs:documentation>
+			<xs:documentation xml:lang="en">The TagConditionType defines the condition of
+				certain tags, as well as specifying the class, location and value of the tag. Tags
+				are pairs of values ​​that can be specified at defined nodes. This allows you to
+				influence the preparation of the offer and also the pricing.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="EmptyTagType">
+				<xs:attribute name="DayAllocation" type="DayAllocationEnum" default="First">
+				</xs:attribute>
+				<xs:attributeGroup ref="SourceAttributeGroup"/>
+				<xs:attribute name="Class" type="TokenType" use="required">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Diese Attribut bietet eine zusätzliche
+							Bedingung an die Tags des Zielknotens. Ein Zielknoten kann die Bedingung
+							nur erfüllen, wenn die Class den gleichen Wert enthält. Ist die Class in
+							der Bedingung nicht besetzt oder leer, gilt die Bedingung bzgl. Class
+							als erfüllt.</xs:documentation>
+						<xs:documentation xml:lang="en">This attribute is an additional condition on the tags of the destination node. A destination node can satisfy the condition only if the class contains the same value. If the class is not specified or is empty, the condition regarding class is considered to be fulfilled.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Offset" type="PositiveInteger">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
+						</xs:documentation>
+						<xs:documentation xml:lang="en">Specifies the location from which the body of the tag element is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Length" type="PositiveInteger">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen. </xs:documentation>
+						<xs:documentation xml:lang="en">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElements is compared to the end of the character string.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="TagValueType" type="TagValueTypeEnum" default="String">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Definiert den TagType des referenzierten Tags. Stimmt der TagType nicht mit dem TagType der TagDefinition überein, so wird als Value für den Tag der Wert="" verwendet.</xs:documentation>
+						<xs:documentation xml:lang="en">Defines the TagType of the tags referred to. If the TagType does not match the TagType in the TagDefinition, the value for the tag used is Value="".</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
