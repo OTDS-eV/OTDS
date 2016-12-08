@@ -3700,12 +3700,27 @@ Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über
 		<xs:sequence>
 			<xs:element name="Airport" type="IataAirportCodeType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_257">An- und Abflughafen des Knotens, angegeben als IATA Airport Code. Spezialfall: wenn der Code sowohl 
-						einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen 
-						berücksichtigt. Für Informationen zu MAAs siehe: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_257">An- und Abflughafen des Knotens, angegeben als IATA Airport Code bzw. als iata MetropolitanAirportCode. Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen 
+berücksichtigt. 
+
+Um die Definition der Airport-Codes seitens iata zu überprüfen, nutzen Sie bitte den Link:  
+http://www.iata.org/publications/Pages/code-search.aspx
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der iata-Airport-Codes finden Sie unter: 
+https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: 
+http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_257">Departure and arrival airports of the node, supplied as IATA Airport Code. Special case: 
 						if the code identifies both, a real airport and a group of airports (MAA - Metropolitan Airport Code), only the real airport is considered.
-					    For information about MAAs see: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
+					    For information about the iata airport code definition see: 
+					    http://www.iata.org/publications/Pages/code-search.aspx
+					    
+					    You will find a list of the concrete airport codes that is not garanteed to be complete or correct here:
+					    https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+					    
+					    You will find a list of the MAA-Codes  that is not garanteed to be complete or correct here: 
+					    http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="DateOffset" type="xs:int" minOccurs="0">
@@ -7592,7 +7607,7 @@ If, however, the addressing of the destination node is not unambiguous, every de
 						einer Komponente oder Unterkomponente zugeordnete Flughafen mit einem der in
 						dieser Bedingung angegebenen Flughäfen übereinstimmt. Die Bedingung kann
 						eine durch Space getrennte Liste von Airports enthalten. Die Angabe der
-						Airports erfolgt im IATA-Format. Die adressierte Ziel-Unterkomponente des
+						Airports erfolgt im IATA-Format (IATA Airport-Code bzw. MAA-Code). Die adressierte Ziel-Unterkomponente des
 						gerade betrachteten Angebots wird über den Inhalt des Attributs "Source"
 						abgegeben. Das Attribut "AirportType" gibt an, aus welchem Kind-Element der
 						Unterkomponente der Airport ausgelesen wird. Ist die Adressierung der
@@ -7601,11 +7616,23 @@ If, however, the addressing of the destination node is not unambiguous, every de
 						'Departure': Überprüfe den DepartureAirport der zeitlich ersten Komponente *
 						AirportType = 'Arrival': Überprüfe den ArrivalAirport der zeitlich letzten
 						Komponente * AirportType = 'Catchment': Überprüfe den CatchmentAirport aller
-						Komponenten. </xs:documentation>
+						Komponenten. 
+
+Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen 
+berücksichtigt. 
+
+Um die Definition der Airport-Codes seitens iata zu überprüfen, nutzen Sie bitte den Link:  
+http://www.iata.org/publications/Pages/code-search.aspx
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der iata-Airport-Codes finden Sie unter: 
+https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: 
+http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_464">This element defines the condition in which a
 						component or sub-component of the associated airport matches a specified
 						airport. The condition can consist of a list of airports separated by
-						spaces. The airports are named using the IATA format. The target
+						spaces. The airports are named using the IATA format (IATA airport code or MAA Code). The target
 						sub-component addressed in the offer currently under consideration is
 						submitted with the content of the "Source" attribute. The "Airport Type"
 						attribute specifies which child element of the sub-component the airport is
@@ -7615,7 +7642,19 @@ If, however, the addressing of the destination node is not unambiguous, every de
 						the first component chronologically * AirportType = 'Arrival': Check that
 						the ArrivalAirport is the final component chronologically * AirportType =
 						'Catchment': Check the CatchmentAirport is specified for all
-						components.</xs:documentation>
+						components.
+						
+						Special case: 
+						if the code identifies both, a real airport and a group of airports (MAA - Metropolitan Airport Code), only the real airport is considered.
+					    For information about the iata airport code definition see: 
+					    http://www.iata.org/publications/Pages/code-search.aspx
+					    
+					    You will find a list of the concrete airport codes that is not garanteed to be complete or correct here:
+					    https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+					    
+					    You will find a list of the MAA-Codes  that is not garanteed to be complete or correct here: 
+					    http://wikitravel.org/en/Metropolitan_Area_Airport_Codes
+						</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
