@@ -1690,7 +1690,6 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 		</xs:choice>
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
-
 	<xs:group name="GroupConditionGroup">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_134">Die GroupCondition definiert genau wie die
@@ -1731,7 +1730,6 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 			</xs:element>
 		</xs:sequence>
 	</xs:group>
-	
 	<xs:complexType name="SortPriceType">
 		<xs:sequence>
 			<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
@@ -3237,15 +3235,15 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:pattern value="[A-Z]{3}"/>
 		</xs:restriction>
 	</xs:simpleType>
-    <xs:simpleType name="IataAirlineCodeType">
-        <xs:annotation>
-          <xs:documentation xml:lang="de">Typ für IATA Airline Codes ("IATA two character designator code", see http://www.iata.org/services/pages/codes.aspx )
+	<xs:simpleType name="IataAirlineCodeType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de">Typ für IATA Airline Codes ("IATA two character designator code", see http://www.iata.org/services/pages/codes.aspx )
           </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="[A-Z0-9]{2}"/>
-        </xs:restriction>
-    </xs:simpleType>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="TokenType">
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1"/>
@@ -3948,7 +3946,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:enumeration value="SharedBathRoom"/>
 			<xs:enumeration value="SharedToilette"/>
 			<xs:enumeration value="Dishwasher"/>
-			<xs:enumeration value="Kitchenette"/>			
+			<xs:enumeration value="Kitchenette"/>
 			<xs:enumeration value="Fireplace"/>
 			<xs:enumeration value="PrivatePool"/>
 			<xs:enumeration value="TV"/>
@@ -4426,6 +4424,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:enumeration value="1.9"/>
 			<xs:enumeration value="1.9.1"/>
 			<xs:enumeration value="1.9.2"/>
+			<xs:enumeration value="1.9.3"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -4640,9 +4639,9 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:documentation xml:lang="de">Eine nicht-leere Liste von Wochentagen.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="WeekdayEnumList">
-			<xs:minLength value="1"></xs:minLength>
+			<xs:minLength value="1"/>
 		</xs:restriction>
-	</xs:simpleType>	
+	</xs:simpleType>
 	<xs:simpleType name="PersonGenderEnumList">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_277">Eine Liste von Angaben zum Geschlecht der Mitreisenden.</xs:documentation>
@@ -5382,8 +5381,7 @@ This is based on the total number of nights For this reason the return date is e
 		</xs:annotation>
 		<xs:simpleContent>
 			<xs:extension base="EmptyTagType">
-				<xs:attribute name="DayAllocation" type="DayAllocationEnum" default="First">
-				</xs:attribute>
+				<xs:attribute name="DayAllocation" type="DayAllocationEnum" default="First"/>
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
 				<xs:attribute name="Class" type="TokenType" use="required">
 					<xs:annotation>
@@ -8146,7 +8144,6 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	
 	<!-- Begin of Combination condition type-->
 	<xs:group name="CombinationConditionGroup">
 		<xs:choice>
