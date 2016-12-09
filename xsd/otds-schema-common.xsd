@@ -458,7 +458,6 @@ The default is 0.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_72">RightSeparator - If the parameter is not the last, this separator will be inserted directly behind it.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="PadLength" type="PositiveInteger" default="0">
 		<xs:attribute name="PadLength" type="xs:unsignedInt" default="0">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_73">PadLength - Gibt an, dass der Parameter mittels
@@ -634,7 +633,6 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 										<xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
 											<xs:annotation>
 												<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
-Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
 Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
 											</xs:annotation>
 										</xs:attribute>
@@ -3823,11 +3821,6 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="NotConsideredPriceItemClassesType">
-		<xs:simpleContent>
-			<xs:extension base="PriceItemClassTypeList"/>
-		</xs:simpleContent>
-	</xs:complexType>
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
@@ -6440,8 +6433,8 @@ Ein Bezug auf eine zusammengesetzte Komponente.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_399">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="NotConsideredPriceItemClassesType">
+					<xs:simpleContent>
+						<xs:extension base="PriceItemClassTypeList">
 							<xs:attributeGroup ref="ComponentAttributeGroup">
 								<xs:annotation>
 									<xs:documentation xml:lang="de" xml:id="de_534">Das Attribut Component beschränkt den Wirkungsradius der hier definierten Classes auf PriceItems einer bestimmte Komponente. Per Default beschränkt sich die Kombinatorik auf PriceItems aus der selben Komponente (ThisComponent). Wenn die Kombinatorikbedingungen auf ein PriceItem einer anderen Komponente wirken sollen, muss dies hier explizit angegeben werden. 
@@ -6451,7 +6444,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 								</xs:annotation>
 							</xs:attributeGroup>
 						</xs:extension>
-					</xs:complexContent>
+					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
 		</xs:choice>
