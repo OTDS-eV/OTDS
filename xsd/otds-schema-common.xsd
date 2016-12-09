@@ -8098,8 +8098,15 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 	<xs:complexType name="PersonFilterConditionType">
 		<xs:group ref="PersonFilterConditionGroup"/>
 	</xs:complexType>
-	<xs:complexType name="GroupTagConditionType">
-		<xs:attributeGroup ref="TagAttributeGroup"/>
+	<xs:complexType name="GenericTagConditionType">
+		<xs:attribute name="Class" type="TokenType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_402">Mit diesem Attribut kann man das Tag weiter
+					spezifizieren, auf dessen Knoten sich der Inhalt bezieht.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_402">With this attribute, it is possible to further
+					specify the tag, the node of which the contents refer to.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="ConditionSimpleNodeType">
 		<xs:complexContent>
@@ -8298,7 +8305,7 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 				</xs:annotation>
 				<xs:complexType>
 					<xs:complexContent>
-						<xs:extension base="GroupTagConditionType">
+						<xs:extension base="GenericTagConditionType">
 							<xs:choice>
 								<xs:element name="Value" type="xs:int"/>
 								<xs:sequence>
