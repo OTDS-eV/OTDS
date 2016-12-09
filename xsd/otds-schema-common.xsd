@@ -1702,46 +1702,6 @@ Sonderfall: Sollte die Addressierung des Tags bzgl. Source nicht eindeutig sein,
 		</xs:choice>
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
-	<xs:group name="GroupConditionGroup">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_134">Die GroupCondition definiert genau wie die
-				Condition eine Bedingung, die bestimmt, ob eine BookingGroup bzw. das übergeordnete
-				Element gültig ist oder nicht. Im Unterschied zur Condition bezieht sich die
-				GroupCondition nicht nur auf Bestandteile des gerade betrachtete Angebotes, sondern
-				auch auf andere Angebote der unter GroupDefinition referenzierten Gruppe von
-				Angeboten. Um zu überprüfen, ob die Bedingung erfüllt ist, werden alle Angebote
-				gemäß der GroupDefinition sortiert. Die Sortierung erfolgt durch Auswertung der Tags
-				und Preise der Angebote. In der dadurch definierten sortierten Liste von Angeboten
-				wird überprüft, ob sich das gerade betrachtete Angebot unter den ersten x Angeboten
-				dieser sortierten Liste befindet. Ist das der Fall, so ist die Filterbedingung
-				erfüllt. Die GroupCondition wird in der Regel zur Priorisierung der Flüge im
-				Pauschalbereich verwendet. In der Regel ist es Ziel festzulegen, welcher Flug mit
-				dem CityPair als FlightCode gebucht werden kann.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_134">The GroupCondition defines just as the Condition
-				a condition that determines, whether a BookingGroup or parent element is valid or
-				not. In contrast to the Condition, the GroupCondition refers not only to the
-				elements of the offer currently being viewed, but also to other offers referenced in
-				GroupDefinition group of offers. In order to check whether the condition is
-				satisfied, all offers are sorted in accordance with the GroupDefinition. The sorting
-				is completed by evaluating the tags of the offers. The defined and sorted list of
-				offers is checked to establish whether the offer currently being viewed is among the
-				first x offers of this sorted list. If this is the case, the filter condition is
-				satisfied. The GroupCondition is generally used to prioritise flights in the context
-				of package deals. The aim is to establish a rule governing which flight can be
-				booked with the CityPair as a FlightCode.</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="MaxRows">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_135">Dieses Element definiert, für wieviele
-						GroupElemente die GroupCondition erfüllt wird. Standard ist hier = 1.
-						Existiert das Element nicht, so wird der Standardwert
-						angenommen.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_135">This element defines for how many Group Elements the Group Condition is met. Here, the default = 1. If the element does not exist, the default value is assumed.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:group>
 	<xs:complexType name="SortPriceType">
 		<xs:sequence>
 			<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
@@ -6278,7 +6238,7 @@ e.g. Discount of 25% on everything</xs:documentation>
 			<xs:group ref="AllocationBaseGroup"/>
 			<xs:group ref="PriceAppliedByGroup"/>
 		</xs:sequence>
-		<xs:attribute name="ExecutionPriority" default="0"/>
+		<xs:attribute name="ExecutionPriority" type="xs:int" default="0"/>
 	</xs:complexType>
 	<xs:complexType name="GenericValueType">
 		<xs:sequence>
@@ -7423,24 +7383,6 @@ The default is "Stay".</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-	<xs:complexType name="PriceItemIsCombinableType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_454">überprüft, ob das PriceItem auf einer Combinatorics-Ebene kombinierbar ist.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_454">checks whether a PriceItem can be combined on the Combinatorics level.</xs:documentation>
-		</xs:annotation>
-		<xs:simpleContent>
-			<xs:extension base="IdentifierType">
-				<xs:attribute name="LayerLevel">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_455">
-							Optionale Angabe des LayerLevels der Combinatoricsebene (Default: 0), auf das sich dieser Check beziehen soll.
-						</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_455">Optional entry in the LayerLevel of the Combinatorics level (Default: 0), which this Check should refer to.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
 	<!-- Begin of Definition of condition groups-->
 	<xs:group name="AtomicBaseConditionGroup">
 		<xs:choice>
@@ -8048,11 +7990,6 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 			</xs:element>
 		</xs:choice>
 	</xs:group>
-	<xs:group name="AtomicCombinationConditionGroup">
-		<xs:choice>
-			<xs:element name="PriceItemIsCombinable" type="PriceItemIsCombinableType"/>
-		</xs:choice>
-	</xs:group>
 	<!-- Begin of General condition type-->
 	<xs:group name="ConditionGroup">
 		<xs:choice>
@@ -8161,29 +8098,6 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 	<xs:complexType name="PersonFilterConditionType">
 		<xs:group ref="PersonFilterConditionGroup"/>
 	</xs:complexType>
-	<xs:complexType name="GroupConditionType">
-		<xs:group ref="GroupConditionGroup"/>
-		<xs:attribute name="Ref" type="NameType" use="required">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_477">Über dieses Attribut referenziert man eine
-					GroupDefinition, die sich an einem der Knoten Product, DefinedComponents,
-					Accomodations, Flights, Addons befinden kann. Die Referenzierung erfolgt über
-					das Attribut "Name" in der GroupDefinition. Die Namen aller GroupDefinitions
-					einer OTDS-Lieferung müssen eindeutig sein. Die Referenz referenziert immer die
-					in OTDS laut XML-DocumentOrder zuerst platzierte gültige GroupDefinition
-					("Gültig" insofern, falls in späteren Versionen einmal eine Condition in der
-					GroupDefinition eingebaut wird). </xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_477">This attribute is used to reference a
-					GroupDefinition, which can be located at one of the following nodes: Product,
-					DefinedComponents, Accommodations, Flights, Addons. Referencing takes place via
-					the "Name" attribute in the GroupDefinition. The names of all GroupDefinitions
-					in an OTDS delivery must be unique. The reference always references the valid
-					GroupDefinition that is placed first in OTDS according to the XML-DocumentOrder.
-					("Valid" insofar as if a condition were to be attached to the GroupDefinition in
-					later versions).</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-	</xs:complexType>
 	<xs:complexType name="GroupTagConditionType">
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
@@ -8208,7 +8122,6 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			<xs:group ref="AtomicComponentConditionGroup"/>
 			<xs:group ref="AtomicPersonImpactConditionGroup"/>
 			<xs:group ref="AtomicDayImpactConditionGroup"/>
-			<xs:group ref="AtomicCombinationConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
 					<xs:group ref="CombinationConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
@@ -8368,35 +8281,6 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			<xs:element name="PersonCount" type="PersonCountConditionType" internal:otdsversion="1.9"/>
 		</xs:choice>
 	</xs:group>
-	<xs:group name="AtomicGroupConditionGroup">
-		<xs:sequence>
-			<xs:element name="GroupCondition" type="GroupConditionType">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">Die GroupCondition definiert eine Bedingung bzgl. einer definierten Gruppe
-						von Angeboten. Das Attribut "Ref" referenziert auf die "GroupDefinition" der
-						betrachteten Gruppe. Um zu überprüfen, ob die Bedingung erfüllt ist, werden
-						alle Angebote gemäß der GroupDefinition sortiert. Die Sortierung erfolgt
-						durch Auswertung der Tags und Preise der Angebote. In der dadurch
-						definierten, sortierten Liste von Angeboten wird überprüft, ob sich das
-						gerade betrachtete Angebot unter den ersten x Angeboten dieser sortierten
-						Liste befindet. Ist das der Fall, so ist die Bedingung erfüllt. Die
-						GroupCondition wird in der Regel zur Priorisierung der Flüge im
-						Pauschalbereich verwendet. Ziel ist es in der Regel, festzulegen, welcher
-						Flug mit dem CityPair als FlightCode gebucht werden kann. Die GroupCondition
-						ist nur in Filtern und in der Condition von BookingGroups und Availabilities
-						erlaubt. In allen anderen Fällen wird die GroupCondition als "False"
-						interpretiert.</xs:documentation>
-					<xs:documentation xml:lang="en">The GroupCondition defines a condition with respect to a defined group of offers. The attribute "ref" 
-						references to the "GroupDefinition" of the relevant group. To check whether the condition is satisfied, all offers are being sorted 
-						in accordance with the GroupDefinition. The sorting is done by analysis of the tags and prices of the offers. In the resulting defined, 
-						sorted list of offers, it is checked whether the just looked offer ist to be found among the first x offers within this sorted list. 
-						If this is the case, the condition is satisfied. The GroupCondition generally is used for the prioritization of flights in Packages. 
-						The aim is usually to determine which Flight can be booked with the CityPair as a FlightCode. The GroupCondition is only allowed in filters 
-						and in the Condition of BookingGroups and Availabilities. In all other cases, the GroupCondition is interpreted as "False".</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:group>
 	<xs:group name="AtomicGenericTagConditionGroup">
 		<xs:sequence>
 			<xs:element name="GenericTag" internal:otdsversion="1.9">
@@ -8416,7 +8300,7 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 					<xs:complexContent>
 						<xs:extension base="GroupTagConditionType">
 							<xs:choice>
-								<xs:element name="Value"/>
+								<xs:element name="Value" type="xs:int"/>
 								<xs:sequence>
 									<xs:element name="MinValue" type="xs:int" minOccurs="0"/>
 									<xs:element name="MaxValue" type="xs:int" minOccurs="0"/>
