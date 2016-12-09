@@ -1370,14 +1370,23 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 					<xs:sequence>
 						<xs:element name="GroupedByEqual" internal:otdsversion="1.9">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_487">Die Angaben in ClassifiedBy definieren, über welche Parameter die Angebote gruppiert werden. 
-									Die häufigste Verwendung wird sein, dass eine Gruppierung der Returnflüge über Abflughafen, Zielflughafen, Termin und Dauer erfolgt.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_487">The entries in ClassifiedBy define by what parameters the offers should be grouped. The most common use is that return flights are grouped via departure airport, destination airport, departure date and time, and duration.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_487">Die Angaben in GroupedByEqual definieren, über welche Parameter die Angebote gruppiert werden. 
+Mit CandidateInstance-Elementen definiert man welche Unterkomponenten identisch sein müssen.		
+
+Mit Tag-Elementen definiert man, dass die Gruppe nur aus Offerkandidaten besteht, bei denen diese Tags identische Values besitzen.
+
+CheckIn und CheckOuttermine der referenzierten Unterkomponenten sind ohnehin immer identisch.							Die häufigste Verwendung wird sein, dass eine Gruppierung der Returnflüge über Abflughafen, Zielflughafen, Termin und Dauer erfolgt.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_487">The entries in GroupedByEqual defines by what parameters the offers should be grouped.  With CandidateInstance elements you define, which subcomponents need to be identical. By default this means that CheckIn and CheckOut of the subcomponents are the same anyway.	 With Tag elements you define, that the group contains only offer candidates, which have the same tag value of the indicated tags. 
+								The most common use is that return flights are grouped via departure airport, destination airport, departure date and time, and duration.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence maxOccurs="unbounded">
 									<xs:choice>
 										<xs:element name="CandidateInstance">
+											<xs:annotation>
+												<xs:documentation>Die Angebote werden gruppiert, so dass alle Angebotskandidaten der Gruppe identische durch CandidateInstance/@Source definiert Unterkomponenten besitzen.
+Die Rahmenparameter bzgl. CheckIn- und CheckOut-Terminen müssen ohenhin identisch sein.</xs:documentation>
+											</xs:annotation>
 											<xs:complexType>
 												<xs:attribute name="Source" type="SourceAttributeType"/>
 											</xs:complexType>
@@ -1385,9 +1394,8 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 										<xs:element name="Tag" type="EmptyTagGroupedByEqualType">
 											<xs:annotation>
 												<xs:documentation xml:lang="de" xml:id="det_488">Dieses Element adressiert ein
-												bestimmtes Tag innerhalb des Angebotskontextes.
-												Die Gruppierung erfolgt über das hier referenzierte Tag. Das bedeutet, alle Elemente
-												einer Gruppe haben den gleichen	Tag-Value.</xs:documentation>
+bestimmtes Tag innerhalb des Angebotskontextes.
+Die Gruppierung erfolgt über das hier referenzierte Tag. Das bedeutet, alle Elemente einer Gruppe haben bzgl. des hier addressierten Tags den gleichen	Tag-Value.</xs:documentation>
 												<xs:documentation xml:lang="en" xml:id="en_488">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a group have the same tag value.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
