@@ -111,7 +111,9 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+					<xs:pattern
+						value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"
+					/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -457,6 +459,7 @@ The default is 0.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="PadLength" type="PositiveInteger" default="0">
+		<xs:attribute name="PadLength" type="xs:unsignedInt" default="0">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_73">PadLength - Gibt an, dass der Parameter mittels
 					eines Füllzeichens auf eine feste Länge gebracht werden soll. Ist der Parameter
@@ -632,6 +635,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 											<xs:annotation>
 												<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
 Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
+Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
 											</xs:annotation>
 										</xs:attribute>
 									</xs:extension>
@@ -667,7 +671,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
 							<xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
 								<xs:annotation>
 									<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
-Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
+Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
 						</xs:extension>
@@ -703,13 +707,13 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
 			</xs:choice>
 			<xs:choice minOccurs="1">
 				<xs:sequence>
-					<xs:element name="MinCount" type="PositiveShort" minOccurs="1" internal:otdsversion="1.9">
+					<xs:element name="MinCount" type="xs:unsignedShort" minOccurs="1" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_93">Mindestanzahl Personen</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_93">Minimum number of persons</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="MaxCount" type="PositiveShort" minOccurs="0" internal:otdsversion="1.9">
+					<xs:element name="MaxCount" type="xs:unsignedShort" minOccurs="0" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_94">Maximale Anzahl Personen</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_94">Maximum number of persons</xs:documentation>
@@ -717,13 +721,13 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
 					</xs:element>
 				</xs:sequence>
 				<xs:sequence>
-					<xs:element name="MaxCount" type="PositiveShort" minOccurs="1" internal:otdsversion="1.9">
+					<xs:element name="MaxCount" type="xs:unsignedShort" minOccurs="1" internal:otdsversion="1.9">
 						<xs:annotation>
 							<xs:documentation xml:lang="de">Maximale Anzahl Personen</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:element name="Count" type="PositiveShort" minOccurs="1" internal:otdsversion="1.9">
+				<xs:element name="Count" type="xs:unsignedShort" minOccurs="1" internal:otdsversion="1.9">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_95">Genaue Anzahl der Person(en)</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_95">Exact number of person (s)</xs:documentation>
@@ -2457,7 +2461,7 @@ DE Germany</xs:documentation>
 											<xs:documentation xml:lang="en" xml:id="en_196">The Longitude element specifies the longitude in decimal form.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="Accuracy" type="PositiveInteger">
+									<xs:element name="Accuracy" type="xs:unsignedInt">
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_197">In dem Element Accuracy (Genauigkeit)
 												kann eine Entfernung in km bezogen auf die
@@ -2563,7 +2567,7 @@ DE Germany</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:group ref="AccommodationCategoryGroup" minOccurs="0"/>
-			<xs:element name="AccommodationChain" type="PositiveInteger" minOccurs="0">
+			<xs:element name="AccommodationChain" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_206">Zugehörigkeit einer Unterkunft zu einer Kette
 						oder Kooperation: Die Zuordnung findet über eine Hotelketten-ID statt. Eine
@@ -3110,13 +3114,13 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		</xs:attribute>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="TagReferenceAttributeGroup">
-		<xs:attribute name="Offset" type="PositiveInteger">
+		<xs:attribute name="Offset" type="xs:unsignedInt">
 			<xs:annotation>
 				<xs:documentation xml:lang="de">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)</xs:documentation>
 				<xs:documentation xml:lang="en">Determines the position, from which on the body of the tag element shall be compared. (Default is position 0 - this corresponds to the first character.)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="Length" type="PositiveInteger">
+		<xs:attribute name="Length" type="xs:unsignedInt">
 			<xs:annotation>
 				<xs:documentation xml:lang="de">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen.</xs:documentation>
 				<xs:documentation xml:lang="en">Determines the number of characters, which shall be compared in the body of the tag element. If the attribute is not filled, always the body of the TagElement is compared until the end of the character string.</xs:documentation>
@@ -3206,12 +3210,6 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:restriction base="xs:string">
 			<xs:pattern value="[A-Za-z0-9]+"/>
 		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="PositiveInteger">
-		<xs:restriction base="xs:unsignedInt"/>
-	</xs:simpleType>
-	<xs:simpleType name="PositiveShort">
-		<xs:restriction base="xs:unsignedShort"/>
 	</xs:simpleType>
 	<xs:simpleType name="MonetaryValue">
 		<xs:restriction base="xs:decimal"/>
@@ -3549,7 +3547,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:restriction base="KeyType"/>
 	</xs:simpleType>
 	<xs:simpleType name="PersonAgeType">
-		<xs:restriction base="PositiveInteger"/>
+		<xs:restriction base="xs:unsignedInt"/>
 	</xs:simpleType>
 	<xs:simpleType name="PriceItemClassTypeList">
 		<xs:restriction>
@@ -3565,7 +3563,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_239">Definition of the baggage policy</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Pieces" type="PositiveInteger" minOccurs="0" internal:otdsversion="1.9">
+			<xs:element name="Pieces" type="xs:positiveInteger" minOccurs="0" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_240">Anzahl erlaubter Gepäckstücke</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_240">Size of baggage allowance</xs:documentation>
@@ -3658,7 +3656,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_252">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="ElapsedFlyingTime" type="PositiveInteger" minOccurs="0">
+			<xs:element name="ElapsedFlyingTime" type="xs:positiveInteger" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_253">Gesamtreisedauer des Flugs über alle Segmente und Zwischenstopps. Die Gesamtreisedauer wird in Minuten angegeben. Diese Eigenschaft steht bei flacher oder segmentweiser Angabe des Flugs zur Verfügung.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_253">Total duration of the flight across all segments and stopovers. The total duration is specified in minutes. This attribute is for the flat or segmental specification of flight details.</xs:documentation>
@@ -3670,7 +3668,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_254">Aeroplane-Type. (e.g. A380). Since there may be stops en route to change aircraft, several aircraft types may be specified.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="StopOvers" type="PositiveInteger" minOccurs="0">
+			<xs:element name="StopOvers" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_255">Anzahl Stops der Route inkl. der technischen
 						Stops innerhalb eines Segments.</xs:documentation>
@@ -4775,7 +4773,7 @@ The default is CheckIn.</xs:documentation>
 					DayAllocationLevel. The default is 0.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="Offset" type="PositiveInteger" default="0">
+		<xs:attribute name="Offset" type="xs:unsignedInt" default="0">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_284">Dieses Attribut definiert einen Offset in Tagen, der zum Startdatum addiert wird.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_284">This attribute defines an Offset in days and is added to the start date.</xs:documentation>
@@ -4843,7 +4841,7 @@ The default value is CheckOut.</xs:documentation>
 					DayAllocationLevel. The default is 0.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="Offset" type="PositiveInteger" default="0">
+		<xs:attribute name="Offset" type="xs:unsignedInt" default="0">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_289">Dieses Attribut definiert einen Offset in Tagen, der zum Startdatum addiert wird.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_289">This attribute defines an Offset in days and is added to the start date.</xs:documentation>
@@ -5082,20 +5080,20 @@ individual dates.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
 			<xs:sequence>
-				<xs:element name="Min" type="PositiveInteger" minOccurs="1">
+				<xs:element name="Min" type="xs:unsignedInt" minOccurs="1">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_311">Dieses Element beinhaltet den minimalen Zeitabstand in Tagen zwischen Buchungstag und CheckIn-Termin. Hiermit wird "Rolling EarlyBird" abgebildet. Dieser Wert wird für die Berechnung von Frühbucherpreisen benutzt, bei denen die Buchung mindestens eine bestimmte Anzahl von Tagen vor dem CheckIn, also der Anmeldung am Ankunftsort stattfinden muss. </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_311">This element contains the minimum time interval in days between the date of booking and check-in. This is used to indicate "RollingEarlyBird". This value is used for the calculation of early-bird prices, where the booking must occur a specified number of days before check-in, that is the registration at the destination.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="Max" type="PositiveInteger" minOccurs="0">
+				<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_312">Dieses Element beinhaltet den maximalen Zeitabstand in Tagen zwischen Buchungstag und CheckIn-Termin. Hiermit wird "Rolling EarlyBird" abgebildet. Dieser Wert wird für Berechnung von Frühbucherpreisen benutzt, bei denen die Buchung eine bestimmte Anzahl von Tagen vor dem CheckIn, also der Anmeldung am Ankunftsort stattfinden muss.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_312">This element contains the maximum time interval in days between the date of booking and check-in. This is used to display "RollingEarlyBird". This value is used for the calculation of early-bird prices, where the booking must occur a specified number of days prior to check-in, that is the registration at the destination.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:element name="Max" type="PositiveInteger" minOccurs="1">
+			<xs:element name="Max" type="xs:unsignedInt" minOccurs="1">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="det_312">Dieses Element beinhaltet den maximalen Zeitabstand in Tagen zwischen Buchungstag und CheckIn-Termin. Hiermit wird "Rolling EarlyBird" abgebildet. Dieser Wert wird für Berechnung von Frühbucherpreisen benutzt, bei denen die Buchung eine bestimmte Anzahl von Tagen vor dem CheckIn, also der Anmeldung am Ankunftsort stattfinden muss.</xs:documentation>
 				</xs:annotation>
@@ -5111,13 +5109,13 @@ individual dates.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
 			<xs:sequence>
-				<xs:element name="Min" type="PositiveInteger" minOccurs="1">
+				<xs:element name="Min" type="xs:unsignedInt" minOccurs="1">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="Max" type="PositiveInteger" minOccurs="0">
+				<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
@@ -5125,7 +5123,7 @@ individual dates.</xs:documentation>
 				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="Max" type="PositiveInteger" minOccurs="1">
+				<xs:element name="Max" type="xs:unsignedInt" minOccurs="1">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="det_503">Maximalaufenthaltsdauer</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
@@ -5138,10 +5136,10 @@ individual dates.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
-					<xs:list itemType="PositiveInteger"/>
+					<xs:list itemType="xs:unsignedInt"/>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="MultiplesOf" type="PositiveInteger" minOccurs="1">
+			<xs:element name="MultiplesOf" type="xs:unsignedInt" minOccurs="1">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
 z.B. bei 7: es sind nur die Dauern 7, 14, 21, 28, ... erlaubt</xs:documentation>
@@ -5214,13 +5212,13 @@ This is based on the total number of nights For this reason the return date is e
 				restrictions.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Min" type="PositiveInteger" minOccurs="0">
+			<xs:element name="Min" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_324">Mindestalter des Reiseteilnehmers</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_324">Minimum age of the passenger</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Max" type="PositiveInteger" minOccurs="0">
+			<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_325">Maximales Alter des Reiseteilnehmers</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_325">Maximum age of the passenger</xs:documentation>
@@ -5268,14 +5266,14 @@ This is based on the total number of nights For this reason the return date is e
 						<xs:documentation xml:lang="en" xml:id="en_329">This attribute is an additional condition on the tag of the destination node. A destination node can satisfy the condition only if the class contains the same value. If the class is not specified or is empty, the condition regarding class is considered fulfilled.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Offset" type="PositiveInteger">
+				<xs:attribute name="Offset" type="xs:unsignedInt">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_330">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
 						</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_330">Specifies the location from which the body of the tag element is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Length" type="PositiveInteger">
+				<xs:attribute name="Length" type="xs:unsignedInt">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_331">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen. </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_331">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElement is compared to the end of the character string.</xs:documentation>
@@ -5318,14 +5316,14 @@ This is based on the total number of nights For this reason the return date is e
 						<xs:documentation xml:lang="en" xml:id="en_333">This attribute is an additional condition on the tags of the destination node. A destination node can satisfy the condition only if the class contains the same value. If the class is not specified or is empty, the condition regarding class is considered to be fulfilled.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Offset" type="PositiveInteger">
+				<xs:attribute name="Offset" type="xs:unsignedInt">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_334">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
 						</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_334">Specifies the location from which the body of the tag element is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Length" type="PositiveInteger">
+				<xs:attribute name="Length" type="xs:unsignedInt">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_335">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen. </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_335">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElements is compared to the end of the character string.</xs:documentation>
@@ -5362,14 +5360,14 @@ This is based on the total number of nights For this reason the return date is e
 						<xs:documentation xml:lang="en" xml:id="en_338">Class names the tag and is therefore a further specification.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Offset" type="PositiveInteger">
+				<xs:attribute name="Offset" type="xs:unsignedInt">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_339">Gibt die Position an, ab der der String verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
 						</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_339">Specifies the position at which the string is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Length" type="PositiveInteger">
+				<xs:attribute name="Length" type="xs:unsignedInt">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_340">Gibt die Länge des zu vergleichenden Substring an. (Default ist der komplette String, beginnend ab Offset.)</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_340">Specifies the length of the substring to be compared. (Default is the full string, starting at offset).</xs:documentation>
@@ -5545,13 +5543,13 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 			</xs:choice>
 			<xs:choice>
 				<xs:sequence>
-					<xs:element name="MinCount" type="PositiveShort" minOccurs="1">
+					<xs:element name="MinCount" type="xs:unsignedShort" minOccurs="1">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_347">Mindestanzahl Personen</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_347">Minimum number of persons</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="MaxCount" type="PositiveShort" minOccurs="0">
+					<xs:element name="MaxCount" type="xs:unsignedShort" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_505">Maximale Anzahl Personen</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_505">Maximum number of persons</xs:documentation>
@@ -5559,14 +5557,14 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 					</xs:element>
 				</xs:sequence>
 				<xs:sequence>
-					<xs:element name="MaxCount" type="PositiveShort" minOccurs="1">
+					<xs:element name="MaxCount" type="xs:unsignedShort" minOccurs="1">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_348">Maximale Anzahl Personen</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_348">Maximum number of persons</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:element name="Count" type="PositiveShort" minOccurs="1">
+				<xs:element name="Count" type="xs:unsignedShort" minOccurs="1">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_349">Genaue Anzahl der Person(en)</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_349">Exact number of person (s)</xs:documentation>
@@ -6058,7 +6056,7 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 		</xs:choice>
 	</xs:group>
 	<xs:simpleType name="PriceImpactBaseValueType">
-		<xs:union memberTypes="PositiveInteger">
+		<xs:union memberTypes="xs:positiveInteger">
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
 					<xs:enumeration value="x"/>
@@ -6808,7 +6806,7 @@ To check whether the condition is satisfied all offers are sorted by the GroupDe
 						</xs:element>
 					</xs:choice>
 				</xs:sequence>
-				<xs:attribute name="Offset" type="PositiveInteger" use="required">
+				<xs:attribute name="Offset" type="xs:unsignedInt" use="required">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_426"> Das Attribut "Offset stellt eine Beziehung zum StartDate im Elternknoten her. Startdate + Offset ergeben das Datum des in DayState betrachteten Tages. </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_426">The "Offset" attribute creates a reference to the StartDate in the parent node. StartDate + Offset give the date of the day described in DayState.</xs:documentation>
@@ -6927,7 +6925,7 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
-				<xs:restriction base="PositiveInteger"/>
+				<xs:restriction base="xs:unsignedInt"/>
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
@@ -6939,7 +6937,7 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 				</xs:restriction>
 			</xs:simpleType>
 			<xs:simpleType>
-				<xs:restriction base="PositiveInteger"/>
+				<xs:restriction base="xs:unsignedInt"/>
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
@@ -8456,13 +8454,13 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 	</xs:complexType>
 	<xs:complexType name="CarCapacityType">
 		<xs:sequence>
-			<xs:element name="Passengers" type="PositiveInteger" minOccurs="0">
+			<xs:element name="Passengers" type="xs:positiveInteger" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Maximale Anzahl an Personen</xs:documentation>
 					<xs:documentation xml:lang="en">Max. number of passengers</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Bags" type="PositiveInteger" minOccurs="0">
+			<xs:element name="Bags" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Maximale Anzahl an Gepäckstücken</xs:documentation>
 					<xs:documentation xml:lang="en">Max. number of baggage</xs:documentation>
