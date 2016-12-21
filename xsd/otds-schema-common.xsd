@@ -3277,7 +3277,27 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 				getrennt.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_227">A list of integers separated by spaces.</xs:documentation>
 		</xs:annotation>
-		<xs:list itemType="xs:int"/>
+	  <xs:restriction>
+	    <xs:simpleType>
+	      <xs:list>
+	        <xs:simpleType>
+	          <xs:union>
+	            <xs:simpleType>
+	              <xs:restriction base="xs:int">
+	                <xs:minExclusive value="0"/>
+	              </xs:restriction>
+	            </xs:simpleType>
+	            <xs:simpleType>
+	              <xs:restriction base="xs:int">
+	                <xs:maxExclusive value="0"/>
+	              </xs:restriction>
+	            </xs:simpleType>
+	          </xs:union>
+	        </xs:simpleType>
+	      </xs:list>
+	    </xs:simpleType>
+	    <xs:minLength value="1"/>
+	  </xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductFeaturesAttributeListType">
 		<xs:list itemType="ProductFeatureAttributeEnum"/>
@@ -3543,7 +3563,12 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:documentation xml:lang="de" xml:id="de_238">Eine Liste von Keys</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_238">A list of keys</xs:documentation>
 		</xs:annotation>
-		<xs:list itemType="KeyType"/>
+	  <xs:restriction>
+	    <xs:simpleType>
+	    <xs:list itemType="KeyType"/>	
+	    </xs:simpleType>
+	    <xs:minLength value="1"/>
+	  </xs:restriction>	  
 	</xs:simpleType>
 	<xs:simpleType name="IdentifierType">
 		<xs:restriction base="KeyType"/>
