@@ -1521,7 +1521,14 @@
 					        </orderedlist>
 					    </listitem>
 					    <listitem>
-					      <para xml:id="de_4989" xml:lang="de">DayAllocation=first|last|all (Kontextabhängiger Default wie beim Attribut DayAllocation)</para><para xml:id="en_4989" xml:lang="en">DayAllocation=first|last|all (context dependent default as with the DayAllocation attribute)</para>
+					      <para xml:id="de_4989" xml:lang="de">DayAllocation=first|last|all (Kontextabhängiger Default wie beim Attribut DayAllocation)
+					      	Der Default ist "All" wenn nicht eine der folgenden Bedingungen erfüllt ist:
+					      	Die Condition enthält den DayType="CheckIn", dann ist der Default von DayAllocation="First"
+					      	Die Condition enthält den DayType="CheckOut", dann ist der Default von DayAllocation="Last"
+					      	Bei allen Auswertungen welche sich auf "DepartureAirport" beziehen, wird der Default von DayAllocation="First" (Airports Bedingung, MatchEqual, etc.)
+					      	Bei allen Auswertungen welche sich auf "ArrivalAirport" beziehen, wird der Default von DayAllocation="Last" (Airports Bedingung, MatchEqual, etc.)
+					      	Bei BookingDateOffset-Bedingungen wird der Default von DayAllocation="First"</para>
+					    	<para xml:id="en_4989" xml:lang="en">DayAllocation=first|last|all (context dependent default as with the DayAllocation attribute) The Default is "All" if the condition is not one of the following: If the Condition contains the DayType="CheckIn", the Default is DayAllocation="First" If the Condition contains ths DayType="CheckOut", the Default is DayAllocation="Last" For all evaluations which refer to "DepartureAirport", the Default is DayAllocation="First" (Airports Condition, MatchEqual, etc.) For all evaluations which refer to "ArrivalAirport", the Default is DayAllocation="Last" (Airports Condition, MatchEqual, etc.) The BookingDateOffset-Condition has the Default DayAllocation="First"</para>
 					      <para xml:id="de_4990" xml:lang="de">Gleiche Bedeutung wie das Attribut "@DayAllocation" in V1.0</para><para xml:id="en_4990" xml:lang="en">Same meaning as the attribute "@DayAllocation" in V1.0</para>
 					    </listitem>
 					  </orderedlist>
@@ -15094,8 +15101,14 @@ usw.]]></programlisting>
 									eines (oder mehrerer) Kontext-Instanzen wird ersetzt durch die
 									Auswertung von <code>Source</code> und <code>DayType</code> und
 									ergibt anstelle der Kontext-Instanzen eine Menge von
-									Kontext-Tagen. Siehe <xref linkend="OtdsProcessDayType"
-									/>.</para><para xml:id="en_2579" xml:lang="en">The evaluation of <code>Source</code>  and the determination of one (or more) context instances is substituted by the evaluation of <code>Source</code>  and <code>DayType</code>  producing a number of context days instead of the context instances. See <xref linkend="OtdsProcessDayType"/>.</para>
+									Kontext-Tagen. 
+									DayType="CheckIn", dann ist der Default von DayAllocation="First".
+									DayType="CheckOut", dann ist der Default von DayAllocation="Last". 
+									Siehe <xref linkend="OtdsProcessDayType"
+									/>.</para><para xml:id="en_2579" xml:lang="en">The evaluation of <code>Source</code>  and the determination of one (or more) context instances is substituted by the evaluation of <code>Source</code>  and <code>DayType</code>  producing a number of context days instead of the context instances. 
+										DayType="CheckIn", the Default is DayAllocation="First".
+										DayType="CheckOut", the Default is DayAllocation="Last". 
+										See <xref linkend="OtdsProcessDayType"/>.</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>

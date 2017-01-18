@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <!-- Test -->
@@ -3061,10 +3060,14 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 					"DayAllocationIndex" der entsprechenden Komponenten. - All: Alle Komponenten
 					werden bzgl. der Bedingung ausgewertet. Die Bedingung ist nur erfüllt, wenn alle
 					Komponenten die Bedingung erfüllen. Wenn das Attribut nicht gefüllt ist, wird
-					ein Standard verwendet, der von der verwendeten Condition abhängt. Bei
-					ArrivalDate und ArrivalAirport wird als Default "Last" verwendet. Bei allen
-					anderen Bedingungen wird als Default "First" verwendet. @ToDo (Siehe auch
-					DayAllocationIndex in Rules)</xs:documentation>
+					ein Standard verwendet, der von der verwendeten Condition abhängt. 
+					Der Default ist "All" wenn nicht eine der folgenden Bedingungen erfüllt ist:
+					Die Condition enthält den DayType="CheckIn", dann ist der Default von DayAllocation="First"
+					Die Condition enthält den DayType="CheckOut", dann ist der Default von DayAllocation="Last"
+					Bei allen Auswertungen welche sich auf "DepartureAirport" beziehen, wird der Default von DayAllocation="First" (Airports Bedingung, MatchEqual, etc.)
+					Bei allen Auswertungen welche sich auf "ArrivalAirport" beziehen, wird der Default von DayAllocation="Last" (Airports Bedingung, MatchEqual, etc.)
+					Bei BookingDateOffset-Bedingungen wird der Default von DayAllocation="First"
+</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_217">This attribute defines the allocation where the
 					values ​​in the attribute "Source" refer to more than one component. This can
 					occur, for example, if a product that should use composite flights via
@@ -3079,9 +3082,13 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 					attributes of the corresponding components. - All All components are evaluated
 					according to the condition. The condition is met only if all components meet the
 					condition. If the attribute is not defined, a standard value is used, which is
-					dependant on the relevant condition. With ArrivalDate and ArrivalAirport "Last"
-					is used by default. For all other conditions "First" is used by default (see
-					also DayAllocationIndex in the Rules).</xs:documentation>
+					dependant on the relevant condition. 					
+					The Default is "All" if the condition is not one of the following:
+					If the Condition contains the DayType="CheckIn", the Default is DayAllocation="First"
+					If the Condition contains ths DayType="CheckOut", the Default is DayAllocation="Last"
+					For all evaluations which refer to "DepartureAirport", the Default is DayAllocation="First" (Airports Condition, MatchEqual, etc.)
+					For all evaluations which refer to "ArrivalAirport", the Default is DayAllocation="Last" (Airports Condition, MatchEqual, etc.)
+					The BookingDateOffset-Condition has the Default DayAllocation="First"</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="EvaluationMode" type="EvaluationModeEnum" default="Any">
