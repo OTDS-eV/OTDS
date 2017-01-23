@@ -3280,7 +3280,35 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 				getrennt.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_227">A list of integers separated by spaces.</xs:documentation>
 		</xs:annotation>
-		<xs:list itemType="xs:int"/>
+	  <xs:list itemType="xs:int"/>
+	</xs:simpleType>
+  <xs:simpleType name="NonZeroIntegerListType">
+    <xs:annotation>
+      <xs:documentation xml:lang="de" xml:id="de_227">Eine Liste von Integerzahlen ohne Null, durch Space
+        getrennt.</xs:documentation>
+      <xs:documentation xml:lang="en" xml:id="en_227">A list of integers without zero separated by spaces.</xs:documentation>
+    </xs:annotation>
+	  <xs:restriction>
+	    <xs:simpleType>
+	      <xs:list>
+	        <xs:simpleType>
+	          <xs:union>
+	            <xs:simpleType>
+	              <xs:restriction base="xs:int">
+	                <xs:minExclusive value="0"/>
+	              </xs:restriction>
+	            </xs:simpleType>
+	            <xs:simpleType>
+	              <xs:restriction base="xs:int">
+	                <xs:maxExclusive value="0"/>
+	              </xs:restriction>
+	            </xs:simpleType>
+	          </xs:union>
+	        </xs:simpleType>
+	      </xs:list>
+	    </xs:simpleType>
+	    <xs:minLength value="1"/>
+	  </xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductFeaturesAttributeListType">
 		<xs:list itemType="ProductFeatureAttributeEnum"/>
@@ -3546,7 +3574,12 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:documentation xml:lang="de" xml:id="de_238">Eine Liste von Keys</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_238">A list of keys</xs:documentation>
 		</xs:annotation>
-		<xs:list itemType="KeyType"/>
+	  <xs:restriction>
+	    <xs:simpleType>
+	    <xs:list itemType="KeyType"/>	
+	    </xs:simpleType>
+	    <xs:minLength value="1"/>
+	  </xs:restriction>	  
 	</xs:simpleType>
 	<xs:simpleType name="IdentifierType">
 		<xs:restriction base="KeyType"/>
@@ -7076,7 +7109,7 @@ The result of this filter is to sort participants in descending order by age and
 			<xs:choice>
 				<xs:sequence maxOccurs="2">
 					<xs:choice>
-						<xs:element name="Until" type="xs:int">
+					  <xs:element name="Until" type="NonZeroIntegerListType">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
 									bestimmten Person. Until=x definiert die X ältesten Personen.
@@ -7090,7 +7123,7 @@ Until=x defines the X oldest persons.
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="From" type="xs:int">
+					  <xs:element name="From" type="NonZeroIntegerListType">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer
 									bestimmten Person. Standardverwendung ist hier From=-x. From=-x
@@ -7106,7 +7139,7 @@ From=x defines all persons in ascending order by age from the X-oldest person (i
 						</xs:element>
 					</xs:choice>
 				</xs:sequence>
-				<xs:element name="Indices" type="IntegerListType">
+				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von
 							Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch
@@ -7192,7 +7225,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 		<xs:sequence>
 			<xs:choice>
 				<xs:sequence>
-					<xs:element name="Until" type="xs:int" minOccurs="0">
+				  <xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
@@ -7207,7 +7240,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 							check-out day and all other days prior to it.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="From" type="xs:int" minOccurs="0">
+				  <xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
@@ -7224,7 +7257,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-				<xs:element name="Indices" type="IntegerListType">
+			  <xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_446">Es kann eine Liste an Indizes von Tagen der
 						Reise angegeben werden. Die einzelnen Indizes müssen durch Space voneinander
