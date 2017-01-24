@@ -2750,13 +2750,7 @@ Default = "All"</xs:documentation>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="PersonBase" type="PriceImpactBaseValueType">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_386">Basisanzahl der Personen. Wird "x" angegeben, wird das PriceItem für alle Personen angewendet, d.h. zu gleichen Teilen auf alle Personen verteilt. Wird "1" angegeben, wird das PriceItem pro Person angewendet. Eine Zahl größer 1 wird zurzeit nicht interpretiert, könnte aber bei Gruppenreisen mit gebrochenen Preisen relevant werden.
-							</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_386">Basic number of persons. If "x" is specified, the PriceItem is applied for all persons, i.e. is allocated equally to all persons. If "1" is specified, the PriceItem is applied per person. A number greater than 1 is currently not interpreted, but may be relevant for group travel with broken prices.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="PersonBase"/>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="AllocationBaseConditionGroup">
@@ -6154,6 +6148,18 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 			</xs:element>
 		</xs:choice>
 	</xs:group>
+	
+	
+	<xs:simpleType name="GenericTagValueType">
+		<xs:union memberTypes="xs:int">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="true"/>
+					<xs:enumeration value="false"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="PriceImpactBaseValueType">
 		<xs:union memberTypes="xs:positiveInteger">
 			<xs:simpleType>
@@ -8334,7 +8340,7 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 					<xs:complexContent>
 						<xs:extension base="GenericTagConditionType">
 							<xs:choice>
-								<xs:element name="Value" type="xs:int"/>
+								<xs:element name="Value" type="GenericTagValueType"/>
 								<xs:sequence>
 									<xs:element name="MinValue" type="xs:int" minOccurs="0"/>
 									<xs:element name="MaxValue" type="xs:int" minOccurs="0"/>

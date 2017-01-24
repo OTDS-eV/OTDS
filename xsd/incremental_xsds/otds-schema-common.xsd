@@ -465,7 +465,7 @@ The default is 0.</xs:documentation>
             <xs:documentation xml:lang="en" xml:id="en_72">RightSeparator - If the parameter is not the last, this separator will be inserted directly behind it.</xs:documentation>
          </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="PadLength" type="PositiveInteger" default="0">
+      <xs:attribute name="PadLength" type="xs:unsignedInt" default="0">
          <xs:annotation>
             <xs:documentation xml:lang="de" xml:id="de_73">PadLength - Gibt an, dass der Parameter mittels
 					eines Füllzeichens auf eine feste Länge gebracht werden soll. Ist der Parameter
@@ -724,7 +724,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
          <xs:choice minOccurs="1">
             <xs:sequence>
                <xs:element name="MinCount"
-                           type="PositiveShort"
+                           type="xs:unsignedShort"
                            minOccurs="1"
                            internal:otdsversion="1.9">
                   <xs:annotation>
@@ -733,7 +733,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
                   </xs:annotation>
                </xs:element>
                <xs:element name="MaxCount"
-                           type="PositiveShort"
+                           type="xs:unsignedShort"
                            minOccurs="0"
                            internal:otdsversion="1.9">
                   <xs:annotation>
@@ -744,7 +744,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
             </xs:sequence>
             <xs:sequence>
                <xs:element name="MaxCount"
-                           type="PositiveShort"
+                           type="xs:unsignedShort"
                            minOccurs="1"
                            internal:otdsversion="1.9">
                   <xs:annotation>
@@ -753,7 +753,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss &gt;= der Anzahl
                </xs:element>
             </xs:sequence>
             <xs:element name="Count"
-                        type="PositiveShort"
+                        type="xs:unsignedShort"
                         minOccurs="1"
                         internal:otdsversion="1.9">
                <xs:annotation>
@@ -1402,25 +1402,37 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
                <xs:sequence>
                   <xs:element name="GroupedByEqual" internal:otdsversion="1.9">
                      <xs:annotation>
-                        <xs:documentation xml:lang="de" xml:id="det_487">Die Angaben in ClassifiedBy definieren, über welche Parameter die Angebote gruppiert werden. 
-									Die häufigste Verwendung wird sein, dass eine Gruppierung der Returnflüge über Abflughafen, Zielflughafen, Termin und Dauer erfolgt.</xs:documentation>
-                        <xs:documentation xml:lang="en" xml:id="en_487">The entries in ClassifiedBy define by what parameters the offers should be grouped. The most common use is that return flights are grouped via departure airport, destination airport, departure date and time, and duration.</xs:documentation>
+                        <xs:documentation xml:lang="de" xml:id="det_487">Die Angaben in GroupedByEqual definieren, über welche Parameter die Angebote gruppiert werden. 
+Mit CandidateInstance-Elementen definiert man welche Unterkomponenten identisch sein müssen.		
+
+Mit Tag-Elementen definiert man, dass die Gruppe nur aus Offerkandidaten besteht, bei denen diese Tags identische Values besitzen.
+
+CheckIn und CheckOuttermine der referenzierten Unterkomponenten sind ohnehin immer identisch.							Die häufigste Verwendung wird sein, dass eine Gruppierung der Returnflüge über Abflughafen, Zielflughafen, Termin und Dauer erfolgt.</xs:documentation>
+                        <xs:documentation xml:lang="en" xml:id="en_487">The entries in GroupedByEqual defines by what parameters the offers should be grouped.  With CandidateInstance elements you define, which subcomponents need to be identical. By default this means that CheckIn and CheckOut of the subcomponents are the same anyway.	 With Tag elements you define, that the group contains only offer candidates, which have the same tag value of the indicated tags. 
+								The most common use is that return flights are grouped via departure airport, destination airport, departure date and time, and duration.</xs:documentation>
                      </xs:annotation>
                      <xs:complexType>
                         <xs:sequence maxOccurs="unbounded">
                            <xs:choice>
                               <xs:element name="CandidateInstance">
+                                 <xs:annotation>
+                                    <xs:documentation>Die Angebote werden gruppiert, so dass alle Angebotskandidaten der Gruppe identische durch CandidateInstance/@Source definiert Unterkomponenten besitzen.
+Die Rahmenparameter bzgl. CheckIn- und CheckOut-Terminen müssen ohenhin identisch sein.</xs:documentation>
+                                 </xs:annotation>
                                  <xs:complexType>
-                                    <xs:attribute name="Source"/>
+                                    <xs:attribute name="Source" type="SourceAttributeType"/>
                                  </xs:complexType>
                               </xs:element>
-                              <xs:element name="Tag" type="EmptyTagConditionType">
+                              <xs:element name="Tag" type="EmptyTagGroupedByEqualType">
                                  <xs:annotation>
                                     <xs:documentation xml:lang="de" xml:id="det_488">Dieses Element adressiert ein
-												bestimmtes Tag innerhalb des Angebotskontextes.
-												Die Gruppierung erfolgt über das hier referenzierte Tag. Das bedeutet, alle Elemente
-												einer Gruppe haben den gleichen	Tag-Value.</xs:documentation>
-                                    <xs:documentation xml:lang="en" xml:id="en_488">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a group have the same tag value.</xs:documentation>
+bestimmtes Tag innerhalb des Angebotskontextes.
+Die Gruppierung erfolgt über das hier referenzierte Tag. Das bedeutet, alle Elemente einer Gruppe haben bzgl. des hier addressierten Tags den gleichen	Tag-Value.
+
+Sonderfall: Sollte die Addressierung des Tags bzgl. Source nicht eindeutig sein, so erfolgt die Gruppierung über identische in XML-DocumentOrder sortierte Tag-Tuple. 
+</xs:documentation>
+                                    <xs:documentation xml:lang="en" xml:id="en_488">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a group have the same tag value.
+												Special case: If the definition of the tag including dayallocation will result in multiple tags. The grouping will we done via xml document order sorted tuples of the tag. </xs:documentation>
                                  </xs:annotation>
                               </xs:element>
                            </xs:choice>
@@ -1722,46 +1734,6 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
       </xs:choice>
       <xs:attributeGroup ref="TagAttributeGroup"/>
    </xs:complexType>
-   <xs:group name="GroupConditionGroup">
-      <xs:annotation>
-         <xs:documentation xml:lang="de" xml:id="de_134">Die GroupCondition definiert genau wie die
-				Condition eine Bedingung, die bestimmt, ob eine BookingGroup bzw. das übergeordnete
-				Element gültig ist oder nicht. Im Unterschied zur Condition bezieht sich die
-				GroupCondition nicht nur auf Bestandteile des gerade betrachtete Angebotes, sondern
-				auch auf andere Angebote der unter GroupDefinition referenzierten Gruppe von
-				Angeboten. Um zu überprüfen, ob die Bedingung erfüllt ist, werden alle Angebote
-				gemäß der GroupDefinition sortiert. Die Sortierung erfolgt durch Auswertung der Tags
-				und Preise der Angebote. In der dadurch definierten sortierten Liste von Angeboten
-				wird überprüft, ob sich das gerade betrachtete Angebot unter den ersten x Angeboten
-				dieser sortierten Liste befindet. Ist das der Fall, so ist die Filterbedingung
-				erfüllt. Die GroupCondition wird in der Regel zur Priorisierung der Flüge im
-				Pauschalbereich verwendet. In der Regel ist es Ziel festzulegen, welcher Flug mit
-				dem CityPair als FlightCode gebucht werden kann.</xs:documentation>
-         <xs:documentation xml:lang="en" xml:id="en_134">The GroupCondition defines just as the Condition
-				a condition that determines, whether a BookingGroup or parent element is valid or
-				not. In contrast to the Condition, the GroupCondition refers not only to the
-				elements of the offer currently being viewed, but also to other offers referenced in
-				GroupDefinition group of offers. In order to check whether the condition is
-				satisfied, all offers are sorted in accordance with the GroupDefinition. The sorting
-				is completed by evaluating the tags of the offers. The defined and sorted list of
-				offers is checked to establish whether the offer currently being viewed is among the
-				first x offers of this sorted list. If this is the case, the filter condition is
-				satisfied. The GroupCondition is generally used to prioritise flights in the context
-				of package deals. The aim is to establish a rule governing which flight can be
-				booked with the CityPair as a FlightCode.</xs:documentation>
-      </xs:annotation>
-      <xs:sequence>
-         <xs:element name="MaxRows">
-            <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_135">Dieses Element definiert, für wieviele
-						GroupElemente die GroupCondition erfüllt wird. Standard ist hier = 1.
-						Existiert das Element nicht, so wird der Standardwert
-						angenommen.</xs:documentation>
-               <xs:documentation xml:lang="en" xml:id="en_135">This element defines for how many Group Elements the Group Condition is met. Here, the default = 1. If the element does not exist, the default value is assumed.</xs:documentation>
-            </xs:annotation>
-         </xs:element>
-      </xs:sequence>
-   </xs:group>
    <xs:complexType name="SortPriceType">
       <xs:sequence>
          <xs:element name="ConsideredPriceItems"
@@ -2241,11 +2213,15 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
          </xs:element>
          <xs:element name="FlightRoutes" minOccurs="0">
             <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_161">Beschreibt die Details zur Flugroute. Eine Route definiert dabei entweder ein Segment  oder auch eine Zusammenfassung mehrere Segmente. Letztenendes hängt es von der verfügbaren Informationstiefe des Datenlieferanten ab.</xs:documentation>
+               <xs:documentation xml:lang="de" xml:id="de_161">Beschreibt die Details zur Flugroute. Eine Route definiert dabei entweder ein Segment oder auch eine Zusammenfassung 
+						mehrere Segmente. Letztenendes hängt es von der verfügbaren Informationstiefe des Datenlieferanten ab.
+						Zu beachten: die Routen müssen entsprechend ihrer zeitlichen Reihenfolge des Flugereignis aufgeführt werden, unabhängig davon, 
+						ob die Abflugzeiten bekannt sind.</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_161">Description of details of the flight route. A
 						route can be defined either as a segment or as a summary of a number of
 						segments. Ultimately this depends on the depth of information made available
-						by the data provider.</xs:documentation>
+						by the data provider. Note that the routes must be specified in temporal order, 
+						irrespective of whether the departure times are known.</xs:documentation>
             </xs:annotation>
             <xs:complexType>
                <xs:sequence>
@@ -2539,7 +2515,7 @@ DE Germany</xs:documentation>
                                  <xs:documentation xml:lang="en" xml:id="en_196">The Longitude element specifies the longitude in decimal form.</xs:documentation>
                               </xs:annotation>
                            </xs:element>
-                           <xs:element name="Accuracy" type="PositiveInteger">
+                           <xs:element name="Accuracy" type="xs:unsignedInt">
                               <xs:annotation>
                                  <xs:documentation xml:lang="de" xml:id="de_197">In dem Element Accuracy (Genauigkeit)
 												kann eine Entfernung in km bezogen auf die
@@ -2649,7 +2625,7 @@ DE Germany</xs:documentation>
             </xs:annotation>
          </xs:element>
          <xs:group ref="AccommodationCategoryGroup" minOccurs="0"/>
-         <xs:element name="AccommodationChain" type="PositiveInteger" minOccurs="0">
+         <xs:element name="AccommodationChain" type="xs:unsignedInt" minOccurs="0">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="de_206">Zugehörigkeit einer Unterkunft zu einer Kette
 						oder Kooperation: Die Zuordnung findet über eine Hotelketten-ID statt. Eine
@@ -2871,13 +2847,7 @@ Default = "All"</xs:documentation>
                </xs:simpleContent>
             </xs:complexType>
          </xs:element>
-         <xs:element name="PersonBase" type="PriceImpactBaseValueType">
-            <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_386">Basisanzahl der Personen. Wird "x" angegeben, wird das PriceItem für alle Personen angewendet, d.h. zu gleichen Teilen auf alle Personen verteilt. Wird "1" angegeben, wird das PriceItem pro Person angewendet. Eine Zahl größer 1 wird zurzeit nicht interpretiert, könnte aber bei Gruppenreisen mit gebrochenen Preisen relevant werden.
-							</xs:documentation>
-               <xs:documentation xml:lang="en" xml:id="en_386">Basic number of persons. If "x" is specified, the PriceItem is applied for all persons, i.e. is allocated equally to all persons. If "1" is specified, the PriceItem is applied per person. A number greater than 1 is currently not interpreted, but may be relevant for group travel with broken prices.</xs:documentation>
-            </xs:annotation>
-         </xs:element>
+         <xs:element name="PersonBase"/>
       </xs:sequence>
    </xs:group>
    <xs:group name="AllocationBaseConditionGroup">
@@ -3167,10 +3137,14 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 					"DayAllocationIndex" der entsprechenden Komponenten. - All: Alle Komponenten
 					werden bzgl. der Bedingung ausgewertet. Die Bedingung ist nur erfüllt, wenn alle
 					Komponenten die Bedingung erfüllen. Wenn das Attribut nicht gefüllt ist, wird
-					ein Standard verwendet, der von der verwendeten Condition abhängt. Bei
-					ArrivalDate und ArrivalAirport wird als Default "Last" verwendet. Bei allen
-					anderen Bedingungen wird als Default "First" verwendet. @ToDo (Siehe auch
-					DayAllocationIndex in Rules)</xs:documentation>
+					ein Standard verwendet, der von der verwendeten Condition abhängt. 
+					Der Default ist "All" wenn nicht eine der folgenden Bedingungen erfüllt ist:
+					Die Condition enthält den DayType="CheckIn", dann ist der Default von DayAllocation="First"
+					Die Condition enthält den DayType="CheckOut", dann ist der Default von DayAllocation="Last"
+					Bei allen Auswertungen welche sich auf "DepartureAirport" beziehen, wird der Default von DayAllocation="First" (Airports Bedingung, MatchEqual, etc.)
+					Bei allen Auswertungen welche sich auf "ArrivalAirport" beziehen, wird der Default von DayAllocation="Last" (Airports Bedingung, MatchEqual, etc.)
+					Bei BookingDateOffset-Bedingungen wird der Default von DayAllocation="First"
+</xs:documentation>
             <xs:documentation xml:lang="en" xml:id="en_217">This attribute defines the allocation where the
 					values ​​in the attribute "Source" refer to more than one component. This can
 					occur, for example, if a product that should use composite flights via
@@ -3185,9 +3159,13 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 					attributes of the corresponding components. - All All components are evaluated
 					according to the condition. The condition is met only if all components meet the
 					condition. If the attribute is not defined, a standard value is used, which is
-					dependant on the relevant condition. With ArrivalDate and ArrivalAirport "Last"
-					is used by default. For all other conditions "First" is used by default (see
-					also DayAllocationIndex in the Rules).</xs:documentation>
+					dependant on the relevant condition. 					
+					The Default is "All" if the condition is not one of the following:
+					If the Condition contains the DayType="CheckIn", the Default is DayAllocation="First"
+					If the Condition contains ths DayType="CheckOut", the Default is DayAllocation="Last"
+					For all evaluations which refer to "DepartureAirport", the Default is DayAllocation="First" (Airports Condition, MatchEqual, etc.)
+					For all evaluations which refer to "ArrivalAirport", the Default is DayAllocation="Last" (Airports Condition, MatchEqual, etc.)
+					The BookingDateOffset-Condition has the Default DayAllocation="First"</xs:documentation>
          </xs:annotation>
       </xs:attribute>
       <xs:attribute name="EvaluationMode" type="EvaluationModeEnum" default="Any">
@@ -3218,13 +3196,13 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
       </xs:attribute>
    </xs:attributeGroup>
    <xs:attributeGroup name="TagReferenceAttributeGroup">
-      <xs:attribute name="Offset" type="PositiveInteger">
+      <xs:attribute name="Offset" type="xs:unsignedInt">
          <xs:annotation>
             <xs:documentation xml:lang="de">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)</xs:documentation>
             <xs:documentation xml:lang="en">Determines the position, from which on the body of the tag element shall be compared. (Default is position 0 - this corresponds to the first character.)</xs:documentation>
          </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="Length" type="PositiveInteger">
+      <xs:attribute name="Length" type="xs:unsignedInt">
          <xs:annotation>
             <xs:documentation xml:lang="de">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen.</xs:documentation>
             <xs:documentation xml:lang="en">Determines the number of characters, which shall be compared in the body of the tag element. If the attribute is not filled, always the body of the TagElement is compared until the end of the character string.</xs:documentation>
@@ -3315,12 +3293,6 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          <xs:pattern value="[A-Za-z0-9]+"/>
       </xs:restriction>
    </xs:simpleType>
-   <xs:simpleType name="PositiveInteger">
-      <xs:restriction base="xs:unsignedInt"/>
-   </xs:simpleType>
-   <xs:simpleType name="PositiveShort">
-      <xs:restriction base="xs:unsignedShort"/>
-   </xs:simpleType>
    <xs:simpleType name="MonetaryValue">
       <xs:restriction base="xs:decimal"/>
    </xs:simpleType>
@@ -3338,6 +3310,15 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
       <xs:restriction base="xs:string">
          <xs:pattern value="[A-Z]{3}"/>
       </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="IataAirlineCodeType">
+      <xs:annotation>
+         <xs:documentation xml:lang="de">Typ für IATA Airline Codes ("IATA two character designator code", see http://www.iata.org/services/pages/codes.aspx )
+          </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+			<!-- [A-Z0-9]{2} will be activated in Version 2.0-->
+		</xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="TokenType">
       <xs:restriction base="xs:string">
@@ -3386,6 +3367,34 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          <xs:documentation xml:lang="en" xml:id="en_227">A list of integers separated by spaces.</xs:documentation>
       </xs:annotation>
       <xs:list itemType="xs:int"/>
+   </xs:simpleType>
+   <xs:simpleType name="NonZeroIntegerListType">
+      <xs:annotation>
+         <xs:documentation xml:lang="de" xml:id="de_227">Eine Liste von Integerzahlen ohne Null, durch Space
+        getrennt.</xs:documentation>
+         <xs:documentation xml:lang="en" xml:id="en_227">A list of integers without zero separated by spaces.</xs:documentation>
+      </xs:annotation>
+      <xs:restriction>
+         <xs:simpleType>
+            <xs:list>
+               <xs:simpleType>
+                  <xs:union>
+                     <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                           <xs:minExclusive value="0"/>
+                        </xs:restriction>
+                     </xs:simpleType>
+                     <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                           <xs:maxExclusive value="0"/>
+                        </xs:restriction>
+                     </xs:simpleType>
+                  </xs:union>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:minLength value="1"/>
+      </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ProductFeaturesAttributeListType">
       <xs:list itemType="ProductFeatureAttributeEnum"/>
@@ -3651,13 +3660,18 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          <xs:documentation xml:lang="de" xml:id="de_238">Eine Liste von Keys</xs:documentation>
          <xs:documentation xml:lang="en" xml:id="en_238">A list of keys</xs:documentation>
       </xs:annotation>
-      <xs:list itemType="KeyType"/>
+      <xs:restriction>
+         <xs:simpleType>
+            <xs:list itemType="KeyType"/>
+         </xs:simpleType>
+         <xs:minLength value="1"/>
+      </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="IdentifierType">
       <xs:restriction base="KeyType"/>
    </xs:simpleType>
    <xs:simpleType name="PersonAgeType">
-      <xs:restriction base="PositiveInteger"/>
+      <xs:restriction base="xs:unsignedInt"/>
    </xs:simpleType>
    <xs:simpleType name="PriceItemClassTypeList">
       <xs:restriction>
@@ -3674,7 +3688,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
       </xs:annotation>
       <xs:sequence>
          <xs:element name="Pieces"
-                     type="PositiveInteger"
+                     type="xs:positiveInteger"
                      minOccurs="0"
                      internal:otdsversion="1.9">
             <xs:annotation>
@@ -3777,7 +3791,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_252">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
             </xs:annotation>
          </xs:element>
-         <xs:element name="ElapsedFlyingTime" type="PositiveInteger" minOccurs="0">
+         <xs:element name="ElapsedFlyingTime" type="xs:positiveInteger" minOccurs="0">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="de_253">Gesamtreisedauer des Flugs über alle Segmente und Zwischenstopps. Die Gesamtreisedauer wird in Minuten angegeben. Diese Eigenschaft steht bei flacher oder segmentweiser Angabe des Flugs zur Verfügung.</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_253">Total duration of the flight across all segments and stopovers. The total duration is specified in minutes. This attribute is for the flat or segmental specification of flight details.</xs:documentation>
@@ -3792,11 +3806,11 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_254">Aeroplane-Type. (e.g. A380). Since there may be stops en route to change aircraft, several aircraft types may be specified.</xs:documentation>
             </xs:annotation>
          </xs:element>
-         <xs:element name="StopOvers" type="PositiveInteger" minOccurs="0">
+         <xs:element name="StopOvers" type="xs:unsignedInt" minOccurs="0">
             <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_255">Anzahl Stops der Route inkl. der technischen
-						Stops innerhalb eines Segments.</xs:documentation>
-               <xs:documentation xml:lang="en" xml:id="en_255">The number of stops en route, including technical stops within a segment</xs:documentation>
+               <xs:documentation xml:lang="de" xml:id="de_255">Anzahl Stops der Route inkl. der technischen Stops innerhalb eines Segments.
+Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der Stops machen kann.</xs:documentation>
+               <xs:documentation xml:lang="en" xml:id="en_255">The number of stops en route, including technical stops within a segment. Leaving out the element means that the supplier can not make a statement about the number of stops.</xs:documentation>
             </xs:annotation>
          </xs:element>
       </xs:sequence>
@@ -3809,8 +3823,27 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
       <xs:sequence>
          <xs:element name="Airport" type="IataAirportCodeType" minOccurs="0">
             <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_257">An- Abflughafen des Knotens.</xs:documentation>
-               <xs:documentation xml:lang="en" xml:id="en_257">Departure and arrival airports of the node.</xs:documentation>
+               <xs:documentation xml:lang="de" xml:id="de_257">An- und Abflughafen des Knotens, angegeben als IATA Airport Code bzw. als IATA MetropolitanAirportCode. Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen 
+berücksichtigt. 
+
+Um die Definition der Airport-Codes seitens IATA zu überprüfen, nutzen Sie bitte den Link:  
+http://www.iata.org/publications/Pages/code-search.aspx
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der IATA-Airport-Codes finden Sie unter: 
+https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: 
+http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
+               <xs:documentation xml:lang="en" xml:id="en_257">Departure and arrival airports of the node, supplied as IATA Airport Code or IATA MAA Code. Special case: 
+						if the code identifies both, a real airport and a group of airports (MAA - Metropolitan Airport Code), only the real airport is considered.
+					    For information about the IATA airport code definition see: 
+					    http://www.iata.org/publications/Pages/code-search.aspx
+					    
+					    You will find a list of the concrete airport codes that is not garanteed to be complete or correct here:
+					    https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+					    
+					    You will find a list of the MAA-Codes  that is not garanteed to be complete or correct here: 
+					    http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
             </xs:annotation>
          </xs:element>
          <xs:element name="DateOffset" type="xs:int" minOccurs="0">
@@ -3859,10 +3892,16 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          <xs:documentation xml:lang="en" xml:id="en_263">In this type, the attributes of a carrier are shown</xs:documentation>
       </xs:annotation>
       <xs:sequence>
-         <xs:element name="Identifier" type="xs:string">
+         <xs:element name="Identifier" type="IataAirlineCodeType">
             <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_264">Konkreter Carrier-Kenner, z.B. AB oder LH. Falls der Kenner für den Flug mehrdeutig ist, kann dies über zusätzliche Definition von type = ambiguous angegeben werden.</xs:documentation>
-               <xs:documentation xml:lang="en" xml:id="en_264">Concrete label for carrier, e.g. AB or LH. If the label for the flight is ambiguous, this can be specified with the additional definition, type = ambiguous.</xs:documentation>
+               <xs:documentation xml:lang="de" xml:id="det_264">Konkreter Carrier-Code entsprechend der IATA 2-letter airline code definition. Codes bzw. Airlines können unter diesem Link gesucht werden:
+
+http://www.iata.org/publications/Pages/code-search.aspx 
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der Codes und Airlines findet sich unter:
+
+https://de.wikipedia.org/wiki/Liste_der_IATA-Airline-Codes
+</xs:documentation>
             </xs:annotation>
          </xs:element>
       </xs:sequence>
@@ -3952,11 +3991,6 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
             </xs:annotation>
          </xs:element>
       </xs:sequence>
-   </xs:complexType>
-   <xs:complexType name="NotConsideredPriceItemClassesType">
-      <xs:simpleContent>
-         <xs:extension base="PriceItemClassTypeList"/>
-      </xs:simpleContent>
    </xs:complexType>
    <!-- Base Enums --><!-- Start Property Enums --><xs:complexType name="CheckInOutOffsetType">
       <xs:simpleContent>
@@ -4086,6 +4120,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          <xs:enumeration value="CityView"/>
          <xs:enumeration value="MountainView"/>
          <xs:enumeration value="InnercourtView"/>
+         <xs:enumeration value="Kitchenette"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="AccommodationTypeEnum">
@@ -4531,6 +4566,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
          <xs:enumeration value="1.9"/>
          <xs:enumeration value="1.9.1"/>
          <xs:enumeration value="1.9.2"/>
+         <xs:enumeration value="1.9.3"/>
       </xs:restriction>
    </xs:simpleType>
    <xs:simpleType name="ShiftEnum">
@@ -4740,6 +4776,14 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
       </xs:annotation>
       <xs:list itemType="WeekdayEnum"/>
    </xs:simpleType>
+   <xs:simpleType name="NonEmptyWeekdayEnumList">
+      <xs:annotation>
+         <xs:documentation xml:lang="de">Eine nicht-leere Liste von Wochentagen.</xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="WeekdayEnumList">
+         <xs:minLength value="1"/>
+      </xs:restriction>
+   </xs:simpleType>
    <xs:simpleType name="PersonGenderEnumList">
       <xs:annotation>
          <xs:documentation xml:lang="de" xml:id="de_277">Eine Liste von Angaben zum Geschlecht der Mitreisenden.</xs:documentation>
@@ -4899,7 +4943,7 @@ The default is CheckIn.</xs:documentation>
 					DayAllocationLevel. The default is 0.</xs:documentation>
          </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="Offset" type="PositiveInteger" default="0">
+      <xs:attribute name="Offset" type="xs:unsignedInt" default="0">
          <xs:annotation>
             <xs:documentation xml:lang="de" xml:id="de_284">Dieses Attribut definiert einen Offset in Tagen, der zum Startdatum addiert wird.</xs:documentation>
             <xs:documentation xml:lang="en" xml:id="en_284">This attribute defines an Offset in days and is added to the start date.</xs:documentation>
@@ -4967,7 +5011,7 @@ The default value is CheckOut.</xs:documentation>
 					DayAllocationLevel. The default is 0.</xs:documentation>
          </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="Offset" type="PositiveInteger" default="0">
+      <xs:attribute name="Offset" type="xs:unsignedInt" default="0">
          <xs:annotation>
             <xs:documentation xml:lang="de" xml:id="de_289">Dieses Attribut definiert einen Offset in Tagen, der zum Startdatum addiert wird.</xs:documentation>
             <xs:documentation xml:lang="en" xml:id="en_289">This attribute defines an Offset in days and is added to the start date.</xs:documentation>
@@ -5208,20 +5252,20 @@ individual dates.</xs:documentation>
       </xs:annotation>
       <xs:choice>
          <xs:sequence>
-            <xs:element name="Min" type="PositiveInteger" minOccurs="1">
+            <xs:element name="Min" type="xs:unsignedInt" minOccurs="1">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_311">Dieses Element beinhaltet den minimalen Zeitabstand in Tagen zwischen Buchungstag und CheckIn-Termin. Hiermit wird "Rolling EarlyBird" abgebildet. Dieser Wert wird für die Berechnung von Frühbucherpreisen benutzt, bei denen die Buchung mindestens eine bestimmte Anzahl von Tagen vor dem CheckIn, also der Anmeldung am Ankunftsort stattfinden muss. </xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_311">This element contains the minimum time interval in days between the date of booking and check-in. This is used to indicate "RollingEarlyBird". This value is used for the calculation of early-bird prices, where the booking must occur a specified number of days before check-in, that is the registration at the destination.</xs:documentation>
                </xs:annotation>
             </xs:element>
-            <xs:element name="Max" type="PositiveInteger" minOccurs="0">
+            <xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_312">Dieses Element beinhaltet den maximalen Zeitabstand in Tagen zwischen Buchungstag und CheckIn-Termin. Hiermit wird "Rolling EarlyBird" abgebildet. Dieser Wert wird für Berechnung von Frühbucherpreisen benutzt, bei denen die Buchung eine bestimmte Anzahl von Tagen vor dem CheckIn, also der Anmeldung am Ankunftsort stattfinden muss.</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_312">This element contains the maximum time interval in days between the date of booking and check-in. This is used to display "RollingEarlyBird". This value is used for the calculation of early-bird prices, where the booking must occur a specified number of days prior to check-in, that is the registration at the destination.</xs:documentation>
                </xs:annotation>
             </xs:element>
          </xs:sequence>
-         <xs:element name="Max" type="PositiveInteger" minOccurs="1">
+         <xs:element name="Max" type="xs:unsignedInt" minOccurs="1">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="det_312">Dieses Element beinhaltet den maximalen Zeitabstand in Tagen zwischen Buchungstag und CheckIn-Termin. Hiermit wird "Rolling EarlyBird" abgebildet. Dieser Wert wird für Berechnung von Frühbucherpreisen benutzt, bei denen die Buchung eine bestimmte Anzahl von Tagen vor dem CheckIn, also der Anmeldung am Ankunftsort stattfinden muss.</xs:documentation>
             </xs:annotation>
@@ -5237,13 +5281,13 @@ individual dates.</xs:documentation>
       </xs:annotation>
       <xs:choice>
          <xs:sequence>
-            <xs:element name="Min" type="PositiveInteger" minOccurs="1">
+            <xs:element name="Min" type="xs:unsignedInt" minOccurs="1">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
                </xs:annotation>
             </xs:element>
-            <xs:element name="Max" type="PositiveInteger" minOccurs="0">
+            <xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
@@ -5251,7 +5295,7 @@ individual dates.</xs:documentation>
             </xs:element>
          </xs:sequence>
          <xs:sequence>
-            <xs:element name="Max" type="PositiveInteger" minOccurs="1">
+            <xs:element name="Max" type="xs:unsignedInt" minOccurs="1">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="det_503">Maximalaufenthaltsdauer</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
@@ -5264,10 +5308,10 @@ individual dates.</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
             </xs:annotation>
             <xs:simpleType>
-               <xs:list itemType="PositiveInteger"/>
+               <xs:list itemType="xs:unsignedInt"/>
             </xs:simpleType>
          </xs:element>
-         <xs:element name="MultiplesOf" type="PositiveInteger" minOccurs="1">
+         <xs:element name="MultiplesOf" type="xs:unsignedInt" minOccurs="1">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
 z.B. bei 7: es sind nur die Dauern 7, 14, 21, 28, ... erlaubt</xs:documentation>
@@ -5296,7 +5340,7 @@ e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</x
    </xs:complexType>
    <xs:complexType name="WeekdayConditionType">
       <xs:simpleContent>
-         <xs:extension base="WeekdayEnumList">
+         <xs:extension base="NonEmptyWeekdayEnumList">
             <xs:attributeGroup ref="SourceAttributeGroup"/>
             <xs:attribute name="DayType" type="DayTypeEnum" default="CheckIn">
                <xs:annotation>
@@ -5340,13 +5384,13 @@ This is based on the total number of nights For this reason the return date is e
 				restrictions.</xs:documentation>
       </xs:annotation>
       <xs:sequence>
-         <xs:element name="Min" type="PositiveInteger" minOccurs="0">
+         <xs:element name="Min" type="xs:unsignedInt" minOccurs="0">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="de_324">Mindestalter des Reiseteilnehmers</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_324">Minimum age of the passenger</xs:documentation>
             </xs:annotation>
          </xs:element>
-         <xs:element name="Max" type="PositiveInteger" minOccurs="0">
+         <xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
             <xs:annotation>
                <xs:documentation xml:lang="de" xml:id="de_325">Maximales Alter des Reiseteilnehmers</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_325">Maximum age of the passenger</xs:documentation>
@@ -5394,14 +5438,14 @@ This is based on the total number of nights For this reason the return date is e
                   <xs:documentation xml:lang="en" xml:id="en_329">This attribute is an additional condition on the tag of the destination node. A destination node can satisfy the condition only if the class contains the same value. If the class is not specified or is empty, the condition regarding class is considered fulfilled.</xs:documentation>
                </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Offset" type="PositiveInteger">
+            <xs:attribute name="Offset" type="xs:unsignedInt">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_330">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
 						</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_330">Specifies the location from which the body of the tag element is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
                </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Length" type="PositiveInteger">
+            <xs:attribute name="Length" type="xs:unsignedInt">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_331">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen. </xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_331">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElement is compared to the end of the character string.</xs:documentation>
@@ -5444,14 +5488,14 @@ This is based on the total number of nights For this reason the return date is e
                   <xs:documentation xml:lang="en" xml:id="en_333">This attribute is an additional condition on the tags of the destination node. A destination node can satisfy the condition only if the class contains the same value. If the class is not specified or is empty, the condition regarding class is considered to be fulfilled.</xs:documentation>
                </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Offset" type="PositiveInteger">
+            <xs:attribute name="Offset" type="xs:unsignedInt">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_334">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
 						</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_334">Specifies the location from which the body of the tag element is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
                </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Length" type="PositiveInteger">
+            <xs:attribute name="Length" type="xs:unsignedInt">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_335">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen. </xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_335">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElements is compared to the end of the character string.</xs:documentation>
@@ -5461,6 +5505,54 @@ This is based on the total number of nights For this reason the return date is e
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_336">Definiert den TagType des referenzierten Tags. Stimmt der TagType nicht mit dem TagType der TagDefinition überein, so wird als Value für den Tag der Wert="" verwendet.</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_336">Defines the TagType of the tags referred to. If the TagType does not match the TagType in the TagDefinition, the value for the tag used is Value="".</xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="EmptyTagGroupedByEqualType">
+      <xs:annotation>
+         <xs:documentation xml:lang="de">Der Typ definiert die Bedingung an Tags, die zur Gruppenbildung
+				verwendet werden sollen. Die Bedingung enthält eine Angabe der Class, Location und Werte des Tags. 
+				Tags sind Wertepaare, die an definierten Knotenpunkten angegeben werden können. Dadurch kann
+				man Einfluss nehmen auf die Angebotserstellung und auch auf die
+				Preisberechnung.</xs:documentation>
+         <xs:documentation xml:lang="en">The type defines conditions which select the tags to be used for defining
+				groups. The condition specifies the class, location and value of the tag. Tags
+				are pairs of values ​​that can be specified at defined nodes. This allows you to
+				influence the preparation of the offer and also the pricing.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+         <xs:extension base="EmptyTagType">
+            <xs:attribute name="DayAllocation" type="DayAllocationEnum" default="First"/>
+            <xs:attributeGroup ref="SourceAttributeGroup"/>
+            <xs:attribute name="Class" type="TokenType" use="required">
+               <xs:annotation>
+                  <xs:documentation xml:lang="de">Diese Attribut bietet eine zusätzliche
+							Bedingung an die Tags des Zielknotens. Ein Zielknoten kann die Bedingung
+							nur erfüllen, wenn die Class den gleichen Wert enthält. Ist die Class in
+							der Bedingung nicht besetzt oder leer, gilt die Bedingung bzgl. Class
+							als erfüllt.</xs:documentation>
+                  <xs:documentation xml:lang="en">This attribute is an additional condition on the tags of the destination node. A destination node can satisfy the condition only if the class contains the same value. If the class is not specified or is empty, the condition regarding class is considered to be fulfilled.</xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Offset" type="xs:unsignedInt">
+               <xs:annotation>
+                  <xs:documentation xml:lang="de">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
+						</xs:documentation>
+                  <xs:documentation xml:lang="en">Specifies the location from which the body of the tag element is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Length" type="xs:positiveInteger">
+               <xs:annotation>
+                  <xs:documentation xml:lang="de">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen. </xs:documentation>
+                  <xs:documentation xml:lang="en">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElements is compared to the end of the character string.</xs:documentation>
+               </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="TagValueType" type="TagValueTypeEnum" default="String">
+               <xs:annotation>
+                  <xs:documentation xml:lang="de">Definiert den TagType des referenzierten Tags. Stimmt der TagType nicht mit dem TagType der TagDefinition überein, so wird als Value für den Tag der Wert="" verwendet.</xs:documentation>
+                  <xs:documentation xml:lang="en">Defines the TagType of the tags referred to. If the TagType does not match the TagType in the TagDefinition, the value for the tag used is Value="".</xs:documentation>
                </xs:annotation>
             </xs:attribute>
          </xs:extension>
@@ -5488,14 +5580,14 @@ This is based on the total number of nights For this reason the return date is e
                   <xs:documentation xml:lang="en" xml:id="en_338">Class names the tag and is therefore a further specification.</xs:documentation>
                </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Offset" type="PositiveInteger">
+            <xs:attribute name="Offset" type="xs:unsignedInt">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_339">Gibt die Position an, ab der der String verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
 						</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_339">Specifies the position at which the string is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
                </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Length" type="PositiveInteger">
+            <xs:attribute name="Length" type="xs:unsignedInt">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_340">Gibt die Länge des zu vergleichenden Substring an. (Default ist der komplette String, beginnend ab Offset.)</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_340">Specifies the length of the substring to be compared. (Default is the full string, starting at offset).</xs:documentation>
@@ -5673,13 +5765,13 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
          </xs:choice>
          <xs:choice>
             <xs:sequence>
-               <xs:element name="MinCount" type="PositiveShort" minOccurs="1">
+               <xs:element name="MinCount" type="xs:unsignedShort" minOccurs="1">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_347">Mindestanzahl Personen</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_347">Minimum number of persons</xs:documentation>
                   </xs:annotation>
                </xs:element>
-               <xs:element name="MaxCount" type="PositiveShort" minOccurs="0">
+               <xs:element name="MaxCount" type="xs:unsignedShort" minOccurs="0">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_505">Maximale Anzahl Personen</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_505">Maximum number of persons</xs:documentation>
@@ -5687,14 +5779,14 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
                </xs:element>
             </xs:sequence>
             <xs:sequence>
-               <xs:element name="MaxCount" type="PositiveShort" minOccurs="1">
+               <xs:element name="MaxCount" type="xs:unsignedShort" minOccurs="1">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_348">Maximale Anzahl Personen</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_348">Maximum number of persons</xs:documentation>
                   </xs:annotation>
                </xs:element>
             </xs:sequence>
-            <xs:element name="Count" type="PositiveShort" minOccurs="1">
+            <xs:element name="Count" type="xs:unsignedShort" minOccurs="1">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_349">Genaue Anzahl der Person(en)</xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_349">Exact number of person (s)</xs:documentation>
@@ -6192,8 +6284,18 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
          </xs:element>
       </xs:choice>
    </xs:group>
+   <xs:simpleType name="GenericTagValueType">
+      <xs:union memberTypes="xs:int">
+         <xs:simpleType>
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="true"/>
+               <xs:enumeration value="false"/>
+            </xs:restriction>
+         </xs:simpleType>
+      </xs:union>
+   </xs:simpleType>
    <xs:simpleType name="PriceImpactBaseValueType">
-      <xs:union memberTypes="PositiveInteger">
+      <xs:union memberTypes="xs:positiveInteger">
          <xs:simpleType>
             <xs:restriction base="xs:string">
                <xs:enumeration value="x"/>
@@ -6309,7 +6411,7 @@ e.g. Discount of 25% on everything</xs:documentation>
          <xs:group ref="AllocationBaseGroup"/>
          <xs:group ref="PriceAppliedByGroup"/>
       </xs:sequence>
-      <xs:attribute name="ExecutionPriority" default="0"/>
+      <xs:attribute name="ExecutionPriority" type="xs:int" default="0"/>
    </xs:complexType>
    <xs:complexType name="GenericValueType">
       <xs:sequence>
@@ -6587,8 +6689,8 @@ Ein Bezug auf eine zusammengesetzte Komponente.</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_399">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
             </xs:annotation>
             <xs:complexType>
-               <xs:complexContent>
-                  <xs:extension base="NotConsideredPriceItemClassesType">
+               <xs:simpleContent>
+                  <xs:extension base="PriceItemClassTypeList">
                      <xs:attributeGroup ref="ComponentAttributeGroup">
                         <xs:annotation>
                            <xs:documentation xml:lang="de" xml:id="de_534">Das Attribut Component beschränkt den Wirkungsradius der hier definierten Classes auf PriceItems einer bestimmte Komponente. Per Default beschränkt sich die Kombinatorik auf PriceItems aus der selben Komponente (ThisComponent). Wenn die Kombinatorikbedingungen auf ein PriceItem einer anderen Komponente wirken sollen, muss dies hier explizit angegeben werden. 
@@ -6598,7 +6700,7 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
                         </xs:annotation>
                      </xs:attributeGroup>
                   </xs:extension>
-               </xs:complexContent>
+               </xs:simpleContent>
             </xs:complexType>
          </xs:element>
       </xs:choice>
@@ -6782,31 +6884,6 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
                      <xs:documentation xml:lang="en" xml:id="en_409">This branch defines which additional conditions apply to the availabilities listed under Availability. In general, the key for the Availabilities node should correlate exactly with this condition, so that the key is always unambiguously reproducible for incremental updates.</xs:documentation>
                   </xs:annotation>
                </xs:element>
-               <xs:element name="GroupCondition"
-                           type="GroupConditionSimpleNodeType"
-                           minOccurs="0">
-                  <xs:annotation>
-                     <xs:documentation xml:lang="de" xml:id="de_410">Die GroupCondition definiert genau wie die
-								Condition eine Bedingung, die bestimmt, ob ein
-								Availabilities-Element bzw. das übergeordnete Element gültig ist
-								oder nicht. Im Unterschied zur Condition bezieht sich die
-								GroupCondition nicht nur auf Bestandteile des gerade betrachtete
-								Angebotes, sondern auch auf andere Angebote der unter
-								GroupDefinition referenzierten Gruppe von Angeboten. Um zu
-								überprüfen, ob die Bedingung erfüllt ist, werden alle Angebote gemäß
-								der GroupDefinition sortiert. Die Sortierung erfolgt durch
-								Auswertung der Tags und Preise der Angebote. In der dadurch
-								definierten sortierten Liste von Angeboten wird überprüft, ob sich
-								das gerade betrachtete Angebot unter den ersten x Angeboten dieser
-								sortierten Liste befindet. Ist das der Fall, so ist die
-								Filterbedingung erfüllt. Die GroupCondition wird in der Regel zur
-								Priorisierung von Flügen verwendet, die Vorzugsweise vertrieben
-								werden sollen. An dieser Stelle regelt die GroupCondition, dass nur
-								die hoch priorisierten Flüge buchbar sind.</xs:documentation>
-                     <xs:documentation xml:lang="en" xml:id="en_410">In the same way as the Condition does, the GroupCondition defines a condition that determines whether an Availabilities element or the superordinate element is valid or not. In contrast to the Condition, GroupCondition does not only refer to components of the offer currently being viewed, but also to other offers in the group of offers referenced under GroupDefinition.
-To check whether the condition is satisfied all offers are sorted by the GroupDefinition. The sorting is done by evaluating the tags and offer prices. The hereby defined list of offers is checked to see whether the currently viewed offer is to be found within the first x offers of this selected list. When this is the case, the filter condition is satisfied. GroupCondition is generally used to prioritise flights, which should be sold first. At this point the GroupCondition controls that only the high priority flights can be booked.</xs:documentation>
-                  </xs:annotation>
-               </xs:element>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
@@ -6967,7 +7044,7 @@ To check whether the condition is satisfied all offers are sorted by the GroupDe
                   </xs:element>
                </xs:choice>
             </xs:sequence>
-            <xs:attribute name="Offset" type="PositiveInteger" use="required">
+            <xs:attribute name="Offset" type="xs:unsignedInt" use="required">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_426"> Das Attribut "Offset stellt eine Beziehung zum StartDate im Elternknoten her. Startdate + Offset ergeben das Datum des in DayState betrachteten Tages. </xs:documentation>
                   <xs:documentation xml:lang="en" xml:id="en_426">The "Offset" attribute creates a reference to the StartDate in the parent node. StartDate + Offset give the date of the day described in DayState.</xs:documentation>
@@ -7086,7 +7163,7 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
             </xs:restriction>
          </xs:simpleType>
          <xs:simpleType>
-            <xs:restriction base="PositiveInteger"/>
+            <xs:restriction base="xs:unsignedInt"/>
          </xs:simpleType>
       </xs:union>
    </xs:simpleType>
@@ -7098,7 +7175,7 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
             </xs:restriction>
          </xs:simpleType>
          <xs:simpleType>
-            <xs:restriction base="PositiveInteger"/>
+            <xs:restriction base="xs:unsignedInt"/>
          </xs:simpleType>
       </xs:union>
    </xs:simpleType>
@@ -7240,39 +7317,37 @@ The result of this filter is to sort participants in descending order by age and
    <xs:complexType name="PersonIndexConditionType">
       <xs:sequence>
          <xs:choice>
-            <xs:sequence maxOccurs="2">
-               <xs:choice>
-                  <xs:element name="Until" type="xs:int">
-                     <xs:annotation>
-                        <xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
+            <xs:sequence>
+               <xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
 									bestimmten Person. Until=x definiert die X ältesten Personen.
 									Until=-x definiert alle Personen dem Alter nach aufsteigend bis
 									zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten
 									Personen, die über From=-x definiert werden. </xs:documentation>
-                        <xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
+                     <xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
 
 Until=x defines the X oldest persons.
 
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
-                     </xs:annotation>
-                  </xs:element>
-                  <xs:element name="From" type="xs:int">
-                     <xs:annotation>
-                        <xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer
+                  </xs:annotation>
+               </xs:element>
+               <xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
+                  <xs:annotation>
+                     <xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer
 									bestimmten Person. Standardverwendung ist hier From=-x. From=-x
 									definiert die X jüngsten Personen. From=x definiert alle
 									Personen dem Alter nach aufsteigend ab der X-ältesten Person
 									(inklusive der Xten Person).</xs:documentation>
-                        <xs:documentation xml:lang="en" xml:id="en_529">Definition of all persons from a certain person.
+                     <xs:documentation xml:lang="en" xml:id="en_529">Definition of all persons from a certain person.
 The standard usage for this is
 From=-x. From=-x defines the X youngest persons.
 
 From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
-                     </xs:annotation>
-                  </xs:element>
-               </xs:choice>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
-            <xs:element name="Indices" type="IntegerListType">
+            <xs:element name="Indices" type="NonZeroIntegerListType">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von
 							Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch
@@ -7358,7 +7433,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
       <xs:sequence>
          <xs:choice>
             <xs:sequence>
-               <xs:element name="Until" type="xs:int" minOccurs="0">
+               <xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
@@ -7373,7 +7448,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 							check-out day and all other days prior to it.</xs:documentation>
                   </xs:annotation>
                </xs:element>
-               <xs:element name="From" type="xs:int" minOccurs="0">
+               <xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
@@ -7390,7 +7465,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
                   </xs:annotation>
                </xs:element>
             </xs:sequence>
-            <xs:element name="Indices" type="IntegerListType">
+            <xs:element name="Indices" type="NonZeroIntegerListType">
                <xs:annotation>
                   <xs:documentation xml:lang="de" xml:id="de_446">Es kann eine Liste an Indizes von Tagen der
 						Reise angegeben werden. Die einzelnen Indizes müssen durch Space voneinander
@@ -7469,8 +7544,8 @@ It is rare to use a positive value in relation to "From", i.e. "From=x", and it 
          </xs:element>
          <xs:group ref="ConsideredPriceItemsGroup" maxOccurs="unbounded">
             <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" zw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
-               <xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
+               <xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" zw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
+               <xs:documentation xml:lang="en" xml:id="en_5708">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
             </xs:annotation>
          </xs:group>
          <xs:element name="DayFilter"
@@ -7508,24 +7583,6 @@ The default is "Stay".</xs:documentation>
          </xs:annotation>
       </xs:attribute>
    </xs:complexType>
-   <xs:complexType name="PriceItemIsCombinableType">
-      <xs:annotation>
-         <xs:documentation xml:lang="de" xml:id="de_454">überprüft, ob das PriceItem auf einer Combinatorics-Ebene kombinierbar ist.</xs:documentation>
-         <xs:documentation xml:lang="en" xml:id="en_454">checks whether a PriceItem can be combined on the Combinatorics level.</xs:documentation>
-      </xs:annotation>
-      <xs:simpleContent>
-         <xs:extension base="IdentifierType">
-            <xs:attribute name="LayerLevel">
-               <xs:annotation>
-                  <xs:documentation xml:lang="de" xml:id="de_455">
-							Optionale Angabe des LayerLevels der Combinatoricsebene (Default: 0), auf das sich dieser Check beziehen soll.
-						</xs:documentation>
-                  <xs:documentation xml:lang="en" xml:id="en_455">Optional entry in the LayerLevel of the Combinatorics level (Default: 0), which this Check should refer to.</xs:documentation>
-               </xs:annotation>
-            </xs:attribute>
-         </xs:extension>
-      </xs:simpleContent>
-   </xs:complexType>
    <!-- Begin of Definition of condition groups--><xs:group name="AtomicBaseConditionGroup">
       <xs:choice>
          <xs:element name="Date" type="DateConditionType">
@@ -7558,10 +7615,10 @@ This condition explicitly does not check whether or not certain days of a trip f
          </xs:group>
          <xs:element name="Duration" type="DurationConditionType">
             <xs:annotation>
-               <xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfall: Wenn im Zusammenspiel mit der Dauer die Source="Returnflight" angegeben wird, dann wird damit die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges addressiert. Will man die Dauer vom CheckIn des Hinfluges bis zum CheckOut des Rückfluges addressieren, dann muss man Source="Product" wählen.</xs:documentation>
+               <xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfall: Wenn im Zusammenspiel mit der Dauer die Source="ReturnFlight" angegeben wird, dann wird damit die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges adressiert. Will man die Dauer vom CheckIn des Hinfluges bis zum CheckOut des Rückfluges adressieren, dann muss man Source="Product" wählen.</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_458">This element defines the condition as to whether a list of duration contains the travel duration currently being viewed. Specific allowed durations can be entered or restrictions for valid durations (minimum or maximum valid duration). It is also possible to enter durations in increments, e.g. in multiples of 7 days.
 The "Source" attribute allows the viewed duration to be more precisely defined.
-For durations, the more precise definition of the current duration is crucial when dealing with package deals for long-haul journeys. This is because the duration of the accommodation may differ from the duration of the journey if overnight flights are taken. The condition can contain minimum, maximum and also individual durations. The duration can also be delivered in different units (nights, hours, minutes). See the "DurationUnit" attribute.</xs:documentation>
+For durations, the more precise definition of the current duration is crucial when dealing with package deals for long-haul journeys. The duration of the accommodation may then differ from the duration of the journey if overnight flights are taken. Exception: If, in combination with the duration, the Source="ReturnFlight" is being indicated, then the duration from CheckIn for the outbound flight until CheckIn for the return flight is addressed. If the intention is to address the duration from CheckIn for the outbound flight until CheckOut for the return flight, then Source="Product" needs to be selected.</xs:documentation>
             </xs:annotation>
          </xs:element>
          <xs:element name="Weekdays" type="WeekdayConditionType">
@@ -7703,7 +7760,7 @@ If, however, the addressing of the destination node is not unambiguous, every de
 						einer Komponente oder Unterkomponente zugeordnete Flughafen mit einem der in
 						dieser Bedingung angegebenen Flughäfen übereinstimmt. Die Bedingung kann
 						eine durch Space getrennte Liste von Airports enthalten. Die Angabe der
-						Airports erfolgt im IATA-Format. Die adressierte Ziel-Unterkomponente des
+						Airports erfolgt im IATA-Format (IATA Airport-Code bzw. IATA MAA-Code). Die adressierte Ziel-Unterkomponente des
 						gerade betrachteten Angebots wird über den Inhalt des Attributs "Source"
 						abgegeben. Das Attribut "AirportType" gibt an, aus welchem Kind-Element der
 						Unterkomponente der Airport ausgelesen wird. Ist die Adressierung der
@@ -7712,11 +7769,23 @@ If, however, the addressing of the destination node is not unambiguous, every de
 						'Departure': Überprüfe den DepartureAirport der zeitlich ersten Komponente *
 						AirportType = 'Arrival': Überprüfe den ArrivalAirport der zeitlich letzten
 						Komponente * AirportType = 'Catchment': Überprüfe den CatchmentAirport aller
-						Komponenten. </xs:documentation>
+						Komponenten. 
+
+Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen 
+berücksichtigt. 
+
+Um die Definition der Airport-Codes seitens IATA zu überprüfen, nutzen Sie bitte den Link:  
+http://www.iata.org/publications/Pages/code-search.aspx
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der IATA-Airport-Codes finden Sie unter: 
+https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: 
+http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
                <xs:documentation xml:lang="en" xml:id="en_464">This element defines the condition in which a
 						component or sub-component of the associated airport matches a specified
 						airport. The condition can consist of a list of airports separated by
-						spaces. The airports are named using the IATA format. The target
+						spaces. The airports are named using the IATA format (IATA airport code or IATA MAA Code). The target
 						sub-component addressed in the offer currently under consideration is
 						submitted with the content of the "Source" attribute. The "Airport Type"
 						attribute specifies which child element of the sub-component the airport is
@@ -7726,7 +7795,19 @@ If, however, the addressing of the destination node is not unambiguous, every de
 						the first component chronologically * AirportType = 'Arrival': Check that
 						the ArrivalAirport is the final component chronologically * AirportType =
 						'Catchment': Check the CatchmentAirport is specified for all
-						components.</xs:documentation>
+						components.
+						
+						Special case: 
+						if the code identifies both, a real airport and a group of airports (MAA - Metropolitan Airport Code), only the real airport is considered.
+					    For information about the IATA airport code definition see: 
+					    http://www.iata.org/publications/Pages/code-search.aspx
+					    
+					    You will find a list of the concrete airport codes that is not garanteed to be complete or correct here:
+					    https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+					    
+					    You will find a list of the MAA-Codes  that is not garanteed to be complete or correct here: 
+					    http://wikitravel.org/en/Metropolitan_Area_Airport_Codes
+						</xs:documentation>
             </xs:annotation>
          </xs:element>
       </xs:choice>
@@ -7948,12 +8029,21 @@ Die Bedingung ist erfüllt, wenn einer der
 									möglich, wenn alle anderen Conditions und auch die Combinatorics
 									bereits ausgewertet wurden. Deshalb ist die
 									DayPriceIndexCondition ausschließlich zusammen mit dem Attribut
-									ExecutionOrder="Last" verwendbar. Umgekehrt ist das
-									ExecutionOrder="Last" auch nur zusammen mit dieser Condition
-									anwendbar.</xs:documentation>
-                        <xs:documentation xml:lang="en" xml:id="en_473">Restriction on certain days of the travel itinerary, due to price sorting. This is generally used to define the x most expensive days (From=-x) and/or the x cheapest days (Until=x) or combinations of the two.
-
-This condition is exclusively used within OTDS for long-term discounts, with restricted use for 100% discounts. Price calculations are only possible after all other conditions and combinations have been evaluated. Therefore, the DayPriceIndex condition can be used exclusively together with the ExecutionOrder="Last" attribute. And vice versa, the ExecutionOrder="Last" attribute can only be applied with this condition.</xs:documentation>
+									ImpactExecutionOrder="Last" verwendbar. Umgekehrt ist das
+									ImpactExecutionOrder="Last" auch nur zusammen mit dieser
+									Condition anwendbar.</xs:documentation>
+                        <xs:documentation xml:lang="en" xml:id="en_473">Restriction on certain days of the travel
+									itinerary, due to price sorting. This is generally used to
+									define the x most expensive days (From=-x) and/or the x cheapest
+									days (Until=x) or combinations of the two. This condition is
+									exclusively used within OTDS for long-term discounts, with
+									restricted use for 100% discounts. Price calculations are only
+									possible after all other conditions and combinations have been
+									evaluated. Therefore, the DayPriceIndex condition can be used
+									exclusively together with the ImpactExecutionOrder="Last"
+									attribute. And vice versa, the ImpactExecutionOrder="Last"
+									attribute can only be applied with this
+									condition.</xs:documentation>
                      </xs:annotation>
                   </xs:element>
                   <xs:element name="ProductPrice" type="ProductPriceConditionType"/>
@@ -8101,11 +8191,6 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
          </xs:element>
       </xs:choice>
    </xs:group>
-   <xs:group name="AtomicCombinationConditionGroup">
-      <xs:choice>
-         <xs:element name="PriceItemIsCombinable" type="PriceItemIsCombinableType"/>
-      </xs:choice>
-   </xs:group>
    <!-- Begin of General condition type--><xs:group name="ConditionGroup">
       <xs:choice>
          <xs:group ref="AtomicBaseConditionGroup"/>
@@ -8217,31 +8302,15 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
    <xs:complexType name="PersonFilterConditionType">
       <xs:group ref="PersonFilterConditionGroup"/>
    </xs:complexType>
-   <xs:complexType name="GroupConditionType">
-      <xs:group ref="GroupConditionGroup"/>
-      <xs:attribute name="Ref" type="NameType" use="required">
+   <xs:complexType name="GenericTagConditionType">
+      <xs:attribute name="Class" type="TokenType" use="required">
          <xs:annotation>
-            <xs:documentation xml:lang="de" xml:id="de_477">Über dieses Attribut referenziert man eine
-					GroupDefinition, die sich an einem der Knoten Product, DefinedComponents,
-					Accomodations, Flights, Addons befinden kann. Die Referenzierung erfolgt über
-					das Attribut "Name" in der GroupDefinition. Die Namen aller GroupDefinitions
-					einer OTDS-Lieferung müssen eindeutig sein. Die Referenz referenziert immer die
-					in OTDS laut XML-DocumentOrder zuerst platzierte gültige GroupDefinition
-					("Gültig" insofern, falls in späteren Versionen einmal eine Condition in der
-					GroupDefinition eingebaut wird). </xs:documentation>
-            <xs:documentation xml:lang="en" xml:id="en_477">This attribute is used to reference a
-					GroupDefinition, which can be located at one of the following nodes: Product,
-					DefinedComponents, Accommodations, Flights, Addons. Referencing takes place via
-					the "Name" attribute in the GroupDefinition. The names of all GroupDefinitions
-					in an OTDS delivery must be unique. The reference always references the valid
-					GroupDefinition that is placed first in OTDS according to the XML-DocumentOrder.
-					("Valid" insofar as if a condition were to be attached to the GroupDefinition in
-					later versions).</xs:documentation>
+            <xs:documentation xml:lang="de" xml:id="de_402">Mit diesem Attribut kann man das Tag weiter
+					spezifizieren, auf dessen Knoten sich der Inhalt bezieht.</xs:documentation>
+            <xs:documentation xml:lang="en" xml:id="en_402">With this attribute, it is possible to further
+					specify the tag, the node of which the contents refer to.</xs:documentation>
          </xs:annotation>
       </xs:attribute>
-   </xs:complexType>
-   <xs:complexType name="GroupTagConditionType">
-      <xs:attributeGroup ref="TagAttributeGroup"/>
    </xs:complexType>
    <xs:complexType name="ConditionSimpleNodeType">
       <xs:complexContent>
@@ -8257,20 +8326,12 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
-   <xs:complexType name="GroupConditionSimpleNodeType">
-      <xs:complexContent>
-         <xs:extension base="SimpleUpdateNodeType">
-            <xs:group ref="GroupConditionGroup"/>
-         </xs:extension>
-      </xs:complexContent>
-   </xs:complexType>
    <!-- Begin of Combination condition type--><xs:group name="CombinationConditionGroup">
       <xs:choice>
          <xs:group ref="AtomicBaseConditionGroup"/>
          <xs:group ref="AtomicComponentConditionGroup"/>
          <xs:group ref="AtomicPersonImpactConditionGroup"/>
          <xs:group ref="AtomicDayImpactConditionGroup"/>
-         <xs:group ref="AtomicCombinationConditionGroup"/>
          <xs:element name="And">
             <xs:complexType>
                <xs:group ref="CombinationConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
@@ -8439,35 +8500,6 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
                      internal:otdsversion="1.9"/>
       </xs:choice>
    </xs:group>
-   <xs:group name="AtomicGroupConditionGroup">
-      <xs:sequence>
-         <xs:element name="GroupCondition" type="GroupConditionType">
-            <xs:annotation>
-               <xs:documentation xml:lang="de">Die GroupCondition definiert eine Bedingung bzgl. einer definierten Gruppe
-						von Angeboten. Das Attribut "Ref" referenziert auf die "GroupDefinition" der
-						betrachteten Gruppe. Um zu überprüfen, ob die Bedingung erfüllt ist, werden
-						alle Angebote gemäß der GroupDefinition sortiert. Die Sortierung erfolgt
-						durch Auswertung der Tags und Preise der Angebote. In der dadurch
-						definierten, sortierten Liste von Angeboten wird überprüft, ob sich das
-						gerade betrachtete Angebot unter den ersten x Angeboten dieser sortierten
-						Liste befindet. Ist das der Fall, so ist die Bedingung erfüllt. Die
-						GroupCondition wird in der Regel zur Priorisierung der Flüge im
-						Pauschalbereich verwendet. Ziel ist es in der Regel, festzulegen, welcher
-						Flug mit dem CityPair als FlightCode gebucht werden kann. Die GroupCondition
-						ist nur in Filtern und in der Condition von BookingGroups und Availabilities
-						erlaubt. In allen anderen Fällen wird die GroupCondition als "False"
-						interpretiert.</xs:documentation>
-               <xs:documentation xml:lang="en">The GroupCondition defines a condition with respect to a defined group of offers. The attribute "ref" 
-						references to the "GroupDefinition" of the relevant group. To check whether the condition is satisfied, all offers are being sorted 
-						in accordance with the GroupDefinition. The sorting is done by analysis of the tags and prices of the offers. In the resulting defined, 
-						sorted list of offers, it is checked whether the just looked offer ist to be found among the first x offers within this sorted list. 
-						If this is the case, the condition is satisfied. The GroupCondition generally is used for the prioritization of flights in Packages. 
-						The aim is usually to determine which Flight can be booked with the CityPair as a FlightCode. The GroupCondition is only allowed in filters 
-						and in the Condition of BookingGroups and Availabilities. In all other cases, the GroupCondition is interpreted as "False".</xs:documentation>
-            </xs:annotation>
-         </xs:element>
-      </xs:sequence>
-   </xs:group>
    <xs:group name="AtomicGenericTagConditionGroup">
       <xs:sequence>
          <xs:element name="GenericTag" internal:otdsversion="1.9">
@@ -8485,9 +8517,9 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
             </xs:annotation>
             <xs:complexType>
                <xs:complexContent>
-                  <xs:extension base="GroupTagConditionType">
+                  <xs:extension base="GenericTagConditionType">
                      <xs:choice>
-                        <xs:element name="Value"/>
+                        <xs:element name="Value" type="GenericTagValueType"/>
                         <xs:sequence>
                            <xs:element name="MinValue" type="xs:int" minOccurs="0"/>
                            <xs:element name="MaxValue" type="xs:int" minOccurs="0"/>
@@ -8637,13 +8669,13 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
    </xs:complexType>
    <xs:complexType name="CarCapacityType">
       <xs:sequence>
-         <xs:element name="Passengers" type="PositiveInteger" minOccurs="0">
+         <xs:element name="Passengers" type="xs:positiveInteger" minOccurs="0">
             <xs:annotation>
                <xs:documentation xml:lang="de">Maximale Anzahl an Personen</xs:documentation>
                <xs:documentation xml:lang="en">Max. number of passengers</xs:documentation>
             </xs:annotation>
          </xs:element>
-         <xs:element name="Bags" type="PositiveInteger" minOccurs="0">
+         <xs:element name="Bags" type="xs:unsignedInt" minOccurs="0">
             <xs:annotation>
                <xs:documentation xml:lang="de">Maximale Anzahl an Gepäckstücken</xs:documentation>
                <xs:documentation xml:lang="en">Max. number of baggage</xs:documentation>
