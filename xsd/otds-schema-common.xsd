@@ -110,9 +110,7 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern
-						value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"
-					/>
+					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -2752,13 +2750,7 @@ Default = "All"</xs:documentation>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="PersonBase" type="PriceImpactBaseValueType">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_386">Basisanzahl der Personen. Wird "x" angegeben, wird das PriceItem für alle Personen angewendet, d.h. zu gleichen Teilen auf alle Personen verteilt. Wird "1" angegeben, wird das PriceItem pro Person angewendet. Eine Zahl größer 1 wird zurzeit nicht interpretiert, könnte aber bei Gruppenreisen mit gebrochenen Preisen relevant werden.
-							</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_386">Basic number of persons. If "x" is specified, the PriceItem is applied for all persons, i.e. is allocated equally to all persons. If "1" is specified, the PriceItem is applied per person. A number greater than 1 is currently not interpreted, but may be relevant for group travel with broken prices.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="PersonBase"/>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="AllocationBaseConditionGroup">
@@ -3265,35 +3257,35 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 				getrennt.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_227">A list of integers separated by spaces.</xs:documentation>
 		</xs:annotation>
-	  <xs:list itemType="xs:int"/>
+		<xs:list itemType="xs:int"/>
 	</xs:simpleType>
-  <xs:simpleType name="NonZeroIntegerListType">
-    <xs:annotation>
-      <xs:documentation xml:lang="de" xml:id="de_227">Eine Liste von Integerzahlen ohne Null, durch Space
+	<xs:simpleType name="NonZeroIntegerListType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_227">Eine Liste von Integerzahlen ohne Null, durch Space
         getrennt.</xs:documentation>
-      <xs:documentation xml:lang="en" xml:id="en_227">A list of integers without zero separated by spaces.</xs:documentation>
-    </xs:annotation>
-	  <xs:restriction>
-	    <xs:simpleType>
-	      <xs:list>
-	        <xs:simpleType>
-	          <xs:union>
-	            <xs:simpleType>
-	              <xs:restriction base="xs:int">
-	                <xs:minExclusive value="0"/>
-	              </xs:restriction>
-	            </xs:simpleType>
-	            <xs:simpleType>
-	              <xs:restriction base="xs:int">
-	                <xs:maxExclusive value="0"/>
-	              </xs:restriction>
-	            </xs:simpleType>
-	          </xs:union>
-	        </xs:simpleType>
-	      </xs:list>
-	    </xs:simpleType>
-	    <xs:minLength value="1"/>
-	  </xs:restriction>
+			<xs:documentation xml:lang="en" xml:id="en_227">A list of integers without zero separated by spaces.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:list>
+					<xs:simpleType>
+						<xs:union>
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:minExclusive value="0"/>
+								</xs:restriction>
+							</xs:simpleType>
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:maxExclusive value="0"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:union>
+					</xs:simpleType>
+				</xs:list>
+			</xs:simpleType>
+			<xs:minLength value="1"/>
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductFeaturesAttributeListType">
 		<xs:list itemType="ProductFeatureAttributeEnum"/>
@@ -3559,12 +3551,12 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:documentation xml:lang="de" xml:id="de_238">Eine Liste von Keys</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_238">A list of keys</xs:documentation>
 		</xs:annotation>
-	  <xs:restriction>
-	    <xs:simpleType>
-	    <xs:list itemType="KeyType"/>	
-	    </xs:simpleType>
-	    <xs:minLength value="1"/>
-	  </xs:restriction>	  
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:list itemType="KeyType"/>
+			</xs:simpleType>
+			<xs:minLength value="1"/>
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="IdentifierType">
 		<xs:restriction base="KeyType"/>
@@ -5417,14 +5409,14 @@ This is based on the total number of nights For this reason the return date is e
 						<xs:documentation xml:lang="en">This attribute is an additional condition on the tags of the destination node. A destination node can satisfy the condition only if the class contains the same value. If the class is not specified or is empty, the condition regarding class is considered to be fulfilled.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Offset" type="PositiveInteger">
+				<xs:attribute name="Offset" type="xs:unsignedInt">
 					<xs:annotation>
 						<xs:documentation xml:lang="de">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)
 						</xs:documentation>
 						<xs:documentation xml:lang="en">Specifies the location from which the body of the tag element is to be compared. (The default position is 0 - this corresponds to the first character.)</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="Length" type="PositiveInteger">
+				<xs:attribute name="Length" type="xs:positiveInteger">
 					<xs:annotation>
 						<xs:documentation xml:lang="de">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen. </xs:documentation>
 						<xs:documentation xml:lang="en">Specifies the number of characters to be compared in the body of the tag element. If the attribute is not specified, the body of the TagElements is compared to the end of the character string.</xs:documentation>
@@ -6156,6 +6148,18 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 			</xs:element>
 		</xs:choice>
 	</xs:group>
+	
+	
+	<xs:simpleType name="GenericTagValueType">
+		<xs:union memberTypes="xs:int">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="true"/>
+					<xs:enumeration value="false"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
 	<xs:simpleType name="PriceImpactBaseValueType">
 		<xs:union memberTypes="xs:positiveInteger">
 			<xs:simpleType>
@@ -7152,37 +7156,35 @@ The result of this filter is to sort participants in descending order by age and
 	<xs:complexType name="PersonIndexConditionType">
 		<xs:sequence>
 			<xs:choice>
-				<xs:sequence maxOccurs="2">
-					<xs:choice>
-					  <xs:element name="Until" type="NonZeroIntegerListType">
-							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
+				<xs:sequence>
+					<xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
 									bestimmten Person. Until=x definiert die X ältesten Personen.
 									Until=-x definiert alle Personen dem Alter nach aufsteigend bis
 									zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten
 									Personen, die über From=-x definiert werden. </xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
+							<xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
 
 Until=x defines the X oldest persons.
 
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					  <xs:element name="From" type="NonZeroIntegerListType">
-							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer
 									bestimmten Person. Standardverwendung ist hier From=-x. From=-x
 									definiert die X jüngsten Personen. From=x definiert alle
 									Personen dem Alter nach aufsteigend ab der X-ältesten Person
 									(inklusive der Xten Person).</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_529">Definition of all persons from a certain person.
+							<xs:documentation xml:lang="en" xml:id="en_529">Definition of all persons from a certain person.
 The standard usage for this is
 From=-x. From=-x defines the X youngest persons.
 
 From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:choice>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
@@ -7270,7 +7272,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 		<xs:sequence>
 			<xs:choice>
 				<xs:sequence>
-				  <xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
+					<xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
@@ -7285,7 +7287,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 							check-out day and all other days prior to it.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-				  <xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
+					<xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
@@ -7302,7 +7304,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
-			  <xs:element name="Indices" type="NonZeroIntegerListType">
+				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_446">Es kann eine Liste an Indizes von Tagen der
 						Reise angegeben werden. Die einzelnen Indizes müssen durch Space voneinander
@@ -8338,7 +8340,7 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 					<xs:complexContent>
 						<xs:extension base="GenericTagConditionType">
 							<xs:choice>
-								<xs:element name="Value" type="xs:int"/>
+								<xs:element name="Value" type="GenericTagValueType"/>
 								<xs:sequence>
 									<xs:element name="MinValue" type="xs:int" minOccurs="0"/>
 									<xs:element name="MaxValue" type="xs:int" minOccurs="0"/>

@@ -337,14 +337,14 @@
 							<GroupAbsolutePriceItemsBy>
 								<Person/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" Component="ThisComponent" ConsideredPriceItemType="All"/>
 						</Round>
 					</GenericValue>
-					<DayBase>x</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 				<Condition>
-					<PersonImpact>
+					<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
 						<GroupedPerson/>
 					</PersonImpact>
 				</Condition>
@@ -358,59 +358,59 @@ RUNDEN((Startpreis + (Tagespreise * Dauer * FrühbucherProzentual * Ermäßigung
 + RUNDEN((KFANGFix + FrühbucherFix) * FrühbucherProzentual * ErmäßigungProzentual * KFANGProzentual)
 -->
 			<PriceItem Class="BlankBasePriceRounding">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
 								<Person/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
-								<ConsideredPriceTags Class="OTDS-PriceClass">Startpreis Tagespreise FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="OTDS-PriceClass" TagValueType="String">Startpreis Tagespreise FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
-					<DayBase>x</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 				<Condition>
-					<PersonImpact>
+					<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
 						<GroupedPerson/>
 					</PersonImpact>
 				</Condition>
 			</PriceItem>
 			<PriceItem Class="BlankAddPriceRounding">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
 								<Person/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
-								<ConsideredPriceTags Class="OTDS-PriceClass">Verpflegung FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="OTDS-PriceClass" TagValueType="String">Verpflegung FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
-					<DayBase>x</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 			</PriceItem>
 			<PriceItem Class="BlankSpecialPriceRounding">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
 								<Person/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
-								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="OTDS-PriceClass" TagValueType="String">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
-					<DayBase>x</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 				<Condition>
-					<PersonImpact>
+					<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
 						<GroupedPerson/>
 					</PersonImpact>
 				</Condition>
@@ -419,68 +419,68 @@ RUNDEN((Startpreis + (Tagespreise * Dauer * FrühbucherProzentual * Ermäßigung
 Für ein Pauschalprodukt müssten dann die folgenden 3 PriceItems geliefert werden.
 			-->
 			<PriceItem Class="RoundingOfOutbound">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
 								<Person/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+descendants:Outbound">
-								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+descendants:Outbound" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="OTDS-PriceClass" TagValueType="String">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
 							</ConsideredPriceItems>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
-								<ConsideredPriceTags Class="ComponentType">Outbound</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="ComponentType" TagValueType="String">Outbound</ConsideredPriceTags>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
-					<DayBase>x</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 				<Condition>
-					<PersonImpact>
+					<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
 						<GroupedPerson/>
 					</PersonImpact>
 				</Condition>
 			</PriceItem>
 			<PriceItem Class="RoundingOfInbound">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
 								<Person/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+descendants:Outbound">
-								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+descendants:Outbound" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="OTDS-PriceClass" TagValueType="String">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
 							</ConsideredPriceItems>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
-								<ConsideredPriceTags Class="ComponentType">Inbound</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="ComponentType" TagValueType="String">Inbound</ConsideredPriceTags>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
-					<DayBase>x</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 			</PriceItem>
 			<PriceItem Class="RoundingOfAccommodation">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
 								<Person/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+descendants:Outbound">
-								<ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+descendants:Outbound" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="OTDS-PriceClass" TagValueType="String">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
 							</ConsideredPriceItems>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product">
-								<ConsideredPriceTags Class="ComponentType">Accommodation</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" Component="ThisComponent" ConsideredPriceItemType="All">
+								<ConsideredPriceTags Class="ComponentType" TagValueType="String">Accommodation</ConsideredPriceTags>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
-					<DayBase>x</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">x</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 				<Condition>
-					<PersonImpact>
+					<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
 						<GroupedPerson/>
 					</PersonImpact>
 				</Condition>
@@ -490,7 +490,7 @@ Für ein Pauschalprodukt müssten dann die folgenden 3 PriceItems geliefert werd
             Alle Percent-PriceItems bleiben hier unberücksichtigt. 
 			-->
 			<PriceItem Class="RoundingReisezuschlag">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
@@ -498,23 +498,23 @@ Für ein Pauschalprodukt müssten dann die folgenden 3 PriceItems geliefert werd
 								<Day/>
 								<AbsolutePriceItem/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute">
-								<ConsideredPriceTags Class="RoundingType">TravelBased</ConsideredPriceTags>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute" Component="ThisComponent">
+								<ConsideredPriceTags Class="RoundingType" TagValueType="String">TravelBased</ConsideredPriceTags>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
-					<DayBase>1</DayBase>
+					<DayBase IntervalType="Stay" Source="ThisComponent">1</DayBase>
 					<PersonBase>1</PersonBase>
 				</GenericAbsolute>
 				<Condition>
 					<And>
-						<PersonImpact>
+						<PersonImpact ImpactExecutionOrder="BeforeCombinatorics">
 							<GroupedPerson/>
 						</PersonImpact>
-						<DayImpact>
+						<DayImpact ImpactExecutionOrder="BeforeCombinatorics">
 							<GroupedDay/>
 						</DayImpact>
-						<Impact>
+						<Impact ImpactExecutionOrder="BeforeCombinatorics">
 							<GroupedAbsolute/>
 						</Impact>
 					</And>
@@ -523,7 +523,7 @@ Für ein Pauschalprodukt müssten dann die folgenden 3 PriceItems geliefert werd
 			<!-- Manchmal rechnen Veranstaltersysteme die Währung auf der unterster Ebene um und runden dann direkt bevor weitere Berechnungen stattfinden.
 			Das folgende PriceItem zeigt, wie man so etwas liefern müsste. Die PriceItems der Währungsumrechnungsfaktoren müssten dazu aber auch entsprechende PriceTags 	bekommen.	-->
 			<PriceItem Class="RoundingOfAllCurrencyTouchedPriceItems">
-				<GenericAbsolute>
+				<GenericAbsolute ExecutionPriority="0">
 					<GenericValue>
 						<Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Threshold="0.5">
 							<GroupAbsolutePriceItemsBy>
@@ -531,9 +531,9 @@ Für ein Pauschalprodukt müssten dann die folgenden 3 PriceItems geliefert werd
 								<Day/>
 								<AbsolutePriceItem/>
 							</GroupAbsolutePriceItemsBy>
-							<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
-								<ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-								<IncludeAppliedDescendants ConsideredPriceItemType="Absolute"/>
+							<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent" Component="ThisComponent">
+								<ConsideredPriceTags Class="Currency" TagValueType="String">EUR CHF</ConsideredPriceTags>
+								<IncludeAppliedDescendants/>
 							</ConsideredPriceItems>
 						</Round>
 					</GenericValue>
