@@ -6758,38 +6758,71 @@ usw.]]></programlisting>
 				</section>
 			  <section xml:id="OtdsStrategyPriceItemGenericAbsolute">
 			    <title>
-						<phrase xml:lang="de" xml:id="de_5163">Rundung mit Absolutbeträgen
-								(<code>GenericAbsolute</code>) (Version 1.9, V1.9)</phrase>
-			    		<phrase xml:lang="en" xml:id="en_5163">Rounding with absolute values
+						<phrase xml:lang="de" xml:id="de_5163">Generische zur Laufzeit bestimmte
+							absolute Werte (<code>GenericAbsolute</code>) (Version 1.9,
+							V1.9)</phrase>
+						<phrase xml:lang="en" xml:id="en_5163">Generic during runtime calculated absolute values
 								(<code>GenericAbsolute</code> ) (version 1.9, v1.9)</phrase>
-				</title>
+					</title>
 			    <para xml:lang="de" xml:id="de_5164">Der PriceItem-Typ <code>GenericAbsolute</code> wurde im
 						Rahmen der Umsetzung der Rundung eingeführt. Es handelt sich hierbei um
 						Absolutbeträge, deren finaler Wert erst zur Laufzeit aufgrund einer flexibel
 						zu definierenden Funktion berechnet wird. </para><para xml:lang="en" xml:id="en_5164">The PriceItem type <code>GenericAbsolute</code> was introduced in the implementation of the rounding. Here we are dealing with absolute amounts whose final value is not determined until runtime due to its flexibly definable function.</para>
-			    <para xml:lang="de" xml:id="de_5165">Aktuell ist nur eine Funktion für das Runden integriert,
-						welche über <code>Round</code> angesprochen wird. Die Struktur ist aber
-						erweiterbar für beliebige weitere Funktionen, die in späteren Versionen
+			    <para xml:lang="de" xml:id="det_5165">Neben der Funktion für das Runden,
+			    	welche über <code>Round</code> angesprochen wird, ist seid Version 1.9.3 auch die Funktion "PriceGroup" integriert, mit deren Hilfe man prozentuale PriceItems auf sher spezifisch bestimmte Bereiche beziehen kann. 
+			    	Die Struktur ist aber erweiterbar für beliebige weitere Funktionen, die in späteren Versionen
 						notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Currently there is just one function for rounding up which is accessed via <code>Round</code> . The structure can be expanded, however, to include as many functions as you wish that are required in later versions.</para>
-			    <para xml:lang="de" xml:id="de_5166">Die Definition der Gruppierung der PriceItems befindet
-						sich in dem Element <code>GroupPriceItemsBy</code>. Hier können Preise nach
-						Personen, Tagen, einzelnen <code>Absolute</code>-PriceItems oder auch
-						bestimmten Price gruppiert werden. Die Verteilung auf die Kostenmatrix ist
+			  	<para xml:lang="de" xml:id="de_5166">Die Verteilung auf die Kostenmatrix ist
 						genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente
-							<code>DayBase</code> und <code>PersonBase</code> bestimmt. </para><para xml:lang="en" xml:id="en_5166">The definition of the grouping of PriceItems takes place in the <code>GroupPriceItemsBy</code> element. Here prices can be grouped according to persons, days, individual <code>Absolute</code> PriceItems or also certain PriceTagValues. Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
-			    <para xml:lang="de" xml:id="de_5167">Innerhalb von <code>Round</code> kann über das Element <code>ConsideredPriceItems</code> definiert werden, 
-			      welche PriceItems für die Berechnung der Rundungsfunktion herangezogen werden. Dabei kann auch mit Hilfe des Elementes 
-			      <code>IncludeAppliedPriceItems</code> definiert werden, dass auch die nächste Apply-Hierarchiestufe von adressierten PriceItems 
-			      mit einbezogen wird.</para><para xml:lang="en" xml:id="en_5167">Within <code>Round</code> , you can define which PriceItems should be included in the round function calculation using the <code>ConsideredPriceItems</code> element. Using the element <code>IncludeAppliedPriceItems</code> you can also define that the next Apply hierarchy level of PriceItems to be applied should be included.</para>
-			    <para xml:lang="de" xml:id="de_5168">Damit Eigenschaften bzw. die damit verbundenen
-						implizierten Möglichkeiten der Verwendung der Quell-PriceItems an die
-						Elemente von <code>GenericAbsolute</code> weitergegeben werden, können
-							<code>GenericAbsolutes</code> auch <code>PriceTags</code> von den
-						verwendeten Quell-PriceItems erben. Hierzu erhält das Element
-							<code>Round</code> das Attribute <code>InheritPriceTags</code>. </para><para xml:lang="en" xml:id="en_5168">For properties or the connected implied possible uses of source PriceItems to be sent on to the <code>GenericAbsolute</code> element, <code>GenericAbsolutes</code> can also inherit <code>PriceTags</code> from the source PriceItems that are used. In order to do so, the <code>Round</code> element receives the attribute <code>InheritPriceTags</code> .</para> 
-			    <para xml:lang="de" xml:id="de_5169">Nachfolgend ein Beispiel eines PriceItems für einen generischen
-            Absolutbetrag, in dem exemplarisch alle Bereiche aufgeführt sind: </para><para xml:lang="en" xml:id="en_5169">The following is an example of a PriceItem for a generic absolute amount, whereby all areas are listed to serve as an example.</para>  
-			    <programlisting><![CDATA[<PriceItem Class="SpecialRounding">
+							<code>DayBase</code> und <code>PersonBase</code> bestimmt. </para><para xml:lang="en" xml:id="en_5166">Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
+			   
+			    <section xml:id="OtdsStrategyPriceItemRounding">
+			      <title>
+			      	<phrase xml:lang="de" xml:id="de_0001">Umsetzung der Rundung (Version 1.9, V1.9)</phrase>
+			      	<phrase xml:lang="en" xml:id="en_0001">Implementation of the rounding (version 1.9, v1.9)</phrase>
+			      </title>
+			      <bridgehead xml:lang="de" xml:id="de_5170">Allgemein</bridgehead><bridgehead xml:lang="en" xml:id="en_5170">General</bridgehead>
+			      <para xml:lang="de" xml:id="de_5171">Die Rundung wird in OTDS über ein eigenes PriceItem
+                <code>GenericAbsolute</code> abgebildet. Dabei stellt die Rundung nur eine Form
+              einer mathematischen Funktion da, die letztendlich zur Integration eines
+              Absolutbetrages führt, der in der Summe aus dem ungerundeten Wert den gerundeten Wert
+              ergibt. Am Beispiel der Aufrundung der Zahl 106,4 auf eine ganze Zahl entspricht der
+              GenericAbsolute&gt;-Value dem Wert 0,6, d.h. 106,4 + 0,6 = 107. </para><para xml:lang="en" xml:id="en_5171">The rounding up is shown in OTDS via its own <code>GenericAbsolute</code> PriceItem. The rounding up represents one form of a mathematical function, that ultimately leads to the integration of an absolute amount that produces the rounded value when doing a sum from the unrounded value. Taking the example of rounding up the value 106.4 to a whole number, the GenericAbsolute value is 0.6 (106.4 + 0.6 = 107).</para>
+			      <para xml:lang="de" xml:id="de_5172">Die Integration der generischen Absolutbeträge in die
+							Kostenmatrix erfolgt zusammen mit der Integration der normalen
+							Absolutbeträge, wobei nur eine Variable stellvertretend für den
+							generischen Absolutbetrag in die KostenMatrix integriert wird. Die
+							letztendliche Berechnung der generischen Absolutbeträge erfolgt zeitlich
+							nach der Auswertung der Kombinatorik. Dabei wird mit Hilfe der Priorität
+							eine Abarbeitungsreihenfolge der Berechnung der generischen Werte in
+							diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig
+							zu definieren. </para><para xml:lang="en" xml:id="en_5172">The integration of generic absolute values into the cost matrix takes place alongside the integration of normal absolute values, whereby only one variable can be integrated into the cost matrix as a substitute for the generic absolute value. The final calculation of the generic absolute values is done after the evaluation of the combinatorics. With an order of priority, a processing sequence for the calculation of generic values in this stage of the process is defined in order to clearly define convoluted rounding up calculations.</para>
+			      <para xml:lang="de" xml:id="de_5173">Grundlage des generischen Absolutbetrages ist die
+							Definition einer Round-Funktion, die dann auf das Gesamtergebnis oder
+							auf die Zwischenergebnisse der Preisberechnung angewendet wird. Eine
+							Rundung wird jeweils für eine Definition gruppierter PriceItems
+							festgelegt und führt je betrachteter Gruppierung zu einem
+							Rundungsergebnis, welches auf die Kostenmatrix verteilt wird.</para><para xml:lang="en" xml:id="en_5173">The basis for the generic absolute amount is the definition of a rounding function, which is then applied to the total or intermediary total of the price calculation. A rounding up or down is determined for each definition of grouped PriceItems, each grouping results in a rounding total which is distributed to the cost matrix.</para>
+			      	
+			    	<para xml:lang="de" xml:id="de_5166x">Die Definition der Gruppierung der PriceItems befindet
+			    		sich in dem Element <code>GroupPriceItemsBy</code>. Hier können Preise nach
+			    		Personen, Tagen, einzelnen <code>Absolute</code>-PriceItems oder auch
+			    		bestimmten Price gruppiert werden. Die Verteilung auf die Kostenmatrix ist
+			    		genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente
+			    		<code>DayBase</code> und <code>PersonBase</code> bestimmt. </para><para xml:lang="en" xml:id="en_5166x">The definition of the grouping of PriceItems takes place in the <code>GroupPriceItemsBy</code> element. Here prices can be grouped according to persons, days, individual <code>Absolute</code> PriceItems or also certain PriceTagValues. Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
+			    	<para xml:lang="de" xml:id="de_5167">Innerhalb von <code>Round</code> kann über das Element <code>ConsideredPriceItems</code> definiert werden, 
+			    		welche PriceItems für die Berechnung der Rundungsfunktion herangezogen werden. Dabei kann auch mit Hilfe des Elementes 
+			    		<code>IncludeAppliedPriceItems</code> definiert werden, dass auch die nächste Apply-Hierarchiestufe von adressierten PriceItems 
+			    		mit einbezogen wird.</para><para xml:lang="en" xml:id="en_5167">Within <code>Round</code> , you can define which PriceItems should be included in the round function calculation using the <code>ConsideredPriceItems</code> element. Using the element <code>IncludeAppliedPriceItems</code> you can also define that the next Apply hierarchy level of PriceItems to be applied should be included.</para>
+			    	<para xml:lang="de" xml:id="de_5168">Damit Eigenschaften bzw. die damit verbundenen
+			    		implizierten Möglichkeiten der Verwendung der Quell-PriceItems an die
+			    		Elemente von <code>GenericAbsolute</code> weitergegeben werden, können
+			    		<code>GenericAbsolutes</code> auch <code>PriceTags</code> von den
+			    		verwendeten Quell-PriceItems erben. Hierzu erhält das Element
+			    		<code>Round</code> das Attribute <code>InheritPriceTags</code>. </para><para xml:lang="en" xml:id="en_5168">For properties or the connected implied possible uses of source PriceItems to be sent on to the <code>GenericAbsolute</code> element, <code>GenericAbsolutes</code> can also inherit <code>PriceTags</code> from the source PriceItems that are used. In order to do so, the <code>Round</code> element receives the attribute <code>InheritPriceTags</code> .</para> 
+			    	<para xml:lang="de" xml:id="de_5169">Nachfolgend ein Beispiel eines PriceItems für einen generischen
+			    		Absolutbetrag, in dem exemplarisch alle Bereiche aufgeführt sind: </para><para xml:lang="en" xml:id="en_5169">The following is an example of a PriceItem for a generic absolute amount, whereby all areas are listed to serve as an example.</para>  
+			    	<programlisting><![CDATA[<PriceItem Class="SpecialRounding">
   <GenericAbsolute ExecutionPriority="2">
     <GenericValue>
       <Round InheritAppliedPriceTags="true" RemainingDigits="0" Method="Up" Treshold="0.5">
@@ -6819,35 +6852,13 @@ usw.]]></programlisting>
       </Impact>
     </And>
   </Condition>
-</PriceItem>]]></programlisting>
-			    <section xml:id="OtdsStrategyPriceItemRounding">
-			      <title>
-			      	<phrase xml:lang="de" xml:id="de_0001">Umsetzung der Rundung (Version 1.9, V1.9)</phrase>
-			      	<phrase xml:lang="en" xml:id="en_0001">Implementation of the rounding (version 1.9, v1.9)</phrase>
-			      </title>
-			      <bridgehead xml:lang="de" xml:id="de_5170">Allgemein</bridgehead><bridgehead xml:lang="en" xml:id="en_5170">General</bridgehead>
-			      <para xml:lang="de" xml:id="de_5171">Die Rundung wird in OTDS über ein eigenes PriceItem
-                <code>GenericAbsolute</code> abgebildet. Dabei stellt die Rundung nur eine Form
-              einer mathematischen Funktion da, die letztendlich zur Integration eines
-              Absolutbetrages führt, der in der Summe aus dem ungerundeten Wert den gerundeten Wert
-              ergibt. Am Beispiel der Aufrundung der Zahl 106,4 auf eine ganze Zahl entspricht der
-              GenericAbsolute&gt;-Value dem Wert 0,6, d.h. 106,4 + 0,6 = 107. </para><para xml:lang="en" xml:id="en_5171">The rounding up is shown in OTDS via its own <code>GenericAbsolute</code> PriceItem. The rounding up represents one form of a mathematical function, that ultimately leads to the integration of an absolute amount that produces the rounded value when doing a sum from the unrounded value. Taking the example of rounding up the value 106.4 to a whole number, the GenericAbsolute value is 0.6 (106.4 + 0.6 = 107).</para>
-			      <para xml:lang="de" xml:id="de_5172">Die Integration der generischen Absolutbeträge in die
-							Kostenmatrix erfolgt zusammen mit der Integration der normalen
-							Absolutbeträge, wobei nur eine Variable stellvertretend für den
-							generischen Absolutbetrag in die KostenMatrix integriert wird. Die
-							letztendliche Berechnung der generischen Absolutbeträge erfolgt zeitlich
-							nach der Auswertung der Kombinatorik. Dabei wird mit Hilfe der Priorität
-							eine Abarbeitungsreihenfolge der Berechnung der generischen Werte in
-							diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig
-							zu definieren. </para><para xml:lang="en" xml:id="en_5172">The integration of generic absolute values into the cost matrix takes place alongside the integration of normal absolute values, whereby only one variable can be integrated into the cost matrix as a substitute for the generic absolute value. The final calculation of the generic absolute values is done after the evaluation of the combinatorics. With an order of priority, a processing sequence for the calculation of generic values in this stage of the process is defined in order to clearly define convoluted rounding up calculations.</para>
-			      <para xml:lang="de" xml:id="de_5173">Grundlage des generischen Absolutbetrages ist die
-							Definition einer Round-Funktion, die dann auf das Gesamtergebnis oder
-							auf die Zwischenergebnisse der Preisberechnung angewendet wird. Eine
-							Rundung wird jeweils für eine Definition gruppierter PriceItems
-							festgelegt und führt je betrachteter Gruppierung zu einem
-							Rundungsergebnis, welches auf die Kostenmatrix verteilt wird.</para><para xml:lang="en" xml:id="en_5173">The basis for the generic absolute amount is the definition of a rounding function, which is then applied to the total or intermediary total of the price calculation. A rounding up or down is determined for each definition of grouped PriceItems, each grouping results in a rounding total which is distributed to the cost matrix.</para>
-			      <para xml:lang="de" xml:id="de_5174">Nachfolgend ein Beispiel, wie die Rundung des
+</PriceItem>]]></programlisting>			    
+			    	
+			    	
+			    	
+			    	
+			    	
+			    	<para xml:lang="de" xml:id="de_5174">Nachfolgend ein Beispiel, wie die Rundung des
 							Endpreises auf Personenpreise umgesetzt werden kann:</para><para xml:lang="en" xml:id="en_5174">The following is an example of how the rounding of the end price can be implemented for person prices.</para>
 			      <programlisting><![CDATA[<PriceItem Class="RoundingPersonPrices">
   <GenericAbsolute>
@@ -7207,6 +7218,41 @@ usw.]]></programlisting>
 							ist GenericAbsolut("B").Value=0 zu benutzen. Das gleiche gilt für einen
 							rekursiven Bezug auf sich selbst.</para><para xml:id="en_5252" xml:lang="en">If, during the evaluation of its value, a GenericAbsolute("A") encounters a GenericAbsolute("B") which has not yet been calculated, thevalue=0 is to be used for GenericAbsolut("B"). The same applies for a recursive reference to itself.</para>
 			    </section>
+			  
+			  	<section xml:id="OtdsStrategyPriceItemPriceGroup">
+			  		<title>
+			  			<phrase xml:lang="de">Klammerung von Bereichen in der Preisberechnung für spezielle Bezüge von prozentualen Preisbestandteilen (<code>PriceGroup</code>)  (Version 1.9.3, V1.9.3)</phrase>
+			  		</title>
+			  		<bridgehead xml:lang="de">Allgemein</bridgehead><bridgehead xml:lang="en">General</bridgehead>
+			  		<para xml:lang="de">
+			  			Es gibt in manchen Veranstaltersystemen bei einzelnen prozentualen PriceItems einen spezifischen Bezug auf nur bestimmte Anteile der Preisberechnung.</para>
+			  		<para xml:lang="de"> Falls zwei prozentuale PriceItems P1 (-30%) und P2 (-10%) auf ein
+							absolutes PriceItem A1 (100€) wirken, so gilt in OTDS standardmäßig:
+							<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
+							In manchen Veranstaltersystemen, wird aber z.B. der Abschlag P2 völlig
+							losgelöst von P1 angewendet, so dass das folgendes Ergebnis herauskommt:
+							<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
+							Schaut man sich den letzten Term an, so ist
+							<programlisting><![CDATA[A1 * P2/100 = A1 * P2/100 + A1 - A1 = A1 * (1 + P2/100) - A1']]></programlisting>
+							Genau das wird mit PriceGroup erreicht. Das GenericPriceItem <programlisting><![CDATA[<PriceItem Class="GroupedA1">
+	<GenericAbsolute>
+		<GenericValue>
+			<PriceGroup>
+				<ConsideredPriceItems>
+					<ConsideredPriceItemClasses>A1</ConsideredPriceItemClasses>
+				</ConsideredPriceItems>
+			</PriceGroup>
+		</GenericValue>
+		<DayBase>1</DayBase>
+		<PersonBase>1</PersonBase>
+	</GenericAbsolute>
+</PriceItem>]]></programlisting> erzeugt in der Preismatrix zwei Values A1 und -A1'. Alle
+							Percent-PriceItems, die sich auf "GroupedA1" beziehen wirken aber nur
+							auf den Value A1 und verändern A1' nicht. Die unter
+								<code>ConsideredPriceItemClasses</code> angegegenen PriceItems
+							werden nach den OTDS-Regeln zusammengefasst und ergeben den Wert A1=A1' </para>
+			  		<para>Die Möglichkeiten der PriceItem-Auswahl mit Hilfe der <code>ConsideredPriceItemClasses</code> finden Sie unter <link linkend="OtdsStrategyRulesConsideredPriceItems">Verwendung der ConsideredPriceItems</link> </para>
+			  	</section>
 			  </section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">
 					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>,
@@ -19689,6 +19735,8 @@ usw.]]></programlisting>
 								Day/Person-Knoten zugewiesen werden.</para><para xml:id="en_3190" xml:lang="en">References to PriceItems are entered in the cost matrix. The condition of each PriceItem is only evaluated the first time round to determine the validity of a PriceItem and also the validity of a day/person node. The evaluation of the various different impact conditions also leads to PriceItems being allocated to individual days or persons, i.e. the corresponding day/person node.</para>
 						</listitem>
 						<listitem>
+							<para xml:lang="de">Für die validen GenericAbsolute-PriceItems werden nun die Formeln in die Kostenmatrix übertragen, so dass die generischen Werte zur Laufzeit bestimmt und benutzt werden können.</para></listitem>
+						<listitem>
 							<para xml:id="de_3191" xml:lang="de">Absolute PriceItems werden den Werten in DayBase und PersonBase entsprechend
 								im Wert anteilig den relevanten Day/Person-Knoten zugewiesen. Es sind nun alle
 								gültigen PriceItems auf die Day/Person-Knoten verteilt.</para><para xml:id="en_3191" xml:lang="en">Absolute PriceItems are proportionately allocated to the relevant day/person node with values that correspond to those stated in DayBase and PersonBase. Now all valid PriceItems are distributed across the day/person nodes.</para>
@@ -19963,6 +20011,17 @@ usw.]]></programlisting>
 								</listitem>
 							</itemizedlist>
 						</listitem>
+						
+						<listitem>
+							<para xml:lang="de">Falls das PriceItem einen "GenericAbsolute" Preisbestandteil definiert: </para>
+							<itemizedlist>
+								<listitem>
+									<para  xml:lang="de">Ein PriceItem mit einem generisch absoluten Preis wird identisch wie ein Absolute Preisbestandteil behandelt.</para>
+									<para  xml:lang="de">Es wird lediglich anstatt eines konkreten Values eine Formel an der entsprechenden Stelle in der Preismatrix hinterlegt.</para>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+						
 						<listitem>
 							<para xml:id="de_3243" xml:lang="de">Falls das PriceItem einen relativen Preisbestandteil definiert:</para><para xml:id="en_3243" xml:lang="en">If the PriceItem defines a relative price component:</para> 
 							<itemizedlist>
