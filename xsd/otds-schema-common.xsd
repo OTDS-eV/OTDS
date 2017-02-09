@@ -6148,8 +6148,6 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 			</xs:element>
 		</xs:choice>
 	</xs:group>
-	
-	
 	<xs:simpleType name="GenericTagValueType">
 		<xs:union memberTypes="xs:int">
 			<xs:simpleType>
@@ -6276,7 +6274,7 @@ e.g. Discount of 25% on everything</xs:documentation>
 		<xs:attribute name="ExecutionPriority" type="xs:int" default="0"/>
 	</xs:complexType>
 	<xs:complexType name="GenericValueType">
-		<xs:sequence>
+		<xs:choice>
 			<xs:element name="Round" internal:otdsversion="1.9">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Dieses Element definiert, wie die durch "DomainSegmentedBy" definierten Segmente von PriceItems gerundet werden sollen. Dazu betrachtet die Round-Funktion jedes Ergebnisse der segmentierten PriceItems und rundet entsprechend der im Round-Element gesetzten Attribute. Die Funktion "Round" führt jeweils je Segment zu einem  generischen PriceItem mit Value="gerundeter Wert" - "berechneter Wert".</xs:documentation>
@@ -6397,7 +6395,130 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
-		</xs:sequence>
+			<xs:element name="PriceGroup" internal:otdsversion="1.9">
+				<xs:annotation>
+					<xs:documentation xml:lang="de">Dieses Element definiert, einen generischen Absolutbetrag. Dieser Absolutbetrag wird durch  die OTDS gemäße Preiskalkulation in jedem Kostenknoten begrenzt auf eine bestimmte Menge von Priceitems also eine bestimmte "PriceGroup". Welche PriceItems in Betracht gezogen werden definieren die Inhalte von ConsideredPriceItems.</xs:documentation>
+					<xs:documentation xml:lang="en">This element defines how the segments of
+						PriceItems defined by "DomainSegmentedBy" are to be rounded. For this, the
+						"Round" function treats each of the results of the segmented PriceItems and
+						rounds according to the attributes set in the round element. As a result the
+						"Round" function produces for each segment a generic PriceItem with Value =
+						"rounded-off value" - "calculated value".</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<!-- 20151002, hjr: replaced local type by global type "ConsideredPriceItemsType" -->
+						<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden
+									PriceItems auf bestimmte PriceItems eines bestimmten Types
+									und/oder mit bestimmten PriceTags. Die Auswahl erfolgt in der
+									folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß
+									PriceFilter 2. Ggf. Ergänzung der IncludedDescendants. Bei
+									mehrfacher Angabe des Elementes besteht die finale Menge der
+									PriceItems aus einem Merge der PriceItems der einzelnen
+									ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung
+									von PriceItems statt. </xs:documentation>
+								<xs:documentation xml:lang="en">Restricts the PriceItems to be
+									considered to certain PriceItems of a specific type and/or with
+									certain Pricetags. The selection is made in the following order:
+									1. selection of the PriceItems according to PriceFilter. 2. If
+									necessary supplement of the IncludedDescendants. If the element
+									occurs multiple times, the final amount of the PriceItems
+									consists from a merge of the PriceItems of the individual
+									ConsideredPriceItems evaluations. There will be no duplication
+									of PriceItems.</xs:documentation>
+							</xs:annotation>
+							<!--
+							<xs:complexType>
+								<xs:sequence>
+									<xs:group ref="PriceItemFilterGroup"/>
+									<xs:element name="IncludeAppliedDescendants" type="IncludeAppliedDescendantsType" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation xml:lang="de">Ist dieses Element
+												angegeben, werden zu den in PriceItemCollection
+												definierten Priceitems auch deren Descendants
+												ergänzt. Descendendants sind in dem Zusammenhang
+												alle PriceItems, die durch ApplyTo und AppliedBy der
+												PrideItemCollection-Pricetems adressiert werden. So
+												kann man in der Collection bestimmte
+												PercentPriceItems auswählen und zusätzlich alle
+												PriceItems inkludieren, die sich über ApplyTo und
+												AppliedBy auf dieses PriceItem beziehen. Die Auswahl
+												der Descendants lässt sich wiederum durch den
+												PriceItemFilter separat einschränken. Bei der
+												Auswahl der Descendants wird nur Apply-Hierarchie
+												berücksichtigt! Sollte ein Bezug auf ein generisches
+												Abolute hergestellt werden, so wird hierbei dessen
+												Include nicht mitberücksichtigt.</xs:documentation>
+											<xs:documentation xml:lang="en">Include="ApplyDescandents" allows to include
+												further PriceItems which are applied by the
+												addressed PriceItems. By doing so specific
+												PercentPriceItems can be assigned. In addition all
+												PriceItems can be included that refer to this
+												specific PriceItem via ApplyTo and AppliedBy. This
+												attribute only considers one apply hierarchy! If a
+												reference to a generic absolute is being
+												established, its Include will not be
+												considered.</xs:documentation>
+										</xs:annotation>
+<!- - 20151002, hjr: shifted into global type "IncludeAppliedDescendantsType"
+										<xs:complexType>
+											<xs:sequence>
+												<xs:group ref="PriceItemFilterGroup"/>
+											</xs:sequence>
+											<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum">
+												<xs:annotation>
+													<xs:documentation xml:lang="de">Dieses Element
+												definiert, welche Art PriceItems berücksichtigt
+												werden. Es kann eine durch Space getrennte Liste
+												von Values angegeben werden. Folgende Values sind
+												möglich: - Absolutes Es werden nur absolute
+												PriceItems berücksichtigt. - Percents Es werden
+												nur Percent-PriceItems berücksichtigt. - All Es
+												werden alle PriceItems berücksichtigt. Default =
+												"All"</xs:documentation>
+													<xs:documentation xml:lang="en">This element
+												defines which type of PriceItems should be
+												considered. A list of values separated by space
+												can be specified. The following values are
+												possible: - Absolute: Only absolute PriceItems are
+												considered. - Percents: Only Percent-PriceItems
+												are considered. - All: all PriceItems are
+												considered. Default = "All"</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+- ->
+									</xs:element>
+								</xs:sequence>
+								<xs:attributeGroup ref="SourceAttributeGroup"/>
+								<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
+									<xs:annotation>
+										<xs:documentation xml:lang="de">Dieses Element definiert,
+											welche Art PriceItems berücksichtigt werden. Es kann
+											eine durch Space getrennte Liste von Values angegeben
+											werden. Folgende Values sind möglich: - Absolutes Es
+											werden nur absolute PriceItems berücksichtigt. -
+											Percents Es werden nur Percent-PriceItems
+											berücksichtigt. - All Es werden alle PriceItems
+											berücksichtigt. Default = "All"</xs:documentation>
+										<xs:documentation xml:lang="en">This element defines which
+											type of PriceItems should be considered. A list of
+											values separated by space can be specified. The
+											following values are possible: - Absolute: Only absolute
+											PriceItems are considered. - Percents: Only
+											Percent-PriceItems are considered. - All: all PriceItems
+											are considered. Default = "All"</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+-->
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="PriceAbsoluteType">
 		<xs:sequence>
