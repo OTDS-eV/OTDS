@@ -817,8 +817,22 @@
 							kann auch die Art der Buchungsklasse (Economy, Premium Economy, Business
 							oder First) angegeben werden. Mehrere FlightRoute Elemente beschreiben
 							dementsprechend den Verlauf des OnewayFluges über mehrere Segmente. Die
-							Reihenfolge ergibt sich vorrangig aus den Angaben in DateOffset und Time
-							oder, wenn diese fehlen, durch die DocumentOrder.</para><para xml:id="en_696" xml:lang="en">This node describes the details of the flight route of a OnewayFlight. Due to the fact that the OnewayFlights represent the lowest level of the flight segments used in the tour operator system for product and price composition, the details within the FlightRoute of a OnewayFlight have no effect on the product creation or price calculation. This is why the FlightRoutes are located within Properties. A FlightRoute defines either a segment or a combination of several segments. Ultimately this depends on the depth of information made available by the data provider. The components of this node are elements for information regarding stopovers, carriers, flight times and aircraft. As additional information, the booking class (economy, premium economy, business or first) can also be entered. Several FlightRoute elements correspondingly describe the course of the OnewayFlight over several segments. The sequence follows primarily from the entries in DateOffset and Time, or if these are absent then from DocumentOrder.</para>
+							DocumentOrder der FlightRoute-Elemente innerhalb einer Flugkomponente
+							entspricht der Reihenfolge der Flugereignisse.</para><para xml:id="en_696" xml:lang="en">This node describes the details of the flight route of a
+							OnewayFlight. Due to the fact that the OnewayFlights represent the
+							lowest level of the flight segments used in the tour operator system for
+							product and price composition, the details within the FlightRoute of a
+							OnewayFlight have no effect on the product creation or price
+							calculation. This is why the FlightRoutes are located within Properties.
+							A FlightRoute defines either a segment or a combination of several
+							segments. Ultimately this depends on the depth of information made
+							available by the data provider. The components of this node are elements
+							for information regarding stopovers, carriers, flight times and
+							aircraft. As additional information, the booking class (economy, premium
+							economy, business or first) can also be entered. Several FlightRoute
+							elements correspondingly describe the course of the OnewayFlight over
+							several segments. The DocumentOrder of the FlightRoute elements
+							correlate to the chronological sequence of the flight events.</para>
 					</section>
 					<section xml:id="OtdsStrategyComponentFlightsReturn">
 						<title><phrase xml:id="de_697" xml:lang="de">Return Flüge</phrase><phrase xml:id="en_697" xml:lang="en">Return flights</phrase></title>
@@ -2259,6 +2273,9 @@
 							in the tenth row can only be used within the PriceItems. Please take
 							note of these restrictions. The current OTDS validation measures make no
 							restrictions in this regard.</para>
+						<para xml:id="det" xml:lang="de">Ab der Version 1.9.3 ist es möglich Impact Bedingungen auch in Filtern zu verwenden. Diese Impact Bedingungen werden dann per Definition als NonImpact ausgewertet. 
+							Ein NonImpact-Wrapper ist im Filter Element nicht erforderlich. Sollen Bedinungen aber im Conditions Element als NonImpact ausgewertet werden, dann ist dort der NonImpact-Wrapper notwendig.</para>
+						
 							<table frame="all">
 								<title><phrase xml:id="de_840" xml:lang="de">Verwendbarkeit der einzelnen Conditions</phrase><phrase xml:id="en_840" xml:lang="en">Applicability of the individual conditions</phrase></title>
 								<tgroup cols="5" align="left" colsep="1" rowsep="1">
@@ -2386,7 +2403,7 @@
 										<row>
 											<entry>DayImpact.Date</entry>
 											<entry>-</entry>
-											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
 											<entry>-</entry>
@@ -2395,7 +2412,7 @@
 										<row>
 											<entry>DayImpact.DayIndex</entry>
 											<entry>-</entry>
-											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
 											<entry>-</entry>
@@ -2404,7 +2421,7 @@
 										<row>
 											<entry>DayImpact.Weekdays</entry>
 											<entry>-</entry>
-											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
 											<entry>-</entry>
@@ -2422,7 +2439,7 @@
 										<row>
 											<entry>PersonImpact.PersonAge</entry>
 											<entry>-</entry>
-											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
 											<entry>X</entry>
@@ -2431,7 +2448,7 @@
 										<row>
 											<entry>PersonImpact.PersonIndex</entry>
 											<entry>-</entry>
-											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
 											<entry>X</entry>
@@ -2440,7 +2457,7 @@
 										<row>
 											<entry>PersonImpact.PersonGender</entry>
 											<entry>-</entry>
-											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
 											<entry>X</entry>
@@ -2449,7 +2466,7 @@
 										<row>
 											<entry>Impact.ConditionalTags</entry>
 											<entry>-</entry>
-											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
 											<entry>X</entry>
@@ -5778,7 +5795,7 @@ usw.]]></programlisting>
 ]]>				</programlisting>
 								
 					</section>
-					<section xml:id="OtdsStrategyRulesGroupDefinitionsGroupCondition">
+					<section xml:id="OtdsStrategyRulesGenericTagCondition">
 						<title><phrase xml:id="de_1209" xml:lang="de">Bedingung für Buchungsparameter und Filter
 							(GenericTag-Condition)</phrase><phrase xml:id="en_1209" xml:lang="en">Condition for booking parameters and filter (GenericTag-Condition)</phrase></title>
 						<para xml:id="de_5129" xml:lang="de">Die Formulierung der Bedingung eines GenericTags erfolgt im Element &lt;GenericTag&gt;
@@ -22888,6 +22905,7 @@ usw.]]></programlisting>
 									<listitem>
 										<para xml:id="de_3887" xml:lang="de">Garage (V1.9)</para><para xml:id="en_3887" xml:lang="en">Garage (V1.9)</para>
 									</listitem>
+										
 									</itemizedlist>
 								</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5553" xml:lang="de">Allgemeine Einrichtungen</para><para xml:id="en_5553" xml:lang="en">General facilities</para></td>
@@ -23729,6 +23747,9 @@ usw.]]></programlisting>
 										</listitem>
 										<listitem>
 											<para xml:id="de_5526" xml:lang="de">InnerCourtView (V1.9.1)</para><para  xml:id="en_5526" xml:lang="en">InnerCourtView (V1.9.1)</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_3887" xml:lang="de">Kitchenette (V1.9.3)</para><para xml:id="en_3887" xml:lang="en">Kitchenette (V1.9.3)</para>
 										</listitem>
 									</itemizedlist>
 								</td>
