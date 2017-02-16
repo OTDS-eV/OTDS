@@ -849,7 +849,6 @@
 							</Availability>
 						</Availabilities>
 					</SellingUnit>
-				
 					<!-- Hier Beispiele für die PriceGroup Funktion in GenericAbsolutes    -->
 					<SellingUnit Key="DZ-4">
 						<Tags>
@@ -899,30 +898,25 @@
 									<PersonBase>1</PersonBase>
 								</Absolute>
 							</PriceItem>
-							<PriceItem Class="GroupedAbsoluteA">
-								<!--DE: Ein generisches Absolut-PriceItem welches nur im Zusammenspiel mit PercentPriceItems einen Wert <> 0 ergibt.
-									Aus den mit "ConsideredPriceItems" referenzierten PriceItems werden nach den OTDS Regeln zwei identische Werte    Value und Value' berechnet.
-									Percent-PriceItems, die sich auf dieses PriceItem beziehen, werden jedoch nur auf Value und nicht auf Value' angewendet.
-									Der finale Wert unter Einbeziehung aller Percent-PriceItems bestimmt sich dann aus Value - Value'.
+							<PriceItem Class="PercentOnUntouchedAbsolute">
+								<!--DE: Ein generisches Absolut-PriceItem welches einen prozentuale Modifikation auf eine Teilkalkulation der OTDS-Preisberechnung definiert.
+											Die Teilkalkulation ist bestimmt durch Definition der an der Teilkalkulation beteiligten PreisItems. Die Auswertung findet einzeln in jeder Preiszelle der Day/Person-Matrix statt.
 								-->
 								<!--GB:   -->
 								<GenericAbsolute>
 									<GenericValue>
-										<PriceGroup>
-											<ConsideredPriceItems>
+										<PercentModificationValue>
+											<PercentValue>-30</PercentValue>
+											<ModificationBasis>
+												<ConsideredPriceItems>
 												<ConsideredPriceItemClasses>AbsoluteA</ConsideredPriceItemClasses>
 											</ConsideredPriceItems>
-										</PriceGroup>
+											</ModificationBasis>
+										</PercentModificationValue>
 									</GenericValue>
 									<DayBase>1</DayBase>
 									<PersonBase>1</PersonBase>
 								</GenericAbsolute>
-							</PriceItem>
-							<PriceItem Class="PercentOnUntouchedAbsolute">
-								<Percent>
-									<Value>-30</Value>
-									<ApplyTo>GroupedAbsoluteA</ApplyTo>
-								</Percent>
 							</PriceItem>
 							<PriceItem Class="NormalPercent1">
 								<Percent>
@@ -937,16 +931,14 @@
 								</Percent>
 							</PriceItem>
 							<!--DE: Ergebnis ist:
-											AbsoluteA * 0,9 * 0,9 + GroupedAbsoluteA * 0,7 - GroupedAbsoluteA'
-											  100         * 0,9 * 0,9 +        100                * 0,7 -          100
+											AbsoluteA * 0,9 * 0,9 + AbsoluteA * (-0,3)
+											  100         * 0,9 * 0,9 +        100   * (-0,3)
 												
 								-->
 						</PriceItems>
 						<PriceItems Key="2">
 							<!-- Komplexeres Beispiel für die PriceGroup PriceItems mit 2 absolutes    -->
 							<PriceItem Class="AbsoluteA">
-								<!--DE: Absolutes PriceItem - Abschlag einmalig pro Reisenden   -->
-								<!--GB: Absolute reduction - reduction one time per participant  -->
 								<Absolute>
 									<Value>100</Value>
 									<DayBase>x</DayBase>
@@ -954,35 +946,27 @@
 								</Absolute>
 							</PriceItem>
 							<PriceItem Class="AbsoluteB">
-								<!--DE: Absolutes PriceItem - Abschlag einmalig pro Reisenden   -->
-								<!--GB: Absolute reduction - reduction one time per participant  -->
 								<Absolute>
 									<Value>150</Value>
 									<DayBase>x</DayBase>
 									<PersonBase>1</PersonBase>
 								</Absolute>
 							</PriceItem>
-							<PriceItem Class="GroupedAbsoluteAB">
-								<!--DE: die beiden absoluten PriceItems werden aggregiert betrachtet.
-								-->
-								<!--GB:   -->
+							<PriceItem Class="PercentOnUntouchedAbsolutes">
 								<GenericAbsolute>
 									<GenericValue>
-										<PriceGroup>
-											<ConsideredPriceItems>
+										<PercentModificationValue>
+											<PercentValue>-30</PercentValue>
+											<ModificationBasis>
+												<ConsideredPriceItems>
 												<ConsideredPriceItemClasses>AbsoluteA AbsoluteB</ConsideredPriceItemClasses>
 											</ConsideredPriceItems>
-										</PriceGroup>
+											</ModificationBasis>
+										</PercentModificationValue>
 									</GenericValue>
 									<DayBase>1</DayBase>
 									<PersonBase>1</PersonBase>
 								</GenericAbsolute>
-							</PriceItem>
-							<PriceItem Class="PercentOnUntouchedAbsolute">
-								<Percent>
-									<Value>-30</Value>
-									<ApplyTo>GroupedAbsoluteAB</ApplyTo>
-								</Percent>
 							</PriceItem>
 							<PriceItem Class="NormalPercent1">
 								<Percent>
@@ -997,8 +981,8 @@
 								</Percent>
 							</PriceItem>
 							<!--DE: Ergebnis ist:
-											AbsoluteA * 0,9 * 0,9 + AbsoluteB * 0,9 + GroupedAbsoluteAB * 0,7 - GroupedAbsoluteAB'
-											  100         * 0,9 * 0,9 +        150   * 0,9  +           250               * 0,7 -          250
+											AbsoluteA * 0,9 * 0,9 + AbsoluteB * 0,9 + ModificationBasis * (-0,3)
+											  100         * 0,9 * 0,9 +        150   * 0,9  +           250           * (-0,3)
 								-->
 						</PriceItems>
 						<PriceItems Key="3">
@@ -1023,49 +1007,38 @@
 									<ApplyTo>AbsoluteA AbsoluteB</ApplyTo>
 								</Percent>
 							</PriceItem>
-							<PriceItem Class="GroupedAbsoluteABPercent">
+							<PriceItem Class="PercentOnAlmostUntouchedAbsolute">
 								<!--DE: die beiden absoluten PriceItems werden aggregiert betrachtet.
 								-->
 								<!--GB:   -->
 								<GenericAbsolute>
 									<GenericValue>
-										<PriceGroup>
-											<ConsideredPriceItems>
+										<PercentModificationValue>
+											<PercentValue>-30</PercentValue>
+											<ModificationBasis>
+												<ConsideredPriceItems>
 												<ConsideredPriceItemClasses>AbsoluteA AbsoluteB NormalPercent</ConsideredPriceItemClasses>
 											</ConsideredPriceItems>
-										</PriceGroup>
+											</ModificationBasis>
+										</PercentModificationValue>
 									</GenericValue>
 									<DayBase>1</DayBase>
 									<PersonBase>1</PersonBase>
 								</GenericAbsolute>
 							</PriceItem>
-							<PriceItem Class="PercentOnUntouchedAbsolute">
-								<Percent>
-									<Value>-30</Value>
-									<ApplyTo>GroupedAbsoluteAB</ApplyTo>
-								</Percent>
-							</PriceItem>
-							<PriceItem Class="NormalPercent1">
-								<Percent>
-									<Value>-10</Value>
-									<ApplyTo>GroupedAbsoluteAB</ApplyTo>
-								</Percent>
-							</PriceItem>
 							<PriceItem Class="NormalPercent2">
 								<Percent>
 									<Value>-10</Value>
-									<ApplyTo>GroupedAbsoluteAB</ApplyTo>
+									<ApplyTo>AbsoluteA</ApplyTo>
 								</Percent>
 							</PriceItem>
 							<!--DE: Ergebnis ist:
-											GroupedAbsoluteABPercent * 0,9 * 0,9 - GroupedAbsoluteABPercent'    
- 											                  200                  * 0,9 * 0,9  -             200
-											  
-											(GroupedAbsoluteABPercent =  AbsolutA * 0,8 + AbsolutB * 0,8 = GroupedAbsoluteABPercent' = 200)
+											AbsoluteA * 0,8 * 0,9 + AbsoluteB * 0,8   +                ModificationBasis                  * (-0,3)    
+ 											    100       * 0,8 * 0,9 +     150       * 0,8  + ( AbsoluteA * 0,8 + AbsolutB * 0,8 )       * (-0,3) 
 								-->
 						</PriceItems>
-						<PriceItems Key="4">
-							<!-- Noch komplexeres Beispiel für die PriceGroup PriceItems mit PriceTags auf  Level-Basis     -->
+						<PriceItems Key="5">
+							<!-- Variante 2 mit PercentModificationValue: Noch komplexeres Beispiel für die PriceGroup PriceItems mit PriceTags auf  Level-Basis     -->
 							<PriceItem Class="A1">
 								<PriceTags>
 									<PriceTag Class="Level">0</PriceTag>
@@ -1090,22 +1063,16 @@
 								<PriceTags>
 									<PriceTag Class="Level">1</PriceTag>
 								</PriceTags>
-								<Percent>
-									<Value>-10</Value>
-									<ApplyTo>GroupedP1</ApplyTo>
-								</Percent>
-							</PriceItem>
-							<PriceItem Class="GroupedP1">
-								<PriceTags>
-									<PriceTag Class="Level">1</PriceTag>
-								</PriceTags>
 								<GenericAbsolute>
 									<GenericValue>
-										<PriceGroup>
-											<ConsideredPriceItems>
-												<ConsideredPriceTags Class="Level">0</ConsideredPriceTags>
-											</ConsideredPriceItems>
-										</PriceGroup>
+										<PercentModificationValue>
+											<PercentValue>-10</PercentValue>
+											<ModificationBasis>
+												<ConsideredPriceItems>
+													<ConsideredPriceTags Class="Level">0</ConsideredPriceTags>
+												</ConsideredPriceItems>
+											</ModificationBasis>
+										</PercentModificationValue>
 									</GenericValue>
 									<DayBase>1</DayBase>
 									<PersonBase>1</PersonBase>
@@ -1115,22 +1082,16 @@
 								<PriceTags>
 									<PriceTag Class="Level">1</PriceTag>
 								</PriceTags>
-								<Percent>
-									<Value>-5</Value>
-									<ApplyTo>GroupedP2</ApplyTo>
-								</Percent>
-							</PriceItem>
-							<PriceItem Class="GroupedP2">
-								<PriceTags>
-									<PriceTag Class="Level">1</PriceTag>
-								</PriceTags>
 								<GenericAbsolute>
 									<GenericValue>
-										<PriceGroup>
-											<ConsideredPriceItems>
-												<ConsideredPriceTags Class="Level">0</ConsideredPriceTags>
-											</ConsideredPriceItems>
-										</PriceGroup>
+										<PercentModificationValue>
+											<PercentValue>-5</PercentValue>
+											<ModificationBasis>
+												<ConsideredPriceItems>
+													<ConsideredPriceTags Class="Level">0</ConsideredPriceTags>
+												</ConsideredPriceItems>
+											</ModificationBasis>
+										</PercentModificationValue>
 									</GenericValue>
 									<DayBase>1</DayBase>
 									<PersonBase>1</PersonBase>
@@ -1140,36 +1101,25 @@
 								<PriceTags>
 									<PriceTag Class="Level">10</PriceTag>
 								</PriceTags>
-								<Percent>
-									<Value>-25</Value>
-									<ApplyTo>GroupedP3</ApplyTo>
-								</Percent>
-							</PriceItem>
-							<PriceItem Class="GroupedP3">
-								<PriceTags>
-									<PriceTag Class="Level">10</PriceTag>
-								</PriceTags>
 								<GenericAbsolute>
 									<GenericValue>
-										<PriceGroup>
-											<ConsideredPriceItems>
-												<ConsideredPriceTags Class="Level">0 1 2 3 4 5 6 7 8 9</ConsideredPriceTags>
-											</ConsideredPriceItems>
-										</PriceGroup>
+										<PercentModificationValue>
+											<PercentValue>-25</PercentValue>
+											<ModificationBasis>
+												<ConsideredPriceItems>
+													<ConsideredPriceTags Class="Level">0 1 2 3 4 5 6 7 8 9</ConsideredPriceTags>
+												</ConsideredPriceItems>
+											</ModificationBasis>
+										</PercentModificationValue>
 									</GenericValue>
 									<DayBase>1</DayBase>
 									<PersonBase>1</PersonBase>
 								</GenericAbsolute>
 							</PriceItem>
 							<!--DE: Ergebnis ist:
-											A1 + A2 + (GroupedP1 * 0,9 - GroupedP1') + (GroupedP2 * 0,95 - GroupedP2') + (GroupedP3 * 0,75 - GroupedP3')   
- 											A1 + A2 + (      A1        * 0,9 -      A1       )  + (    A1        * 0,95 -       A1       ) + (GroupedP3 * 0,75 - GroupedP3')
-																
-														wobei GroupedP3 = A1 + A2 + (GroupedP1 * 0,9 - GroupedP1') + (GroupedP2 * 0,95 - GroupedP2')  = GroupedP3'
-																				  = A1 + A2 + (      A1        * 0,9 -      A1       )  + (    A1        * 0,95 -       A1       )   = 0,85 * A1 + A2
-
-										=  0,85 * A1 + A2 +    (0,85 * A1 + A2) * 0,75 -  (0,85 * A1 + A2) = 0,6375 * A1 + 0,75 * A2 = 31,875 + 22,5 = 54,375
-											
+											A1 + A2 + ( ModificationBasisP1 * (-0,1) ) + ( ModificationBasisP2 * (-0,05) ) + ( ModificationBasisP3 * (-0,25) )
+										=	A1 + A2 + ( (A1 ) * (- 0,1) ) + ( ( A1) * (- 0,05) ) + ( A1 + A2 +  ( (A1 ) * (- 0,1) ) + ( ( A2) * (- 0,05) ) )* (-0,25) )   
+										=  0,85A1 + A2 + ( 0,85A1 + A2 ) * (-0,25) =  0.6375 A1 + 0,75A2 = 31,875 + 22,5 = 54,375	
 								-->
 						</PriceItems>
 						<Availabilities Key="DZ-3">

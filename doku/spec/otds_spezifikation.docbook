@@ -6768,10 +6768,12 @@ usw.]]></programlisting>
 						Rahmen der Umsetzung der Rundung eingeführt. Es handelt sich hierbei um
 						Absolutbeträge, deren finaler Wert erst zur Laufzeit aufgrund einer flexibel
 						zu definierenden Funktion berechnet wird. </para><para xml:lang="en" xml:id="en_5164">The PriceItem type <code>GenericAbsolute</code> was introduced in the implementation of the rounding. Here we are dealing with absolute amounts whose final value is not determined until runtime due to its flexibly definable function.</para>
-			    <para xml:lang="de" xml:id="det_5165">Neben der Funktion für das Runden,
-			    	welche über <code>Round</code> angesprochen wird, ist seid Version 1.9.3 auch die Funktion "PriceGroup" integriert, mit deren Hilfe man prozentuale PriceItems auf sher spezifisch bestimmte Bereiche beziehen kann. 
-			    	Die Struktur ist aber erweiterbar für beliebige weitere Funktionen, die in späteren Versionen
-						notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Currently there is just one function for rounding up which is accessed via <code>Round</code> . The structure can be expanded, however, to include as many functions as you wish that are required in later versions.</para>
+			    <para xml:lang="de" xml:id="det_5165">Neben der Funktion für das Runden, welche über
+							<code>Round</code> angesprochen wird, ist seid Version 1.9.3 auch die
+						Funktion "PercentModificationValue" integriert, mit deren Hilfe man
+						prozentuale Modifikationen auf sehr spezifisch bestimmte Bereiche der
+						OTDS-Preiskalkulation beziehen kann. Die Struktur ist aber erweiterbar für
+						beliebige weitere Funktionen, die in späteren Versionen notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Currently there is just one function for rounding up which is accessed via <code>Round</code> . The structure can be expanded, however, to include as many functions as you wish that are required in later versions.</para>
 			  	<para xml:lang="de" xml:id="de_5166">Die Verteilung auf die Kostenmatrix ist
 						genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente
 							<code>DayBase</code> und <code>PersonBase</code> bestimmt. </para><para xml:lang="en" xml:id="en_5166">Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
@@ -7219,39 +7221,40 @@ usw.]]></programlisting>
 							rekursiven Bezug auf sich selbst.</para><para xml:id="en_5252" xml:lang="en">If, during the evaluation of its value, a GenericAbsolute("A") encounters a GenericAbsolute("B") which has not yet been calculated, thevalue=0 is to be used for GenericAbsolut("B"). The same applies for a recursive reference to itself.</para>
 			    </section>
 			  
-			  	<section xml:id="OtdsStrategyPriceItemPriceGroup">
+			  	<section xml:id="OtdsStrategyPriceItemGenericAbsolutePercentModificationValue">
 			  		<title>
-			  			<phrase xml:lang="de">Klammerung von Bereichen in der Preisberechnung für spezielle Bezüge von prozentualen Preisbestandteilen (<code>PriceGroup</code>)  (Version 1.9.3, V1.9.3)</phrase>
+			  			<phrase xml:lang="de">Definition eines prozentualen Änderungsbetrages bezogen auf einen definierten Teil der OTDS-Preiskalkulation mit  <code>PercentModificationValue</code>  (Version 1.9.3, V1.9.3)</phrase>
 			  		</title>
 			  		<bridgehead xml:lang="de">Allgemein</bridgehead><bridgehead xml:lang="en">General</bridgehead>
 			  		<para xml:lang="de">
-			  			Es gibt in manchen Veranstaltersystemen bei einzelnen prozentualen PriceItems einen spezifischen Bezug auf nur bestimmte Anteile der Preisberechnung.</para>
+			  			Es gibt in manchen Veranstaltersystemen bei einzelnen prozentualen Preisbestandteilen einen spezifischen Bezug auf nur bestimmte Anteile der Preisberechnung.</para>
 			  		<para xml:lang="de"> Falls zwei prozentuale PriceItems P1 (-30%) und P2 (-10%) auf ein
 							absolutes PriceItem A1 (100€) wirken, so gilt in OTDS standardmäßig:
 							<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
 							In manchen Veranstaltersystemen, wird aber z.B. der Abschlag P2 völlig
 							losgelöst von P1 angewendet, so dass das folgendes Ergebnis herauskommt:
 							<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
-							Schaut man sich den letzten Term an, so ist
-							<programlisting><![CDATA[A1 * P2/100 = A1 * P2/100 + A1 - A1 = A1 * (1 + P2/100) - A1']]></programlisting>
-							Genau das wird mit PriceGroup erreicht. Das GenericPriceItem <programlisting><![CDATA[<PriceItem Class="GroupedA1">
-	<GenericAbsolute>
-		<GenericValue>
-			<PriceGroup>
+			  			Genau diese VErhalten wird mit das wird dem  <code>GenericAbsolute/PercentModificationValue</code> erreicht. Das GenericPriceItem <programlisting>
+<![CDATA[<GenericAbsolute>
+	<GenericValue>
+		<PercentModificationValue>
+			<PercentValue>-10</PercentValue>
+			<ModificationBasis>
 				<ConsideredPriceItems>
-					<ConsideredPriceItemClasses>A1</ConsideredPriceItemClasses>
+					<ConsideredPriceItemClasses>AbsoluteA</ConsideredPriceItemClasses>
 				</ConsideredPriceItems>
-			</PriceGroup>
-		</GenericValue>
-		<DayBase>1</DayBase>
-		<PersonBase>1</PersonBase>
-	</GenericAbsolute>
-</PriceItem>]]></programlisting> erzeugt in der Preismatrix zwei Values A1 und -A1'. Alle
-							Percent-PriceItems, die sich auf "GroupedA1" beziehen wirken aber nur
-							auf den Value A1 und verändern A1' nicht. Die unter
-								<code>ConsideredPriceItemClasses</code> angegegenen PriceItems
-							werden nach den OTDS-Regeln zusammengefasst und ergeben den Wert A1=A1' </para>
-			  		<para>Die Möglichkeiten der PriceItem-Auswahl mit Hilfe der <code>ConsideredPriceItemClasses</code> finden Sie unter <link linkend="OtdsStrategyRulesConsideredPriceItems">Verwendung der ConsideredPriceItems</link> </para>
+			</ModificationBasis>
+		</PercentModificationValue>
+	</GenericValue>
+	<DayBase>1</DayBase>
+	<PersonBase>1</PersonBase>
+</GenericAbsolute>]]></programlisting> erzeugt in der Preismatrix einen Ablutebetrag der sich nach folgender Formel je Preiszelle berechnet.
+			  			<programlisting>
+<![CDATA[PercentModificationValue = ModificationBasis * PercentValue / 100 / DayBase / PersonBase]]></programlisting>
+			  			Wobei DayBase und PersonBase in der Regel hier immer = 1 sind.
+			  		</para>
+			  		<para>Die ModificationBasis ergibt sich aus der OTDS konformen Preiskalkulation, an der nur ausgewählte PriceItems, wie im Element <code>ModificationBasis</code> festgelegt, teilnehmen. Die Möglichkeiten der PriceItem-Auswahl mit Hilfe der <code>ConsideredPriceItemClasses</code> finden Sie unter <link linkend="OtdsStrategyRulesConsideredPriceItems">Verwendung der ConsideredPriceItems</link> </para>
+			  		<para>Sie finden mehrere Beispiele in der Beispieldatei "PriceItemExamples.xml" in der SellingUnit="DZ-4". </para>
 			  	</section>
 			  </section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">

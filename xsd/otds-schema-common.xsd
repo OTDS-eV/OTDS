@@ -6427,22 +6427,42 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="PriceGroup" internal:otdsversion="1.9">
+			<xs:element name="PercentModificationValue">
 				<xs:annotation>
-					<xs:documentation xml:lang="de">Dieses Element definiert, einen generischen Absolutbetrag. Dieser Absolutbetrag wird durch  die OTDS gemäße Preiskalkulation in jedem Kostenknoten begrenzt auf eine bestimmte Menge von Priceitems also eine bestimmte "PriceGroup". Welche PriceItems in Betracht gezogen werden definieren die Inhalte von ConsideredPriceItems.</xs:documentation>
-					<xs:documentation xml:lang="en">This element defines how the segments of
+					<xs:documentation>Dieses Element definiert, einen generischen Absolutbetrag. Der Absolutbetrag berechnet sich für jeden Kostenknoten nach folgender Formel:
+PercentModificationValue = ModificationBasis * PercentValue / 100
+Wobei sich der Wert der ModificationBasis aus der OTDS gemäßen Preiskalkulation der innerhalb des Elementes "ModificationBasis" definierten PriceItems bestimmt.
+Die Angaben in DayBase und PersonBase sollten in der Regel immer = 1 sein. Abweichende Werte werden wie üblich einfach als Teiler benutzt, so dass die letztendliche anzuwendende Formel folgende ist: PercentModificationValue = ModificationBasis * PercentValue / 100 / DayBase / PersonBase</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PercentValue" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>PercentValue repräsentiert den Wert  "PercentValue" in der Formel
+
+PercentModificationValue = ModificationBasis * PercentValue / 100 / DayBase / PersonBase  </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ModificationBasis" internal:otdsversion="1.9">
+							<xs:annotation>
+								<xs:documentation xml:lang="de">Dieses Element definiert eine Menge von PriceItems, die durch eine OTDS konforme Preiskalkulation je Preisknoten den Wert "ModificationBasis"  in der Formel
+
+PercentModificationValue = ModificationBasis * PercentValue / 100 / DayBase / PersonBase  
+
+repräsentieren.</xs:documentation>
+								<xs:documentation xml:lang="en">This element defines how the segments of
 						PriceItems defined by "DomainSegmentedBy" are to be rounded. For this, the
 						"Round" function treats each of the results of the segmented PriceItems and
 						rounds according to the attributes set in the round element. As a result the
 						"Round" function produces for each segment a generic PriceItem with Value =
 						"rounded-off value" - "calculated value".</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:sequence>
-						<!-- 20151002, hjr: replaced local type by global type "ConsideredPriceItemsType" -->
-						<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
-							<xs:annotation>
-								<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<!-- 20151002, hjr: replaced local type by global type "ConsideredPriceItemsType" -->
+									<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden
 									PriceItems auf bestimmte PriceItems eines bestimmten Types
 									und/oder mit bestimmten PriceTags. Die Auswahl erfolgt in der
 									folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß
@@ -6451,7 +6471,7 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 									PriceItems aus einem Merge der PriceItems der einzelnen
 									ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung
 									von PriceItems statt. </xs:documentation>
-								<xs:documentation xml:lang="en">Restricts the PriceItems to be
+											<xs:documentation xml:lang="en">Restricts the PriceItems to be
 									considered to certain PriceItems of a specific type and/or with
 									certain Pricetags. The selection is made in the following order:
 									1. selection of the PriceItems according to PriceFilter. 2. If
@@ -6460,8 +6480,8 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 									consists from a merge of the PriceItems of the individual
 									ConsideredPriceItems evaluations. There will be no duplication
 									of PriceItems.</xs:documentation>
-							</xs:annotation>
-							<!--
+										</xs:annotation>
+										<!--
 							<xs:complexType>
 								<xs:sequence>
 									<xs:group ref="PriceItemFilterGroup"/>
@@ -6546,6 +6566,9 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 								</xs:attribute>
 							</xs:complexType>
 -->
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
