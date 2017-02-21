@@ -8886,12 +8886,39 @@ usw.]]></programlisting>
 							properties nodes. This includes, for example, the location of an
 							accommodation, certain hotel themes (e.g. spa, family) or particular
 							luggage policies for flights.</para>
-						<para xml:id="de_1621" xml:lang="de">Alle Properties sind in einer Gruppe zusammengefasst, jedoch dürfen für die
-							einzelnen Komponenten jeweils nur die korrespondierenden Properties verwendet
-							werden. Beispielsweise macht die Flugroute unter den Eigenschaften einer
-							Unterkunft wenig Sinn und ist deshalb auch an dieser Stelle nicht erlaubt. Die
-							Datenlieferung würde bei Verwendung nicht validieren und somit zumindest zum Teil
-							ungültig sein.</para><para xml:id="en_1621" xml:lang="en">All properties are pooled together in a group, but only the corresponding properties can be used for individual components. For example, it makes little sense to have the flight route under the properties of the accommodation and is therefore not allowed in this position. The data delivery would not validate in this case and would be invalid to an extent.</para>
+						<para xml:id="det_1621" xml:lang="de">Alle Properties sind in einer Gruppe zusammengefasst und durch die XSD uneingeschränkt in jedem Properties-Element platzierbar. Dennoch beziehen sich bestimmte Properties auf bestimmte Unterkomponenten. Beispielsweise macht die Flugroute unter den Eigenschaften einer Unterkunft wenig Sinn.</para>
+						<para xml:id="en_1621" xml:lang="en">All properties are pooled together in a group, but only the corresponding properties can be used for individual components. For example, it makes little sense to have the flight route under the properties of the accommodation and is therefore not allowed in this position. The data delivery would not validate in this case and would be invalid to an extent.</para>
+						<para xml:lang="de">Eine Einschränkung der Properties für bestimmte Bereiche findet sich in der 2. Spalte der Property-Tabelle im Anhang.</para>
+						<para xml:lang="de">Die Verarbeitung der Properties regelt, dass die gelieferten Properties zu einem sinnvollen Ergebnis zusammengeführt werden. Dazu werden die einzelnen Properties über die definierte "PropertyAggregatingComponent" den Komponenteninstanzen zugeordnet. </para>
+						<para xml:lang="de">Die Zuordnung erfolgt über das "Current"-Prinzip, welches auch in der
+							Source Anwendung findet. "Current" bedeutet, dass zuerst nach einer
+							passenden Source im "local" Pfad gesucht wird. Wird dort keine Source
+							gefunden, so wählt man die nächsthöhere Instanz-Hierarchie-Stufe und
+							durchsucht erneut den „local“-Pfad nach einer passenden Instanz. Bis man
+							die Product-Instanz errreicht hat. Wird auch hier über "local" keine
+							passende Instanz gefunden wird die Property nicht zugeordnet bzw.
+							entsprechend ignoriert.</para>
+						<para xml:lang="de">Danach werden für jede Komponenteninstanz die zugeordneten Properties zusammengefasst.</para>
+						
+						<para xml:lang="de">Die Zusammenfassung erfolgt für jede dieser Komponenteninstanzen nach folgenden Regeln:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:lang="de">Es werden immer nur die Elemente mit identischem "PropertyIdentifier" zusammengefasst. </para>
+							</listitem>
+							<listitem>
+								<para xml:lang="de">Properties mit höherer "Priority" überschreiben die mit niedriger "Priority". </para>
+							</listitem>
+							<listitem>
+								<para xml:lang="de">Bei Properties mit identischer "Priority" wird die jeweils nach DocumentOrder jeweils erste Priority durch die jeweils nachfolgende Property ersetzt. </para>
+							</listitem>
+							<listitem>
+								<para xml:lang="de">Überschreiben bedeutet speziell bei Listen, dass auch diese "komplett" ersetzt werden. </para>
+							</listitem>
+						</itemizedlist>
+						<para xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight-Instanzen.</para>
+						<para xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und
+							PropertyAggregatingComponents finden Sie im Anhang  <link linkend="AnhangPropertiesAccommodations">"Properties -
+								Eigenschaften und Ausstattungen"</link></para>
 					</section>
 					<section>
 						<title><phrase xml:id="de_1622" xml:lang="de">Beschreibung der Elemente</phrase><phrase xml:id="en_1622" xml:lang="en">Description of the elements</phrase></title>
@@ -22359,65 +22386,45 @@ usw.]]></programlisting>
 			<section xml:id="OtdsProcessProperties">
 				<title><phrase xml:id="de_3779" xml:lang="de">Verarbeitung der Properties</phrase><phrase xml:id="en_3779" xml:lang="en">Processing of the Properties</phrase></title>
 
-				<para xml:id="de_3780" xml:lang="de">Die <code>Properties</code> Elemente enthalten sämtliche
+				<para xml:id="det_3780" xml:lang="de">Die <code>Properties</code> Elemente enthalten sämtliche
 					informativen Eigenschaften der Komponenten. Die Eigenschaften eines Angebotes
 					werden durch Zusammenfassen der Eigenschaften der Komponenteninstanzen dieses
-					Angebotes je Hauptkomponente erzeugt. Das Verarbeitungsmodell legt nur fest, wie
-					die zusammengefassten Eigenschaften eines Angebotes bestimmt werden. Die weitere
-					Interpretation dieser Werte ist Sache des Vertriebssystems (z.Bsp. kann ein
-					Vertriebssystem eine Suche nach Hotelkategorie ermöglichen. Die notwendigen
-					Informationen sind in den <code>Properties</code> enthalten).</para><para xml:id="en_3780" xml:lang="en">The <code>Properties</code> elements contain all informative properties of the components. The properties of an offer are identified by summarising the properties of the component instances of this offer per main component. The processing model only determines how the combined properties of the offer are to be defined. The further interpretation of these values is a matter for the distribution system (e.g. a distribution system can enable a search according to hotel category. The necessary information is contained in the <code>Properties</code> ).</para>
-
-				<para xml:id="de_3781" xml:lang="de">Da auch <code>PriceItem</code> Elemente <code>Properties</code> enthalten können, lassen
-					sich die Gesamteigenschaften des Angebotes sehr flexibel steuern. Die Verarbeitung der
-						<code>Properties</code> Elemente einer Hauptkomponenteninstanz folgt einem einfachen
-					Ablauf:</para><para xml:id="en_3781" xml:lang="en">As <code>PriceItem</code> elements can also contain <code>Properties</code> , the overall properties of the offer can be very flexibly controlled. The processing of the <code>Properties</code> elements of a main component instance follow a simple sequence:</para>
-
+					Angebotes, denen eine Property zugeordnet werden konnte.</para><para xml:id="en_3780" xml:lang="en">The <code>Properties</code> elements contain all informative properties of the components. The properties of an offer are identified by summarising the properties of the component instances of this offer per main component. The processing model only determines how the combined properties of the offer are to be defined. The further interpretation of these values is a matter for the distribution system (e.g. a distribution system can enable a search according to hotel category. The necessary information is contained in the <code>Properties</code> ).</para>
+				
+				<para xml:lang="de">Die Zuordnung der einzelnen Properties gemäß ihrer festgelegten PropertyAggregatingComponent erfolgt über das "Current"-Prinzip, welches auch in der Source Anwendung findet.</para>	
+				<para xml:lang="de">"Current" bedeutet, dass zuerst nach einer passenden Source im "local" Pfad gesucht wird. Wird dort keine Source gefunden, so wählt man die nächsthöhere HierarchiesStufe und durchsucht erneut den „local“-Pfad nach einer passenden Instanz.</para>	
+				<para xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn: Ist die PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight- bzw. ReturnFlight-Instanzen.</para>
+				<para xml:lang="de">Das Verarbeitungsmodell legt nur fest, wie die zusammengefassten Eigenschaften eines Angebotes bestimmt werden. Die Bedeutungen der Properties werden in der Annotation der XSD näher beschrieben. Die Verwendung der Properties ist Sache des Vertriebssystems (z.B. kann ein Vertriebssystem eine Suche nach Hotelkategorie ermöglichen. Die notwendigen Informationen sind in den Properties enthalten).</para>
+				<para xml:lang="de">Da auch PriceItem Elemente Properties enthalten können, lassen sich die Gesamteigenschaften des Angebotes sehr flexibel steuern. Die Verarbeitung der Properties Elemente einer Hauptkomponenteninstanz folgt einem einfachen Ablauf:</para>
 				<itemizedlist>
 					<listitem>
-						<para xml:id="de_3782" xml:lang="de">Zunächst werden sämtliche <code>PropertyGroup</code> Elemente der
-							Hauptkomponenteninstanz eingesammelt. Ein <code>PropertyGroup</code> Element wird
-							übernommen wenn:</para><para xml:id="en_3782" xml:lang="en">First, all <code>PropertyGroup</code> elements of the main component instance are collected. A <code>PropertyGroup</code> element is taken up if:</para>
+						<para xml:lang="de">Zunächst werden alle Properties gemäß ihrer PropertyAggregatingComponent den Komponenteninstanzen zugeordnet.</para>
+					</listitem>
+					<listitem>
+						<para xml:lang="de">Dann werden je Komponenteninstanz sämtliche zugeordneten PropertyGroup Elemente übernommen. Ein PropertyGroup Element wird übernommen, wenn:</para>
 						<itemizedlist>
 							<listitem>
-								<para xml:id="de_3783" xml:lang="de">Die <code>Condition</code> der <code>PropertyGroup</code> erfüllt ist
-									(oder die <code>PropertyGroup</code> nicht über eine
-										<code>Condition</code> verfügt).</para><para xml:id="en_3783" xml:lang="en">The <code>Condition</code> of the <code>PropertyGroup</code> is fulfilled (or if the <code>PropertyGroup</code> does not feature a <code>Condition</code> ).</para>
+								<para xml:lang="de">Die Condition der PropertyGroup erfüllt ist (oder die PropertyGroup über keine Condition verfügt).</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_3784" xml:lang="de">Falls sich die <code>PropertyGroup</code> innerhalb eines
-										<code>PriceItem</code> befindet und das <code>PriceItem</code> am Ende
-									der Preisberechnung aktiv war.</para><para xml:id="en_3784" xml:lang="en">In cases where the <code>PropertyGroup</code> is located within a <code>PriceItem</code> and the <code>PriceItem</code> was active at the end of the price calculation.</para>
+								<para xml:lang="de">Falls sich die PropertyGroup innerhalb eines PriceItem befindet und das PriceItem am Ende der Preisberechnung aktiv war.</para>
 							</listitem>
 						</itemizedlist>
 					</listitem>
 					<listitem>
-						<para xml:id="de_3785" xml:lang="de">Die übernommenen <code>PropertyGroup</code> Elemente werden nach dem Wert des
-								<code>Priority</code> Attributs sortiert. Bei gleicher <code>Priority</code>
-							werden die <code>PropertyGroup</code> Elemente nach
-								<emphasis>document-order</emphasis> sortiert.</para><para xml:id="en_3785" xml:lang="en">The <code>PropertyGroup</code> elements which have been taken up are sorted according to the value of the <code>Priority</code> attribute. In the case of an identical <code>Priority</code> , the <code>PropertyGroup</code> elements are sorted according to <emphasis>document-order</emphasis>.</para>
+						<para xml:lang="de">Die übernommenen PropertyGroup Elemente werden nach dem Wert des Priority Attributs sortiert. Bei gleicher Priority werden die PropertyGroup Elemente nach documentDocumentO-order sortiert.</para>
 					</listitem>
 					<listitem>
-						<para xml:id="de_3786" xml:lang="de">Die <code>PropertyGroup</code> Elemente werden in dieser Reihenfolge
-							zusammengefasst. Kindelemente der <code>PropertyGroup</code> überschreiben
-							entsprechende zuvor gefundene Elemente mit demselben Namen. Das Endergebnis ist
-							eine einzelne <code>PropertyGroup</code>, welche sämtliche zusammengefassten
-							Eigenschaften der Hauptkomponenteninstanz enthält.</para><para xml:id="en_3786" xml:lang="en">The <code>PropertyGroup</code> elements are combined in this order. Child elements of the <code>PropertyGroup</code> overwrite the corresponding previously found elements with the same name. The end result is a single <code>PropertyGroup</code> , which contains all combined properties of the main component instance.</para>
+						<para xml:lang="de">Die PropertyGroup Elemente werden in dieser Reihenfolge zusammengefasst. Kind-Elemente der PropertyGroup überschreiben entsprechende zuvor gefundene Elemente mit identischem PropertyIdentfier. Das Endergebnis ist je PropertyAggregatingComponent eine einzelne PropertyGroup, welche sämtliche zusammengefassten Eigenschaften der PropertyAggregatingComponent enthält.</para>
 					</listitem>
 					<listitem>
-						<para xml:id="de_3787" xml:lang="de">Die beiden Eigenschaften <code>PriceType</code> und
-								<code>TextInformation</code> spielen eine Sonderrolle: Diese
-							Eigenschaften können nicht sinnvoll zusammengefasst werden und werden
-							somit bei dieser Verarbeitung ignoriert. Die Eigenschaften bleiben in
-							den jeweiligen <code>Properties</code> Elementen verteilt im Angebot
-							erhalten und können falls notwendig dort ausgewertet werden.</para><para xml:id="en_3787" xml:lang="en">The two properties <code>PriceType</code> and <code>TextInformation</code> play a special role: These properties cannot be meaningfully combined and so are ignored during this processing. The properties remain distributed among the corresponding <code>Properties</code> elements within the offer, and can be evaluated there if necessary.</para>
+						<para xml:lang="de">Die beiden Eigenschaften PriceType und TextInformation spielen eine Sonderrolle: Diese Eigenschaften können nicht sinnvoll zusammengefasst werden und werden somit bei dieser Verarbeitung ignoriert. Die Eigenschaften bleiben in den jeweiligen Properties Elementen verteilt im Angebot erhalten und können falls notwendig dort ausgewertet werden.</para>
 					</listitem>
 				</itemizedlist>
-
-				<para xml:id="de_3788" xml:lang="de">Nach der Verarbeitung existiert somit für jede Hauptkomponenteninstanz (und nicht nur
-					für jeden Hauptkomponententyp) ein <code>PropertyGroup</code> Element (ein
-					zusammengesetzter Flug erhält somit ein <code>PropertyGroup</code> Element je
-					Flugbestandteil).</para><para xml:id="en_3788" xml:lang="en">Following the processing, one <code>PropertyGroup</code> element exists for each main component instance (and not only for each main component type. A combined flight therefore receives a <code>PropertyGroup</code> element per flight component).</para>
+				
+				<para xml:lang="de">Nach der Verarbeitung existiert somit für jede PropertyAggregatingComponent-Instanz eine PropertyGroup Element. PropertyAggregatingComponent-Instanz bedeutet z.B., dass ein zusammengesetzter Flug ein PropertyGroup Element je Flugbestandteil enthält.</para>
+				<para xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und PropertyAggregatingComponents finden Sie im Anhang <link linkend="AnhangPropertiesAccommodations">"Properties -
+					Eigenschaften und Ausstattungen"</link></para>
 			</section>
 		</section>
 	</section>
@@ -22719,8 +22726,8 @@ usw.]]></programlisting>
 							<thead>
 								<tr>
 									<td rowspan="1" colspan="1"><para  xml:id="de_5545" xml:lang="de">Komponente</para><para xml:id="en_5545" xml:lang="en">Component</para></td>
-									<td rowspan="1" colspan="1"><para  xml:id="de_5546" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5546" xml:lang="en">Admitted levels</para></td>
-									<td rowspan="1" colspan="1"><para  xml:id="de_5547" xml:lang="de">Element/Path</para><para xml:id="en_5547" xml:lang="en">Element/Path</para></td>
+									<td rowspan="1" colspan="1"><para  xml:id="de_5546" xml:lang="de">PropertyAggregatingComponent</para><para xml:id="en_5546" xml:lang="en">PropertyAggregatingComponent</para></td>
+									<td rowspan="1" colspan="1"><para  xml:id="de_5547" xml:lang="de">PropertyIdentifier</para><para xml:id="en_5547" xml:lang="en">PropertyIdentifier</para></td>
 									<td rowspan="1" colspan="1"><para  xml:id="de_5548" xml:lang="de">Values</para><para xml:id="en_5548" xml:lang="en">Values</para></td>
 									<td rowspan="1" colspan="1"><para  xml:id="de_5549" xml:lang="de">Bedeutung</para><para xml:id="en_5549" xml:lang="en">Meaning</para></td>
 									<td rowspan="1" colspan="1"><para  xml:id="de_5550" xml:lang="de">Conditions</para><para xml:id="en_5550" xml:lang="en">Conditions</para></td>
@@ -22728,7 +22735,7 @@ usw.]]></programlisting>
 							</thead>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationName</td>
 								<td rowspan="1" colspan="1">String</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5551" xml:lang="de">Name der Unterkunft</para><para xml:id="en_5551" xml:lang="en">Accommodation name</para></td>
@@ -22736,7 +22743,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationCity</td>
 								<td rowspan="1" colspan="1">String</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5552" xml:lang="de">Name des Ortes</para><para xml:id="en_5552" xml:lang="en">City name</para></td>
@@ -22744,7 +22751,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationType</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -22859,7 +22866,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationChain</td>
 								<td rowspan="1" colspan="1">ID </td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5540" xml:lang="de">ID mit Referenz zur Tabelle der Hotelketten</para><para xml:id="en_5540" xml:lang="en">ID with reference to the table of hotel chains</para></td>
@@ -22868,7 +22875,7 @@ usw.]]></programlisting>
 
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationOfficialCategory</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5541" xml:lang="de">Zahl auch als Kommazahl in 0,5 Schritten</para><para xml:id="en_5541" xml:lang="en">Number can be displayed as decimal with 0.5 ranges</para></td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5542" xml:lang="de">Offizielle Sterne Kategorie</para><para xml:id="en_5542" xml:lang="en">Official star category</para></td>
@@ -22876,7 +22883,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationOperatorCategory</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5543" xml:lang="de">Zahl auch als Kommazahl in 0,5 Schritten</para><para xml:id="en_5543" xml:lang="en">Number can be displayed as decimal with 0.5 ranges</para></td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5544" xml:lang="de">Veranstalter Sterne Kategorie</para><para xml:id="en_5544" xml:lang="en">Tour operator star category</para></td>
@@ -22884,7 +22891,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationGeneralFacilities</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -22989,7 +22996,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationFamilyFacilities</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23102,7 +23109,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationSportsFacilities</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23188,7 +23195,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationWellnessFacilities</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23262,7 +23269,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationSeniorFacilities</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23307,7 +23314,7 @@ usw.]]></programlisting>
 
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationLocations</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23375,7 +23382,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationTargetgroup</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23490,7 +23497,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationAddress</td>
 								<td rowspan="1" colspan="1">
 									<para xml:id="de_3995" xml:lang="de">Mit folgenden Unterelementen:</para><para xml:id="en_3995" xml:lang="en">With the following sub-elements:</para>
@@ -23532,7 +23539,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= SellingAccom</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
 								<td rowspan="1" colspan="1">AccommodationCatchmentRailwayStations</td>
 								<td rowspan="1" colspan="1">RailwayStationCode / String</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5593" xml:lang="de">Bahnstationen im Einzugsgebiet der Unterkunft</para><para xml:id="en_5593" xml:lang="en">Train stations in the proximity of the accommodation</para></td>
@@ -23540,7 +23547,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= Unit</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
 								<td rowspan="1" colspan="1">UnitName</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5594" xml:lang="de">String, z.B. "Appartement Balkon oder Terrasse"</para><para xml:id="en_5594" xml:lang="en">String, e.g "Appartement balcony or terrace"</para></td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5595" xml:lang="de">Volltextbezeichner (kurz) der Unterbringung</para><para xml:id="en_5595" xml:lang="en">Full text denomination (short) of the accommodation</para></td>
@@ -23548,7 +23555,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= Unit</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
 								<td rowspan="1" colspan="1">UnitType</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23601,7 +23608,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= Unit</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
 								<td rowspan="1" colspan="1">UnitBedType</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23645,7 +23652,7 @@ usw.]]></programlisting>
 							</tr>							
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= Unit</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
 								<td rowspan="1" colspan="1">UnitFacilities</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -23825,7 +23832,7 @@ usw.]]></programlisting>
 											<para xml:id="de_5526" xml:lang="de">InnerCourtView (V1.9.1)</para><para  xml:id="en_5526" xml:lang="en">InnerCourtView (V1.9.1)</para>
 										</listitem>
 										<listitem>
-											<para xml:id="de_5771" xml:lang="de">Kitchenette (V1.9.3)</para><para xml:id="en_5771" xml:lang="en">Kitchenette (V1.9.3)</para>
+											<para xml:id="de_3887" xml:lang="de">Kitchenette (V1.9.3)</para><para xml:id="en_3887" xml:lang="en">Kitchenette (V1.9.3)</para>
 										</listitem>
 									</itemizedlist>
 								</td>
@@ -23834,7 +23841,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Accommodation</td>
-								<td rowspan="1" colspan="1">&gt;= Unit</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
 								<td rowspan="1" colspan="1">UnitBuildingType</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -24578,10 +24585,7 @@ usw.]]></programlisting>
 							</itemizedlist>
 						</listitem>
 					</itemizedlist>
-			
-					<para xml:id="AnhangPropertiesUnits"></para>
-				<bridgehead xml:id="de_5660" xml:lang="de">Unterbringungen</bridgehead>
-				<bridgehead xml:id="en_5660" xml:lang="en">Units</bridgehead>
+					<bridgehead xml:id="AnhangPropertiesUnits"><para xml:id="de_5660" xml:lang="de">Unterbringungen></para><para xml:id="en_5660" xml:lang="en">Units</para></bridgehead>
 					<para xml:id="de_4296" xml:lang="de">Für die Eingabe von Eigenschaften der Units sind folgende Elemente
 						zugelassen:</para><para xml:id="en_4296" xml:lang="en">The following elements are permitted for the entry of unit properties:</para>
 					<itemizedlist>
@@ -24609,7 +24613,7 @@ usw.]]></programlisting>
 								GeneralExcludedServices, V1.9)</para>
 						</listitem>
 					</itemizedlist>
-				
+					
 						<table frame="none" colsep="1" rowheader="norowheader">
 							<title><phrase xml:id="de_4304" xml:lang="de">Eigenschaften und Angebote der Unterbringungen:</phrase><phrase xml:id="en_4304" xml:lang="en">Properties and offers of the accommodation:</phrase></title>
 							<tgroup cols="2">
@@ -24880,10 +24884,7 @@ usw.]]></programlisting>
 							<para xml:id="de_4384" xml:lang="de">ShortenedSeaView (eingeschränkter Meerblick)</para><para xml:id="en_4384" xml:lang="en">ShortenedSeaView (restricted sea views)</para>
 						</listitem>
 					</itemizedlist>
-								
-					<para xml:id="AnhangPropertiesBoards"></para>
-						<bridgehead xml:id="de_5661" xml:lang="de">Verpflegung</bridgehead>
-						<bridgehead xml:id="en_5661" xml:lang="en">Boards</bridgehead>
+					<bridgehead xml:id="AnhangPropertiesBoards"><para xml:id="de_5661" xml:lang="de">Verpflegung</para><para xml:id="en_5661" xml:lang="en">Boards</para></bridgehead>
 					<para xml:id="de_4385" xml:lang="de">Auch die Verpflegung wird zur Komponente der Accommodations gerechnet. Die gültigen
 						Elemente für die Angabe der Properties sind:</para><para xml:id="en_4385" xml:lang="en">The board is also considered a component of the accommodation.
 						The valid elements for the specification of properties are:</para>
@@ -24965,12 +24966,16 @@ usw.]]></programlisting>
 												<para xml:id="de_4405" xml:lang="de">Kosher</para><para xml:id="en_4405" xml:lang="en">Kosher</para>
 												</listitem>
 											</itemizedlist>
+										
 										</entry>
 									</row>
 								</tbody>
 							</tgroup>
 						</table>
-					</section>
+					
+				</section>
+
+
 
 				<section xml:id="AnhangPropertiesAddons">
 					<title><phrase xml:id="de_4406" xml:lang="de">Properties - Addons</phrase><phrase xml:id="en_4406" xml:lang="en">Properties - Addons</phrase></title>
@@ -24986,8 +24991,8 @@ usw.]]></programlisting>
 							<thead>
 								<tr>
 									<td rowspan="1" colspan="1"><para xml:id="de_5662" xml:lang="de">Komponente</para><para xml:id="en_5662" xml:lang="en">Component</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5663" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5663" xml:lang="en">Admitted levels</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5664" xml:lang="de">Element/Path</para><para xml:id="en_5664" xml:lang="en">Element/Path</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5663" xml:lang="de">PropertyAggregatingComponent</para><para xml:id="en_5663" xml:lang="en">PropertyAggregatingComponent</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5664" xml:lang="de">PropertyIdentifier</para><para xml:id="en_5664" xml:lang="en">PropertyIdentifier</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5665" xml:lang="de">Values</para><para xml:id="en_5665" xml:lang="en">Values</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5666" xml:lang="de">Bedeutung</para><para xml:id="en_5666" xml:lang="en">Meaning</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5667" xml:lang="de">Conditions</para><para xml:id="en_5667" xml:lang="en">Conditions</para></td>
@@ -24995,7 +25000,7 @@ usw.]]></programlisting>
 							</thead>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
-								<td rowspan="1" colspan="1">&gt;= Addon</td>
+								<td rowspan="1" colspan="1">Addon</td>
 								<td rowspan="1" colspan="1">AddonName</td>
 								<td rowspan="1" colspan="1">String</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5668" xml:lang="de">Name der Zusatzleistung</para><para xml:id="en_5668" xml:lang="en">Name of the addon service</para></td>
@@ -25003,7 +25008,7 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
-								<td rowspan="1" colspan="1">&gt;= Service</td>
+								<td rowspan="1" colspan="1">Service</td>
 								<td rowspan="1" colspan="1">AddonServiceName</td>
 								<td rowspan="1" colspan="1">String</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5669" xml:lang="de">Vollständige Bezeichnung des Service</para><para xml:id="en_5669" xml:lang="en">Complete description of the addon service</para></td>
@@ -25011,55 +25016,104 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
-								<td rowspan="1" colspan="1">&gt;= Service</td>
-								<td rowspan="1" colspan="1">AddonServiceType</td>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4407" xml:lang="de">Mit folgenden Unterelementen:</para><para xml:id="en_4407" xml:lang="en">With the following sub-elements:</para>
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4408" xml:lang="de">/Insurance</para><para xml:id="en_4408" xml:lang="en">/Insurance</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4409" xml:lang="de">/CarRental</para><para xml:id="en_4409" xml:lang="en">/CarRental</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4410" xml:lang="de">/WellnessArrangement</para><para xml:id="en_4410" xml:lang="en">/WellnessArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4411" xml:lang="de">/SportsArrangement</para><para xml:id="en_4411" xml:lang="en">/SportsArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4412" xml:lang="de">/TransferArrangement</para><para xml:id="en_4412" xml:lang="en">/TransferArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4413" xml:lang="de">/GolfArrangement</para><para xml:id="en_4413" xml:lang="en">/GolfArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4414" xml:lang="de">/DivingArrangement</para><para xml:id="en_4414" xml:lang="en">/DivingArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4415" xml:lang="de">/TourArrangement</para><para xml:id="en_4415" xml:lang="en">/TourArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4416" xml:lang="de">/HotelArrangement</para><para xml:id="en_4416" xml:lang="en">/HotelArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4417" xml:lang="de">/CityArrangement</para><para xml:id="en_4417" xml:lang="en">/CityArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4418" xml:lang="de">/BoardArrangement</para><para xml:id="en_4418" xml:lang="en">/BoardArrangement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4419" xml:lang="de">/FlightSeatArrangement</para><para xml:id="en_4419" xml:lang="en">/FlightSeatArrangement</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_5670" xml:lang="de">Art des Service</para><para xml:id="en_5670" xml:lang="en">Type of service</para></td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/Insurance</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art der Versicherung</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
-								<td rowspan="1" colspan="1">&gt;= ServiceFeature</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/CarRental</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Mietwagentyp</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/WellnessArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art des Wellnessprogramms</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/SportsArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art des Sportprogramms</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/TransferArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art des Transfers</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/GolfArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art des Golf-Arrangements</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/DivingArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art des Tauch-Arrangements</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/TourArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art der Tour</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/HotelArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art der Hotelzusatzleistung</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/CityArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art der ortsbezogenen Zusatzleistung</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/BoardArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art der verpflegungsbezogenen Zusatzleistung</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">Service</td>
+								<td rowspan="1" colspan="1">AddonServiceType/FlightSeatArrangement</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art der Flugsitzplatzbezogenen Zusatzleistung</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">ServiceFeature</td>
 								<td rowspan="1" colspan="1">AddonServiceFeatureName</td>
 								<td rowspan="1" colspan="1">String</td>
 								<td rowspan="1" colspan="1"><para xml:id="de_5671" xml:lang="de">Vollständige Bezeichnung des Service Feature</para><para xml:id="en_5671" xml:lang="en">Complete description of service feature</para></td>
@@ -25067,8 +25121,8 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
-								<td rowspan="1" colspan="1">&gt;= Addon</td>
-								<td rowspan="1" colspan="1">AddonCatchmentRailwayStation</td>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">AddonCatchmentRailwayStations</td>
 								<td rowspan="1" colspan="1">
 								<para xml:lang="de" xml:id="de_5709">Mit folgenden Unterelementen:</para><para xml:lang="en" xml:id="en_5709">With the following sub-elements:</para>
 								<itemizedlist>
@@ -25082,29 +25136,36 @@ usw.]]></programlisting>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
-								<td rowspan="1" colspan="1"><para xml:lang="de" xml:id="de_5333">&gt;= Addon</para><para xml:lang="en" xml:id="en_5333">&gt;= Addon</para><para xml:lang="de" xml:id="de_5334">&gt;=
-									Service</para><para xml:lang="en" xml:id="en_5334">&gt;= Service</para><para xml:lang="de" xml:id="de_5335">&gt;= ServiceFeature</para><para xml:lang="en" xml:id="en_5335">&gt;= ServiceFeature</para></td>
-								<td rowspan="1" colspan="1">AddonCarRentalProperties</td>
-								<td rowspan="1" colspan="1">
-									<para xml:lang="de" xml:id="de_5336">Mit folgenden Unterelementen:</para><para xml:lang="en" xml:id="en_5336">With the following sub-elements:</para>
-									<itemizedlist>
-										<listitem>
-											<para xml:lang="de" xml:id="de_5337">/CarRentalStationType</para><para xml:lang="en" xml:id="en_5337">/CarRentalStationType</para>
-										</listitem>
-										<listitem>
-											<para xml:lang="de" xml:id="de_5338">/FuelOptions</para><para xml:lang="en" xml:id="en_5338">/FuelOptions</para>
-										</listitem>
-										<listitem>
-											<para xml:lang="de" xml:id="de_5339">/CarSpecifications</para><para xml:lang="en" xml:id="en_5339">/CarSpecifications</para>
-										</listitem>
-										<listitem>
-											<para xml:lang="de" xml:id="de_5340">/Insurance</para><para xml:lang="en" xml:id="en_5340">/Insurance</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_5673" xml:lang="de">Weitere Eigenschaften für Mietwagen</para><para xml:id="en_5673" xml:lang="en">Further characteristics of rental cars</para></td>
+								<td rowspan="1" colspan="1">ServiceFeature</td>
+								<td rowspan="1" colspan="1">AddonCarRentalProperties/CarRentalStationType</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Art der Mietwagenstation</para></td>
 								<td rowspan="1" colspan="1"/>
-							</tr>							
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">ServiceFeature</td>
+								<td rowspan="1" colspan="1">AddonCarRentalProperties/FuelOptions</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Tankregelungen</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">ServiceFeature</td>
+								<td rowspan="1" colspan="1">AddonCarRentalProperties/CarSpecifications</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Mietwagen Ausstattungen</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Addon</td>
+								<td rowspan="1" colspan="1">ServiceFeature</td>
+								<td rowspan="1" colspan="1">AddonCarRentalProperties/Insurance</td>
+								<td rowspan="1" colspan="1">String</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Mietwagenversicherungsoptionen</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>				
 						</informaltable>
 					
 
@@ -25482,129 +25543,126 @@ usw.]]></programlisting>
 				<section xml:id="AnhangPropertiesFlights">
 					<title><phrase xml:id="de_4513" xml:lang="de">Properties - Flüge</phrase><phrase xml:id="en_4513" xml:lang="en">Properties - flights</phrase></title>
 					
-						<informaltable border="0" style="border-collapse:  collapse;width:1008pt" width="1344">
-							<col width="121.0px"/>
-							<col width="183.0px"/>
-							<col width="252.0px"/>
-							<col width="258.0px"/>
-							<col width="429.0px"/>
-							<col width="212.0px"/>
-							<thead>
-								<tr>
-									<td rowspan="1" colspan="1"><para xml:id="de_5674" xml:lang="de">Komponente</para><para xml:id="en_5674" xml:lang="en">Component</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5675" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5675" xml:lang="en">Admitted levels</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5676" xml:lang="de">Element/Path</para><para xml:id="en_5676" xml:lang="en">Element/Path</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5677" xml:lang="de">Values</para><para xml:id="en_5677" xml:lang="en">Values</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5678" xml:lang="de">Bedeutung</para><para xml:id="en_5678" xml:lang="en">Meaning</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5679" xml:lang="de">Conditions</para><para xml:id="en_5679" xml:lang="en">Conditions</para></td>
-								</tr>
-							</thead>
+					<informaltable border="0" style="border-collapse:  collapse;width:1008pt" width="1344">
+						<col width="121.0px"/>
+						<col width="183.0px"/>
+						<col width="252.0px"/>
+						<col width="258.0px"/>
+						<col width="429.0px"/>
+						<col width="212.0px"/>
+						<thead>
 							<tr>
-								<td rowspan="1" colspan="1">Flights</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_4514" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4514" xml:lang="en">&gt;= OnewayFlight</para><para xml:id="de_4515" xml:lang="de">&gt;=
-										ReturnFlight/Outbound</para><para xml:id="en_4515" xml:lang="en">&gt;= ReturnFlight/Outbound</para><para xml:id="de_4516" xml:lang="de">&gt;=
-									ReturnFlight/Inbound</para><para xml:id="en_4516" xml:lang="en">&gt;= ReturnFlight/Inbound</para></td>
-								<td rowspan="1" colspan="1">FlightBookingClassBaggageAllowances</td>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4517" xml:lang="de">Mit folgenden Unterelementen:</para><para xml:id="en_4517" xml:lang="en">Mit folgenden Unterelementen:</para>
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4518" xml:lang="de">/BaggageAllowance/Pieces</para><para xml:id="en_4518" xml:lang="en">/BaggageAllowance/Pieces</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4519" xml:lang="de">/BaggageAllowance/Weight</para><para xml:id="en_4519" xml:lang="en">/BaggageAllowance/Weight</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4520" xml:lang="de">/BaggageAllowance/Unit</para><para xml:id="en_4520" xml:lang="en">/BaggageAllowance/Unit</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4521" xml:lang="de">/BaggageAllowance/Size</para><para xml:id="en_4521" xml:lang="en">/BaggageAllowance/Size</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_5680" xml:lang="de">Gepäckbestimmungen, unterschieden nach CheckIn Gepäck und Handgepäck</para><para xml:id="en_5680" xml:lang="en">Baggage allowance, distinguished by checkin luggage and hand baggage</para></td>
-								<td rowspan="1" colspan="1"/>
+								<td rowspan="1" colspan="1"><para xml:id="de_5674" xml:lang="de">Komponente</para><para xml:id="en_5674" xml:lang="en">Component</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5675" xml:lang="de">PropertyAggregatingComponent</para><para xml:id="en_5675" xml:lang="en">PropertyAggregatingComponent</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5676" xml:lang="de">PropertyIdentifier</para><para xml:id="en_5676" xml:lang="en">PropertyIdentifier</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5677" xml:lang="de">Values</para><para xml:id="en_5677" xml:lang="en">Values</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5678" xml:lang="de">Bedeutung</para><para xml:id="en_5678" xml:lang="en">Meaning</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5679" xml:lang="de">Conditions</para><para xml:id="en_5679" xml:lang="en">Conditions</para></td>
 							</tr>
-							<tr>
-								<td rowspan="1" colspan="1">Flights</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_4522" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4522" xml:lang="en">&gt;= OnewayFlight</para><para xml:id="de_4523" xml:lang="de">&gt;=
-										ReturnFlight/Outbound</para><para xml:id="en_4523" xml:lang="en">&gt;= ReturnFlight/Outbound</para><para xml:id="de_4524" xml:lang="de">&gt;=
-									ReturnFlight/Inbound</para><para xml:id="en_4524" xml:lang="en">&gt;= ReturnFlight/Inbound</para></td>
-								<td rowspan="1" colspan="1">FlightRoute</td>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4525" xml:lang="de">Mit folgenden Unterelementen:</para><para xml:id="en_4525" xml:lang="en">Mit folgenden Unterelementen:</para>
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4526" xml:lang="de">/Departure</para><para xml:id="en_4526" xml:lang="en">/Departure</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4527" xml:lang="de">/Arrival</para><para xml:id="en_4527" xml:lang="en">/Arrival</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4528" xml:lang="de">/Operating</para><para xml:id="en_4528" xml:lang="en">/Operating</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4529" xml:lang="de">/Operating/Carrier</para><para xml:id="en_4529" xml:lang="en">/Operating/Carrier</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4530" xml:lang="de">/Operating/FlightNumber</para><para xml:id="en_4530" xml:lang="en">/Operating/FlightNumber</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4531" xml:lang="de">/Marketing</para><para xml:id="en_4531" xml:lang="en">/Marketing</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4532" xml:lang="de">/Marketing/Carrier</para><para xml:id="en_4532" xml:lang="en">/Marketing/Carrier</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4533" xml:lang="de">/Marketing/FlightNumber</para><para xml:id="en_4533" xml:lang="en">/Marketing/FlightNumber</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4534" xml:lang="de">/FlightType</para><para xml:id="en_4534" xml:lang="en">/FlightType</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4535" xml:lang="de">/FlightBookingClassType</para><para xml:id="en_4535" xml:lang="en">/FlightBookingClassType</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4536" xml:lang="de">/ElapsedFlyingTime</para><para xml:id="en_4536" xml:lang="en">/ElapsedFlyingTime</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4537" xml:lang="de">/Equipment</para><para xml:id="en_4537" xml:lang="en">/Equipment</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4538" xml:lang="de">/StopOvers</para><para xml:id="en_4538" xml:lang="en">/StopOvers</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_5681" xml:lang="de">Alle notwendigen Informationen zur Beschreibung der Flug-Route und der Rahmenparameter.</para><para xml:id="en_5681" xml:lang="en">All necessary information to describe the flight route and the
-									framework parameters</para></td>
-								<td rowspan="1" colspan="1"/>
-							</tr>
-							<tr>
-								<td rowspan="1" colspan="1">Flights</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_4539" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4539" xml:lang="en">&gt;= OnewayFlight</para><para xml:id="de_4540" xml:lang="de">&gt;=
-										ReturnFlight/Outbound</para><para xml:id="en_4540" xml:lang="en">&gt;= ReturnFlight/Outbound</para><para xml:id="de_4541" xml:lang="de">&gt;=
-									ReturnFlight/Inbound</para><para xml:id="en_4541" xml:lang="en">&gt;= ReturnFlight/Inbound</para></td>
-								<td rowspan="1" colspan="1">FlightBookingClassType</td>
-								<td rowspan="1" colspan="1">
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4542" xml:lang="de">Economy</para><para xml:id="en_4542" xml:lang="en">Economy</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4543" xml:lang="de">PremiumEconomy</para><para xml:id="en_4543" xml:lang="en">PremiumEconomy</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4544" xml:lang="de">Business</para><para xml:id="en_4544" xml:lang="en">Business</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4545" xml:lang="de">First</para><para xml:id="en_4545" xml:lang="en">First</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_5682" xml:lang="de">Klasse, in der sich der Sitz befindet</para><para xml:id="en_5682" xml:lang="en">Class in which the seat is located</para></td>
-								<td rowspan="1" colspan="1"/>
-							</tr>
-						</informaltable>
+						</thead>
+						<tr>
+							<td rowspan="1" colspan="1">Flights</td>
+							<td rowspan="1" colspan="1"><para xml:lang="de">Flight (Falls es Outbound und Inbound gibt, dann jeweils Zuordnung auf den nächsten Outbound bzw. Inbound, falls nicht, dann Zuordnung auf den nächsten OnewayFlight)</para></td>
+							<td rowspan="1" colspan="1">FlightBookingClassBaggageAllowances</td>
+							<td rowspan="1" colspan="1">
+								<para xml:id="de_4517" xml:lang="de">Mit folgenden Unterelementen:</para><para xml:id="en_4517" xml:lang="en">Mit folgenden Unterelementen:</para>
+								<itemizedlist>
+									<listitem>
+										<para xml:lang="de">/BaggageAllowance/@BaggageType</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4518" xml:lang="de">/BaggageAllowance/Pieces</para><para xml:id="en_4518" xml:lang="en">/BaggageAllowance/Pieces</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4519" xml:lang="de">/BaggageAllowance/Weight</para><para xml:id="en_4519" xml:lang="en">/BaggageAllowance/Weight</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4520" xml:lang="de">/BaggageAllowance/Unit</para><para xml:id="en_4520" xml:lang="en">/BaggageAllowance/Unit</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4521" xml:lang="de">/BaggageAllowance/Size</para><para xml:id="en_4521" xml:lang="en">/BaggageAllowance/Size</para>
+									</listitem>
+								</itemizedlist>
+							</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_5680" xml:lang="de">Gepäckbestimmungen, unterschieden nach CheckIn Gepäck und Handgepäck</para><para xml:id="en_5680" xml:lang="en">Baggage allowance, distinguished by checkin luggage and hand baggage</para></td>
+							<td rowspan="1" colspan="1"/>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">Flights</td>
+							<td rowspan="1" colspan="1"><para xml:lang="de">Flight (Falls es Outbound und Inbound gibt, dann jeweils Zuordnung auf den nächsten Outbound bzw. Inbound, falls nicht, dann Zuordnung auf den nächsten OnewayFlight)</para></td>
+							<td rowspan="1" colspan="1">FlightRoutes</td>
+							<td rowspan="1" colspan="1">
+								<para xml:id="de_4525" xml:lang="de">Mit folgenden Unterelementen:</para><para xml:id="en_4525" xml:lang="en">Mit folgenden Unterelementen:</para>
+								<itemizedlist>
+									<listitem>
+										<para xml:id="de_4526" xml:lang="de">/Departure</para><para xml:id="en_4526" xml:lang="en">/Departure</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4527" xml:lang="de">/Arrival</para><para xml:id="en_4527" xml:lang="en">/Arrival</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4528" xml:lang="de">/Operating</para><para xml:id="en_4528" xml:lang="en">/Operating</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4529" xml:lang="de">/Operating/Carrier</para><para xml:id="en_4529" xml:lang="en">/Operating/Carrier</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4530" xml:lang="de">/Operating/FlightNumber</para><para xml:id="en_4530" xml:lang="en">/Operating/FlightNumber</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4531" xml:lang="de">/Marketing</para><para xml:id="en_4531" xml:lang="en">/Marketing</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4532" xml:lang="de">/Marketing/Carrier</para><para xml:id="en_4532" xml:lang="en">/Marketing/Carrier</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4533" xml:lang="de">/Marketing/FlightNumber</para><para xml:id="en_4533" xml:lang="en">/Marketing/FlightNumber</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4534" xml:lang="de">/FlightType</para><para xml:id="en_4534" xml:lang="en">/FlightType</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4535" xml:lang="de">/FlightBookingClassType</para><para xml:id="en_4535" xml:lang="en">/FlightBookingClassType</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4536" xml:lang="de">/ElapsedFlyingTime</para><para xml:id="en_4536" xml:lang="en">/ElapsedFlyingTime</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4537" xml:lang="de">/Equipment</para><para xml:id="en_4537" xml:lang="en">/Equipment</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4538" xml:lang="de">/StopOvers</para><para xml:id="en_4538" xml:lang="en">/StopOvers</para>
+									</listitem>
+								</itemizedlist>
+							</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_5681" xml:lang="de">Alle notwendigen Informationen zur Beschreibung der Flug-Route und der Rahmenparameter.</para><para xml:id="en_5681" xml:lang="en">All necessary information to describe the flight route and the
+								framework parameters</para></td>
+							<td rowspan="1" colspan="1"/>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">Flights</td>
+							<td rowspan="1" colspan="1"><para xml:lang="de">BookingClass</para></td>
+							<td rowspan="1" colspan="1">FlightBookingClassType</td>
+							<td rowspan="1" colspan="1">
+								<itemizedlist>
+									<listitem>
+										<para xml:id="de_4542" xml:lang="de">Economy</para><para xml:id="en_4542" xml:lang="en">Economy</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4543" xml:lang="de">PremiumEconomy</para><para xml:id="en_4543" xml:lang="en">PremiumEconomy</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4544" xml:lang="de">Business</para><para xml:id="en_4544" xml:lang="en">Business</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_4545" xml:lang="de">First</para><para xml:id="en_4545" xml:lang="en">First</para>
+									</listitem>
+								</itemizedlist>
+							</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_5682" xml:lang="de">Klasse, in der sich der Sitz befindet</para><para xml:id="en_5682" xml:lang="en">Class in which the seat is located</para></td>
+							<td rowspan="1" colspan="1"/>
+						</tr>
+					</informaltable>
 					
 					<para xml:id="de_4546" xml:lang="de">Flugkomponenten werden über folgende Properties-Elemente genauer spezifiziert
 						werden:</para><para xml:id="en_4546" xml:lang="en">Flight components are more accurately specified via the following property elements.</para>
@@ -25615,21 +25673,18 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_4548" xml:lang="de">FlightRoute</para><para xml:id="en_4548" xml:lang="en">FlightRoute</para>
 						</listitem>
-						<listitem>
-							<para xml:id="de_4549" xml:lang="de">PriceType</para><para xml:id="en_4549" xml:lang="en">PriceType</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_4550" xml:lang="de">GeneralIncludedService</para><para xml:id="en_4550" xml:lang="en">GeneralIncludedService</para>
-						</listitem>
-					</itemizedlist>
+					</itemizedlist>	
 				</section>
-				<section xml:id="AnhangPropertiesPriceTypes">
+				
+				
+				
+				<section xml:id="AnhangPropertiesProduct">
 					<title><phrase xml:id="de_4551" xml:lang="de">Properties - GeneralIncluded,
 							MandatoryServicesPaidAtLocation (Version 1.9.1, zuvor: GeneralExcluded,
-							V1.9), PriceType, TextInformation</phrase><phrase xml:id="en_4551"
+							V1.9)</phrase><phrase xml:id="en_4551"
 							xml:lang="en">Properties - GeneralIncluded,
 							MandatoryServicesPaidAtLocation (version 1.9.1, previously:
-							GeneralExcluded, v1.9), PriceType, TextInformation</phrase></title>
+							GeneralExcluded, v1.9)</phrase></title>
 					
 						<informaltable border="0" style="border-collapse:  collapse;width:1008pt" width="1344">
 							<col width="121.0px"/>
@@ -25641,7 +25696,7 @@ usw.]]></programlisting>
 							<thead>
 								<tr>
 									<td rowspan="1" colspan="1"><para xml:id="de_5683" xml:lang="de">Komponente</para><para xml:id="en_5683" xml:lang="en">Component</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5684" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5684" xml:lang="en">Admitted levels</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5684" xml:lang="de">PropertyAggregatingComponent</para><para xml:id="en_5684" xml:lang="en">Admitted levels</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5685" xml:lang="de">Element/Path</para><para xml:id="en_5685" xml:lang="en">Element/Path</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5686" xml:lang="de">Values</para><para xml:id="en_5686" xml:lang="en">Values</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5687" xml:lang="de">Bedeutung</para><para xml:id="en_5687" xml:lang="en">Meaning</para></td>
@@ -25649,137 +25704,8 @@ usw.]]></programlisting>
 								</tr>
 							</thead>
 							<tr>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4552" xml:lang="de">Addon</para><para xml:id="en_4552" xml:lang="en">Addon</para><para xml:id="de_4553" xml:lang="de">Accommodation</para><para xml:id="en_4553" xml:lang="en">Accommodation</para><para xml:id="de_4554" xml:lang="de">Flights</para><para xml:id="en_4554" xml:lang="en">Flights</para>
-								</td>
-								<td rowspan="1" colspan="1">
-								<para xml:id="de_4555" xml:lang="de">&gt;= Addon</para><para xml:id="en_4555" xml:lang="en">&gt;= Addon</para>
-								<para xml:id="de_4556" xml:lang="de">&gt;= AddonService</para><para xml:id="en_4556" xml:lang="en">&gt;= AddonService</para>
-								<para xml:id="de_4557" xml:lang="de">&gt;= SellingAccom</para><para xml:id="en_4557" xml:lang="en">&gt;= SellingAccom</para>
-								<para xml:id="de_4558" xml:lang="de">&gt;= Unit</para><para xml:id="en_4558" xml:lang="en">&gt;= Unit</para>
-								<para xml:id="de_4559" xml:lang="de">&gt;= Board</para><para xml:id="en_4559" xml:lang="en">&gt;= Board</para><para xml:id="de_4560" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4560" xml:lang="en">&gt;= OnewayFlight</para><para xml:id="de_4561" xml:lang="de">&gt;=
-										ReturnFlight/Outbound</para><para xml:id="en_4561" xml:lang="en">&gt;= ReturnFlight/Outbound</para><para xml:id="de_4562" xml:lang="de">&gt;=
-									ReturnFlight/Inbound</para><para xml:id="en_4562" xml:lang="en">&gt;= ReturnFlight/Inbound</para></td>
-								<td rowspan="1" colspan="1">PriceType</td>
-								<td rowspan="1" colspan="1">
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4563" xml:lang="de">Base</para><para xml:id="en_4563" xml:lang="en">Base</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4564" xml:lang="de">Board</para><para xml:id="en_4564" xml:lang="en">Board</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4565" xml:lang="de">EarlyBird</para><para xml:id="en_4565" xml:lang="en">EarlyBird</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4566" xml:lang="de">ExtraDay</para><para xml:id="en_4566" xml:lang="en">ExtraDay</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4567" xml:lang="de">StayPay</para><para xml:id="en_4567" xml:lang="en">StayPay</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4568" xml:lang="de">ChildReduction</para><para xml:id="en_4568" xml:lang="en">ChildReduction</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4569" xml:lang="de">DurationReduction</para><para xml:id="en_4569" xml:lang="en">DurationReduction</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4570" xml:lang="de">ChildPrice</para><para xml:id="en_4570" xml:lang="en">ChildPrice</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4571" xml:lang="de">OccupancyReduction</para><para xml:id="en_4571" xml:lang="en">OccupancyReduction</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4572" xml:lang="de">OccupancySupplement</para><para xml:id="en_4572" xml:lang="en">OccupancySupplement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4573" xml:lang="de">BoardChildReduction</para><para xml:id="en_4573" xml:lang="en">BoardChildReduction</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4574" xml:lang="de">BoardSupplement</para><para xml:id="en_4574" xml:lang="en">BoardSupplement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4575" xml:lang="de">SelfDrivingSupplement</para><para xml:id="en_4575" xml:lang="en">SelfDrivingSupplement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4576" xml:lang="de">GeneralSupplement</para><para xml:id="en_4576" xml:lang="en">GeneralSupplement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4577" xml:lang="de">GeneralDiscount</para><para xml:id="en_4577" xml:lang="en">GeneralDiscount</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4578" xml:lang="de">FuelSurcharge</para><para xml:id="en_4578" xml:lang="en">FuelSurcharge</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4579" xml:lang="de">AirPassengerDuty</para><para xml:id="en_4579" xml:lang="en">AirPassengerDuty</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4580" xml:lang="de">AirportSurcharge</para><para xml:id="en_4580" xml:lang="en">AirportSurcharge</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4581" xml:lang="de">FlightSupplement</para><para xml:id="en_4581" xml:lang="en">FlightSupplement</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4582" xml:lang="de">FlightTax</para><para xml:id="en_4582" xml:lang="en">FlightTax</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4583" xml:lang="de">SecurityCharge</para><para xml:id="en_4583" xml:lang="en">SecurityCharge</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_5689" xml:lang="de">Art des Preises</para><para xml:id="en_5689" xml:lang="en">Price type</para></td>
-								<td rowspan="1" colspan="1"/>
-							</tr>
-							<tr>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4584" xml:lang="de">Addon</para><para xml:id="en_4584" xml:lang="en">Addon</para><para xml:id="de_4585" xml:lang="de">Accommodation</para><para xml:id="en_4585" xml:lang="en">Accommodation</para><para xml:id="de_4586" xml:lang="de">Flights</para><para xml:id="en_4586" xml:lang="en">Flights</para>
-								</td>
-								<td rowspan="1" colspan="1">
-								<para xml:id="de_4587" xml:lang="de">&gt;= Addon</para><para xml:id="en_4587" xml:lang="en">&gt;= Addon</para>
-								<para xml:id="de_4588" xml:lang="de">&gt;= AddonService</para><para xml:id="en_4588" xml:lang="en">&gt;= AddonService</para>
-								<para xml:id="de_4589" xml:lang="de">&gt;= SellingAccom</para><para xml:id="en_4589" xml:lang="en">&gt;= SellingAccom</para>
-								<para xml:id="de_4590" xml:lang="de">&gt;= Unit</para><para xml:id="en_4590" xml:lang="en">&gt;= Unit</para>
-								<para xml:id="de_4591" xml:lang="de">&gt;= Board</para><para xml:id="en_4591" xml:lang="en">&gt;= Board</para>
-								<para xml:id="de_4592" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4592" xml:lang="en">&gt;= OnewayFlight</para>
-								<para xml:id="de_4593" xml:lang="de">&gt;= ReturnFlight/Outbound</para><para xml:id="en_4593" xml:lang="en">&gt;= ReturnFlight/Outbound</para>
-								<para xml:id="de_4594" xml:lang="de">&gt;= ReturnFlight/Inbound</para><para xml:id="en_4594" xml:lang="en">&gt;= ReturnFlight/Inbound</para>
-							</td>
-								<td rowspan="1" colspan="1">TextInformation</td>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4595" xml:lang="de">Mit folgendem Unterelement:</para><para xml:id="en_4595" xml:lang="en">With the following sub-element:</para>
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4596" xml:lang="de">/Text</para><para xml:id="en_4596" xml:lang="en">/Text</para>
-										</listitem>
-									</itemizedlist>
-									<para xml:id="de_4597" xml:lang="de">Mit folgenden Attributen:</para><para xml:id="en_4597" xml:lang="en">With the following attributes:</para>
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4598" xml:lang="de">ConfirmBeforeBooking</para><para xml:id="en_4598" xml:lang="en">ConfirmBeforeBooking</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4599" xml:lang="de">Display</para><para xml:id="en_4599" xml:lang="en">Display</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_5690" xml:lang="de">Buchungsrelevante Nachrichten, die ggfs. vor der Buchung vom Buchenden bestätigt werden müssen.</para><para xml:id="en_5690" xml:lang="en">Information relevant for booking that might need to be confirmed by the traveller before booking</para></td>
-								<td rowspan="1" colspan="1"/>
-							</tr>
-							<tr>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4600" xml:lang="de">Addon</para><para xml:id="en_4600" xml:lang="en">Addon</para><para xml:id="de_4601" xml:lang="de">Accommodation</para><para xml:id="en_4601" xml:lang="en">Accommodation</para><para xml:id="de_4602" xml:lang="de">Flights</para><para xml:id="en_4602" xml:lang="en">Flights</para>
-								</td>
-								<td rowspan="1" colspan="1">
-								<para xml:id="de_4603" xml:lang="de">&gt;= Addon</para><para xml:id="en_4603" xml:lang="en">&gt;= Addon</para>
-								<para xml:id="de_4604" xml:lang="de">&gt;= AddonService</para><para xml:id="en_4604" xml:lang="en">&gt;= AddonService</para>
-								<para xml:id="de_4605" xml:lang="de">&gt;= SellingAccom</para><para xml:id="en_4605" xml:lang="en">&gt;= SellingAccom</para>
-								<para xml:id="de_4606" xml:lang="de">&gt;= Unit</para><para xml:id="en_4606" xml:lang="en">&gt;= Unit</para>
-								<para xml:id="de_4607" xml:lang="de">&gt;= Board</para><para xml:id="en_4607" xml:lang="en">&gt;= Board</para>
-								<para xml:id="de_4608" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4608" xml:lang="en">&gt;= OnewayFlight</para>
-								<para xml:id="de_4609" xml:lang="de">&gt;= ReturnFlight/Outbound</para><para xml:id="en_4609" xml:lang="en">&gt;= ReturnFlight/Outbound</para>
-								<para xml:id="de_4610" xml:lang="de">&gt;= ReturnFlight/Inbound</para><para xml:id="en_4610" xml:lang="en">&gt;= ReturnFlight/Inbound</para>
-							</td>
+								<td rowspan="1" colspan="1">In alle Komponenten möglich<para xml:lang="de"></para></td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Product</para></td>
 								<td rowspan="1" colspan="1">GeneralIncludedService</td>
 								<td rowspan="1" colspan="1">
 									<itemizedlist>
@@ -25855,22 +25781,11 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4630" xml:lang="de">Addon</para><para xml:id="en_4630" xml:lang="en">Addon</para><para xml:id="de_4631" xml:lang="de">Accommodation</para><para xml:id="en_4631" xml:lang="en">Accommodation</para><para xml:id="de_4632" xml:lang="de">Flights</para><para xml:id="en_4632" xml:lang="en">Flights</para>
-								</td>
-								<td rowspan="1" colspan="1">
-								<para xml:id="de_4633" xml:lang="de">&gt;= Addon</para><para xml:id="en_4633" xml:lang="en">&gt;= Addon</para>
-								<para xml:id="de_4634" xml:lang="de">&gt;= AddonService</para><para xml:id="en_4634" xml:lang="en">&gt;= AddonService</para>
-								<para xml:id="de_4635" xml:lang="de">&gt;= SellingAccom</para><para xml:id="en_4635" xml:lang="en">&gt;= SellingAccom</para>
-								<para xml:id="de_4636" xml:lang="de">&gt;= Unit</para><para xml:id="en_4636" xml:lang="en">&gt;= Unit</para>
-								<para xml:id="de_4637" xml:lang="de">&gt;= Board</para><para xml:id="en_4637" xml:lang="en">&gt;= Board</para>
-								<para xml:id="de_4638" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4638" xml:lang="en">&gt;= OnewayFlight</para>
-								<para xml:id="de_4639" xml:lang="de">&gt;= ReturnFlight/Outbound</para><para xml:id="en_4639" xml:lang="en">&gt;= ReturnFlight/Outbound</para>
-								<para xml:id="de_4640" xml:lang="de">&gt;= ReturnFlight/Inbound</para><para xml:id="en_4640" xml:lang="en">&gt;= ReturnFlight/Inbound</para>
-							</td>
-							<td rowspan="1" colspan="1">MandatoryServicesPaidAtLocation (V1.9.1) (previously:
+								<td rowspan="1" colspan="1">In alle Komponenten möglich<para xml:lang="de"></para></td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Product</para></td>
+								<td rowspan="1" colspan="1">MandatoryServicesPaidAtLocation (V1.9.1) (previously:
 								GeneralExcludedService, v1.9)</td>
-							<td rowspan="1" colspan="1">
+								<td rowspan="1" colspan="1">
 								<itemizedlist>
 									<listitem>
 										<para xml:id="de_4641" xml:lang="de">FinalCleanUp</para><para xml:id="en_4641" xml:lang="en">FinalCleanUp</para>
@@ -25901,20 +25816,203 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1"><para xml:id="de_5692" xml:lang="de">Zusatzleistungen, die obligatorischer Bestandteil des Angebotes sind und zusätzliche Kosten vor Ort verursachen</para><para xml:id="en_5692" xml:lang="en">Additional services that are mandatory part of the service and cause additional costs at the destination</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
+						</informaltable>
+					
+					<para xml:id="de_4661" xml:lang="de">Liste der Preistypen (PriceType) - PriceTypes beinhalten keine impliziten Regeln und
+						dienen der Anzeige in internen (Browser-)Systemen:</para><para xml:id="en_4661" xml:lang="en">List of the price types (PriceType) - PriceTypes contains no implicit rules and serve as display in internal (browser) systems:</para>
+					
+					<itemizedlist>
+						<listitem>
+							<para xml:id="de_4663" xml:lang="de">Base </para><para xml:id="en_4663" xml:lang="en">Base</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4664" xml:lang="de">Board </para><para xml:id="en_4664" xml:lang="en">Board</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4665" xml:lang="de">EarlyBird </para><para xml:id="en_4665" xml:lang="en">EarlyBird</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4666" xml:lang="de">ExtraDay </para><para xml:id="en_4666" xml:lang="en">ExtraDay</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4667" xml:lang="de">StayPay </para><para xml:id="en_4667" xml:lang="en">StayPay</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4668" xml:lang="de">ChildReduction </para><para xml:id="en_4668" xml:lang="en">ChildReduction</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4669" xml:lang="de">DurationReduction </para><para xml:id="en_4669" xml:lang="en">DurationReduction</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4670" xml:lang="de">ChildPrice </para><para xml:id="en_4670" xml:lang="en">ChildPrice</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4671" xml:lang="de">OccupancyReduction </para><para xml:id="en_4671" xml:lang="en">OccupancyReduction</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4672" xml:lang="de">OccupancySupplement </para><para xml:id="en_4672" xml:lang="en">OccupancySupplement</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4673" xml:lang="de">BoardChildReduction </para><para xml:id="en_4673" xml:lang="en">BoardChildReduction</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4674" xml:lang="de">BoardSupplement </para><para xml:id="en_4674" xml:lang="en">BoardSupplement</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4675" xml:lang="de">SelfDrivingSupplement </para><para xml:id="en_4675" xml:lang="en">SelfDrivingSupplement</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4676" xml:lang="de">GeneralSupplement GeneralDiscount</para><para xml:id="en_4676" xml:lang="en">GeneralSupplement GeneralDiscount</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4677" xml:lang="de">FuelSurcharge</para><para xml:id="en_4677" xml:lang="en">FuelSurcharge</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4678" xml:lang="de">AirPassengerDuty</para><para xml:id="en_4678" xml:lang="en">AirPassengerDuty</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4679" xml:lang="de">AirportSurcharge</para><para xml:id="en_4679" xml:lang="en">AirportSurcharge</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4680" xml:lang="de">FlightSupplement</para><para xml:id="en_4680" xml:lang="en">FlightSupplement</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4681" xml:lang="de">FlightTax</para><para xml:id="en_4681" xml:lang="en">FlightTax</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_4682" xml:lang="de">SecurityCharge</para><para xml:id="en_4682" xml:lang="en">SecurityCharge</para>
+						</listitem>							
+					</itemizedlist>
+					
+					<para xml:id="de_4683" xml:lang="de">
+						<link xlink:href="../technisch/otds_technisch.html#PriceTypeEnum">Weitergehende
+							Informationen sind in der Technischen Dokumentation für OTDS enthalten.</link>
+					</para><para xml:id="en_4683" xml:lang="en"><link xlink:href="../technisch/otds_technisch.html#PriceTypeEnum">Further information can be found in the technical documentation for OTDS.</link></para>
+					<para xml:id="de_4684" xml:lang="de"> </para><para xml:id="en_4684" xml:lang="en"/>
+				</section>
+				<section xml:id="AnhangPropertiesNotAggregated">
+					<title><phrase xml:id="de_4551" xml:lang="de">Properties, die nicht in Komponenteninstanzen zusammengefasst werden - PriceType, TextInformation</phrase><phrase xml:id="en_4551"
+							xml:lang="en">Properties, which will be not aggregated on Component instance level - PriceType, TextInformation</phrase></title>
+					
+						<informaltable border="0" style="border-collapse:  collapse;width:1008pt" width="1344">
+							<col width="121.0px"/>
+							<col width="183.0px"/>
+							<col width="252.0px"/>
+							<col width="258.0px"/>
+							<col width="429.0px"/>
+							<col width="212.0px"/>
+							<thead>
+								<tr>
+									<td rowspan="1" colspan="1"><para xml:id="de_5683" xml:lang="de">Komponente</para><para xml:id="en_5683" xml:lang="en">Component</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5684" xml:lang="de">PropertyAggregatingComponent</para><para xml:id="en_5684" xml:lang="en">PropertyAggregatingComponent</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5685" xml:lang="de">PropertyIdentifier</para><para xml:id="en_5685" xml:lang="en">PropertyIdentifier</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5686" xml:lang="de">Values</para><para xml:id="en_5686" xml:lang="en">Values</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5687" xml:lang="de">Bedeutung</para><para xml:id="en_5687" xml:lang="en">Meaning</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5688" xml:lang="de">Conditions</para><para xml:id="en_5688" xml:lang="en">Conditions</para></td>
+								</tr>
+							</thead>
 							<tr>
+								<td rowspan="1" colspan="1">In allen Komponenten möglich<para xml:lang="de"></para></td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Wird nicht aggregiert</para></td>
+								<td rowspan="1" colspan="1">PriceType</td>
 								<td rowspan="1" colspan="1">
-									<para xml:id="de_4649" xml:lang="de">Addon</para><para xml:id="en_4649" xml:lang="en">Addon</para><para xml:id="de_4650" xml:lang="de">Accommodation</para><para xml:id="en_4650" xml:lang="en">Accommodation</para><para xml:id="de_4651" xml:lang="de">Flights</para><para xml:id="en_4651" xml:lang="en">Flights</para>
+									<itemizedlist>
+										<listitem>
+											<para xml:id="de_4563" xml:lang="de">Base</para><para xml:id="en_4563" xml:lang="en">Base</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4564" xml:lang="de">Board</para><para xml:id="en_4564" xml:lang="en">Board</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4565" xml:lang="de">EarlyBird</para><para xml:id="en_4565" xml:lang="en">EarlyBird</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4566" xml:lang="de">ExtraDay</para><para xml:id="en_4566" xml:lang="en">ExtraDay</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4567" xml:lang="de">StayPay</para><para xml:id="en_4567" xml:lang="en">StayPay</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4568" xml:lang="de">ChildReduction</para><para xml:id="en_4568" xml:lang="en">ChildReduction</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4569" xml:lang="de">DurationReduction</para><para xml:id="en_4569" xml:lang="en">DurationReduction</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4570" xml:lang="de">ChildPrice</para><para xml:id="en_4570" xml:lang="en">ChildPrice</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4571" xml:lang="de">OccupancyReduction</para><para xml:id="en_4571" xml:lang="en">OccupancyReduction</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4572" xml:lang="de">OccupancySupplement</para><para xml:id="en_4572" xml:lang="en">OccupancySupplement</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4573" xml:lang="de">BoardChildReduction</para><para xml:id="en_4573" xml:lang="en">BoardChildReduction</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4574" xml:lang="de">BoardSupplement</para><para xml:id="en_4574" xml:lang="en">BoardSupplement</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4575" xml:lang="de">SelfDrivingSupplement</para><para xml:id="en_4575" xml:lang="en">SelfDrivingSupplement</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4576" xml:lang="de">GeneralSupplement</para><para xml:id="en_4576" xml:lang="en">GeneralSupplement</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4577" xml:lang="de">GeneralDiscount</para><para xml:id="en_4577" xml:lang="en">GeneralDiscount</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4578" xml:lang="de">FuelSurcharge</para><para xml:id="en_4578" xml:lang="en">FuelSurcharge</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4579" xml:lang="de">AirPassengerDuty</para><para xml:id="en_4579" xml:lang="en">AirPassengerDuty</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4580" xml:lang="de">AirportSurcharge</para><para xml:id="en_4580" xml:lang="en">AirportSurcharge</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4581" xml:lang="de">FlightSupplement</para><para xml:id="en_4581" xml:lang="en">FlightSupplement</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4582" xml:lang="de">FlightTax</para><para xml:id="en_4582" xml:lang="en">FlightTax</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4583" xml:lang="de">SecurityCharge</para><para xml:id="en_4583" xml:lang="en">SecurityCharge</para>
+										</listitem>
+									</itemizedlist>
 								</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5689" xml:lang="de">Art des Preises</para><para xml:id="en_5689" xml:lang="en">Price type</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1"><para xml:lang="de">In alle Komponenten möglich</para></td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Wird nicht aggregiert</para></td>
+								<td rowspan="1" colspan="1">TextInformation</td>
 								<td rowspan="1" colspan="1">
-								<para xml:id="de_4652" xml:lang="de">&gt;= Addon</para><para xml:id="en_4652" xml:lang="en">&gt;= Addon</para>
-								<para xml:id="de_4653" xml:lang="de">&gt;= AddonService</para><para xml:id="en_4653" xml:lang="en">&gt;= AddonService</para>
-								<para xml:id="de_4654" xml:lang="de">&gt;= SellingAccom</para><para xml:id="en_4654" xml:lang="en">&gt;= SellingAccom</para>
-								<para xml:id="de_4655" xml:lang="de">&gt;= Unit</para><para xml:id="en_4655" xml:lang="en">&gt;= Unit</para>
-								<para xml:id="de_4656" xml:lang="de">&gt;= Board</para><para xml:id="en_4656" xml:lang="en">&gt;= Board</para>
-								<para xml:id="de_4657" xml:lang="de">&gt;= OnewayFlight</para><para xml:id="en_4657" xml:lang="en">&gt;= OnewayFlight</para>
-								<para xml:id="de_4658" xml:lang="de">&gt;= ReturnFlight/Outbound</para><para xml:id="en_4658" xml:lang="en">&gt;= ReturnFlight/Outbound</para>
-								<para xml:id="de_4659" xml:lang="de">&gt;= ReturnFlight/Inbound</para><para xml:id="en_4659" xml:lang="en">&gt;= ReturnFlight/Inbound</para>
-							</td>
+									<para xml:id="de_4595" xml:lang="de">Mit folgendem Unterelement:</para><para xml:id="en_4595" xml:lang="en">With the following sub-element:</para>
+									<itemizedlist>
+										<listitem>
+											<para xml:id="de_4596" xml:lang="de">/Text</para><para xml:id="en_4596" xml:lang="en">/Text</para>
+										</listitem>
+									</itemizedlist>
+									<para xml:id="de_4597" xml:lang="de">Mit folgenden Attributen:</para><para xml:id="en_4597" xml:lang="en">With the following attributes:</para>
+									<itemizedlist>
+										<listitem>
+											<para xml:id="de_4598" xml:lang="de">ConfirmBeforeBooking</para><para xml:id="en_4598" xml:lang="en">ConfirmBeforeBooking</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_4599" xml:lang="de">Display</para><para xml:id="en_4599" xml:lang="en">Display</para>
+										</listitem>
+									</itemizedlist>
+								</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5690" xml:lang="de">Buchungsrelevante Nachrichten, die ggfs. vor der Buchung vom Buchenden bestätigt werden müssen.</para><para xml:id="en_5690" xml:lang="en">Information relevant for booking that might need to be confirmed by the traveller before booking</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							
+							<tr>
+								<td rowspan="1" colspan="1">In alle Komponenten möglich<para xml:lang="de"></para></td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Wird je nach Absprache mit dem VEranstalter aggregiert</para></td>
 								<td rowspan="1" colspan="1">OtdsUnboundedProperties</td>
 								<td rowspan="1" colspan="1">
 									<para xml:id="de_4660" xml:lang="de">In OTDS nicht spezifizierte Unterelemente</para><para xml:id="en_4660" xml:lang="en">Sub-elements not specified in OTDS</para>
@@ -26012,135 +26110,115 @@ usw.]]></programlisting>
 							<thead>
 								<tr>
 									<td rowspan="1" colspan="1"><para xml:id="de_5694" xml:lang="de">Komponente</para><para xml:id="en_5694" xml:lang="en">Component</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5695" xml:lang="de">Zugelassene Ebenen</para><para xml:id="en_5695" xml:lang="en">Admitted levels</para></td>
-									<td rowspan="1" colspan="1"><para xml:id="de_5696" xml:lang="de">Element/Path</para><para xml:id="en_5696" xml:lang="en">Element/Path</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5695" xml:lang="de">PropertyAggregatingComponent</para><para xml:id="en_5695" xml:lang="en">PropertyAggregatingComponent</para></td>
+									<td rowspan="1" colspan="1"><para xml:id="de_5696" xml:lang="de">PropertyIdentifier</para><para xml:id="en_5696" xml:lang="en">PropertyIdentifier</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5697" xml:lang="de">Values</para><para xml:id="en_5697" xml:lang="en">Values</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5698" xml:lang="de">Bedeutung</para><para xml:id="en_5698" xml:lang="en">Meaning</para></td>
 									<td rowspan="1" colspan="1"><para xml:id="de_5699" xml:lang="de">Conditions</para><para xml:id="en_5699" xml:lang="en">Conditions</para></td>
 								</tr>
 							</thead>
 							<tr>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4686" xml:lang="de">Addon</para><para xml:id="en_4686" xml:lang="en">Addon</para><para xml:id="de_4687" xml:lang="de">Accommodation</para><para xml:id="en_4687" xml:lang="en">Accommodation</para>
-								</td>
-								<td rowspan="1" colspan="1">
-								<para xml:id="de_4688" xml:lang="de">&gt;= Addon</para><para xml:id="en_4688" xml:lang="en">&gt;= Addon</para>
-								<para xml:id="de_4689" xml:lang="de">&gt;= AddonService</para><para xml:id="en_4689" xml:lang="en">&gt;= AddonService</para>
-								<para xml:id="de_4690" xml:lang="de">&gt;= SellingAccom</para><para xml:id="en_4690" xml:lang="en">&gt;= SellingAccom</para>
-								<para xml:id="de_4691" xml:lang="de">&gt;= Unit</para><para xml:id="en_4691" xml:lang="en">&gt;= Unit</para>
-								<para xml:id="de_4692" xml:lang="de">&gt;= Board</para><para xml:id="en_4692" xml:lang="en">&gt;= Board</para></td>
-								<td rowspan="1" colspan="1">LocationDistance</td>
-								<td rowspan="1" colspan="1">
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4693" xml:lang="de">Beach</para><para xml:id="en_4693" xml:lang="en">Beach</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4694" xml:lang="de">CityCenter</para><para xml:id="en_4694" xml:lang="en">CityCenter</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4695" xml:lang="de">Shopping</para><para xml:id="en_4695" xml:lang="en">Shopping</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4696" xml:lang="de">Airport</para><para xml:id="en_4696" xml:lang="en">Airport</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4697" xml:lang="de">PublicTransport</para><para xml:id="en_4697" xml:lang="en">PublicTransport</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4698" xml:lang="de">SkiLift</para><para xml:id="en_4698" xml:lang="en">SkiLift</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4699" xml:lang="de">GolfCourse</para><para xml:id="en_4699" xml:lang="en">GolfCourse</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4700" xml:lang="de">Lake</para><para xml:id="en_4700" xml:lang="en">Lake</para>
-										</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4701" xml:lang="de">In diesem Element stehen die Orte zur Auswahl, für die
-									eine Distanzangabe möglich ist. </para><para xml:id="en_4701" xml:lang="en">This element displays locations for which a distance entry is possible.</para>
-									<itemizedlist>
-									<listitem>
-										<para xml:id="de_4702" xml:lang="de">Beach (Strand) / Entfernungsangabe in Metern</para><para xml:id="en_4702" xml:lang="en">Beach / distance in metres</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4703" xml:lang="de">CityCenter (Stadtzentrum) / Entfernungsangabe in Kilometern</para><para xml:id="en_4703" xml:lang="en">CityCenter / distance in kilometres</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4704" xml:lang="de">Shopping (nächste Einkaufsmöglichkeit) / Entfernungsangabe in
-											Metern</para><para xml:id="en_4704" xml:lang="en">Shopping / distance in metres</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4705" xml:lang="de">Airport (Flughafen) / Entfernungsangabe in Kilometern</para><para xml:id="en_4705" xml:lang="en">Airport / distance in kilometres</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4706" xml:lang="de">PublicTransport (öffentliche Verkehrsmittel) / Entfernungsangabe in
-											Metern</para><para xml:id="en_4706" xml:lang="en">PublicTransport / distance in metres</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4707" xml:lang="de">SkiLift (Skilift) / Entfernungsangabe in Metern</para><para xml:id="en_4707" xml:lang="en">SkiLift / distance in metres</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4708" xml:lang="de">GolfCourse (Golfplatz) / Entfernungsangabe in Metern</para><para xml:id="en_4708" xml:lang="en">GolfCourse / distance in metres</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4709" xml:lang="de">Lake (See) / Entfernungsangabe in Metern</para><para xml:id="en_4709" xml:lang="en">Lake / distance in metres</para>
-									</listitem>
-								</itemizedlist></td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/Beach</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zum nächsten Strand in Metern</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
-								<td rowspan="1" colspan="1">
-									<para xml:id="de_4710" xml:lang="de">Addon</para><para xml:id="en_4710" xml:lang="en">Addon</para><para xml:id="de_4711" xml:lang="de">Accommodation</para><para xml:id="en_4711" xml:lang="en">Accommodation</para>
-								</td>
-								<td rowspan="1" colspan="1">
-								<para xml:id="de_4712" xml:lang="de">&gt;= Addon</para><para xml:id="en_4712" xml:lang="en">&gt;= Addon</para>
-								<para xml:id="de_4713" xml:lang="de">&gt;= AddonService</para><para xml:id="en_4713" xml:lang="en">&gt;= AddonService</para>
-								<para xml:id="de_4714" xml:lang="de">&gt;= SellingAccom</para><para xml:id="en_4714" xml:lang="en">&gt;= SellingAccom</para>
-								<para xml:id="de_4715" xml:lang="de">&gt;= Unit</para><para xml:id="en_4715" xml:lang="en">&gt;= Unit</para>
-								<para xml:id="de_4716" xml:lang="de">&gt;= Board</para><para xml:id="en_4716" xml:lang="en">&gt;= Board</para>
-							</td>
-								<td rowspan="1" colspan="1">Facility</td>
-								<td rowspan="1" colspan="1">
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4717" xml:lang="de">AmountBedrooms</para><para xml:id="en_4717" xml:lang="en">AmountBedrooms</para>
-										</listitem>
-										<listitem>
-										<para xml:id="de_4718" xml:lang="de">UnitSize</para><para xml:id="en_4718" xml:lang="en">UnitSize</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4719" xml:lang="de">AmountRooms</para><para xml:id="en_4719" xml:lang="en">AmountRooms</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4720" xml:lang="de">AmountFloors</para><para xml:id="en_4720" xml:lang="en">AmountFloors</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_4721" xml:lang="de">AmountBathrooms</para><para xml:id="en_4721" xml:lang="en">AmountBathrooms</para>
-									</listitem>
-									</itemizedlist>
-								</td>
-								<td rowspan="1" colspan="1"><para xml:id="de_4722" xml:lang="de">Im Element Facilities stehen vor allem Ausstattungsmerkmale zur
-									Verfügung, die näher beschrieben werden können.</para><para xml:id="en_4722" xml:lang="en">The facilities element is primarily used to describe the available facilities in more detail.</para>
-									<itemizedlist>
-										<listitem>
-											<para xml:id="de_4723" xml:lang="de">AmountBedrooms (Anzahl Schlafzimmer)</para><para xml:id="en_4723" xml:lang="en">AmountBedrooms (amount of bedrooms)</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4724" xml:lang="de">UnitSize (Zimmergröße, Ferienhausgröße) / Angabe in Quadratmetern</para><para xml:id="en_4724" xml:lang="en">UnitSize (room size, holiday home size) / to be entered in square metres</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4725" xml:lang="de">AmountRooms (Anzahl der Zimmer im Hotel)</para><para xml:id="en_4725" xml:lang="en">AmountRooms (amount of rooms in the hotel)</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4726" xml:lang="de">AmountFloors (Anzahl Stockwerke)</para><para xml:id="en_4726" xml:lang="en">AmountFloors (amount of floors)</para>
-										</listitem>
-										<listitem>
-											<para xml:id="de_4727" xml:lang="de">AmountBathrooms (Anzahl Badezimmer)</para><para xml:id="en_4727" xml:lang="en">AmountBathrooms (amount of bathrooms)</para>
-										</listitem>
-									</itemizedlist></td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/CityCenter</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zum nächsten Stadtzentrum in Metern</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/Shopping</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zur nächsten Einkaufsmeile</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/GolfCourse</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zur nächsten Golfplatz</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/Lake</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zur nächsten See</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/Airport</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zur nächsten See</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/PublicTransport</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zur nächsten öffentlichen Haltestelle</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">Figure/LocationDistance/SkiLift</td>
+								<td rowspan="1" colspan="1">Ganze Zahl in Metern</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Entfernung zum nächsten Skilift</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
+								<td rowspan="1" colspan="1">Figure/Facility/AmountBedrooms</td>
+								<td rowspan="1" colspan="1">Ganze Zahl</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Anzahl Schlafzimmer</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
+								<td rowspan="1" colspan="1">Figure/Facility/UnitSize</td>
+								<td rowspan="1" colspan="1">Ganze Zahl</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Größe der Unit in Quadratmetern</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
+								<td rowspan="1" colspan="1">Figure/Facility/AmountRooms</td>
+								<td rowspan="1" colspan="1">Ganze Zahl</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Anzahl der Zimmer</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
+								<td rowspan="1" colspan="1">Figure/Facility/AmountFloors</td>
+								<td rowspan="1" colspan="1">Ganze Zahl</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Anzahl der Etagen</para></td>
+								<td rowspan="1" colspan="1"/>
+							</tr>
+							<tr>
+								<td rowspan="1" colspan="1">Accommodation</td>
+								<td rowspan="1" colspan="1">SellingUnit</td>
+								<td rowspan="1" colspan="1">Figure/Facility/AmountBathrooms</td>
+								<td rowspan="1" colspan="1">Ganze Zahl</td>
+								<td rowspan="1" colspan="1"><para xml:lang="de">Anzahl der Badezimmer</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 						</informaltable>
