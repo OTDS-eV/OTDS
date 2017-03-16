@@ -5218,7 +5218,16 @@
 8. Hin 04 Rück 01 Priorität 14 mit Hotel A Zimmer EZ Verpflegung H
 9. Hin 04 Rück 02 Priorität 15 mit Hotel A Zimmer EZ Verpflegung H</programlisting>Formulieren
 							wir also später, dass nur der erste Flug der Fluggruppierung gültig ist,
-							so würde in diesem Fall der Flug Hin1 Rück1 übrig bleiben. </para><para xml:id="en_5061" xml:lang="en">Example list: &lt;r_b15ee564c70e78dd9df08803c111d6e3/&gt;If it is later stated that only the first flight of the flight group is valid, the flight Hin1 Rück1 would be left in this case.</para>
+							so würde in diesem Fall der Flug Hin1 Rück1 übrig bleiben. </para><para xml:id="en_5061" xml:lang="en">Example list: 
+<programlisting>1. Outbound 01 Return 01 Priority 1 with Hotel A room Double Board H
+2. Outbound 02 Return 02 Priority 2 with Hotel A room Double Board H
+3. Outbound 04 Return 04 Priority 4 with Hotel A room Double Board H
+4. Outbound 01 Return 02 Priority 5 with Hotel A room Double Board H
+5. Outbound 01 Return 04 Priority 7 with Hotel A room Single Board H
+6. Outbound 02 Return 01 Priority 8 with Hotel A room Single Board H
+7. Outbound 02 Return 04 Priority 10 with Hotel A room Single Board H
+8. Outbound 04 Return 01 Priority 14 with Hotel A room Single Board H
+9. Outbound 04 Return 02 Priority 15 with Hotel A room Single Board H</programlisting>If it is later stated that only the first flight of the flight group is valid, the flight Outbound1 Return1 would be left in this case.</para>
 					</section>
 					<section xml:id="OtdsStrategyRulesGroupDefinitionsIndices">
 						<title><phrase xml:id="de_1192" xml:lang="de">Verwendung von Tags als Indizes für die
@@ -28365,10 +28374,10 @@ usw.]]></programlisting>
 						Kleinbuchstaben benannt. Die Dateien besitzen immer die Endung "xml".</para><para xml:id="en_4801" xml:lang="en">All data files and data directories are names using lower case letters and the file name will always end with "xml".</para>
 				</listitem>
 				<listitem>
-					<para xml:id="de_4802" xml:lang="de">Als Zeichensatz wird der standardisierte Unicode-Zeichensatz UTF-8 verwendet. </para><para xml:id="en_4802" xml:lang="en">The standardised Unicode encoding UTF-8 is used as the character encoding.</para>
-					<para xml:id="de_4803" xml:lang="de">
-						<programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]></programlisting>
-					</para><para xml:id="en_4803" xml:lang="en">&lt;r_9c552f6337e3bb5fe4e81c183cd8bfea/&gt;</para>
+					<para xml:id="de_4802" xml:lang="de">Als Zeichensatz wird der standardisierte Unicode-Zeichensatz UTF-8 verwendet. </para>
+					<para xml:id="en_4802" xml:lang="en">The standardised Unicode encoding UTF-8 is used as the character encoding.</para>
+					<para xml:id="de_4803" xml:lang="de"><programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]></programlisting></para>
+					<para xml:id="en_4803" xml:lang="en"><programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]></programlisting></para>
 				</listitem>
 			</orderedlist>
 			<para xml:id="de_4804" xml:lang="de"> </para><para xml:id="en_4804" xml:lang="en"/>
@@ -28457,8 +28466,14 @@ usw.]]></programlisting>
 	        <title><phrase>Überschrift Section</phrase></title>
 	        <para>Paragraph, Fließtext </para>
 	    </section>       
-	          ]]></programlisting>
-					</para><para xml:id="en_4831" xml:lang="en">&lt;r_8c174339ffe15203f589fd9287e4488b/&gt;</para>
+	          ]]></programlisting></para>
+					<para xml:id="en_4831" xml:lang="en">
+						<programlisting><![CDATA[
+	    <section xml:id="OtdsSectionID">
+	        <title><phrase>Headline Section</phrase></title>
+	        <para>Paragraph, text </para>
+	    </section>       
+	          ]]></programlisting></para>
 					<para xml:id="de_4832" xml:lang="de">Verpflichtend sind die Vergabe einer eindeutigen xml:id und die Überschrift (title),
 						der Fließtext oder Paragraph (para) kann bei verschachtelten Kapiteln nach der
 						Überschrift (title) hinzugefügt werden, ist bei der untersten Ebene aber
@@ -28484,8 +28499,28 @@ usw.]]></programlisting>
 	        <title><phrase>Überschrift Section 3.</phrase></title>
 	        <para>Paragraph, Fließtext </para>				        - Paragraph  (verpflichtend)
 	    </section>       
-	          ]]></programlisting>
-					</para><para xml:id="en_4833" xml:lang="en">&lt;r_12d987ea0215b3320777f52ba4bd5ec2/&gt;</para>
+	          ]]></programlisting></para>
+					<para xml:id="en_4833" xml:lang="en"><programlisting><![CDATA[
+	    <section xml:id="OtdsSection1">							<- Level 1. 
+		      <title><phrase>Headline Section 1.</phrase></title>				   - Section header		
+		      <para>Paragraph, text</para>					   - Paragraph (optional)
+		      <section xml:id="OtdsSection1Section1.1.">		   <- Level 1.1.
+		      	  <title><phrase>Headline Section 1.1</phrase></title>			- Section header
+		            <para>Paragraph, text </para>				- Paragraph (obligatory)
+	      	 </section>						 				     <- End Level 1.1.
+	    </section>											      <- End Level 1.
+	    <section xml:id="OtdsSection2">							 <- Level 2.
+	        <title><phrase>Headline Section 2.</phrase></title>					 - Section header
+	        section xml:id="OtdsSection1Section2.1.">		   	<- Level 2.1.
+		      	  <title><phrase>Headline Section 2.1</phrase></title>			- Section header
+		            <para>Paragraph, text </para>				- Paragraph  (obligatory)
+	      	 </section>						 				  <- End Level 2.1.
+	    </section> 
+	    <section xml:id="OtdsSection3">
+	        <title><phrase>Headline Section 3.</phrase></title>
+	        <para>Paragraph, text </para>				        - Paragraph  (obligatory)
+	    </section>       
+	          ]]></programlisting></para>
 					<para xml:id="de_4834" xml:lang="de"> der zugehörige Text als Pragraph (para) ist ebenfalls verpflichtend, es sei denn,
 						dass direkt ein Unterkapitel angegeben wird.</para><para xml:id="en_4834" xml:lang="en">the associated text as a paragraph (para) is equally essential unless there is a direct subchapter.</para>
 				</section>
@@ -28499,7 +28534,9 @@ usw.]]></programlisting>
 						<programlisting><![CDATA[
 	    <section xml:id="idName">
 	          ]]></programlisting>
-					</para><para xml:id="en_4838" xml:lang="en">&lt;r_dc262efd8aa8cf6844f11d1f1cb44d3b/&gt;</para>
+					</para><para xml:id="en_4838" xml:lang="en"><programlisting><![CDATA[
+	    <section xml:id="idName">
+	          ]]></programlisting></para>
 				</section>
 				<section xml:id="OtdsSpecFormatTitle">
 					<title><phrase xml:id="de_4839" xml:lang="de">Überschriften innerhalb von Kapiteln</phrase><phrase xml:id="en_4839" xml:lang="en">Titles within chapters</phrase></title>
@@ -28736,20 +28773,31 @@ usw.]]></programlisting>
 						<title><phrase xml:id="de_4887" xml:lang="de">Kleine Programmteile</phrase><phrase xml:id="en_4887" xml:lang="en">Small program parts</phrase></title>
 						<para xml:id="de_4888" xml:lang="de"> Die Angabe kurzer Programmbestandteile ist für Erklärungen sehr hilfreich, muss
 							aber in folgender Form angegeben werden:</para><para xml:id="en_4888" xml:lang="en">The specification of short program parts is very helpful to gain an understanding, but it must be provided in the following format:</para>
-						<para xml:id="de_4889" xml:lang="de">"-- Programmlisting --" : durch den Programmcode ersetzen</para><para xml:id="en_4889" xml:lang="en">"-- Programlisting --" : replace with the program code</para>
+						<para xml:id="de_4889" xml:lang="de">"-- Programlisting --" : durch den Programmcode
+							ersetzen</para><para xml:id="en_4889" xml:lang="en">"-- Programlisting --" : replace with the program code</para>
 						<para xml:id="de_4890" xml:lang="de">
 							<programlisting><![CDATA[
 	<para>
 		<programlisting>
 	    	< ![CDATA[
 	             
-	    -- Programmlisting --
+	    -- Programlisting --
 	
 	          ]] >
 		</programlisting>
 	</para>
 	          ]]></programlisting>
-						</para><para xml:id="en_4890" xml:lang="en">&lt;r_fb6d6534cbc78391e3282b6abc97af5d/&gt;</para>
+						</para><para xml:id="en_4890" xml:lang="en"><programlisting><![CDATA[
+	<para>
+		<programlisting>
+	    	< ![CDATA[
+	             
+	    -- Programlisting --
+	
+	          ]] >
+		</programlisting>
+	</para>
+	          ]]></programlisting></para>
 					</section>
 					
 					<section>
