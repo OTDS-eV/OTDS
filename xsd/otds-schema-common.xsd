@@ -5281,7 +5281,21 @@ e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</x
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_318">Gibt an, in welcher Einheit die Dauer angegeben
 					wird. Standard ist Nights. Falls das Attribut nicht angegeben ist, wird der
-					Standard benutzt.</xs:documentation>
+					Standard benutzt.
+
+Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Beim Value "Nights" ergibt sich die Dauer aus der Differenz der Termine von DurationEnd-DurationStart.
+
+Bei Angabe der DurationUnit = "Hours" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Stunden angegeben.
+Für den Vergleich wird die ermittelte Dauer in Nights mit 24 multipliziert.
+
+Bei Angabe der DurationUnit = "Minutes" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
+Für den Vergleich wird die ermittelte Dauer in Nights mit 1440 multipliziert.
+
+Bei Angabe der DurationUnit = "Weeks" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen angegeben.
+Für den Vergleich wird die ermittelte Dauer in Nights durch 7 geteilt und abgerundet.
+
+Danach wird mit den ermittelten Werten geprüft ob die definierte Bedingung erfüllt ist.
+</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_318">Indicates in which unit the duration should be entered. Nights is the default. If the attribute is not specified, the default value will be used.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -7686,8 +7700,12 @@ This condition explicitly does not check whether or not certain days of a trip f
 			</xs:group>
 			<xs:element name="Duration" type="DurationConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfäll, bei denen die Dauer ggf. nicht vom CheckIn bis zum CheckOut einer Komponente gehen, können über eine explizite Angabedes des Start- und Endpunktes in den Elementen Duration Start und DurationEnd angegeben werden. 
-Die Sonderlocke, dass mit der Source="ReturnFlight" die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges referenziert wird, ist seid der Version 2.0 nicht mehr gültig. Die Source="ReturnFlight" wird ab Version 2.0 nach den normalen OTDS Regeln interpretiert.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfälle, bei denen die Dauer ggf. nicht vom CheckIn bis zum CheckOut einer Komponente gehen, können über eine explizite Angabedes des Start- und Endpunktes in den Elementen DurationStart und DurationEnd angegeben werden. 
+Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
+
+Die Sonderlocke, dass mit der Source="ReturnFlight" die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges referenziert wird, ist seid der Version 2.0 nicht mehr gültig. Die Source="ReturnFlight" wird ab Version 2.0 nach den normalen OTDS Regeln interpretiert.
+
+Das Attribut "DurationUnit" definiert, in welcher Einheit die Dauer angegeben wird. Default ist "Nights"</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_458">This element defines the condition as to whether a list of duration contains the travel duration currently being viewed. Specific allowed durations can be entered or restrictions for valid durations (minimum or maximum valid duration). It is also possible to enter durations in increments, e.g. in multiples of 7 days.
 The "Source" attribute allows the viewed duration to be more precisely defined.
 For durations, the more precise definition of the current duration is crucial when dealing with package deals for long-haul journeys. The duration of the accommodation may then differ from the duration of the journey if overnight flights are taken. Exception: If, in combination with the duration, the Source="ReturnFlight" is being indicated, then the duration from CheckIn for the outbound flight until CheckIn for the return flight is addressed. If the intention is to address the duration from CheckIn for the outbound flight until CheckOut for the return flight, then Source="Product" needs to be selected.</xs:documentation>
