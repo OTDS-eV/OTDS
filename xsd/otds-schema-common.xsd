@@ -5163,53 +5163,119 @@ individual dates.</xs:documentation>
 		</xs:choice>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 	</xs:complexType>
+	<xs:complexType name="DurationStartType">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="ThisComponent">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
+					Checkout-Datum zur Emittlung des Startdatums einer Duration verwendet wird.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+					used in order to determine the start date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckIn">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder
+					Checkout) der referenzierten Komponente, welches als Startdatum der Duration
+					verwendet werden soll.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+					the referenced component to be used as a start date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Offset" type="xs:integer" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der
+					referenzierten Komponente zu addieren, um das Startdatum der Duration zu
+					bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Startdatum der
+					Duration, verglichen mit dem Reisedatum.</xs:documentation>
+				<xs:documentation xml:lang="en">This number of days must be added to the travel date
+					of the referenced component in order to obtain the start date of the duration.
+					Negative/positive values signify an earlier/later start date or the duration,
+					compared to the travel date.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DurationEndType">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="ThisComponent">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
+					Checkout-Datum zur Emittlung des Endedatums einer Duration verwendet wird.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+					used in order to determine the end date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckOut">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder
+					Checkout) der referenzierten Komponente, welches als Endedatum der Duration
+					verwendet werden soll.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+					the referenced component to be used as an end date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Offset" type="xs:integer" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der
+					referenzierten Komponente zu addieren, um das Endedatum der Duration zu
+					bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Endedatum der
+					Duration, verglichen mit dem Reisedatum.</xs:documentation>
+				<xs:documentation xml:lang="en">This number of days must be added to the travel date
+					of the referenced component in order to obtain the end date of the duration.
+					Negative/positive values signify an earlier/later end date of the duration,
+					compared to the travel date.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 	<xs:complexType name="DurationConditionType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_313">In diesem Element ist es möglich, Einschränkungen
 				auf Dauern zu definieren.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_313">In this element, it is possible to define restrictions on durations.</xs:documentation>
 		</xs:annotation>
-		<xs:choice>
-			<xs:sequence>
-				<xs:element name="Min" type="xs:unsignedInt" minOccurs="1">
+		<xs:sequence>
+			<xs:element name="DurationStart" type="DurationStartType" minOccurs="0"/>
+			<xs:element name="DurationEnd" type="DurationEndType" minOccurs="0"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="Min" type="xs:unsignedInt">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element name="Max" type="xs:unsignedInt">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_503">Maximalaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="Durations">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_316">In diesem Element können eine oder mehrere durch Space getrennte Durations definiert werden.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
 					</xs:annotation>
+					<xs:simpleType>
+						<xs:list itemType="xs:unsignedInt"/>
+					</xs:simpleType>
 				</xs:element>
-				<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
+				<xs:element name="MultiplesOf" type="xs:unsignedInt">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:sequence>
-				<xs:element name="Max" type="xs:unsignedInt" minOccurs="1">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_503">Maximalaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:element name="Durations" minOccurs="1">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_316">In diesem Element können eine oder mehrere durch Space getrennte Durations definiert werden.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:list itemType="xs:unsignedInt"/>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element name="MultiplesOf" type="xs:unsignedInt" minOccurs="1">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
+						<xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
 z.B. bei 7: es sind nur die Dauern 7, 14, 21, 28, ... erlaubt</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_317">Only durations in these increments are allowed,
+						<xs:documentation xml:lang="en" xml:id="en_317">Only durations in these increments are allowed,
 e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:choice>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 		<xs:attribute name="DurationUnit" type="DurationUnitEnum" default="Nights">
 			<xs:annotation>
@@ -7620,7 +7686,8 @@ This condition explicitly does not check whether or not certain days of a trip f
 			</xs:group>
 			<xs:element name="Duration" type="DurationConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfall: Wenn im Zusammenspiel mit der Dauer die Source="ReturnFlight" angegeben wird, dann wird damit die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges adressiert. Will man die Dauer vom CheckIn des Hinfluges bis zum CheckOut des Rückfluges adressieren, dann muss man Source="Product" wählen.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfäll, bei denen die Dauer ggf. nicht vom CheckIn bis zum CheckOut einer Komponente gehen, können über eine explizite Angabedes des Start- und Endpunktes in den Elementen Duration Start und DurationEnd angegeben werden. 
+Die Sonderlocke, dass mit der Source="ReturnFlight" die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges referenziert wird, ist seid der Version 2.0 nicht mehr gültig. Die Source="ReturnFlight" wird ab Version 2.0 nach den normalen OTDS Regeln interpretiert.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_458">This element defines the condition as to whether a list of duration contains the travel duration currently being viewed. Specific allowed durations can be entered or restrictions for valid durations (minimum or maximum valid duration). It is also possible to enter durations in increments, e.g. in multiples of 7 days.
 The "Source" attribute allows the viewed duration to be more precisely defined.
 For durations, the more precise definition of the current duration is crucial when dealing with package deals for long-haul journeys. The duration of the accommodation may then differ from the duration of the journey if overnight flights are taken. Exception: If, in combination with the duration, the Source="ReturnFlight" is being indicated, then the duration from CheckIn for the outbound flight until CheckIn for the return flight is addressed. If the intention is to address the duration from CheckIn for the outbound flight until CheckOut for the return flight, then Source="Product" needs to be selected.</xs:documentation>
