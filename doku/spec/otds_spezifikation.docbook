@@ -2280,9 +2280,9 @@
 							in the tenth row can only be used within the PriceItems. Please take
 							note of these restrictions. The current OTDS validation measures make no
 							restrictions in this regard.</para>
-						<para xml:id="det" xml:lang="de">Ab der Version 1.9.3 ist es möglich Impact Bedingungen auch in Filtern, sowie in den Conditions der PropertyGroup und der BookingGroup zu verwenden. Diese Impact Bedingungen werden während der Verarbeitung geprüft und ausgewertet, allerdings gibt es in den Filtern, sowie in den Conditions der PropertyGroup und der BookingGroup dann per Definition eine nicht sichtbare NonImpact-Klammer. Ein NonImpact-Wrapper ist im Filter Element nicht erforderlich. Sollen Bedinungen aber in den Conditions der PriceItems als NonImpact ausgewertet werden, dann ist dort der NonImpact-Wrapper notwendig.</para>
-						
-							<table frame="all">
+						<para xml:id="de_5830" xml:lang="de">Ab der Version 1.9.3 ist es möglich, Impact Bedingungen auch in Filtern sowie in den Conditions der PropertyGroup und der BookingGroup zu verwenden. Diese Impact Bedingungen werden während der Verarbeitung geprüft und ausgewertet, allerdings gibt es in den Filtern sowie in den Conditions der PropertyGroup und der BookingGroup dann per Definition eine nicht sichtbare NonImpact-Klammer. Ein NonImpact-Wrapper ist im Filter Element nicht erforderlich. Sollen Bedingungen aber in den Conditions der PriceItems als NonImpact ausgewertet werden, dann ist dort der NonImpact-Wrapper notwendig.</para>
+						<para xml:id="en_5830" xml:lang="en">From version 1.9.3 on it is possible to use Impact Conditions in filters as well as in the Conditions of the PropertyGroup and the BookingGroup. These Impact Conditions are checked and evaluated during the processing, yet in the filters and in the Conditions of the PropertyGroup and BookingGroup there will be by definition an invisible NonImpact-parenthesis. A NonImpact-Wrapper is not required in the Filter Element. If conditions shall be evaluated as NonImpact in the Conditions of the PriceItems, then the NonImpact-Wrapper is necessary there.</para>
+													<table frame="all">
 								<title><phrase xml:id="de_840" xml:lang="de">Verwendbarkeit der einzelnen Conditions</phrase><phrase xml:id="en_840" xml:lang="en">Applicability of the individual conditions</phrase></title>
 								<tgroup cols="5" align="left" colsep="1" rowsep="1">
 									<thead>
@@ -4746,7 +4746,7 @@
 						Bedingungen können sich beispielsweise auf Termine oder Dauern beziehen.
 						"Tag"-Bedingungen beziehen sich auf Tags, um Markierungen bestimmter Komponenten zu
 						prüfen.</para><para xml:id="en_1136" xml:lang="en">Filter conditions (Filters) can be used to restrict the amount of offers. A <code>Filter</code> can contain numerous conditions which can be extensively logically connected to one another (see the <link linkend="OtdsStrategyConditionBoolOperation">Logical connections</link> chapter). These conditions could for example refer to dates or durations. "Tag" conditions refer to tags, in order to check the markers of certain components.</para>
-					<bridgehead xml:id="OtdsStrategyRulesAttributSource" xml:lang="de">Referenzierung von Komponenten
+					<bridgehead xml:id="OtdsStrategyRulesAttributSource" xml:lang="de">Referenzierung von Komponenten / Referencing of Components
 						(Attribut <code>Source</code>)</bridgehead>
 					<para xml:id="de_1137" xml:lang="de">Auf welche der aufgelisteten Komponenten sich die
 						Bedingung bezieht, wird bei jeder Bedingung separat über das Attribut
@@ -4948,8 +4948,8 @@
   </Products>  
   ...
 </Otds>]]></programlisting>			    
-			  	<para xml:lang="de">Der Value eines GenericTag/ExternalParameter wird nur dann auf <code>true</code> gesetzt, wenn das Feature des betrachteten Products auch das Feature unterstützt.</para>
-			  	<para xml:lang="en">The Value of a GenericTag/ExternalParameter only then is set as <code>true</code> if the feature of the product regarded is supporting this specific feature.</para>
+			  	<para xml:lang="de" xml:id="de_5862">Der Value eines GenericTag/ExternalParameter wird nur dann auf <code>true</code> gesetzt, wenn das Feature des betrachteten Products auch das Feature unterstützt.</para>
+			  	<para xml:lang="en" xml:id="en_5862">The Value of a GenericTag/ExternalParameter only then is set as <code>true</code> if the feature of the product regarded is supporting this specific feature.</para>
 			  	<para xml:lang="de" xml:id="de_5051">Falls eine OTDS-Verarbeitung z.B. mit dem externen Parameter <code>CityPairProduction="true"</code> verarbeitet wird, so bekommen alle Elemente <code>GenericTag</code> mit dem Element
 							<code>ExternalParameter/@Feature="CityPairProduction</code> den Wert
 			  		<code>true</code> und fließen somit in die Verarbeitung ein.</para><para xml:lang="en" xml:id="en_5051">If OTDS processing is carried out e.g. with the external
@@ -5218,7 +5218,16 @@
 8. Hin 04 Rück 01 Priorität 14 mit Hotel A Zimmer EZ Verpflegung H
 9. Hin 04 Rück 02 Priorität 15 mit Hotel A Zimmer EZ Verpflegung H</programlisting>Formulieren
 							wir also später, dass nur der erste Flug der Fluggruppierung gültig ist,
-							so würde in diesem Fall der Flug Hin1 Rück1 übrig bleiben. </para><para xml:id="en_5061" xml:lang="en">Example list: &lt;r_b15ee564c70e78dd9df08803c111d6e3/&gt;If it is later stated that only the first flight of the flight group is valid, the flight Hin1 Rück1 would be left in this case.</para>
+							so würde in diesem Fall der Flug Hin1 Rück1 übrig bleiben. </para><para xml:id="en_5061" xml:lang="en">Example list: 
+<programlisting>1. Outbound 01 Return 01 Priority 1 with Hotel A room Double Board H
+2. Outbound 02 Return 02 Priority 2 with Hotel A room Double Board H
+3. Outbound 04 Return 04 Priority 4 with Hotel A room Double Board H
+4. Outbound 01 Return 02 Priority 5 with Hotel A room Double Board H
+5. Outbound 01 Return 04 Priority 7 with Hotel A room Single Board H
+6. Outbound 02 Return 01 Priority 8 with Hotel A room Single Board H
+7. Outbound 02 Return 04 Priority 10 with Hotel A room Single Board H
+8. Outbound 04 Return 01 Priority 14 with Hotel A room Single Board H
+9. Outbound 04 Return 02 Priority 15 with Hotel A room Single Board H</programlisting>If it is later stated that only the first flight of the flight group is valid, the flight Outbound1 Return1 would be left in this case.</para>
 					</section>
 					<section xml:id="OtdsStrategyRulesGroupDefinitionsIndices">
 						<title><phrase xml:id="de_1192" xml:lang="de">Verwendung von Tags als Indizes für die
@@ -6792,7 +6801,7 @@ usw.]]></programlisting>
 						Absolutbeträge, deren finaler Wert erst zur Laufzeit aufgrund einer flexibel
 						zu definierenden Funktion berechnet wird. </para>
 			  	<para xml:lang="en" xml:id="en_5164">The PriceItem type <code>GenericAbsolute</code> was introduced in the implementation of the rounding. Here we are dealing with absolute amounts whose final value is not determined until runtime due to its flexibly definable function.</para>
-			  	<para xml:lang="de" xml:id="det_5165">Neben der Funktion für das Runden, welche über
+			  	<para xml:lang="de" xml:id="de_5165">Neben der Funktion für das Runden, welche über
 			  		<code>Round</code> angesprochen wird, ist seid Version 1.9.3 auch die
 			  		Funktion "PercentModificationValue" integriert, mit deren Hilfe man
 			  		prozentuale Modifikationen auf sehr spezifisch bestimmte Bereiche der
@@ -7878,9 +7887,14 @@ usw.]]></programlisting>
 						werden ausdrücklich nicht in der Preisberechnung berücksichtigt, beinhalten
 						also auch keine implizite Regel, sondern dienen lediglich zur Anzeige in
 						internen Systemen (z.B. Darstellung in einem Datenbrowser). Die komplette
+<<<<<<< HEAD
 						<link linkend="AnhangPropertiesNotAggregated">Liste der PriceTypes</link>
 						findet sich im Anhang. </para>
 					<para xml:id="en_1444" xml:lang="en">In the PriceItems, you also have the opportunity of dividing the prices into specific price types (<code>PriceType</code> ) . These price types can be selected from a fixed, pre-set list, e.g. <code>Base</code> , <code>EarlyBird</code> , <code>ExtraDay</code> or <code>ChildReduction</code> . These price types are explicitly not considered during price calculation and do not come with any implicit rules, but merely serve as information within internal systems (e.g. display in a data browser). The complete <link linkend="AnhangPropertiesNotAggregated">list of PriceTypes</link> can be found in the appendix.</para>
+=======
+							<link linkend="AnhangPropertiesProduct">Liste der PriceTypes</link>
+						findet sich im Anhang. </para><para xml:id="en_1444" xml:lang="en">In the PriceItems, you also have the opportunity of dividing the prices into specific price types (<code>PriceType</code> ) . These price types can be selected from a fixed, pre-set list, e.g. <code>Base</code> , <code>EarlyBird</code> , <code>ExtraDay</code> or <code>ChildReduction</code> . These price types are explicitly not considered during price calculation and do not come with any implicit rules, but merely serve as information within internal systems (e.g. display in a data browser). The complete <link linkend="AnhangPropertiesProduct">list of PriceTypes</link> can be found in the appendix.</para>
+>>>>>>> refs/remotes/origin/master
 					<para xml:id="de_1445" xml:lang="de">Weitergehende Informationen sind in der <link
 							xlink:href="./otds_technisch.html#PriceType">Technischen Dokumentation
 							für OTDS </link> enthalten.</para><para xml:id="en_1445" xml:lang="en">Further information can be found in the <link xlink:href="./otds_technisch.html#PriceType">Technical documentation for OTDS</link>.</para>
@@ -8887,11 +8901,12 @@ usw.]]></programlisting>
 							properties nodes. This includes, for example, the location of an
 							accommodation, certain hotel themes (e.g. spa, family) or particular
 							luggage policies for flights.</para>
-						<para xml:id="det_1621" xml:lang="de">Alle Properties sind in einer Gruppe zusammengefasst und durch die XSD uneingeschränkt in jedem Properties-Element platzierbar. Dennoch beziehen sich bestimmte Properties auf bestimmte Unterkomponenten. Beispielsweise macht die Flugroute unter den Eigenschaften einer Unterkunft wenig Sinn.</para>
+						<para xml:id="de_1621" xml:lang="de">Alle Properties sind in einer Gruppe zusammengefasst und durch die XSD uneingeschränkt in jedem Properties-Element platzierbar. Dennoch beziehen sich bestimmte Properties auf bestimmte Unterkomponenten. Beispielsweise macht die Flugroute unter den Eigenschaften einer Unterkunft wenig Sinn.</para>
 						<para xml:id="en_1621" xml:lang="en">All properties are pooled together in a group, but only the corresponding properties can be used for individual components. For example, it makes little sense to have the flight route under the properties of the accommodation and is therefore not allowed in this position. The data delivery would not validate in this case and would be invalid to an extent.</para>
-						<para xml:lang="de">Eine Einschränkung der Properties für bestimmte Bereiche findet sich in der 2. Spalte der Property-Tabelle im Anhang.</para>
-						<para xml:lang="de">Die Verarbeitung der Properties regelt, dass die gelieferten Properties zu einem sinnvollen Ergebnis zusammengeführt werden. Dazu werden die einzelnen Properties über die definierte "PropertyAggregatingComponent" den Komponenteninstanzen zugeordnet. </para>
-						<para xml:lang="de">Die Zuordnung erfolgt über das "Current"-Prinzip, welches auch in der
+						<para xml:id="de_5805" xml:lang="de">Eine Einschränkung der Properties für bestimmte Bereiche findet sich in der 2. Spalte der Property-Tabelle im Anhang.</para><para xml:id="en_5805" xml:lang="en">A limitation of the properties for certain sectors can be found in the second column of the property-table in the Annex.</para>
+						<para xml:id="de_5806" xml:lang="de">Die Verarbeitung der Properties regelt, dass die gelieferten Properties zu einem sinnvollen Ergebnis zusammengeführt werden. Dazu werden die einzelnen Properties über die definierte "PropertyAggregatingComponent" den Komponenteninstanzen zugeordnet. </para>
+						<para xml:id="en_5806" xml:lang="en">The processing of the properties defines, that the properties transmitted are consolidated to a meaningful result. For this purpose the single properties are being matched with the component instances by help of the defined "PropertyAggregatingComponent". </para>
+						<para xml:id="de_5807" xml:lang="de">Die Zuordnung erfolgt über das "Current"-Prinzip, welches auch in der
 							Source Anwendung findet. "Current" bedeutet, dass zuerst nach einer
 							passenden Source im "local" Pfad gesucht wird. Wird dort keine Source
 							gefunden, so wählt man die nächsthöhere Instanz-Hierarchie-Stufe und
@@ -8899,27 +8914,34 @@ usw.]]></programlisting>
 							die Product-Instanz errreicht hat. Wird auch hier über "local" keine
 							passende Instanz gefunden wird die Property nicht zugeordnet bzw.
 							entsprechend ignoriert.</para>
-						<para xml:lang="de">Danach werden für jede Komponenteninstanz die zugeordneten Properties zusammengefasst.</para>
-						
-						<para xml:lang="de">Die Zusammenfassung erfolgt für jede dieser Komponenteninstanzen nach folgenden Regeln:</para>
+						<para xml:id="en_5807" xml:lang="en">The matching takes place via the "Current"-principle, that also is applied in the Source application. "Current" means, that in a first step
+							a matching Source is searched for in the "local" path. If no source can be found there, the next higher Instance-Hierarchy-level is chosen and again searched on the "local" path for a corresponding instance.
+							until the Product-Instance is reached. If also here via "local" no matching instance can be found, the property is not assigned respectively is being ignored.</para>
+						<para xml:id="de_5808" xml:lang="de">Danach werden für jede Komponenteninstanz die zugeordneten Properties zusammengefasst.</para><para xml:id="en_5808" xml:lang="en">After that for each component instance the assigned properties are combined.</para>
+						<para xml:id="de_5809" xml:lang="de">Die Zusammenfassung erfolgt für jede dieser Komponenteninstanzen nach folgenden Regeln:</para><para xml:id="en_5809" xml:lang="en">The following rules of combination are applied for each of these component instances:</para>
 						<itemizedlist>
 							<listitem>
-								<para xml:lang="de">Es werden immer nur die Elemente mit identischem "PropertyIdentifier" zusammengefasst. </para>
+								<para xml:id="de_5810" xml:lang="de">Es werden immer nur die Elemente mit identischem "PropertyIdentifier" zusammengefasst. </para>
+								<para xml:id="en_5810" xml:lang="en">Always only those elements with identical "PropertyIdentifier" are being combined. </para>
 							</listitem>
 							<listitem>
-								<para xml:lang="de">Properties mit höherer "Priority" überschreiben die mit niedriger "Priority". </para>
+								<para xml:id="de_5811" xml:lang="de">Properties mit höherer "Priority" überschreiben die mit niedriger "Priority". </para>
+								<para xml:id="en_5811" xml:lang="en">Properties with a higher "priority" overwrite those with a lower "priority". </para>
 							</listitem>
 							<listitem>
-								<para xml:lang="de">Bei Properties mit identischer "Priority" wird die jeweils nach DocumentOrder jeweils erste Priority durch die jeweils nachfolgende Property ersetzt. </para>
+								<para xml:id="de_5812" xml:lang="de">Bei Properties mit identischer "Priority" wird die jeweils nach DocumentOrder jeweils erste Priority durch die jeweils nachfolgende Property ersetzt. </para>
+								<para xml:id="en_5812" xml:lang="en">For properties with identical "priority" the according to DocumentOrder each one first priority is replaced by the respectively following property. </para>
 							</listitem>
 							<listitem>
-								<para xml:lang="de">Überschreiben bedeutet speziell bei Listen, dass auch diese "komplett" ersetzt werden. </para>
+								<para xml:id="de_5813" xml:lang="de">Überschreiben bedeutet speziell bei Listen, dass auch diese "komplett" ersetzt werden. </para>
+								<para xml:id="en_5813" xml:lang="en">"Overwriting" means for lists explicitly, that also those are being replaced "completely".</para>
 							</listitem>
 						</itemizedlist>
-						<para xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight-Instanzen.</para>
-						<para xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und
-							PropertyAggregatingComponents finden Sie im Anhang  <link linkend="AnhangPropertiesAccommodations">"Properties -
+						<para xml:id="de_5814" xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight-Instanzen.</para>
+						<para xml:id="en_5814" xml:lang="en">When PropertyAggregatingComponent="Flight", this constellation poses an special case. If Outbound- and/or Inbound-instances exist, the aggregation takes place relating to Outbound and Inbound. In all other cases the aggregation takes place on the OnewayFlight-instances.</para>
+						<para xml:id="de_5815" xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und PropertyAggregatingComponents finden Sie im Anhang  <link linkend="AnhangPropertiesAccommodations">"Properties -
 								Eigenschaften und Ausstattungen"</link></para>
+						<para xml:id="en_5815" xml:lang="en">You may find a complete list of Properties, PropertyIdentifier and PropertyAggregatingComponents in the Annex <link linkend="AnhangPropertiesAccommodations">"Properties - characteristics and facilities"</link></para>
 					</section>
 					<section>
 						<title><phrase xml:id="de_1622" xml:lang="de">Beschreibung der Elemente</phrase><phrase xml:id="en_1622" xml:lang="en">Description of the elements</phrase></title>
@@ -12786,8 +12808,9 @@ usw.]]></programlisting>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
-							<term xml:id="de_2241" xml:lang="de"><emphasis>zeitlich flexible Komponente</emphasis> (Code: fixed -
-									<code>F</code>)</term><term xml:id="en_2241" xml:lang="en"><emphasis>time flexible components</emphasis> (Code: fixed - <code>F</code> )</term>
+							<term xml:id="de_2241" xml:lang="de"><emphasis>zeitlich flexible Komponente</emphasis> (Code:
+								flex - <code>F</code>)</term><term xml:id="en_2241" xml:lang="en"><emphasis>time flexible components</emphasis> (Code: flex -
+									<code>F</code> )</term>
 							<listitem>
 								<para xml:id="de_2242" xml:lang="de">Eine zeitallozierende Komponente ist flexibel, wenn sie von ihrer Art
 									her beliebige Zeiträume abdecken kann (z.B. ein Hotel). Eine nicht
@@ -22387,45 +22410,58 @@ usw.]]></programlisting>
 			<section xml:id="OtdsProcessProperties">
 				<title><phrase xml:id="de_3779" xml:lang="de">Verarbeitung der Properties</phrase><phrase xml:id="en_3779" xml:lang="en">Processing of the Properties</phrase></title>
 
-				<para xml:id="det_3780" xml:lang="de">Die <code>Properties</code> Elemente enthalten sämtliche
+				<para xml:id="de_3780" xml:lang="de">Die <code>Properties</code> Elemente enthalten sämtliche
 					informativen Eigenschaften der Komponenten. Die Eigenschaften eines Angebotes
 					werden durch Zusammenfassen der Eigenschaften der Komponenteninstanzen dieses
 					Angebotes, denen eine Property zugeordnet werden konnte.</para><para xml:id="en_3780" xml:lang="en">The <code>Properties</code> elements contain all informative properties of the components. The properties of an offer are identified by summarising the properties of the component instances of this offer per main component. The processing model only determines how the combined properties of the offer are to be defined. The further interpretation of these values is a matter for the distribution system (e.g. a distribution system can enable a search according to hotel category. The necessary information is contained in the <code>Properties</code> ).</para>
 				
-				<para xml:lang="de">Die Zuordnung der einzelnen Properties gemäß ihrer festgelegten PropertyAggregatingComponent erfolgt über das "Current"-Prinzip, welches auch in der Source Anwendung findet.</para>	
-				<para xml:lang="de">"Current" bedeutet, dass zuerst nach einer passenden Source im "local" Pfad gesucht wird. Wird dort keine Source gefunden, so wählt man die nächsthöhere HierarchiesStufe und durchsucht erneut den „local“-Pfad nach einer passenden Instanz.</para>	
-				<para xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn: Ist die PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight- bzw. ReturnFlight-Instanzen.</para>
-				<para xml:lang="de">Das Verarbeitungsmodell legt nur fest, wie die zusammengefassten Eigenschaften eines Angebotes bestimmt werden. Die Bedeutungen der Properties werden in der Annotation der XSD näher beschrieben. Die Verwendung der Properties ist Sache des Vertriebssystems (z.B. kann ein Vertriebssystem eine Suche nach Hotelkategorie ermöglichen. Die notwendigen Informationen sind in den Properties enthalten).</para>
-				<para xml:lang="de">Da auch PriceItem Elemente Properties enthalten können, lassen sich die Gesamteigenschaften des Angebotes sehr flexibel steuern. Die Verarbeitung der Properties Elemente einer Hauptkomponenteninstanz folgt einem einfachen Ablauf:</para>
+				<para xml:id="de_5816" xml:lang="de">Die Zuordnung der einzelnen Properties gemäß ihrer festgelegten PropertyAggregatingComponent erfolgt über das "Current"-Prinzip, welches auch in der Source Anwendung findet.</para>
+				<para xml:id="en_5816" xml:lang="en">The matching of the single properties according to their defined PropertyAggregatingComponent takes place via the "Current"-principle, that also is applied in the Source application.</para>
+				<para xml:id="de_5817" xml:lang="de">"Current" bedeutet, dass zuerst nach einer passenden Source im "local" Pfad gesucht wird. Wird dort keine Source gefunden, so wählt man die nächsthöhere Hierarchiestufe und durchsucht erneut den „local“-Pfad nach einer passenden Instanz.</para>	
+				<para xml:id="en_5817" xml:lang="en">"Current" means, that in a first step a matching Source is searched for in the "local" path. If no source can be found there, the next higher hierarchy-level is chosen and again searched on the "local" path for a corresponding instance.</para> 
+				<para xml:id="de_5818" xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn: Ist die PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight- bzw. ReturnFlight-Instanzen.</para>
+				<para xml:id="en_5818" xml:lang="en">When PropertyAggregatingComponent="Flight", this constellation poses a special case. If Outbound- and/or Inbound-instances exist, the aggregation takes place relating to Outbound and Inbound. In all other cases the aggregation takes place on the OnewayFlight-instances.</para>
+				<para xml:id="de_5819" xml:lang="de">Das Verarbeitungsmodell legt nur fest, wie die zusammengefassten Eigenschaften eines Angebotes bestimmt werden. Die Bedeutungen der Properties werden in der Annotation der XSD näher beschrieben. Die Verwendung der Properties ist Sache des Vertriebssystems (z.B. kann ein Vertriebssystem eine Suche nach Hotelkategorie ermöglichen. Die notwendigen Informationen sind in den Properties enthalten).</para>
+				<para xml:id="en_5819" xml:lang="en">The theoretical processing model only defines, how the combined properties of an offer are being determined. The significance of the properties are described within the annotation of the XSD more detailed. The use of properties is the domain of the distribution system (e.g. a distribution system may enable a search for hotel categories. The information needed are included in the Properties).</para>
+				<para xml:id="de_5820" xml:lang="de">Da auch PriceItem Elemente Properties enthalten können, lassen sich die Gesamteigenschaften des Angebotes sehr flexibel steuern. Die Verarbeitung der Properties Elemente einer Hauptkomponenteninstanz folgt einem einfachen Ablauf:</para>
+				<para xml:id="en_5820" xml:lang="en">As also PriceItem Elements may contain Properties, the overall properties of an offer can be managed in a very flexible manner. The processing of Properties Elements of a Maincomponentinstance follows a simple pattern:</para>
 				<itemizedlist>
 					<listitem>
-						<para xml:lang="de">Zunächst werden alle Properties gemäß ihrer PropertyAggregatingComponent den Komponenteninstanzen zugeordnet.</para>
+						<para xml:id="de_5821" xml:lang="de">Zunächst werden alle Properties gemäß ihrer PropertyAggregatingComponent den Komponenteninstanzen zugeordnet.</para>
+						<para xml:id="en_5821" xml:lang="en">At first all properties are assigned to the Component Instances according to their PropertyAggregatingComponent.</para>
 					</listitem>
 					<listitem>
-						<para xml:lang="de">Dann werden je Komponenteninstanz sämtliche zugeordneten PropertyGroup Elemente übernommen. Ein PropertyGroup Element wird übernommen, wenn:</para>
+						<para xml:id="de_5822" xml:lang="de">Dann werden je Komponenteninstanz sämtliche zugeordneten PropertyGroup Elemente übernommen. Ein PropertyGroup Element wird übernommen, wenn:</para>
+						<para xml:id="en_5822" xml:lang="en">Then for each Component Instance all assigned PropertyGroup elements are adopted. A PropertyGroup Element is adopted if:</para>
 						<itemizedlist>
 							<listitem>
-								<para xml:lang="de">Die Condition der PropertyGroup erfüllt ist (oder die PropertyGroup über keine Condition verfügt).</para>
+								<para xml:id="de_5823" xml:lang="de">Die Condition der PropertyGroup erfüllt ist (oder die PropertyGroup über keine Condition verfügt).</para>
+								<para xml:id="en_5823" xml:lang="en">The Condition of the PropertyGroup is fulfilled (or if the PropertyGroup has no Condition).</para>
 							</listitem>
 							<listitem>
-								<para xml:lang="de">Falls sich die PropertyGroup innerhalb eines PriceItem befindet und das PriceItem am Ende der Preisberechnung aktiv war.</para>
+								<para xml:id="de_5824" xml:lang="de">Falls sich die PropertyGroup innerhalb eines PriceItem befindet und das PriceItem am Ende der Preisberechnung aktiv war.</para>
+								<para xml:id="en_5824" xml:lang="en">If the PropertyGroup is positioned within a PriceItem and the PriceItem was active at the end of the price calculation.</para>
 							</listitem>
 						</itemizedlist>
 					</listitem>
 					<listitem>
-						<para xml:lang="de">Die übernommenen PropertyGroup Elemente werden nach dem Wert des Priority Attributs sortiert. Bei gleicher Priority werden die PropertyGroup Elemente nach documentDocumentO-order sortiert.</para>
+						<para xml:id="de_5825" xml:lang="de">Die übernommenen PropertyGroup Elemente werden nach dem Wert des Priority Attributs sortiert. Bei gleicher Priority werden die PropertyGroup Elemente nach documentDocumentO-order sortiert.</para>
+						<para xml:id="en_5825" xml:lang="en">The adopted PropertyGroup Elements are sorted according to the value of their Priority Attribut. If the priority is equal the PropertyGroup Elements are sorted for documentDocumentO-order.</para>
 					</listitem>
 					<listitem>
-						<para xml:lang="de">Die PropertyGroup Elemente werden in dieser Reihenfolge zusammengefasst. Kind-Elemente der PropertyGroup überschreiben entsprechende zuvor gefundene Elemente mit identischem PropertyIdentfier. Das Endergebnis ist je PropertyAggregatingComponent eine einzelne PropertyGroup, welche sämtliche zusammengefassten Eigenschaften der PropertyAggregatingComponent enthält.</para>
+						<para xml:id="de_5826" xml:lang="de">Die PropertyGroup Elemente werden in dieser Reihenfolge zusammengefasst. Kind-Elemente der PropertyGroup überschreiben entsprechende zuvor gefundene Elemente mit identischem PropertyIdentfier. Das Endergebnis ist je PropertyAggregatingComponent eine einzelne PropertyGroup, welche sämtliche zusammengefassten Eigenschaften der PropertyAggregatingComponent enthält.</para>
+						<para xml:id="en_5826" xml:lang="en">The PropertyGroup Elements are merged in the follwing order: Child-Elements of the PropertyGroup overwrite corresponding elementsfound earlier with identical PropertyIdentfier. DThe final result is a single PropertyGroup for each PropertyAggregatingComponent, which contains all combined properties of the PropertyAggregatingComponent.</para>
 					</listitem>
 					<listitem>
-						<para xml:lang="de">Die beiden Eigenschaften PriceType und TextInformation spielen eine Sonderrolle: Diese Eigenschaften können nicht sinnvoll zusammengefasst werden und werden somit bei dieser Verarbeitung ignoriert. Die Eigenschaften bleiben in den jeweiligen Properties Elementen verteilt im Angebot erhalten und können falls notwendig dort ausgewertet werden.</para>
+						<para xml:id="de_5827" xml:lang="de">Die beiden Eigenschaften PriceType und TextInformation spielen eine Sonderrolle: Diese Eigenschaften können nicht sinnvoll zusammengefasst werden und werden somit bei dieser Verarbeitung ignoriert. Die Eigenschaften bleiben in den jeweiligen Properties Elementen verteilt im Angebot erhalten und können falls notwendig dort ausgewertet werden.</para>
+						<para xml:id="en_5827" xml:lang="en">Both properties PriceType and TextInformation play a special role: those properties cannot be combined meaningfully and thus are being ignored during this processing. The properties remain in the offer distributed within the respective Properties Elementes and may be evaluated if necessary.</para>
 					</listitem>
 				</itemizedlist>
 				
-				<para xml:lang="de">Nach der Verarbeitung existiert somit für jede PropertyAggregatingComponent-Instanz eine PropertyGroup Element. PropertyAggregatingComponent-Instanz bedeutet z.B., dass ein zusammengesetzter Flug ein PropertyGroup Element je Flugbestandteil enthält.</para>
-				<para xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und PropertyAggregatingComponents finden Sie im Anhang <link linkend="AnhangPropertiesAccommodations">"Properties -
-					Eigenschaften und Ausstattungen"</link></para>
+				<para xml:id="de_5828" xml:lang="de">Nach der Verarbeitung existiert somit für jede PropertyAggregatingComponent-Instanz eine PropertyGroup Element. PropertyAggregatingComponent-Instanz bedeutet z.B., dass ein zusammengesetzter Flug ein PropertyGroup Element je Flugbestandteil enthält.</para>
+				<para xml:id="en_5828" xml:lang="en">After the processing therefore for each PropertyAggregatingComponent-Instance a PropertyGroup Element exists. PropertyAggregatingComponent-Instance means for instance, that a composed flight contains one PropertyGroup Element for each flight component.</para>
+				<para xml:id="de_5829" xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und PropertyAggregatingComponents finden Sie im Anhang <link linkend="AnhangPropertiesAccommodations">"Properties - Eigenschaften und Ausstattungen"</link></para>
+				<para xml:id="en_5829" xml:lang="en">You may find a complete list of Properties, PropertyIdentifier and PropertyAggregatingComponents within the Annex<link linkend="AnhangPropertiesAccommodations">"Properties - Properties - characteristics and facilities"</link></para>
 			</section>
 		</section>
 	</section>
@@ -24586,6 +24622,7 @@ usw.]]></programlisting>
 							</itemizedlist>
 						</listitem>
 					</itemizedlist>
+					<para xml:id="AnhangPropertiesUnits"></para>
 					<bridgehead xml:id="de_5660" xml:lang="de">Unterbringungen></bridgehead>
 					<bridgehead xml:id="en_5660" xml:lang="en">Units</bridgehead>
 					<para xml:id="de_4296" xml:lang="de">Für die Eingabe von Eigenschaften der Units sind folgende Elemente
@@ -24886,6 +24923,7 @@ usw.]]></programlisting>
 							<para xml:id="de_4384" xml:lang="de">ShortenedSeaView (eingeschränkter Meerblick)</para><para xml:id="en_4384" xml:lang="en">ShortenedSeaView (restricted sea views)</para>
 						</listitem>
 					</itemizedlist>
+					<para xml:id="AnhangPropertiesBoards"></para>
 					<bridgehead xml:id="de_5661" xml:lang="de">Verpflegung</bridgehead>
 					<bridgehead xml:id="en_5661" xml:lang="de">Boards</bridgehead>
 					<para xml:id="de_4385" xml:lang="de">Auch die Verpflegung wird zur Komponente der Accommodations gerechnet. Die gültigen
@@ -28346,10 +28384,10 @@ usw.]]></programlisting>
 						Kleinbuchstaben benannt. Die Dateien besitzen immer die Endung "xml".</para><para xml:id="en_4801" xml:lang="en">All data files and data directories are names using lower case letters and the file name will always end with "xml".</para>
 				</listitem>
 				<listitem>
-					<para xml:id="de_4802" xml:lang="de">Als Zeichensatz wird der standardisierte Unicode-Zeichensatz UTF-8 verwendet. </para><para xml:id="en_4802" xml:lang="en">The standardised Unicode encoding UTF-8 is used as the character encoding.</para>
-					<para xml:id="de_4803" xml:lang="de">
-						<programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]></programlisting>
-					</para><para xml:id="en_4803" xml:lang="en">&lt;r_9c552f6337e3bb5fe4e81c183cd8bfea/&gt;</para>
+					<para xml:id="de_4802" xml:lang="de">Als Zeichensatz wird der standardisierte Unicode-Zeichensatz UTF-8 verwendet. </para>
+					<para xml:id="en_4802" xml:lang="en">The standardised Unicode encoding UTF-8 is used as the character encoding.</para>
+					<para xml:id="de_4803" xml:lang="de"><programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]></programlisting></para>
+					<para xml:id="en_4803" xml:lang="en"><programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>]]></programlisting></para>
 				</listitem>
 			</orderedlist>
 			<para xml:id="de_4804" xml:lang="de"> </para><para xml:id="en_4804" xml:lang="en"/>
@@ -28438,8 +28476,14 @@ usw.]]></programlisting>
 	        <title><phrase>Überschrift Section</phrase></title>
 	        <para>Paragraph, Fließtext </para>
 	    </section>       
-	          ]]></programlisting>
-					</para><para xml:id="en_4831" xml:lang="en">&lt;r_8c174339ffe15203f589fd9287e4488b/&gt;</para>
+	          ]]></programlisting></para>
+					<para xml:id="en_4831" xml:lang="en">
+						<programlisting><![CDATA[
+	    <section xml:id="OtdsSectionID">
+	        <title><phrase>Headline Section</phrase></title>
+	        <para>Paragraph, text </para>
+	    </section>       
+	          ]]></programlisting></para>
 					<para xml:id="de_4832" xml:lang="de">Verpflichtend sind die Vergabe einer eindeutigen xml:id und die Überschrift (title),
 						der Fließtext oder Paragraph (para) kann bei verschachtelten Kapiteln nach der
 						Überschrift (title) hinzugefügt werden, ist bei der untersten Ebene aber
@@ -28465,8 +28509,28 @@ usw.]]></programlisting>
 	        <title><phrase>Überschrift Section 3.</phrase></title>
 	        <para>Paragraph, Fließtext </para>				        - Paragraph  (verpflichtend)
 	    </section>       
-	          ]]></programlisting>
-					</para><para xml:id="en_4833" xml:lang="en">&lt;r_12d987ea0215b3320777f52ba4bd5ec2/&gt;</para>
+	          ]]></programlisting></para>
+					<para xml:id="en_4833" xml:lang="en"><programlisting><![CDATA[
+	    <section xml:id="OtdsSection1">							<- Level 1. 
+		      <title><phrase>Headline Section 1.</phrase></title>				   - Section header		
+		      <para>Paragraph, text</para>					   - Paragraph (optional)
+		      <section xml:id="OtdsSection1Section1.1.">		   <- Level 1.1.
+		      	  <title><phrase>Headline Section 1.1</phrase></title>			- Section header
+		            <para>Paragraph, text </para>				- Paragraph (obligatory)
+	      	 </section>						 				     <- End Level 1.1.
+	    </section>											      <- End Level 1.
+	    <section xml:id="OtdsSection2">							 <- Level 2.
+	        <title><phrase>Headline Section 2.</phrase></title>					 - Section header
+	        section xml:id="OtdsSection1Section2.1.">		   	<- Level 2.1.
+		      	  <title><phrase>Headline Section 2.1</phrase></title>			- Section header
+		            <para>Paragraph, text </para>				- Paragraph  (obligatory)
+	      	 </section>						 				  <- End Level 2.1.
+	    </section> 
+	    <section xml:id="OtdsSection3">
+	        <title><phrase>Headline Section 3.</phrase></title>
+	        <para>Paragraph, text </para>				        - Paragraph  (obligatory)
+	    </section>       
+	          ]]></programlisting></para>
 					<para xml:id="de_4834" xml:lang="de"> der zugehörige Text als Pragraph (para) ist ebenfalls verpflichtend, es sei denn,
 						dass direkt ein Unterkapitel angegeben wird.</para><para xml:id="en_4834" xml:lang="en">the associated text as a paragraph (para) is equally essential unless there is a direct subchapter.</para>
 				</section>
@@ -28480,7 +28544,9 @@ usw.]]></programlisting>
 						<programlisting><![CDATA[
 	    <section xml:id="idName">
 	          ]]></programlisting>
-					</para><para xml:id="en_4838" xml:lang="en">&lt;r_dc262efd8aa8cf6844f11d1f1cb44d3b/&gt;</para>
+					</para><para xml:id="en_4838" xml:lang="en"><programlisting><![CDATA[
+	    <section xml:id="idName">
+	          ]]></programlisting></para>
 				</section>
 				<section xml:id="OtdsSpecFormatTitle">
 					<title><phrase xml:id="de_4839" xml:lang="de">Überschriften innerhalb von Kapiteln</phrase><phrase xml:id="en_4839" xml:lang="en">Titles within chapters</phrase></title>
@@ -28717,20 +28783,31 @@ usw.]]></programlisting>
 						<title><phrase xml:id="de_4887" xml:lang="de">Kleine Programmteile</phrase><phrase xml:id="en_4887" xml:lang="en">Small program parts</phrase></title>
 						<para xml:id="de_4888" xml:lang="de"> Die Angabe kurzer Programmbestandteile ist für Erklärungen sehr hilfreich, muss
 							aber in folgender Form angegeben werden:</para><para xml:id="en_4888" xml:lang="en">The specification of short program parts is very helpful to gain an understanding, but it must be provided in the following format:</para>
-						<para xml:id="de_4889" xml:lang="de">"-- Programmlisting --" : durch den Programmcode ersetzen</para><para xml:id="en_4889" xml:lang="en">"-- Programlisting --" : replace with the program code</para>
+						<para xml:id="de_4889" xml:lang="de">"-- Programlisting --" : durch den Programmcode
+							ersetzen</para><para xml:id="en_4889" xml:lang="en">"-- Programlisting --" : replace with the program code</para>
 						<para xml:id="de_4890" xml:lang="de">
 							<programlisting><![CDATA[
 	<para>
 		<programlisting>
 	    	< ![CDATA[
 	             
-	    -- Programmlisting --
+	    -- Programlisting --
 	
 	          ]] >
 		</programlisting>
 	</para>
 	          ]]></programlisting>
-						</para><para xml:id="en_4890" xml:lang="en">&lt;r_fb6d6534cbc78391e3282b6abc97af5d/&gt;</para>
+						</para><para xml:id="en_4890" xml:lang="en"><programlisting><![CDATA[
+	<para>
+		<programlisting>
+	    	< ![CDATA[
+	             
+	    -- Programlisting --
+	
+	          ]] >
+		</programlisting>
+	</para>
+	          ]]></programlisting></para>
 					</section>
 					
 					<section>
@@ -28914,70 +28991,95 @@ usw.]]></programlisting>
 			<para xml:id="de_4939" xml:lang="de"> </para><para xml:id="en_4939" xml:lang="en"/>
 			<informaltable border="0" style="border-collapse:  collapse;width:919pt" width="956">
 				<tr>
-					<td rowspan="1" colspan="1">Anfrage</td>
-					<td rowspan="1" colspan="1">Eine Anfrage beschreibt die Rahmenparameter, mit deren Hilfe man je
+					<td rowspan="1" colspan="1"><para xml:id="de_5840" xml:lang="de">Anfrage</para><para xml:id="en_5840" xml:lang="en">Request</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5841" xml:lang="de">Eine Anfrage beschreibt die Rahmenparameter, mit deren Hilfe man je
 						Produkt ein Preisangebot zusammenstellen kann, das diese Anfrage erfüllt.
 						Eine Anfrage beschreibt also einen konkreten Termin und eine konkrete Dauer
-						und enthält einen Anfragekontext der weitere Parameter wie Buchungsdatum
-						etc. definiert.</td>
+						und enthält einen Anfragekontext, der weitere Parameter wie Buchungsdatum
+						etc. definiert.</para><para xml:id="en_5841" xml:lang="en">A request describes the basic parameters, which serve to compile an price offer for each
+							product matching this request. A request thus describes a specific date and a specific duration and contains a request context, which defines further parameter
+							such as booking date and others.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Angebot</td>
-					<td rowspan="1" colspan="1">Ein Angebot besteht aus einem Produkt oder Teil-Produkt, welches
+					<td rowspan="1" colspan="1"><para xml:id="de_5842" xml:lang="de">Angebot</para><para xml:id="en_5842" xml:lang="en">Offer</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5843" xml:lang="de">Ein Angebot besteht aus einem Produkt oder Teil-Produkt, welches
 						sich speziell auf einen Termin und eine Dauer bezieht, aber auch allgemeine
 						Einschränkungen wie Anreisetage, Mindestaufenthalte und Belegungen
-						berücksichtigt.</td>
+						berücksichtigt.</para><para xml:id="en_5843" xml:lang="en">An offer consists from a product or component of a product, which
+						specifically refers to a date or a duration, but also considers general restrictions such as days of arrival, minimum stays and occupancy.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Angebotsmenge</td>
-					<td rowspan="1" colspan="1">Eine Angebotsmenge ist die Menge aller Angebote, die bzgl.
-						einer Anfrage als passendes Angebot in Frage kommen.</td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5844" xml:lang="de">Angebotsmenge</para><para xml:id="en_5844" xml:lang="en">Amount of Offers</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5845" xml:lang="de">Eine Angebotsmenge ist die Menge aller Angebote, die bzgl.
+						einer Anfrage als passendes Angebot in Frage kommen.</para><para xml:id="en_5845" xml:lang="en">An amount of offers is the amount of all offers, that 
+						may be considered a matching offer regarding a specific request.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Preisangebot</td>
-					<td rowspan="1" colspan="1">Ein Preisangebot bezieht zusätzlich alle Bedingungen mit ein,
+					<td rowspan="1" colspan="1"><para xml:id="de_5846" xml:lang="de">Preisangebot</para><para xml:id="en_5846" xml:lang="en">Price Offer</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5847" xml:lang="de">Ein Preisangebot bezieht zusätzlich alle Bedingungen mit ein,
 						die an der Preisbildung beteiligt sind. Dazu gehört beispielsweise auch das
-						Buchungsdatum oder der SalesChannel auf dem das Preisangebot angeboten wird. Ein
+						Buchungsdatum oder der SalesChannel, auf dem das Preisangebot angeboten wird. Ein
 						Preisangebot definiert also die vom Endkunden buchbare Leistung zu einem bestimmten
-						Preis.</td>
+						Preis.</para><para xml:id="en_5847" xml:lang="en">A price offer additionally takes all conditions into account,
+							that are involved in the price determination. This also includes for
+							instance the booking date or the SalesChannel, on which the price offer
+							is offered. A price offer thus defines the service bookable at a certain
+							price by the end consumer.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Preisangebotsmenge</td>
-					<td rowspan="1" colspan="1">Eine Preisangebotsmenge ist die Menge aller Preisangebote, die
-						bzgl. einer Anfrage in Frage kommen.</td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5848" xml:lang="de">Preisangebotsmenge</para><para xml:id="en_5848" xml:lang="en">Price Offer Amount</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5849" xml:lang="de">Eine Preisangebotsmenge ist die Menge aller Preisangebote, die
+						bzgl. einer Anfrage in Frage kommen.</para><para xml:id="en_5849" xml:lang="en">A price offer amount is the amount of all price offers, that
+						may be considered a matching offer regarding a specific request.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Produkt</td>
-					<td rowspan="1" colspan="1">Ein Produkt ist sozusagen die Ware, die dem Endkunden
+					<td rowspan="1" colspan="1"><para xml:id="de_5850" xml:lang="de">Produkt</para><para xml:id="en_5850" xml:lang="en">Product</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5851" xml:lang="de">Ein Produkt ist sozusagen die Ware, die dem Endkunden
 						angeboten wird. Ein Produkt besteht in dem Sinne aus einem oder mehreren
-						Teil-Produkten. Es geht hier nicht um die Ausprägung bzgl. einzelner Termine. </td>
+						Teil-Produkten. Es geht hier nicht um die Ausprägung bzgl. einzelner Termine.</para>
+						<para xml:id="en_5851" xml:lang="en">A product is a good, which is offered to the end
+							consumer. In this sense a product consists from one or several
+							components of a product. We are not dealing with the specification of
+							single dates at this place.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Produktmenge</td>
-					<td rowspan="1" colspan="1">Eine Produktmenge ist die Menge aller Produkte, die bzgl. einer
+					<td rowspan="1" colspan="1"><para xml:id="de_5852" xml:lang="de">Produktmenge</para><para xml:id="en_5852" xml:lang="en">Product Amount</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5853" xml:lang="de">Eine Produktmenge ist die Menge aller Produkte, die bzgl. einer
 						Anfrage als passendes Angebot in Frage kommen. Setzt sich ein Produkt aus
 						mehreren Komponenten, also Teil-Produkten zusammen, so enthält die
-						Produktmenge alle Kombinationen dieser Teil-Produkte.</td>
+						Produktmenge alle Kombinationen dieser Teil-Produkte.</para><para xml:id="en_5853" xml:lang="en">A product amount is the amount of all products,
+							that may be considered a matching offer regarding a specific request. If a product consists from several components, hence components of products,
+							then the producht amount contains all combinations of those parts of products.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Teil-Produkt</td>
-					<td rowspan="1" colspan="1">Ein Teilprodukt ist auf Komponentenebene sozusagen die angebotene
+					<td rowspan="1" colspan="1"><para xml:id="de_5854" xml:lang="de">Teil-Produkt</para><para xml:id="en_5854" xml:lang="en">Product Component</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5855" xml:lang="de">Ein Teilprodukt ist auf Komponentenebene sozusagen die angebotene
 						Ware, die sich aus den zur Verfügung stehenden Unterkomponenten ergibt.
 						Wobei es hier nicht um die Menge geht, sondern nur um die Ausprägung, also
 						die Art der Ware. Im Klartext heißt das, dass bzgl. der Unterkünfte das
 						Teil-Produkt die Kombination eines bestimmten Zimmers mit einer bestimmten
 						Verpflegung in einer bestimmten Unterkunft ist. Dabei spielen Einzeltermine
-						und Dauern keine Rolle. </td>
+						und Dauern keine Rolle.</para><para xml:id="en_5855" xml:lang="en">A product component is - on component level - the good offered,
+							which is composed of the sub-components available. Whereas we are not
+							focussing on the amount, but rather on the specification, which is the
+							type of good. Simply put: regarding the accommodations the product
+							component is the result of the combination of a specific room with a
+							specific board in a specific accommodation. Here single dates and
+							duration are irrelevant.</para></td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Teil-Produktmenge</td>
-					<td rowspan="1" colspan="1">Eine Teil-Produktmenge ist dementsprechend die Menge aller
-						Teil-Produkte, die bzgl. einer Anfrage als passendes Angebot in Frage kommen.</td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5856" xml:lang="de">Teil-Produktmenge</para><para xml:id="en_5856" xml:lang="en">Product Component Amount</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5857" xml:lang="de">Eine Teil-Produktmenge ist dementsprechend die Menge aller
+						Teil-Produkte, die bzgl. einer Anfrage als passendes Angebot in Frage
+						kommen.</para><para xml:id="en_5857" xml:lang="en">A product component amount accordingly  is the amount of all product
+						components, that may be considered a matching offer regarding a specific
+						request.</para></td>
 				</tr>
 				<tr xml:id="GlossarSubComponent">
-					<td rowspan="1" colspan="1">Unterkomponente</td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5858" xml:lang="de">Unterkomponente</para><para xml:id="en_5858" xml:lang="en">Sub-Components</para></td>
 					<td rowspan="1" colspan="1"><para xml:id="de_4940" xml:lang="de">Die Unterkomponenten beschreiben die verschiedenen
-							Ausprägungen einer Komponente. Folgende Unterkomponenten sind in OTDS definiert: </para><para xml:id="en_4940" xml:lang="en">The subcomponents describe the various manifestations of a component. The following subcomponents are defined in OTDS:</para>
+							Ausprägungen einer Komponente. Folgende Unterkomponenten sind in OTDS definiert: </para><para xml:id="en_4940" xml:lang="en">The subcomponents describe the various manifestations of a
+							component. The following sub-components are defined in OTDS:</para>
 						<itemizedlist>
 							<listitem>
 								<para xml:id="de_4941" xml:lang="de">Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; Board</para><para xml:id="en_4941" xml:lang="en">Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; Board</para>
@@ -29009,9 +29111,10 @@ usw.]]></programlisting>
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="1" colspan="1">Verfügbarkeit</td>
-					<td rowspan="1" colspan="1">Die Verfügbarkeit beschreibt, ob ein Angebot zu einem Termin
-						für eine Dauer zur Verfügung steht.</td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5859" xml:lang="de">Verfügbarkeit</para><para xml:id="en_5859" xml:lang="en">Availability</para></td>
+					<td rowspan="1" colspan="1"><para xml:id="de_5860" xml:lang="de">Die Verfügbarkeit beschreibt, ob ein Angebot zu einem Termin für
+						eine Dauer zur Verfügung steht.</para><para xml:id="en_5860" xml:lang="en">The availability describes, if an offer is
+						available for a certain duration on a specific date.</para></td>
 				</tr>
 			</informaltable>
 			<para xml:id="de_4949" xml:lang="de"> </para><para xml:id="en_4949" xml:lang="en"/>
