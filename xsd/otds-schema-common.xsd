@@ -3690,8 +3690,16 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:element>
 			<xs:element name="StopOvers" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_255">Anzahl Stops der Route inkl. der technischen Stops innerhalb eines Segments.
-Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der Stops machen kann.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_255">Anzahl Stops innerhalb dieser Route. Technical Stops werden nicht hier, sondern im Element "TechniocalStopOvers" aufgeführt.
+Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der Stops machen kann. "Direct-Flights" und "NonStop-Flighs" dürfen keine  StopOvers haben.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_255">The number of stops en route, including technical stops within a segment. Leaving out the element means that the supplier can not make a statement about the number of stops.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TechnicalStopOvers" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_255">Definiert die Anzahl der technischen Stops auf dieser Route. Ein technischer Stop liegt dann vor, wenn die Aufenthaltszeit kleiner als 60 Minuten ist und sowohl Flugzeug als auch Flugnummer und auch der Carrier nicht gewechselt werrden.
+Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der technischen Stops machen kann.
+ "Direct-Flights" dürfen einen technischen Stop haben. "NonStop-Flighs" dürfen keinen  technischen Stop haben.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_255">The number of stops en route, including technical stops within a segment. Leaving out the element means that the supplier can not make a statement about the number of stops.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
