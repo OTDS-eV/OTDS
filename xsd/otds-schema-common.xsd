@@ -5172,10 +5172,12 @@ individual dates.</xs:documentation>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 	</xs:complexType>
 	<xs:complexType name="DurationStartType">
-		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="ThisComponent">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
 			<xs:annotation>
 				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
-					Checkout-Datum zur Emittlung des Startdatums einer Duration verwendet wird.</xs:documentation>
+					Checkout-Datum zur Emittlung des Startdatums einer Duration verwendet wird. Wird dieses Attribut nicht geliefert, so gilt der Wert aus Duration/@Source benutzt. 
+
+Falls die Auflösung der Source mehrdeutig ist, so wird die Source benutzt, die zur größten Dauer führt.</xs:documentation>
 				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
 					used in order to determine the start date of a duration.</xs:documentation>
 			</xs:annotation>
@@ -5203,10 +5205,12 @@ individual dates.</xs:documentation>
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="DurationEndType">
-		<xs:attribute name="Source" type="SourceAttributeType" use="optional" default="ThisComponent">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
 			<xs:annotation>
 				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
-					Checkout-Datum zur Emittlung des Endedatums einer Duration verwendet wird.</xs:documentation>
+					Checkout-Datum zur Emittlung des Endedatums einer Duration verwendet wird. Wird dieses Attribut nicht geliefert, so gilt der Wert aus Duration/@Source benutzt.
+
+Falls die Auflösung der Source mehrdeutig ist, so wird die Source benutzt, die zur größten Dauer führt.</xs:documentation>
 				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
 					used in order to determine the end date of a duration.</xs:documentation>
 			</xs:annotation>
@@ -5240,8 +5244,17 @@ individual dates.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_313">In this element, it is possible to define restrictions on durations.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="DurationStart" type="DurationStartType" minOccurs="0"/>
-			<xs:element name="DurationEnd" type="DurationEndType" minOccurs="0"/>
+			<xs:element name="DurationStart" type="DurationStartType" minOccurs="0" internal:otdsversion="2.0">
+				<xs:annotation>
+					<xs:documentation>Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Die Dauer ergibt sich aus der Differenz der Termine von DurationEnd-DurationStart.
+
+Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
+
+Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Folgenden beschriebenen Defaults der Attribute.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DurationEnd" type="DurationEndType" minOccurs="0" internal:otdsversion="2.0"/>
 			<xs:choice>
 				<xs:sequence>
 					<xs:element name="Min" type="xs:unsignedInt">
