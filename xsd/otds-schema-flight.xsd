@@ -20,6 +20,17 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 				<xs:sequence>
 					<xs:element name="OnewayFlights" type="OnewayFlightsType" minOccurs="0"/>
 					<xs:element name="ReturnFlights" type="ReturnFlightsType" minOccurs="0"/>
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_492">Preisbestandteile auf dieser Ebene gelten sowohl für OnewayFlights als auch für ReturnFlights.
+Durch Wahl der entsprechenden Source können die Preisbestandteile entsprechend nur einer Componentengruppe zugeordnet werden.
+
+Beachte: Ein PriceItem wird nur einmal gültig und wird nicht automatisch in jede der Unterkomponenten expandiert. Es findet also keine Vervielfältigung eines Preisitems statt.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_492">Price components on the OnewayFlights level
+								Rates that apply to all flights in the data delivery, such as fuel
+								surcharges.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -79,16 +90,7 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 							<xs:documentation xml:lang="en" xml:id="en_491">Definition of the smallest unit for individual flights present in the operating system and optionally used for the combination of return flights, and also to create extended flights. See also the notes on ReturnFlightRules and OnewayFlightCombiRules.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_492">Preisbestandteile auf OnewayFlights-Ebene
-								Preise, die für alle Flüge in der Datenlieferung gelten,
-								beispielsweise Kerosinzuschläge.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_492">Price components on the OnewayFlights level
-								Rates that apply to all flights in the data delivery, such as fuel
-								surcharges.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+					<!--In V2.0 the Element PriceItems was moved from here to Otds/Flights/PriceItems" -->
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -105,16 +107,7 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 							<xs:documentation xml:lang="en" xml:id="en_494">Definition of all return flights where they cannot be represented by a combination of individual flights.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_495">Preisbestandteile auf ReturnFlights-Ebene
-								Preise, die für alle Flüge in der Datenlieferung gelten,
-								beispielsweise Kerosinzuschläge.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_495">Price components at the ReturnFlights level
-								Rates that apply to all flights in the data delivery, such as fuel
-								surcharges.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+					<!--In V2.0 the Element PriceItems was moved from here to Otds/Flights/PriceItems" -->
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
