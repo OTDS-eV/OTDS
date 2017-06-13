@@ -3734,9 +3734,15 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_258">Offset, relative to the departure date of the flight, used to describe the departure or arrival date of a node. The relative indication of dates allows flight groups to be described independently of concrete dates.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Time" type="FlightTimeType" minOccurs="0">
+			<xs:element name="LocalTime" type="FlightTimeType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_259">Abflug- oder Ankunftszeit eines Flugs.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_259">Abflug- oder Ankunftszeit eines Flugs. Diese Zeit wird immer in der Lokalzeit des geographischen Kontext angegeben. Im Falle der Abflugzeit ist der geographische Kontext der Abflughafen. Im Falle der Ankunftszeit ist der geographische Kontext der Zielflughafen. 
+Für die genauere SPezifizierung der Zeit im Kontext einer Zeitumstellung sollte zusätzlich das Attribut UTCOffset angegeben werden.
+
+Es wird empfohlen den UTCOffset 2 Tage vor und nach einer Zeitumstellung generell anzugeben da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffset nur dann benutzt, wenn alle Zeitangaben einen UTCOffset gesetzt haben.
+
+Sobald eine Zeitangabe ohne UTCOffxset angegeben ist, so werden alle UTCOffsets bei der Berechnung ignoriert.
+</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_259">Departure or arrival time of a flight.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -3755,12 +3761,20 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_261">Describes a temporal property, e.g. departure or arrival time</xs:documentation>
 		</xs:annotation>
 		<xs:simpleContent>
-			<xs:extension base="xs:time">
-				<xs:attribute name="DLCReference" type="IataAirportCodeType">
+			<xs:extension base="OtdsTimeType">
+				<xs:attribute name="UTCOffsetOfTimeZone" type="UTCOffsetType" internal:otdsversion="2.0">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_262">Ist die Referenz auf einen Flughafen gesetzt,
-							dann bezieht sich die Zeitangabe auf die Zeitzone, in der sich der
-							Flughafen befindet.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_262">Das Attribut UTCOffsetOfTimeZone wird lediglich dazu benutzt, die angegebene Zeit im Element "Time" im Falle einer Zeitumstellung genauer zu spezifizieren.
+Zur Verdeutlichung die LocalTime - UTCOffsetOfTimeZone ergibt immer die UTC-Time.
+
+
+Das UTCOffsetOfTimeZone enthält die Stunden, Minuten Verschiebung zur UTC-Zeit von der Zeitzone auf die sich die lokale Zeitangabe in LocalTime bezieht. Die Angabe erfolgt im Format [+|-hh:mm].
+
+Durch die entsprechend passende Wahl des UTCOffsetOfTimeZone wird festgelegt, ob die im Element LocalTime angegebene Zeit eine lokale Zeit vor oder nach einer Zeitumstellung ist. Das UTCOffsetOfTimeZone soll damit gewährleisten, dass die Berechnung von Zeitunterschieden auch über eine Zeitumstellung hinaus zu eindeutigen Ergebnissen führt.
+
+Es wird empfohlen den UTCOffsetOfTimeZone 2 Tage vor und nach einer Zeitumstellung generell zu liefern, da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffsetOfTimeZone nur dann benutzt, wenn alle Zeitangaben einen UTCOffsetOfTimeZone gesetzt haben.
+
+Sobald eine Zeitangabe ohne UTCOffsetOfTimeZone angegeben ist, so werden alle UTCOffsetOfTimeZone bei der Berechnung ignoriert.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_262">If the reference is to an airport it, the time entry refers to the time zone in which the airport is located.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
@@ -3820,6 +3834,16 @@ https://en.wikipedia.org/wiki/Airline_codes
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1"/>
 			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UTCOffsetType">
+		<xs:restriction base="xs:int">
+			<xs:pattern value="[\+\-][0-2][0-9][:][0-5][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OtdsTimeType">
+		<xs:restriction base="xs:int">
+			<xs:pattern value="[0-2][0-9][:][0-5][0-9]"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="FigureType">
