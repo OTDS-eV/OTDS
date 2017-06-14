@@ -4681,6 +4681,11 @@
 							<para xml:id="de_1129" xml:lang="de">Bereits definierte Produkte als Bezugskomponente
 									(<code>ProductComponent</code>)</para><para xml:id="en_1129" xml:lang="en">Products which have already been defined as reference components (<code>ProductComponent</code> )</para>
 						</listitem>
+						<listitem>
+							<para xml:id="de_8574" xml:lang="de">Virtuelle Komponenten (<code>VirtualComponent</code>) um
+								zum Beispiel die Lücke zwischen der Outbound- und Inbound-Komponente
+								eines ReturnFlightOnly zu füllen </para><para xml:id="en_8574" xml:lang="en">Virtual Components (<code>VirtualComponent</code>) to fill for example the gap inbetween the outbound and inbound flight of a ReturnFlightOnly</para>
+						</listitem>
 					</itemizedlist>
 					<figure>
 						<title><phrase xml:id="de_1130" xml:lang="de">Produktdefinition - Product</phrase><phrase xml:id="en_1130" xml:lang="en">Product definition - Product</phrase></title>
@@ -4706,8 +4711,11 @@
 					<programlisting><![CDATA[<Products>
    <Product Key="Package2" ProductType="FlightAccommodation">
 			<Components>
-				<Accommodation Name="Unterkunft"/>
-				<ReturnFlight/>
+				<Accommodation Name="Unterkunft" DayAllocationIndex="0"/>
+				<ReturnFlight>
+					<Outbound DayAllocationIndex="-2"/>
+					<Inbound DayAllocationIndex="2"/>
+				</ReturnFlight>
 			</Components>
 			<Filter>
 				<And>
@@ -4739,6 +4747,20 @@
 						überschreiben. Im Bereich <code>Products</code> ist uns zurzeit kein Anwendungsfall
 						analog zu den Flughülsen bekannt. Denkbar ist die Verwendung bei einer späteren
 						Integration von Rundreisen. </para><para xml:id="en_1134" xml:lang="en">In the above example, the components <code>Accommodation</code> and <code>ReturnFlight</code> are specified. The product definition describes a package offer with flight and accommodation. Through this rule set, all individual components can be flexibly combined to form complex saleable products. This works for Hotel-Only products and Flight-Only products, as well as for package products and possible additional services. In doing this, one or several compatible Addons can be added on to the various offers. In the element <code>Booking</code> , it is possible to specify that the booking information of the individual components should be completely overwritten. In the context of flights, this is commonly used in defining flight wrappers that override the booking information of the individual flights involved. In the field <code>Products</code> , we are currently unaware of any application situations analogous to the flight wrappers. It is possible to imagine a usage in the case of a future integration of round trips.</para>
+					<para xml:id="det_8575" xml:lang="de">Zusätzlich wird durch die Product-Definition eine lückenlose Zuordnung der beteiligten Komponenten zu den Reisetagen festgelegt. 
+						Diese Festlegung findet über das Attribut <code>DayAllocationIndex</code> statt. Die Komponenten werden lückenlos in der Reihenfolge der angegebenen DayAllocationIndices aneinandergefügt. Produktetypen mit einer zwanghaften Lücke in der Tageszurodnung, wie zum Beispiel der "ReturnFlightOnly" müssen dementsprechend eine VirtualComponent einfügen, die dieser Lücke bzgl. der Tageszuordnung schließt.</para> 
+					<programlisting><![CDATA[<Products>
+   <Product Key="Package2" ProductType="ReturnFlightOnly">
+			<Components>
+				<VirtualComponent DayAllocationIndex="0"/>
+				<ReturnFlight>
+					<Outbound DayAllocationIndex="-2"/>
+					<Inbound DayAllocationIndex="2"/>
+				</ReturnFlight>
+			</Components>
+		</Product>
+  </Products>]]></programlisting>
+					
 					<bridgehead xml:id="de_1135" xml:lang="de">Filter</bridgehead><bridgehead xml:id="en_1135" xml:lang="en">Filter</bridgehead>
 					<para xml:id="de_1136" xml:lang="de">Durch Filterbedingungen (Filter) kann die Angebotsmenge beschränkt werden. Ein
 							<code>Filter</code> kann zahlreiche Bedingungen enthalten, die sehr weitreichend
@@ -10866,6 +10888,28 @@ usw.]]></programlisting>
 						</para><para xml:id="en_1951" xml:lang="en"><link xlink:href="example/ReturnFlight.xml">Additional examples for return flights</link></para>
 					</section>
 				</section>
+				<section>
+					<title><phrase xml:id="de_8575" xml:lang="de">Besonderheit des ReturnFlightOnly-Produkt bei der
+							Product-Definition</phrase><phrase xml:id="en_8575" xml:lang="en"
+							>Percularity of the ReturnFlightOnly product regarding his product
+							definition</phrase></title>
+					<para xml:id="det_8576" xml:lang="de">Der ReturnFlightOnly besteht aus einem Hinflug und einem in der Regel mehrere Tage später folgenden Rückflug. Damit besitzt der ReturnFlightOnly im Unterschied zu den anderen Reisprodukten eine zwanghafte flexible Lücke in der Tageszuordnung. 
+						Die OTDS Product-Definition fordert jedoch eine lückenlose Zuordnung der beteiligten Komponenten zu den Reisetagen. 
+						Die Komponenten werden lückenlos in der Reihenfolge der angegebenen DayAllocationIndices aneinandergefügt. 
+						Produkttypen mit einer zwanghaften Lücke in der Tageszurodnung, wie der "ReturnFlightOnly" müssen dementsprechend eine VirtualComponent einfügen, die dieser Lücke bzgl. der Tageszuordnung schließt. 
+					</para>
+					<programlisting><![CDATA[<Products>
+   <Product Key="Package2" ProductType="ReturnFlightOnly">
+			<Components>
+				<VirtualComponent DayAllocationIndex="0"/>
+				<ReturnFlight>
+					<Outbound DayAllocationIndex="-2"/>
+					<Inbound DayAllocationIndex="2"/>
+				</ReturnFlight>
+			</Components>
+		</Product>
+  </Products>]]></programlisting>
+				</section>
 			</section>
 			<section xml:id="OtdsProductsComponentsFlightsProperties">
 				<title><phrase xml:id="de_1952" xml:lang="de">Stammdaten des Fluges</phrase><phrase xml:id="en_1952" xml:lang="en">Master data of the flight</phrase></title>
@@ -11537,11 +11581,59 @@ usw.]]></programlisting>
 				<para xml:id="de_2089" xml:lang="de">Bereits kombinierte (erweiterte) OneWayFlights können nicht
 					wieder in der Kombinationsregel verwendet werden (keine Rekursion).</para><para xml:id="en_2089" xml:lang="en">OneWayFlights which have already been combined (extended) cannot be used again in the combination rule (no recursion).</para><para xml:id="en_2090" xml:lang="en"/>
 			</section>
-			<section>
+			<section xml:id="DefinedComponentsReturnFlight">
 				<title><phrase xml:id="de_2091" xml:lang="de">Zusammenstellung von Returnflights aus Einzelflügen</phrase><phrase xml:id="en_2091" xml:lang="en">Creating Returnflights from one-way flights</phrase></title>
-				<para xml:id="de_2092" xml:lang="de"> Unter diesem Element werden die Regeln zur Kombination von Return-Flügen aus Oneways
-					zusammengefasst.</para><para xml:id="en_2092" xml:lang="en">Under this element, the rules for the creation of Return flights from the combination of Oneways are consolidated.</para>
-				<para xml:id="de_2093" xml:lang="de"> </para><para xml:id="en_2093" xml:lang="en"/>
+				<para xml:id="det_2092" xml:lang="de">Viele Veranstaltersysteme kombinieren die ReturnFlights mit Hilfe von detailierten Regeln um daraus ReturnFlights zu erhalten.
+					In Otds nutzt man dafür die DefinedComponents. Ähnlich wie in der Product-Definition definiert man die beteiligten Komponenten und die Regeln welche ABhängigkeiten diese Komponenten erfüllen müssen, damit ein valides Angebot entsteht.
+					Im Folgenden finden Sie ein einfaches Beispiel, wie eine solche DefineComponent aussieht.
+				</para><para xml:id="en_2092" xml:lang="en">Under this element, the rules for the creation of Return flights from the combination of Oneways are consolidated.</para>
+				<programlisting><![CDATA[
+<Otds>
+	...
+	<DefinedComponents>
+		<DefineComponent Key="ReturnFlight" Role="ReturnFlight">
+			<Components>
+				<CombiComponent Role="Outbound" DayAllocationIndex="-2">
+					<OnewayFlight/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound" DayAllocationIndex="2">
+					<DefinedComponent UseRole="OnewayFlight"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">DepartureAirport</Element>
+						<Element Source="Inbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Tag Source="Outbound" Class="AirlineGroup"/>
+						<Tag Source="Inbound" Class="AirlineGroup"/>
+					</MatchEqual>
+					...
+				</And>	
+			</Filter>
+		</DefineComponent>
+		...
+	</DefinedComponents>
+</Otds>
+					]]></programlisting>	
+				
+				<para xml:id="det_2093" xml:lang="de">
+					Die <code>DefineComponent</code> definiert eine neue Komponente, die die Rolle eines ReturnFlights übernimmt.
+					Aus der Produktdefinition heraus kann man DefinedComponents mit einer spezifischen Rolle referenzieren. (Siehe zum Beispiel <link linkend="OtdsProductsComponentsProductsReturnFlightOnly">ReturnFlight-Only-Produktregeln</link>).
+					Die neue zusammengestellte Komponente besteht aus 2 OnewayFlights von denen der zeitlich erste (DayAllocationIndex="-2") der Outbound ist und der Zweite der Inbound ist.
+					Die DayAllocationIndices vom Outbound und Inbound lassen Platz für die Accommodation, die innerhalb eines Pauschalproduktes per Default mit einem DayAllocationIndex="0" besetzt ist.
+			 		Die Filter definieren, dass die beiden Flüge jeweils bzgl. Departure- und ArrivalAirport passen müssen.
+			 		Außerdem sind in diesem Falle die Flüge jeweils spezifisch makiert ("getaggt"). Die individuell vom Lieferanten vergebene Class="AirlineGroup" lässt vermuten, dass jeder Flug über dieses Tag einer Airline-Gruppe zugeordnet ist.
+			 		Die BEdeutung ist für die VErarbeitung irrelevant.
+			 		Entscheidend ist, dass durch diese MatchEqual-Bedingung nur die Flüge miteinander kombiniert werden dürfen, in denen dieses Tag mit einem identischen Wert existiert.
+			 		Hier können dann weitere sehr ausgeklügelte Bedingungen formuliert werden.
+				</para><para xml:id="en_2093" xml:lang="en"/>
 			</section>
 			<section>
 				<title><phrase xml:id="de_2094" xml:lang="de">Erweiterung von Returnflügen</phrase><phrase xml:id="en_2094" xml:lang="en">Extension of Return flights</phrase></title>
@@ -11583,17 +11675,59 @@ usw.]]></programlisting>
 					sind. </para><para xml:id="en_2106" xml:lang="en">Here products are created which are composed of accommodation components only. The accommodation must conform to the conditions set here. The individual accommodations can also have their own rules, however, which must be evaluated in relation to the product. In this way for example, a hotel component can be explicitly excluded from being used as a Hotel-Only product, or specific rooms can be reserved for Hotel-Only products.</para>
 				<para xml:id="de_2107" xml:lang="de"> </para><para xml:id="en_2107" xml:lang="en"/>
 			</section>
-			<section>
+			<section xml:id="OtdsProductsComponentsProductsReturnFlightOnly">
 				<title><phrase xml:id="de_2108" xml:lang="de">Beispiele für ReturnFlight-Only-Produktregeln</phrase><phrase xml:id="en_2108" xml:lang="en">Examples for ReturnFlight-Only product rules</phrase></title>
-				<para xml:id="de_2109" xml:lang="de">Ein ReturnFlightOnly-Produkt kann aus dem Zweig
-					Flights&gt;ReturnFlight, aber auch aus einem der beiden Zweige
-					Flights&gt;ReturnFlightRules oder Flights&gt;ReturnFlightCombiRules kommen. Alle
-					drei Zweige resultieren in buchbaren ReturnFlights. Zusätzlich müssen alle
-					Bedingungen der ReturnFlightOnlyRules erfüllt werden. Jeder Flug oder auch die
-					entsprechenden Kombinations-Regeln können noch selbst Einschränkungen bzgl. der
-					ProductTags enthalten und ggf. dadurch nicht als ReturnFlightOnly verwendet
-					werden. </para><para xml:id="en_2109" xml:lang="en">A ReturnFlightOnly product can come from the branch Flights&gt;ReturnFlight, or from one of the two branches Flights&gt;ReturnFlightRules or Flights&gt;ReturnFlightCombiRules. All three branches result in bookable ReturnFlights. In addition, all conditions of the ReturnFlightOnlyRules must be fulfilled. Every flight or the corresponding combination rules can themselves also contain restrictions relating to the ProductTags and may therefore not be usable as ReturnFlightOnly.</para>
-				<para xml:id="de_2110" xml:lang="de"> </para><para xml:id="en_2110" xml:lang="en"/>
+				<para xml:id="det_2109" xml:lang="de">Ein ReturnFlightOnly-Produkt besteht aus einem Hinflug und einem Rückflug nach X Tagen.
+					Normalerweise werden die ReturnFlights über Regeln aus Einzelflügen zusammengesetzt.
+					Diese Regeln werden in einer DefineComponent definiert. 
+					Wenn die ReturnFLights über Regeln zusammengesetzt werden, folgt eine Product-Definition in dieser Grundstruktur. 
+				</para>
+				<programlisting><![CDATA[				<Product Key="Pauschal" ProductType="FlightAccommodation">
+					<Tags>
+						<Tag Class="Product">Pauschal</Tag>
+					</Tags>
+					<Components>
+						<Accommodation/>
+						<DefinedComponent UseRole="ReturnFlight"/>
+					</Components>
+					<Filter Key="Default">
+						<And>
+							<MatchEqual>
+								<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+								<Element Source="Accommodation">CatchmentAirport</Element>
+							</MatchEqual>
+							...
+						</And>
+					</Filter>
+				</Product>]]></programlisting>
+				<para xml:id="det_8577" xml:lang="de">
+					Das Tag("Product")=Pauschal kann in Filtern und Conditions benutzt werden. Um die Verarbeitung im Kontext des Pauschalproduktes zu beeinflussen.
+					Das Element <code>Components/DefinedComponent</code> verweist mit der angegeben Rolle auf alle <code>DefineComponents</code> mit einer entsprechend passenden Rolle.
+					Der Filter sagt lediglich aus, dass die Airports des ReturnFlights zum Hotel passen müssen.
+					Ein Beispiel für eine passende DefineComponent finden Sie im Kapitel <link linkend="DefinedComponentsReturnFlight">Zusammenstellung von Returnflights aus Einzelflügen </link>)   
+				</para>
+				<para xml:id="det_2110" xml:lang="de">Eine andere seltenere Methode ist die, dass ReturnFlights bereits fertig zusammengestellt unter <code>Otds/Flights/ReturnFlights</code> geliefert werden.
+					In diesem Falle folgt die Product-Definition in der folgenden Struktur. Mit analogen Erklärungen: nur das mit <code>Components/ReturnFlight</code> auf die unter <code>Otds/Flights/ReturnFlights</code> gelieferten ReturnFlights verwiesen wird.</para>
+				<programlisting><![CDATA[				<Product Key="Pauschal" ProductType="FlightAccommodation">
+					<Tags>
+						<Tag Class="Product">Pauschal</Tag>
+					</Tags>
+					<Components>
+						<Accommodation/>
+						<ReturnFlight/>
+					</Components>
+					<Filter Key="Default">
+						<And>
+							<MatchEqual>
+								<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+								<Element Source="Accommodation">CatchmentAirport</Element>
+							</MatchEqual>
+							...
+						</And>
+					</Filter>
+				</Product>]]></programlisting>
+				
+
 			</section>
 			<section>
 				<title><phrase xml:id="de_2111" xml:lang="de">Beispiele für OnewayFlight-Only-Produktregeln</phrase><phrase xml:id="en_2111" xml:lang="en">Examples for OnewayFlight-Only product rules</phrase></title>
@@ -13069,18 +13203,41 @@ usw.]]></programlisting>
 									<entry>-</entry>
 									<entry>-</entry>
 								</row>
+								<row>
+									<entry><code>VirtualComponent</code></entry>
+									<entry>-</entry>
+									<entry>X</entry>
+									<entry>X</entry>
+									<entry>-</entry>
+									<entry>X</entry>
+									<entry>X</entry>
+									<entry>-</entry>
+								</row>
 							</tbody>
 						</tgroup>
 						<caption>
-							<remark xml:id="de_2247" xml:lang="de"> Die Spalten referenzieren die oben definierten Codes:
-									<replaceable>R</replaceable>: real - echte Komponente,
-									<replaceable>P</replaceable>: pseudo - Pseudokomponente,
-									<replaceable>M</replaceable>: main - Hauptkomponente,
-									<replaceable>A</replaceable>: ancillary - Nebenkomponente,
-									<replaceable>T</replaceable>: time - zeitallozierende Komponente,
-									<replaceable>F</replaceable>: flexible - zeitlich flexible Komponente,
-									<replaceable>O</replaceable>: occupancy - personenallozierende Komponente
-							</remark><remark xml:id="en_2247" xml:lang="en">The columns reference the above defined codes: <replaceable>R</replaceable> : real - real component, <replaceable>P</replaceable> : pseudo - pseudo component, <replaceable>M</replaceable> : main - main component, <replaceable>A</replaceable> : ancillary - ancillary component, <replaceable>T</replaceable> : time - time allocating component, <replaceable>F</replaceable> : flexible - time-flexible component, <replaceable>O</replaceable> : occupancy - person allocating component</remark>
+							<para xml:id="de_2247" xml:lang="de"> >Die Spalten referenzieren die oben definierten Codes:
+									<itemizedlist>
+										<listitem><para><replaceable>R</replaceable>: real - echte Komponente</para></listitem>
+										<listitem><para><replaceable>P</replaceable>: pseudo - Pseudokomponente</para></listitem>
+										<listitem><para><replaceable>M</replaceable>: main - Hauptkomponente</para></listitem>
+										<listitem><para><replaceable>A</replaceable>: ancillary - Nebenkomponente</para></listitem>
+										<listitem><para><replaceable>T</replaceable>: time - zeitallozierende Komponente</para></listitem>
+										<listitem><para><replaceable>F</replaceable>: flexible - zeitlich flexible Komponente</para></listitem>
+										<listitem><para><replaceable>O</replaceable>: occupancy - personenallozierende Komponente</para></listitem>
+									</itemizedlist>
+							</para>
+							<para xml:id="en_2247" xml:lang="en">The columns reference the above defined codes:
+								<itemizedlist>
+									<listitem><para><replaceable>R</replaceable>: real - real component</para></listitem> 
+									<listitem><para><replaceable>P</replaceable> : pseudo - pseudo component</para></listitem> 
+									<listitem><para><replaceable>M</replaceable> : main - main component</para></listitem> 
+									<listitem><para><replaceable>A</replaceable> : ancillary - ancillary component</para></listitem> 
+									<listitem><para><replaceable>T</replaceable> : time - time allocating component</para></listitem> 
+									<listitem><para><replaceable>F</replaceable> : flexible - time-flexible component</para></listitem> 
+									<listitem><para><replaceable>O</replaceable> : occupancy - person allocating component</para></listitem>
+								</itemizedlist>
+							</para>
 						</caption>
 					</table>
 
