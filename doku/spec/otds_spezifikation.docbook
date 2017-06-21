@@ -3182,7 +3182,144 @@
 									Dokumentation für OTDS </link>.</para><para xml:id="en_963" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#MatchEqual">Technical documentation for OTDS</link> .</para>
 							<para xml:id="de_964" xml:lang="de"> </para><para xml:id="en_964" xml:lang="en"/>
 						</section>
-					</section>
+				  		<section xml:id="OtdsStrategyConditionCompare">
+				  			<title><phrase xml:id="de_8580" xml:lang="de">Compare-Bedingungen</phrase><phrase xml:id="en_8580" xml:lang="en">Compare conditions</phrase></title>
+				  			<para xml:id="det_8584" xml:lang="de">Die Compare-Bedingung erlaubt ConditionalTags, Tags, Keys und andere Werte bzgl. Ihrer Wertigkeit zu vergleichen.</para>
+				  			<figure>
+				  				<title><phrase xml:id="de_8581" xml:lang="de">Compare</phrase><phrase xml:id="en_8581"
+										xml:lang="en">Compare</phrase></title>
+				  				<mediaobject>
+				  					<imageobject>
+				  						<imagedata fileref="figures/condition-compare.png" format="PNG" contentwidth="40%"/>
+				  					</imageobject>
+				  					<textobject>
+				  						<para xml:id="de_8582" xml:lang="de">Compare</para><para xml:id="en_8582" xml:lang="en">Compare</para>
+				  					</textobject>
+				  					<caption>
+				  						<para xml:id="de_8583" xml:lang="de"> </para><para xml:id="en_8583" xml:lang="en"/>
+				  					</caption>
+				  				</mediaobject>
+				  			</figure>
+				  			<para xml:id="det_8585" xml:lang="de">Benötigt wird diese Bedingung, um zum Beispiel die
+								Kombination von Hotels mit Flügen, so zu steuern, dass nur die Flüge
+								bis zu einer bestimmten Ankunftszeit für die Kombination mit
+								bestimmten Hotels benutzt werden. Zum Beispiel weil die Fähre zu
+								einer vorgelagerten Insel nur bis zu einer bestimmten Zeit
+								fährt.</para>
+				  			<programlisting><![CDATA[<Product Key="Package" ProductType="FlightAccommodation">
+  <!-- ... -->
+  <Filter Key="1">
+    <And>
+      <MatchEqual>
+        <Element Source="Accommodation">CatchmentAirport</Element>
+        <Element Source="Outbound">ArrivalAirport</Element>
+      </MatchEqual>
+      <Compare Operation="LessThan">
+        <Tag Source="Accommodation" Class="ArrivalAllowedAfter"/>
+        <Tag Source="Outbound" Class="ArrivalTime"/>
+        <Tag Source="Accommodation" Class="ArrivalAllowedBefore"/>
+      </Compare>
+      <!-- weitere Conditions -->
+    </And>
+  </Filter>
+</Product>
+]]></programlisting>
+				  			<para xml:id="det_8586" xml:lang="de">Die Compare-Bedingung bietet diesbzgl. die üblichen
+								mathematischen Vergleichsmöglichkeiten: Operation = Equal, LessThan,
+								LessThanOrEqual, GreaterThan, GreaterThanOrEqual</para>
+				  			<para xml:id="det_8587" xml:lang="de">Das Compare-Element beinhaltet mehrere Unterelemente.
+								Jedes dieser Unterelemente referenziert eine Menge von Werten. Die
+								Compare-Bedingung ist erfüllt, wenn jede dieser Value-Mengen
+								wenigstens ein Element enthält, welches die unter Compare/@Operation
+								angegebene Vergleichoperation bzgl. der "Nachbar"-Wertemenge
+								erfüllt. Anmerkungen: In Einzelfällen kann ein Unterelement mehrere
+								Mengen von Values referenzieren, so dass der EvaluationMode eine
+								Rolle spielt. Falls EvaluationMode="All" muss aus jeder dieser
+								Mengen ein Element die Compare-Bedingung erfüllen. Falls
+								EvaluationMode="Any" braucht nur aus einer dieser Mengen ein Element
+								die Compare-Bedingung zu erfüllen. </para>
+				  			<para xml:id="det_8588" xml:lang="de">In der Regel sind hier alle betrachteten Value-Types
+								vom Typ "String". Lediglich die Tags und ConditionalTags können
+								explizit noch spezische ValueTypes wie "Numeric" oder "Price"
+								ausprägen. Der Compare-Vergleich ergibt beim Vergleich
+								unterschiedlicher ValueTypes das Ergebnis "False". Die
+								Wertigkeitenvergleich von Zeichenketten erfolgt nach folgenden, in
+								OTDS generell gültigen Regeln: </para>
+				  			<orderedlist>
+				  				<listitem>
+				  					<para xml:id="de_8601" xml:lang="de">Zeichenketten werden grundsätzlich mit dem linken Zeichen
+				  						beginnend Zeichen für Zeichen sortiert</para><para xml:id="en_8601" xml:lang="en">Character strings are generally sorted character for character beginning with the left character.</para>
+				  				</listitem>
+				  				<listitem>
+				  					<para xml:id="de_8602" xml:lang="de">Das erste Zeichen besitzt die höchste Priorität.</para><para xml:id="en_8602" xml:lang="en">The first character has the highest priority.</para>
+				  				</listitem>
+				  				<listitem>
+				  					<para xml:id="de_8603" xml:lang="de">Die Sortierung der einzelnen Zeichen folgt den
+				  						ASCII-Values der Zeichen und entspricht damit folgender
+				  						aufsteigenden Liste: </para><para xml:id="en_8603" xml:lang="en">Sorting for individual characters follows the ASCII values of the character and in this way reflects the following ascending list:</para>
+				  					<orderedlist>
+				  						<listitem>
+				  							<para xml:id="de_8604" xml:lang="de"> (leerer String) </para><para xml:id="en_8604" xml:lang="en"> (empty string)</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8605" xml:lang="de"> - (Bindestrich)</para><para xml:id="en_8605" xml:lang="en">- (hyphen)</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8606" xml:lang="de"> .</para><para xml:id="en_8606" xml:lang="en">.</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8607" xml:lang="de"> 0</para><para xml:id="en_8607" xml:lang="en">0</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8608" xml:lang="de"> 1</para><para xml:id="en_8608" xml:lang="en">1</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8609" xml:lang="de"> 2</para><para xml:id="en_8609" xml:lang="en">2</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8610" xml:lang="de"> 3</para><para xml:id="en_8610" xml:lang="en">3</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8611" xml:lang="de"> usw.</para><para xml:id="en_8611" xml:lang="en">etc.</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8612" xml:lang="de"> A</para><para xml:id="en_8612" xml:lang="en">A</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8590" xml:lang="de"> B</para><para xml:id="en_8590" xml:lang="en">B</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8591" xml:lang="de"> C</para><para xml:id="en_8591" xml:lang="en">C</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8592" xml:lang="de"> usw.</para><para xml:id="en_8592" xml:lang="en">etc.</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8593" xml:lang="de"> _ (Unterstrich)</para><para xml:id="en_8593" xml:lang="en">_ (underscore)</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8594" xml:lang="de"> a</para><para xml:id="en_8594" xml:lang="en">a</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8595" xml:lang="de"> b</para><para xml:id="en_8595" xml:lang="en">b</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8596" xml:lang="de"> c</para><para xml:id="en_8596" xml:lang="en">c</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8597" xml:lang="de"> usw.</para><para xml:id="en_8597" xml:lang="en">etc.</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8598" xml:lang="de"> | (Pipe)</para><para xml:id="en_8598" xml:lang="en">| (pipe)</para>
+				  						</listitem>
+				  						<listitem>
+				  							<para xml:id="de_8599" xml:lang="de"> ~</para><para xml:id="en_8599" xml:lang="en">~</para>
+				  						</listitem>
+				  					</orderedlist>
+				  				</listitem>
+				  			</orderedlist>
+				  		</section>
+				  </section>
 					<section xml:id="OtdsStrategyConditionTypeDayImpact">
 						<title><phrase xml:id="de_965" xml:lang="de">DayImpact-Bedingungen</phrase><phrase xml:id="en_965" xml:lang="en">DayImpact conditions</phrase></title>
 						<figure>
@@ -16193,7 +16330,7 @@ usw.]]></programlisting>
 						auf Gleichheit. Hierbei können sowohl Tags als auch andere Werte (in OTDS
 						1.0 nur Flughäfen) untereinander verglichen werden.</para><para xml:id="en_2769" xml:lang="en">The <code>MatchEqual</code> condition has a special role in OTDS. Instead of checking a value against one or more conditions, <code>MatchEqual</code> compares several values against each other for matches. Here, either tags or other values (in OTDS 1.0 only airports) can be compared with each other.</para>
 
-					<bridgehead xml:id="de_2770" xml:lang="de">Vergleich von Tags</bridgehead><bridgehead xml:id="en_2770" xml:lang="en">Comparison of tags</bridgehead>
+					<bridgehead xml:id="de_2770" xml:lang="de">Vergleich von Tags</bridgehead><bridgehead xml:id="en_2770" xml:lang="en">Comparison of Tags</bridgehead>
 
 					<para xml:id="de_2771" xml:lang="de">In diesem Fall enthält <code>MatchEqual</code> eine Reihe
 						von <code>Tag</code> Elementen. Jedes Element referenziert einen oder
@@ -16331,6 +16468,48 @@ usw.]]></programlisting>
 					<para xml:id="de_2793" xml:lang="de">Jetzt kann die Schnittmenge dieser Wertmengen gebildet
 						werden. Ist diese Schnittmenge leer, ist die <code>MatchEqual</code>
 						Bedingung <code>False</code>, sonst <code>True</code>.</para><para xml:id="en_2793" xml:lang="en">Now the intersection of these value amounts ​​can be formed. If the intersection is empty, then the <code>MatchEqual</code> condition is <code>False</code> , otherwise the condition is <code>True</code> .</para>
+				</section>
+				<section xml:id="OtdsProcessConditionsCompare">
+					<title><phrase xml:id="de_8589" xml:lang="de"><code>Compare</code> Bedingung</phrase><phrase xml:id="en_8589" xml:lang="en"><code>Compare</code> condition</phrase></title>
+					<para xml:id="dte_8613" xml:lang="de">Die <code>Compare</code>-Bedingung ist der zuvor
+						beschriebenen <code>MatchEqual</code>-Bedingung sehr ähnlich, nur dass <code>Compare</code> flexibler
+						ist und zusätzlich einen Größer/Kleiner-Vergleich erlaubt.</para>
+					<para xml:id="det_8600" xml:lang="de">Das Konstrukt könnte man in etwa so beschreiben:</para>
+					<programlisting><![CDATA[<Compare Operation="Equa|LessThan|LessThanOrEqual|GreaterThan|GreaterThanOrEqual">
+    {
+        <Tag Class="..." Source="..." EvaluationMode="..."/> |
+        <ConditionalTag Class="..." Source="..." EvaluationMode="..."/> |
+        <Key Source="..." EvaluationMode="..."/> |
+        <Element Source="..." EvaluationMode="..."/> |
+        <Values>value1 value2 ...</Values>
+    } ...
+</Compare>]]></programlisting>
+	          
+					
+					<bridgehead xml:id="det_8626" xml:lang="de">Mathematische Beschreibung der Auswertung der <code>Compare</code>-Bedingung</bridgehead>
+					
+					<para  xml:id="det_8614" xml:lang="de">Der body von <code>Compare</code> ist ein durch <code>Values</code> erweiterter <code>MatchEqualMatcher</code>. Die Bedingung wird wie folgt ausgewertet:</para>
+					
+					<itemizedlist>
+						<listitem><para  xml:id="det_8615" xml:lang="de">jedes Kindelement von <code>Compare</code> erzeugt eine Menge von Werten. Wir nennen diese Mengen _X&#7522;_, _i_ von _1_ bis _n_ wobei _n_ die Anzahl der Kindelemente ist</para></listitem>
+						<listitem><para  xml:id="det_8616" xml:lang="de">sei _op_ der Wert des <code>@Operation</code> Attributs</para></listitem>
+						<listitem><para  xml:id="det_8617" xml:lang="de">zu jeder Menge gehört ein <code>EvaluationMode</code>. Ist dieser <code>All</code>, so gilt _r&#7522;_ = " &#8704; _x&#7522;_ &#8712; _X&#7522;_ " ansonsten gilt _r&#7522;_ = " &#8707; _x&#7522;_ &#8712; _X&#7522;_ "</para></listitem>
+						<listitem><para  xml:id="det_8618" xml:lang="de">letztendlich wird nun folgender Ausdruck ausgewertet: _r&#8321;_ _r&#8322;_ ... _r&#8345;_ : _x&#8321;_ _op_ _x&#8322;_ _op_ ... _op_ _x&#8345;_.</para></listitem>
+					</itemizedlist>
+					
+					<para>Dieser Algorithmus ist etwas verreinfacht: In Wirklichkeit erzeugt jeder Eintrag außer <code>Values</code> eine Menge von Mengen von Werten:</para>
+					<itemizedlist>
+						<listitem><para  xml:id="det_8619" xml:lang="de">die Auswertung der <code>@Source</code> erzeugt eine Menge von Instanzen</para></listitem>
+						<listitem><para  xml:id="det_8620" xml:lang="de">die Auswertung des Bezuges auf jede dieser Instanzen erzeugt eine Menge von Werten</para></listitem>
+						<listitem><para xml:id="det_8621" xml:lang="de">bei der Auswertung von <code>Values</code> enthält die äußere Menge immer nur ein Element, die Menge der Werte in <code>Values</code></para></listitem>
+					</itemizedlist>
+					<para xml:id="de_8622" xml:lang="de">Der <code>@EvaluationMode</code> bezieht sich auf die Auswertung der <code>@Source</code> nicht aber auf die Menge der Werte. In Wirklichkeit ist _X&#x1d62;_ also keine Menge von Werten sondern eine Menge von Mengen. Um dies zu berücksichtigen muss die Definition von _r&#x1d62;_ angepasst werden:</para>
+					<itemizedlist>
+						<listitem><para xml:id="det_8623" xml:lang="de">Ist der <code>EvaluationMode</code> == <code>All</code>, so gilt _r&#7522;_ = "  &#8704; _m&#7522;_ &#8712; _X&#7522;_ &#8707; _x&#7522;_ &#8712; _m&#7522;_ "</para></listitem>
+						<listitem><para xml:id="det_8624" xml:lang="de">Ansonsten gilt _r&#7522;_ = "  &#8707; _m&#7522;_ &#8712; _X&#7522;_ &#8707; _x&#7522;_ &#8712; _m&#7522;_ "</para></listitem>
+					</itemizedlist>
+					
+					<para xml:id="det_8625" xml:lang="de">Eine nicht ganz exakte Beschreibung der Auswertung in beschreibender Form finden Sie unter Kapitel 1 im Abschnitt <link linkend="OtdsStrategyConditionCompare">Compare-Bedingung</link></para>   
 				</section>
 				<section xml:id="OtdsProcessConditionsProductPrice">
 					<title><phrase xml:id="de_2794" xml:lang="de"><code>ProductPrice</code> Bedingung (Version 1.9,
