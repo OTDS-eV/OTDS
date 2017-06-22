@@ -87,6 +87,46 @@
 				</MatchEqual>
 			</Filter>
 		</Product>
+		<!-- Seit Version 2.0 werden die Produkte, die für die Paketierung mit externen Komponenten bereitgestellt werden, über spezifische ProduktTypen identifiziert  -->
+		<!-- Nachfolgend die Definition von Unterkünften, die für MixProdukte zur Verfügung stehen. -->
+		<Product Key="AccomOnlyForMix" ProductType="AccommodationForMix">
+			<Tags>
+				<Tag Class="Usage">AccomMixProduct</Tag>
+			</Tags>
+			<Components>
+				<Accommodation/>
+			</Components>
+			<Filter Key="1">
+				<Tags Source="Accommodation" Class="MixOnly"/>
+			</Filter>
+		</Product>
+		<!-- Nachfolgend die Definition von Einzelflügen, die für MixProdukte zur Verfügung stehen. -->
+		<Product Key="FlightOnlyForMix" ProductType="OnewayFlightForMix">
+			<Tags>
+				<Tag Class="Usage">OFlightMixProduct</Tag>
+			</Tags>	
+			<Components>
+				<OnewayFlight/>
+			</Components>
+			<Filter Key="1">
+				<Tags Source="OnewayFlight" Class="MixOnly"/>
+			</Filter>
+		</Product>
+		<!-- Nachfolgend die Definition von Returnflügen, die für MixProdukte zur Verfügung stehen. -->
+		<Product Key="RFlightOnlyForMix" ProductType="OnewayFlightForMix">
+			<Tags>
+				<Tag Class="Usage">RFlightMixProduct</Tag>
+			</Tags>	
+			<Components>
+				<DefinedComponent UseRole="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Source="Outbound" Class="MixOnly"/>
+					<Tags Source="Outbound" Class="MixOnly"/>
+				</And>
+			</Filter>
+		</Product>
 	</Products>
 	<Brands/>
 	<!--Definition der Unterkünfte	-->
