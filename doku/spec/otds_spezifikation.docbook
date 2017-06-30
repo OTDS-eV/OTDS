@@ -2715,36 +2715,53 @@
 								in unterschiedlichen Einheiten (Nächten, Stunden, Minuten) geliefert
 								werden (siehe Attribut "DurationUnit").</para><para xml:id="en_887" xml:lang="en">The element "Duration" defines the condition of whether the currently viewed trip duration is included in a list of durations. Permitted durations can be explicitly entered, or restrictions for valid durations (minimum or maximum valid duration) can be provided. It is also possible to enter durations in increments, e.g. in multiples of 7 days. The regarded context (travel, accommodation, etc.) is more closely defined via the attribute "Source". For durations, a more precise definition of the context is crucial if it concerns package offers for long-distance trips. This is because the duration of the accommodation may differ from the duration of the trip if overnight flights are taken. The condition can contain minimum, maximum and also individual durations. The duration can also be delivered in different units (nights, hours, minutes). See the attribute "DurationUnit".</para>
 							
-							<para xml:id="det_5866" xml:lang="de">Möchte man von der Standard-Interpretation (Anfang bis Ende der Source-Komponente) abweichen, so kann über spezifische Angaben in den Elementen "DurationStart" und "DurationEnd" der Start- und EndTermin der Duration sehr spezisch referenziert werden. Die Dauer ergibt sich aus der Differenz der Termine von DurationEnd-DurationStart.
-								Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
-								Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den Defaults der nun beschrieben Attribute.
-								@Source					
-								Die hier angegebene Source ersetzt den unter Duration/@Source angegebenen Value. Falls dieses Attribut nicht angegeben ist, dann wird der Value aus Duration/@Source benutzt. Falls die Auflösung der Source mehrdeutig ist, so wird die Source benutzt, die zur größten Dauer führt.
-								
-								@DayReference
-								Die DayReference definiert, welcher Tag der referenzierten Komponente referenziert wird. Es sind nur die beiden Values "CheckIn" oder "CheckOut" erlaubt. Defaults sind: DurationStart/@DayReference = CheckIn und DurationEnd/@DayReference = CheckOut
-								
-								@Offset
-								Der Offset gibt an, ob auf den referenzierten Termin des Tages noch Tage aufaddiert oder abgezogen werden. Default = 0
-							</para>
-							<para xml:id="det_5867" xml:lang="de">
-								Mit dem Attribut "DurationUnit", kann man bestimmen in welcher Einheit die Dauer angegeben ist. Default ist Nights.
-								In diesem Fall entspricht die Dauer der Anzahl der Mitternachtsübergänge zwischen dem Starttermin und dem Endtermin.
-								
-								Bei Angabe der DurationUnit = "Hours" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Stunden angegeben.
-								Für den Vergleich wird die mit Nights ermittelte Dauer mit 24 multipliziert
-								
-								Bei Angabe der DurationUnit = "Minutes" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
-								Für den Vergleich wird die mit Nights ermittelte Dauer mit 1440 multipliziert.
-								
-								Bei Angabe der DurationUnit = "Weeks" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen angegeben.
-								Für den Vergleich  die mit Nights ermittelte Dauer durch 7 geteilt und abgerundet.
-								
-								Danach wird mit den ermittelten Werten gegen die angegeben Werte Min, Max, Durations, MultiplesOf geprüft ob die definierte Bedingung erfüllt ist.
-				
-							</para>
+							<para xml:id="det_5866" xml:lang="de">Möchte man von der Standard-Interpretation (Anfang bis
+								Ende der Source-Komponente) abweichen, so kann über spezifische
+								Angaben in den Elementen "DurationStart" und "DurationEnd" der
+								Start- und EndTermin der Duration sehr spezisch referenziert werden.
+								Die Dauer ergibt sich aus der Differenz der Termine von
+								DurationEnd-DurationStart. Es sollte dabei berücksichtigt werden,
+								dass die Termine der jeweiligen Komponenten immer bezogen auf die
+								Lokalzeit der jeweiligen Komponente sind. Fehlt das Element
+								"DurationStart" oder "DurationEnd", so ergibt sich der zu
+								verwendende Default jeweils aus den Defaults der nun beschrieben
+								Attribute. @Source Die hier angegebene Source ersetzt den unter
+								Duration/@Source angegebenen Value. Falls dieses Attribut nicht
+								angegeben ist, dann wird der Value aus Duration/@Source benutzt. </para>
+							<para xml:lang="de"  xml:id="det_5902">Falls die Auflösung der Source mehrdeutig ist, so
+								wird die Komponente in Abhängigkeit von DayReference referenziert.
+								Bei DayReference="CheckIn" wird die logisch erste KomponentenInstanz
+								referenziert. Bei DayReference="CheckOut" wird die logisch letzte
+								KomponentenInstanz referenziert. Logisch bedeutet, dass es die
+								Reihenfolge ist, die durch das Attribut DayAllocation in der
+								Product-Definition festgelegt wird.  </para>
+							<para xml:lang="de"  xml:id="det_5901">@DayReference Die DayReference definiert, welcher
+								Tag der referenzierten Komponente referenziert wird. Es sind nur die
+								beiden Values "CheckIn" oder "CheckOut" erlaubt. Defaults sind:
+								DurationStart/@DayReference = CheckIn und DurationEnd/@DayReference
+								= CheckOut @Offset Der Offset gibt an, ob auf den referenzierten
+								Termin des Tages noch Tage aufaddiert oder abgezogen werden. Default
+								= 0 </para>
+							<para xml:id="det_5867" xml:lang="de">Mit dem Attribut "DurationUnit", kann man bestimmen in
+								welcher Einheit die Dauer angegeben ist. Default ist Nights. In
+								diesem Fall entspricht die Dauer der Anzahl der
+								Mitternachtsübergänge zwischen dem Starttermin und dem Endtermin.
+								Bei Angabe der DurationUnit = "Hours" werden die in Min, Max,
+								Durations, MultiplesOf angegebenen Werte in Stunden angegeben. Für
+								den Vergleich mit der über DurationStart und DurationEnd ermittelten
+								Dauer in Nächten werden diese Angaben durch 24 geteilt und
+								abgerundet. Bei Angabe der DurationUnit = "Minutes" sind die in Min,
+								Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
+								Für den Vergleich mit der über DurationStart und DurationEnd
+								ermittelten Dauer in Nächten werden diese Angaben durch 1440 geteilt
+								und abgerundet. Bei Angabe der DurationUnit = "Weeks" sind die in
+								Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen
+								angegeben. Für den Vergleich mit der über DurationStart und
+								DurationEnd ermittelten Dauer in Nächten werden diese Angaben mit 7
+								ultipliziert. Danach wird mit den ermittelten Werten geprüft ob die
+								definierte Bedingung erfüllt ist. </para>
 							
-							<para xml:id="de_888" xml:lang="de">Es folgen zwei Beispiele für Duration-Conditions:</para><para xml:id="en_888" xml:lang="en">The following are two examples of Duration conditions:</para>
+							<para xml:id="de_888" xml:lang="de">Es folgen 3 Beispiele für Duration-Conditions:</para><para xml:id="en_888" xml:lang="en">The following are two examples of Duration conditions:</para>
 							<programlisting><![CDATA[
 <Condition>
  	<Duration Source="Accommodation">
@@ -2760,6 +2777,17 @@
 </Condition>]]></programlisting>
 							<para xml:id="de_890" xml:lang="de">Diese Condition ist gültig, wenn die Gesamtreise
 								(Source=Product) mindestens 7 Aufenthaltstage hat.</para><para xml:id="en_890" xml:lang="en">This condition is valid if the entire trip (Source=Product) consists of at least 7 days.</para>
+							
+							<programlisting><![CDATA[<Condition>
+ 	<Duration Source="Product">
+		<DurationStart DayReference="CheckIn" Source="Outbound"/>
+		<DurationEnd DayReference="CheckIn" Source="Inbound"/>
+		<Min>5</Min>
+	</Duration>
+</Condition>]]></programlisting>
+							<para xml:id="det_5900" xml:lang="de">Manche Veranstaltersysteme bevorzugen eine etwas andere Definition der Reisedauer. 
+								Die Dauer in diesen Systemen beginnt beim Abflug des Hinfluges und endet beim Abflug des Rückfluges. 
+								Genau diese Definition der Dauer definiert man mit dieser Duration-Bedingung.</para>
 							<para xml:id="de_891" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#Duration">Technischen
 									Dokumentation für OTDS </link>.</para><para xml:id="en_891" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#Duration">Technical documentation for OTDS</link> .</para>
 
