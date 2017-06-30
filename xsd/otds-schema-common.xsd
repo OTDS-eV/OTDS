@@ -5177,7 +5177,13 @@ individual dates.</xs:documentation>
 				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
 					Checkout-Datum zur Emittlung des Startdatums einer Duration verwendet wird. Wird dieses Attribut nicht geliefert, so gilt der Wert aus Duration/@Source benutzt. 
 
-Falls die Auflösung der Source mehrdeutig ist, so wird die Source benutzt, die zur größten Dauer führt.</xs:documentation>
+Falls die Auflösung der Source mehrdeutig ist, so wird die Komponente in Abhängigkeit von DayReference referenziert. 
+
+Bei DayReference="CheckIn" wird die logisch erste KomponentenInstanz referenziert. 
+
+Bei DayReference="CheckOut" wird die logisch letzte KomponentenInstanz referenziert. 
+
+Logisch bedeutet, dass es die Reihenfolge ist, die durch das Attribut DayAllocation in der Product-Definition festgelegt wird. </xs:documentation>
 				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
 					used in order to determine the start date of a duration.</xs:documentation>
 			</xs:annotation>
@@ -5210,7 +5216,13 @@ Falls die Auflösung der Source mehrdeutig ist, so wird die Source benutzt, die 
 				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
 					Checkout-Datum zur Emittlung des Endedatums einer Duration verwendet wird. Wird dieses Attribut nicht geliefert, so gilt der Wert aus Duration/@Source benutzt.
 
-Falls die Auflösung der Source mehrdeutig ist, so wird die Source benutzt, die zur größten Dauer führt.</xs:documentation>
+Falls die Auflösung der Source mehrdeutig ist, so wird die Komponente in Abhängigkeit von DayReference referenziert. 
+
+Bei DayReference="CheckIn" wird die logisch erste KomponentenInstanz referenziert. 
+
+Bei DayReference="CheckOut" wird die logisch letzte KomponentenInstanz referenziert. 
+
+Logisch bedeutet, dass es die Reihenfolge ist, die durch das Attribut DayAllocation in der Product-Definition festgelegt wird. </xs:documentation>
 				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
 					used in order to determine the end date of a duration.</xs:documentation>
 			</xs:annotation>
@@ -5250,11 +5262,20 @@ Falls die Auflösung der Source mehrdeutig ist, so wird die Source benutzt, die 
 
 Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
 
-Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Folgenden beschriebenen Defaults der Attribute.
+Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Element definierten/beschribenen Defaults der Attribute.
 </xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="DurationEnd" type="DurationEndType" minOccurs="0" internal:otdsversion="2.0"/>
+			<xs:element name="DurationEnd" type="DurationEndType" minOccurs="0" internal:otdsversion="2.0">
+				<xs:annotation>
+					<xs:documentation>Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Die Dauer ergibt sich aus der Differenz der Termine von DurationEnd-DurationStart.
+
+Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
+
+Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Element definierten/beschribenen Defaults der Attribute.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:choice>
 				<xs:sequence>
 					<xs:element name="Min" type="xs:unsignedInt">
@@ -5306,14 +5327,14 @@ e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</x
 
 Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Beim Value "Nights" ergibt sich die Dauer aus der Differenz der Termine von DurationEnd-DurationStart.
 
-Bei Angabe der DurationUnit = "Hours" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Stunden angegeben.
-Für den Vergleich wird die ermittelte Dauer in Nights mit 24 multipliziert.
+Bei Angabe der DurationUnit = "Hours" werden die in Min, Max, Durations, MultiplesOf angegebenen Werte in Stunden angegeben.
+Für den Vergleich mit der über DurationStart und DurationEnd ermittelten Dauer in Nächten werden diese Angaben durch 24 geteilt und abgerundet.
 
 Bei Angabe der DurationUnit = "Minutes" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
-Für den Vergleich wird die ermittelte Dauer in Nights mit 1440 multipliziert.
+Für den Vergleich mit der über DurationStart und DurationEnd ermittelten Dauer in Nächten werden diese Angaben durch 1440 geteilt und abgerundet.
 
 Bei Angabe der DurationUnit = "Weeks" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen angegeben.
-Für den Vergleich wird die ermittelte Dauer in Nights durch 7 geteilt und abgerundet.
+Für den Vergleich mit der über DurationStart und DurationEnd ermittelten Dauer in Nächten werden diese Angaben mit 7 ultipliziert.
 
 Danach wird mit den ermittelten Werten geprüft ob die definierte Bedingung erfüllt ist.
 </xs:documentation>
