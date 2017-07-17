@@ -710,6 +710,13 @@
 						geliefert werden, die auch im Veranstaltersystem zur Produkterstellung und
 						Preisberechnung benutzt werden. Ein vorheriges Kombinieren bzw.
 						Zusammenfassen von Flügen ist nicht sinnvoll. </para><para xml:id="en_670" xml:lang="en">The OTDS flight data delivery differentiates between the delivery of Onewayflights, which may be combined through the rules to create Returnflights, and already compiled Returnflights, which may already exist in the tour operator system as Returnflights. In OTDS the smallest units of flights, which are also used in the tour operator system for product creation and price calculation, should always be supplied. A pre-combination or summary of flights is not practical.</para>
+					<para xml:id="det_5920" xml:lang="de">
+						Preisbestandteile auf der Ebene Flights/PriceItems platziert gelten sowohl für OnewayFlights als auch für ReturnFlights.
+						Durch Wahl der entsprechenden Source innerhalb der Conditions können die Preisbestandteile entsprechend nur einer Componentengruppe zugeordnet werden.
+						Beachte: Ein PriceItem wird nur einmal gültig und wird nicht automatisch in jede der Unterkomponenten expandiert. Es findet also keine Vervielfältigung eines PriceItems statt.
+						
+						Auch im Rahmen der ConsoderedPriceItems und ApplyTos, werden die hier plazierten PriceItems sowohl durch die Angabe von Source= ReturnFlight, OnewayFlight, Outbound, Inbound und entsprechend definierte #Names addressiert.
+					</para>
 					<section xml:id="OtdsStrategyComponentFlightsOneway">
 						<title><phrase xml:id="de_671" xml:lang="de">Oneway Flüge</phrase><phrase xml:id="en_671" xml:lang="en">Oneway flights</phrase></title>
 						<figure>
@@ -1334,7 +1341,7 @@
 			</section>
 			<section xml:id="OtdsStrategyCondition">
 				<title><phrase xml:id="de_797" xml:lang="de">Filter und Bedingungen (Filter und Condition)</phrase><phrase xml:id="en_797" xml:lang="en">Filters and conditions (Filter and Condition)</phrase></title>
-				<section xml:id="OtdsStrategyConditionWhat">
+				<section xml:id="OtdsStrategyConditionOverview">
 					<title><phrase xml:id="de_798" xml:lang="de">Überblick über Conditions und Filter</phrase><phrase xml:id="en_798" xml:lang="en">Overview of conditions and filters</phrase></title>
 					<para xml:id="de_799" xml:lang="de">Für Angebote aber auch für die Preise dieser Angebote gelten bestimmte Bedingungen.
 						Wir unterscheiden in OTDS einerseits nach Bedingungen, die einschränkend auf die
@@ -1389,393 +1396,611 @@
 						noch von Conditions gesprochen. Die Beschreibung gilt jedoch ebenso für Filter.</para><para xml:id="en_808" xml:lang="en">The various conditions are described below. From now on, only conditions will be referred to. However, the description applies equally to filters.</para>
 				</section>
 				<section xml:id="OtdsStrategyConditionBasics">
-					<title><phrase xml:id="de_809" xml:lang="de">Grundlagen zum Verständnis der Conditions</phrase><phrase xml:id="en_809" xml:lang="en">Foundations for understanding the conditions</phrase></title>
+					<title><phrase xml:id="" xml:lang="de">Grundlagen zum Verständnis der Conditions</phrase><phrase xml:id="en_809" xml:lang="en">Foundations for understanding the conditions</phrase></title>
 
 					<section xml:id="OtdsStrategyConditionBasicsSource">
 						<title><phrase xml:id="de_810" xml:lang="de">Das Attribut <code>Source</code></phrase><phrase xml:id="en_810" xml:lang="en">The attribute <code>Source</code>
 							</phrase></title>
-						<para xml:id="de_811" xml:lang="de">Jede Condition besitzt ein Attribut <code>Source</code>.
-							Dieses Attribut definiert die Komponenten/Unterkomponenten, in deren
-							Kontext eine Bedingung ausgewertet wird. In der Regel handelt sich dabei
-							um einen Zielknoten im OTDS-XML-Baum, bezogen auf das aktuell
-							betrachtete Angebot. Diese Zielknoten stellen in der Regel Komponenten
-							oder Unterkomponenten dar, an denen sich Parameter wie <code>Keys</code>
-							und <code>Tags</code> befinden. Die Addressierung findet über eine
-							festgelegte Struktur von in sich verschachtetelten Unterkomponenten
-							statt. Diese Verschachtelung wird über eine definierte Punktnotation
-							dargestellt und muss innerhalb der Komponenten-Definition den im
-								<code>SourceAttributeType</code> aufgeführten Enumerations folgen.
-							Eine Auflistung der möglichen Werte findet sich weiter unten.</para><para xml:id="en_811" xml:lang="en">Each condition possesses a <code>Source</code> attribute. This attribute defines the components/subcomponents in the context of which a condition is evaluated. Usually it refers to a target node in the OTDS XML tree, in relation to the currently regarded offer. These target nodes usually portray components or subcomponents which have parameters such as <code>Keys</code> and <code>Tags</code> . The addressing occurs via a fixed structure of encapsulated subcomponents. This encapsulation is portrayed by a defined dot notation and must follow the specified enumerations in <code>SourceAttributeType</code> within the component definition. A list of the possible values can be found further below.</para>
-						<para xml:id="de_812" xml:lang="de">Nur innerhalb der Rules kann ggf. von den im <code>SourceAttributeType</code>
-							aufgeführten Vorgaben der allgemeine Komponentenname durch den in den Rules
-							spezifisch genannten Namen einer <code>Component</code> ersetzt werden. Dabei
-							müssen deren Unterkomponenten wieder unbedingt der Punktnotation folgen. </para><para xml:id="en_812" xml:lang="en">Only within the rules is it possible to replace the general component name from the specifications given in <code>SourceAttributeType</code> with the specific name of a <code>Component</code> as stated in the rules. In this case, it is essential that their subcomponents return to following dot notation.</para>
-						<para xml:id="de_813" xml:lang="de">Eine Auflistung der möglichen Werte für <code>Source</code> ist weiter unten
-							angegeben. Das Attribut <code>Source</code> wird sowohl im <link linkend="OtdsStrategyRulesAttributSource">Kapitel zur Produktdefinition</link>
-							als auch im <link linkend="OtdsProcessSource">Verarbeitungsmodell</link> genauer
-							beschrieben.</para><para xml:id="en_813" xml:lang="en">A list of the possible values for <code>Source</code> is provided further below. The attribute <code>Source</code> is described in more detail in the <link linkend="OtdsStrategyRulesAttributSource">chapter on product definition</link> as well as in the <link linkend="OtdsProcessSource">processing model</link>.</para>
-						<para xml:id="de_814" xml:lang="de">OTDS definiert <link linkend="OtdsProcessRequestContextParameters">Primäre und
-								daraus abgeleitete Rahmenparameter</link>, die grundlegend für die
-							Produktbildung und Preisberechnung sind. Diese klären u.a. die Fragen "Wann wird
-							gereist?", "Wer reist?" und "Wann wird gebucht?". Die Rahmenparameter legen den
-							Rahmen eines Reisevorhabens fest und werden gebraucht, um Reiseangebote erzeugen
-							und deren Preise berechnen zu können. Mit Hilfe der Rahmenparameter können also
-							einzelne Produkte inkl. Preis und Verfügbarkeit zusammengestellt werden. Die
-							Rahmenparameter sind:
-						</para><para xml:id="en_814" xml:lang="en">OTDS defines the <link linkend="OtdsProcessRequestContextParameters">primary parameters and the framework parameters</link> derived from them, which are essential for product creation and price calculation. Among other things, these will answer questions such as "What are the travel dates?", "who is travelling?" and "when is the booking made?". The framework parameters create the framework of travel plans and are used to create travel offers and to calculate the price of these. In this way, individual products including price and availability can be compiled with the assistance of the framework parameters. The framework parameters are:</para>
-						<itemizedlist>
-							<listitem>
-								<para xml:id="de_815" xml:lang="de">bezüglich Reisetermin: Reisebeginn, <code>Duration</code> (aus der
-									Dauer ergibt sich das Reiseende), <code>Weekdays</code>
-								</para><para xml:id="en_815" xml:lang="en">Regarding travel dates: Start of travel, <code>Duration</code> (the end of travel can be deduced from the duration),<code>Weekdays</code>
-								</para>
-							</listitem>
-							<listitem>
-								<para xml:id="de_816" xml:lang="de">bezüglich Buchungstermin: <code>BookingDate</code>,
-										<code>BookingOffset</code></para><para xml:id="en_816" xml:lang="en">Regarding the booking date: <code>BookingDate</code> , <code>BookingOffset</code>
-								</para>
-							</listitem>
-							<listitem>
-								<para xml:id="de_817" xml:lang="de">bezüglich Personen: Anzahl und Alter der Personen</para><para xml:id="en_817" xml:lang="en">Regarding persons: Number and age of all persons</para>
-							</listitem>
-						</itemizedlist>
-						<para xml:id="de_818" xml:lang="de">Im Zusammenhang mit diesen Rahmenparametern drückt das Attribute "Source" die
-							Zugehörigkeit zu einer Komponente und damit die Betrachtung eines bestimmten
-							Kontextes aus.</para><para xml:id="en_818" xml:lang="en">In connection with these framework parameters, the "Source" attribute expresses belonging to a component and therefore indicates the consideration of a specific context.</para>
-            <para xml:id="de_4964" xml:lang="de">In Version 1.0 definiert die Source eine Referenz
-							auf eine Menge von Instanzen einer Komponente und dessen Eigenschaft
-							"Scope". Grundlage der Betrachtung ist die XML-Struktur, welche dem
-							Verarbeitungsmodell zugrunde liegt. Bei den Parametern "global:" und
-							"local:" handelt es sich um Werte, die eine Menge von Knotenreferenzen
-							hat. Die Angabe einer spezifischen Eigenschaft filtert bestimmte
-							Knotenreferenzen aus der Gesamtmenge der in Frage kommenden
-							Knotenreferenzen heraus. Implizit wird in V1.0 immer nur der Knoten
-							(Self) und nicht auch noch sein Umfeld (Ancestors und Descendants)
-							betrachtet. </para><para xml:id="en_4964" xml:lang="en">In version 1.0, the source defines a reference for a quantity of instances of a component and its property "Scope". The foundation of the view is the XML structure upon which the processing model is based. The parameters "global:" and "local:" refer to values which have a number of node references. The specification of a specific property filters particular node references from the total amount of eligible node references. In V1.0 it is implicitly only the node (Self) and not its environment (Ancestors and Descendants) which is regarded.</para>
-            <programlisting><![CDATA[<Tags Class="Saison" Source="SellingAccom">A</Tags>]]></programlisting>
-					  <para xml:id="de_4965" xml:lang="de">Hiermit werden die Tags der Komponente "SellingAccom" referenziert.</para><para xml:id="en_4965" xml:lang="en">This references the tags of the component "SellingAccom".</para>
-					  <para xml:id="de_4966" xml:lang="de">Diese Form impliziert bereits, dass eigentlich ein "local:" davor gestellt ist, welches
-              ausdrückt, dass die referenzierte Komponente direkt einer der Ancestor-Komponenten
-              oder Descendant-Komponenten ist:</para><para xml:id="en_4966" xml:lang="en">This form already implies that a "local:" precedes it, which expresses that the referenced component is directly one of the Ancestor or Descendant components:</para>
-					  <programlisting><![CDATA[<Tags Class="Saison" Source="local:SellingAccom">A</Tags>]]></programlisting>
-						<para xml:id="de_825" xml:lang="de">Beide Varianten drücken daher das gleiche aus (Default
-              "local:").</para><para xml:id="en_825" xml:lang="en">Both variations therefore express the same thing (Default "local:").</para>
-            <programlisting><![CDATA[<Tags Class="Saison" Source="global:SellingUnit">A</Tags>]]></programlisting>
-					  <para xml:id="de_4967" xml:lang="de">Das "global:" definiert, dass sich die referenzierte
-							Komponente im globalen Baum des Produktes befindet. SellingUnit ist kein
-							direkter Ancestor oder Descendant von Board. Um von Board zu SellingUnit
-							zu kommen, müsste man das über XPath ungefähr so ausdrücken:
-							Board/../Unit/SellingUnit.</para><para xml:id="en_4967" xml:lang="en">The "global:" defines the referenced component as being located within the global tree of the product. SellingUnit is not a direct Ancestor or Descendant of Board. To get from Board to SellingUnit, the XPath would have to be expressed roughly as follows: Board/../Unit/SellingUnit.</para>
-            <programlisting><![CDATA[<Tags Class="Saison" Source="global:#Komponente1.SellingUnit">A</Tags>]]></programlisting>
-					  <para xml:id="de_4968" xml:lang="de">Das "global:" definiert wie oben eine globale Position
-							im Baum des Produktes. Über die # (Raute) wird angezeigt, dass
-							"Komponente1" ein explizit vergebener Component/@Name innerhalb einer
-							ProduktDefinition oder einer DefinedComponent ist. Die Source
-							referenziert also eine Unterkomponente "SellingUnit" in der Komponente
-							mit dem Attribut @Name="Komponente1".</para><para xml:id="en_4968" xml:lang="en">The "global:" defines (as above) a global position in the product tree. The # (hash) indicates that "Component1" is an explicitly designated Component/@Name within a ProductDefinition or a DefinedComponent. The Source refers to a subcomponent, the "Selling Unit" in the component with the attribute @Name="Component1."</para>
-            <para xml:id="de_4969" xml:lang="de">In der Version 1.9 wird nun die Eigenschaft "Hierarchy" sowie "ComponentType"
-              eingeführt. Über Eigenschaft "Hierarchy" können nun Ancestor oder Descendant bzw.
-              Kombinationen explizit angesprochen werden.  Über die Eigenschaft "ComponentType" ist
-              nun möglich, virtuelle Komponenten/SubKomponenten einzubeziehen. Darüber hinaus wird
-              die Eigenschaft "DayAllocation", welche bisher ein eigenes Attribut war, zusätzlich
-              mit in die Source hineingezogen, um eine flexible Kombination zu ermöglichen. </para><para xml:id="en_4969" xml:lang="en">In version 1.9, the properties "Hierarchy" and "ComponentType" are introduced. Ancestors and Descendants, or combinations thereof, can now be explicitly addressed via the property "Hierarchy". It is now possible to include virtual components/subcomponents via the property "ComponentType". Moreover, the property "DayAllocation" (which was previously an independent attribute) is additionally taken up into Source in order to allow flexible combination.</para>
-            <para xml:id="de_4970" xml:lang="de">Seit Version 1.9 haben wir daher nun vier
-							Eigenschaften von Knotenreferenzen mit mehreren KeyWord-Optionen:</para><para xml:id="en_4970" xml:lang="en">We now therefore have four properties of node references with
-							multiple KeyWord options since version 1.9:</para>
-					  <orderedlist>
-					    <listitem>
-					      <para xml:id="de_4971" xml:lang="de">Scope=local|global (Default=local)</para><para xml:id="en_4971" xml:lang="en">Scope=local|global (default=local)</para>
-					      <para xml:id="de_4972" xml:lang="de">Gleiche Bedeutung wie in V1.0</para><para xml:id="en_4972" xml:lang="en">Same meaning as in V1.0</para>
-					    </listitem>
-					    <listitem>
-					      <para xml:id="de_4973" xml:lang="de">ComponentType=real|virtual|all (Default=real)</para><para xml:id="en_4973" xml:lang="en">ComponentType=real|virtual|all (default=real)</para>
-					      <orderedlist>
-					        <listitem>
-					          <para xml:id="de_4974" xml:lang="de">"real"</para><para xml:id="en_4974" xml:lang="en">"real"</para>
-					          <para xml:id="de_4975" xml:lang="de">Mit "real" werden nur Knotenreferenz realer
-											Komponenten/SubKomponenten referenziert. Nicht reale,
-											also virtuelle Komponenten sind z.B. DefinedComponents,
-											CombiComponents.</para><para xml:id="en_4975" xml:lang="en">"real" refers only to node references of real Components/SubComponents. Non-real, i.e. virtual components include DefinedComponents and CombiComponents, for example.</para>
-					        </listitem>
-					        <listitem>
-					          <para xml:id="de_4976" xml:lang="de">"virtual"</para><para xml:id="en_4976" xml:lang="en">"virtual"</para>
-					          <para xml:id="de_4977" xml:lang="de">Mit "virtual" wird die Knotenreferenz von
-											virtuellen referenziert. Virtuelle Komponenten sind z.B.
-											DefinedComponents, CombiComponents. Es werden immer die
-											nächsthöheren unmittelbaren virtuellen Komponenten
-											referenziert.</para><para xml:id="en_4977" xml:lang="en">"virtual" refers to the node reference of virtual components. Virtual components include DefinedComponents and CombiComponents, for example. It is always the next highest, directly virtual components which are referenced.</para>
-					        </listitem>
-					        <listitem>
-					          <para xml:id="de_4978" xml:lang="de">"all"</para><para xml:id="en_4978" xml:lang="en">"all"</para>
-					          <para xml:id="de_4979" xml:lang="de">Mit "all" wird die Knotenreferenz von realen und
-											virtuellen Knoten referenziert. Es werden immer die
-											nächsthöheren unmittelbaren virtuellen Komponenten
-											referenziert.</para><para xml:id="en_4979" xml:lang="en">"all" refers to the node reference of real and virtual nodes. It is always the next highest, directly virtual components which are referenced.</para>
-					        </listitem>
-					        </orderedlist>
-					    </listitem>
-					    <listitem>
-					      <para xml:id="de_4980" xml:lang="de">Hierarchy=self|descendants|ancestors
-									(Default=self)</para><para xml:id="en_4980" xml:lang="en">Hierarchy=self|descendants|ancestors (default=self)</para>
-					      <orderedlist>
-					        <listitem>
-                    <para xml:id="de_4981" xml:lang="de">"self"</para><para xml:id="en_4981" xml:lang="en">"self"</para>
-                    <para xml:id="de_4982" xml:lang="de">Mit "self" wird genau die Knotenreferenz referenziert.</para><para xml:id="en_4982" xml:lang="en">Node references are specifically referenced with "self".</para>
-                  </listitem>
-                  <listitem>
-                    <para xml:id="de_4983" xml:lang="de">"descendants" </para><para xml:id="en_4983" xml:lang="en">"descendants"</para>
-                    <para xml:id="de_4984" xml:lang="de">Mit "descendants" wird die Knotenreferenz und alle XML-Nachfahren
-                      referenziert.</para><para xml:id="en_4984" xml:lang="en">"descendants" references the node reference and all XML descendants.</para>
-                  </listitem>
-                  <listitem>
-                    <para xml:id="de_4985" xml:lang="de">"ancestors" </para><para xml:id="en_4985" xml:lang="en">"ancestors"</para>
-                    <para xml:id="de_4986" xml:lang="de">Mit "ancestors" wird die Knotenreferenz und alle XML-Vorfahren
-                      referenziert.</para><para xml:id="en_4986" xml:lang="en">"ancestors" references the node reference and all XML ancestors.</para>
-                  </listitem>
-                  <listitem>
-                    <para xml:id="de_4987" xml:lang="de">"all" </para><para xml:id="en_4987" xml:lang="en">"all"</para>
-                    <para xml:id="de_4988" xml:lang="de">Mit "all" wird die Knotenreferenz, alle XML-Vorfahren und alle Nachfahren
-                      referenziert,</para><para xml:id="en_4988" xml:lang="en">"all" references the node reference, all XML ancestors and all descendants.</para>
-                  </listitem>
-					        </orderedlist>
-					    </listitem>
-					    <listitem>
-					    	<para xml:id="de_4989" xml:lang="de">DayAllocation=first|last|all (Kontextabhängiger Default wie beim Attribut DayAllocation)
-					    		Der Default ist "All" wenn nicht eine der folgenden Bedingungen erfüllt ist:
-					    		Die Condition enthält den DayType="CheckIn", dann ist der Default von DayAllocation="First"
-					    		Die Condition enthält den DayType="CheckOut", dann ist der Default von DayAllocation="Last"
-					    		Bei allen Auswertungen welche sich auf "DepartureAirport" beziehen, wird der Default von DayAllocation="First" (Airports Bedingung, MatchEqual, etc.)
-					    		Bei allen Auswertungen welche sich auf "ArrivalAirport" beziehen, wird der Default von DayAllocation="Last" (Airports Bedingung, MatchEqual, etc.)
-					    		Bei BookingDateOffset-Bedingungen wird der Default von DayAllocation="First"</para>
-					    	<para xml:id="en_4989" xml:lang="en">DayAllocation=first|last|all (context dependent default as with the DayAllocation attribute) The Default is "All" if the condition is not one of the following: If the Condition contains the DayType="CheckIn", the Default is DayAllocation="First" If the Condition contains ths DayType="CheckOut", the Default is DayAllocation="Last" For all evaluations which refer to "DepartureAirport", the Default is DayAllocation="First" (Airports Condition, MatchEqual, etc.) For all evaluations which refer to "ArrivalAirport", the Default is DayAllocation="Last" (Airports Condition, MatchEqual, etc.) The BookingDateOffset-Condition has the Default DayAllocation="First"</para>
-					    	<para xml:id="de_4990" xml:lang="de">Gleiche Bedeutung wie das Attribut "@DayAllocation" in V1.0</para><para xml:id="en_4990" xml:lang="en">Same meaning as the attribute "@DayAllocation" in V1.0</para>
-					    </listitem>
-					  </orderedlist>
-            <para xml:id="de_4991" xml:lang="de">Grundsätzlich erfolgt die Angabe der Eigenschaften
-							über eine Punktnotation "Eigenschaft.KeyWord" z.B. "ComponentType.real".
-							Bei allen eindeutigen KeyWords kann man aber auf die Punktnotation
-							verzichten und nur "real" angeben. Da das KeyWord "all" nicht eindeutig
-							ist, muss hier immer die Eigenschaft vorangestellt werden z.B.
-							"ComponentType.all". Die Source erfordert die Angabe eines KeyWords für
-							jede Eigenschaft. Wird die Eigenschaft nicht explizit definiert, so wird
-							der Defaultwert als gesetzter Wert angesehen.</para><para xml:id="en_4991" xml:lang="en">In general, properties are specified using the dot notation
-							"Property.KeyWord" e.g. "ComponentType.real". For all unambiguous
-							KeyWords, dot notation can be omitted and the specification "real" is
-							sufficient. Because the KeyWord "all" is ambiguous, the property must
-							always precede it, e.g. "ComponentType.all". The Source requires that a
-							KeyWord is specified for each property. Where the property is not
-							explicitly defined, a default value is used as the set value.</para>
-            <para xml:id="de_4992" xml:lang="de">Die Angabe mehrerer Eigenschaften erfolgt analog
-							wie bei XPath durch eine Verbindung mit "+". Den Abschluss der
-							Eigenschaften bildet wie bisher ein Doppelpunkt ":", auf den der
-							Pfadverweis zur Knotenreferenz folgt. Die Reihenfolge der Eigenschaften
-							muss wie oben aufgelistet eingehalten werden.Jede Eigenschaft kann nur
-							maximal einmal angegeben werden.</para><para xml:id="en_4992" xml:lang="en">Specifying multiple properties is done in the same way as for XPath, using the connection "+". As before, the properties are concluded with a colon":" , followed by the path reference to the node reference. The sequence of the properties must be followed as listed above.Each property can be specified only once.</para>
-            <para xml:id="de_4993" xml:lang="de">Somit lässt sich die in V1.0 verwendete Syntax zu
-							100% auf die in V1.0 verwendeten impliziten Werte zurückführen. Das
-							Attribut "@DayAllocation" bleibt erhalten; der Defaultwert von
-							@DayAllocation wird durch den entsprechenden Wert/Defaultwert in der
-							Source-Eigenschaft ersetzt. Existiert ein Widerspruch zwischen der
-							Angabe in @DayAllocation und der Eigenschaft DayAllocation so ist die
-							Angabe in der Eigenschaft maßgebend.</para><para xml:id="en_4993" xml:lang="en">Thus the syntax used in V1.0 can be traced back 100% to the implicitly applied values in V1.0. The attribute "@DayAllocation" remains the default value of @DayAllocation and is replaced by the corresponding value/default value in the Source property. Where there is a contradiction between the specification in @DayAllocation and the property DayAllocation, the specification in the property is defining.</para>
-            <para xml:id="de_4994" xml:lang="de">So ergeben sich z.B. folgende neue Source-Konstrukte:</para><para xml:id="en_4994" xml:lang="en">This results in the following new Source constructs, for example:</para>
-            <programlisting><![CDATA[<Tags Class="Saison" Source="descendants+virtual:SellingAccom">A</Tags>]]></programlisting>
-					  <para xml:id="de_4995" xml:lang="de">referenziert alle Tags in virtuellen Knoteninstanzen der
-							Knoten "SellingAccom" und sämtlicher untergeordneter virtuellen Knoten.
-							"Local" ist zusätzlich. Die Knoten müssen sich also in einem direkten
-							Pfad ober- und unterhalb des Knotens befinden, der diese "Source"-Angabe
-							enthält. Zusätzlich ist "first" gesetzt.</para><para xml:id="en_4995" xml:lang="en">references all tags in virtual node instances of the node "SellingAccom" and all of its subordinated virtual nodes. "local" is additional. The nodes must be in a direct path above and below the node which contains this "Source" specification. "first" is also set.</para>
-					  <programlisting><![CDATA[<Tags Class="Saison" Source="global+Hierarchy.all+ComponentType.all:SellingAccom">A</Tags>]]></programlisting>
-					  <para xml:id="de_4996" xml:lang="de">referenziert alle Tags an allen reellen und virtuellen
-							Knoteninstanzen der Knoten "SellingAccom" und sämtlicher
-							untergeordneter, übergeordneter rellen und virtuellen Knoten. Da
-							"global" gesetzt ist, können sich die Knoten bezogen auf die Platzierung
-							der Source-Definition irgendwo im Produktbaum befinden. Zusätzlich ist
-							"first" gesetzt.</para><para xml:id="en_4996" xml:lang="en">references all tags on real and virtual node instances of the node "SellingAccom" and all subordinate, superordinate, real and virtual nodes. As the setting "global" is set, the nodes can be located anywhere in the product tree relative to the placement of the Source definition. "first" is also set.</para>
-            <bridgehead xml:id="de_4997" xml:lang="de">Beispiel Source "global:"</bridgehead><bridgehead xml:id="en_4997" xml:lang="en">Example Source "global:"</bridgehead>
-					  <para xml:id="de_4998" xml:lang="de">Aufgrund von</para><para xml:id="en_4998" xml:lang="en">As</para>
-					  <programlisting><![CDATA[<Tags Source="global:Board" Class="Markierung">A12</Tags>]]></programlisting>
-					  <para xml:id="de_4999" xml:lang="de">wird im globalen Baum nach Board mit dem Inhalt "A12" gesucht. </para><para xml:id="en_4999" xml:lang="en">Board is searched with the content "A12" in the global tree.</para>
-					  <figure>
-					    <title><phrase xml:lang="de" xml:id="de_5000">Source "global:"</phrase><phrase xml:lang="en" xml:id="en_5000">Source "global:"</phrase></title>
-					    <mediaobject>
-					      <imageobject>
-					        <imagedata fileref="figures/source-global.png" format="PNG" contentwidth="100%"/>
-					      </imageobject>
-					    </mediaobject>
-					  </figure>
-					  <bridgehead xml:id="de_5001" xml:lang="de">Beispiel Source "ancestors:"</bridgehead><bridgehead xml:id="en_5001" xml:lang="en">Example Source "ancestors:"</bridgehead>
-					  <para xml:id="de_5002" xml:lang="de">Aufgrund von</para><para xml:id="en_5002" xml:lang="en">As</para>
-					  <programlisting><![CDATA[<Tags Source="ancestors:Board" Class="Markierung">A12</Tags>]]></programlisting>
-					  <para xml:id="de_5003" xml:lang="de">wird bezogen auf die lokale Position nach Board mit dem Inhalt "A12" in allen
-              Vorfahr-Knoten gesucht.</para><para xml:id="en_5003" xml:lang="en">refers to the local position according to Board with the content "A12" in all ancestor nodes.</para>
-					  <figure>
-					    <title><phrase xml:lang="de" xml:id="de_5004">Source "global:"</phrase><phrase xml:lang="en" xml:id="en_5004">Source "global:"</phrase></title>
-					    <mediaobject>
-					      <imageobject>
-					        <imagedata fileref="figures/source-ancestors.png" format="PNG" contentwidth="100%"/>
-					      </imageobject>
-					    </mediaobject>
-					  </figure>
-					  <para xml:id="de_819" xml:lang="de">Beispiele für einen unterschiedlichen
-              Betrachtungskontext:</para>
-            <para xml:id="en_819" xml:lang="en">Examples of various considered contexts:</para>
-            <itemizedlist>
-              <listitem>
-                <para xml:id="de_820" xml:lang="de"><code>Source="Accommodation"</code>: Bei einer
-                    <code>Date</code> Condition werden die Tage des Hotelaufenthaltes
-                  überprüft.</para>
-                <para xml:id="en_820" xml:lang="en">
-                  <code>Source="Accommodation"</code> : In the case of a <code>Date</code>
-                  condition, the dates of the hotel stay are checked.</para>
-              </listitem>
-              <listitem>
-                <para xml:id="de_821" xml:lang="de"><code>Source="Product"</code>: Bei einer
-                    <code>Duration</code> Condition wird Dauer der Gesamtreise geprüft.</para>
-                <para xml:id="en_821" xml:lang="en">
-                  <code>Source="Product"</code> : With a <code>Duration</code> condition, the
-                  duration of the entire trip is checked.</para>
-              </listitem>
-              <listitem>
-                <para xml:id="de_822" xml:lang="de"><code>Source="ReturnFlight.Inbound"</code>: Bei
-                  einer <code>Weekdays</code> Condition wird der Tag des Rückflugs überprüft</para>
-                <para xml:id="en_822" xml:lang="en">
-                  <code>Source="ReturnFlight.Inbound"</code> : With a<code>Weekdays</code>
-                  condition, the day of the return flight is checked.</para>
-              </listitem>
-            </itemizedlist>
-            <para xml:lang="de" xml:id="de_5005">Für die anderen Rahmenparameter, die sich nicht auf Termine
-              beziehen, gibt es nur den Kontext der Gesamtreise. Das Buchungsdatum kann sich also
-              beispielsweise nur auf die Gesamtreise beziehen, nicht auf einzelne Komponenten. Dies
-              wird sich möglicherweise in zukünftigen OTDS-Versionen ändern. Eine systemische
-              Zusammenstellung aller möglichen Werte für <code>Source</code> in Abhängigkeit von der
-              Condition findet sich in den folgenden beiden Tabellen. </para>
-			<para xml:lang="en" xml:id="en_5005">For the other framework parameters, which are not related to dates, 
-				only the context of the entire trip exists. The booking date can thus, for example, only refer to the 
-				total trip and not to individual components. This may change in future versions of OTDS. A systemic 
-				combination of all possible values for <code>Source</code> independently of the condition can be found in the following two tables.</para></section>
-					<section xml:id="OtdsStrategyConditionAttributeSourceTableOfValues">
+						<section xml:id="OtdsStrategyConditionBasicsSourceOverview">
+							<title><phrase xml:id="de_6100" xml:lang="de">Überblick</phrase><phrase xml:id="en_6100" xml:lang="en">Overview</phrase></title>
+							<para xml:id="de_811" xml:lang="de">Jede Condition besitzt ein Attribut <code>Source</code>.
+								Dieses Attribut definiert eine Referenz auf eine Komponenten/Unterkomponenten-Instanz, in deren
+								Kontext eine Bedingung ausgewertet wird. In der Regel handelt sich dabei
+								um einen Zielknoten im OTDS-XML-Baum, bezogen auf das aktuell
+								betrachtete Angebot. Diese Zielknoten stellen in der Regel Komponenten
+								oder Unterkomponenten dar, an denen sich Parameter wie <code>Keys</code>
+								und <code>Tags</code> befinden. Die Addressierung findet über eine
+								festgelegte Struktur von in sich verschachtetelten Unterkomponenten
+								statt. Diese Verschachtelung wird über eine definierte Punktnotation
+								dargestellt und muss innerhalb der Komponenten-Definition den im
+									<code>SourceAttributeType</code> aufgeführten Enumerations folgen.
+								Eine Auflistung der möglichen Werte findet sich weiter unten.</para><para xml:id="en_811" xml:lang="en">Each condition possesses a <code>Source</code> attribute. This attribute defines the components/subcomponents in the context of which a condition is evaluated. Usually it refers to a target node in the OTDS XML tree, in relation to the currently regarded offer. These target nodes usually portray components or subcomponents which have parameters such as <code>Keys</code> and <code>Tags</code> . The addressing occurs via a fixed structure of encapsulated subcomponents. This encapsulation is portrayed by a defined dot notation and must follow the specified enumerations in <code>SourceAttributeType</code> within the component definition. A list of the possible values can be found further below.</para>
+							<para xml:id="de_812" xml:lang="de">Nur innerhalb der Rules kann ggf. von den im <code>SourceAttributeType</code>
+								aufgeführten Vorgaben der allgemeine Komponentenname durch den in den Rules
+								spezifisch genannten Namen einer <code>Component</code> ersetzt werden. Dabei
+								müssen deren Unterkomponenten wieder unbedingt der Punktnotation folgen. </para><para xml:id="en_812" xml:lang="en">Only within the rules is it possible to replace the general component name from the specifications given in <code>SourceAttributeType</code> with the specific name of a <code>Component</code> as stated in the rules. In this case, it is essential that their subcomponents return to following dot notation.</para>
+							<para xml:id="de_813" xml:lang="de">Eine Auflistung der möglichen Werte für <code>Source</code> ist weiter unten
+								angegeben. Das Attribut <code>Source</code> wird sowohl im <link linkend="OtdsStrategyRulesAttributSource">Kapitel zur Produktdefinition</link>
+								als auch im <link linkend="OtdsProcessSource">Verarbeitungsmodell</link> genauer
+								beschrieben.</para><para xml:id="en_813" xml:lang="en">A list of the possible values for <code>Source</code> is provided further below. The attribute <code>Source</code> is described in more detail in the <link linkend="OtdsStrategyRulesAttributSource">chapter on product definition</link> as well as in the <link linkend="OtdsProcessSource">processing model</link>.</para>
+							<para xml:id="de_814" xml:lang="de">OTDS definiert <link linkend="OtdsProcessRequestContextParameters">Primäre und
+									daraus abgeleitete Rahmenparameter</link>, die grundlegend für die
+								Produktbildung und Preisberechnung sind. Diese klären u.a. die Fragen "Wann wird
+								gereist?", "Wer reist?" und "Wann wird gebucht?". Die Rahmenparameter legen den
+								Rahmen eines Reisevorhabens fest und werden gebraucht, um Reiseangebote erzeugen
+								und deren Preise berechnen zu können. Mit Hilfe der Rahmenparameter können also
+								einzelne Produkte inkl. Preis und Verfügbarkeit zusammengestellt werden. Die
+								Rahmenparameter sind:
+							</para>
+							<para xml:id="en_814" xml:lang="en">OTDS defines the <link linkend="OtdsProcessRequestContextParameters">primary parameters and the framework parameters</link> derived from them, which are essential for product creation and price calculation. Among other things, these will answer questions such as "What are the travel dates?", "who is travelling?" and "when is the booking made?". The framework parameters create the framework of travel plans and are used to create travel offers and to calculate the price of these. In this way, individual products including price and availability can be compiled with the assistance of the framework parameters. The framework parameters are:</para>
+							<itemizedlist>
+								<listitem>
+									<para xml:id="de_815" xml:lang="de">bezüglich Reisetermin: Reisebeginn, <code>Duration</code> (aus der
+										Dauer ergibt sich das Reiseende), <code>Weekdays</code>
+									</para><para xml:id="en_815" xml:lang="en">Regarding travel dates: Start of travel, <code>Duration</code> (the end of travel can be deduced from the duration),<code>Weekdays</code>
+									</para>
+								</listitem>
+								<listitem>
+									<para xml:id="de_816" xml:lang="de">bezüglich Buchungstermin: <code>BookingDate</code>,
+											<code>BookingOffset</code></para><para xml:id="en_816" xml:lang="en">Regarding the booking date: <code>BookingDate</code> , <code>BookingOffset</code>
+									</para>
+								</listitem>
+								<listitem>
+									<para xml:id="de_817" xml:lang="de">bezüglich Personen: Anzahl und Alter der Personen</para><para xml:id="en_817" xml:lang="en">Regarding persons: Number and age of all persons</para>
+								</listitem>
+							</itemizedlist>
+							<para xml:id="de_818" xml:lang="de">Im Zusammenhang mit diesen Rahmenparametern drückt das Attribute "Source" die
+								Zugehörigkeit zu einer Komponente und damit die Betrachtung eines bestimmten
+								Kontextes aus.</para><para xml:id="en_818" xml:lang="en">In connection with these framework parameters, the "Source" attribute expresses belonging to a component and therefore indicates the consideration of a specific context.</para>
+							<para>Die Angabe im Source-Attribut ist unterteilt in einen Source-Value und Source-Eigenschaften. Dem eigentlichen Source-Value werden dementsprechend eine oder mehrere Eigenschaften vorangestellt welche durch einen Doppelpunkt von dem Value getrennt sind.</para>
+							<para>Zum Beispiel:  Source="Scope.global,DayAllocation.first:Accommodation</para>
+							<para><code>Scope.global,DayAllocation.first</code> sind dabei die Source-Eigenschaften.</para>
+							<para xml:id="de_4991" xml:lang="de">Grundsätzlich erfolgt die Angabe der Eigenschaften
+								über eine Punktnotation "Eigenschaft.KeyWord" z.B. "ComponentType.real".
+								Bei allen eindeutigen KeyWords kann man aber auf die Punktnotation
+								verzichten und nur "real" angeben. Da das KeyWord "all" nicht eindeutig
+								ist, muss hier immer die Eigenschaft vorangestellt werden z.B.
+								"ComponentType.all". Die Source erfordert die Angabe eines KeyWords für
+								jede Eigenschaft. Wird die Eigenschaft nicht explizit definiert, so wird
+								der Defaultwert als gesetzter Wert angesehen.</para><para xml:id="en_4991" xml:lang="en">In general, properties are specified using the dot notation
+									"Property.KeyWord" e.g. "ComponentType.real". For all unambiguous
+									KeyWords, dot notation can be omitted and the specification "real" is
+									sufficient. Because the KeyWord "all" is ambiguous, the property must
+									always precede it, e.g. "ComponentType.all". The Source requires that a
+									KeyWord is specified for each property. Where the property is not
+									explicitly defined, a default value is used as the set value.</para>
+							<para xml:id="de_4992" xml:lang="de">Die Angabe mehrerer Eigenschaften erfolgt analog
+								wie bei XPath durch eine Verbindung mit "+". Den Abschluss der
+								Eigenschaften bildet wie bisher ein Doppelpunkt ":", auf den der
+								Pfadverweis zur Knotenreferenz folgt. Die Reihenfolge der Eigenschaften
+								muss wie oben aufgelistet eingehalten werden.Jede Eigenschaft kann nur
+								maximal einmal angegeben werden.</para><para xml:id="en_4992" xml:lang="en">Specifying multiple properties is done in the same way as for XPath, using the connection "+". As before, the properties are concluded with a colon":" , followed by the path reference to the node reference. The sequence of the properties must be followed as listed above.Each property can be specified only once.</para>
+							
+							<para><code>Accommodation</code> ist der Source-Value.</para>
+							<para>Mehr Details dazu finden Sie in den folgenden Abschnitten.</para>
+						</section>
+						<section xml:id="OtdsStrategyConditionBasicsComponentInstances">
+							<title><phrase xml:id="de_6120" xml:lang="de">Die Komponenten-Instanzen laut Verarbeitungsmodel</phrase><phrase xml:id="en_6120" xml:lang="en">The component instances according to the OTDS process model</phrase></title>
+							<para xml:id="det_6121" xml:lang="de">
+								Hier einmal beispielhaft eine Produktdefinition für ein Pauschalpaket mit zusammengesetzten Flügen und der sich daraus ergebende Produktbaum der Komponenten-Instanzen.</para>
+							<para xml:id="de_6122" xml:lang="de">OTDS-Daten</para><para xml:id="en_6122" xml:lang="de">OTDS-Data</para>
+							<programlisting><![CDATA[
+	<Otds>
+		<Product Key="Pauschal" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation Name="PackageUnterkunft"/>
+				<DefinedComponent Name="ReturnFlight" UseRole="ReturnFlight"/>
+			</Components>
+			<Filter Key="Default">
+				<MatchEqual>
+					<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</Product>
+		...
+		<DefinedComponents>
+			<DefineComponent Key="ReturnFlight" Role="ReturnFlight">
+				<Components>
+					<CombiComponent Role="Outbound" Name="Hinflug" DayAllocationIndex="-2">
+						<DefinedComponent UseRole="OnewayFlight"/>
+					</CombiComponent>
+					<CombiComponent Role="Inbound" Name="Rückflug" DayAllocationIndex="2">
+						<DefinedComponent UseRole="OnewayFlight"/>
+					</CombiComponent>
+				</Components>
+				<Filter Key="1">
+					...
+				</Filter>
+			</DefineComponent>
+			<DefineComponent Key="TwoLeg" Role="OnewayFlight">
+				<Components>
+					<OnewayFlight Name="XLegLeg1" DayAllocationIndex="2"/>
+					<OnewayFlight Name="XLegLeg2" DayAllocationIndex="3"/>
+				</Components>
+				<Filter Key="1">
+					...
+				</Filter>
+			</DefineComponent>
+		</DefinedComponents>		
+	</Otds>]]></programlisting>
+							<para xml:id="de_6123" xml:lang="de">Produktbaum des Verarbeitungsmodells</para><para xml:id="en_6123" xml:lang="de">Product tree of OTDS operational model</para>
+							<programlisting><![CDATA[
+<ComponentInstance Role="Products" ComponentType="virtual">
+	<ComponentInstance Role="GlobalValue" ComponentType="real"/>
+	<ComponentInstance Role="Product" ComponentType="virtual">
+		<ComponentInstance Role="Brands" ComponentType="virtual">
+			<ComponentInstance Role="Brand" ComponentType="real"/>
+		</ComponentInstance>
+		<ComponentInstance Role="Accommodations" ComponentType="virtual">
+			<ComponentInstance Role="Accommodation" ComponentType="real" Name="PackageUnterkunft">
+				<ComponentInstance Role="SellingAccom">
+					<ComponentInstance Role="Unit">
+						<ComponentInstance Role="SellingUnit"/>
+					</ComponentInstance>
+					<ComponentInstance Role="Board"/>
+				</ComponentInstance>
+			</ComponentInstance>
+		</ComponentInstance>
+		<ComponentInstance Role="Flights>
+			<ComponentInstance Role="ReturnFlight" ComponentType="virtual" Name="ReturnFlight">
+				<ComponentInstance Role="Outbound" ComponentType="virtual" Name="Hinflug">
+					<ComponentInstance Role="OnewayFlight" ComponentType="virtual">
+						<ComponentInstance Role="OnewayFlight" ComponentType="real">
+							<ComponentInstance Role="BookingClass" ComponentType="real">
+							</ComponentInstance>
+							<ComponentInstance Role="OnewayFlight" ComponentType="real">
+								<ComponentInstance Role="BookingClass" ComponentType="real"/>
+							</ComponentInstance>
+						</ComponentInstance>
+					</ComponentInstance>
+				</ComponentInstance>
+				<ComponentInstance Role="Inbound" ComponentType="virtual" Name="Rueckflug">
+					<ComponentInstance Role="OnewayFlight" ComponentType="virtual">
+						<ComponentInstance Role="OnewayFlight" ComponentType="real">
+							<ComponentInstance Role="BookingClass" ComponentType="real"/>
+						</ComponentInstance>	
+						<ComponentInstance Role="OnewayFlight" ComponentType="real">
+							<ComponentInstance Role="BookingClass" ComponentType="real"/>
+						</ComponentInstance>
+					</ComponentInstance>
+				</ComponentInstance>
+			</ComponentInstance>
+		</ComponentInstance>
+	</ComponentInstance>
+</ComponentInstance>							
+								]]></programlisting>
+							<para xml:id="det_6122" xml:lang="de">Eine ausführliche Beschreibung für den Aufbau der Komponenten-Instanzen gemäß dem OTDS-Verarbeitungsmodell finden Sie im Kapitel 3 unter <link linkend="OtdsProcessDataModelComponent">"Komponente, Instanz, Produkt und Angebot"</link> </para>
+						</section>
+						<section xml:id="OtdsStrategyConditionBasicsSourceValues">
+							<title><phrase xml:id="de_6101" xml:lang="de">Die möglichen Source-Werte</phrase><phrase xml:id="en_6101" xml:lang="en">The possible Source-Values </phrase></title>
+							<para>Die Angabe des Source-Values erfolgt in Punkt-Notations-Schreibweise bzgl. der Verschatelung der einzelnen Komponenten. Hier ein Beispiel für die Referenz auf eine Unit in Punkt-Notations-Schreibweise:</para>
+							<programlisting><![CDATA[<Source="Accommodation.SellingAccom.Unit">]]></programlisting>
+							<para>Eine alternative Schreibweise ist<code>Source="Unit"</code>. 
+							Man kann die Punktnotation weglassen und anstatt dieser nur die letzte Unterkomponenteninstanz angeben. Das geht jedoch nur, wenn Es gibt theoretische Szenarien, in denen die Punktnotation eine exaktere Referenz ergibt, als die reine Angabe der <code>Unit</code>.
+							Diese sind jedoch im allgemeinen theoretischer Natur, so dass mit gutem Gewissen die Punktnotation in der Regel nicht beutzt werden muss.</para>
+							<para xml:id="de_827" xml:lang="de">Die folgende Tabelle listet alle möglichen Werte für das Attribut <code>Source</code> auf und gibt die adressierte Position innerhalb der
+								OTDS-Datenstruktur an.</para><para xml:id="en_827" xml:lang="en">The following table lists all possible values ​​for the attribute <code>Source</code>  and specifies the addressed position within the OTDS data structure.</para>
+							<table frame="all">
+								<title><phrase xml:id="de_828" xml:lang="de">Werte und Definition für <code>Source</code></phrase><phrase xml:id="en_828" xml:lang="en">Values ​​and definitions for <code>Source</code>
+								</phrase></title>
+								<tgroup cols="3" align="left" colsep="1" rowsep="1">
+									<thead>
+										<row>
+											<entry><para><code>Source</code>-Wert bzw. Angabe ohne Punktnotation in Klammern</para></entry>
+											<entry><para>Pfad im Modellbaum der OTDS-Verarbeitung</para></entry>
+										</row>
+									</thead>
+									<tbody>
+										<row>
+											<entry>Brand</entry>
+											<entry>Product/Brand</entry>
+										</row>
+										<row>
+											<entry>Accommodation</entry>
+											<entry>Product/Accommodation</entry>
+										</row>
+										<row>
+											<entry>Accommodation.SellingAccom (SellingAccom)</entry>
+											<entry>Product/Accommodation/SellingAccom</entry>
+										</row>
+										<row>
+											<entry>Accommodation.SellingAccom.Unit (Unit)</entry>
+											<entry>Product/Accommodation/SellingAccom/Unit</entry>
+										</row>
+										<row>
+											<entry>Accommodation.SellingAccom.Board (Board)</entry>
+											<entry>Product/Accommodation/SellingAccom/Board</entry>
+										</row>
+										<row>
+											<entry>Accommodation.SellingAccom.Unit.SellingUnit (SellingUnit)</entry>
+											<entry>Product/Accommodation/SellingAccom/SellingUnit</entry>
+										</row>
+										<row>
+											<entry>ReturnFlight</entry>
+											<entry>Product/ReturnFlight</entry>
+										</row>
+										<row>
+											<entry>ReturnFlight.Inbound (Inbound)</entry>
+											<entry>Product/ReturnFlight/Inbound</entry>
+										</row>
+										<row>
+											<entry>ReturnFlight.Inbound.BookingClass</entry>
+											<entry>Product/ReturnFlight/Inbound/BookingClass</entry>
+										</row>
+										<row>
+											<entry>ReturnFlight.Outbound (Outbound)</entry>
+											<entry>Product/ReturnFlight/Outbound</entry>
+										</row>
+										<row>
+											<entry>ReturnFlight.Outbound.BookingClass</entry>
+											<entry>Product/ReturnFlight/OutboundBookingClass</entry>
+										</row>
+										<row>
+											<entry>ReturnFlight.BookingClass</entry>
+											<entry>Product/ReturnFlight/BookingClass</entry>
+										</row>
+										<row>
+											<entry>OnewayFlight</entry>
+											<entry>Product/OnewayFlight</entry>
+										</row>
+										<row>
+											<entry>OnewayFlight.BookingClass</entry>
+											<entry>Product/OnewayFlight/BookingClass</entry>
+										</row>
+										<row>
+											<entry>Addon</entry>
+											<entry>Product/Addon</entry>
+										</row>
+										<row>
+											<entry>Addon.Service (Service)</entry>
+											<entry>Product/Addon/Service</entry>
+										</row>
+										<row>
+											<entry>Addon.ServiceFeature (ServiceFeature)</entry>
+											<entry>Product/Addon/ServiceFeature</entry>
+										</row>
+										<row>
+											<entry>Product</entry>
+											<entry>Product</entry>
+										</row>
+										<row>
+											<entry>GlobalValue</entry>
+											<entry>Product/GlobalValue</entry>
+										</row>
+									</tbody>
+								</tgroup>
+							</table>
+							<para xml:id="de_829" xml:lang="de"><emphasis role="bold">Bitte beachten:</emphasis>
+								<emphasis role="italic">Beim angegebenen OTDS-Pfad handelt sich um
+									eine Zuordnung zu den Knoten des zugrunde liegenden
+									Komponentenbaumes auf Basis des Verarbeitungsmodells. Dieser
+									Strukturbaum ist aufgrund der möglichen Produkt- und
+									Komponentenregeln ggf. auch komplexer als hier dargestellt, da in diesem Modell auch
+									berücksichtigt wird, dass auch Komponenten ineinander
+									verschachtelt werden können - zum Beispiel, wenn ein Flug aus
+									mehreren Einzelflügen besteht (Zubringer, Hauptflug und
+									Verteiler). </emphasis></para><para xml:id="en_829" xml:lang="en">
+								<emphasis role="bold">Please note:</emphasis>
+								<emphasis role="italic">The specified OTDS path in the table is intended only to illustrate that a relation between the "Source" attribute and the node in the XML document exists. Strictly speaking, it is not entirely correct however. It demonstrates an allocation to the nodes of the underlying processing model however. This processing model is slightly more complex due to the possible product and component rules, as this model also allows for the nesting of components inside each other. For example, if a flight consists of several individual flights (feeder, main flight and connecting flight).</emphasis>
+							</para>
+							<para>Der Value der Source kann aber nicht nur einen der oben definierten Werte enthalten, sondern es kann auch eine Referenz auf einer der in der Product-Definition festgelegten Komponentennamen z.B. im Attribut <code>Component/Accommodation/@Name</code> erfolgen. Dazu muss </para>
+							<programlisting><![CDATA[<Tags Class="Saison" Source="#Komponente1.SellingUnit">A</Tags>]]></programlisting>
+							<para xml:id="de_4968" xml:lang="de">Über die # (Raute) wird angezeigt, dass
+								"Komponente1" ein explizit vergebener Component/@Name innerhalb einer
+								ProduktDefinition oder einer DefinedComponent ist. Die Source
+								referenziert also eine Unterkomponente "SellingUnit" in der Komponente
+								mit dem Attribut @Name="Komponente1".</para><para xml:id="en_4968" xml:lang="en">The # (hash) indicates that "Component1" is an explicitly designated Component/@Name within a ProductDefinition or a DefinedComponent. The Source refers to a subcomponent, the "Selling Unit" in the component with the attribute @Name="Component1."</para>
+						</section>
+						<section xml:id="OtdsStrategyConditionBasicsSourceProperties">
+							<title><phrase xml:id="de_6102" xml:lang="de">Source-Eigenschaften</phrase><phrase xml:id="en_6102" xml:lang="en">Source-Properties</phrase></title>
+							
+								<para xml:id="de_4964" xml:lang="de">Die Source definiert eine Referenz auf eine Menge von
+								Komponenten-Instanzen in einem Produkt. Die Menge der
+								Komponenteninstanzen kann durch die Angabe spezifischer
+								Source-Eigenschaften eingeschränkt werden. Grundlage der Betrachtung
+								ist die XML-Struktur, welche dem Verarbeitungsmodell zugrunde liegt
+								und die spezifischen Eigenschaften der einzelnen
+								Komponenten-Instanzen auf die sich die Eigenschaften der Source
+								beziehen. </para>
+								<para>Die Source-Eigenschaften werden dem Soruce-Value vorangestellt und sind durch einen <code>:</code> vom Source-Value getrennt. Es können mehrere Eigenschaften durch <code>+</code> getrennt angegeben werden. Jede Source-Eigenschaft definiert dabei über eine Punkt Notation einen Value der Eigenschaft. Hier ein Beispiel:</para>
+								<programlisting><![CDATA[<Tags Class="Saison" Source="Scope.local+DayAllocation.last:SellingUnit">A</Tags>]]></programlisting>
+								<table frame="all">
+									<title><phrase xml:id="det_6107" xml:lang="de">Aktuell kennen wir folgende Source-Eigenschaften:</phrase></title>
+									<tgroup cols="21" align="left" colsep="1" rowsep="1">
+										<thead>
+											<row>
+												<entry><para>Source-Eigenschaft</para></entry>
+												<entry><para>mögliche Werte</para></entry>
+												<entry><para>Default</para></entry>
+												<entry><para>Beispiel</para></entry>
+											</row>
+										</thead>
+										<tbody>
+											<row>
+												<entry>Scope</entry>
+												<entry><para><code>local</code></para><para><code>global</code></para></entry>
+												<entry><para><code>local</code></para></entry>
+												<entry>
+													<para><code>Source="Scope.global:Accommodation</code></para>
+												</entry>
+											</row>
+											<row>
+												<entry>ComponentType</entry>
+												<entry>
+													<para><code>real</code></para>
+													<para><code>virtual</code></para>
+													<para><code>all</code></para>
+												</entry>
+												<entry><para><code>all</code></para></entry>
+												<entry>
+													<para><code>Source="ComponentType.virtual:Accommodation</code></para>
+												</entry>
+											</row>
+											<row>
+												<entry>Hierarchy</entry>
+												<entry>
+													<para><code>self</code></para>
+													<para><code>descendants</code></para>
+													<para><code>ancestors</code></para>
+													<para><code>current</code></para>
+												</entry>
+												<entry><para><code>current</code></para></entry>
+												<entry>
+													<para><code>Source="Hierarchy.current:Accommodation</code></para>
+												</entry>
+											</row>
+											<row>
+												<entry>DayAllocation</entry>
+												<entry>
+													<para><code>first</code></para>
+													<para><code>last</code></para>
+													<para><code>all</code></para>
+												</entry>
+												<entry><para>Abhängig vom Kontext (siehe unten)</para></entry>
+												<entry>
+													<para><code>Source="DayAllocation.first:Accommodation</code></para>
+												</entry>
+											</row>
+										</tbody>
+									</tgroup>
+								</table>
+								
+								<para>Die angegeben Defaultwerte bedeuten, dass bei fehlender Angabe diese Werte automatisch angewendet werden.</para>
+								<programlisting><![CDATA[<Tags Class="Saison" Source="SellingAccom">A</Tags>]]></programlisting>
+									<para xml:id="de_4965" xml:lang="de">Hiermit werden die Tags der Komponente "SellingAccom" referenziert.</para><para xml:id="en_4965" xml:lang="en">This references the tags of the component "SellingAccom".</para>
+									<para xml:id="det_4966" xml:lang="de">Da der Defaultwert von Scope "local" ist, impliziert das weglassen der Eigenschaft, dass eigentlich ein "local:" davor gestellt ist, welches
+							              ausdrückt, dass die referenzierte Komponente direkt einer der Ancestor- oder Descendant-Komponenten ist.</para><para xml:id="en_4966" xml:lang="en">This form already implies that a "local:" precedes it, which expresses that the referenced component is directly one of the Ancestor or Descendant components.</para>
+									<programlisting><![CDATA[<Tags Class="Saison" Source="local:SellingAccom">A</Tags>]]></programlisting>
+									<para xml:id="de_825" xml:lang="de">Beide Varianten drücken daher das gleiche aus (Default "local:").</para><para xml:id="en_825" xml:lang="en">Both variations therefore express the same thing (Default "local:").</para>
+				            		<programlisting><![CDATA[<Tags Class="Saison" Source="global:SellingUnit">A</Tags>]]></programlisting>
+									<para>Mit <code>Scope.global</code> werden alle Komponenten-Instanzen des Kompletten Produktbaumes referenziert. Also auch die parallelen Zweige zu dem Ort an der die Source-Angabe platziert ist.</para>
+				            		
+									<para xml:id="de_4969" xml:lang="de">In der Version 1.9 wird nun die Eigenschaft "Hierarchy" sowie "ComponentType"
+						              eingeführt. Über Eigenschaft "Hierarchy" können nun Ancestor oder Descendant bzw.
+						              Kombinationen explizit angesprochen werden.  Über die Eigenschaft "ComponentType" ist
+						              nun möglich, virtuelle Komponenten/SubKomponenten einzubeziehen. Darüber hinaus wird
+						              die Eigenschaft "DayAllocation", welche bisher ein eigenes Attribut war, zusätzlich
+						              mit in die Source hineingezogen, um eine flexible Kombination zu ermöglichen. </para><para xml:id="en_4969" xml:lang="en">In version 1.9, the properties "Hierarchy" and "ComponentType" are introduced. Ancestors and Descendants, or combinations thereof, can now be explicitly addressed via the property "Hierarchy". It is now possible to include virtual components/subcomponents via the property "ComponentType". Moreover, the property "DayAllocation" (which was previously an independent attribute) is additionally taken up into Source in order to allow flexible combination.</para>
+				            		<para xml:id="de_4970" xml:lang="de">Seit Version 1.9 haben wir daher nun vier
+											Eigenschaften von Knotenreferenzen mit mehreren KeyWord-Optionen:</para><para xml:id="en_4970" xml:lang="en">We now therefore have four properties of node references with
+											multiple KeyWord options since version 1.9:</para>
+									<section xml:id="OtdsStrategyConditionBasicsSourcePropertiesScope">
+										<title><phrase xml:id="de_4971" xml:lang="de">Scope=local|global (Default=local)</phrase><phrase  xml:id="en_4971" xml:lang="en">Scope=local|global (default=local)</phrase></title>
+									    
+									    	<orderedlist>
+												<listitem>
+													<para xml:id="de_6110" xml:lang="de"><code>global</code></para><para xml:id="en_6110" xml:lang="en"><code>global</code></para>
+													<para xml:id="det_6111" xml:lang="de">Mit <code>global</code> findet keine Einschränkung der Komponent-Instanzen statt.</para>
+													<para xml:id="det_6112" xml:lang="de"><code>global</code> definiert, dass sich die referenzierte Komponente irgendwo im "globalen" Baum des Produktes befindet. 
+														Nur so kann man auch eine Komponenten-Instanz aus einem parallelen Zweig des Produktbaumes referenzieren.
+														Ein gutes Beispiel ist hier die Angabe einer <code>Source="global:Unit"</code> in einem <code>Board</code>-Knoten. <code>Board</code> liegt parallel zu <code>Unit</code> und ist damit kein Ancestor oder Descandent der <code>Unit</code>. 
+														Die Angabe <code>Source="local:Unit"</code> in einem <code>Board</code>-Knoten führt damit immer zu einer leeren Menge von Komponenten-Instanzen.</para>
+												</listitem>
+									    		<listitem>
+									    			<para xml:id="de_6113" xml:lang="de"><code>local</code></para><para xml:id="en_6113" xml:lang="en"><code>local</code></para>
+									    			<para xml:id="det_6114" xml:lang="de">Mit <code>local</code> findet eine Einschränkung der Komponent-Instanzen auf alle Instanzen statt, die bzgl. der Platzierung der Source-Angabe Ancestors oder Descandents sind.</para>
+									    			<para xml:id="det_6115" xml:lang="de">Die Angabe einer <code>Source="local:Unit"</code> würde die Menge auf die Komponenten-Instanzen der Ancestors in Product, SellingAccom, und Accommodation und der Descandents in der SellingUnit und sich selbst einschränken.</para>
+									    		</listitem>
+									    		<listitem>
+									    			<para xml:id="de_6116" xml:lang="de"><code>current</code></para><para xml:id="en_6116" xml:lang="en"><code>current</code></para>
+									    			<para xml:id="det_6117" xml:lang="de">Aus Kompatibilitätsgründen im Umgang mit virtuellen Komponenten-Instanzen in vorherigen Versionen mussten wir den Scope-Value <code>current</code> einführen.
+									    				<code>current</code> reduziert die Komponenten-Instanz auf die nächste zu findende "lokale" Instanz ausgehend von der Instanz in der die Source definiert ist. Dabei erfolgt die Prüfung in folgender Reihenfolge:</para>
+									    			<orderedlist>
+									    				<listitem>
+									    					<para>"Current" bedeutet, dass zuerst nach einer passenden Source im "local" Pfad gesucht wird.</para>
+									    					<para>Wird dort keine Source gefunden, so wählt man die nächsthöhere Instanz-Hierarchie-Stufe und durchsucht erneut den „local“-Pfad nach einer passenden Instanz. Bis man die Product-Instanz errreicht hat. </para>
+									    					<para>Wird auch hier über "local" keine passende Instanz gefunden wird die Property nicht zugeordnet bzw. entsprechend ignoriert.</para>
+									    				</listitem>
+									    			</orderedlist>
+									    			<para xml:id="det_6118" xml:lang="de">Die Angabe einer <code>Source="local:Unit"</code> würde die Menge auf die Komponenten-Instanzen der Ancestors in Product, SellingAccom, und Accommodation und der Descandents in der SellingUnit und sich selbst einschränken.</para>
+									    		</listitem>
+											</orderedlist>
+									</section>
+									<section xml:id="OtdsStrategyConditionBasicsSourcePropertiesComponentType">
+										<title><phrase xml:id="de_4973" xml:lang="de">ComponentType=real|virtual|all (Default=real)</phrase><phrase xml:id="en_4973" xml:lang="en">ComponentType=real|virtual|all (default=real)</phrase></title>
+									      <orderedlist>
+									        <listitem>
+									          <para xml:id="de_4974" xml:lang="de">"real"</para><para xml:id="en_4974" xml:lang="en">"real"</para>
+									          <para xml:id="de_4975" xml:lang="de">Mit "real" werden nur Knotenreferenz realer
+															Komponenten/SubKomponenten referenziert. Nicht reale,
+															also virtuelle Komponenten sind z.B. DefinedComponents,
+															CombiComponents.</para><para xml:id="en_4975" xml:lang="en">"real" refers only to node references of real Components/SubComponents. Non-real, i.e. virtual components include DefinedComponents and CombiComponents, for example.</para>
+									        </listitem>
+									        <listitem>
+									          <para xml:id="de_4976" xml:lang="de">"virtual"</para><para xml:id="en_4976" xml:lang="en">"virtual"</para>
+									          <para xml:id="de_4977" xml:lang="de">Mit "virtual" wird die Knotenreferenz von
+															virtuellen referenziert. Virtuelle Komponenten sind z.B.
+															DefinedComponents, CombiComponents. Es werden immer die
+															nächsthöheren unmittelbaren virtuellen Komponenten
+															referenziert.</para><para xml:id="en_4977" xml:lang="en">"virtual" refers to the node reference of virtual components. Virtual components include DefinedComponents and CombiComponents, for example. It is always the next highest, directly virtual components which are referenced.</para>
+									        </listitem>
+									        <listitem>
+									          <para xml:id="de_4978" xml:lang="de">"all"</para><para xml:id="en_4978" xml:lang="en">"all"</para>
+									          <para xml:id="de_4979" xml:lang="de">Mit "all" wird die Knotenreferenz von realen und
+															virtuellen Knoten referenziert. Es werden immer die
+															nächsthöheren unmittelbaren virtuellen Komponenten
+															referenziert.</para><para xml:id="en_4979" xml:lang="en">"all" refers to the node reference of real and virtual nodes. It is always the next highest, directly virtual components which are referenced.</para>
+									        </listitem>
+									       </orderedlist>
+									</section>
+									<section xml:id="OtdsStrategyConditionBasicsSourcePropertiesHierarchy">
+										<title><phrase xml:id="de_4980" xml:lang="de">Hierarchy=self|descendants|ancestors (Default=self)</phrase><phrase  xml:id="en_4980" xml:lang="en">Hierarchy=self|descendants|ancestors (default=self)</phrase></title>
+									    	<orderedlist>
+									        	<listitem>
+							                    	<para xml:id="de_4981" xml:lang="de">"self"</para><para xml:id="en_4981" xml:lang="en">"self"</para>
+							                    	<para xml:id="de_4982" xml:lang="de">Mit "self" wird genau die Knotenreferenz referenziert.</para><para xml:id="en_4982" xml:lang="en">Node references are specifically referenced with "self".</para>
+							                  	</listitem>
+						                  		<listitem>
+								                    <para xml:id="de_4983" xml:lang="de">"descendants" </para><para xml:id="en_4983" xml:lang="en">"descendants"</para>
+								                    <para xml:id="de_4984" xml:lang="de">Mit "descendants" wird die Knotenreferenz und alle XML-Nachfahren
+								                      referenziert.</para><para xml:id="en_4984" xml:lang="en">"descendants" references the node reference and all XML descendants.</para>
+								                </listitem>
+								                <listitem>
+								                    <para xml:id="de_4985" xml:lang="de">"ancestors" </para><para xml:id="en_4985" xml:lang="en">"ancestors"</para>
+								                    <para xml:id="de_4986" xml:lang="de">Mit "ancestors" wird die Knotenreferenz und alle XML-Vorfahren
+								                      referenziert.</para><para xml:id="en_4986" xml:lang="en">"ancestors" references the node reference and all XML ancestors.</para>
+								                </listitem>
+								                <listitem>
+								                    <para xml:id="de_4987" xml:lang="de">"all" </para><para xml:id="en_4987" xml:lang="en">"all"</para>
+								                    <para xml:id="de_4988" xml:lang="de">Mit "all" wird die Knotenreferenz, alle XML-Vorfahren und alle Nachfahren
+								                      referenziert,</para><para xml:id="en_4988" xml:lang="en">"all" references the node reference, all XML ancestors and all descendants.</para>
+								                </listitem>
+											</orderedlist>
+									</section>
+									<section xml:id="OtdsStrategyConditionBasicsSourcePropertiesDayAllocation">
+										<title><phrase xml:id="de_6108" xml:lang="de">DayAllocation=first|last|all (Kontextabhängiger Default wie beim Attribut DayAllocation)</phrase><phrase  xml:id="en_6108" xml:lang="en">DayAllocation=first|last|all (context dependent default as with the DayAllocation attribute) </phrase></title>
+								    	<para xml:id="de_4989" xml:lang="de">
+								    		Der Default ist "All" wenn nicht eine der folgenden Bedingungen erfüllt ist:
+								    		Die Condition enthält den DayType="CheckIn", dann ist der Default von DayAllocation="First"
+								    		Die Condition enthält den DayType="CheckOut", dann ist der Default von DayAllocation="Last"
+								    		Bei allen Auswertungen welche sich auf "DepartureAirport" beziehen, wird der Default von DayAllocation="First" (Airports Bedingung, MatchEqual, etc.)
+								    		Bei allen Auswertungen welche sich auf "ArrivalAirport" beziehen, wird der Default von DayAllocation="Last" (Airports Bedingung, MatchEqual, etc.)
+								    		Bei BookingDateOffset-Bedingungen wird der Default von DayAllocation="First"</para>
+										<para xml:id="en_4989" xml:lang="en">The Default is "All" if the condition is not one of the following: If the Condition contains the DayType="CheckIn", the Default is DayAllocation="First" If the Condition contains ths DayType="CheckOut", the Default is DayAllocation="Last" For all evaluations which refer to "DepartureAirport", the Default is DayAllocation="First" (Airports Condition, MatchEqual, etc.) For all evaluations which refer to "ArrivalAirport", the Default is DayAllocation="Last" (Airports Condition, MatchEqual, etc.) The BookingDateOffset-Condition has the Default DayAllocation="First"</para>
+										<para xml:id="det_6109" xml:lang="de">
+											Falls  <code>@DayAllocation</code> angegeben ist, so wird kein Default für die Source-Eigenschaft  <code>DayAllocation</code> angewendet.
+												Ist sowohl  <code>@DayAllocation</code> als auch die Source-Eigenschaft  <code>DayAllocation</code> angegeben, so wird die  Source-Eigenschaft  <code>DayAllocation</code> nicht beachtet.</para>
+										<para xml:id="det_6119" xml:lang="de">Die Interpretation der Source-Eigenschaft <code>DayAllocation</code> ist identisch mit dem Attribut <code>@DayAllocation</code>, welches in der Regel immer neben dem Attribut <code>@Source</code> definiert ist.</para>
+										<para xml:id="de_844" xml:lang="de">"DayAllocation" definiert die Zuweisung im Falle, dass die
+											Werte im Attribut "Source" auf mehrere Komponenten verweisen. Das kann
+											zum Beispiel vorkommen, wenn man ein Produkt definiert, welches
+											zusammengesetzte Flüge über CombiComponents verwenden soll. Die
+											Addressierung über Source kann nur den Flug im Allgemeinen ansprechen.
+											Der Flug besteht aber in dem Falle aus mehreren Einzelkomponenten. Die
+											Adressierung über "Source" wäre nicht eindeutig möglich. Über
+											"DayAllocation" definiert man in dann eine zeitlich eindeutige
+											Auswertung von Komponenten, die zeitlich aufeinander folgen.</para><para xml:id="en_844" xml:lang="en">"DayAllocation" defines the allocation in cases where the values in the attribute "Source" refer to several components. This can occur if a product is defined which is to use composite flights via CombiComponents, for example. Addressing via Source can only refer to the flight in general. The flight in this case consists of several individual components however. Addressing via "Source" would not be unambiguous. "DayAllocation" is used in these cases to define a temporally unambiguous evaluation of components which follow on from one another in chronological order.</para>
+										<para xml:id="de_845" xml:lang="de">Mögliche Werte für das Attribut "DayAllocation" sind: </para><para xml:id="en_845" xml:lang="en">Possible values for the "DayAllocation" attribute are:</para>
+										<orderedlist>
+											<listitem>
+												<para xml:id="de_846" xml:lang="de">"First": Nur die zeitlich erste Komponente wird bzgl. der Bedingung
+													ausgewertet. Die zeitliche Reihenfolge entspricht der Sortierung des
+													Attributs "DayAllocationIndex" der entsprechenden Komponenten.</para><para xml:id="en_846" xml:lang="en">"First": Only the chronologically first component is evaluated according to the condition. The chronological sequence follows the order of the "DayAllocationIndex" attribute of the corresponding components.</para>
+											</listitem>
+											<listitem>
+												<para xml:id="de_847" xml:lang="de">"Last": Nur die zeitlich letzte Komponente wird bzgl. der Bedingung
+													ausgewertet. Die zeitliche Reihenfolge entspricht der Sortierung des
+													Attributs "DayAllocationIndex" der entsprechenden Komponenten.</para><para xml:id="en_847" xml:lang="en">"Last": Only the chronologically last component is evaluated according to the condition. The chronological sequence follows the order of the "DayAllocationIndex" attribute of the corresponding components.</para>
+											</listitem>
+											<listitem>
+												<para xml:id="de_848" xml:lang="de">"All": Alle Komponenten werden bzgl. der Bedingung
+													ausgewertet. Die Bedingung ist nur erfüllt, wenn alle
+													Komponenten die Bedingung erfüllen.</para><para xml:id="en_848" xml:lang="en">"All": All components are evaluated according to the condition. The condition is only met if all components fulfil the condition.</para>
+											</listitem>
+										</orderedlist>
+										<para xml:id="de_4993" xml:lang="de">Somit lässt sich die in V1.0 verwendete Syntax zu
+											100% auf die in V1.0 verwendeten impliziten Werte zurückführen. Das
+											Attribut "@DayAllocation" bleibt erhalten; der Defaultwert von
+											@DayAllocation wird durch den entsprechenden Wert/Defaultwert in der
+											Source-Eigenschaft ersetzt. Existiert ein Widerspruch zwischen der
+											Angabe in @DayAllocation und der Eigenschaft DayAllocation so ist die
+											Angabe in der Eigenschaft maßgebend.</para><para xml:id="en_4993" xml:lang="en">Thus the syntax used in V1.0 can be traced back 100% to the implicitly applied values in V1.0. The attribute "@DayAllocation" remains the default value of @DayAllocation and is replaced by the corresponding value/default value in the Source property. Where there is a contradiction between the specification in @DayAllocation and the property DayAllocation, the specification in the property is defining.</para>
+										
+									</section>
+									<section xml:id="OtdsStrategyConditionBasicsSourcePropertiesExamples">
+										<title><phrase xml:id="de_6121" xml:lang="de">Beispiele für die Source-Eigenschaften seit Version 1.9</phrase><phrase  xml:id="en_6121" xml:lang="en">Examples for Source-Properties that were established since VErsion 1.9</phrase></title>
+								
+						            <para xml:id="de_4994" xml:lang="de">So ergeben sich z.B. folgende neue Source-Konstrukte:</para><para xml:id="en_4994" xml:lang="en">This results in the following new Source constructs, for example:</para>
+						            <programlisting><![CDATA[<Tags Class="Saison" Source="descendants+virtual:SellingAccom">A</Tags>]]></programlisting>
+											  <para xml:id="de_4995" xml:lang="de">referenziert alle Tags in virtuellen Knoteninstanzen der
+													Knoten "SellingAccom" und sämtlicher untergeordneter virtuellen Knoten.
+													"Local" ist zusätzlich. Die Knoten müssen sich also in einem direkten
+													Pfad ober- und unterhalb des Knotens befinden, der diese "Source"-Angabe
+													enthält. Zusätzlich ist "first" gesetzt.</para><para xml:id="en_4995" xml:lang="en">references all tags in virtual node instances of the node "SellingAccom" and all of its subordinated virtual nodes. "local" is additional. The nodes must be in a direct path above and below the node which contains this "Source" specification. "first" is also set.</para>
+											  <programlisting><![CDATA[<Tags Class="Saison" Source="global+Hierarchy.all+ComponentType.all:SellingAccom">A</Tags>]]></programlisting>
+											  <para xml:id="de_4996" xml:lang="de">referenziert alle Tags an allen reellen und virtuellen
+													Knoteninstanzen der Knoten "SellingAccom" und sämtlicher
+													untergeordneter, übergeordneter rellen und virtuellen Knoten. Da
+													"global" gesetzt ist, können sich die Knoten bezogen auf die Platzierung
+													der Source-Definition irgendwo im Produktbaum befinden. Zusätzlich ist
+													"first" gesetzt.</para><para xml:id="en_4996" xml:lang="en">references all tags on real and virtual node instances of the node "SellingAccom" and all subordinate, superordinate, real and virtual nodes. As the setting "global" is set, the nodes can be located anywhere in the product tree relative to the placement of the Source definition. "first" is also set.</para>
+						            <bridgehead xml:id="de_4997" xml:lang="de">Beispiel Source "global:"</bridgehead><bridgehead xml:id="en_4997" xml:lang="en">Example Source "global:"</bridgehead>
+									<para xml:id="de_4998" xml:lang="de">Aufgrund von</para><para xml:id="en_4998" xml:lang="en">As</para>
+									<programlisting><![CDATA[<Tags Source="global:Board" Class="Markierung">A12</Tags>]]></programlisting>
+									<para xml:id="de_4999" xml:lang="de">wird im globalen Baum nach Board mit dem Inhalt "A12" gesucht. </para><para xml:id="en_4999" xml:lang="en">Board is searched with the content "A12" in the global tree.</para>
+									<figure>
+									    <title><phrase xml:lang="de" xml:id="de_5000">Source "global:"</phrase><phrase xml:lang="en" xml:id="en_5000">Source "global:"</phrase></title>
+									    <mediaobject>
+									      <imageobject>
+									        <imagedata fileref="figures/source-global.png" format="PNG" contentwidth="100%"/>
+									      </imageobject>
+									    </mediaobject>
+									</figure>
+									<bridgehead xml:id="de_5001" xml:lang="de">Beispiel Source "ancestors:"</bridgehead><bridgehead xml:id="en_5001" xml:lang="en">Example Source "ancestors:"</bridgehead>
+									<para xml:id="de_5002" xml:lang="de">Aufgrund von</para><para xml:id="en_5002" xml:lang="en">As</para>
+									<programlisting><![CDATA[<Tags Source="ancestors:Board" Class="Markierung">A12</Tags>]]></programlisting>
+									<para xml:id="de_5003" xml:lang="de">wird bezogen auf die lokale Position nach Board mit dem Inhalt "A12" in allen
+				              			Vorfahr-Knoten gesucht.</para><para xml:id="en_5003" xml:lang="en">refers to the local position according to Board with the content "A12" in all ancestor nodes.</para>
+									  <figure>
+									    <title><phrase xml:lang="de" xml:id="de_5004">Source "global:"</phrase><phrase xml:lang="en" xml:id="en_5004">Source "global:"</phrase></title>
+									    <mediaobject>
+									      <imageobject>
+									        <imagedata fileref="figures/source-ancestors.png" format="PNG" contentwidth="100%"/>
+									      </imageobject>
+									    </mediaobject>
+									  </figure>
+									  <para xml:id="de_819" xml:lang="de">Beispiele für einen unterschiedlichen Betrachtungskontext:</para>
+				            		  <para xml:id="en_819" xml:lang="en">Examples of various considered contexts:</para>
+				            		<itemizedlist>
+						              <listitem>
+						                <para xml:id="de_820" xml:lang="de"><code>Source="Accommodation"</code>: Bei einer
+						                    <code>Date</code> Condition werden die Tage des Hotelaufenthaltes
+						                  überprüft.</para>
+						                <para xml:id="en_820" xml:lang="en">
+						                  <code>Source="Accommodation"</code> : In the case of a <code>Date</code>
+						                  condition, the dates of the hotel stay are checked.</para>
+						              </listitem>
+						              <listitem>
+						                <para xml:id="de_821" xml:lang="de"><code>Source="Product"</code>: Bei einer
+						                    <code>Duration</code> Condition wird Dauer der Gesamtreise geprüft.</para>
+						                <para xml:id="en_821" xml:lang="en">
+						                  <code>Source="Product"</code> : With a <code>Duration</code> condition, the
+						                  duration of the entire trip is checked.</para>
+						              </listitem>
+						              <listitem>
+						                <para xml:id="de_822" xml:lang="de"><code>Source="ReturnFlight.Inbound"</code>: Bei
+						                  einer <code>Weekdays</code> Condition wird der Tag des Rückflugs überprüft</para>
+						                <para xml:id="en_822" xml:lang="en">
+						                  <code>Source="ReturnFlight.Inbound"</code> : With a<code>Weekdays</code>
+						                  condition, the day of the return flight is checked.</para>
+						              </listitem>
+						            </itemizedlist>
+						            <para xml:lang="de" xml:id="de_5005">Für die anderen Rahmenparameter, die sich nicht auf Termine
+						              beziehen, gibt es nur den Kontext der Gesamtreise. Das Buchungsdatum kann sich also
+						              beispielsweise nur auf die Gesamtreise beziehen, nicht auf einzelne Komponenten. Dies
+						              wird sich möglicherweise in zukünftigen OTDS-Versionen ändern. Eine systemische
+						              Zusammenstellung aller möglichen Werte für <code>Source</code> in Abhängigkeit von der
+						              Condition findet sich in den folgenden beiden Tabellen. </para>
+									<para xml:lang="en" xml:id="en_5005">For the other framework parameters, which are not related to dates, 
+										only the context of the entire trip exists. The booking date can thus, for example, only refer to the 
+										total trip and not to individual components. This may change in future versions of OTDS. A systemic 
+										combination of all possible values for <code>Source</code> independently of the condition can be found in the following two tables.</para>
+							</section>
+						</section>
+						<section xml:id="OtdsStrategyConditionAttributeSourceTableOfValues">
 						<title><phrase xml:id="de_826" xml:lang="de">Zuordnung einer <code>Source</code> in Conditions zu den entsprechenden Knoten in der
 							OTDS-Datenstruktur</phrase><phrase xml:id="en_826" xml:lang="en">Assigning a <code>Source</code>  in Conditions to the corresponding node in the OTDS data structure.</phrase></title>
-						<para xml:id="de_827" xml:lang="de">Die folgende Tabelle listet alle möglichen Werte für das Attribut
-								<code>Source</code> auf und gibt die adressierte Position innerhalb der
-							OTDS-Datenstruktur an.</para><para xml:id="en_827" xml:lang="en">The following table lists all possible values ​​for the attribute <code>Source</code>  and specifies the addressed position within the OTDS data structure.</para>
-						<table frame="all">
-							<title><phrase xml:id="de_828" xml:lang="de">Werte und Definition für <code>Source</code></phrase><phrase xml:id="en_828" xml:lang="en">Values ​​and definitions for <code>Source</code>
-								</phrase></title>
-							<tgroup cols="3" align="left" colsep="1" rowsep="1">
-								<thead>
-									<row>
-										<entry>Abkürzung</entry>
-										<entry>Wert für <code>Source</code></entry>
-										<entry>Pfad in OTDS</entry>
-									</row>
-								</thead>
-								<tbody>
-									<row>
-										<entry>a</entry>
-										<entry>Brand</entry>
-										<entry>/OTDS/Brands/Brand</entry>
-									</row>
-									<row>
-										<entry>b</entry>
-										<entry>Accommodation</entry>
-										<entry>/OTDS/Accommodations/Accommodation</entry>
-									</row>
-									<row>
-										<entry>c</entry>
-										<entry>Accommodation.SellingAccom</entry>
-										<entry>/OTDS/Accommodations/Accommodation/SellingAccom</entry>
-									</row>
-									<row>
-										<entry>d</entry>
-										<entry>Accommodation.SellingAccom.Unit</entry>
-										<entry>/OTDS/Accommodations/Accommodation/SellingAccom/Unit</entry>
-									</row>
-									<row>
-										<entry>e</entry>
-										<entry>Accommodation.SellingAccom.Board</entry>
-										<entry>/OTDS/Accommodations/Accommodation/SellingAccom/Board</entry>
-									</row>
-									<row>
-										<entry>f</entry>
-										<entry>Accommodation.SellingAccom.Unit.SellingUnit</entry>
-										<entry>/OTDS/Accommodations/Accommodation/SellingAccom/SellingUnit</entry>
-									</row>
-									<row>
-										<entry>g</entry>
-										<entry>ReturnFlight</entry>
-										<entry>/OTDS/Flights/ReturnFlights/ReturnFlight</entry>
-									</row>
-									<row>
-										<entry>h</entry>
-										<entry>ReturnFlight.Inbound</entry>
-										<entry>/OTDS/Flights/ReturnFlights/ReturnFlight/Inbound</entry>
-									</row>
-									<row>
-										<entry>j</entry>
-										<entry>ReturnFlight.Outbound</entry>
-										<entry>/OTDS/Flights/ReturnFlights/ReturnFlight/Outbound</entry>
-									</row>
-									<row>
-										<entry>k</entry>
-										<entry>ReturnFlight.BookingClass</entry>
-										<entry>/OTDS/Flights/ReturnFlights/ReturnFlight/BookingClass</entry>
-									</row>
-									<row>
-										<entry>l</entry>
-										<entry>OnewayFlight</entry>
-										<entry>/OTDS/Flights/OnewayFlights/OnewayFlight</entry>
-									</row>
-									<row>
-										<entry>m</entry>
-										<entry>OnewayFlight.BookingClass</entry>
-										<entry>/OTDS/Flights/OnewayFlights/OnewayFlight/BookingClass</entry>
-									</row>
-									<row>
-										<entry>n</entry>
-										<entry>Addon</entry>
-										<entry>/OTDS/Addons/Addon</entry>
-									</row>
-									<row>
-										<entry>o</entry>
-										<entry>Addon.Service</entry>
-										<entry>/OTDS/Addons/Addon/Service</entry>
-									</row>
-									<row>
-										<entry>p</entry>
-										<entry>Addon.ServiceFeature</entry>
-										<entry>/OTDS/Addons/Addon/ServiceFeature</entry>
-									</row>
-									<row>
-										<entry>q</entry>
-										<entry>Product</entry>
-										<entry>/OTDS/Products/Product</entry>
-									</row>
-									<row>
-										<entry>r</entry>
-										<entry>GlobalValue</entry>
-										<entry>/OTDS/Products/GlobalValues/GlobalValue</entry>
-									</row>
-								</tbody>
-							</tgroup>
-						</table>
-						<para xml:id="de_829" xml:lang="de"><emphasis role="bold">Bitte beachten:</emphasis>
-							<emphasis role="italic">Der angegebene OTDS-Pfad in der Tabelle soll nur
-								veranschaulichen, dass ein Bezug zwischen dem Attribut "Source" und
-								den Knoten im XML-Dokument existiert. Streng genommen ist dies aber
-								nicht ganz korrekt. Es handelt sich hierbei vielmehr um eine
-								Zuordnung zu den Knoten des zugrunde liegenden Verarbeitungsmodells.
-								Dieses Verarbeitungsmodell ist aufgrund der möglichen Produkt- und
-								Komponentenregeln etwas komplexer, da in diesem Modell auch
-								berücksichtigt wird, dass auch Komponenten ineinander verschachtelt
-								werden können - zum Beispiel, wenn ein Flug aus mehreren
-								Einzelflügen besteht (Zubringer, Hauptflug und Verteiler).
-							</emphasis>
-						</para><para xml:id="en_829" xml:lang="en">
-							<emphasis role="bold">Please note:</emphasis>
-							<emphasis role="italic">The specified OTDS path in the table is intended only to illustrate that a relation between the "Source" attribute and the node in the XML document exists. Strictly speaking, it is not entirely correct however. It demonstrates an allocation to the nodes of the underlying processing model however. This processing model is slightly more complex due to the possible product and component rules, as this model also allows for the nesting of components inside each other. For example, if a flight consists of several individual flights (feeder, main flight and connecting flight).</emphasis>
-						</para>
 						<para xml:id="de_830" xml:lang="de">Die folgende Tabelle gibt einen Überblick über alle
               Conditions und den darin erlaubten Einträgen für das Attribut <code>Source</code>. Die
               Buchstaben a - r beziehen sich auf die vorherige Tabelle mit den entsprechenden
@@ -2231,7 +2456,7 @@
 							eindeutig die ausgerechneten Preise sind.</para><para xml:id="en_834" xml:lang="en">The condition <code>DayPriceIndex</code> is a condition which does not adhere to this. No reference to components is made here, as the source of the comparison is clearly the calculated prices.</para>
 						<para xml:id="det_835" xml:lang="de"/>
 					</section>
-					<section xml:id="OtdsStrategyConditionWhereAllowed">
+						<section xml:id="OtdsStrategyConditionWhereAllowed">
 						<title><phrase xml:id="de_836" xml:lang="de">Condition / Filter in unterschiedlichem Kontext</phrase><phrase xml:id="en_836" xml:lang="en">Condition / Filter in various contexts</phrase></title>
 						<para xml:id="de_837" xml:lang="de">Conditions und Filter finden an zahlreichen Stellen in OTDS Verwendung. Die
 							folgende Übersicht gibt an, in welchem Zusammenhang welche Condition bzw. Filter
@@ -2497,6 +2722,7 @@
 							</table>
 						
 					</section>
+					</section>
 					<section xml:id="OtdsStrategyConditionBasicsMultiComponentAllocation">
 						<title><phrase xml:id="de_841" xml:lang="de">Die Attribute "DayAllocation" und "EvaluationMode"</phrase><phrase xml:id="en_841" xml:lang="en">The "DayAllocation" and "EvaluationMode" attributes</phrase></title>
 						<para xml:id="de_842" xml:lang="de">In Verbindung mit CombiComponents kann es zu Situationen
@@ -2516,7 +2742,7 @@
 							definieren in diesen Fällen die Attribute "DayAllocation" und
 							"EvaluationMode" . </para><para xml:id="en_842" xml:lang="en">Situations may arise in connection with CombiComponents, in which several components of the same type exist within a product (e.g. several flights). In these cases, it can occur that the address provided in the "Source" attribute is not unambiguous and that it addresses several nodes. If there are no "DayAllocation" and EvaluationMode" attributes, the evaluation of the condition is explicitly specified in the processing model. (See also the "Processing model" chapter under <link linkend="OtdsProcessConditionsSource">Source, DayAllocation and EvaluationMode</link>). In all other cases, all addressed nodes are taken into account when evaluating a condition. The default values for "DayAllocation" and "EvaluationMode" defined further down this page will meet the requirements in most cases. In certain cases however, it may be desirable to influence the type of evaluation. The exact semantics of the evaluation are defined in these cases by the attributes "DayAllocation" and "EvaluationMode".</para>
 						<bridgehead xml:id="de_843" xml:lang="de">DayAllocation</bridgehead><bridgehead xml:id="en_843" xml:lang="en">DayAllocation</bridgehead>
-						<para xml:id="de_844" xml:lang="de">"DayAllocation" definiert die Zuweisung im Falle, dass die
+						<para xml:id="de_6124" xml:lang="de">"DayAllocation" definiert die Zuweisung im Falle, dass die
 							Werte im Attribut "Source" auf mehrere Komponenten verweisen. Das kann
 							zum Beispiel vorkommen, wenn man ein Produkt definiert, welches
 							zusammengesetzte Flüge über CombiComponents verwenden soll. Die
@@ -2524,23 +2750,23 @@
 							Der Flug besteht aber in dem Falle aus mehreren Einzelkomponenten. Die
 							Adressierung über "Source" wäre nicht eindeutig möglich. Über
 							"DayAllocation" definiert man in dann eine zeitlich eindeutige
-							Auswertung von Komponenten, die zeitlich aufeinander folgen.</para><para xml:id="en_844" xml:lang="en">"DayAllocation" defines the allocation in cases where the values in the attribute "Source" refer to several components. This can occur if a product is defined which is to use composite flights via CombiComponents, for example. Addressing via Source can only refer to the flight in general. The flight in this case consists of several individual components however. Addressing via "Source" would not be unambiguous. "DayAllocation" is used in these cases to define a temporally unambiguous evaluation of components which follow on from one another in chronological order.</para>
-						<para xml:id="de_845" xml:lang="de">Mögliche Werte für das Attribut "DayAllocation" sind: </para><para xml:id="en_845" xml:lang="en">Possible values for the "DayAllocation" attribute are:</para>
+							Auswertung von Komponenten, die zeitlich aufeinander folgen.</para><para xml:id="en_6124" xml:lang="en">"DayAllocation" defines the allocation in cases where the values in the attribute "Source" refer to several components. This can occur if a product is defined which is to use composite flights via CombiComponents, for example. Addressing via Source can only refer to the flight in general. The flight in this case consists of several individual components however. Addressing via "Source" would not be unambiguous. "DayAllocation" is used in these cases to define a temporally unambiguous evaluation of components which follow on from one another in chronological order.</para>
+						<para xml:id="de_6125" xml:lang="de">Mögliche Werte für das Attribut "DayAllocation" sind: </para><para xml:id="en_6125" xml:lang="en">Possible values for the "DayAllocation" attribute are:</para>
 						<itemizedlist>
 							<listitem>
-								<para xml:id="de_846" xml:lang="de">"First": Nur die zeitlich erste Komponente wird bzgl. der Bedingung
+								<para xml:id="de_6126" xml:lang="de">"First": Nur die zeitlich erste Komponente wird bzgl. der Bedingung
 									ausgewertet. Die zeitliche Reihenfolge entspricht der Sortierung des
-									Attributs "DayAllocationIndex" der entsprechenden Komponenten.</para><para xml:id="en_846" xml:lang="en">"First": Only the chronologically first component is evaluated according to the condition. The chronological sequence follows the order of the "DayAllocationIndex" attribute of the corresponding components.</para>
+									Attributs "DayAllocationIndex" der entsprechenden Komponenten.</para><para xml:id="en_6126" xml:lang="en">"First": Only the chronologically first component is evaluated according to the condition. The chronological sequence follows the order of the "DayAllocationIndex" attribute of the corresponding components.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_847" xml:lang="de">"Last": Nur die zeitlich letzte Komponente wird bzgl. der Bedingung
+								<para xml:id="de_6127" xml:lang="de">"Last": Nur die zeitlich letzte Komponente wird bzgl. der Bedingung
 									ausgewertet. Die zeitliche Reihenfolge entspricht der Sortierung des
-									Attributs "DayAllocationIndex" der entsprechenden Komponenten.</para><para xml:id="en_847" xml:lang="en">"Last": Only the chronologically last component is evaluated according to the condition. The chronological sequence follows the order of the "DayAllocationIndex" attribute of the corresponding components.</para>
+									Attributs "DayAllocationIndex" der entsprechenden Komponenten.</para><para xml:id="en_6127" xml:lang="en">"Last": Only the chronologically last component is evaluated according to the condition. The chronological sequence follows the order of the "DayAllocationIndex" attribute of the corresponding components.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_848" xml:lang="de">"All": Alle Komponenten werden bzgl. der Bedingung
+								<para xml:id="de_6128" xml:lang="de">"All": Alle Komponenten werden bzgl. der Bedingung
 									ausgewertet. Die Bedingung ist nur erfüllt, wenn alle
-									Komponenten die Bedingung erfüllen.</para><para xml:id="en_848" xml:lang="en">"All": All components are evaluated according to the condition. The condition is only met if all components fulfil the condition.</para>
+									Komponenten die Bedingung erfüllen.</para><para xml:id="en_6128" xml:lang="en">"All": All components are evaluated according to the condition. The condition is only met if all components fulfil the condition.</para>
 							</listitem>
 						</itemizedlist>
 						<para xml:id="de_752" xml:lang="de"> Im Standardfall ist das Attribut nicht gefüllt. Dabei
