@@ -20,6 +20,11 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 				<xs:sequence>
 					<xs:element name="OnewayFlights" type="OnewayFlightsType" minOccurs="0"/>
 					<xs:element name="ReturnFlights" type="ReturnFlightsType" minOccurs="0"/>
+					<xs:element name="FlightWrapper" type="FlightWrapperType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_547">Die FlightWrapper definieren eine zusätzliche Instanz zwischen der ComponentenInstanz "Flights" und der eigentlichen "OnewayFlight"-Komponente. In der Produktregel oder in DefinedComponents können hierarchische Abhängigkeiten zwischen den FlightWrappern und den OnewayFlights festgelegt werden. FlightWrapper werden dazu benutzt, die Abhängigkeit zwischen mehreren OnewayFlights bei kombinierten OnewayFlights abzubilden. Für mehr Details dazu finden Sie in der Dokumentation unter dem Schlagwort "Wrapper-Komponenten" und in Beispiel "WrapperComponent_Examples.xml".</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -170,6 +175,38 @@ As previously stated there is currently no other known factor that would influen
 							<xs:documentation xml:lang="de" xml:id="de_500">Definiert Buchungsklassen für den Flug und mögliche Verfügbarkeiten.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_500">Defines booking classes for the flight and
 								possible availability.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FlightWrapperType">
+		<xs:complexContent>
+			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+				<xs:sequence>
+					<xs:element name="Booking" type="BookingType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_542">Buchungsparameter des FlightWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_542">Booking parameters of the FlightWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_543">Eigenschaften des FlightWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_543">Features and characteristics of the FlightWrapper.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_544">Einschränkungen des FlightWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_544">Restrictions of the FlightWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_545">Preisbestandteile des FlightWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_545">Pricing components of the FlightWrapper</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>

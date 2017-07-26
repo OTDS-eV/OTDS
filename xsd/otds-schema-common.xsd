@@ -53,6 +53,15 @@
 		
 		Desweiteren sind alle Unterschrittfolgen aus obigen Pfaden erlaubt, also 'Board', 'Accommodation.SellingAccom' oder 'SellingAccom.Unit.SellingUnit'. 
 		'Accommodation.Unit' hingegen ist nicht erlaubt, da in diesem Fall einige Zwischenschritte fehlen.
+		Außerdem sind Component-Namensreferenzen eingeleitet durch das Zeichen "#" möglich, die sich auf die Werte des Attributes "@Name" in den Komponenten der Produktdefinitionen beziehen.
+		Zusätzlich zu den Namensreferenzen können auch Unterkomponenten in Punktnotation ergänzt werden.
+		Derzeit ist es nicht zulässig über die Punktnotation mehrere Namensreferenzen ineinander zuschachteln.
+		
+		Ab Version 2.0 sind auch WrapperComponenten (AccommodationWrapper, FlightWrapper, AddonWrapper) addressierbar. 
+		Mit der Punkt-Notation können die gewrappten Komponenten direkt addressiert werden.
+		
+		Mehr Details dazu in der Dokumentation unter dem Schlagwort "Wrapper-Komponenten" und in der Beispieldatei "WrapperComponent_examples.xml".
+		   
 		
 				</xs:documentation>
 			<xs:documentation xml:lang="en">
@@ -110,7 +119,7 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit|Product\.AccommodationWrapper|Product\.FlightWrapper|Product\.AddonWrapper|Product\.AccommodationWrapper\.Accommodation|Product\.FlightWrapper\.OnewayFlight|Product\.FlightWrapper\.Outbound|Product\.FlightWrapper\.Inbound|Product\.AddonWrapper\.Addon|Product\.AccommodationWrapper\.Accommodation\.SellingAccom|Product\.FlightWrapper\.OnewayFlight\.BookingClass|Product\.FlightWrapper\.Outbound\.BookingClass|Product\.FlightWrapper\.Inbound\.BookingClass|Product\.AddonWrapper\.Addon\.Service|Product\.AddonWrapper\.Addon\.ServiceFeature|Product\.AccommodationWrapper\.Accommodation\.SellingAccom\.Board|Product\.AccommodationWrapper\.Accommodation\.SellingAccom\.Unit|Product\.AccommodationWrapper\.Accommodation\.SellingAccom\.Unit\.SellingUnit|AccommodationWrapper|FlightWrapper|AddonWrapper|AccommodationWrapper\.Accommodation|FlightWrapper\.OnewayFlight|FlightWrapper\.Outbound|FlightWrapper\.Inbound|AddonWrapper\.Addon|AccommodationWrapper\.Accommodation\.SellingAccom|FlightWrapper\.OnewayFlight\.BookingClass|FlightWrapper\.Outbound\.BookingClass|FlightWrapper\.Inbound\.BookingClass|AddonWrapper\.Addon\.Service|AddonWrapper\.Addon\.ServiceFeature|AccommodationWrapper\.Accommodation\.SellingAccom\.Board|AccommodationWrapper\.Accommodation\.SellingAccom\.Unit|AccommodationWrapper\.Accommodation\.SellingAccom\.Unit\.SellingUnit))"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -912,6 +921,48 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 								</xs:extension>
 							</xs:complexContent>
 						</xs:complexType>
+					</xs:element>
+					<xs:element name="AccommodationWrapper" type="RuleAccommodationWrapperComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_549">Dieses Element definiert, dass in dem
+								definierten Produkt ein AccommodationWarpper enthalten ist, der eine oder mehrere Accommodations enthalten. 
+								Falls mehrere AccommodationWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_549">This element defines that an AccommodationWrapper is part of the defined product. 
+							The AccommodationWrapper contains one or more accommodation components. If there are several AccommodationWrappers, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FlightWrapper" type="RuleFlightWrapperComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_550">Dieses Element definiert, dass in dem
+								definierten Produkt ein FlightWrapper enthalten ist, der eine oder mehrere OnewayFlights enthalten. 
+								Falls mehrere FlightWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_550">This element defines that an FlightWrapper is part of the defined product. 
+							The FlightWrapper contains one or more OnewayFlight components. If there are several FlightWrapper, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AddonWrapper" type="RuleAddonWrapperComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_551">Dieses Element definiert, dass in dem
+								definierten Produkt ein AddonWrapper enthalten ist, der eine oder mehrere Addons enthalten. 
+								Falls mehrere AddonWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_549">This element defines that an AddonWrapper is part of the defined product. 
+							The AddonWrapper contains one or more Addon components. If there are several AddonWrapper, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
 					</xs:element>
 				</xs:choice>
 			</xs:extension>
@@ -4506,6 +4557,10 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="Outbound"/>
 			<xs:enumeration value="Inbound"/>
 			<xs:enumeration value="Accommodation"/>
+			<xs:enumeration value="Addon"/>
+			<xs:enumeration value="AccommodationWrapper"/>
+			<xs:enumeration value="FlightWrapper"/>
+			<xs:enumeration value="AddonWrapper"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ExecutionOrderEnum">
@@ -5516,6 +5571,63 @@ This is based on the total number of nights For this reason the return date is e
 				<xs:sequence maxOccurs="2">
 					<xs:element name="SellingAccom" type="RuleSellingAccomComponentType" minOccurs="0"/>
 				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleAccommodationWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="Accommodation" type="RuleAccommodationComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_551">Hier können nur CombiComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_552">Hier können nur DefinedComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleFlightWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="OnewayFlight" type="RuleOnewayFlightComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_553">Hier können nur CombiComponents mit der Role="OnewayFlight" oder "Outbound" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_554">Hier können nur DefinedComponents mit der Role="OnewayFlight" oder "Outbound" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleAddonWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="Addon" type="RuleAddonComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_555">Hier können nur CombiComponents mit der Role="Addon" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_556">Hier können nur DefinedComponents mit der Role="Addon" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -7327,22 +7439,8 @@ The result of this filter is to sort participants in descending order by age and
 	<xs:complexType name="PersonIndexConditionType">
 		<xs:sequence>
 			<xs:choice>
-				<xs:sequence>
-					<xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
-									bestimmten Person. Until=x definiert die X ältesten Personen.
-									Until=-x definiert alle Personen dem Alter nach aufsteigend bis
-									zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten
-									Personen, die über From=-x definiert werden. </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
-
-Until=x defines the X oldest persons.
-
-Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="From" type="NonZeroIntegerListType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer
 									bestimmten Person. Standardverwendung ist hier From=-x. From=-x
@@ -7356,7 +7454,21 @@ From=-x. From=-x defines the X youngest persons.
 From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-				</xs:sequence>
+					<xs:element name="Until" type="NonZeroIntegerListType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
+									bestimmten Person. Until=x definiert die X ältesten Personen.
+									Until=-x definiert alle Personen dem Alter nach aufsteigend bis
+									zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten
+									Personen, die über From=-x definiert werden. </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
+
+Until=x defines the X oldest persons.
+
+Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
 				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von
