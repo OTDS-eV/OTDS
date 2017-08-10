@@ -6797,11 +6797,16 @@ usw.]]></programlisting>
 						zu definierenden Funktion berechnet wird. </para>
 			  	<para xml:lang="en" xml:id="en_5164">The PriceItem type <code>GenericAbsolute</code> was introduced in the implementation of the rounding. Here we are dealing with absolute amounts whose final value is not determined until runtime due to its flexibly definable function.</para>
 			  	<para xml:lang="de" xml:id="de_5165">Neben der Funktion für das Runden, welche über
-			  		<code>Round</code> angesprochen wird, ist seid Version 1.9.3 auch die
-			  		Funktion "PercentModificationValue" integriert, mit deren Hilfe man
-			  		prozentuale Modifikationen auf sehr spezifisch bestimmte Bereiche der
-			  		OTDS-Preiskalkulation beziehen kann. Die Struktur ist aber erweiterbar für
-			  		beliebige weitere Funktionen, die in späteren Versionen notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Currently there is just one function for rounding up which is accessed via <code>Round</code> . The structure can be expanded, however, to include as many functions as you wish that are required in later versions.</para>
+							<code>Round</code> angesprochen wird, ist seit Version 1.9.3 auch die
+						Funktion "PercentModificationValue" integriert, mit deren Hilfe man
+						prozentuale Modifikationen auf sehr spezifische Bereiche der
+						OTDS-Preiskalkulation beziehen kann. Die Struktur ist aber erweiterbar für
+						beliebige weitere Funktionen, die in späteren Versionen notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Besides the function for rounding that may be accessed via
+							<code>Round</code>, since version 1.9.3 the function
+						"PercentModificationValue" is available, which allows to refer precentual
+						modification to very specific areas of the OTDS price calculation. The
+						structure can be expanded, however, to include as many functions as you wish
+						that are required in later versions.</para>
 			  	<para xml:lang="de" xml:id="de_5166">Die Verteilung auf die Kostenmatrix ist
 			  		genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente
 			  		<code>DayBase</code> und <code>PersonBase</code> bestimmt. </para><para xml:lang="en" xml:id="en_5166">Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
@@ -7242,14 +7247,21 @@ usw.]]></programlisting>
 				      <para xml:id="de_5251" xml:lang="de">Die Berechnung der <code>GenericAbsolute</code>'s findet nach der Auswertung der Combinatoric statt.
 				        Für die Auswertung der <code>GenericAbsolute</code>'s wird eine Abarbeitungsreihenfolge definiert.
 				        Diese richtet sich in erster Instanz aufsteigend nach dem Attribut "ExecutionPriority" am Knoten 
-				        <code>GenericAbsolute</code> und bei gleicher Priority <code>GenericAbsolute</code> aufsteigend nach XML-Dokument-Order.</para><para xml:id="en_5251" xml:lang="en">The calculation of the <code>GenericAbsolute</code> s here takes place according to the evaluation of the combinatorics. A processing order is defined for the evaluation of the <code>GenericAbsolute</code> s. This firstly takes place in accordance with the attribute "ExecutionPriority" on the <code>GenericAbsolute</code> node, in ascending order, and in the case of equal priority of <code>GenericAbsolute</code> , in ascending XML-Document-Order.</para>
+				        <code>GenericAbsolute</code> und bei gleicher Priority <code>GenericAbsolute</code> aufsteigend nach XML-Dokument-Order.</para><para xml:id="en_5251" xml:lang="en">The calculation of the <code>GenericAbsolute</code>s here takes
+							place according to the evaluation of the combinatorics. A processing
+							order is defined for the evaluation of the
+							<code>GenericAbsolute</code>s. This firstly takes place in accordance
+							with the attribute "ExecutionPriority" on the
+								<code>GenericAbsolute</code> node, in ascending order, and in the
+							case of equal priority of <code>GenericAbsolute</code> , in ascending
+							XML-Document-Order.</para>
 				      <para xml:id="de_5252" xml:lang="de">Trifft eine GenericAbsolute ("A") bei der Auswertung
 							seines Values auf einen noch nicht berechneten GenericAbsolute ("B"), so
-							ist GenericAbsolut ("B") Value=0 zu benutzen. Das gleiche gilt für einen
-							rekursiven Bezug auf sich selbst.</para><para xml:id="en_5252" xml:lang="en">If, during the evaluation of its value, a GenericAbsolute ("A")
+							ist GenericAbsolute ("B") Value=0 zu benutzen. Das gleiche gilt für
+							einen rekursiven Bezug auf sich selbst.</para><para xml:id="en_5252" xml:lang="en">If during the evaluation of its value, a GenericAbsolute ("A")
 							encounters a GenericAbsolute ("B") which has not yet been calculated,
-							the value=0 is to be used for GenericAbsolut ("B"). The same applies for
-							a recursive reference to itself.</para>
+							the value=0 is to be used for GenericAbsolute ("B"). The same applies
+							for a recursive reference to itself.</para>
 				  	</section>
 				  	<section xml:id="OtdsStrategyPriceItemGenericAbsolutePercentModificationValue">
 				  		<title>
@@ -7261,17 +7273,19 @@ usw.]]></programlisting>
 				  		<para xml:id="en_5921" xml:lang="en">In some distribution systems for single percentage price components there is a specific relation to certain share of the price calculation.</para>
 				  		<para xml:id="de_5922" xml:lang="de">Falls zwei prozentuale PriceItems P1 (-30%) und P2 (-10%) auf ein absolutes PriceItem A1 (100€) wirken, so gilt in OTDS standardmäßig:</para>
 				  		<para xml:id="en_5922" xml:lang="en">If two percentage PriceItems P1 (-30%) and P2 (-10%) have an impact on an absolute PriceItem A1 (100€), then the result in OTDS by default is:</para>
-				  		<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
+				  		<programlisting xml:id="de_5929" xml:lang="de"><![CDATA[Ergebnis = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
+				  		<programlisting xml:id="en_5929" xml:lang="en"><![CDATA[result = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
 				  		<para xml:id="de_5923" xml:lang="de">In manchen Veranstaltersystemen wird aber z.B. der Abschlag P2 völlig losgelöst von P1 angewendet, so dass das folgende Ergebnis herauskommt:</para>
 				  		<para xml:id="en_5923" xml:lang="en">In some distribution systems however for example the deduction P2 is applied completely detached from P1, leading to the following result:</para>	
-				  		<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
+				  		<programlisting xml:id="de_5930" xml:lang="de"><![CDATA[Ergebnis = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
+				  		<programlisting xml:id="en_5930" xml:lang="en"><![CDATA[result = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
 				  		<para xml:id="de_5924" xml:lang="de">Genau dieses Verhalten wird mit dem <code>GenericAbsolute/PercentModificationValue</code> erreicht. Das GenericPriceItem</para> 
 				  		<para xml:id="en_5924" xml:lang="en">This very behaviour is reached with the <code>GenericAbsolute/PercentModificationValue</code>. The GenericPriceItem</para> 
 				  		<programlisting>
 	<![CDATA[<GenericAbsolute>
 		<GenericValue>
 			<PercentModificationValue>
-				<PercentValue>-10</PercentValue>
+				<PercentValue>-10.55</PercentValue>
 				<ModificationBasis>
 					<ConsideredPriceItems>
 						<ConsideredPriceItemClasses>AbsoluteA</ConsideredPriceItemClasses>
@@ -7288,6 +7302,8 @@ usw.]]></programlisting>
 	<![CDATA[PercentModificationValue = ModificationBasis * PercentValue / 100 / DayBase / PersonBase]]></programlisting>
 				  		<para xml:id="de_5926" xml:lang="de">Wobei DayBase und PersonBase in der Regel hier immer = 1 sind.</para>
 				  		<para xml:id="en_5926" xml:lang="en">Whereby applies, that DayBase and PersonBase as a general rule always equal =1.</para>
+				  		<para xml:id="de_5931" xml:lang="de">Als Wert für PercentValue des GenericAbsolute sind Kommazahlen erlaubt.</para>
+				  		<para xml:id="en_5931" xml:lang="en">Floating points are allowed as value for PercentValue of the GenericAbsolute</para>
 				  		<para xml:id="de_5927" xml:lang="de">Die ModificationBasis ergibt sich aus der OTDS-konformen Preiskalkulation, an der nur ausgewählte PriceItems teilnehmen, wie im Element <code>ModificationBasis</code> festgelegt. Die Möglichkeiten der PriceItem-Auswahl mit Hilfe der <code>ConsideredPriceItemClasses</code> finden Sie unter <link linkend="OtdsStrategyRulesConsideredPriceItems">Verwendung der ConsideredPriceItems</link>.</para>
 				  		<para xml:id="en_5927" xml:lang="en">Die ModificationBasis results from the OTDS-compliant price calculation, in which only selected PriceItems participate as specified in the element <code>ModificationBasis</code>. You may find the possibilities of selecting a PriceItem with the help of <code>ConsideredPriceItemClasses</code> here <link linkend="OtdsStrategyRulesConsideredPriceItems">Usage of ConsideredPriceItems</link>.</para>
 				  		<para xml:id="de_5928" xml:lang="de">Sie finden mehrere Beispiele in der Beispieldatei "PriceItemExamples.xml" in der SellingUnit="DZ-4". </para>
