@@ -110,7 +110,9 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+					<xs:pattern
+						value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"
+					/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -3213,8 +3215,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
           </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<!-- [A-Z0-9]{2} will be activated in Version 2.0-->
-		</xs:restriction>
+			<!-- [A-Z0-9]{2} will be activated in Version 2.0--> </xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TokenType">
 		<xs:restriction base="xs:string">
@@ -5793,6 +5794,24 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:sequence>
 					<xs:element name="PriceItem" type="PriceItemType" maxOccurs="unbounded"/>
+					<xs:element name="Condition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_358">In diesem Element werden die Regeln zur
+						Verwendung der PriceItems definiert. Immer wiederkehrende Preis Conditions können hier definiert werden. Dadurch kann Redundanz in den Conditions jedes einzelnen
+						PriceItem vermieden werden. Gibt es eine Condtion in PriceItems so ist diese mit den einzelnen PriceItems Conditions UND-verknüpft.
+						Das Attribut ExecutionOrder definiert,
+						zu welchem Zeitpunkt die Conditions ausgewertet werden können. Wichtig ist
+						hierbei, dass Conditions, die die DayPriceIndexCondition enthalten, nur in
+						Verbindung mit dem Value ExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_358">In this element, the rules for using the PriceItems are defined. Recurring conditions can be defined here.
+								As a result, redundancy in the conditions of each PriceItem can be avoided. If there is a Condition in Price Items, this is AND-linked with the individual PriceItems Conditions. The ExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ExecutionOrder= "Last".</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConditionType"/>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>

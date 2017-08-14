@@ -2267,6 +2267,10 @@
 											<entry>f</entry>
 											<entry>Conditions in PropertyGroup</entry>
 										</row>
+										<row>
+											<entry>g</entry>
+											<entry>Condition in PriceItems</entry>
+										</row>
 									</tbody>
 								</tgroup>
 							</table>
@@ -2295,11 +2299,13 @@
 											<entry>d</entry>
 											<entry>e</entry>
 											<entry>f</entry>
+											<entry>g</entry>
 										</row>
 									</thead>
 									<tbody>
 										<row>
 											<entry>Date</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
@@ -2315,9 +2321,11 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>BookingDate</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
@@ -2333,9 +2341,11 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>Weekdays</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
@@ -2351,9 +2361,11 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>Airports</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
@@ -2369,9 +2381,11 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>Tags</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
@@ -2387,10 +2401,12 @@
 											<entry>-</entry>
 											<entry>-</entry>
 											<entry>-</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>MatchEqual.Tag</entry>
 											<entry>X</entry>
+											<entry>-</entry>
 											<entry>-</entry>
 											<entry>-</entry>
 											<entry>-</entry>
@@ -2405,6 +2421,7 @@
 											<entry>-</entry>
 											<entry>-</entry>
 											<entry>-</entry>
+											<entry>-</entry>
 										</row>
 										<row>
 											<entry>DayImpact.Date</entry>
@@ -2412,6 +2429,7 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 										</row>
@@ -2423,6 +2441,7 @@
 											<entry>-</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>DayImpact.Weekdays</entry>
@@ -2430,6 +2449,7 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 										</row>
@@ -2441,6 +2461,7 @@
 											<entry>-</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>PersonImpact.PersonAge</entry>
@@ -2448,6 +2469,7 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 										</row>
@@ -2459,6 +2481,7 @@
 											<entry>-</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>PersonImpact.PersonGender</entry>
@@ -2466,6 +2489,7 @@
 											<entry>X</entry>
 											<entry>X</entry>
 											<entry>-</entry>
+											<entry>X</entry>
 											<entry>X</entry>
 											<entry>X</entry>
 										</row>
@@ -2477,6 +2501,7 @@
 											<entry>-</entry>
 											<entry>X</entry>
 											<entry>X</entry>
+											<entry>X</entry>
 										</row>
 										<row>
 											<entry>ProductPrice</entry>
@@ -2486,6 +2511,7 @@
 											<entry>-</entry>
 											<entry>-</entry>
 											<entry>-</entry>
+											<entry>X</entry>
 										</row>
 									</tbody>
 								</tgroup>
@@ -7423,6 +7449,8 @@ usw.]]></programlisting>
 						kann durch das optionale Attribut <code>ImpactExecutionOrder</code> festgelegt werden.
 						Dies hat weitreichende Auswirkungen auf die Kombinatorik und wird daher im nächsten
 						Kapitel beschrieben.</para><para xml:id="en_1382" xml:lang="en">The point at which Impact subconditions are evaluated in the <code>Condition</code> can be set using the optional attribute<code>ImpactExecutionOrder</code> . This has wide-ranging effects on the combinatorics and is therefore described in the next chapter.</para>
+					<para xml:id="det" xml:lang="de">Ab der OTDS Version 2.0 können sich Bedingungen (Condition) auch im "PriceItems" Knoten befinden. Bedingungen dort sind mit den Bedingungen 
+					innerhalb eines PriceItem UND-verknüpft.</para>
 					<para xml:id="det_1383" xml:lang="de"/>
 				</section>
 
@@ -19831,7 +19859,8 @@ usw.]]></programlisting>
 								die Gültigkeit je Day/Person-Knoten zu bestimmen. Dabei führt die
 								Auswertung der verschiedenen Impact-Bedingungen dazu, dass
 								PriceItems einzelnen Tagen oder Personen, also den entsprechenden
-								Day/Person-Knoten zugewiesen werden.</para><para xml:id="en_3190" xml:lang="en">References to PriceItems are entered in the cost matrix. The condition of each PriceItem is only evaluated the first time round to determine the validity of a PriceItem and also the validity of a day/person node. The evaluation of the various different impact conditions also leads to PriceItems being allocated to individual days or persons, i.e. the corresponding day/person node.</para>
+								Day/Person-Knoten zugewiesen werden. Ab der Version 2.0 werden auch die Conditions ausgewertet, 
+								die innerhalb des "PriceItems" Knoten definiert sein können</para><para xml:id="en_3190" xml:lang="en">References to PriceItems are entered in the cost matrix. The condition of each PriceItem is only evaluated the first time round to determine the validity of a PriceItem and also the validity of a day/person node. The evaluation of the various different impact conditions also leads to PriceItems being allocated to individual days or persons, i.e. the corresponding day/person node. Starting from Version 2.0 conditions in the "PriceItems" level are also checked.</para>
 						</listitem>
 						<listitem>
 							<para xml:lang="de">Für die validen GenericAbsolute-PriceItems werden nun die Formeln in die Kostenmatrix übertragen, so dass die generischen Werte zur Laufzeit bestimmt und benutzt werden können.</para>
@@ -20067,7 +20096,8 @@ usw.]]></programlisting>
 						</listitem>
 						<listitem>
 							<para xml:id="de_3236" xml:lang="de">Falls das PriceItem keine <code>Condition</code> hat, ist das PriceItem für
-								alle zur Komponente passenden Day/Person-Knoten relevant.</para><para xml:id="en_3236" xml:lang="en">If the PriceItem has no <code>Condition</code> , then the PriceItem is relevant for all of the Day/Person nodes which match the component.</para>
+								alle zur Komponente passenden Day/Person-Knoten relevant. Geprüft wird hierbei ob eine Condition im PriceItem selbst vorliegt 
+								und ob es eine Condions im PriceItems Knoten gibt in dem sich das betrachtete PriceItem befindet</para><para xml:id="en_3236" xml:lang="en">If the PriceItem has no <code>Condition</code> , then the PriceItem is relevant for all of the Day/Person nodes which match the component. It is checked whether a condition is in the PriceItem itself and if there is a Condions in the PriceItems node in which the considered PriceItem is located</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_3237" xml:lang="de">Falls das PriceItem einen absoluten Preisbestandteil definiert: </para><para xml:id="en_3237" xml:lang="en">If the PriceItem defines an absolute price component:</para>
@@ -28317,6 +28347,52 @@ usw.]]></programlisting>
 									</itemizedlist>
 								</entry>
 							</row>
+							<row>
+								<entry>Condition in PriceItems</entry>
+								<entry>
+									<itemizedlist>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Accommodations/Accommodation/SellingAccom/Unit/SellingUnit/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Accommodations/Accommodation/SellingAccom/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Accommodations/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Flights/OnewayFlights/OnewayFlight/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Flights/OnewayFlights/OnewayFlight/BookingClass/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/Outbound/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/Inbound/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/BookingClass/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Flights/ReturnFlights/ReturnFlight/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Flights/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Addons/Addon/ServiceFeature/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Addons/Addon/Service/PriceItems/Condition</para>
+										</listitem>
+										<listitem>
+											<para xml:id="det" xml:lang="de">/Otds/Addons/Addon/PriceItems/Condition</para>
+										</listitem>
+									</itemizedlist>
+								</entry>
+							</row>							
 						</tbody>
 					</tgroup>
 				</table>
