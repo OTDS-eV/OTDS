@@ -6450,7 +6450,7 @@ Die Angaben in DayBase und PersonBase sollten in der Regel immer = 1 sein. Abwei
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="PercentValue" type="xs:int">
+						<xs:element name="PercentValue" type="xs:decimal">
 							<xs:annotation>
 								<xs:documentation>PercentValue repräsentiert den Wert  "PercentValue" in der Formel
 
@@ -7394,8 +7394,8 @@ The result of this filter is to sort participants in descending order by age and
 	<xs:complexType name="PersonIndexConditionType">
 		<xs:sequence>
 			<xs:choice>
-				<xs:sequence>
-					<xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
+				<xs:choice maxOccurs="2">
+					<xs:element name="Until" type="NonZeroIntegerListType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer
 									bestimmten Person. Until=x definiert die X ältesten Personen.
@@ -7409,7 +7409,7 @@ Until=x defines the X oldest persons.
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
+					<xs:element name="From" type="NonZeroIntegerListType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer
 									bestimmten Person. Standardverwendung ist hier From=-x. From=-x
@@ -7423,7 +7423,7 @@ From=-x. From=-x defines the X youngest persons.
 From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-				</xs:sequence>
+				</xs:choice>
 				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von
