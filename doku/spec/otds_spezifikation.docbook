@@ -1780,7 +1780,7 @@
 						<para xml:id="det_831" xml:lang="de"/>
 						<table frame="all">
 							<title><phrase xml:id="de_832" xml:lang="de">Gültige Einträge für <code>Source</code> in Conditions</phrase><phrase xml:id="en_832" xml:lang="en">Valid entries for <code>Source</code>  can be found in Conditions</phrase></title>
-							<tgroup cols="21" align="left" colsep="1" rowsep="1">
+							<tgroup cols="18" align="left" colsep="1" rowsep="1">
 								<thead>
 									<row>
 										<entry> Condition \ Source (siehe obige Tabelle)</entry>
@@ -2284,7 +2284,7 @@
 						<para xml:id="en_5830" xml:lang="en">From version 1.9.3 on it is possible to use Impact Conditions in filters as well as in the Conditions of the PropertyGroup and the BookingGroup. These Impact Conditions are checked and evaluated during the processing, yet in the filters and in the Conditions of the PropertyGroup and BookingGroup there will be by definition an invisible NonImpact-parenthesis. A NonImpact-Wrapper is not required in the Filter Element. If conditions shall be evaluated as NonImpact in the Conditions of the PriceItems, then the NonImpact-Wrapper is necessary there.</para>
 													<table frame="all">
 								<title><phrase xml:id="de_840" xml:lang="de">Verwendbarkeit der einzelnen Conditions</phrase><phrase xml:id="en_840" xml:lang="en">Applicability of the individual conditions</phrase></title>
-								<tgroup cols="5" align="left" colsep="1" rowsep="1">
+								<tgroup cols="7" align="left" colsep="1" rowsep="1">
 									<thead>
 										<row>
 											<entry>Condition bzw. Filter / Kontext (siehe obige
@@ -6797,11 +6797,16 @@ usw.]]></programlisting>
 						zu definierenden Funktion berechnet wird. </para>
 			  	<para xml:lang="en" xml:id="en_5164">The PriceItem type <code>GenericAbsolute</code> was introduced in the implementation of the rounding. Here we are dealing with absolute amounts whose final value is not determined until runtime due to its flexibly definable function.</para>
 			  	<para xml:lang="de" xml:id="de_5165">Neben der Funktion für das Runden, welche über
-			  		<code>Round</code> angesprochen wird, ist seid Version 1.9.3 auch die
-			  		Funktion "PercentModificationValue" integriert, mit deren Hilfe man
-			  		prozentuale Modifikationen auf sehr spezifisch bestimmte Bereiche der
-			  		OTDS-Preiskalkulation beziehen kann. Die Struktur ist aber erweiterbar für
-			  		beliebige weitere Funktionen, die in späteren Versionen notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Currently there is just one function for rounding up which is accessed via <code>Round</code> . The structure can be expanded, however, to include as many functions as you wish that are required in later versions.</para>
+							<code>Round</code> angesprochen wird, ist seit Version 1.9.3 auch die
+						Funktion "PercentModificationValue" integriert, mit deren Hilfe man
+						prozentuale Modifikationen auf sehr spezifische Bereiche der
+						OTDS-Preiskalkulation beziehen kann. Die Struktur ist aber erweiterbar für
+						beliebige weitere Funktionen, die in späteren Versionen notwendig werden. </para><para xml:lang="en" xml:id="en_5165">Besides the function for rounding that may be accessed via
+							<code>Round</code>, since version 1.9.3 the function
+						"PercentModificationValue" is available, which allows to refer precentual
+						modification to very specific areas of the OTDS price calculation. The
+						structure can be expanded, however, to include as many functions as you wish
+						that are required in later versions.</para>
 			  	<para xml:lang="de" xml:id="de_5166">Die Verteilung auf die Kostenmatrix ist
 			  		genau wie bei den <code>Absolute</code>-PriceItems durch die Elemente
 			  		<code>DayBase</code> und <code>PersonBase</code> bestimmt. </para><para xml:lang="en" xml:id="en_5166">Just as with <code>Absolute</code> PriceItems, the distribution on the cost matrix is determined by the elements <code>DayBase</code> and <code>PersonBase</code> .</para>
@@ -7242,30 +7247,45 @@ usw.]]></programlisting>
 				      <para xml:id="de_5251" xml:lang="de">Die Berechnung der <code>GenericAbsolute</code>'s findet nach der Auswertung der Combinatoric statt.
 				        Für die Auswertung der <code>GenericAbsolute</code>'s wird eine Abarbeitungsreihenfolge definiert.
 				        Diese richtet sich in erster Instanz aufsteigend nach dem Attribut "ExecutionPriority" am Knoten 
-				        <code>GenericAbsolute</code> und bei gleicher Priority <code>GenericAbsolute</code> aufsteigend nach XML-Dokument-Order.</para><para xml:id="en_5251" xml:lang="en">The calculation of the <code>GenericAbsolute</code> s here takes place according to the evaluation of the combinatorics. A processing order is defined for the evaluation of the <code>GenericAbsolute</code> s. This firstly takes place in accordance with the attribute "ExecutionPriority" on the <code>GenericAbsolute</code> node, in ascending order, and in the case of equal priority of <code>GenericAbsolute</code> , in ascending XML-Document-Order.</para>
-				      <para xml:id="de_5252" xml:lang="de">Trifft eine GenericAbsolute("A") bei der Auswertung
-								seines Values auf einen noch nicht berechneten GenericAbsolute("B"), so
-								ist GenericAbsolut("B").Value=0 zu benutzen. Das gleiche gilt für einen
-								rekursiven Bezug auf sich selbst.</para><para xml:id="en_5252" xml:lang="en">If, during the evaluation of its value, a GenericAbsolute("A") encounters a GenericAbsolute("B") which has not yet been calculated, thevalue=0 is to be used for GenericAbsolut("B"). The same applies for a recursive reference to itself.</para>
+				        <code>GenericAbsolute</code> und bei gleicher Priority <code>GenericAbsolute</code> aufsteigend nach XML-Dokument-Order.</para><para xml:id="en_5251" xml:lang="en">The calculation of the <code>GenericAbsolute</code>s here takes
+							place according to the evaluation of the combinatorics. A processing
+							order is defined for the evaluation of the
+							<code>GenericAbsolute</code>s. This firstly takes place in accordance
+							with the attribute "ExecutionPriority" on the
+								<code>GenericAbsolute</code> node, in ascending order, and in the
+							case of equal priority of <code>GenericAbsolute</code> , in ascending
+							XML-Document-Order.</para>
+				      <para xml:id="de_5252" xml:lang="de">Trifft eine GenericAbsolute ("A") bei der Auswertung
+							seines Values auf einen noch nicht berechneten GenericAbsolute ("B"), so
+							ist GenericAbsolute ("B") Value=0 zu benutzen. Das gleiche gilt für
+							einen rekursiven Bezug auf sich selbst.</para><para xml:id="en_5252" xml:lang="en">If during the evaluation of its value, a GenericAbsolute ("A")
+							encounters a GenericAbsolute ("B") which has not yet been calculated,
+							the value=0 is to be used for GenericAbsolute ("B"). The same applies
+							for a recursive reference to itself.</para>
 				  	</section>
 				  	<section xml:id="OtdsStrategyPriceItemGenericAbsolutePercentModificationValue">
 				  		<title>
-				  			<phrase xml:lang="de">Definition eines prozentualen Änderungsbetrages bezogen auf einen definierten Teil der OTDS-Preiskalkulation mit  <code>PercentModificationValue</code>  (Version 1.9.3, V1.9.3)</phrase>
+				  			<phrase xml:id="de_5919" xml:lang="de">Definition eines prozentualen Änderungsbetrages bezogen auf einen definierten Teil der OTDS-Preiskalkulation mit <code>PercentModificationValue</code> (Version 1.9.3, V1.9.3)</phrase>
+				  			<phrase xml:id="en_5919" xml:lang="en">Definition of a percent modification value referring to a defined share of the OTDS price calculation with <code>PercentModificationValue</code> (Version 1.9.3, V1.9.3)</phrase>
 				  		</title>
-				  		<bridgehead xml:lang="de">Allgemein</bridgehead><bridgehead xml:lang="en">General</bridgehead>
-				  		<para xml:lang="de">
-				  			Es gibt in manchen Veranstaltersystemen bei einzelnen prozentualen Preisbestandteilen einen spezifischen Bezug auf nur bestimmte Anteile der Preisberechnung.</para>
-				  		<para xml:lang="de"> Falls zwei prozentuale PriceItems P1 (-30%) und P2 (-10%) auf ein
-				  			absolutes PriceItem A1 (100€) wirken, so gilt in OTDS standardmäßig:
-				  			<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
-				  			In manchen Veranstaltersystemen, wird aber z.B. der Abschlag P2 völlig
-				  			losgelöst von P1 angewendet, so dass das folgendes Ergebnis herauskommt:
-				  			<programlisting><![CDATA[Ergebnis = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
-				  			Genau diese VErhalten wird mit das wird dem  <code>GenericAbsolute/PercentModificationValue</code> erreicht. Das GenericPriceItem <programlisting>
+				  		<bridgehead xml:id="de_5920" xml:lang="de">Allgemein</bridgehead><bridgehead xml:id="en_5920" xml:lang="en">General</bridgehead>
+				  		<para xml:id="de_5921" xml:lang="de">Es gibt in manchen Veranstaltersystemen bei einzelnen prozentualen Preisbestandteilen einen spezifischen Bezug auf nur bestimmte Anteile der Preisberechnung.</para>
+				  		<para xml:id="en_5921" xml:lang="en">In some distribution systems for single percentage price components there is a specific relation to certain share of the price calculation.</para>
+				  		<para xml:id="de_5922" xml:lang="de">Falls zwei prozentuale PriceItems P1 (-30%) und P2 (-10%) auf ein absolutes PriceItem A1 (100€) wirken, so gilt in OTDS standardmäßig:</para>
+				  		<para xml:id="en_5922" xml:lang="en">If two percentage PriceItems P1 (-30%) and P2 (-10%) have an impact on an absolute PriceItem A1 (100€), then the result in OTDS by default is:</para>
+				  		<programlisting xml:id="de_5929" xml:lang="de"><![CDATA[Ergebnis = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
+				  		<programlisting xml:id="en_5929" xml:lang="en"><![CDATA[result = A1 * (1 + P1/100) * (1+ P2/100) = 100 * 0,7 * 0,9 = 63]]></programlisting>
+				  		<para xml:id="de_5923" xml:lang="de">In manchen Veranstaltersystemen wird aber z.B. der Abschlag P2 völlig losgelöst von P1 angewendet, so dass das folgende Ergebnis herauskommt:</para>
+				  		<para xml:id="en_5923" xml:lang="en">In some distribution systems however for example the deduction P2 is applied completely detached from P1, leading to the following result:</para>	
+				  		<programlisting xml:id="de_5930" xml:lang="de"><![CDATA[Ergebnis = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
+				  		<programlisting xml:id="en_5930" xml:lang="en"><![CDATA[result = A1 * (1 + P1/100) + A1 * P2/100 = 100 * 0,7 - 100 * 0,1  = 60]]></programlisting>
+				  		<para xml:id="de_5924" xml:lang="de">Genau dieses Verhalten wird mit dem <code>GenericAbsolute/PercentModificationValue</code> erreicht. Das GenericPriceItem</para> 
+				  		<para xml:id="en_5924" xml:lang="en">This very behaviour is reached with the <code>GenericAbsolute/PercentModificationValue</code>. The GenericPriceItem</para> 
+				  		<programlisting>
 	<![CDATA[<GenericAbsolute>
 		<GenericValue>
 			<PercentModificationValue>
-				<PercentValue>-10</PercentValue>
+				<PercentValue>-10.55</PercentValue>
 				<ModificationBasis>
 					<ConsideredPriceItems>
 						<ConsideredPriceItemClasses>AbsoluteA</ConsideredPriceItemClasses>
@@ -7275,13 +7295,19 @@ usw.]]></programlisting>
 		</GenericValue>
 		<DayBase>1</DayBase>
 		<PersonBase>1</PersonBase>
-	</GenericAbsolute>]]></programlisting> erzeugt in der Preismatrix einen Ablutebetrag der sich nach folgender Formel je Preiszelle berechnet.
-				  			<programlisting>
+	</GenericAbsolute>]]></programlisting> 
+				  		<para xml:id="de_5925" xml:lang="de">erzeugt in der Preismatrix einen Absolutbetrag, der sich nach folgender Formel je Preiszelle berechnet.</para>
+				  		<para xml:id="en_5925" xml:lang="en">generates an absolute value within the price matrix, that is calculated according to the following formula for each price cell.</para>	
+				  		<programlisting>
 	<![CDATA[PercentModificationValue = ModificationBasis * PercentValue / 100 / DayBase / PersonBase]]></programlisting>
-				  			Wobei DayBase und PersonBase in der Regel hier immer = 1 sind.
-				  		</para>
-				  		<para>Die ModificationBasis ergibt sich aus der OTDS konformen Preiskalkulation, an der nur ausgewählte PriceItems, wie im Element <code>ModificationBasis</code> festgelegt, teilnehmen. Die Möglichkeiten der PriceItem-Auswahl mit Hilfe der <code>ConsideredPriceItemClasses</code> finden Sie unter <link linkend="OtdsStrategyRulesConsideredPriceItems">Verwendung der ConsideredPriceItems</link> </para>
-				  		<para>Sie finden mehrere Beispiele in der Beispieldatei "PriceItemExamples.xml" in der SellingUnit="DZ-4". </para>
+				  		<para xml:id="de_5926" xml:lang="de">Wobei DayBase und PersonBase in der Regel hier immer = 1 sind.</para>
+				  		<para xml:id="en_5926" xml:lang="en">Whereby applies, that DayBase and PersonBase as a general rule always equal =1.</para>
+				  		<para xml:id="de_5931" xml:lang="de">Als Wert für PercentValue des GenericAbsolute sind Kommazahlen erlaubt.</para>
+				  		<para xml:id="en_5931" xml:lang="en">Floating points are allowed as value for PercentValue of the GenericAbsolute</para>
+				  		<para xml:id="de_5927" xml:lang="de">Die ModificationBasis ergibt sich aus der OTDS-konformen Preiskalkulation, an der nur ausgewählte PriceItems teilnehmen, wie im Element <code>ModificationBasis</code> festgelegt. Die Möglichkeiten der PriceItem-Auswahl mit Hilfe der <code>ConsideredPriceItemClasses</code> finden Sie unter <link linkend="OtdsStrategyRulesConsideredPriceItems">Verwendung der ConsideredPriceItems</link>.</para>
+				  		<para xml:id="en_5927" xml:lang="en">Die ModificationBasis results from the OTDS-compliant price calculation, in which only selected PriceItems participate as specified in the element <code>ModificationBasis</code>. You may find the possibilities of selecting a PriceItem with the help of <code>ConsideredPriceItemClasses</code> here <link linkend="OtdsStrategyRulesConsideredPriceItems">Usage of ConsideredPriceItems</link>.</para>
+				  		<para xml:id="de_5928" xml:lang="de">Sie finden mehrere Beispiele in der Beispieldatei "PriceItemExamples.xml" in der SellingUnit="DZ-4". </para>
+				  		<para xml:id="en_5928" xml:lang="en">You may also find several examples in the file "PriceItemExamples.xml" in SellingUnit="DZ-4".</para>
 				  	</section>
 				  
 			  	</section>
@@ -12849,7 +12875,7 @@ usw.]]></programlisting>
 
 					<table xml:id="OtdsProcessStaticComponent">
 						<title><phrase xml:id="de_2246" xml:lang="de">Komponenteneigenschaften</phrase><phrase xml:id="en_2246" xml:lang="en">Component characteristics</phrase></title>
-						<tgroup cols="7">
+						<tgroup cols="8">
 							<colspec align="left"/>
 							<colspec align="center"/>
 							<colspec align="center"/>
@@ -25223,32 +25249,134 @@ usw.]]></programlisting>
 								<td rowspan="1" colspan="1">Addon</td>
 								<td rowspan="1" colspan="1">ServiceFeature</td>
 								<td rowspan="1" colspan="1">AddonCarRentalProperties/CarRentalStationType</td>
-								<td rowspan="1" colspan="1">String</td>
-								<td rowspan="1" colspan="1"><para xml:lang="de">Art der Mietwagenstation</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5881" xml:lang="de">Mit den folgenden Werten:</para><para xml:id="en_5881" xml:lang="en">With the following values:</para>
+								<itemizedlist>
+									<listitem>
+										<para xml:id="de_5889" xml:lang="de">Airport</para><para xml:id="en_5889" xml:lang="en">Airport</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_5890" xml:lang="de">AirportWithShuttle</para><para xml:id="en_5890" xml:lang="en">AirportWithShuttle</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_5891" xml:lang="de">RentalStation</para><para xml:id="en_5891" xml:lang="en">RentalStation</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_5892" xml:lang="de">HotelDelivery</para><para xml:id="en_5892" xml:lang="en">HotelDelivery</para>
+									</listitem>
+								</itemizedlist>
+								</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5882" xml:lang="de">Art der Mietwagenstation</para><para xml:id="en_5882" xml:lang="en">Type of Car rental station</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
 								<td rowspan="1" colspan="1">ServiceFeature</td>
-								<td rowspan="1" colspan="1">AddonCarRentalProperties/FuelOptions</td>
-								<td rowspan="1" colspan="1">String</td>
-								<td rowspan="1" colspan="1"><para xml:lang="de">Tankregelungen</para></td>
+								<td rowspan="1" colspan="1">AddonCarRentalProperties/CarRentalProductOptions</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5883" xml:lang="de">Mit den folgenden Werten:</para><para xml:id="en_5883" xml:lang="en">With the following values:</para>
+									<itemizedlist>
+										<listitem>
+											<para xml:id="de_5893" xml:lang="de">TankFullFull</para><para xml:id="en_5893" xml:lang="en">TankFullFull</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5894" xml:lang="de">TankFullEmptyPrepaid</para><para xml:id="en_5894" xml:lang="en">TankFullEmptyPrepaid </para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5895" xml:lang="de">FreeTankOfFuel</para><para xml:id="en_5895" xml:lang="en">FreeTankOfFuel</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5896" xml:lang="de">UnlimitedMileage</para><para xml:id="en_5896" xml:lang="en">UnlimitedMileage</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5897" xml:lang="de">AdditionalDriver</para><para xml:id="en_5897" xml:lang="en">AdditionalDriver</para>
+										</listitem>
+									</itemizedlist>
+								</td>
+								<td rowspan="1" colspan="1"><para  xml:id="de_5884" xml:lang="de">Tankregelungen, Fahrleistung, zusätzliche Fahrer</para><para  xml:id="en_5884" xml:lang="en">Fuel options, mileage, additional driver</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
 								<td rowspan="1" colspan="1">ServiceFeature</td>
-								<td rowspan="1" colspan="1">AddonCarRentalProperties/CarSpecifications</td>
-								<td rowspan="1" colspan="1">String</td>
-								<td rowspan="1" colspan="1"><para xml:lang="de">Mietwagen Ausstattungen</para></td>
+								<td rowspan="1" colspan="1">AddonCarRentalProperties/CarFacilities</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5885" xml:lang="de">Mit den folgenden Werten:</para><para xml:id="en_5885" xml:lang="en">With the following values:</para>
+									<itemizedlist>
+										<listitem>
+											<para xml:id="de_5898" xml:lang="de">AirConditioning</para><para xml:id="en_5898" xml:lang="en">AirConditioning</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5899" xml:lang="de">Automatic</para><para xml:id="en_5899" xml:lang="en">Automatic</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5900" xml:lang="de">AllWheelDrive</para><para xml:id="en_5900" xml:lang="en">AllWheelDrive</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5901" xml:lang="de">NavigationSystem</para><para xml:id="en_5901" xml:lang="en">NavigationSystem</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5902" xml:lang="de">2Doors</para><para xml:id="en_5902" xml:lang="en">2Doors</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5903" xml:lang="de">4DoorsOrMore</para><para xml:id="en_5903" xml:lang="en">4DoorsOrMore</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5904" xml:lang="de">SnowTires</para><para xml:id="en_5904" xml:lang="en">SnowTires</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5905" xml:lang="de">ChildSeat</para><para xml:id="en_5905" xml:lang="en">ChildSeat</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5906" xml:lang="de">BabySeat</para><para xml:id="en_5906" xml:lang="en">BabySeat</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5907" xml:lang="de">Diesel</para><para xml:id="en_5907" xml:lang="en">Diesel</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5908" xml:lang="de">Gas</para><para xml:id="en_5908" xml:lang="en">Gas</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5909" xml:lang="de">Hybrid</para><para xml:id="en_5909" xml:lang="en">Hybrid</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5910" xml:lang="de">ReducedEmission</para><para xml:id="en_5910" xml:lang="en">ReducedEmission</para>
+										</listitem>
+									</itemizedlist>
+								</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5886" xml:lang="de">Mietwagen Ausstattungen</para><para xml:id="en_5886" xml:lang="en">Car rental equipment and facilities</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>
 							<tr>
 								<td rowspan="1" colspan="1">Addon</td>
 								<td rowspan="1" colspan="1">ServiceFeature</td>
-								<td rowspan="1" colspan="1">AddonCarRentalProperties/Insurance</td>
-								<td rowspan="1" colspan="1">String</td>
-								<td rowspan="1" colspan="1"><para xml:lang="de">Mietwagenversicherungsoptionen</para></td>
+								<td rowspan="1" colspan="1">AddonCarRentalProperties/CarInsurance</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5887" xml:lang="de">Mit den folgenden Werten:</para><para xml:id="en_5887" xml:lang="en">With the following values:</para>
+									<itemizedlist>
+										<listitem>
+											<para xml:id="de_5911" xml:lang="de">CollisionDamageWaiver</para><para xml:id="en_5911" xml:lang="en">CollisionDamageWaiver</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5912" xml:lang="de">TheftProtection</para><para xml:id="en_5912" xml:lang="en">TheftProtection</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5913" xml:lang="de">PersonalAccidentInsurance</para><para xml:id="en_5913" xml:lang="en">PersonalAccidentInsurance</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5914" xml:lang="de">PersonalAccidentAndLuggageInsurance</para><para xml:id="en_5914" xml:lang="en">PersonalAccidentAndLuggageInsurance</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5915" xml:lang="de">DamagesGlass</para><para xml:id="en_5915" xml:lang="en">DamagesGlass</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5916" xml:lang="de">DamagesTires</para><para xml:id="en_5916" xml:lang="en">DamagesTires</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5917" xml:lang="de">DamagesUndercarriage</para><para xml:id="en_5917" xml:lang="en">DamagesUndercarriage</para>
+										</listitem>
+										<listitem>
+											<para xml:id="de_5918" xml:lang="de">DamagesRoof</para><para xml:id="en_5918" xml:lang="en">DamagesRoof</para>
+										</listitem>
+									</itemizedlist>
+								</td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5888" xml:lang="de">Mietwagenversicherungsoptionen</para><para xml:id="en_5888" xml:lang="en">Car rental insurance options</para></td>
 								<td rowspan="1" colspan="1"/>
 							</tr>				
 						</informaltable>
@@ -26267,7 +26395,7 @@ usw.]]></programlisting>
 					
 						<table frame="all">
 							<title><phrase xml:id="de_4736" xml:lang="de">Verwendung der Properties in Abhängigkeit der (Sub-)Komponente</phrase><phrase xml:id="en_4736" xml:lang="en">Application of properties under the dependency of (sub) components</phrase></title>
-							<tgroup cols="12" align="left" colsep="1" rowsep="1">
+							<tgroup cols="13" align="left" colsep="1" rowsep="1">
 								<thead>
 									<row>
 										<entry>Property / Knoten</entry>
