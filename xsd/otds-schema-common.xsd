@@ -146,6 +146,9 @@ If the "Name" is unspecified, the following default values will be used dependin
 - In the context of a combined component, the default = "CombiComponent"</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="ProductComponentBaseGroup">
 		<xs:attribute name="DayAllocationIndex" type="xs:int">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_55">Dieses Attribut bestimmt die Platzierung der
@@ -907,6 +910,47 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_106">Über dieses Attribut werden die Produkte referenziert, für die dieses Element steht. Es wird dabei auf das Attribute "ProductType" im Element "Product" verwiesen.</xs:documentation>
 											<xs:documentation xml:lang="en" xml:id="en_106">This attribute references the products that this element stands for. The "ProductType" attribute in the "Product" element is referred to.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="ExternalComponent">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_">Dieses Element definiert, dass dieses Produkt zwingend eine externe, also nicht in der Lieferung enthaltene, Komponente des mit @Role definierten Typs benötigt. Das verarbeitenden System ergänzt das Produkt um die externe Komponenten.
+				Erst mit dieser externen Komponente ist das Produkt vollständig. Die externe Komponente ist immer flexibel zeit - und personenallozierend.
+				Man kann sich in Filtern oder Conditions nicht auf diese externe Komponente beziehen.
+Die Auswertung einer solchen Bedingung ist immer "False".
+
+Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
+
+Die klassische Product-Definition eines DataMix-Produktes besteht damit aus 3 Components:
+1. ExternalComponent "Outbound"
+2. Accommodation
+3. ExternalComponent "Inbound" 
+</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="RuleExternalComponentType">
+									<xs:attribute name="Role" type="RoleEnum" use="required">
+										<xs:annotation>
+											<xs:documentation xml:lang="de" xml:id="de_342">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. External Components  können explizit in Version 2.0 noch nicht über die Source addressiert werden. Demnach kann man auch keine Bedingungen bzgl. der External Components definieren. Die Auswertung einer solchen Bedingung würde immer "False" sein, da die Source nicht existiert.
+
+Mögliche Werte für die Role sind :
+- OnewayFlight
+- Outbound
+- Inbound
+- Accommodation
+- Addon</xs:documentation>
+											<xs:documentation xml:lang="en" xml:id="en_342">This attribute defines the role that is played by a CombiComponent in relation to the ComponentType. The "role" attribute evaluates component references (the "source" attribute in Conditions) typically used as static components. Possible values ​​are currently:
+- OnewayFlight
+- ReturnFlight
+- Outbound
+- Inbound
+
+In version 1.0, roles are still highly restricted. In later versions, all components will be able to be represented by means of DefinedComponents.</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
 								</xs:extension>
@@ -5604,6 +5648,9 @@ Possible values ​​are currently:
 In version 1.0, roles are still highly restricted. In later versions, all components will be able to be represented by means of DefinedComponents.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RuleExternalComponentType">
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
 	</xs:complexType>
 	<xs:complexType name="KeyConditionType">
 		<xs:simpleContent>
