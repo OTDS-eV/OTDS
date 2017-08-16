@@ -751,9 +751,11 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl de
 					</xs:element>
 					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Unterbringung:
-Name, Adresse, Lage der Unterkunft, Kategorien
-Merkmale und Eigenschaften der Unterkunft</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Brand.
+Zum Beispiel: 
+- MarketingBrandName
+- MarketingBrandCode
+</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_6">Master data for accommodation:
 Name, address, location of accommodation, category
 Features and characteristics of the property</xs:documentation>
@@ -1959,7 +1961,13 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="MarketingBrand" type="xs:string" minOccurs="0">
+			<xs:element name="MarketingBrandName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_141">Enthält den MarketingBrandNamen unter dem das Angebot verkauft werden soll. In den meisten Fällen entspricht dies dem Veranstaltenamen des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben. Beispiel FTI und XFTI.   Die Definition des MarketingBrandNames erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MarketingBrandCode" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_141">Enthält ein Kürzel, welches die MarketingBrand des Angebotes definiert. In den meisten Fällen entspricht die MarketingBrand dem Buchungscode des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben und trotzdem mit dem Buchungscode des Veranstalters gebucht. Beispiel FTI und XFTI.   Die Definition der MarketingBrand erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
