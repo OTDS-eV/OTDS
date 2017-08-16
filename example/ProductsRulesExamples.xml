@@ -74,7 +74,7 @@
 				</And>
 			</Filter>
 		</Product>
-		<!-- Eine Produktregel welche den Flug über CombiComponents enthält  -->
+		<!-- Eine Produktregel welche den Flug über DefinedComponents enthält  -->
 		<Product Key="PackageWithCombiFlights" ProductType="FlightAccommodation">
 			<Components>
 				<Accommodation/>
@@ -87,44 +87,31 @@
 				</MatchEqual>
 			</Filter>
 		</Product>
-		<!-- Seit Version 2.0 werden die Produkte, die für die Paketierung mit externen Komponenten bereitgestellt werden, über spezifische ProduktTypen identifiziert  -->
-		<!-- Nachfolgend die Definition von Unterkünften, die für MixProdukte zur Verfügung stehen. -->
-		<Product Key="AccomOnlyForMix" ProductType="AccommodationForMix">
-			<Tags>
-				<Tag Class="Usage">AccomMixProduct</Tag>
-			</Tags>
+		<!-- Seit Version 2.0 werden die Produkte, die für die Paketierung mit externen Komponenten bereitgestellt werden, über eine neue Komponente "ExternalComponent" identifiziert und im Gegensatz zu vorher nicht mehr mit dem ProductTyp = "AccommodationOnly" sondern mit  ProductTyp = "FlightAccommodation" geliefert.-->
+		<!-- Nachfolgend die Definition von Unterkünften, die mit "externen" Flügen zusammen als Pauschalangebot verkauft werden sollen. -->
+		<Product Key="AccomOnlyForMix" ProductType="FlightAccommodation">
 			<Components>
-				<Accommodation/>
+				<ExternalComponent Role="Outbound" DayAllocationIndex="-1"/>
+				<Accommodation DayAllocationIndex="0"/>
+				<ExternalComponent Role="Inbound" DayAllocationIndex="1"/>
 			</Components>
 			<Filter Key="1">
 				<Tags Source="Accommodation" Class="MixOnly"/>
 			</Filter>
 		</Product>
-		<!-- Nachfolgend die Definition von Einzelflügen, die für MixProdukte zur Verfügung stehen. -->
-		<Product Key="FlightOnlyForMix" ProductType="OnewayFlightForMix">
-			<Tags>
-				<Tag Class="Usage">OFlightMixProduct</Tag>
-			</Tags>	
+		<!-- Nachfolgend die Definition von Flügen, die mit "externen" Unterkünften zusammen als Pauschalangebot verkauft werden sollen. -->
+		<Product Key="FlightOnlyForMix" ProductType="FlightAccommodation">
 			<Components>
-				<OnewayFlight/>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight DayAllocationIndex="-1"/>
+				</CombiComponent>
+				<ExternalComponent Role="Accommodation" DayAllocationIndex="0"/>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight DayAllocationIndex="1"/>
+				</CombiComponent>
 			</Components>
 			<Filter Key="1">
 				<Tags Source="OnewayFlight" Class="MixOnly"/>
-			</Filter>
-		</Product>
-		<!-- Nachfolgend die Definition von Returnflügen, die für MixProdukte zur Verfügung stehen. -->
-		<Product Key="RFlightOnlyForMix" ProductType="OnewayFlightForMix">
-			<Tags>
-				<Tag Class="Usage">RFlightMixProduct</Tag>
-			</Tags>	
-			<Components>
-				<DefinedComponent UseRole="ReturnFlight"/>
-			</Components>
-			<Filter Key="1">
-				<And>
-					<Tags Source="Outbound" Class="MixOnly"/>
-					<Tags Source="Outbound" Class="MixOnly"/>
-				</And>
 			</Filter>
 		</Product>
 	</Products>
