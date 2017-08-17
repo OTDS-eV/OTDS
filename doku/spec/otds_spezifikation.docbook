@@ -4361,7 +4361,8 @@
 						<para xml:id="de_1094" xml:lang="de">Weitere Details finden Sie in der <link xlink:href="../technisch/otds_technisch.html#DayPriceIndex">Technischen
 							Dokumentation für OTDS </link>.</para><para xml:id="en_1094" xml:lang="en">Further details can be found in the <link xlink:href="../technisch/otds_technisch.html#DayPriceIndex">Technical documentation for OTDS</link>.</para>
 						
-					</section><section xml:id="OtdsStrategyConditionBoolOperation">
+					</section>
+					<section xml:id="OtdsStrategyConditionBoolOperation">
 						<title><phrase xml:id="de_1101" xml:lang="de">Logische Verknüpfungen der Bedingungen</phrase><phrase xml:id="en_1101" xml:lang="en">Logical connectives of the conditions</phrase></title>
 						
 						<bridgehead xml:id="de_1102" xml:lang="de">Logische Verknüpfungen</bridgehead><bridgehead xml:id="en_1102" xml:lang="en">Logical connectives</bridgehead>
@@ -4644,23 +4645,71 @@
 	</PriceItem>
 </PriceItems>]]></programlisting>
 							</section>
-					</section>
-				<section xml:id="OtdsStrategyConditionBasicsGlobalValues">
-					<title><phrase xml:id="de_1095" xml:lang="de">Konfigurationsparameter (GlobalValues)</phrase><phrase xml:id="en_1095" xml:lang="en">Configuration parameter (GlobalValues)</phrase></title>
-					<para xml:id="de_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS durch das Vertriebssystem von außen
-						vorgegeben werden. Die Angabe der GlobalValues erfolgt in dem Zweig "Products".
-						Die Werte fließen in die Produktbildung und Preisberechnung mit ein. Beispiele für
-						GlobalValues sind die Angabe von Subcontractors (Exklusivkunden) oder spezifischen
-						SalesChannel wie Onlinevertrieb und Reisebürovertrieb. </para><para xml:id="en_1096" xml:lang="en">GlobalValues are values which are predefined externally by the sales system in OTDS. The specification of the GlobalValues is carried out in the "Products" branch. The values enter into the product creation and price calculation. Examples for GlobalValues are the specification of subcontractors (exclusive clients) or specific SalesChannels such as online sales and travel agency sales.</para>
-					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Keys-Conditions und Tags-Conditions
-						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Keys conditions and Tags conditions.</para>
+				</section>
+			</section>
+			<section xml:id="OtdsStrategyGlobalValues">
+				<title><phrase xml:id="de_1095" xml:lang="de"> Steuerung der Angebote und Preise für bestimmte
+							Märkte, Vertriebsysteme , Vertriebschannels oder Vertriebspartner mit
+							Konfigurationsparametern (GlobalValues)</phrase><phrase xml:id="en_1095"
+							xml:lang="en">Stearing of offers and prices for markets, distribution systems, distribution channels and distributors by configuration parameter (GlobalValues)</phrase></title>
+				<section xml:id="OtdsStrategyGlobalValuesOverview">
+					<title><phrase xml:id="de_6006" xml:lang="de">Überblick</phrase><phrase xml:id="en_6006"
+							xml:lang="en">Overview</phrase></title>
+					<para xml:id="det_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS-Lieferung definiert werden, um die Angebote und Preise passend zum Verarbeitungskontext zu beeinflussen.
+						Ein Verarbeitungskontext einer OTDS-Verarbeitung deckt dabei in der Regel mehrere Kontext-Szenarien ab.
+						Beispiel: Ich verarbeite die OTDS-Daten im Kontext des deutschen Marktes, für das Vertriebsystem "Traffics", für Reisebüros und für die Währung Euro. 
+						Je nach den eingestellten Kontextszenarien der Datennutzung sorgt das theoretische OTDS-Verarbeitungsmodell dafür, dass die Verarbeitung der OTDS-Daten passend zum Verarbeitungs-Kontext zum richtigen Ergebnis führt.
+						Jedes Kontextszenario gehört zu einem bestimmten Kontext-Typ.	
+					</para>
+					<itemizedlist>
+						<para>Folgende Kontext-Typen gibt es derzeit:</para>
+						<listitem>
+							<para xml:lang="de">Markt-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Currency-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Distributionsystem-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">DistributionChannel-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Distributor-Kontext</para>
+						</listitem>
+					</itemizedlist>
+					<para>
+						  
+						In OTDS entspricht ein definiertes Kontext-Szenario der Definition eines <code>GlobalValues</code>. 
+						Die Angabe der <code>GlobalValues</code> erfolgt in dem Zweig <code>OTDS/Products/GlobalValues/</code>".
+						Zum Beispiel definiert der folgende GlobalValue das Kontext-Szenario für den deutschen Markt.</para>
+					<programlisting><![CDATA[<Products>
+   <GlobalValue Key="SalesMarketDE">
+    <Tags>
+     <Tag Class="SalesMarket">DE</Tag>
+    </Tags>
+    <ParameterSet Key="DE">
+     <SalesMarket>DE</SalesMarket>
+    </ParameterSet>
+   </GlobalValue>
+  </Products>]]></programlisting>
+					<para xml:lang="de"> Jeder <code>GlobalValue</code> definiert einen <code>Key</code> oder auch
+					ein oder mehrere <code>Tags</code>. Die entsprechende Integration dieser Keys
+					oder Tags in entsprechenden <code>Filter</code> und <code>Condition</code>
+					beeinflusst die Produktbildung und Preisberechnung passend zum jeweiligen
+					Verarbeitungs-Kontext. Die Kontext-Szenarios werden durch die Angabe spezifischer
+						<code>ParameterSets</code> innerhalb des <code>GlobalValue</code> festgelegt. Beispiele der verschiedenen
+						Kontext-Typen und der <code>ParameterStes</code>finden Sie in den folgenden Unterkapiteln.</para>
+					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Key-Conditions und Tag-Conditions
+						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Key conditions and Tag conditions.</para>
 					<figure>
 						<info>
 							<title><phrase xml:id="de_1098" xml:lang="de">GlobalValues</phrase><phrase xml:id="en_1098" xml:lang="en">GlobalValues</phrase></title>
 						</info>
 						<mediaobject>
 							<imageobject>
-								<imagedata fileref="figures/globalvalues.png" format="PNG" contentwidth="80%"/>
+								<imagedata fileref="figures/globalvalues.png" format="PNG" contentwidth="50%"/>
 							</imageobject>
 							<textobject>
 								<para xml:id="de_1099" xml:lang="de">GlobalValues</para><para xml:id="en_1099" xml:lang="en">GlobalValues</para>
@@ -4669,8 +4718,34 @@
 					</figure>
 					<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 						Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
-					
 				</section>
+				
+
+				<section xml:id="OtdsStrategyGlobalValuesDistributionSystems">
+					<title><phrase xml:id="det_6000" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebsysteme</phrase></title>
+						<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesMarkets">
+					<title><phrase xml:id="det_6001" xml:lang="de">Regelwerke zur Steuerung spezifischer Märkte</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesCurencies">
+					<title><phrase xml:id="det_6002" xml:lang="de">Regelwerke zur Steuerung spezifischer Währungen</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributionChannels">
+					<title><phrase xml:id="det_6003" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebschannels</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributors">
+					<title><phrase xml:id="det_6004" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebspartner</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesResellers">
+					<title><phrase xml:id="det_6005" xml:lang="de">Steuerung bzgl. der Bereitstellung </phrase></title>
+					<para></para>
+				</section>
+			</section>
 				<section xml:id="OtdsStrategyRules">
 					<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Bildung von Produkten und Kombination von Komponenten</phrase><phrase xml:id="en_1115" xml:lang="en">Rule sets for the compilation of products and combination of components</phrase></title>
 					<section>
@@ -6145,7 +6220,6 @@ usw.]]></programlisting>
 						
 					</section>
 				</section>
-			</section>
 			<section xml:id="OtdsStrategyConditionalTag">
 				<title><phrase xml:id="de_1258" xml:lang="de">Bedingte Kennzeichnung von Knoten aber auch Personen und Tagen zur Preisberechnung
 					(ConditionalTags)</phrase><phrase xml:id="en_1258" xml:lang="en">Conditional marking of nodes, as well as persons and days, for price calculation (ConditionalTags)</phrase></title>
