@@ -2974,7 +2974,10 @@ A more detailed description of the attributes can be found in the "Thematic docu
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="ResellerType">
+		<xs:choice>
+			<xs:element name="ResellerType" type="ResellerTypeEnum"/>
 			<xs:group ref="DistributorIdentificationGroup"/>
+		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="ParameterSetType">
 		<xs:complexContent>
@@ -4694,6 +4697,12 @@ For the complete list see the technical documentation.</xs:documentation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Toma"/>
 			<xs:enumeration value="Merlin"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ResellerTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PackageMixResellers"/>
+			<xs:enumeration value="PureResellers"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="SalesChannelEnum">
