@@ -2966,15 +2966,21 @@ A more detailed description of the attributes can be found in the "Thematic docu
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
+	<xs:group name="DistributorIdentificationGroup">
+		<xs:sequence>
+			<xs:element name="CrsSystem" type="CrsSystemEnum"/>
+			<xs:element name="AgencyCode" type="xs:string"/>
+			<xs:element name="BrandCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="ResellerType">
+			<xs:group ref="DistributorIdentificationGroup"/>
+	</xs:complexType>
 	<xs:complexType name="ParameterSetType">
 		<xs:complexContent>
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:choice>
-					<xs:sequence>
-						<xs:element name="CrsSystem" type="CrsSystemEnum"/>
-						<xs:element name="AgencyCode" type="xs:string"/>
-						<xs:element name="BrandCode" type="xs:string"/>
-					</xs:sequence>
+					<xs:group ref="DistributorIdentificationGroup"/>
 					<xs:element name="SalesChannel" type="SalesChannelEnum">
 						<xs:annotation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten SalesChannel. Die möglichen Werte sind:
@@ -3007,6 +3013,11 @@ Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
 					<xs:element name="Currency" type="ISO4217CurrencyType" internal:otdsversion="1.9.2">
 						<xs:annotation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Reseller" type="ResellerType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
