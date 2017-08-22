@@ -5478,16 +5478,18 @@
 						
 						<para xml:id="de_1196" xml:lang="de">Die Erweiterung sieht nun vor, dass Tags nicht nur
 							Zeichenketten enthalten können, sondern auch numerische Werte
-							(TagType="Numeric") oder numerische Werte (TagType="Price"), welche mit
-							Preisen in Interaktion treten können. </para><para xml:id="en_1196" xml:lang="en">The extension now enables Tags to contain not only character strings, but also numeric values (TagType="Numeric") or numeric values (TagType="Price"), which can interact with prices.</para>
+							(TagValueType="Numeric") oder numerische Werte (TagValueType="Price"),
+							welche mit Preisen in Interaktion treten können. </para><para xml:id="en_1196" xml:lang="en">The extension now enables Tags to contain not only character
+							strings, but also numeric values (TagValueType="Numeric") or numeric
+							values (TagValueType="Price"), which can interact with prices.</para>
 						<para xml:id="de_1197" xml:lang="de">Beispiel:</para><para xml:id="en_1197" xml:lang="en">Example:</para>
 						<programlisting language="XML"><![CDATA[<Otds ...>
   ...
   <OnewayFlight ...> 
    <Tags>
      <Tag Class="KombiAirline">LH</Tag>
-     <Tag Class="ReturnFlightIndex" TagType="Numeric">5</Tag>
-     <Tag Class="PreisIndex" TagType="Price">-35</Tag>
+     <Tag Class="ReturnFlightIndex" TagValueType="Numeric">5</Tag>
+     <Tag Class="PreisIndex" TagValueType="Price">-35</Tag>
    </Tags>
   </OnewayFlight> 
  ...
@@ -5558,12 +5560,12 @@
           <Sequence>
             <Sort Order="Ascending">
               <Sum>
-                <Tag Source="Outbound" Class="FlightGroupIndex" TagType="Numeric"/>
+                <Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
               </Sum>
             </Sort>
             <Sort Order="Ascending">
               <Sum>
-                <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
+                <Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
               </Sum>
             </Sort>
           </Sequence>
@@ -5758,8 +5760,9 @@
 								<para xml:id="de_5110" xml:lang="de">&lt;Price&gt; referenziert eine Menge von PriceItems</para><para xml:id="en_5110" xml:lang="en">&lt;Price&gt;references an amount of PriceItems</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_5111" xml:lang="de">&lt;Tags&gt; referenziert aufgrund von Source, Class und TagType
-									eine Menge von Tags.</para><para xml:id="en_5111" xml:lang="en">&lt;Tags&gt;references an amount of tags according to Source, Class and TagType.</para>
+								<para xml:id="de_5111" xml:lang="de">&lt;Tags&gt; referenziert aufgrund von Source, Class
+									und TagValueType eine Menge von Tags.</para><para xml:id="en_5111" xml:lang="en">&lt;Tags&gt;references an amount of tags according to Source,
+									Class and TagValueType.</para>
 							</listitem>
 						</orderedlist>
 						
@@ -5776,7 +5779,7 @@
       		<Sequence>
 		        <Sort Order="Ascending">
 		          <Sum>
-		            <Tag Source="Outbound" Class="FlightGroupIndex" TagType="Numeric"/>
+		            <Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
 		          </Sum>
 		        </Sort>
 		        <Sort Order="Descending">
@@ -5863,12 +5866,12 @@
     	      <Sequence>
     	        <Sort Order="Ascending">
     	          <Sum>
-    	            <Tag Source="Outbound" Class="FlightGroupIndex" TagType="Numeric"/>
+    	            <Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
     	          </Sum>
     	        </Sort>
     	        <Sort Order="Ascending">
     	          <Sum>
-    	            <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
+    	            <Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
     	          </Sum>
     	        </Sort>
     	      </Sequence>
@@ -5933,8 +5936,8 @@ usw.]]></programlisting>
          <Sequence>
            <Sort Order="Ascending">
              <Sum>
-                <Tag Source="Outbound" Class="FlightGroupIndex" TagType="Numeric"/>
-                <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
+                <Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+                <Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
              </Sum>
            </Sort>
          </Sequence>
@@ -5995,36 +5998,36 @@ usw.]]></programlisting>
      <Sequence>
         <Sort Order="Ascending">
             <Sum>
-                <Tag Source="Outbound" Class="FlightGroupIndex" TagType="Numeric"/>
-                <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
+                <Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+                <Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
             </Sum>
         </Sort>
         <Sort Order="Ascending">
             <Average>
-                <Tag Source="Outbound" Class="FlightGroupIndex" TagType="Numeric"/>
-                <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
+                <Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+                <Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
             </Average>
         </Sort>
         <Sort Order="Ascending">
             <Sum>
                 <Price>
-                    <ApplyToAll Source="Hirarchy.descendants:ReturnFlight"/>
+                    <ConsideredPriceItems Source="Hirarchy.descendants:ReturnFlight"/>
                 </Price>
-                <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
+                <Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Price"/>
             </Sum>
         </Sort>
         <Sort Order="Ascending">
             <Average>
                 <Price>
-                    <ApplyToAll Source="Hirarchy.descendants:ReturnFlight"/>
+                    <ConsideredPriceItems Source="Hirarchy.descendants:ReturnFlight"/>
                 </Price>
-                <Tag Source="Inbound" Class="FlightGroupIndex" TagType="Numeric"/>
+                <Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Price"/>
             </Average>
         </Sort>
         <Sort Order="Ascending">
             <Concatenate>
-                <Tag Source="Outbound" Class="FlightCode" TagType="String"/>
-                <Tag Source="Inbound" Class="FlightCode" TagType="String"/>
+                <Tag Source="Outbound" Class="FlightCode"/>
+                <Tag Source="Inbound" Class="FlightCode"/>
             </Concatenate>
         </Sort>
      </Sequence>
@@ -6059,7 +6062,7 @@ usw.]]></programlisting>
        ...
        <Filter>
          ...
-         <GenericTag Class="FlightPrioritization" TagType="Numeric">
+         <GenericTag Class="FlightPrioritization" TagValueType="Numeric">
            <MaxValue>1</MaxValue>
          </GenericTag>
          ...
@@ -6200,7 +6203,7 @@ usw.]]></programlisting>
           </GenericTag>
         </If>
         <Then>
-          <GenericTag Class="FlightPrioritization" TagType="Numeric">
+          <GenericTag Class="FlightPrioritization" TagValueType="Numeric">
             <MaxValue>1</MaxValue>
           </GenericTag>
         </Then>
@@ -6241,7 +6244,7 @@ usw.]]></programlisting>
 	  <Date Source="Inbound" DayType="CheckIn"/>
        </BookingParameter>
        <Condition>
-         <GenericTag Class="FlightPrioritization" TagType="Numeric">
+         <GenericTag Class="FlightPrioritization" TagValueType="Numeric">
             <MaxValue>1</MaxValue>
           </GenericTag>
        </Condition>
