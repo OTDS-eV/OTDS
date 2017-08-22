@@ -1389,17 +1389,29 @@ By Tag elements you define, that the group contains only from those offer candid
 Die Rahmenparameter bzgl. CheckIn- und CheckOut-Terminen müssen ohenhin identisch sein.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
-												<xs:attribute name="Source" type="SourceAttributeType" use="required"/>
+												<xs:attribute name="Source" type="SourceAttributeType" use="required">
+													<xs:annotation>
+														<xs:documentation>Dieses Attribut definiert eine Referenz auf bestimmte Candidate Instance.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="Airport">
 											<xs:annotation>
-												<xs:documentation>Die Angebote werden gruppiert, so dass alle Angebotskandidaten der Gruppe identische durch CandidateInstance/@Source definiert Unterkomponenten besitzen.
-Die Rahmenparameter bzgl. CheckIn- und CheckOut-Terminen müssen ohenhin identisch sein.</xs:documentation>
+												<xs:documentation>Die Angebote werden gruppiert, so dass Angebotskandidaten der Gruppe identische Values bzgl. des hier definierten Airports besitzen.
+</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
-												<xs:attribute name="Source" type="SourceAttributeType" use="required"/>
-												<xs:attribute name="AirportType" type="AirportTypesEnum" use="required"/>
+												<xs:attribute name="Source" type="SourceAttributeType" use="required">
+													<xs:annotation>
+														<xs:documentation>Dieses Attribut definiert eine Referenz auf eine bestimmte Candidate Instance in der der Airport betrachtet werden soll.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="AirportType" type="AirportTypesEnum" use="required">
+													<xs:annotation>
+														<xs:documentation>Dieses Attribut definiert welcher Airporttype betrachtet werden soll.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="Tag" type="EmptyTagGroupedByEqualType">
