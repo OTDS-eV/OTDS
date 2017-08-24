@@ -1404,6 +1404,16 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 												Special case: If the addressing of the tag is not distinct relating to Source, the grouping will take place via identical tag-tuples sorted in XML DocumentOrder.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
+										<xs:element name="GroupStartDate" type="GroupStartDateType" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes StartDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GroupEndDate" type="GroupEndDateType" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes EndDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
+											</xs:annotation>
+										</xs:element>
 									</xs:choice>
 								</xs:sequence>
 							</xs:complexType>
@@ -5225,6 +5235,68 @@ e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</x
 			<xs:extension base="PersonGenderEnumList">
 				<xs:attributeGroup ref="ConditionAttributeGroup"/>
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="GroupStartDateType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyElementType">
+				<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder Checkout-Datum zur Emittlung des Startdatums der Gruppe verwendet wird. 
+
+Ist dieses Attribut nicht angegeben, so gilt der unter CandidateInstance/@Source angegebene Source-Value</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+							used in order to determine the start date of a group</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckIn">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder Checkout) der referenzierten Komponente, welches als Startdatum der Gruppe verwendet werden soll.</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+							the referenced component to be used as a start date of a group</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Offset" type="xs:integer" default="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der referenzierten Komponente zu addieren, um das Startdatum der Gruppe zu bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Startdatum der Gruppe, verglichen mit dem Reisedatum.</xs:documentation>
+						<xs:documentation xml:lang="en">This number of days must be added to the travel date
+							of the referenced component in order to obtain the start date of the group.
+							Negative/positive values signify an earlier/later start date or the group,
+							compared to the travel date.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="GroupEndDateType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyElementType">
+				<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder Checkout-Datum zur Emittlung des Endedatums einer Gruppe verwendet wird.
+
+Ist dieses Attribut nicht angegeben, so gilt der unter CandidateInstance/@Source angegebene Source-Value</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+							used in order to determine the end date of a group.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckOut">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder Checkout) der referenzierten Komponente, welches als Endedatum der Gruppe verwendet werden soll.</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+							the referenced component to be used as an end date of a group.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Offset" type="xs:integer" default="0">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der referenzierten Komponente zu addieren, um das Endedatum der Gruppe zu bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Endedatum der Gruppe, verglichen mit dem Reisedatum.</xs:documentation>
+						<xs:documentation xml:lang="en">This number of days must be added to the travel date
+							of the referenced component in order to obtain the end date of the group.
+							Negative/positive values signify an earlier/later end date of the group,
+							compared to the travel date.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
