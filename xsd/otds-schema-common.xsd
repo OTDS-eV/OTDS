@@ -35,21 +35,25 @@
 		
 			- GlobalValue
 			- Product
-			- Product.Brand
-			- Product.Accommodation
-			- Product.Accommodation.SellingAccom
-			- Product.Accommodation.SellingAccom.Board
-			- Product.Accommodation.SellingAccom.Unit
-			- Product.Accommodation.SellingAccom.Unit.SellingUnit
-			- Product.OnewayFlight
-			- Product.OnewayFlight.BookingClass
-			- Product.ReturnFlight
-			- Product.ReturnFlight.BookingClass
-			- Product.ReturnFlight.Inbound
-			- Product.ReturnFlight.Outbound
-			- Product.Addon
-			- Product.Addon.Service
-			- Product.Addon.ServiceFeature				
+			- Product.Brands
+			- Product.Brands.Brand
+			- Product.Accommodations
+			- Product.Accommodations.Accommodation
+			- Product.Accommodations.Accommodation.SellingAccom
+			- Product.Accommodations.Accommodation.SellingAccom.Board
+			- Product.Accommodations.Accommodation.SellingAccom.Unit
+			- Product.Accommodations.Accommodation.SellingAccom.Unit.SellingUnit
+			- Product.Flights
+			- Product.Flights.OnewayFlight
+			- Product.Flights.OnewayFlight.BookingClass
+			- Product.Flights.ReturnFlight
+			- Product.Flights.ReturnFlight.BookingClass
+			- Product.Flights.ReturnFlight.Inbound
+			- Product.Flights.ReturnFlight.Outbound
+			- Product.Addons
+			- Product.Addons.Addon
+			- Product.Addons.Addon.Service
+			- Product.Addons.Addon.ServiceFeature		
 		
 		Desweiteren sind alle Unterschrittfolgen aus obigen Pfaden erlaubt, also 'Board', 'Accommodation.SellingAccom' oder 'SellingAccom.Unit.SellingUnit'. 
 		'Accommodation.Unit' hingegen ist nicht erlaubt, da in diesem Fall einige Zwischenschritte fehlen.
@@ -86,21 +90,25 @@
 				
 				- GlobalValue
 				- Product
-				- Product.Brand
-				- Product.Accommodation
-				- Product.Accommodation.SellingAccom
-				- Product.Accommodation.SellingAccom.Board
-				- Product.Accommodation.SellingAccom.Unit
-				- Product.Accommodation.SellingAccom.Unit.SellingUnit
-				- Product.OnewayFlight
-				- Product.OnewayFlight.BookingClass
-				- Product.ReturnFlight
-				- Product.ReturnFlight.BookingClass
-				- Product.ReturnFlight.Inbound
-				- Product.ReturnFlight.Outbound
-				- Product.Addon
-				- Product.Addon.Service
-				- Product.Addon.ServiceFeature				
+				- Product.Brands
+				- Product.Brands.Brand
+				- Product.Accommodations
+				- Product.Accommodations.Accommodation
+				- Product.Accommodations.Accommodation.SellingAccom
+				- Product.Accommodations.Accommodation.SellingAccom.Board
+				- Product.Accommodations.Accommodation.SellingAccom.Unit
+				- Product.Accommodations.Accommodation.SellingAccom.Unit.SellingUnit
+				- Product.Flights
+				- Product.Flights.OnewayFlight
+				- Product.Flights.OnewayFlight.BookingClass
+				- Product.Flights.ReturnFlight
+				- Product.Flights.ReturnFlight.BookingClass
+				- Product.Flights.ReturnFlight.Inbound
+				- Product.Flights.ReturnFlight.Outbound
+				- Product.Addons
+				- Product.Addons.Addon
+				- Product.Addons.Addon.Service
+				- Product.Addons.Addon.ServiceFeature				
 				
 				In addition to that all subsequent steps from the paths above are permitted, that is 'Board', 'Accommodation.SellingAccom' or 'SellingAccom.Unit.SellingUnit'. 
 				'Accommodation.Unit' in the contrary is not permitted, as here some intermediate steps are missing.
@@ -110,7 +118,7 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+					<xs:pattern value="((((Scope\.)?(global|local|current))|(((ComponentType.)?(real|virtual))|ComponentType\.all)|(((Hierarchy\.)?(self|ancestors|descendants))|Hierarchy\.all)|(((DayAllocation\.)?(first|last))|DayAllocation\.all))(\+(((Scope\.)?(global|local|current))|(((ComponentType.)?(real|virtual))|ComponentType\.all)|(((Hierarchy\.)?(self|ancestors|descendants))|Hierarchy\.all)|(((DayAllocation\.)?(first|last))|DayAllocation\.all)))*:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brands|Product\.Brands\.Brand|Product\.Accommodations|Product\.Accommodations\.Accommodation|Product\.Accommodations\.Accommodation\.SellingAccom|Product\.Accommodations\.Accommodation\.SellingAccom\.Board|Product\.Accommodations\.Accommodation\.SellingAccom\.Unit|Product\.Accommodations\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.Flights|Product\.Flights\.OnewayFlight|Product\.Flights\.OnewayFlight\.BookingClass|Product\.Flights\.ReturnFlight|Product\.Flights\.ReturnFlight\.BookingClass|Product\.Flights\.ReturnFlight\.Inbound|Product\.Flights\.ReturnFlight\.Outbound|Product\.Addons\.Addon|Product\.Addons\.Addon\.Service|Product\.Addons\.Addon\.ServiceFeature|Brands|Brands\.Brand|Brand|Accommodations|Accommodations|Accommodations\.Accommodation|Accommodations\.Accommodation\.SellingAccom|Accommodations\.Accommodation\.SellingAccom\.Board|Accommodations\.Accommodation\.SellingAccom\.Unit|Accommodations\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|Flights|Flights\.OnewayFlight|Flights\.OnewayFlight\.BookingClass|Flights\.ReturnFlight|Flights\.ReturnFlight\.BookingClass|Flights\.ReturnFlight\.Inbound|Flights\.ReturnFlight\.Outbound|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addons|Addons\.Addon\.Service|Addons\.Addon\.ServiceFeature|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
