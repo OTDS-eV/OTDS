@@ -3927,6 +3927,39 @@ https://en.wikipedia.org/wiki/Airline_codes
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="WrapperType">
+		<xs:complexContent>
+			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+				<xs:sequence>
+					<xs:element name="Booking" type="BookingType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_538">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_538">In this element, all values ​​required for booking are combined. Other namespaces can be added to the BookingEntry later, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_539">Merkmale und Eigenschaften des AccommodationWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_539">Features and characteristics of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_540">Einschränkungen des AccommodationWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_540">Restrictions of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_541">Preisbestandteile des AccommodationWrappers </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_541">Pricing components of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
