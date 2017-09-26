@@ -1691,15 +1691,6 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="ExternalParameter" internal:otdsversion="1.9">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">Die Funktion ExternalParameter erlaubt, dass von außen ein vorgegebener Parameter in die OTDS-Verarbeitung eingeschleust werden kann.</xs:documentation>
-					<xs:documentation xml:lang="en">The function ExternalParameter allows to introduce a parameter within the OTDS-processing specified by external sources.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:attribute name="Feature" type="ProductFeatureAttributeEnum" use="required"/>
-				</xs:complexType>
-			</xs:element>
 		</xs:choice>
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
@@ -2939,6 +2930,14 @@ Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
 					<xs:element name="Currency" type="ISO4217CurrencyType" internal:otdsversion="1.9.2">
 						<xs:annotation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FeatureContext" type="FeatureContextEnum" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation>Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeautureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeautureContext kann zu einem anderen Ergebnsi führen als ohne den FeautureContext.
+Derzeit gibt es nur einen FeautureContext "City-Pair-Production".
+
+Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
@@ -4796,6 +4795,11 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Up"/>
 			<xs:enumeration value="TowardsZero"/>
 			<xs:enumeration value="AwayFromZero"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FeatureContextEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CityPairProduction"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--Begin of  rules definition-->
