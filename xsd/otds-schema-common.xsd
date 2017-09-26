@@ -8476,7 +8476,11 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 						Attribut "Class" referenziert welches GenericTag geprüft wird. Die Bedingung
 						ist erfüllt, wenn der Value des referenzierten GenericTags innerhalb der
 						Value-Bedingungen liegt. Eine GenericTag Bedingung ohne Value ist
-						"False".</xs:documentation>
+						"False".
+Die Auswertung der GenericTag-Bedingung erfolgt nur in Product- und DefinedComponent-Filtern. In allen anderen Conditions und Filtern werden GenericTag-Bedingungen als "False" ausgewertet.
+Die Auswertung der GenericTag-Bedingung erfolgt  nach dem letzten Step der  Preisberechnung, also nach ExcecutionOrder ="Last".
+Bis dahin ist die GenericTag-Bedingung als "undefined" zu bewerten.  
+Der Umgang mit "undefined" Bedingungen wird in der Dokumentation beschrieben. (Suchen Sie dazu bitte nach "undefined")</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5869">The GenericTag-Condition defines a condition for the
 						GenericTag. The attribute "Class" references, which GenericTag is to be
 						evaluated. The condition is satisfied, if the value of the referenced
