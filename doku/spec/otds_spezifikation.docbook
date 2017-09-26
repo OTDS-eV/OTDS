@@ -3451,7 +3451,7 @@
 								restriction with the aid of "DayFilter" can i.e. be helpful, when in
 								the context of a duration discount specific days within a date range
 								shall be reduced in price.</para>
-							<para xml:id="de_5352" xml:lang="de">Da die ImpactExecutionOrder=Last gefordert ist, ist hier die Anwendung der dreiwertigen Auswertungslogik zwingend erforderlich. Mehr Details hierzu s. Section 3.3.2.5 <xref linkend="OtdsProcessConditionsThreeway"/>.</para>
+							<para xml:id="de_5352" xml:lang="de">Da die ImpactExecutionOrder=Last gefordert ist, ist hier die Anwendung der dreiwertigen Auswertungslogik zwingend erforderlich. Mehr Details hierzu s. 3.3.2.5 <xref linkend="OtdsProcessConditionsThreeway"/>.</para>
 							<para xml:id="en_5352" xml:lang="en">As the ImpactExecutionOrder=Last is requested, the application of the triadic analysis logic is mandatory. For more details please see Section 3.3.2.5 <xref linkend="OtdsProcessConditionsThreeway"/>.</para>
 							<para xml:id="de_1000" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technischen
 									Dokumentation für OTDS </link>.</para><para xml:id="en_1000" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technical documentation for OTDS</link>.</para>
@@ -4624,6 +4624,12 @@
 					<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 						Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
 					
+					<section xml:id="OtdsStrategyConditionBasicsGlobalValuesFeatureContext">
+						<title><phrase xml:id="de_6147" xml:lang="de"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase><phrase xml:id="en_6147" xml:lang="en"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase></title>
+						<para xml:id="det_6146" xml:lang="de">Mit diesem <code>GlobalValue/FeatureContext</code> kann man einen <code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn dieser <code>FeautureContext</code> gewünscht ist. Die Verarbeitung mit einem spezifisches <code>FeautureContext</code> kann zu einem anderen Ergebnis führen als ohne den <code>FeautureContext</code>.
+							Derzeit gibt es nur einen <code>FeautureContext</code>=<code>CityPairProduction</code>.
+							Mit diesem <code>FeautureContext</code> erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des <code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
+					</section>
 				</section>
 				<section xml:id="OtdsStrategyRules">
 					<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Bildung von Produkten und Kombination von Komponenten</phrase><phrase xml:id="en_1115" xml:lang="en">Rule sets for the compilation of products and combination of components</phrase></title>
@@ -4911,12 +4917,15 @@
 			  <section xml:id="OtdsStrategyProductGenericTag">
 			    <title>
 						<phrase xml:lang="de" xml:id="de_5043">Kennzeichnung von Produkt-Features
-							durch <code>GenericTag</code> in Produkten (Version 1.9,
-							V1.9)</phrase><phrase xml:lang="en" xml:id="en_5043">Tagging of product
-							features using <code>GenericTag</code> in products (version 1.9,
-							v1.9)</phrase>
+							durch <code>GenericTag</code> in Produkten (Version 1.9, V1.9) (Entfernt
+							in Version 2.0, V2.0)</phrase><phrase xml:lang="en" xml:id="en_5043"
+							>Tagging of product features using <code>GenericTag</code> in products
+							(version 1.9, v1.9) (Deleted in Version 2.0, V2.0)</phrase>
 					</title>
-			    <para xml:lang="de" xml:id="de_5044">Durch das Element <code>GenericTag</code> ist es
+			  	
+			  	<para xml:lang="de" xml:id="det_6144">Diese Art des <code>GenericTag/ExternalParameter</code> wurde ab Version 2.0 durch den <code>GlobalValue/FeatureContext</code> ersetzt.</para>
+			  	<para xml:lang="de" xml:id="det_6145">Details zur Benutzung des <code>GlobalValue/FeatureContext</code> finden Sie im Kapitel aaaaa.</para>
+			  	<para xml:lang="de" xml:id="de_5044">Durch das Element <code>GenericTag</code> ist es
 						möglich, von den OTDS-Daten unterstützte Produkt-Features in den einzelnen
 						Produkten zu kennzeichnen. Dadurch weiß das verarbeitende System, dass die
 						gelieferten OTDS-Daten das Feature unterstützen. </para><para xml:lang="en" xml:id="en_5044">With the element <code>GenericTag</code>, it is possible to tag product features which are supported by OTDS data within the individual products. In this way, the processing system knows that the delivered OTDS data support the feature.</para>  
@@ -12175,8 +12184,13 @@ usw.]]></programlisting>
 					<para xml:id="de_2147" xml:lang="de">Preisberechnung</para><para xml:id="en_2147" xml:lang="en">Price calculation</para>
 				</listitem>
 				<listitem>
-					<para xml:id="de_2148" xml:lang="de">Verarbeitung von Eigenschaften (<code>Properties</code>,
-						<code>Booking</code>)</para><para xml:id="en_2148" xml:lang="en">Processing of properties (<code>Properties</code> , <code>Booking</code> )</para>
+					<para xml:id="de_6131" xml:lang="de">Auswertung der GenericTag-Bedingungen</para><para xml:id="en_6131" xml:lang="en">Evaluation of GenericTag conditions</para>
+				</listitem>
+				<listitem>
+					<para xml:id="de_2148" xml:lang="de">Verarbeitung von Eigenschaften (<code>Properties</code>)</para><para xml:id="en_2148" xml:lang="en">Processing of properties (<code>Properties</code>)</para>
+				</listitem>
+				<listitem>
+					<para xml:id="de_6130" xml:lang="de">Verarbeitung von Buchungsparametern (<code>Booking</code>)</para><para xml:id="en_6130" xml:lang="en">Processing of booking parameters (<code>Booking</code> )</para>
 				</listitem>
 			</itemizedlist>
 
@@ -16395,6 +16409,21 @@ usw.]]></programlisting>
 						</listitem>
 					</itemizedlist>
 					
+				</section>
+				<section xml:id="OtdsProcessConditionsGenericTag">
+					<title><phrase xml:id="de_6135" xml:lang="de"><code>GenericTag</code> Bedingung (Version 1.9,V1.9)</phrase><phrase xml:id="en_6135" xml:lang="en"><code>GenericTag</code> condition (version 1.9,
+							v1.9)</phrase></title>
+					<para xml:id="det_6136" xml:lang="de">Unter <code>Products/Tags/GenericTag</code> kann man GenericTags definieren. Das GenericTag definiert bezogen auf das aktuell betrachtete Angebot eine Gruppe von Angeboten und zusätzlich durch die Festlegung einer Sortierreihenfolge einen generisch bestimmte Value des Tags, der den Index der Reihenfolge des aktuell betrachteten Angebotes in der definierten Gruppe repräsentiert.</para>
+					<para xml:id="det_6137" xml:lang="de">Die GenericTag-Bedingung ist dann erfüllt, wenn der SortierIndex des betrachteten Angebotes 
+						= GenericTag/Value und 
+						größer als GenericTag/MinValue und 
+						kleiner als GenericTag/MaxValue
+						ist. Ist einer Werte der nicht angegeben, so gilt diese Bedingung als erfüllt.
+						</para>
+					<para xml:id="det_6138" xml:lang="de">Über das Attribut GenericTag/@Class kann man sich in der GenericTag-Bedingung auf eine bestimmte GenericTag-Definition beziehen.</para>
+					<para xml:id="det_6139" xml:lang="de">Die GenericTag-Bedingung wird nur in Product/Filter und DefinedComponent/Filter ausgewertet. In allen anderen Fällen wird die GenericTag-Bedingung als <code>false</code> ausgewertet.</para>
+					<para xml:id="det_6140" xml:lang="de">Die letztendliche Auswertung der GenericTag-Bedingung erfolgt erst nach der Preisberechnung. Bis zum Zeitpunkt der letztendlichen Auswertung wird eine GenericTag-Bedingung mit dem Wert <code>undefined</code> ausgewertet.</para>
+					<para xml:id="de_6141">Mehr Details zur Undefined-Auswertung finden Sie im Kapitel <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)"</link> </para><para xml:id="en_6141">You will find more details about "undefined" evaluation in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)"</link> </para>	
 				</section>
 			</section>
 		</section>
@@ -21950,6 +21979,13 @@ usw.]]></programlisting>
 
 			</section>
 
+			
+			
+			<section xml:id="OtdsProcessGenericTagConditions">
+				<title><phrase xml:id="de_6132" xml:lang="de">Auswertung der GenericTag-Bedingungen</phrase><phrase xml:id="en_6132" xml:lang="en">Evaluation of GenericTag conditions</phrase></title>
+				<para xml:id="det_6133">Nach der Preisberechnung werden die GenericTag-Bedingungen der Filter der Product- und DefinedComponents nachträglich ausgewertet. Bis zu diesem Zeitpunkt wurden diese Bedingungen mit dem Wert "undefined" ausgewertet, da die Auswertung vorher noch nicht stattfinden konnte.</para>
+				<para xml:id="de_6134">Mehr Details zur Undefined-Auswertung finden Sie im Kapitel <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)"</link> </para><para xml:id="en_6134">You will find more details about "undefined" evaluation in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)"</link> </para>	
+			</section>
 			<section xml:id="OtdsProcessBooking">
 				<title><phrase xml:id="de_3698" xml:lang="de">Verarbeitung der <code>BookingParameter</code></phrase><phrase xml:id="en_3698" xml:lang="en">Processing of the <code>BookingParameter</code> </phrase></title>
 
