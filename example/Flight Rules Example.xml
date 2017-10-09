@@ -26,13 +26,18 @@
 		<Product Key="ReturnFlight" ProductType="ReturnFlightOnly">
 			<!-- Die einfachste Form der Produktdefinition der ReturnFlights. Welche aus allen gelieferten ReturnFlights besteht. Hier können sehr wohl auch OpenJaw-Flights drinstecken.-->
 			<Components>
-				<ReturnFlight/>
+				<ReturnFlight>
+					<Outbound DayAllocationIndex="-1"/>
+					<Inbound DayAllocationIndex="1"/>
+				</ReturnFlight>
+				<VirtualComponent DayAllocationIndex="0"/>
 			</Components>
 		</Product>
 		<Product Key="ReturnFlight_Combinied" ProductType="ReturnFlightOnly">
 			<!-- Returnflights die aus kombinierten OneWayFlights bestehen, welche die Rolle ReturnFlight haben. Hier können auch OpenJawFlights drinstecken. -->
 			<Components>
 				<DefinedComponent UseRole="ReturnFlight"/>
+				<VirtualComponent DayAllocationIndex="0"/>
 			</Components>
 		</Product>
 	</Products>
@@ -385,10 +390,10 @@
 	<DefinedComponents>
 		<DefineComponent Key="StandardReturnFlight" Role="ReturnFlight">
 			<Components>
-				<CombiComponent Role="Outbound">
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight/>
 				</CombiComponent>
-				<CombiComponent Role="Inbound">
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
 					<OnewayFlight/>
 				</CombiComponent>
 			</Components>
@@ -415,10 +420,10 @@
 		</DefineComponent>
 		<DefineComponent Key="StandardReturnFlight_Plus_Exception" Role="ReturnFlight">
 			<Components>
-				<CombiComponent Role="Outbound">
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight/>
 				</CombiComponent>
-				<CombiComponent Role="Inbound">
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
 					<OnewayFlight/>
 				</CombiComponent>
 			</Components>
@@ -461,10 +466,10 @@
 		<DefineComponent Key="ReturnKombi_OpenJaw1" Role="ReturnFlight">
 			<!-- Im folgenden eine Definition für OpenJawFlights mit identischem Zielflughafen. -->
 			<Components>
-				<CombiComponent Role="Outbound">
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight Name="Outbound1"/>
 				</CombiComponent>
-				<CombiComponent Role="Inbound">
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
 					<OnewayFlight Name="Inbound1"/>
 				</CombiComponent>
 			</Components>
@@ -478,10 +483,10 @@
 		<DefineComponent Key="ReturnKombi_OpenJaw2" Role="ReturnFlight">
 			<!-- Im folgenden eine Definition für OpenJawFlights mit identischem Abflughafen. -->
 			<Components>
-				<CombiComponent Role="Outbound">
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight Name="Outbound2"/>
 				</CombiComponent>
-				<CombiComponent Role="Inbound">
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
 					<OnewayFlight Name="Inbound2"/>
 				</CombiComponent>
 			</Components>
@@ -494,10 +499,10 @@
 		</DefineComponent>
 		<DefineComponent Key="ReturnFlight_with_Defined_OnewayFlights" Role="ReturnFlight">
 			<Components>
-				<CombiComponent Role="Outbound">
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<DefinedComponent UseRole="OnewayFlight"/>
 				</CombiComponent>
-				<CombiComponent Role="Inbound">
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
 					<DefinedComponent UseRole="OnewayFlight"/>
 				</CombiComponent>
 			</Components>
@@ -656,10 +661,10 @@
 		<DefineComponent Key="ReturnKombi1" Role="ReturnFlight">
 			<!-- Im folgenden eine Definition für einen klassischen Returnflight mit Oneway mit identischem Abflughafen bzw. Zielflughafen. -->
 			<Components>
-				<CombiComponent Role="Outbound">
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight Name="Outbound3"/>
 				</CombiComponent>
-				<CombiComponent Role="Inbound">
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
 					<OnewayFlight Name="Inbound3"/>
 				</CombiComponent>
 			</Components>
