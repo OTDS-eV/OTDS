@@ -5682,11 +5682,13 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 				<xs:documentation xml:lang="en" xml:id="en_105">This element defines a name within the product rules of the filters using the "Source" attribute as the reference.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		
 		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
 		<xs:attribute name="Role" type="RoleEnum" use="required">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_342">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. External Components  können explizit in Version 2.0 noch nicht über die Source addressiert werden. Demnach kann man auch keine Bedingungen bzgl. der External Components definieren. Die Auswertung einer solchen Bedingung würde immer "False" sein, da die Source nicht existiert.
+				<xs:documentation xml:lang="de" xml:id="de_342">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
+
+Key-, Tag- und ConditionalTag-Filter und -Conditions in Kombination mit externen Komponenten werden derzeit explizit als "False" ausgewertet.
+
 
 Mögliche Werte für die Role sind: 
 
