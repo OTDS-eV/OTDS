@@ -96,7 +96,14 @@
 				<ExternalComponent Role="Inbound" DayAllocationIndex="1"/>
 			</Components>
 			<Filter Key="1">
-				<Tags Source="Accommodation" Class="MixOnly"/>
+				<And>
+					<Tags Source="Accommodation" Class="MixOnly"/>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
 			</Filter>
 		</Product>
 		<!-- Nachfolgend die Definition von Flügen, die mit "externen" Unterkünften zusammen als Pauschalangebot verkauft werden sollen. -->
@@ -111,7 +118,14 @@
 				</CombiComponent>
 			</Components>
 			<Filter Key="1">
-				<Tags Source="OnewayFlight" Class="MixOnly"/>
+				<And>
+					<Tags Source="OnewayFlight" Class="MixOnly"/>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
 			</Filter>
 		</Product>
 	</Products>
