@@ -4798,6 +4798,15 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="AwayFromZero"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AvailabilityStateEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Open"/>
+			<xs:enumeration value="Closed"/>
+			<xs:enumeration value="Request"/>
+			<xs:enumeration value="StopSales"/>
+			<xs:enumeration value="Blacklisted"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!--Begin of  rules definition-->
 	<xs:complexType name="DayAllocationStartType">
 		<xs:attribute name="Source" type="SourceAttributeType" default="Product">
@@ -7029,9 +7038,15 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:element name="Stay" type="AvailabilityStateType">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="de_421">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass dieser Termin zur Zeit nicht angeboten werden kann, da es auf einer Blacklist steht. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:choice>
 					<xs:choice minOccurs="0">
-						<xs:element name="CheckIn" type="AvailabilityEmptyType">
+						<xs:element name="CheckIn" type="AvailabilityStateType">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_422">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin anreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.</xs:documentation>
@@ -7045,7 +7060,7 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 						</xs:element>
 					</xs:choice>
 					<xs:choice minOccurs="0">
-						<xs:element name="CheckOut" type="AvailabilityEmptyType">
+						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_424">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin abreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
@@ -7195,6 +7210,13 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 		</xs:union>
 	</xs:simpleType>
 	<xs:complexType name="AvailabilityEmptyType"/>
+	<xs:complexType name="AvailabilityStateType">
+		<xs:simpleContent>
+			<xs:extension base="AvailabilityRequestType">
+				<xs:attribute name="State" type="AvailabilityStateEnum" default="Open"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<!-- Begin of ConditionalTagCondition type-->
 	<xs:group name="ConditionOfConditionalTagGroup">
 		<xs:choice>
