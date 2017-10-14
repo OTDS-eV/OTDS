@@ -2234,6 +2234,59 @@ Here, for example, the distance to the beach or the number of bedrooms can be sp
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			<xs:element name="References" minOccurs="0" internal:otdsversion="2.0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="del_">Dieses Element gruppiert Verweise auf externe
+            Referenzsysteme einer Komponente. Hier werden z.B. Giata-ID eines Hotels oder die
+            Geonames-ID eines Ortes referenziert.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Reference" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="del_">Das Element Reference beinhaltet alle
+                  Verweise, die sich auf externe Referenzsysteme beziehen. Hier werden z.B. Giata-ID
+                  eines Hotels oder die Geonames-ID eines Ortes referenziert.</xs:documentation>
+							</xs:annotation>
+						  <xs:complexType>
+						  <xs:simpleContent>
+						    <xs:extension base="xs:string">
+						      <xs:annotation>
+						        <xs:documentation xml:lang="de" xml:id="del_">In Abhängigkeit vom Referenzsystem ist die Referenz 
+						          eine beliebige Wert (Zeichenkette oder Integerzahl). 
+						        </xs:documentation>
+						      </xs:annotation>
+						      <xs:attribute name="ReferenceSystem" type="ReferenceSystemEnum" use="required" internal:otdsversion="2.0">
+						        <xs:annotation>
+						          <xs:documentation xml:lang="de" xml:id="del_">Die folgenden Referenzsysteme können verwendet werden:
+						            - Giata (https://www.giata.com/de/multicodes/)
+						            - Geonames (http://www.geonames.org/export/codes.html)
+						            - Wikidata (https://www.wikidata.org)
+						            - HolidayCheck  (https://www.holidaycheck.de)
+						            - TrustYou  (https://www.trustyou.com)
+						            - TripAdvisor  (https://www.tripadvisor.com/). 
+						            Eine vollständige Liste finden Sie in der
+						            Technischen Dokumentation.</xs:documentation>
+						        </xs:annotation>
+						      </xs:attribute>
+						    <xs:attribute name="ReferenceType" type="xs:string" use="required" internal:otdsversion="2.0">
+						      <xs:annotation>
+						        <xs:documentation xml:lang="de" xml:id="del_">In Abhängigkeit vom Referenzsystem wird 
+						          hiermit der Typ der Referenz festgelegt. Es handelt sich hierbei 
+						          meist um eine ID, zur eindeutigen Identifikation von Hotels, Schiffe etc. 
+						          oder von Orten, Ortsteilen oder POI etc. 
+						          Eine vollständige Liste finden Sie in der
+						          Technischen Dokumentation.
+						        </xs:documentation>
+						      </xs:annotation>
+						    </xs:attribute>						    
+						    </xs:extension>
+						  </xs:simpleContent>
+						  </xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 			<xs:element name="AddonCarRentalProperties" type="CarRentalPropertiesType" minOccurs="0" internal:otdsversion="1.9"/>
 			<xs:element name="Condition" type="ConditionType" minOccurs="0">
 				<xs:annotation>
@@ -3876,6 +3929,16 @@ https://en.wikipedia.org/wiki/Airline_codes
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+  <xs:simpleType name="ReferenceSystemEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Giata"/>
+      <xs:enumeration value="Geonames"/>
+      <xs:enumeration value="Wikidata"/>
+      <xs:enumeration value="HolidayCheck"/>
+      <xs:enumeration value="TrustYou"/>
+      <xs:enumeration value="TripAdvisor"/>
+    </xs:restriction>
+  </xs:simpleType>
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
