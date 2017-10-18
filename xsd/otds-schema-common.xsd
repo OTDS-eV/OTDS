@@ -7100,13 +7100,18 @@ DefaultDayState/Blacklisted.</xs:documentation>
 					<xs:choice minOccurs="0">
 						<xs:element name="CheckIn" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_422">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin anreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_422">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin  die Anreise uneingeschränkt  möglich. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Anreise maximal für diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckIn" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_423">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin nicht anreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_423">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin  die Anreise nicht möglich ist. 
+Ist weder dieses Element noch das Element CheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_423">If this element is contained in a data delivery, it indicates that this is not a possible arrival date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
@@ -7114,13 +7119,18 @@ DefaultDayState/Blacklisted.</xs:documentation>
 					<xs:choice minOccurs="0">
 						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_424">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin abreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckOut" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_425">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin abreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_425">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin  die Abreise nicht möglich ist. 
+Ist weder dieses Element noch das Element CheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_425">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
@@ -7216,9 +7226,11 @@ DefaultDayState/Blacklisted.</xs:documentation>
 					<xs:choice minOccurs="0">
 						<xs:element name="CheckIn" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_433">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState das Element CheckIn nicht explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin mindestens eine Anreise möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. der Anreise möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+								<xs:documentation xml:lang="de" xml:id="det_433">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState das Element CheckIn bzw. NoCheckIn nicht explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin eine Anreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Anreise nur für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
 Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
-Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt <CheckIn State="Open">9</CheckIn>  als Default </xs:documentation>
+
+Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt <CheckIn State="Open"/> als Default.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_433">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.
 It is optional, as it does not make sense to enter it for flights. For Accommodations, CheckIn is the default setting.</xs:documentation>
 							</xs:annotation>
@@ -7236,7 +7248,7 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 					<xs:choice minOccurs="0">
 						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_435">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState das Element CheckOut nicht explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin mindestens eine Abreise möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. der Anreise möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+								<xs:documentation xml:lang="de" xml:id="det_435">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState das Element CheckOut bzw. NoCheckOut nicht explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin eine Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise nur für maximal diese Anzahl von Units bzw. Personen möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
 Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
 Ist weder dieses Element noch das Element NoCheckOut angegeben,, so gilt <CheckOut State="Open">9</CheckOut>  als Default  </xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_435">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.
