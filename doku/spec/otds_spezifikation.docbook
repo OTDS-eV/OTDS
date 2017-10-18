@@ -19713,43 +19713,16 @@ usw.]]></programlisting>
 												existiert:</para><para xml:id="en_3166" xml:lang="en">If such a <replaceable>D</replaceable> element exists:</para>
 											<procedure>
 												<step>
-													<para xml:id="de_3167" xml:lang="de">Überführe alle Elemente in die equivalenten Formen von Stay, CheckIn und CheckOut.</para>
+													<para xml:id="de_3167" xml:lang="de">Überführe alle Statusinformationen aus
+												<replaceable>D</replaceable> in die equivalenten
+												Formen von Stay, CheckIn und CheckOut.</para>
 												</step>
 												<step>
-													<para xml:id="de_3167" xml:lang="de">Ersetze jeweils die in <replaceable>S</replaceable> enthaltenen Elemente durch die gleichnamigen in <replaceable>D</replaceable> angegeben Elemente.</para>
-												</step>
-												<step>
-													<para xml:id="de_3168" xml:lang="de">Falls <replaceable>D</replaceable>
-													<emphasis>eines</emphasis> von <code>CheckIn</code>
-													oder <code>NoCheckIn</code> enthält, lösche
-													<emphasis>alle</emphasis> diese Elemente aus
-													<replaceable>S</replaceable> und ersetze sie durch das
-													eine in <replaceable>D</replaceable> gefundene
-													Element</para><para xml:id="en_3168" xml:lang="en">If <replaceable>D</replaceable>
-												<emphasis>contains a</emphasis> of
-												<code>CheckIn</code> or <code>NoCheckIn</code>,
-												delete <emphasis>all</emphasis> these elements
-												from <replaceable>S</replaceable> and replace them
-												with the one element found in
-												<replaceable>D</replaceable>
-												</para>
-												</step>
-												<step>
-													<para xml:id="de_3169" xml:lang="de">Falls <replaceable>D</replaceable>
-												<emphasis>eines</emphasis> von
-												<code>CheckOut</code> oder <code>NoCheckOut</code>
-												enthält, lösche <emphasis>alle</emphasis> diese
-												Elemente aus <replaceable>S</replaceable> und
-												ersetze sie durch das eine in
-												<replaceable>D</replaceable> gefundene
-												Element</para><para xml:id="en_3169" xml:lang="en">If <replaceable>D</replaceable>
-												<emphasis>contains a</emphasis> of
-												<code>CheckOut</code> or <code>NoCheckOut</code>,
-												delete <emphasis>all</emphasis> these elements
-												from <replaceable>S</replaceable> and replace them
-												with the one element found in
-												<replaceable>D</replaceable>
-												</para>
+													<para xml:id="de_3167" xml:lang="de">Ersetze jeweils die in
+												<replaceable>S</replaceable> enthaltenen
+												Statusinformationen durch die gleichnamigen in
+												<replaceable>D</replaceable> angegeben
+												Statusinformationen.</para>
 												</step>
 											</procedure>
 										</step>
@@ -19762,44 +19735,7 @@ usw.]]></programlisting>
 												<code>DayState</code> to
 												<replaceable>t</replaceable> .</para>
 										</step>
-										<step>
-											<para xml:id="de_3171" xml:lang="de">Falls <replaceable>t</replaceable> ein <code>Stay</code> Tag
-												ist:</para><para xml:id="en_3171" xml:lang="en">If <replaceable>t</replaceable> is a <code>Stay</code> day:</para>
-											<procedure>
-												<step>
-													<para xml:id="de_3172" xml:lang="de">Setze <replaceable>C</replaceable> :=
-													<code>MinimaleVerfügbarkeit</code>(<replaceable>C</replaceable>,
-													Tagesstatus von <replaceable>S</replaceable>).</para><para xml:id="en_3172" xml:lang="en">Set <replaceable>C</replaceable> := <code>Minimal
-												Availability</code> (<replaceable>C</replaceable>
-												, day status of <replaceable>S</replaceable>
-												).</para>
-												</step>
-											</procedure>
-										</step>
-										<step>
-											<para xml:id="de_3173" xml:lang="de">Falls <replaceable>t</replaceable> ein <code>CheckIn</code>
-												Tag ist:</para><para xml:id="en_3173" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckIn</code> day:</para>
-											<procedure>
-												<step>
-													<para xml:id="de_3174" xml:lang="de">Falls <replaceable>S</replaceable>
-													<code>NoCheckIn</code> enthält, setze
-													<replaceable>C</replaceable> :=
-													<code>Closed</code></para><para xml:id="en_3174" xml:lang="en">If <replaceable>S</replaceable> contains <code>NoCheckIn</code> , set <replaceable>C</replaceable> := <code>Closed</code> </para>
-												</step>
-											</procedure>
-										</step>
-										<step>
-											<para xml:id="de_3175" xml:lang="de">Falls <replaceable>t</replaceable> ein <code>CheckOut</code>
-												Tag ist:</para><para xml:id="en_3175" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckOut</code> day:</para>
-											<procedure>
-												<step>
-													<para xml:id="de_3176" xml:lang="de">Falls <replaceable>S</replaceable>
-													<code>NoCheckOut</code> enthält, setze
-													<replaceable>C</replaceable> :=
-													<code>Closed</code></para><para xml:id="en_3176" xml:lang="en">If <replaceable>S</replaceable> contains <code>NoCheckOut</code> , set <replaceable>C</replaceable> := <code>Closed</code> </para>
-												</step>
-											</procedure>
-										</step>
+										
 									</procedure>
 								</step>
 							</procedure>
@@ -19822,12 +19758,12 @@ usw.]]></programlisting>
 							Gesamtstatus zusammen. Der Rückgabewert ist der letzte Wert aus der Liste
 								<code>Open</code>, <code>Request</code>, <code>Closed</code>,
 								<code>StopSales</code>, <code>Blacklisted</code> (in dieser Reihenfolge)
-							welcher in der Liste der Statusinformationen vorkommt.</para><para xml:id="en_3180" xml:lang="en">This function combines several
+							welcher in der Liste der Statusinformationen vorkommt. Außerdem wird <code>Closed</code> als Wert zurückgeliefert, wenn die Anzahl der angefragten Personen oder Units die Verfügbarkeit von Personen oder Units übersteigt.</para><para xml:id="en_3180" xml:lang="en">This function combines several
 								<replaceable>Status</replaceable> entries into one total status. The
 							return value is the last value from the list <code>Open</code>,
 								<code>Request</code>, <code>Closed</code>, <code>StopSales</code>,
 								<code>Blacklisted</code> (in this order) which appears in the list
-							of status information.</para>
+								of status information. In addition to that it deliveres the value <code>Closed</code>, if the requested number of people or units exceeds the number of available people or units.</para>
 					</tasksummary>
 
 					<procedure>
@@ -19837,6 +19773,27 @@ usw.]]></programlisting>
 						<step>
 							<para xml:id="de_3182" xml:lang="de">Iteriere <replaceable>s</replaceable> über die Funktionsargumente</para><para xml:id="en_3182" xml:lang="en">Iterate <replaceable>s</replaceable> over the functions arguments</para>
 							<procedure>
+								<step>
+									<para xml:id="de_3171" xml:lang="de">Falls <replaceable>t</replaceable> ein
+											<code>Stay</code> Tag ist, dann betrachte nur die
+										<code>Stay</code>-Elemente aus den Statusinformationen.</para><para xml:id="en_3171" xml:lang="en">If <replaceable>t</replaceable> is a <code>Stay</code> day,
+											consider in the following steps only the <code>Stay</code> elements of
+										the status information.</para>
+								</step>
+								<step>
+									<para xml:id="de_3173" xml:lang="de">Falls <replaceable>t</replaceable> ein
+											<code>CheckIn</code> Tag ist, dann betrachte nur die
+										<code>CheckIn</code>-Elemente aus den Statusinformationen.:</para><para xml:id="en_3173" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckIn</code> day,
+											consider in the following steps only the <code>CheckIn</code> elements of
+										the status information.</para>
+								</step>
+								<step>
+									<para xml:id="de_3175" xml:lang="de">Falls <replaceable>t</replaceable> ein
+											<code>CheckOut</code> Tag ist, dann betrachte nur die
+										<code>CheckOut</code>-Elemente aus den Statusinformationen.</para><para xml:id="en_3175" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckOut</code> day,
+											consider in the following steps only the <code>CheckOut</code> elements
+										of the status information.</para>
+								</step>
 								<step>
 									<para xml:id="de_3183" xml:lang="de">Steht <replaceable>s</replaceable> nach <replaceable>R</replaceable>
 										in der Liste <code>Open</code>, <code>Request</code>,
@@ -19849,6 +19806,17 @@ usw.]]></programlisting>
 											<code>Blacklisted</code>, <replaceable>R</replaceable>
 										is set:= <replaceable>s</replaceable>
 									</para>
+								</step>
+								<step>
+									<para xml:id="de_3183" xml:lang="de">Wenn die betrachtete Statusinformation in <replaceable>s</replaceable> einen Verfügbarkeits-Value enthält,</para>
+									<procedure>
+										<step>
+											<para xml:id="de_3167" xml:lang="de">so setzte <replaceable>R</replaceable> := <code>Closed</code>, wenn in der Occupancy der betrachteten Instanz, die Anzahl der Personen mit MatchAvailability="MatchCount" größer als der Verfügbarkeits-Value ist.</para>
+										</step>
+										<step>
+											<para xml:id="de_3167" xml:lang="de">so setzte <replaceable>R</replaceable> := <code>Closed</code>, wenn in der Occupancy der betrachteten Instanz, keine Person MatchAvailability="MatchCount" gesetzt hat und die Anzahl der angefragten Units größer als der Verfügbarkeits-Value ist.</para>
+										</step>
+									</procedure>
 								</step>
 							</procedure>
 						</step>
