@@ -789,7 +789,10 @@
 						<para xml:id="de_693" xml:lang="de"> Die FlightRoute eines OnewayFlights enthält Informationen zu Stopovers,
 							Carriern, Zeiten, Gates etc. . Diese Informationen besitzen rein beschreibenden
 							Charakter und haben keine Auswirkungen auf die Produktbildung oder
-							Preisberechnung. Deshalb ist FlightRoute innerhalb von Properties platziert. </para><para xml:id="en_693" xml:lang="en">The FlightRoute of a OnewayFlight contains information regarding stopovers, carriers, times and gates etc. This information is purely descriptive in nature and does not have any effect on product compilation or price calculation. This is why FlightRoute is positioned within Properties.</para>
+							Preisberechnung. Deshalb ist FlightRoute innerhalb von Properties platziert. Weitere Informationen zur Verarbeitung und Interpretation der Properties finden Sie im Kapitel 
+							<link linkend="OtdsProcessProperties">Verarbeitung der Properties</link>.</para>
+						<para xml:id="en_693" xml:lang="en">The FlightRoute of a OnewayFlight contains information regarding stopovers, carriers, times and gates etc. This information is purely descriptive in nature and does not have any effect on product compilation or price calculation. This is why FlightRoute is positioned within Properties. Further information for processing and how tointerprete the <code>Properties</code> can be found in the chapter 
+							<link linkend="OtdsProcessProperties">Processing <code>Properties</code></link>.</para>
 						<figure>
 							<info>
 								<title><phrase xml:id="de_694" xml:lang="de">Überblick über die FlightRoute in Properties</phrase><phrase xml:id="en_694" xml:lang="en">Overview of the FlightRoute in Properties.</phrase></title>
@@ -22505,32 +22508,47 @@ usw.]]></programlisting>
 				</section>
 				<section xml:id="OtdsProcessPropertiesTime">
 					<title><phrase xml:id="de_8568" xml:lang="de">Zeitverarbeitung innerhalb der Properties</phrase><phrase xml:id="en_8568" xml:lang="en">Processing times within Properties</phrase></title>
-					<para xml:id="det_8569" xml:lang="de">Innerhalb der Properties werden auch Zeiten definiert. Diese Zeiten finden wie alle
-						Property-Eigenschaften <emphasis role="bold">keine</emphasis>
-						Berücksichtigung bei der Produkterstellung oder der Preiskalkulation.
-						Vielmehr werden diese angegeben Zeiten zur Angebotsdarstellung oder auch zur
-						Suche/Filterung von Angeboten benutzt. Im Falle der Zeiten können hierbei
-						auch Zeitunterschiede von Relevanz sein, wie zum Beispiel die Flugdauer,
-						also der Zeitunterschied zwischen der Abflugzeit und der Ankunftszeit eines
-						Fluges. Bei der Berechnung von Zeitunterschieden und auch bei der Anzeige
-						von Zeiten ist aber im zeitlich engen Kontext von Zeitumstellungen (z.B.
-						Winter- / Sommerzeit) eine Angabe eines UTCOffsetOfTimeZone für eine eindeutige
-						Interpretation der Zeiten notwendig. Der UTCOffsetOfTimeZone spezifiziert
-						zu welcher Zeitzone die in LocalTime angegeben Zeit gehört. </para>
-					<para  xml:id="det_8570" xml:lang="de">In diesem Zusammenhang gibt die OTDS-Verarbeitung vor, wie die über OTDS gelieferten Zeiten "Properties/.../LocalTime/@UTCOffsetOfTimeZone" interpretiert werden müssen. Die Zeitangabe im Element <code>LocalTime</code> folgt der Notation [hh:mm] mit hh zwischen 00 und 23. Diese Zeit ist immer die lokale Zeit bezogen auf den geografischen Kontext (Ort des CheckIn oder CheckOut). Bei Zeiten innerhalb einer Zeitumstellungsphase kann die Interpretation der Zeit davon abhängen, ob sich die Zeitangabe auf die Zeit vor der Umstellung oder nach der Umstellung bezieht. 
-						Genau in diesen Fällen ist eine Angabe des Attributes LocalTime/@UTCOffsetOfTimeZone zwingend erforderlich. Die Offsetangabe im Attribut <code>UTCOffsetOfTimeZone</code> folgt der Notation [+|-][hh][:][mm] mit hh zwischen 00 und 23 und mm zwischen 00 und 59.
-						Beispiel: Die angegebene Zeit ist 02:30 Uhr. Um 03:00 Uhr wird die Zeit um 1 Stunde zurückgestellt. Damit gibt es die Uhrzeit 02:30 Uhr zweimal. Nämlich einmal vor der Umstellung und einmal eine Stunde später nach der Zeitumstellung. Um in dieser Situation die Definition der Zeit eindeutig zu gestalten, muss das Attribut "UTCOffsetOfTimeZone" gemäß der beabsichtigten Zeitzonenzuordnung angegeben werden.
-						War die Zeitzone vor der Zeitumstellung "UTC+6" und nach der Umstellung "UTC+5", 
-						so gilt für unser Beispiel:
-						<programlisting><![CDATA[ 
-	<LocalTime UTCOffsetOfTimeZone="+06:00">02:30</LocalTime>     entspricht 02:30 Uhr vor der Zeitumstellung
-	<LocalTime UTCOffsetOfTimeZone="+05:00">02:30</LocalTime>     entspricht 02:30 Uhr nach der Zeitumstellung
-]]></programlisting>
-					Mit dieser Definition können nun eindeutige Zeiten und Zeitdifferenzen angegeben werden.
-					Beachte:
-					Bei der Berechnung von Zeitdifferenzen müssen alle beteiligten Zeiten das Attribut "UTCOffsetOfTimeZone" angegeben haben. Ansonten wird in der Berechnung das Attribut für alle Zeitangaben ignoriert.
-					Die OTDS-Empfehlung ist, alle Zeiten 2 Tage rund um Zeitumstellungstermine mit dem Attribut "UTCOffsetOfTimeZone" zu versehen. 
-					</para>
+					<para xml:id="det_8569" xml:lang="de">Innerhalb der Properties werden auch Zeiten definiert.
+						Diese Zeiten finden wie alle Property-Eigenschaften <emphasis role="bold"
+							>keine</emphasis> Berücksichtigung bei der Produkterstellung oder der
+						Preiskalkulation. Vielmehr werden diese angegeben Zeiten zur
+						Angebotsdarstellung oder auch zur Suche/Filterung von Angeboten benutzt. Im
+						Falle der Zeiten können hierbei auch Zeitunterschiede von Relevanz sein, wie
+						zum Beispiel die Flugdauer, also der Zeitunterschied zwischen der Abflugzeit
+						und der Ankunftszeit eines Fluges. Bei der Berechnung von Zeitunterschieden
+						und auch bei der Anzeige von Zeiten ist aber im zeitlich engen Kontext von
+						Zeitumstellungen (z.B. Winter- / Sommerzeit) eine Angabe eines
+						UTCOffsetOfTimeZone für eine eindeutige Interpretation der Zeiten notwendig.
+						Der UTCOffsetOfTimeZone spezifiziert zu welcher Zeitzone die in Time
+						angegeben Zeit gehört. </para>
+					<para xml:id="det_8570" xml:lang="de">In diesem Zusammenhang gibt die OTDS-Verarbeitung vor,
+						wie die über OTDS gelieferten Zeiten
+						"Properties/.../Time/@UTCOffsetOfTimeZone" interpretiert werden müssen. Die
+						Zeitangabe im Element <code>Time</code> folgt der Notation [hh:mm:ss] mit hh
+						zwischen 00 und 23 bzw. mm und ss zwischen 00 und 59. Diese Zeit ist immer
+						die lokale Zeit bezogen auf den geografischen Kontext (Ort des CheckIn oder
+						CheckOut). Bei Zeiten innerhalb einer Zeitumstellungsphase kann die
+						Interpretation der Zeit davon abhängen, ob sich die Zeitangabe auf die Zeit
+						vor der Umstellung oder nach der Umstellung bezieht. Genau in diesen Fällen
+						ist eine Angabe des Attributes Time/@UTCOffsetOfTimeZone zwingend
+						erforderlich. Die Offsetangabe im Attribut <code>UTCOffsetOfTimeZone</code>
+						folgt der Notation [+|-][hh][:][mm] mit hh zwischen 00 und 23 und mm
+						zwischen 00 und 59. Beispiel: Die angegebene Zeit ist 02:30 Uhr. Um 03:00
+						Uhr wird die Zeit um 1 Stunde zurückgestellt. Damit gibt es die Uhrzeit
+						02:30 Uhr zweimal. Nämlich einmal vor der Umstellung und einmal eine Stunde
+						später nach der Zeitumstellung. Um in dieser Situation die Definition der
+						Zeit eindeutig zu gestalten, muss das Attribut "UTCOffsetOfTimeZone" gemäß
+						der beabsichtigten Zeitzonenzuordnung angegeben werden. War die Zeitzone vor
+						der Zeitumstellung "UTC+6" und nach der Umstellung "UTC+5", so gilt für
+						unser Beispiel: <programlisting><![CDATA[ 
+	<Time UTCOffsetOfTimeZone="+06:00">02:30</Time>     entspricht 02:30 Uhr vor der Zeitumstellung
+	<Time UTCOffsetOfTimeZone="+05:00">02:30</Time>     entspricht 02:30 Uhr nach der Zeitumstellung
+]]></programlisting> Mit dieser Definition können nun eindeutige Zeiten und Zeitdifferenzen
+						angegeben werden. Beachte: Bei der Berechnung von Zeitdifferenzen müssen
+						alle beteiligten Zeiten das Attribut "UTCOffsetOfTimeZone" angegeben haben.
+						Ansonten wird in der Berechnung das Attribut für alle Zeitangaben ignoriert.
+						Die OTDS-Empfehlung ist, alle Zeiten 2 Tage rund um Zeitumstellungstermine
+						mit dem Attribut "UTCOffsetOfTimeZone" zu versehen. </para>
 				</section>
 			</section>
 		</section>

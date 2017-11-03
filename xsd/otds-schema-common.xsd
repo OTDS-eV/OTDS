@@ -3734,14 +3734,14 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_258">Offset, relative to the departure date of the flight, used to describe the departure or arrival date of a node. The relative indication of dates allows flight groups to be described independently of concrete dates.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="LocalTime" type="FlightTimeType" minOccurs="0">
+			<xs:element name="Time" type="FlightTimeType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_259">Abflug- oder Ankunftszeit eines Flugs. Diese Zeit wird immer in der Lokalzeit des geographischen Kontext angegeben. Im Falle der Abflugzeit ist der geographische Kontext der Abflughafen. Im Falle der Ankunftszeit ist der geographische Kontext der Zielflughafen. 
-Für die genauere SPezifizierung der Zeit im Kontext einer Zeitumstellung sollte zusätzlich das Attribut UTCOffset angegeben werden.
+Für die genauere Spezifizierung der Zeit im Kontext einer Zeitumstellung sollte zusätzlich das Attribut UTCOffsetOfTimeZone angegeben werden.
 
-Es wird empfohlen den UTCOffset 2 Tage vor und nach einer Zeitumstellung generell anzugeben da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffset nur dann benutzt, wenn alle Zeitangaben einen UTCOffset gesetzt haben.
+Es wird empfohlen den UTCOffsetOfTimeZone 2 Tage vor und nach einer Zeitumstellung generell anzugeben, da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffsetOfTimeZone nur dann benutzt, wenn alle Zeitangaben einen UTCOffsetOfTimeZone gesetzt haben.
 
-Sobald eine Zeitangabe ohne UTCOffxset angegeben ist, so werden alle UTCOffsets bei der Berechnung ignoriert.
+Sobald eine Zeitangabe ohne UTCOffsetOfTimeZone angegeben ist, so werden alle UTCOffsetOfTimeZone bei der Berechnung ignoriert.
 </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_259">Departure or arrival time of a flight.</xs:documentation>
 				</xs:annotation>
@@ -3843,7 +3843,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 	</xs:simpleType>
 	<xs:simpleType name="OtdsTimeType">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="([01][0-9]|2[0-3]):[0-5][0-9]"/>
+			<xs:pattern value="([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="FigureType">
