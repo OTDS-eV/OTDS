@@ -1691,15 +1691,6 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="ExternalParameter" internal:otdsversion="1.9">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">Die Funktion ExternalParameter erlaubt, dass von außen ein vorgegebener Parameter in die OTDS-Verarbeitung eingeschleust werden kann.</xs:documentation>
-					<xs:documentation xml:lang="en">The function ExternalParameter allows to introduce a parameter within the OTDS-processing specified by external sources.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:attribute name="Feature" type="ProductFeatureAttributeEnum" use="required"/>
-				</xs:complexType>
-			</xs:element>
 		</xs:choice>
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
@@ -2941,6 +2932,14 @@ Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="FeatureContext" type="FeatureContextEnum" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation>Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeautureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeautureContext kann zu einem anderen Ergebnsi führen als ohne den FeautureContext.
+Derzeit gibt es nur einen FeautureContext "City-Pair-Production".
+
+Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
@@ -3428,7 +3427,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="ProductTagsType" minOccurs="0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -4796,6 +4795,11 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Up"/>
 			<xs:enumeration value="TowardsZero"/>
 			<xs:enumeration value="AwayFromZero"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FeatureContextEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CityPairProduction"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--Begin of  rules definition-->
@@ -6824,42 +6828,14 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="ConditionalTag" type="ConditionalTagType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="ProductTagsType">
+	<xs:complexType name="ProductsTagsType">
 		<xs:complexContent>
-			<xs:extension base="TagsType">
-				<xs:sequence>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_400">GenericTags sind Markierungen, deren Value von einer Funktion abhängt.
-								Folgende Funktionen sind aktuell integriert: - SortedCandidateGroup
-								Die SortedCandidateGroup definiert eine Gruppierung von
-								Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht
-								werden. Jedes Angebot erhält als GenericTag-Value seine eigene
-								Position innerhalb der sortierten Angebotsgruppe. -
-								ExternalParameter Die Funktion ExternalParameter erlaubt, dass von
-								außen ein vorgegebener Parameter in die OTDS-Verarbeitung
-								eingeschleust werden kann. In Filtern und Conditions können
-								Bedingungen an die GenericTags formuliert werden. Die Funktion
-								"SortedCandidateGroup findet keine Berücksichtigung in der
-								Preisberechnung. </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_400">Generic Tags are labels whose value depends on a function.
-								The following functions are currently integrated: -
-								SortedCandidateGroup The SortedCandidateGroup defines a group of
-								offer candidates to be placed in a certain order. Each offer will
-								receive as GenericTag value its own position within the sorted range
-								group. - ExternalParameter The function ExternalParameter allows
-								that a given parameter can be introduced into the OTDS processing
-								from an external source. In Filters and Conditions conditions
-								regarding the GenericTags can be formulated. The function
-								"SortedCandidateGroup" is not considered in the price calculation. </xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
+			<xs:extension base="TagsType"/>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="TagType">
@@ -8589,7 +8565,11 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 						Attribut "Class" referenziert welches GenericTag geprüft wird. Die Bedingung
 						ist erfüllt, wenn der Value des referenzierten GenericTags innerhalb der
 						Value-Bedingungen liegt. Eine GenericTag Bedingung ohne Value ist
-						"False".</xs:documentation>
+						"False".
+Die Auswertung der GenericTag-Bedingung erfolgt nur in Product- und DefinedComponent-Filtern. In allen anderen Conditions und Filtern werden GenericTag-Bedingungen als "False" ausgewertet.
+Die Auswertung der GenericTag-Bedingung erfolgt  nach dem letzten Step der  Preisberechnung, also nach ExcecutionOrder ="Last".
+Bis dahin ist die GenericTag-Bedingung als "undefined" zu bewerten.  
+Der Umgang mit "undefined" Bedingungen wird in der Dokumentation beschrieben. (Suchen Sie dazu bitte nach "undefined")</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5869">The GenericTag-Condition defines a condition for the
 						GenericTag. The attribute "Class" references, which GenericTag is to be
 						evaluated. The condition is satisfied, if the value of the referenced
