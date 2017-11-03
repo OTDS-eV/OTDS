@@ -6833,14 +6833,23 @@ usw.]]></programlisting>
 				  			ergibt. Am Beispiel der Aufrundung der Zahl 106,4 auf eine ganze Zahl entspricht der
 				  			GenericAbsolute&gt;-Value dem Wert 0,6, d.h. 106,4 + 0,6 = 107. </para><para xml:lang="en" xml:id="en_5171">The rounding up is shown in OTDS via its own <code>GenericAbsolute</code> PriceItem. The rounding up represents one form of a mathematical function, that ultimately leads to the integration of an absolute amount that produces the rounded value when doing a sum from the unrounded value. Taking the example of rounding up the value 106.4 to a whole number, the GenericAbsolute value is 0.6 (106.4 + 0.6 = 107).</para>
 				  		<para xml:lang="de" xml:id="de_5172">Die Integration der generischen Absolutbeträge in die
-				  			Kostenmatrix erfolgt zusammen mit der Integration der normalen
-				  			Absolutbeträge, wobei nur eine Variable stellvertretend für den
-				  			generischen Absolutbetrag in die KostenMatrix integriert wird. Die
-				  			letztendliche Berechnung der generischen Absolutbeträge erfolgt zeitlich
-				  			nach der Auswertung der Kombinatorik. Dabei wird mit Hilfe der Priorität
-				  			eine Abarbeitungsreihenfolge der Berechnung der generischen Werte in
-				  			diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig
-				  			zu definieren. </para><para xml:lang="en" xml:id="en_5172">The integration of generic absolute values into the cost matrix takes place alongside the integration of normal absolute values, whereby only one variable can be integrated into the cost matrix as a substitute for the generic absolute value. The final calculation of the generic absolute values is done after the evaluation of the combinatorics. With an order of priority, a processing sequence for the calculation of generic values in this stage of the process is defined in order to clearly define convoluted rounding up calculations.</para>
+							Kostenmatrix erfolgt zusammen mit der Integration der normalen
+							Absolutbeträge, wobei nur eine Variable stellvertretend für den
+							generischen Absolutbetrag in die KostenMatrix integriert wird. Die
+							letztendliche Berechnung der generischen Absolutbeträge erfolgt zeitlich
+							nach dem Bearbeitungsschritt ExecutionOrder="Last" also nach der
+							Auswertung der DayPriceIndex-Bedingungen. Dabei wird mit Hilfe der
+							Priorität eine Abarbeitungsreihenfolge der Berechnung der generischen
+							Werte in diesem Prozessschritt definiert, um verschachtelte Rundungen
+							eindeutig zu definieren. </para><para xml:lang="en" xml:id="en_5172">The integration of generic absolute values into the cost matrix
+							takes place alongside the integration of normal absolute values, whereby
+							only one variable can be integrated into the cost matrix as a substitute
+							for the generic absolute value. The final calculation of the generic
+							absolute values is done after the process step EvaluationOrder="Last"
+							which means after the evaluation of DayPriceIndex. With an order of
+							priority, a processing sequence for the calculation of generic values in
+							this stage of the process is defined in order to clearly define
+							convoluted rounding up calculations.</para>
 				  		<para xml:lang="de" xml:id="de_5173">Grundlage des generischen Absolutbetrages ist die
 				  			Definition einer Round-Funktion, die dann auf das Gesamtergebnis oder
 				  			auf die Zwischenergebnisse der Preisberechnung angewendet wird. Eine
@@ -6882,6 +6891,8 @@ usw.]]></programlisting>
 	        </ConsideredPriceItems>
 	      </Round>
 	    </GenericValue>
+	    <DayBase>x</DayBase>
+	    <PersonBase>x<PersonBase>
 	  </GenericAbsolute>
 	  <Condition>
 	    <And>
@@ -6914,6 +6925,8 @@ usw.]]></programlisting>
 	        <ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
 	      </Round>
 	    </GenericValue>
+	    <DayBase>x</DayBase>
+	    <PersonBase>1<PersonBase>
 	  </GenericAbsolute>
 	  <Condition>
 	    <PersonImpact>
@@ -11697,8 +11710,9 @@ usw.]]></programlisting>
         der in der Summe aus dem ungerundeten Wert den gerundeten Wert ergibt.</para><para xml:lang="en" xml:id="en_5282">Rounding is described in OTDS as of version 1.9 via its own PriceItem <code>GenericAbsolute</code> . The rounding up represents one form of a mathematical function, that ultimately leads to the integration of an absolute amount that produces the rounded value when doing a sum from the unrounded value.</para>
       <section xml:id="OtdsRoundingPersons">
         <title><phrase xml:lang="de" xml:id="de_5283">Beispiel für Rundung von Personenpreisen</phrase><phrase xml:lang="en" xml:id="en_5283">Example of rounding of person prices</phrase></title>
-      <para xml:lang="de" xml:id="de_5284">Durch GenericAbsolute wird die Rundung auf Aufrunden festgelegt, wobei die
-          Personenpreise einzeln gerundet werden. </para><para xml:lang="en" xml:id="en_5284">Rounding is defined through GenericAbsolute as adjusting upwards, whereby person prices are rounded individually.</para>
+      <para xml:lang="de" xml:id="de_5284">Durch das folgende GenericAbsolute wird die Rundung auf
+					Aufrunden festgelegt, wobei die Personenpreise einzeln gerundet werden. </para><para xml:lang="en" xml:id="en_5284">Rounding is defined through the following GenericAbsolute as
+					adjusting upwards, whereby person prices are rounded individually.</para>
       <programlisting><![CDATA[<Otds...>
       ...
     <PriceItem Class="RoundingOfPersons">
@@ -11711,6 +11725,8 @@ usw.]]></programlisting>
                     <ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11797,6 +11813,8 @@ usw.]]></programlisting>
         </ConsideredPriceItems>
       </Round>
     </GenericValue>
+    <DayBase>x</DayBase>
+    <PersonBase>1</PersonBase>
   </GenericAbsolute>
   <Condition>
     <PersonImpact>
@@ -11816,6 +11834,8 @@ usw.]]></programlisting>
         </ConsideredPriceItems>
       </Round>
     </GenericValue>
+    <DayBase>x</DayBase>
+    <PersonBase>1</PersonBase>
   </GenericAbsolute>
   <Condition>
     <PersonImpact>
@@ -11835,6 +11855,8 @@ usw.]]></programlisting>
         </ConsideredPriceItems>
       </Round>
     </GenericValue>
+    <DayBase>x</DayBase>
+    <PersonBase>1</PersonBase>
   </GenericAbsolute>
   <Condition>
     <PersonImpact>
@@ -11879,6 +11901,8 @@ usw.]]></programlisting>
                     </ConsideredPriceItems>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11901,6 +11925,8 @@ usw.]]></programlisting>
                     </ConsideredPriceItems>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11923,6 +11949,8 @@ usw.]]></programlisting>
                     </ConsideredPriceItems>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11970,6 +11998,8 @@ usw.]]></programlisting>
                 </ConsideredPriceItems>
             </Round>
         </GenericValue>
+        <DayBase>1</DayBase>
+        <PersonBase>1</PersonBase>
     </GenericAbsolute>
     <Condition>
         <And>
@@ -12034,6 +12064,8 @@ usw.]]></programlisting>
                 </ConsideredPriceItems>
             </Round>
         </GenericValue>
+        <DayBase>1</DayBase>
+        <PersonBase>1</PersonBase>
     </GenericAbsolute>
     <Condition>
         <And>
@@ -12092,6 +12124,8 @@ usw.]]></programlisting>
                 <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute"/>
             </Round>
         </GenericValue>
+        <DayBase>1</DayBase>
+        <PersonBase>1</PersonBase>
     </GenericAbsolute>
     <Condition>
         <And>
