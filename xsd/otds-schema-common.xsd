@@ -664,14 +664,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl de
 				</xs:annotation>
 				<xs:complexType>
 					<xs:complexContent>
-						<xs:extension base="BaseOccupancyPersonType">
-							<xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
-								<xs:annotation>
-									<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
-Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
+						<xs:extension base="BaseOccupancyPersonType"/>
 					</xs:complexContent>
 				</xs:complexType>
 			</xs:element>
@@ -1693,15 +1686,6 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="ExternalParameter" internal:otdsversion="1.9">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">Die Funktion ExternalParameter erlaubt, dass von außen ein vorgegebener Parameter in die OTDS-Verarbeitung eingeschleust werden kann.</xs:documentation>
-					<xs:documentation xml:lang="en">The function ExternalParameter allows to introduce a parameter within the OTDS-processing specified by external sources.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:attribute name="Feature" type="ProductFeatureAttributeEnum" use="required"/>
-				</xs:complexType>
-			</xs:element>
 		</xs:choice>
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
@@ -1864,7 +1848,11 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 				If a reference to a generic Absolute is constructed, its Include will not be considered.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
+			<xs:group ref="PriceItemFilterGroup" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
+				</xs:annotation>
+			</xs:group>
 		</xs:sequence>
 	</xs:complexType>
 	<!--Begin of  property definition-->
@@ -2167,7 +2155,7 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 			</xs:element>
 			<xs:element name="FlightBookingClassType" type="FlightBookingClassTypeEnum" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_163">Spezifierung der Buchungsklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_163">Spezifizierung der Buchungsklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_163">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -2943,6 +2931,14 @@ Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="FeatureContext" type="FeatureContextEnum" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation>Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeautureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeautureContext kann zu einem anderen Ergebnsi führen als ohne den FeautureContext.
+Derzeit gibt es nur einen FeautureContext "City-Pair-Production".
+
+Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
@@ -3429,7 +3425,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="ProductTagsType" minOccurs="0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -4008,6 +4004,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="MountainView"/>
 			<xs:enumeration value="InnercourtView"/>
 			<xs:enumeration value="Kitchenette"/>
+			<xs:enumeration value="Budget" internal:otdsversion="2.0"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AccommodationTypeEnum">
@@ -4799,6 +4796,11 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="AwayFromZero"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="FeatureContextEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CityPairProduction"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!--Begin of  rules definition-->
 	<xs:complexType name="DayAllocationStartType">
 		<xs:attribute name="Source" type="SourceAttributeType" default="Product">
@@ -5164,59 +5166,139 @@ individual dates.</xs:documentation>
 		</xs:choice>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 	</xs:complexType>
+	<xs:complexType name="DurationStartType">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
+					Checkout-Datum zur Emittlung des Startdatums einer Duration verwendet wird.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+					used in order to determine the start date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckIn">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder
+					Checkout) der referenzierten Komponente, welches als Startdatum der Duration
+					verwendet werden soll.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+					the referenced component to be used as a start date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Offset" type="xs:integer" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der
+					referenzierten Komponente zu addieren, um das Startdatum der Duration zu
+					bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Startdatum der
+					Duration, verglichen mit dem Reisedatum.</xs:documentation>
+				<xs:documentation xml:lang="en">This number of days must be added to the travel date
+					of the referenced component in order to obtain the start date of the duration.
+					Negative/positive values signify an earlier/later start date or the duration,
+					compared to the travel date.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DurationEndType">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
+					Checkout-Datum zur Emittlung des Endedatums einer Duration verwendet wird.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+					used in order to determine the end date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckOut">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder
+					Checkout) der referenzierten Komponente, welches als Endedatum der Duration
+					verwendet werden soll.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+					the referenced component to be used as an end date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Offset" type="xs:integer" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der
+					referenzierten Komponente zu addieren, um das Endedatum der Duration zu
+					bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Endedatum der
+					Duration, verglichen mit dem Reisedatum.</xs:documentation>
+				<xs:documentation xml:lang="en">This number of days must be added to the travel date
+					of the referenced component in order to obtain the end date of the duration.
+					Negative/positive values signify an earlier/later end date of the duration,
+					compared to the travel date.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 	<xs:complexType name="DurationConditionType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_313">In diesem Element ist es möglich, Einschränkungen
 				auf Dauern zu definieren.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_313">In this element, it is possible to define restrictions on durations.</xs:documentation>
 		</xs:annotation>
-		<xs:choice>
-			<xs:sequence>
-				<xs:element name="Min" type="xs:unsignedInt" minOccurs="1">
+		<xs:sequence>
+			<xs:element name="DurationStart" type="DurationStartType" minOccurs="0"/>
+			<xs:element name="DurationEnd" type="DurationEndType" minOccurs="0"/>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="Min" type="xs:unsignedInt">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element name="Max" type="xs:unsignedInt">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_503">Maximalaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="Durations">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_316">In diesem Element können eine oder mehrere durch Space getrennte Durations definiert werden.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
 					</xs:annotation>
+					<xs:simpleType>
+						<xs:list itemType="xs:unsignedInt"/>
+					</xs:simpleType>
 				</xs:element>
-				<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
+				<xs:element name="MultiplesOf" type="xs:unsignedInt">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:sequence>
-				<xs:element name="Max" type="xs:unsignedInt" minOccurs="1">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_503">Maximalaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:element name="Durations" minOccurs="1">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_316">In diesem Element können eine oder mehrere durch Space getrennte Durations definiert werden.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
-				</xs:annotation>
-				<xs:simpleType>
-					<xs:list itemType="xs:unsignedInt"/>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element name="MultiplesOf" type="xs:unsignedInt" minOccurs="1">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
+						<xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
 z.B. bei 7: es sind nur die Dauern 7, 14, 21, 28, ... erlaubt</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_317">Only durations in these increments are allowed,
+						<xs:documentation xml:lang="en" xml:id="en_317">Only durations in these increments are allowed,
 e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:choice>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 		<xs:attribute name="DurationUnit" type="DurationUnitEnum" default="Nights">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_318">Gibt an, in welcher Einheit die Dauer angegeben
 					wird. Standard ist Nights. Falls das Attribut nicht angegeben ist, wird der
-					Standard benutzt.</xs:documentation>
+					Standard benutzt.
+
+Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Beim Value "Nights" ergibt sich die Dauer aus der Differenz der Termine von DurationEnd-DurationStart.
+
+Bei Angabe der DurationUnit = "Hours" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Stunden angegeben.
+Für den Vergleich wird die ermittelte Dauer in Nights mit 24 multipliziert.
+
+Bei Angabe der DurationUnit = "Minutes" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
+Für den Vergleich wird die ermittelte Dauer in Nights mit 1440 multipliziert.
+
+Bei Angabe der DurationUnit = "Weeks" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen angegeben.
+Für den Vergleich wird die ermittelte Dauer in Nights durch 7 geteilt und abgerundet.
+
+Danach wird mit den ermittelten Werten geprüft ob die definierte Bedingung erfüllt ist.
+</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_318">Indicates in which unit the duration should be entered. Nights is the default. If the attribute is not specified, the default value will be used.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -6489,7 +6571,8 @@ repräsentieren.</xs:documentation>
 									mehrfacher Angabe des Elementes besteht die finale Menge der
 									PriceItems aus einem Merge der PriceItems der einzelnen
 									ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung
-									von PriceItems statt. </xs:documentation>
+									von PriceItems statt.
+Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt. </xs:documentation>
 											<xs:documentation xml:lang="en">Restricts the PriceItems to be
 									considered to certain PriceItems of a specific type and/or with
 									certain Pricetags. The selection is made in the following order:
@@ -6763,42 +6846,14 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="ConditionalTag" type="ConditionalTagType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="ProductTagsType">
+	<xs:complexType name="ProductsTagsType">
 		<xs:complexContent>
-			<xs:extension base="TagsType">
-				<xs:sequence>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_400">GenericTags sind Markierungen, deren Value von einer Funktion abhängt.
-								Folgende Funktionen sind aktuell integriert: - SortedCandidateGroup
-								Die SortedCandidateGroup definiert eine Gruppierung von
-								Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht
-								werden. Jedes Angebot erhält als GenericTag-Value seine eigene
-								Position innerhalb der sortierten Angebotsgruppe. -
-								ExternalParameter Die Funktion ExternalParameter erlaubt, dass von
-								außen ein vorgegebener Parameter in die OTDS-Verarbeitung
-								eingeschleust werden kann. In Filtern und Conditions können
-								Bedingungen an die GenericTags formuliert werden. Die Funktion
-								"SortedCandidateGroup findet keine Berücksichtigung in der
-								Preisberechnung. </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_400">Generic Tags are labels whose value depends on a function.
-								The following functions are currently integrated: -
-								SortedCandidateGroup The SortedCandidateGroup defines a group of
-								offer candidates to be placed in a certain order. Each offer will
-								receive as GenericTag value its own position within the sorted range
-								group. - ExternalParameter The function ExternalParameter allows
-								that a given parameter can be introduced into the OTDS processing
-								from an external source. In Filters and Conditions conditions
-								regarding the GenericTags can be formulated. The function
-								"SortedCandidateGroup" is not considered in the price calculation. </xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
+			<xs:extension base="TagsType"/>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="TagType">
@@ -7568,9 +7623,10 @@ standard usage of "From" is with negative values. From=-x defines all days from 
 It is rare to use a positive value in relation to "From", i.e. "From=x", and it will define all days from the Xth cheapest day.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:group ref="ConsideredPriceItemsGroup" maxOccurs="unbounded">
+			<xs:group ref="PriceItemFilterGroup" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" zw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "COnsideredPriceTags",  "NotCOnsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
+Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5708">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
 				</xs:annotation>
 			</xs:group>
@@ -7639,7 +7695,12 @@ This condition explicitly does not check whether or not certain days of a trip f
 			</xs:group>
 			<xs:element name="Duration" type="DurationConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfall: Wenn im Zusammenspiel mit der Dauer die Source="ReturnFlight" angegeben wird, dann wird damit die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges adressiert. Will man die Dauer vom CheckIn des Hinfluges bis zum CheckOut des Rückfluges adressieren, dann muss man Source="Product" wählen.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfälle, bei denen die Dauer ggf. nicht vom CheckIn bis zum CheckOut einer Komponente gehen, können über eine explizite Angabedes des Start- und Endpunktes in den Elementen DurationStart und DurationEnd angegeben werden. 
+Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
+
+Die Sonderlocke, dass mit der Source="ReturnFlight" die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges referenziert wird, ist seid der Version 2.0 nicht mehr gültig. Die Source="ReturnFlight" wird ab Version 2.0 nach den normalen OTDS Regeln interpretiert.
+
+Das Attribut "DurationUnit" definiert, in welcher Einheit die Dauer angegeben wird. Default ist "Nights"</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_458">This element defines the condition as to whether a list of duration contains the travel duration currently being viewed. Specific allowed durations can be entered or restrictions for valid durations (minimum or maximum valid duration). It is also possible to enter durations in increments, e.g. in multiples of 7 days.
 The "Source" attribute allows the viewed duration to be more precisely defined.
 For durations, the more precise definition of the current duration is crucial when dealing with package deals for long-haul journeys. The duration of the accommodation may then differ from the duration of the journey if overnight flights are taken. Exception: If, in combination with the duration, the Source="ReturnFlight" is being indicated, then the duration from CheckIn for the outbound flight until CheckIn for the return flight is addressed. If the intention is to address the duration from CheckIn for the outbound flight until CheckOut for the return flight, then Source="Product" needs to be selected.</xs:documentation>
@@ -8523,7 +8584,11 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 						Attribut "Class" referenziert welches GenericTag geprüft wird. Die Bedingung
 						ist erfüllt, wenn der Value des referenzierten GenericTags innerhalb der
 						Value-Bedingungen liegt. Eine GenericTag Bedingung ohne Value ist
-						"False".</xs:documentation>
+						"False".
+Die Auswertung der GenericTag-Bedingung erfolgt nur in Product- und DefinedComponent-Filtern. In allen anderen Conditions und Filtern werden GenericTag-Bedingungen als "False" ausgewertet.
+Die Auswertung der GenericTag-Bedingung erfolgt  nach dem letzten Step der  Preisberechnung, also nach ExcecutionOrder ="Last".
+Bis dahin ist die GenericTag-Bedingung als "undefined" zu bewerten.  
+Der Umgang mit "undefined" Bedingungen wird in der Dokumentation beschrieben. (Suchen Sie dazu bitte nach "undefined")</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5869">The GenericTag-Condition defines a condition for the
 						GenericTag. The attribute "Class" references, which GenericTag is to be
 						evaluated. The condition is satisfied, if the value of the referenced

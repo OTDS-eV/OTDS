@@ -3477,8 +3477,8 @@
 								restriction with the aid of "DayFilter" can i.e. be helpful, when in
 								the context of a duration discount specific days within a date range
 								shall be reduced in price.</para>
-							<para xml:id="de_5352" xml:lang="de">Da die ImpactExecutionOrder=Last gefordert ist, ist hier die Anwendung der dreiwertigen Auswertungslogik zwingend erforderlich. Mehr Details hierzu s. Section 3.3.2.5 <xref linkend="OtdsProcessConditionsThreeway"/>.</para>
-							<para xml:id="en_5352" xml:lang="en">As the ImpactExecutionOrder=Last is requested, the application of the triadic analysis logic is mandatory. For more details please see Section 3.3.2.5 <xref linkend="OtdsProcessConditionsThreeway"/>.</para>
+							<para xml:id="de_5352" xml:lang="de">Da die ImpactExecutionOrder=Last gefordert ist, ist hier die Anwendung der dreiwertigen Auswertungslogik zwingend erforderlich. Mehr Details finden Sie unter <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)"</link>.</para>
+							<para xml:id="en_5352" xml:lang="en">As the ImpactExecutionOrder=Last is requested, the application of the triadic analysis logic is mandatory. You will find more details about "undefined" evaluation in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)"</link>.</para>
 							<para xml:id="de_1000" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technischen
 									Dokumentation für OTDS </link>.</para><para xml:id="en_1000" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#DayImpact">Technical documentation for OTDS</link>.</para>
 						</section>
@@ -4650,6 +4650,12 @@
 					<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 						Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
 					
+					<section xml:id="OtdsStrategyConditionBasicsGlobalValuesFeatureContext">
+						<title><phrase xml:id="de_6147" xml:lang="de"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase><phrase xml:id="en_6147" xml:lang="en"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase></title>
+						<para xml:id="det_6146" xml:lang="de">Mit diesem <code>GlobalValue/FeatureContext</code> kann man einen <code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn dieser <code>FeautureContext</code> gewünscht ist. Die Verarbeitung mit einem spezifisches <code>FeautureContext</code> kann zu einem anderen Ergebnis führen als ohne den <code>FeautureContext</code>.
+							Derzeit gibt es nur einen <code>FeautureContext</code>=<code>CityPairProduction</code>.
+							Mit diesem <code>FeautureContext</code> erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des <code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
+					</section>
 				</section>
 				<section xml:id="OtdsStrategyRules">
 					<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Bildung von Produkten und Kombination von Komponenten</phrase><phrase xml:id="en_1115" xml:lang="en">Rule sets for the compilation of products and combination of components</phrase></title>
@@ -4937,12 +4943,15 @@
 			  <section xml:id="OtdsStrategyProductGenericTag">
 			    <title>
 						<phrase xml:lang="de" xml:id="de_5043">Kennzeichnung von Produkt-Features
-							durch <code>GenericTag</code> in Produkten (Version 1.9,
-							V1.9)</phrase><phrase xml:lang="en" xml:id="en_5043">Tagging of product
-							features using <code>GenericTag</code> in products (version 1.9,
-							v1.9)</phrase>
+							durch <code>GenericTag</code> in Produkten (Version 1.9, V1.9) (Entfernt
+							in Version 2.0, V2.0)</phrase><phrase xml:lang="en" xml:id="en_5043"
+							>Tagging of product features using <code>GenericTag</code> in products
+							(version 1.9, v1.9) (Deleted in Version 2.0, V2.0)</phrase>
 					</title>
-			    <para xml:lang="de" xml:id="de_5044">Durch das Element <code>GenericTag</code> ist es
+			  	
+			  	<para xml:lang="de" xml:id="det_6144">Diese Art des <code>GenericTag/ExternalParameter</code> wurde ab Version 2.0 durch den <code>GlobalValue/FeatureContext</code> ersetzt.</para>
+			  	<para xml:lang="de" xml:id="det_6145">Details zur Benutzung des <code>GlobalValue/FeatureContext</code> finden Sie im Kapitel aaaaa.</para>
+			  	<para xml:lang="de" xml:id="de_5044">Durch das Element <code>GenericTag</code> ist es
 						möglich, von den OTDS-Daten unterstützte Produkt-Features in den einzelnen
 						Produkten zu kennzeichnen. Dadurch weiß das verarbeitende System, dass die
 						gelieferten OTDS-Daten das Feature unterstützen. </para><para xml:lang="en" xml:id="en_5044">With the element <code>GenericTag</code>, it is possible to tag product features which are supported by OTDS data within the individual products. In this way, the processing system knows that the delivered OTDS data support the feature.</para>  
@@ -5029,15 +5038,30 @@
 							<code>DefinedComponents/DefineComponent</code> werden kombinierte
 						Komponenten definiert, die aus mehreren Einzelkomponenten bestehen. Im
 						Element <code>Components</code> werden die Komponenten festgelegt, aus denen
-						sich das Produkt zusammensetzt. Jeder Komponente kann dabei durch das
+						sich das Produkt zusammensetzt. Die Komponenten müssen derzeit noch immer vom gleichen
+						Typ, also homogen sein. Es müssen also immer mehrere OnewayFlights oder
+						mehrere Accommodations zusammengefasst sein. Jeder Komponente kann dabei durch das
 						Attribut <code>Name</code> ein frei wählbarer Name gegeben werden, der
 						innerhalb der OTDS-Datenlieferung eindeutig sein muss. Über den Namen kann
 						in <code>Filter</code> und <code>Conditions</code> der eindeutige Bezug zu
 						den einzelnen Komponenten hergestellt werden. Durch die OTDS-weite
 						Eindeutigkeit können auch innerhalb der Komponenten-Stammdaten Bezüge auf
-						diese Namen hergestellt werden, wenn dies notwednig ist. Das optionale
+						diese Namen hergestellt werden, wenn dies notwendig ist. Das optionale
 						Attribut <code>DayAllocationIndex</code> bestimmt die Zuordnung der
-						Komponenten im Reiseverlauf.</para><para xml:id="en_1164" xml:lang="en">Under the element <code>DefinedComponents/DefineComponent</code> combined components can be defined which consist of several individual components. In the element <code>Components</code> the components are determined which make up the product. Using the attribute <code>Name</code> , each component can be given a freely selectable name, which must be unambiguous within the OTDS data delivery. Via the name, it is possible to make an unambiguous reference to individual components in <code>Filter</code> and <code>Conditions</code> . Due to their unambiguity throughout OTDS, it is also possible to make reference to these names within the component master data if required. The optional attribute <code>DayAllocationIndex</code>  defines the allocation of the components in the itinerary.</para>
+						Komponenten im Reiseverlauf. </para><para xml:id="en_1164" xml:lang="en">Under the element
+							<code>DefinedComponents/DefineComponent</code> combined components can
+						be defined which consist of several individual components. In the element
+							<code>Components</code> the components are determined which make up the
+						product. The components at present have to belong to the same type, thus
+						need to be homogeneous. So if grouped, it has to be by OnewayFlights or by
+						Accommodations. Using the attribute <code>Name</code> , each component can
+						be given a freely selectable name, which must be unambiguous within the OTDS
+						data delivery. Via the name, it is possible to make an unambiguous reference
+						to individual components in <code>Filter</code> and <code>Conditions</code>
+						. Due to their unambiguity throughout OTDS, it is also possible to make
+						reference to these names within the component master data if required. The
+						optional attribute <code>DayAllocationIndex</code> defines the allocation of
+						the components in the itinerary.</para>
 					<para xml:id="de_1166" xml:lang="de">Das Element <code>Filter</code> definiert Filterbedingungen, die das Produkt
 						erfüllen muss. Die Filter beziehen sich dabei über das Attribut <code>Source</code>
 						auf die unter <code>Components</code> angegebenen Komponenten.</para><para xml:id="en_1166" xml:lang="en">The element <code>Filter</code>  defines filter conditions which the product must fulfil. The filters thereby refer via the attribute <code>Source</code> to the components specified under <code>Components</code> .</para>
@@ -6850,14 +6874,23 @@ usw.]]></programlisting>
 				  			ergibt. Am Beispiel der Aufrundung der Zahl 106,4 auf eine ganze Zahl entspricht der
 				  			GenericAbsolute&gt;-Value dem Wert 0,6, d.h. 106,4 + 0,6 = 107. </para><para xml:lang="en" xml:id="en_5171">The rounding up is shown in OTDS via its own <code>GenericAbsolute</code> PriceItem. The rounding up represents one form of a mathematical function, that ultimately leads to the integration of an absolute amount that produces the rounded value when doing a sum from the unrounded value. Taking the example of rounding up the value 106.4 to a whole number, the GenericAbsolute value is 0.6 (106.4 + 0.6 = 107).</para>
 				  		<para xml:lang="de" xml:id="de_5172">Die Integration der generischen Absolutbeträge in die
-				  			Kostenmatrix erfolgt zusammen mit der Integration der normalen
-				  			Absolutbeträge, wobei nur eine Variable stellvertretend für den
-				  			generischen Absolutbetrag in die KostenMatrix integriert wird. Die
-				  			letztendliche Berechnung der generischen Absolutbeträge erfolgt zeitlich
-				  			nach der Auswertung der Kombinatorik. Dabei wird mit Hilfe der Priorität
-				  			eine Abarbeitungsreihenfolge der Berechnung der generischen Werte in
-				  			diesem Prozessschritt definiert, um verschachtelte Rundungen eindeutig
-				  			zu definieren. </para><para xml:lang="en" xml:id="en_5172">The integration of generic absolute values into the cost matrix takes place alongside the integration of normal absolute values, whereby only one variable can be integrated into the cost matrix as a substitute for the generic absolute value. The final calculation of the generic absolute values is done after the evaluation of the combinatorics. With an order of priority, a processing sequence for the calculation of generic values in this stage of the process is defined in order to clearly define convoluted rounding up calculations.</para>
+							Kostenmatrix erfolgt zusammen mit der Integration der normalen
+							Absolutbeträge, wobei nur eine Variable stellvertretend für den
+							generischen Absolutbetrag in die KostenMatrix integriert wird. Die
+							letztendliche Berechnung der generischen Absolutbeträge erfolgt zeitlich
+							nach dem Bearbeitungsschritt ExecutionOrder="Last" also nach der
+							Auswertung der DayPriceIndex-Bedingungen. Dabei wird mit Hilfe der
+							Priorität eine Abarbeitungsreihenfolge der Berechnung der generischen
+							Werte in diesem Prozessschritt definiert, um verschachtelte Rundungen
+							eindeutig zu definieren. </para><para xml:lang="en" xml:id="en_5172">The integration of generic absolute values into the cost matrix
+							takes place alongside the integration of normal absolute values, whereby
+							only one variable can be integrated into the cost matrix as a substitute
+							for the generic absolute value. The final calculation of the generic
+							absolute values is done after the process step EvaluationOrder="Last"
+							which means after the evaluation of DayPriceIndex. With an order of
+							priority, a processing sequence for the calculation of generic values in
+							this stage of the process is defined in order to clearly define
+							convoluted rounding up calculations.</para>
 				  		<para xml:lang="de" xml:id="de_5173">Grundlage des generischen Absolutbetrages ist die
 				  			Definition einer Round-Funktion, die dann auf das Gesamtergebnis oder
 				  			auf die Zwischenergebnisse der Preisberechnung angewendet wird. Eine
@@ -6899,6 +6932,8 @@ usw.]]></programlisting>
 	        </ConsideredPriceItems>
 	      </Round>
 	    </GenericValue>
+	    <DayBase>x</DayBase>
+	    <PersonBase>x<PersonBase>
 	  </GenericAbsolute>
 	  <Condition>
 	    <And>
@@ -6931,6 +6966,8 @@ usw.]]></programlisting>
 	        <ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
 	      </Round>
 	    </GenericValue>
+	    <DayBase>x</DayBase>
+	    <PersonBase>1<PersonBase>
 	  </GenericAbsolute>
 	  <Condition>
 	    <PersonImpact>
@@ -9079,11 +9116,15 @@ usw.]]></programlisting>
 								found in the annex.</para>
 							<itemizedlist>
 								<listitem>
-									<para xml:id="de_1641" xml:lang="de">UnitName: Angabe der Unterbringung als Freitext</para><para xml:id="en_1641" xml:lang="en">UnitName: Specification of the accommodation in free text</para>
+									<para xml:id="de_1641" xml:lang="de"><code>UnitName</code>: Angabe der Unterbringung als Freitext</para><para xml:id="en_1641" xml:lang="en"><code>UnitName</code>: Specification of the accommodation in free text</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_1642" xml:lang="de">UnitType: Art der Unterkunft. Auswahl aus vorgegebener Liste kurzer Bezeichner
-										wie Single, Double, Suite etc.</para><para xml:id="en_1642" xml:lang="en">UnitType: Type of accommodation. Selection from a predefined list of short identifiers such as Single, Double, Suite, etc.</para>
+									<para xml:id="de_1642" xml:lang="de"><code>UnitType</code>: Art der Unterkunft. Auswahl aus vorgegebener Liste kurzer Bezeichner
+										wie Single, Double, Suite etc.</para><para xml:id="en_1642" xml:lang="en"><code>UnitType</code>: Type of accommodation. Selection from a predefined list of short identifiers such as Single, Double, Suite, etc.</para>
+								</listitem>
+								<listitem>
+									<para xml:id="de_6000" xml:lang="de"><code>UnitFacilities</code>: Besondere Eigenschaften der Unterkunft (Zimmer). Auswahl aus vorgegebener Liste kurzer Bezeichner wie "Deluxe", "Budget", "SeaView", etc.</para>
+									<para xml:id="en_6000" xml:lang="en"><code>UnitFacilities</code>: Specific facilities of the the accommodation (room). Selection from a predefined list of short identifiers such as "Deluxe", "Budget", "SeaView", etc.</para>
 								</listitem>
 								<listitem>
 									<para xml:id="de_1643" xml:lang="de">UnitBedType: Art der Betten in der Unit / Unterkunft.
@@ -11712,8 +11753,9 @@ usw.]]></programlisting>
         der in der Summe aus dem ungerundeten Wert den gerundeten Wert ergibt.</para><para xml:lang="en" xml:id="en_5282">Rounding is described in OTDS as of version 1.9 via its own PriceItem <code>GenericAbsolute</code> . The rounding up represents one form of a mathematical function, that ultimately leads to the integration of an absolute amount that produces the rounded value when doing a sum from the unrounded value.</para>
       <section xml:id="OtdsRoundingPersons">
         <title><phrase xml:lang="de" xml:id="de_5283">Beispiel für Rundung von Personenpreisen</phrase><phrase xml:lang="en" xml:id="en_5283">Example of rounding of person prices</phrase></title>
-      <para xml:lang="de" xml:id="de_5284">Durch GenericAbsolute wird die Rundung auf Aufrunden festgelegt, wobei die
-          Personenpreise einzeln gerundet werden. </para><para xml:lang="en" xml:id="en_5284">Rounding is defined through GenericAbsolute as adjusting upwards, whereby person prices are rounded individually.</para>
+      <para xml:lang="de" xml:id="de_5284">Durch das folgende GenericAbsolute wird die Rundung auf
+					Aufrunden festgelegt, wobei die Personenpreise einzeln gerundet werden. </para><para xml:lang="en" xml:id="en_5284">Rounding is defined through the following GenericAbsolute as
+					adjusting upwards, whereby person prices are rounded individually.</para>
       <programlisting><![CDATA[<Otds...>
       ...
     <PriceItem Class="RoundingOfPersons">
@@ -11726,6 +11768,8 @@ usw.]]></programlisting>
                     <ConsideredPriceItems Source="global+Hierarchy.all:Product"/>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11812,6 +11856,8 @@ usw.]]></programlisting>
         </ConsideredPriceItems>
       </Round>
     </GenericValue>
+    <DayBase>x</DayBase>
+    <PersonBase>1</PersonBase>
   </GenericAbsolute>
   <Condition>
     <PersonImpact>
@@ -11831,6 +11877,8 @@ usw.]]></programlisting>
         </ConsideredPriceItems>
       </Round>
     </GenericValue>
+    <DayBase>x</DayBase>
+    <PersonBase>1</PersonBase>
   </GenericAbsolute>
   <Condition>
     <PersonImpact>
@@ -11850,6 +11898,8 @@ usw.]]></programlisting>
         </ConsideredPriceItems>
       </Round>
     </GenericValue>
+    <DayBase>x</DayBase>
+    <PersonBase>1</PersonBase>
   </GenericAbsolute>
   <Condition>
     <PersonImpact>
@@ -11894,6 +11944,8 @@ usw.]]></programlisting>
                     </ConsideredPriceItems>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11916,6 +11968,8 @@ usw.]]></programlisting>
                     </ConsideredPriceItems>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11938,6 +11992,8 @@ usw.]]></programlisting>
                     </ConsideredPriceItems>
                 </Round>
             </GenericValue>
+            <DayBase>x</DayBase>
+            <PersonBase>1</PersonBase>
         </GenericAbsolute>
         <Condition>
             <PersonImpact>
@@ -11985,6 +12041,8 @@ usw.]]></programlisting>
                 </ConsideredPriceItems>
             </Round>
         </GenericValue>
+        <DayBase>1</DayBase>
+        <PersonBase>1</PersonBase>
     </GenericAbsolute>
     <Condition>
         <And>
@@ -12049,6 +12107,8 @@ usw.]]></programlisting>
                 </ConsideredPriceItems>
             </Round>
         </GenericValue>
+        <DayBase>1</DayBase>
+        <PersonBase>1</PersonBase>
     </GenericAbsolute>
     <Condition>
         <And>
@@ -12107,6 +12167,8 @@ usw.]]></programlisting>
                 <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute"/>
             </Round>
         </GenericValue>
+        <DayBase>1</DayBase>
+        <PersonBase>1</PersonBase>
     </GenericAbsolute>
     <Condition>
         <And>
@@ -12192,7 +12254,7 @@ usw.]]></programlisting>
 							<para xml:id="de_2144" xml:lang="de">Allokation</para><para xml:id="en_2144" xml:lang="en">Allocation</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_2145" xml:lang="de">Auswertung der Filterbedingungen</para><para xml:id="en_2145" xml:lang="en">Evaluation of filter conditions</para>
+							<para xml:id="de_2145" xml:lang="de">Auswertung der Filterbedingungen (GenericTag- und AvailabilityState-Bedingungen = undefinded)</para><para xml:id="en_2145" xml:lang="en">Evaluation of filter conditions (GenericTag and AvailabilityState conditions = undefinded)</para>
 						</listitem>
 					</itemizedlist>
 				</listitem>
@@ -12200,11 +12262,19 @@ usw.]]></programlisting>
 					<para xml:id="de_2146" xml:lang="de">Verfügbarkeitsprüfung</para><para xml:id="en_2146" xml:lang="en">Availability check</para>
 				</listitem>
 				<listitem>
+					<para xml:id="de_6140" xml:lang="de">Erneute Auswertung der Filterbedingungen auf Product- und DefinedComponent-Ebene (AvailabilityState-Bedingung = defined) </para><para xml:id="en_6140" xml:lang="en">Re-assessed availability evaluation on Product and DefinedComponent level (AvailabilityState condition = defined)</para>
+				</listitem>
+				<listitem>
 					<para xml:id="de_2147" xml:lang="de">Preisberechnung</para><para xml:id="en_2147" xml:lang="en">Price calculation</para>
 				</listitem>
 				<listitem>
-					<para xml:id="de_2148" xml:lang="de">Verarbeitung von Eigenschaften (<code>Properties</code>,
-						<code>Booking</code>)</para><para xml:id="en_2148" xml:lang="en">Processing of properties (<code>Properties</code> , <code>Booking</code> )</para>
+					<para xml:id="de_6131" xml:lang="de">Auswertung der GenericTag-Bedingungen</para><para xml:id="en_6131" xml:lang="en">Evaluation of GenericTag conditions</para>
+				</listitem>
+				<listitem>
+					<para xml:id="de_2148" xml:lang="de">Verarbeitung von Eigenschaften (<code>Properties</code>)</para><para xml:id="en_2148" xml:lang="en">Processing of properties (<code>Properties</code>)</para>
+				</listitem>
+				<listitem>
+					<para xml:id="de_6130" xml:lang="de">Verarbeitung von Buchungsparametern (<code>Booking</code>)</para><para xml:id="en_6130" xml:lang="en">Processing of booking parameters (<code>Booking</code> )</para>
 				</listitem>
 			</itemizedlist>
 
@@ -15354,7 +15424,7 @@ usw.]]></programlisting>
 							<code>(NOT A) OR B</code>.</para><para xml:id="en_2588" xml:lang="en">The operation <code>A IMPLY B</code> (Also <code>&lt;Imply&gt;&lt;If&gt;A&lt;/If&gt;&lt;Then&gt;B&lt;/Then&gt;&lt;/Imply&gt;</code> ) corresponds to <code>(NOT A) OR B</code> .</para>
 				</section>
 				<section xml:id="OtdsProcessConditionsThreeway">
-					<title><phrase xml:id="de_2589" xml:lang="de">Ausführungszeitpunkt und die dreiwertige Auswertungslogik</phrase><phrase xml:id="en_2589" xml:lang="en">Execution time and the triadic analysis logic</phrase></title>
+					<title><phrase xml:id="de_2589" xml:lang="de">Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)</phrase><phrase xml:id="en_2589" xml:lang="en">Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)</phrase></title>
 
 					<para xml:id="de_2590" xml:lang="de">Im Rahmen der Preisberechnung existiert das Konzept des Ausführungszeitpunktes. Ein
 						und dieselbe Bedingung kann zu verschiedenen Zeitpunkten ausgewertet werden. Einzelne
@@ -16423,6 +16493,21 @@ usw.]]></programlisting>
 						</listitem>
 					</itemizedlist>
 					
+				</section>
+				<section xml:id="OtdsProcessConditionsGenericTag">
+					<title><phrase xml:id="de_6135" xml:lang="de"><code>GenericTag</code> Bedingung (Version 1.9,V1.9)</phrase><phrase xml:id="en_6135" xml:lang="en"><code>GenericTag</code> condition (version 1.9,
+							v1.9)</phrase></title>
+					<para xml:id="det_6136" xml:lang="de">Unter <code>Products/Tags/GenericTag</code> kann man GenericTags definieren. Das GenericTag definiert bezogen auf das aktuell betrachtete Angebot eine Gruppe von Angeboten und zusätzlich durch die Festlegung einer Sortierreihenfolge einen generisch bestimmte Value des Tags, der den Index der Reihenfolge des aktuell betrachteten Angebotes in der definierten Gruppe repräsentiert.</para>
+					<para xml:id="det_6137" xml:lang="de">Die GenericTag-Bedingung ist dann erfüllt, wenn der SortierIndex des betrachteten Angebotes 
+						= GenericTag/Value und 
+						größer als GenericTag/MinValue und 
+						kleiner als GenericTag/MaxValue
+						ist. Ist einer Werte der nicht angegeben, so gilt diese Bedingung als erfüllt.
+						</para>
+					<para xml:id="det_6138" xml:lang="de">Über das Attribut GenericTag/@Class kann man sich in der GenericTag-Bedingung auf eine bestimmte GenericTag-Definition beziehen.</para>
+					<para xml:id="det_6139" xml:lang="de">Die GenericTag-Bedingung wird nur in Product/Filter und DefinedComponent/Filter ausgewertet. In allen anderen Fällen wird die GenericTag-Bedingung als <code>false</code> ausgewertet.</para>
+					<para xml:id="det_6140" xml:lang="de">Die letztendliche Auswertung der GenericTag-Bedingung erfolgt erst nach der Preisberechnung. Bis zum Zeitpunkt der letztendlichen Auswertung wird eine GenericTag-Bedingung mit dem Wert <code>undefined</code> ausgewertet.</para>
+					<para xml:id="de_6141">Mehr Details zur Undefined-Auswertung finden Sie im Kapitel <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)"</link> </para><para xml:id="en_6141">You will find more details about "undefined" evaluation in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)"</link> </para>	
 				</section>
 			</section>
 		</section>
@@ -21980,6 +22065,13 @@ usw.]]></programlisting>
 
 			</section>
 
+			
+			
+			<section xml:id="OtdsProcessGenericTagConditions">
+				<title><phrase xml:id="de_6132" xml:lang="de">Auswertung der GenericTag-Bedingungen</phrase><phrase xml:id="en_6132" xml:lang="en">Evaluation of GenericTag conditions</phrase></title>
+				<para xml:id="det_6133">Nach der Preisberechnung werden die GenericTag-Bedingungen der Filter der Product- und DefinedComponents nachträglich ausgewertet. Bis zu diesem Zeitpunkt wurden diese Bedingungen mit dem Wert "undefined" ausgewertet, da die Auswertung vorher noch nicht stattfinden konnte.</para>
+				<para xml:id="de_6134">Mehr Details zur Undefined-Auswertung finden Sie im Kapitel <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)"</link> </para><para xml:id="en_6134">You will find more details about "undefined" evaluation in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)"</link> </para>	
+			</section>
 			<section xml:id="OtdsProcessBooking">
 				<title><phrase xml:id="de_3698" xml:lang="de">Verarbeitung der <code>BookingParameter</code></phrase><phrase xml:id="en_3698" xml:lang="en">Processing of the <code>BookingParameter</code> </phrase></title>
 
@@ -24760,7 +24852,10 @@ usw.]]></programlisting>
 												<para xml:id="de_4320" xml:lang="de">PremiumSuperior </para><para xml:id="en_4320" xml:lang="en">PremiumSuperior</para>
 												</listitem>
 												<listitem>
-												<para xml:id="de_4321" xml:lang="de">Deluxe </para><para xml:id="en_4321" xml:lang="en">Deluxe</para>
+												<para xml:id="de_4321" xml:lang="de">Deluxe (V2.0) </para><para xml:id="en_4321" xml:lang="en">Deluxe (V2.0)</para>
+												</listitem>
+												<listitem>
+													<para xml:id="de_6001" xml:lang="de">Budget </para><para xml:id="en_6001" xml:lang="en">Budget</para>
 												</listitem>
 												<listitem>
 												<para xml:id="de_4322" xml:lang="de">SeaView </para><para xml:id="en_4322" xml:lang="en">SeaView</para>
@@ -24966,6 +25061,30 @@ usw.]]></programlisting>
 						</listitem>
 						<listitem>
 							<para xml:id="de_4384" xml:lang="de">ShortenedSeaView (eingeschränkter Meerblick)</para><para xml:id="en_4384" xml:lang="en">ShortenedSeaView (restricted sea views)</para>
+						</listitem>
+					</itemizedlist>
+					<para xml:id="de_6002" xml:lang="de">Bzgl. der Zimmerqualitätsausprägung unterscheidet OTDS folgende Merkmale:</para>
+					<para xml:id="en_6002" xml:lang="en">OTDS differentiates between the following points when dealing with quality characteristics of a unit:</para>
+					<itemizedlist>
+						<listitem>
+							<para xml:id="de_6003" xml:lang="de"><code>PremiumSuperior</code> kennzeichnet Zimmer die größer sind als die Standardausprägung dieser Zimmerart</para>
+							<para xml:id="en_6003" xml:lang="en"><code>PremiumSuperior</code> applies to units which have more space than the standard characterstic of this unit type</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6004" xml:lang="de"><code>Deluxe</code> kennzeichnet Zimmer die eine gehobenere Ausstattung haben als die Standardausprägung dieser Zimmerart</para>
+							<para xml:id="en_6004" xml:lang="en"><code>Deluxe</code> applies to units which have better facilities than the standard characterstic of this unit type</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6005" xml:lang="de"><code>Budget</code> kennzeichnet Zimmer die von der
+								Größe und/oder von der Ausstattung geringer sind als der Standard
+								oder deren Qualitätsstandards zum Zeitpunkt des Buchens noch nicht
+								feststeht, da die Zimmerkategorie erst bei der Anreise festgelegt
+								wird. (V2.0)</para>
+							<para xml:id="en_6005" xml:lang="en"><code>Budget</code> applies to units which have are
+								smaller and / or have a lower quality than the standard
+								characterstic of this unit type or where the quality standard is
+								unknown at the point of booking, due to the fact that the room type
+								is decided at the point of arrival in the hotel. (V2.0)</para>
 						</listitem>
 					</itemizedlist>
 					<para xml:id="AnhangPropertiesBoards"></para>
