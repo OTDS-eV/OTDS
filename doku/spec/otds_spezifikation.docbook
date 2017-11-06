@@ -8275,8 +8275,7 @@ usw.]]></programlisting>
 								<emphasis role="italic">StartDate</emphasis> und <emphasis role="italic">EndDate</emphasis> definierten Availabilityblocks liegt, für den aber kein
 							entsprechendes <emphasis role="italic">DayState</emphasis> Element geliefert
 							wurde, werden die hier definierten Default-Stati gesetzt. </para><para xml:id="en_1463" xml:lang="en">Under <emphasis role="italic">availability</emphasis> a <emphasis role="italic">DefaultDayState</emphasis> element must be provided. In addition there is the option to define one or more <emphasis role="italic">DayState</emphasis> elements. The <emphasis role="italic">DefaultDayState</emphasis> element is a default status, meaning that for each day that lies between the availability block defined by the <emphasis role="italic">StartDate</emphasis> and <emphasis role="italic">EndDate</emphasis>, and for which, however, no corresponding <emphasis role="italic">DayState</emphasis> element has been supplied, the defined default statuses are applied.</para>
-						<para xml:id="de_1464" xml:lang="de">In dem <emphasis role="italic">DayState</emphasis> Element wird hingegen der
-							Verfügbarkeitsstatus eines bestimmten Tages aus dem <emphasis role="italic">Availability </emphasis>Block definiert. </para><para xml:id="en_1464" xml:lang="en">In the <emphasis role="italic">DayState</emphasis> element on the other hand, the availability status of a specific day from the <emphasis role="italic">Availability</emphasis> block is defined.</para>
+						<para xml:id="de_1464" xml:lang="de">Weicht an einem Termin ein Verfügbarkeitsstatus von den definierten Defaults ab, so definiert man in einem <emphasis role="italic">DayState</emphasis> Element diesen expliziten Verfügbarkeitsstatus für genau diesen Termin.</para><para xml:id="en_1464" xml:lang="en">If the availability status differs at a specific date from the defined defaults, you define in a <emphasis role="italic">DayState</emphasis> element, the specific availability status for this specific date.</para>
 						<para xml:id="de_1465" xml:lang="de">Das Attribut <emphasis role="italic">Offset</emphasis>
 							stellt eine Beziehung zum <emphasis role="italic">StartDate</emphasis>
 							im Elternknoten her. <emphasis role="italic">StartDate</emphasis> und
@@ -8286,8 +8285,8 @@ usw.]]></programlisting>
 							the parent node. <emphasis role="italic">StartDate</emphasis> and
 								<emphasis role="italic">Offset</emphasis> add up to the date of the
 							regarded day. The first day (StartDate) has the Offset = 0.</para>
-						<para xml:id="de_1466" xml:lang="de">Jeder <emphasis role="italic">DayState</emphasis> sowohl wie der <emphasis role="italic">DefaultDayState</emphasis> enthält eine Reihe von Informationen.
-							Zunächst einen Tagesstatus: </para><para xml:id="en_1466" xml:lang="en">Each <emphasis role="italic">DayState</emphasis> as well as the <emphasis role="italic">DefaultDayState</emphasis> contains a sequence of information. First a day status:</para>
+						<para xml:id="de_1466" xml:lang="de">Jeder <emphasis role="italic">DayState</emphasis> und auch jeder <emphasis role="italic">DefaultDayState</emphasis> enthält eine Reihe von Informationen.
+							Zunächst einen Aufenthaltsstatus: </para><para xml:id="en_1466" xml:lang="en">Each <emphasis role="italic">DayState</emphasis> and also the <emphasis role="italic">DefaultDayState</emphasis> contains a sequence of information. First a stay status:</para>
 						<orderedlist numeration="loweralpha">
 							<listitem>
 								<para xml:id="de_1467" xml:lang="de">Open</para><para xml:id="en_1467" xml:lang="en">Open</para>
@@ -8328,6 +8327,26 @@ usw.]]></programlisting>
 								<para xml:id="de_1476" xml:lang="de">Dieser Termin kann zurzeit nicht angeboten werden, da er auf einer
 									Blacklist steht. </para><para xml:id="en_1476" xml:lang="en">This date cannot currently be offered, as it has been placed on a blacklist.</para>
 							</listitem>
+							<listitem>
+								<para xml:id="de_1475" xml:lang="de">Stay</para><para xml:id="en_1475" xml:lang="en">Stay</para>
+								<para xml:id="de_1476" xml:lang="de">Ab Version 2.0 kann man auch ein Element Stay angeben. Dieses Element definiert an diesem Termin einen spezifischen Verfügbarkeitsstatus.</para>
+								<para xml:id="de_1476" xml:lang="de">Im Attribut @State können folgende Verfügbarkeitsstati angegeben werden:</para>
+								<itemizedlist>
+									<listitem><para><code>State="Open"</code></para></listitem>
+									<listitem><para><code>State="Request"</code></para></listitem>
+									<listitem><para><code>State="Closed"</code></para></listitem>
+									<listitem><para><code>State="StopSales"</code></para></listitem>
+									<listitem><para><code>State="Blacklisted"</code></para></listitem>
+								</itemizedlist>
+								<para xml:id="de_1476" xml:lang="de">	
+									Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+									
+									Enthält das Stay-Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthalt-Verfügbarkeits-Status möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+									Mit dem State-Attribut gibt man den generellen Status bzgl. des Aufenthaltes an.
+									
+									Die Definition des Stay-Elementes ersetzt eine gleichzeitge Definition der Elemente <code>Open</code>, <code>Closed</code>, <code>Request</code>, <code>StopSales</code>, <code>Blacklisted</code>,
+								</para>
+							</listitem>
 						</orderedlist>
 						<para xml:id="de_1477" xml:lang="de">Weiterhin ist optional eine Angabe möglich, ob an einem Tag ein CheckIn oder
 							CheckOut erlaubt wird. Dies erfolgt durch die Elemente CheckIn und
@@ -8335,7 +8354,11 @@ usw.]]></programlisting>
 						<orderedlist numeration="loweralpha">
 							<listitem>
 								<para xml:id="de_1478" xml:lang="de">CheckIn</para><para xml:id="en_1478" xml:lang="en">CheckIn</para>
-								<para xml:id="de_1479" xml:lang="de">An diesem Tag ist eine Anreise möglich.</para><para xml:id="en_1479" xml:lang="en">Arrival is possible on this day.</para>
+								<para xml:id="det_1479" xml:lang="de">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Anreise uneingeschränkt möglich. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Anreise maximal für diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+									
+									Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+									
+									Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</para>
 							</listitem>
 							<listitem>
 								<para xml:id="de_1480" xml:lang="de">NoCheckIn</para><para xml:id="en_1480" xml:lang="en">NoCheckIn</para>
@@ -8343,7 +8366,11 @@ usw.]]></programlisting>
 							</listitem>
 							<listitem>
 								<para xml:id="de_1482" xml:lang="de">CheckOut</para><para xml:id="en_1482" xml:lang="en">CheckOut</para>
-								<para xml:id="de_1483" xml:lang="de">An diesem Tag ist eine Abreise möglich.</para><para xml:id="en_1483" xml:lang="en">Departure is possible on this day.</para>
+								<para xml:id="det_1483" xml:lang="de">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+									
+									Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+									
+									Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</para>
 							</listitem>
 							<listitem>
 								<para xml:id="de_1484" xml:lang="de">NoCheckOut</para><para xml:id="en_1484" xml:lang="en">NoCheckOut</para>
@@ -8365,24 +8392,45 @@ usw.]]></programlisting>
 							NoCheckOut" gemacht werden, so werden die im <emphasis role="italic">DefaultDayState</emphasis> Element definierten Werte als Default
 							herangezogen.</para><para xml:id="en_1490" xml:lang="en">If no information is given in a <emphasis role="italic">DayState</emphasis> element regarding "Open, Request, Closed, StopSales, Blacklisted, CheckIn, CheckOut, NoCheckIn, NoCheckOut", the values defined in the <emphasis role="italic">DefaultDayState</emphasis> element are taken as the default setting.</para>
 						<para xml:id="de_1491" xml:lang="de"> </para><para xml:id="en_1491" xml:lang="en"/>
-						<para xml:id="de_1492" xml:lang="de">Folgende Sonderfälle der Auswertung von Status-Kombinationen sind zu
-							beachten:</para><para xml:id="en_1492" xml:lang="en">The following special cases of evaluation of status combinations are to be noted:</para>
+						<para xml:id="de_1492" xml:lang="de">Folgendes ist beid er Auswertung zu beachten:
+							beachten:</para><para xml:id="en_1492" xml:lang="en">The following should be considered during the availability evaluation:</para>
 						<itemizedlist>
 							<listitem>
-								<para xml:id="de_1493" xml:lang="de">Für Flüge machen Angaben zu CheckIn und CheckOut keinen Sinn und werden
-									daher nur für Accommodations ausgewertet.</para><para xml:id="en_1493" xml:lang="en">Information regarding CheckIn and CheckOut has no relevance for flights and so these are only evaluated for Accommodations.</para>
+								<para xml:id="de_1495" xml:lang="de">Eine Reise gilt als verfügbar, wenn jede Reisekomponente verfügbar ist.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_1494" xml:lang="de">Hat ein Tag den Status "Closed/StopSales/Blacklisted", ist ein CheckIn
-									nicht möglich. Der Tagesstatus hat also Vorrang vor Angaben zu
-									CheckIn.</para><para xml:id="en_1494" xml:lang="en">If a day has the status "Closed/StopSales/Blacklisted", CheckIn is not possible. The day status therefore has precedence over information regarding CheckIn.</para>
+								<para xml:id="de_1495" xml:lang="de">Eine Reisekomponente gilt als verfügbar, wenn bzgl. der Reisekomponente der Termin des CheckIn den CheckIn-Status "Open" oder "OnRequest" besitzt und gleichzeitig der Termin des CheckOut den CheckOut-Status "Open" oder "OnRequest" besitzt und gleichzeitig jeder Aufenthaltstermin den Aufenthaltsstatus "Open" oder "OnRequest" besitzt.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_1495" xml:lang="de">Liegen gleichzeitig Stati zu Open, Request, Closed,
-									StopSales und Blacklisted vor, so überwiegt der höherwertige
-									Status. Die höchste Wertigkeit bekommt dabei der Status
-									"Closed", gefolgt von "StopSales", "Blacklisted" und "Request".
-									"Open" ist der niederwertigste Status.</para><para xml:id="en_1495" xml:lang="en">If statuses for Open, Request, Closed, StopSales and Blacklisted are simultaneously present, the most high-value status prevails. The highest value is given to the status "Closed", followed by "StopSales", "Blacklisted", "Request", and then "Open" as the lowest-value status.</para>
+								<para xml:id="de_1495" xml:lang="de">Mit der Einführung des Elementes <code>Stay</code> in Version 2.0, kann jedes Element <code>Open</code>, <code>Closed</code>, <code>Request</code>, <code>StopSales</code>, <code>Blacklisted</code> durch eine equivalente Stay-Formulierung ausgedrückt werden. </para>
+								<programlisting><![CDATA[
+									<Open/> ==> <Stay State="Open"/>
+									<Request/> ==> <Stay State="Request"/>
+									<Closed/> ==> <Stay State="Closed"/>
+									<StopSales/> ==> <Stay State="StopSales"/>
+									<Blacklisted/> ==> <Stay State="Blacklisted"/>]]></programlisting>
+								<para xml:id="de_1495" xml:lang="de">Im folgenden Text werden nur noch die entsprechenden Equivalente benutzt.</para>
+							</listitem><listitem>
+								<para xml:id="de_1495" xml:lang="de">Seit der Version 2.0 , können auch die Elemente <code>NoCheckIn</code>, <code>NoCheckOut</code> in folgende entsprechende Equivalente überführt werden:</para>
+								<programlisting><![CDATA[
+									<NoCheckIn/> ==> <CheckIn State="Closed"/>
+									<NoCheckOut/> ==> <CheckOut State="Closed"/>]]></programlisting>
+								<para xml:id="de_1495" xml:lang="de">Im folgenden Text werden nur noch die entsprechenden Equivalente benutzt.</para>
+							</listitem>		
+							<listitem>
+								<para xml:id="de_1495" xml:lang="de">Falls Stay, CheckIn oder CheckOut zusätzlich mit einem Value im DayState angebenen ist, so muss zusätzlich die Anzahl der gebuchten Units bzw. die Anzahl der reisenden Personen kleinergleich diesem Value sein.
+									Falls in der Occupancy das Attribut Person/@MatchAvailability="MatchCount" in mindestens einer Person gesetzt ist, so bezieht sich der angebene Value im DayState auf die Anzahl der dadurch gekennzeichneten Personen. Ist das Attribut MatchAvailability in keinem Person-Element gesetzt, bezieht sich der Value in den DayStates auf die Anzahl der noch verfügabren Units.</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1495" xml:lang="de">Liegen nach der Auswertung aller
+								Availabilities-Elemente zu einem Termin mehrere DayStates vor, so
+								werden alle CheckIn, CheckOut und Stay-Elemente jeweils
+								zusammengefasst. Bei der Zusammenfassung bleibt jeweils das Element
+								mit dem höchstwertige State Element über. Die Wertigkeit von State
+								startet mit "Closed", gefolgt von "StopSales", "Blacklisted" und
+								"Request". "Open" ist der niederwertigste Status. Bei gleichwertigem
+								State und unterschiedlichem Value bleibt der kleinste Value über.
+								Kein Value wird wie "unendlich" eingestuft.</para>
 							</listitem>
 						</itemizedlist>
 						<para xml:id="de_1496" xml:lang="de">Beispiele:</para><para xml:id="en_1496" xml:lang="en">Examples:</para>
@@ -19695,14 +19743,36 @@ usw.]]></programlisting>
 					</listitem>
 				</orderedlist>
 				<para xml:id="de_3122" xml:lang="de"> </para><para xml:id="en_3122" xml:lang="en"/>
-				<para xml:id="de_3123" xml:lang="de"><code>Availabilities</code> Elemente finden sich in OTDS an folgenden Stellen: <simplelist>
-						<member><code>/Otds/Accommodations/Accommodation/SellingAccom/Unit/SellingUnit/Availabilities</code></member>
+				<para xml:id="de_3123" xml:lang="de"><code>Availabilities</code> Elemente finden sich in OTDS an folgenden Stellen: </para>
+				<para xml:id="en_3123" xml:lang="en"><code>Availabilities</code> elements can be found in OTDS in the following places:</para>
+				<para xml:id="de_3124" xml:lang="de">
+					<simplelist>
+					
 						<member><code>/Otds/Accommodations/Accommodation/Availabilities</code></member>
+						<member><code>/Otds/Accommodations/Accommodation/SellingAccom/Availabilities</code></member>
+						<member><code>/Otds/Accommodations/Accommodation/SellingAccom/Unit/Availabilities</code></member>
+						<member><code>/Otds/Accommodations/Accommodation/SellingAccom/Unit/SellingUnit/Availabilities</code></member>
+						<member><code>/Otds/Flights/OnewayFlights/OnewayFlight/Availabilities</code></member>
 						<member><code>/Otds/Flights/OnewayFlights/OnewayFlight/BookingClass/Availabilities</code></member>
+						<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/Availabilities</code></member>
 						<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/BookingClass/Availabilities</code></member>
 						<member><code>/Otds/Addons/Addon/Service/Availabilities</code></member>
-					</simplelist></para><para xml:id="en_3123" xml:lang="en"><code>Availabilities</code> elements can be found in OTDS in the following places:</para>
-				<para xml:id="de_3124" xml:lang="de"> </para><para xml:id="en_3124" xml:lang="en"/>
+						<member><code>/Otds/Addons/Addon/Availabilities</code></member>
+					</simplelist> </para>
+				<para xml:id="en_3124" xml:lang="en">
+					<simplelist>
+					
+						<member><code>/Otds/Accommodations/Accommodation/Availabilities</code></member>
+						<member><code>/Otds/Accommodations/Accommodation/SellingAccom/Availabilities</code></member>
+						<member><code>/Otds/Accommodations/Accommodation/SellingAccom/Unit/Availabilities</code></member>
+						<member><code>/Otds/Accommodations/Accommodation/SellingAccom/Unit/SellingUnit/Availabilities</code></member>
+						<member><code>/Otds/Flights/OnewayFlights/OnewayFlight/Availabilities</code></member>
+						<member><code>/Otds/Flights/OnewayFlights/OnewayFlight/BookingClass/Availabilities</code></member>
+						<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/Availabilities</code></member>
+						<member><code>/Otds/Flights/ReturnFlights/ReturnFlight/BookingClass/Availabilities</code></member>
+						<member><code>/Otds/Addons/Addon/Service/Availabilities</code></member>
+						<member><code>/Otds/Addons/Addon/Availabilities</code></member>
+					</simplelist></para>
 
 				<para xml:id="de_3125" xml:lang="de">Etwas detaillierter läuft die Verfügbarkeitsprüfung nach folgendem Muster ab:</para><para xml:id="en_3125" xml:lang="en">A more detailed availability check takes place according to the following pattern:</para>
 
@@ -19882,21 +19952,22 @@ usw.]]></programlisting>
 								<para xml:id="de_3154" xml:lang="de">Suche für jeden Tag das relevante <code>DayState</code> Element</para><para xml:id="en_3154" xml:lang="en">Search for the relevant <code>DayState</code> element for each tag.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_3155" xml:lang="de">Ergänze fehlende Angaben in <code>DayState</code> durch die
-									entsprechenden Angaben in <code>DefaultDayState</code>. Danach enthält
-									jeder <code>DayState</code> einen Tagesstatus (also <code>Open</code>,
-										<code>Request</code>, <code>Closed</code>, <code>StopSales</code> oder
-										<code>Blacklisted</code>) einen CheckIn-Status (<code>CheckIn</code>
-									oder <code>NoCheckIn</code>) und einen CheckOut-Status
-										(<code>CheckOut</code> oder <code>NoCheckOut</code>).</para><para xml:id="en_3155" xml:lang="en">Complete information missing from <code>DayState</code> using
-									the corresponding information in <code>DefaultDayState</code>.
-									Subsequently every <code>DayState</code> is allotted a day
-									status (i.e. <code>Open</code>, <code>Request</code>,
-										<code>Closed</code>, <code>StopSales</code>, or
-										<code>Blacklisted</code> ), a CheckIn-Status (
-										<code>CheckIn</code> or <code>NoCheckIn</code> ) and a
-									CheckOut-Status ( <code>CheckOut</code> or
-										<code>NoCheckOut</code> ).</para>
+								<para xml:id="de_3155" xml:lang="de">Ergänze fehlende Angaben in <code>DayState</code> durch die entsprechenden Angaben in <code>DefaultDayState</code>.</para>
+								<para xml:id="en_3155" xml:lang="en">Complete information missing from <code>DayState</code> using the corresponding information in <code>DefaultDayState</code>.</para>
+							</listitem>
+							<listitem>
+								<para  xml:id="de_3155" xml:lang="de">Ersetze alle Elemente <code>Open</code>, <code>Request</code>, <code>Closed</code>, <code>StopSales</code>, <code>Blacklisted</code>, <code>NoCheckIn</code>, und <code>NoCheckOut</code> durch das equivalente <code>Stay</code>, <code>CheckIn</code>, <code>CheckOut</code>-Konstrukt gemäß der folgenden Abbildung:</para>
+								<programlisting><![CDATA[<Open/> ==> <Stay State="Open"/>
+<Request/> ==> <Stay State="Request"/>
+<Closed/> ==> <Stay State="Closed"/>
+<StopSales/> ==> <Stay State="StopSales"/>
+<Blacklisted/> ==> <Stay State="Blacklisted"/>
+<NoCheckIn/> ==> <CheckIn State="Closed"/>
+<NoCheckOut/> ==> <CheckOut State="Closed"/>]]></programlisting>
+								
+								<para xml:id="de_3155" xml:lang="de">Entsprechende angegeben Values werden als Value mit übernommen.</para>
+								<para  xml:id="de_3155" xml:lang="de">Danach enthält jeder <code>DayState</code> jeweils einen <code>Stay</code>-Status, einen <code>CheckIn</code>-Status und einen <code>CheckOut</code>-Status mit den werten <code>Open</code>,
+										<code>Request</code>, <code>Closed</code>, <code>StopSales</code> oder <code>Blacklisted</code>) und ggf. mit jeweils einer zusätzlichen Value-Angabe.</para>
 							</listitem>
 							<listitem>
 								<para xml:id="de_3156" xml:lang="de">Erzeuge den zusammengefassten Gesamtstatus</para><para xml:id="en_3156" xml:lang="en">Generate the combined overall status</para>
@@ -19955,7 +20026,7 @@ usw.]]></programlisting>
 											<para xml:id="de_3164" xml:lang="de">Setze <replaceable>S</replaceable> := Neues
 													<code>DayState</code> Element. Inhalt ist eine Kopie des
 												Inhaltes des <code>DefaultDayState</code> Kindes von
-													<replaceable>L</replaceable></para><para xml:id="en_3164" xml:lang="en">Set <replaceable>S</replaceable> := new <code>DayState</code>  element. The content is a copy of the content of the <code>DefaultDayState</code> child of <replaceable>L</replaceable> </para>
+													<replaceable>L</replaceable>, in dem bereits alle Elemente in die equivalenten Formen von Stay, CheckIn und CheckOut überführt wurden.</para><para xml:id="en_3164" xml:lang="en">Set <replaceable>S</replaceable> := new <code>DayState</code>  element. The content is a copy of the content of the <code>DefaultDayState</code> child of <replaceable>L</replaceable>, where all elements where transformed into the equivalent structures of Stay, CheckIn and CheckOut.</para>
 										</step>
 										<step>
 											<para xml:id="de_3165" xml:lang="de">Setze <replaceable>D</replaceable> :=
@@ -19982,56 +20053,16 @@ usw.]]></programlisting>
 												existiert:</para><para xml:id="en_3166" xml:lang="en">If such a <replaceable>D</replaceable> element exists:</para>
 											<procedure>
 												<step>
-													<para xml:id="de_3167" xml:lang="de">Falls <replaceable>D</replaceable>
-													<emphasis>eines</emphasis> von <code>Open</code>,
-													<code>Request</code>, <code>Closed</code>,
-													<code>StopSales</code> oder <code>Blacklisted</code>
-													enthält, lösche <emphasis>alle</emphasis> diese
-													Elemente aus <replaceable>S</replaceable> und ersetze
-													sie durch das eine in <replaceable>D</replaceable>
-													gefundene Element</para><para xml:id="en_3167" xml:lang="en">If <replaceable>D</replaceable>
-												<emphasis>contains a</emphasis> of
-												<code>Open</code>, <code>Request</code>,
-												<code>Closed</code>, <code>StopSales</code> or
-												<code>Blacklisted</code>, delete
-												<emphasis>all</emphasis> these elements from
-												<replaceable>S</replaceable> and replace them with
-												the one element found in
-												<replaceable>D</replaceable>
-												</para>
+													<para xml:id="de_3167" xml:lang="de">Überführe alle Statusinformationen aus
+												<replaceable>D</replaceable> in die equivalenten
+												Formen von Stay, CheckIn und CheckOut.</para>
 												</step>
 												<step>
-													<para xml:id="de_3168" xml:lang="de">Falls <replaceable>D</replaceable>
-													<emphasis>eines</emphasis> von <code>CheckIn</code>
-													oder <code>NoCheckIn</code> enthält, lösche
-													<emphasis>alle</emphasis> diese Elemente aus
-													<replaceable>S</replaceable> und ersetze sie durch das
-													eine in <replaceable>D</replaceable> gefundene
-													Element</para><para xml:id="en_3168" xml:lang="en">If <replaceable>D</replaceable>
-												<emphasis>contains a</emphasis> of
-												<code>CheckIn</code> or <code>NoCheckIn</code>,
-												delete <emphasis>all</emphasis> these elements
-												from <replaceable>S</replaceable> and replace them
-												with the one element found in
-												<replaceable>D</replaceable>
-												</para>
-												</step>
-												<step>
-													<para xml:id="de_3169" xml:lang="de">Falls <replaceable>D</replaceable>
-												<emphasis>eines</emphasis> von
-												<code>CheckOut</code> oder <code>NoCheckOut</code>
-												enthält, lösche <emphasis>alle</emphasis> diese
-												Elemente aus <replaceable>S</replaceable> und
-												ersetze sie durch das eine in
-												<replaceable>D</replaceable> gefundene
-												Element</para><para xml:id="en_3169" xml:lang="en">If <replaceable>D</replaceable>
-												<emphasis>contains a</emphasis> of
-												<code>CheckOut</code> or <code>NoCheckOut</code>,
-												delete <emphasis>all</emphasis> these elements
-												from <replaceable>S</replaceable> and replace them
-												with the one element found in
-												<replaceable>D</replaceable>
-												</para>
+													<para xml:id="de_3167" xml:lang="de">Ersetze jeweils die in
+												<replaceable>S</replaceable> enthaltenen
+												Statusinformationen durch die gleichnamigen in
+												<replaceable>D</replaceable> angegeben
+												Statusinformationen.</para>
 												</step>
 											</procedure>
 										</step>
@@ -20044,44 +20075,7 @@ usw.]]></programlisting>
 												<code>DayState</code> to
 												<replaceable>t</replaceable> .</para>
 										</step>
-										<step>
-											<para xml:id="de_3171" xml:lang="de">Falls <replaceable>t</replaceable> ein <code>Stay</code> Tag
-												ist:</para><para xml:id="en_3171" xml:lang="en">If <replaceable>t</replaceable> is a <code>Stay</code> day:</para>
-											<procedure>
-												<step>
-													<para xml:id="de_3172" xml:lang="de">Setze <replaceable>C</replaceable> :=
-													<code>MinimaleVerfügbarkeit</code>(<replaceable>C</replaceable>,
-													Tagesstatus von <replaceable>S</replaceable>).</para><para xml:id="en_3172" xml:lang="en">Set <replaceable>C</replaceable> := <code>Minimal
-												Availability</code> (<replaceable>C</replaceable>
-												, day status of <replaceable>S</replaceable>
-												).</para>
-												</step>
-											</procedure>
-										</step>
-										<step>
-											<para xml:id="de_3173" xml:lang="de">Falls <replaceable>t</replaceable> ein <code>CheckIn</code>
-												Tag ist:</para><para xml:id="en_3173" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckIn</code> day:</para>
-											<procedure>
-												<step>
-													<para xml:id="de_3174" xml:lang="de">Falls <replaceable>S</replaceable>
-													<code>NoCheckIn</code> enthält, setze
-													<replaceable>C</replaceable> :=
-													<code>Closed</code></para><para xml:id="en_3174" xml:lang="en">If <replaceable>S</replaceable> contains <code>NoCheckIn</code> , set <replaceable>C</replaceable> := <code>Closed</code> </para>
-												</step>
-											</procedure>
-										</step>
-										<step>
-											<para xml:id="de_3175" xml:lang="de">Falls <replaceable>t</replaceable> ein <code>CheckOut</code>
-												Tag ist:</para><para xml:id="en_3175" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckOut</code> day:</para>
-											<procedure>
-												<step>
-													<para xml:id="de_3176" xml:lang="de">Falls <replaceable>S</replaceable>
-													<code>NoCheckOut</code> enthält, setze
-													<replaceable>C</replaceable> :=
-													<code>Closed</code></para><para xml:id="en_3176" xml:lang="en">If <replaceable>S</replaceable> contains <code>NoCheckOut</code> , set <replaceable>C</replaceable> := <code>Closed</code> </para>
-												</step>
-											</procedure>
-										</step>
+										
 									</procedure>
 								</step>
 							</procedure>
@@ -20104,12 +20098,12 @@ usw.]]></programlisting>
 							Gesamtstatus zusammen. Der Rückgabewert ist der letzte Wert aus der Liste
 								<code>Open</code>, <code>Request</code>, <code>Closed</code>,
 								<code>StopSales</code>, <code>Blacklisted</code> (in dieser Reihenfolge)
-							welcher in der Liste der Statusinformationen vorkommt.</para><para xml:id="en_3180" xml:lang="en">This function combines several
+							welcher in der Liste der Statusinformationen vorkommt. Außerdem wird <code>Closed</code> als Wert zurückgeliefert, wenn die Anzahl der angefragten Personen oder Units die Verfügbarkeit von Personen oder Units übersteigt.</para><para xml:id="en_3180" xml:lang="en">This function combines several
 								<replaceable>Status</replaceable> entries into one total status. The
 							return value is the last value from the list <code>Open</code>,
 								<code>Request</code>, <code>Closed</code>, <code>StopSales</code>,
 								<code>Blacklisted</code> (in this order) which appears in the list
-							of status information.</para>
+								of status information. In addition to that it deliveres the value <code>Closed</code>, if the requested number of people or units exceeds the number of available people or units.</para>
 					</tasksummary>
 
 					<procedure>
@@ -20119,6 +20113,27 @@ usw.]]></programlisting>
 						<step>
 							<para xml:id="de_3182" xml:lang="de">Iteriere <replaceable>s</replaceable> über die Funktionsargumente</para><para xml:id="en_3182" xml:lang="en">Iterate <replaceable>s</replaceable> over the functions arguments</para>
 							<procedure>
+								<step>
+									<para xml:id="de_3171" xml:lang="de">Falls <replaceable>t</replaceable> ein
+											<code>Stay</code> Tag ist, dann betrachte nur die
+										<code>Stay</code>-Elemente aus den Statusinformationen.</para><para xml:id="en_3171" xml:lang="en">If <replaceable>t</replaceable> is a <code>Stay</code> day,
+											consider in the following steps only the <code>Stay</code> elements of
+										the status information.</para>
+								</step>
+								<step>
+									<para xml:id="de_3173" xml:lang="de">Falls <replaceable>t</replaceable> ein
+											<code>CheckIn</code> Tag ist, dann betrachte nur die
+										<code>CheckIn</code>-Elemente aus den Statusinformationen.:</para><para xml:id="en_3173" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckIn</code> day,
+											consider in the following steps only the <code>CheckIn</code> elements of
+										the status information.</para>
+								</step>
+								<step>
+									<para xml:id="de_3175" xml:lang="de">Falls <replaceable>t</replaceable> ein
+											<code>CheckOut</code> Tag ist, dann betrachte nur die
+										<code>CheckOut</code>-Elemente aus den Statusinformationen.</para><para xml:id="en_3175" xml:lang="en">If <replaceable>t</replaceable> is a <code>CheckOut</code> day,
+											consider in the following steps only the <code>CheckOut</code> elements
+										of the status information.</para>
+								</step>
 								<step>
 									<para xml:id="de_3183" xml:lang="de">Steht <replaceable>s</replaceable> nach <replaceable>R</replaceable>
 										in der Liste <code>Open</code>, <code>Request</code>,
@@ -20131,6 +20146,17 @@ usw.]]></programlisting>
 											<code>Blacklisted</code>, <replaceable>R</replaceable>
 										is set:= <replaceable>s</replaceable>
 									</para>
+								</step>
+								<step>
+									<para xml:id="de_3183" xml:lang="de">Wenn die betrachtete Statusinformation in <replaceable>s</replaceable> einen Verfügbarkeits-Value enthält,</para>
+									<procedure>
+										<step>
+											<para xml:id="de_3167" xml:lang="de">so setzte <replaceable>R</replaceable> := <code>Closed</code>, wenn in der Occupancy der betrachteten Instanz, die Anzahl der Personen mit MatchAvailability="MatchCount" größer als der Verfügbarkeits-Value ist.</para>
+										</step>
+										<step>
+											<para xml:id="de_3167" xml:lang="de">so setzte <replaceable>R</replaceable> := <code>Closed</code>, wenn in der Occupancy der betrachteten Instanz, keine Person MatchAvailability="MatchCount" gesetzt hat und die Anzahl der angefragten Units größer als der Verfügbarkeits-Value ist.</para>
+										</step>
+									</procedure>
 								</step>
 							</procedure>
 						</step>
