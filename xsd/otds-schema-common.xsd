@@ -146,6 +146,9 @@ If the "Name" is unspecified, the following default values will be used dependin
 - In the context of a combined component, the default = "CombiComponent"</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="ProductComponentBaseGroup">
 		<xs:attribute name="DayAllocationIndex" type="xs:int">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_55">Dieses Attribut bestimmt die Platzierung der
@@ -905,6 +908,13 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 								</xs:extension>
 							</xs:complexContent>
 						</xs:complexType>
+					</xs:element>
+					<xs:element name="VirtualComponent" type="RuleVirtualComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem
+								definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
+								Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.</xs:documentation>
+						</xs:annotation>
 					</xs:element>
 				</xs:choice>
 			</xs:extension>
@@ -5751,6 +5761,9 @@ Possible values ​​are currently:
 In version 1.0, roles are still highly restricted. In later versions, all components will be able to be represented by means of DefinedComponents.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RuleVirtualComponentType">
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
 	</xs:complexType>
 	<xs:complexType name="KeyConditionType">
 		<xs:simpleContent>
