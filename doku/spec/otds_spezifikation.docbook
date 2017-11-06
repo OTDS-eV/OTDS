@@ -2709,7 +2709,7 @@
 								oder Einschränkungen für gültige Reisedauern angegeben werden
 								(minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich,
 								erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das
-								Vielfache von 7 Tagen. Über das Attribut "Source" wird der
+								Vielfache von 7 Tagen. Über das Attribut "Duration/Source" wird der
 								betrachtete Kontext (Reise, Accommodation, etc.) näher bestimmt. Bei
 								den Dauern ist die nähere Bestimmung des Kontextes dann
 								entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann
@@ -2718,7 +2718,54 @@
 								maximale und auch einzelne Dauern enthalten. Außerdem kann die Dauer
 								in unterschiedlichen Einheiten (Nächten, Stunden, Minuten) geliefert
 								werden (siehe Attribut "DurationUnit").</para><para xml:id="en_887" xml:lang="en">The element "Duration" defines the condition of whether the currently viewed trip duration is included in a list of durations. Permitted durations can be explicitly entered, or restrictions for valid durations (minimum or maximum valid duration) can be provided. It is also possible to enter durations in increments, e.g. in multiples of 7 days. The regarded context (travel, accommodation, etc.) is more closely defined via the attribute "Source". For durations, a more precise definition of the context is crucial if it concerns package offers for long-distance trips. This is because the duration of the accommodation may differ from the duration of the trip if overnight flights are taken. The condition can contain minimum, maximum and also individual durations. The duration can also be delivered in different units (nights, hours, minutes). See the attribute "DurationUnit".</para>
-							<para xml:id="de_888" xml:lang="de">Es folgen zwei Beispiele für Duration-Conditions:</para><para xml:id="en_888" xml:lang="en">The following are two examples of Duration conditions:</para>
+							
+							<para xml:id="det_5866" xml:lang="de">Möchte man von der Standard-Interpretation (Anfang bis
+								Ende der Source-Komponente) abweichen, so kann über spezifische
+								Angaben in den Elementen "DurationStart" und "DurationEnd" der
+								Start- und EndTermin der Duration sehr spezisch referenziert werden.
+								Die Dauer ergibt sich aus der Differenz der Termine von
+								DurationEnd-DurationStart. Es sollte dabei berücksichtigt werden,
+								dass die Termine der jeweiligen Komponenten immer bezogen auf die
+								Lokalzeit der jeweiligen Komponente sind. Fehlt das Element
+								"DurationStart" oder "DurationEnd", so ergibt sich der zu
+								verwendende Default jeweils aus den Defaults der nun beschrieben
+								Attribute. @Source Die hier angegebene Source ersetzt den unter
+								Duration/@Source angegebenen Value. Falls dieses Attribut nicht
+								angegeben ist, dann wird der Value aus Duration/@Source benutzt. </para>
+							<para xml:lang="de"  xml:id="det_5902">Falls die Auflösung der Source mehrdeutig ist, so
+								wird die Komponente in Abhängigkeit von DayReference referenziert.
+								Bei DayReference="CheckIn" wird die logisch erste KomponentenInstanz
+								referenziert. Bei DayReference="CheckOut" wird die logisch letzte
+								KomponentenInstanz referenziert. Logisch bedeutet, dass es die
+								Reihenfolge ist, die durch das Attribut DayAllocation in der
+								Product-Definition festgelegt wird.  </para>
+							<para xml:lang="de"  xml:id="det_5901">@DayReference Die DayReference definiert, welcher
+								Tag der referenzierten Komponente referenziert wird. Es sind nur die
+								beiden Values "CheckIn" oder "CheckOut" erlaubt. Defaults sind:
+								DurationStart/@DayReference = CheckIn und DurationEnd/@DayReference
+								= CheckOut @Offset Der Offset gibt an, ob auf den referenzierten
+								Termin des Tages noch Tage aufaddiert oder abgezogen werden. Default
+								= 0 </para>
+							<para xml:id="det_5867" xml:lang="de">Mit dem Attribut "DurationUnit", kann man bestimmen in
+								welcher Einheit die Dauer angegeben ist. Default ist Nights. In
+								diesem Fall entspricht die Dauer der Anzahl der
+								Mitternachtsübergänge zwischen dem Starttermin und dem Endtermin.
+								Bei Angabe der DurationUnit = "Hours" werden die in Min, Max,
+								Durations, MultiplesOf angegebenen Werte in Stunden angegeben. Für
+								den Vergleich mit der über DurationStart und DurationEnd ermittelten
+								Dauer in Nächten werden diese Angaben durch 24 geteilt und
+								abgerundet. Bei Angabe der DurationUnit = "Minutes" sind die in Min,
+								Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
+								Für den Vergleich mit der über DurationStart und DurationEnd
+								ermittelten Dauer in Nächten werden diese Angaben durch 1440 geteilt
+								und abgerundet. Bei Angabe der DurationUnit = "Weeks" sind die in
+								Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen
+								angegeben. Für den Vergleich mit der über DurationStart und
+								DurationEnd ermittelten Dauer in Nächten werden diese Angaben mit 7
+								ultipliziert. Danach wird mit den ermittelten Werten geprüft ob die
+								definierte Bedingung erfüllt ist. </para>
+							
+							<para xml:id="de_888" xml:lang="de">Es folgen 3 Beispiele für Duration-Conditions:</para><para xml:id="en_888" xml:lang="en">The following are two examples of Duration conditions:</para>
 							<programlisting><![CDATA[
 <Condition>
  	<Duration Source="Accommodation">
@@ -2734,6 +2781,17 @@
 </Condition>]]></programlisting>
 							<para xml:id="de_890" xml:lang="de">Diese Condition ist gültig, wenn die Gesamtreise
 								(Source=Product) mindestens 7 Aufenthaltstage hat.</para><para xml:id="en_890" xml:lang="en">This condition is valid if the entire trip (Source=Product) consists of at least 7 days.</para>
+							
+							<programlisting><![CDATA[<Condition>
+ 	<Duration Source="Product">
+		<DurationStart DayReference="CheckIn" Source="Outbound"/>
+		<DurationEnd DayReference="CheckIn" Source="Inbound"/>
+		<Min>5</Min>
+	</Duration>
+</Condition>]]></programlisting>
+							<para xml:id="det_5900" xml:lang="de">Manche Veranstaltersysteme bevorzugen eine etwas andere Definition der Reisedauer. 
+								Die Dauer in diesen Systemen beginnt beim Abflug des Hinfluges und endet beim Abflug des Rückfluges. 
+								Genau diese Definition der Dauer definiert man mit dieser Duration-Bedingung.</para>
 							<para xml:id="de_891" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#Duration">Technischen
 									Dokumentation für OTDS </link>.</para><para xml:id="en_891" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#Duration">Technical documentation for OTDS</link> .</para>
 
@@ -8087,11 +8145,11 @@ usw.]]></programlisting>
 						werden ausdrücklich nicht in der Preisberechnung berücksichtigt, beinhalten
 						also auch keine implizite Regel, sondern dienen lediglich zur Anzeige in
 						internen Systemen (z.B. Darstellung in einem Datenbrowser). Die komplette
-							<link linkend="AnhangPropertiesProduct">Liste der PriceTypes</link>
-						findet sich im Anhang. </para><para xml:id="en_1444" xml:lang="en">In the PriceItems, you also have the opportunity of dividing the prices into specific price types (<code>PriceType</code> ) . These price types can be selected from a fixed, pre-set list, e.g. <code>Base</code> , <code>EarlyBird</code> , <code>ExtraDay</code> or <code>ChildReduction</code> . These price types are explicitly not considered during price calculation and do not come with any implicit rules, but merely serve as information within internal systems (e.g. display in a data browser). The complete <link linkend="AnhangPropertiesProduct">list of PriceTypes</link> can be found in the appendix.</para>
-					<para xml:id="de_1445" xml:lang="de">Weitergehende Informationen sind in der <link
-							xlink:href="./otds_technisch.html#PriceType">Technischen Dokumentation
-							für OTDS </link> enthalten.</para><para xml:id="en_1445" xml:lang="en">Further information can be found in the <link xlink:href="./otds_technisch.html#PriceType">Technical documentation for OTDS</link>.</para>
+						<link linkend="AnhangPropertiesNotAggregated">Liste der PriceTypes</link>
+						findet sich im Anhang. </para>
+					<para xml:id="en_1444" xml:lang="en">In the PriceItems, you also have the opportunity of dividing the prices into specific price types (<code>PriceType</code> ) . These price types can be selected from a fixed, pre-set list, e.g. <code>Base</code> , <code>EarlyBird</code> , <code>ExtraDay</code> or <code>ChildReduction</code> . These price types are explicitly not considered during price calculation and do not come with any implicit rules, but merely serve as information within internal systems (e.g. display in a data browser). The complete <link linkend="AnhangPropertiesNotAggregated">list of PriceTypes</link> can be found in the appendix.</para>
+					<para xml:id="de_1445" xml:lang="de">Weitergehende Informationen sind in der <link xlink:href="./otds_technisch.html#PriceType">Technischen Dokumentation für OTDS </link> enthalten.</para>
+					<para xml:id="en_1445" xml:lang="en">Further information can be found in the <link xlink:href="./otds_technisch.html#PriceType">Technical documentation for OTDS</link>.</para>
 					<para xml:id="det_1446" xml:lang="de"/>
 				</section>
 			</section>
@@ -10182,8 +10240,8 @@ usw.]]></programlisting>
 						können auch durch Verwendung eigener Namespaces erweitert werden. </para><para xml:id="en_1816" xml:lang="en">Furthermore, the facilities of the individual accommodations are described in more detail through the attribute "RoomFacility". Facilities could be, for example, air conditioning, luxury fittings, disability friendly, sea view or family room, but could also be limiting properties such as street facing, bath/WC on corridor, etc. Attributes can also be extended through the use of an own Namespace.</para>
 					<para xml:id="de_1817" xml:lang="de">Ab der Version 1.9 ist es möglich zu spezifizieren, welche
 						Arten von Betten (UnitBedType) in der Unterbringung vorhanden sind.</para><para xml:id="en_1817" xml:lang="en">As of version 1.9, it is possible to specify which type of beds (UnitBedType) are available in the accommodation.</para>
-					<para xml:id="de_1818" xml:lang="de">Eine vollständige <link linkend="AnhangPropertiesUnits">Liste der
-							Unterkunftseigenschaften</link> finden Sie im Anhang!</para><para xml:id="en_1818" xml:lang="en">A complete <link linkend="AnhangPropertiesUnits">list of the
+					<para xml:id="de_1818" xml:lang="de">Eine vollständige <link linkend="PropertiesAccommodations">Liste der
+						Unterkunftseigenschaften</link> finden Sie im Anhang!</para><para xml:id="en_1818" xml:lang="en">A complete <link linkend="PropertiesAccommodations">list of the
 							accommodation properties</link> can be found in the annex.</para>
 					<para xml:id="de_1819" xml:lang="de">
 						<link xlink:href="../technisch/otds_technisch.html#UnitType">Definition des UnitType in
@@ -10221,8 +10279,8 @@ usw.]]></programlisting>
 						</listitem>
 					</itemizedlist>
 					
-					<para xml:id="de_1830" xml:lang="de">Eine vollständige <link linkend="AnhangPropertiesBoards">Liste der
-							Verpflegungseigenschaften</link> finden Sie im Anhang!</para><para xml:id="en_1830" xml:lang="en">A complete <link linkend="AnhangPropertiesBoards">list of the
+					<para xml:id="de_1830" xml:lang="de">Eine vollständige <link linkend="PropertiesAccommodations">Liste der
+						Verpflegungseigenschaften</link> finden Sie im Anhang!</para><para xml:id="en_1830" xml:lang="en">A complete <link linkend="PropertiesAccommodations">list of the
 							board properties</link> can be found in the annex.</para>
 				</section>
 				<section>
@@ -16188,9 +16246,19 @@ usw.]]></programlisting>
 							<code>Source</code> und einem impliziten <code>IntervalType</code> von
 							<code>Stay</code> ersetzt (Siehe <xref linkend="OtdsProcessIntervalType"/>).</para><para xml:id="en_2716" xml:lang="en">The default evaluation of<code>Source</code> , <code>DayAllocation</code> and <code>EvaluationMode</code> is replaced in <code>Duration</code> through the evaluation of <code>Source</code> and an implicit <code>IntervalType</code> of <code>Stay</code> (see <xref linkend="OtdsProcessIntervalType"/>).</para>
 
-					<para xml:id="de_2717" xml:lang="de">Diese Bedingung überprüft die Anzahl der Tage in der Menge der Kontext-Tage. Es wird
-						zunächst diese Anzahl <replaceable>N</replaceable> berechnet. Diese Zahl wird dann
-						gegen die angegebenen Bedingungen überprüft:</para><para xml:id="en_2717" xml:lang="en">This condition checks the number of days in the amount of context days. First the number <replaceable>N</replaceable> is calculated. This number is then checked against the specified conditions:</para>
+					<para xml:id="det_2717" xml:lang="de">Durch diese implizite Wahl des IntervalTypes ermittelt man
+						die Anzahl <replaceable>N</replaceable> der Übernachtdruchgänge vom Start- bis Endtermin der durch Source
+						referenzierten Komponente. Will man von diesen Standardterminen abweichen, so kann man dies durch eine spezifische Angabe in den Elementen <code>DurationStart</code> und <code>DurationEnd</code> erreichen.
+						Mit den spezifischen Angaben in DurationStart wird der früheste Starttermin bezogen auf die Angabe in DurationStart/@Source, @DayReference und @Offset bestimmt. 
+						Danach wird mit den spezifischen Angaben in DurationEnd der späteste Endtermin bezogen auf die Angabe in DurationEnd/@Source, @DayReference und @Offset bestimmt.
+						Abhängig vom Wert in DurationUnit wird nun der zu prüfende Dauerwert bestimmt.
+						Im Falle von DurationUnit="Nights"  (Default) wird die Anzahl der Terminwechsel zwischen Starttermin und Endtermin berechnet.
+						Im Falle von DurationUnit="Hours" wird die mit Nights berechnete Zahl mit 24 multipliziert.
+						Im Falle von DurationUnit="Minutes" wird die mit Nights berechnete Zahl mit 1440 multipliziert.
+						Im Falle von DurationUnit="Weeks" wird die mit Nights berechnete Zahl durch 7 geteilt und abgerundet.
+						
+						Hat man so die Anzahl <replaceable>N</replaceable> berechnet wird dann diese Zahl gegen die
+						angegebenen Bedingungen überprüft:</para><para xml:id="en_2717" xml:lang="en">This condition checks the number of days in the amount of context days. First the number <replaceable>N</replaceable> is calculated. This number is then checked against the specified conditions:</para>
 
 					<variablelist>
 						<varlistentry>
@@ -26098,6 +26166,9 @@ usw.]]></programlisting>
 									</listitem>
 									<listitem>
 										<para xml:id="de_4538" xml:lang="de">/StopOvers</para><para xml:id="en_4538" xml:lang="en">/StopOvers</para>
+									</listitem>
+									<listitem>
+										<para xml:id="de_5780" xml:lang="de">/TechnicalStopOvers (neu in V2.0)</para><para xml:id="en_5780" xml:lang="en">/TechnicalStopOvers (new in V2.0)</para>
 									</listitem>
 								</itemizedlist>
 							</td>
