@@ -805,7 +805,10 @@
 						<para xml:id="de_693" xml:lang="de"> Die FlightRoute eines OnewayFlights enthält Informationen zu Stopovers,
 							Carriern, Zeiten, Gates etc. . Diese Informationen besitzen rein beschreibenden
 							Charakter und haben keine Auswirkungen auf die Produktbildung oder
-							Preisberechnung. Deshalb ist FlightRoute innerhalb von Properties platziert. </para><para xml:id="en_693" xml:lang="en">The FlightRoute of a OnewayFlight contains information regarding stopovers, carriers, times and gates etc. This information is purely descriptive in nature and does not have any effect on product compilation or price calculation. This is why FlightRoute is positioned within Properties.</para>
+							Preisberechnung. Deshalb ist FlightRoute innerhalb von Properties platziert. Weitere Informationen zur Verarbeitung und Interpretation der Properties finden Sie im Kapitel 
+							<link linkend="OtdsProcessProperties">Verarbeitung der Properties</link>.</para>
+						<para xml:id="en_693" xml:lang="en">The FlightRoute of a OnewayFlight contains information regarding stopovers, carriers, times and gates etc. This information is purely descriptive in nature and does not have any effect on product compilation or price calculation. This is why FlightRoute is positioned within Properties. Further information for processing and how tointerprete the <code>Properties</code> can be found in the chapter 
+							<link linkend="OtdsProcessProperties">Processing <code>Properties</code></link>.</para>
 						<figure>
 							<info>
 								<title><phrase xml:id="de_694" xml:lang="de">Überblick über die FlightRoute in Properties</phrase><phrase xml:id="en_694" xml:lang="en">Overview of the FlightRoute in Properties.</phrase></title>
@@ -9500,6 +9503,8 @@ usw.]]></programlisting>
 						<para xml:id="de_5815" xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und PropertyAggregatingComponents finden Sie im Anhang  <link linkend="AnhangPropertiesAccommodations">"Properties -
 								Eigenschaften und Ausstattungen"</link></para>
 						<para xml:id="en_5815" xml:lang="en">You may find a complete list of Properties, PropertyIdentifier and PropertyAggregatingComponents in the Annex <link linkend="AnhangPropertiesAccommodations">"Properties - characteristics and facilities"</link></para>
+						<para xml:id="det_5871" xml:lang="de">Eine detailliertere Beschreibung der Verarbeitung findet sich im Kapitel 3 im Abschnitt <link linkend="OtdsProcessProperties">Verarbeitung der Properties</link>.
+						</para>
 					</section>
 					<section>
 						<title><phrase xml:id="de_1622" xml:lang="de">Beschreibung der Elemente</phrase><phrase xml:id="en_1622" xml:lang="en">Description of the elements</phrase></title>
@@ -9663,6 +9668,20 @@ usw.]]></programlisting>
 								</listitem>
 								<listitem>
 									<para xml:id="de_1659" xml:lang="de">FlightRoute</para><para xml:id="en_1659" xml:lang="en">FlightRoute</para>
+									<figure>
+										<title><phrase xml:id="de_8572" xml:lang="de">FlightRoute-Properties</phrase><phrase xml:id="en_8572" xml:lang="en">FlightRoute-Properties</phrase></title>
+										<mediaobject>
+											<imageobject>
+												<imagedata fileref="figures/properties-flightroute.png" format="PNG" contentwidth="80%"/>
+											</imageobject>
+											<textobject>
+												<para xml:id="de_8573" xml:lang="de">FlightRoute-Properties</para><para xml:id="en_8573" xml:lang="en">FlightRoute-Properties</para>
+											</textobject>
+											<caption>
+												<para xml:id="de_8574" xml:lang="de"/><para xml:id="en_8574" xml:lang="en"/>
+											</caption>
+										</mediaobject>
+									</figure>
 								</listitem>
 								<listitem>
 									<para xml:id="de_1660" xml:lang="de">GeneralIncludedService</para><para xml:id="en_1660" xml:lang="en">GeneralIncludedService</para>
@@ -13094,7 +13113,7 @@ usw.]]></programlisting>
 					<para xml:id="de_2180" xml:lang="de">Hier beispielhaft die Definition eines einfachen, aus zwei
 						Einzelfügen zusammengesetzten <code>ReturnFlight</code> (zum
 							<code>DayAllocationIndex</code> Attribut siehe <xref
-							linkend="OtdsProcessProductAllocationTime"/>):</para><para xml:id="en_2180" xml:lang="en">Here for example is the definition of a simple <code>ReturnFlight</code> , created from two one-way flights (for the <code>DayAllocationIndex</code> attribute, please see <xref linkend="OtdsProcessProductAllocationTime"/>):</para>
+								linkend="OtdsProcessComponentAllocationTime"/>):</para><para xml:id="en_2180" xml:lang="en">Here for example is the definition of a simple <code>ReturnFlight</code> , created from two one-way flights (for the <code>DayAllocationIndex</code> attribute, please see <xref linkend="OtdsProcessComponentAllocationTime"/>):</para>
 
 					<programlisting><![CDATA[<DefineComponent Role="ReturnFlight">
   <Components>
@@ -13900,7 +13919,7 @@ usw.]]></programlisting>
 										<code>Inbound</code> und sonst <code>0</code>.</para><para xml:id="en_2263" xml:lang="en">This is appropriate, given the value of the <code>DayAllocationIndex</code>  attribute of the product specification. Where no value is specified a real, time allotted component will receive a standardised type-specific index: <code>-1</code> for <code>Outbound</code> , <code>1</code> for <code>Inbound</code> and otherwise<code>0</code> .</para>
 
 								<para xml:id="de_2264" xml:lang="de">Dieser Wert gibt die zeitliche Ordnung der zeitallozierenden Komponenten
-									innerhalb eines <code>DayAllocationLevel</code> an. Siehe <xref linkend="OtdsProcessProductAllocationTime"/></para><para xml:id="en_2264" xml:lang="en">This value indicates the chronological order of the components within a <code>DayAllocationLevel</code> . See <xref linkend="OtdsProcessProductAllocationTime"/></para>
+									innerhalb eines <code>DayAllocationLevel</code> an. Siehe <xref linkend="OtdsProcessComponentAllocationTime"/></para><para xml:id="en_2264" xml:lang="en">This value indicates the chronological order of the components within a <code>DayAllocationLevel</code> . See <xref linkend="OtdsProcessComponentAllocationTime"/></para>
 							</listitem>
 						</varlistentry>
 
@@ -13915,7 +13934,7 @@ usw.]]></programlisting>
 									Wert gefunden, ist der <code>DayAllocationLevel</code> 0.</para><para xml:id="en_2266" xml:lang="en">Where a time specific component in the product specification has no value for the <code>DayAllocationLevel</code>  attribute, then the value of its parent component (or the parent of its parent, and upwards to the highest level) <code>Product</code>  component) is sought. Where no value is found the default value is<code>DayAllocationLevel</code> 0.</para>
 
 								<para xml:id="de_2267" xml:lang="de">Dieser Wert teilt die zeitliche Allokation auf unterschiedliche mehr
-									oder weniger unabhängige Ebenen auf. Siehe <xref linkend="OtdsProcessProductAllocationTime"/></para><para xml:id="en_2267" xml:lang="en">This value specifies the time allocation at different levels more or less independently. See <xref linkend="OtdsProcessProductAllocationTime"/></para>
+									oder weniger unabhängige Ebenen auf. Siehe <xref linkend="OtdsProcessComponentAllocationTime"/></para><para xml:id="en_2267" xml:lang="en">This value specifies the time allocation at different levels more or less independently. See <xref linkend="OtdsProcessComponentAllocationTime"/></para>
 							</listitem>
 						</varlistentry>
 
@@ -14008,7 +14027,7 @@ usw.]]></programlisting>
 								<para xml:id="de_2288" xml:lang="de">Diese Werte enthalten die Ergebnisse der Zeitallokation. Diese Werte
 									werden primär den zeitallozierenden Komponenteninstanzen zugewiesen und
 									dann sekundär auf deren Unter- und Überinstanzen übertragen (Migration).
-									Siehe <xref linkend="OtdsProcessProductAllocationTime"/>.</para><para xml:id="en_2288" xml:lang="en">These values contain the results of the time allocation. These values are primarily assigned to the time-allocating component instances and are then secondarily carried over to their sub and super instances (migration). See <xref linkend="OtdsProcessProductAllocationTime"/>.</para>
+									Siehe <xref linkend="OtdsProcessComponentAllocationTime"/>.</para><para xml:id="en_2288" xml:lang="en">These values contain the results of the time allocation. These values are primarily assigned to the time-allocating component instances and are then secondarily carried over to their sub and super instances (migration). See <xref linkend="OtdsProcessComponentAllocationTime"/>.</para>
 							</listitem>
 						</varlistentry>
 						<varlistentry>
@@ -19101,17 +19120,18 @@ usw.]]></programlisting>
 						zugewiesen). Die Personenallokation erfolgt durch das <code>Occupancy</code> Element
 						und schlägt fehl, wenn die <code>Occupancy</code> nicht angewendet werden kann.</para><para xml:id="en_2974" xml:lang="en">The persons allocation is exclusively a complete allocation (meaning, in OTDS 1.0 all persons are always assigned to all persons components). The persons allocation occurs through the <code>Occupancy</code> element, and fails if <code>Occupancy</code> cannot be used.</para>
 
-					<section xml:id="OtdsProcessProductAllocationTime">
-						<title><phrase xml:id="de_2975" xml:lang="de">Zeitallokation</phrase><phrase xml:id="en_2975" xml:lang="en">Time allocation</phrase></title>
+					<section xml:id="OtdsProcessComponentAllocationTime">
+						<title><phrase xml:id="de_2975" xml:lang="de">Komponenten-Zeitallokation</phrase><phrase xml:id="en_2975" xml:lang="en">Component time allocation</phrase></title>
 
-						<para xml:id="de_2976" xml:lang="de">Die Zeitverarbeitung in OTDS erfolgt grundsätzlich in der
+						<para xml:id="det_2976" xml:lang="de">Die Zeitallokation der Komponenteninstanzen in OTDS erfolgt grundsätzlich in der
 							jeweils relevanten <emphasis>Lokalzeit</emphasis> (Beispiel: Hotelzeiten
 							werden in der Zeitzone des Hotels verarbeitet. Ebenso werden
 							Flugabreise- und Ankunftszeiten in der jeweiligen Zeitzone des Abflug-
-							oder Ankunftsflughafen angegeben). Die Allokation erfolgt in OTDS 1.0
-							nur tagesgenau, daher ist hier vor allem der Übertritt der Datumsgrenze
-							relevant. Diese müssen in die <code>NeighbourComponentCorrection</code>
-							mit eingearbeitet werden.</para><para xml:id="en_2976" xml:lang="en">Time processing in OTDS is principally carried out in the
+							oder Ankunftsflughafen angegeben). Aktuell erfolgt die Zeitallokation in OTDS nur tagesgenau, daher ist hier vor allem der Übertritt der Datumsgrenze
+							relevant. Eine Zeitverschiebung (Änderung des UTC-Offsets) innerhalb eines geographischen Kontexts wird in diesem Kontext nicht berücksichtigt.   
+							Unter dieser Sichtweise fügen sich die Komponenten bzgl. Ihrer CheckIn-Termine und CheckOut-Termine lückenlos aneinander.  
+							Ausnahmen dazu können über die <code>NeighbourComponentCorrection</code> definiert werden. So dass zum Beispiel Flüge, die um 23:55 Uhr landen, bzgl. der Komponentenzeitallokation so wirken als wenn diese erst nach Mitternacht also am nächsten Tag gelandet wären.</para>
+						<para xml:id="en_2976" xml:lang="en">Time processing in OTDS is principally carried out in the
 							relevant <emphasis>local time</emphasis> (for example: hotel times are
 							processed in the time zones of the hotel, as are flight departures and
 							arrival times with the relevant time zone of the departure or arrival
@@ -19672,6 +19692,13 @@ usw.]]></programlisting>
 								</step>
 							</procedure>
 						</task>
+						<para> </para>
+						<para  xml:id="det_8566" xml:lang="de">
+							Bitte beachten: 
+							Im Bereich der Properties wird bei den Zeiten zwar auch immer die Lokalzeit angegeben. Dort kann aber wenn notwendig die Zeit noch etwas genauer spezifiziert werden um ggf. Flugdauern oder andere Zeitunterschiede korrekt zu berechnen, oder die dort hinterlegten Zeiten im richtigen Kontext zu zeigen.
+							Die dort angegebenen Zeiten und UTCOffset-Referenzen haben aber keinerlei Auswirkung auf die Zeitallokation der Komponenten. Schauen Sie sich dazu auch das Kapitel <link linkend="OtdsProcessPropertiesTime"
+								>Zeitverarbeitung innerhalb der Properties</link> an.  
+						</para>
 					</section>
 					<section xml:id="OtdsProcessProductAllocationPerson">
 						<title><phrase xml:id="de_3059" xml:lang="de">Personenallokation (A)</phrase><phrase
@@ -20687,7 +20714,7 @@ usw.]]></programlisting>
 					<para xml:id="de_3203" xml:lang="de">Der <code>DayType</code> wird für jeden Tag hinterlegt. Im Normalfall ist das für
 						den ersten Tag <code>DayType=CheckIn</code>, für den letzten Tag
 							<code>DayType=CheckOut</code> und für alle Tage außer dem letzten Tag
-							<code>DayType=Stay</code> (siehe <link linkend="OtdsProcessProductAllocationTime">Zeitallokation</link>).</para><para xml:id="en_3203" xml:lang="en">The <code>DayType</code>  is entered for each day. Normally the first day is <code>DayType=CheckIn</code> , the last day is <code>DayType=CheckOut</code> and all days except the last day are <code>DayType=Stay</code> (see <link linkend="OtdsProcessProductAllocationTime">time allocation</link>).</para>
+						<code>DayType=Stay</code> (siehe <link linkend="OtdsProcessComponentAllocationTime">Zeitallokation</link>).</para><para xml:id="en_3203" xml:lang="en">The <code>DayType</code>  is entered for each day. Normally the first day is <code>DayType=CheckIn</code> , the last day is <code>DayType=CheckOut</code> and all days except the last day are <code>DayType=Stay</code> (see <link linkend="OtdsProcessComponentAllocationTime">time allocation</link>).</para>
 					<para xml:id="de_3204" xml:lang="de">Hinweis: Es ist eine zwar eine eingängige aber auch vereinfachte Darstellung, eine
 						Kostenmatrix pro Hauptkomponente zu verwenden. Stattdessen ist es tatsächlich besser,
 						mit <emphasis role="italic">einer Kostenmatrix für alle Komponenten</emphasis> zu
@@ -23201,54 +23228,100 @@ usw.]]></programlisting>
 					informativen Eigenschaften der Komponenten. Die Eigenschaften eines Angebotes
 					werden durch Zusammenfassen der Eigenschaften der Komponenteninstanzen dieses
 					Angebotes, denen eine Property zugeordnet werden konnte.</para><para xml:id="en_3780" xml:lang="en">The <code>Properties</code> elements contain all informative properties of the components. The properties of an offer are identified by summarising the properties of the component instances of this offer per main component. The processing model only determines how the combined properties of the offer are to be defined. The further interpretation of these values is a matter for the distribution system (e.g. a distribution system can enable a search according to hotel category. The necessary information is contained in the <code>Properties</code> ).</para>
-				
-				<para xml:id="de_5816" xml:lang="de">Die Zuordnung der einzelnen Properties gemäß ihrer festgelegten PropertyAggregatingComponent erfolgt über das "Current"-Prinzip, welches auch in der Source Anwendung findet.</para>
-				<para xml:id="en_5816" xml:lang="en">The matching of the single properties according to their defined PropertyAggregatingComponent takes place via the "Current"-principle, that also is applied in the Source application.</para>
-				<para xml:id="de_5817" xml:lang="de">"Current" bedeutet, dass zuerst nach einer passenden Source im "local" Pfad gesucht wird. Wird dort keine Source gefunden, so wählt man die nächsthöhere Hierarchiestufe und durchsucht erneut den „local“-Pfad nach einer passenden Instanz.</para>	
-				<para xml:id="en_5817" xml:lang="en">"Current" means, that in a first step a matching Source is searched for in the "local" path. If no source can be found there, the next higher hierarchy-level is chosen and again searched on the "local" path for a corresponding instance.</para> 
-				<para xml:id="de_5818" xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn: Ist die PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight- bzw. ReturnFlight-Instanzen.</para>
-				<para xml:id="en_5818" xml:lang="en">When PropertyAggregatingComponent="Flight", this constellation poses a special case. If Outbound- and/or Inbound-instances exist, the aggregation takes place relating to Outbound and Inbound. In all other cases the aggregation takes place on the OnewayFlight-instances.</para>
-				<para xml:id="de_5819" xml:lang="de">Das Verarbeitungsmodell legt nur fest, wie die zusammengefassten Eigenschaften eines Angebotes bestimmt werden. Die Bedeutungen der Properties werden in der Annotation der XSD näher beschrieben. Die Verwendung der Properties ist Sache des Vertriebssystems (z.B. kann ein Vertriebssystem eine Suche nach Hotelkategorie ermöglichen. Die notwendigen Informationen sind in den Properties enthalten).</para>
-				<para xml:id="en_5819" xml:lang="en">The theoretical processing model only defines, how the combined properties of an offer are being determined. The significance of the properties are described within the annotation of the XSD more detailed. The use of properties is the domain of the distribution system (e.g. a distribution system may enable a search for hotel categories. The information needed are included in the Properties).</para>
-				<para xml:id="de_5820" xml:lang="de">Da auch PriceItem Elemente Properties enthalten können, lassen sich die Gesamteigenschaften des Angebotes sehr flexibel steuern. Die Verarbeitung der Properties Elemente einer Hauptkomponenteninstanz folgt einem einfachen Ablauf:</para>
-				<para xml:id="en_5820" xml:lang="en">As also PriceItem Elements may contain Properties, the overall properties of an offer can be managed in a very flexible manner. The processing of Properties Elements of a Maincomponentinstance follows a simple pattern:</para>
-				<itemizedlist>
-					<listitem>
-						<para xml:id="de_5821" xml:lang="de">Zunächst werden alle Properties gemäß ihrer PropertyAggregatingComponent den Komponenteninstanzen zugeordnet.</para>
-						<para xml:id="en_5821" xml:lang="en">At first all properties are assigned to the Component Instances according to their PropertyAggregatingComponent.</para>
-					</listitem>
-					<listitem>
-						<para xml:id="de_5822" xml:lang="de">Dann werden je Komponenteninstanz sämtliche zugeordneten PropertyGroup Elemente übernommen. Ein PropertyGroup Element wird übernommen, wenn:</para>
-						<para xml:id="en_5822" xml:lang="en">Then for each Component Instance all assigned PropertyGroup elements are adopted. A PropertyGroup Element is adopted if:</para>
-						<itemizedlist>
-							<listitem>
-								<para xml:id="de_5823" xml:lang="de">Die Condition der PropertyGroup erfüllt ist (oder die PropertyGroup über keine Condition verfügt).</para>
-								<para xml:id="en_5823" xml:lang="en">The Condition of the PropertyGroup is fulfilled (or if the PropertyGroup has no Condition).</para>
-							</listitem>
-							<listitem>
-								<para xml:id="de_5824" xml:lang="de">Falls sich die PropertyGroup innerhalb eines PriceItem befindet und das PriceItem am Ende der Preisberechnung aktiv war.</para>
-								<para xml:id="en_5824" xml:lang="en">If the PropertyGroup is positioned within a PriceItem and the PriceItem was active at the end of the price calculation.</para>
-							</listitem>
-						</itemizedlist>
-					</listitem>
-					<listitem>
-						<para xml:id="de_5825" xml:lang="de">Die übernommenen PropertyGroup Elemente werden nach dem Wert des Priority Attributs sortiert. Bei gleicher Priority werden die PropertyGroup Elemente nach documentDocumentO-order sortiert.</para>
-						<para xml:id="en_5825" xml:lang="en">The adopted PropertyGroup Elements are sorted according to the value of their Priority Attribut. If the priority is equal the PropertyGroup Elements are sorted for documentDocumentO-order.</para>
-					</listitem>
-					<listitem>
-						<para xml:id="de_5826" xml:lang="de">Die PropertyGroup Elemente werden in dieser Reihenfolge zusammengefasst. Kind-Elemente der PropertyGroup überschreiben entsprechende zuvor gefundene Elemente mit identischem PropertyIdentfier. Das Endergebnis ist je PropertyAggregatingComponent eine einzelne PropertyGroup, welche sämtliche zusammengefassten Eigenschaften der PropertyAggregatingComponent enthält.</para>
-						<para xml:id="en_5826" xml:lang="en">The PropertyGroup Elements are merged in the follwing order: Child-Elements of the PropertyGroup overwrite corresponding elementsfound earlier with identical PropertyIdentfier. DThe final result is a single PropertyGroup for each PropertyAggregatingComponent, which contains all combined properties of the PropertyAggregatingComponent.</para>
-					</listitem>
-					<listitem>
-						<para xml:id="de_5827" xml:lang="de">Die beiden Eigenschaften PriceType und TextInformation spielen eine Sonderrolle: Diese Eigenschaften können nicht sinnvoll zusammengefasst werden und werden somit bei dieser Verarbeitung ignoriert. Die Eigenschaften bleiben in den jeweiligen Properties Elementen verteilt im Angebot erhalten und können falls notwendig dort ausgewertet werden.</para>
-						<para xml:id="en_5827" xml:lang="en">Both properties PriceType and TextInformation play a special role: those properties cannot be combined meaningfully and thus are being ignored during this processing. The properties remain in the offer distributed within the respective Properties Elementes and may be evaluated if necessary.</para>
-					</listitem>
-				</itemizedlist>
-				
-				<para xml:id="de_5828" xml:lang="de">Nach der Verarbeitung existiert somit für jede PropertyAggregatingComponent-Instanz eine PropertyGroup Element. PropertyAggregatingComponent-Instanz bedeutet z.B., dass ein zusammengesetzter Flug ein PropertyGroup Element je Flugbestandteil enthält.</para>
-				<para xml:id="en_5828" xml:lang="en">After the processing therefore for each PropertyAggregatingComponent-Instance a PropertyGroup Element exists. PropertyAggregatingComponent-Instance means for instance, that a composed flight contains one PropertyGroup Element for each flight component.</para>
-				<para xml:id="de_5829" xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und PropertyAggregatingComponents finden Sie im Anhang <link linkend="AnhangPropertiesAccommodations">"Properties - Eigenschaften und Ausstattungen"</link></para>
-				<para xml:id="en_5829" xml:lang="en">You may find a complete list of Properties, PropertyIdentifier and PropertyAggregatingComponents within the Annex<link linkend="AnhangPropertiesAccommodations">"Properties - Properties - characteristics and facilities"</link></para>
+				<section xml:id="OtdsProcessPropertiesGeneral">
+					<title><phrase xml:id="det_8567" xml:lang="de">Allgemeine Verarbeitung der Properties</phrase><phrase xml:id="en_8567" xml:lang="en">General processing of the Properties</phrase></title>					
+					<para xml:id="de_5816" xml:lang="de">Die Zuordnung der einzelnen Properties gemäß ihrer festgelegten PropertyAggregatingComponent erfolgt über das "Current"-Prinzip, welches auch in der Source Anwendung findet.</para>
+					<para xml:id="en_5816" xml:lang="en">The matching of the single properties according to their defined PropertyAggregatingComponent takes place via the "Current"-principle, that also is applied in the Source application.</para>
+					<para xml:id="de_5817" xml:lang="de">"Current" bedeutet, dass zuerst nach einer passenden Source im "local" Pfad gesucht wird. Wird dort keine Source gefunden, so wählt man die nächsthöhere Hierarchiestufe und durchsucht erneut den „local“-Pfad nach einer passenden Instanz.</para>	
+					<para xml:id="en_5817" xml:lang="en">"Current" means, that in a first step a matching Source is searched for in the "local" path. If no source can be found there, the next higher hierarchy-level is chosen and again searched on the "local" path for a corresponding instance.</para> 
+					<para xml:id="de_5818" xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn: Ist die PropertyAggregatingComponent="Flight". Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation auf den OnewayFlight- bzw. ReturnFlight-Instanzen.</para>
+					<para xml:id="en_5818" xml:lang="en">When PropertyAggregatingComponent="Flight", this constellation poses a special case. If Outbound- and/or Inbound-instances exist, the aggregation takes place relating to Outbound and Inbound. In all other cases the aggregation takes place on the OnewayFlight-instances.</para>
+					<para xml:id="de_5819" xml:lang="de">Das Verarbeitungsmodell legt nur fest, wie die zusammengefassten Eigenschaften eines Angebotes bestimmt werden. Die Bedeutungen der Properties werden in der Annotation der XSD näher beschrieben. Die Verwendung der Properties ist Sache des Vertriebssystems (z.B. kann ein Vertriebssystem eine Suche nach Hotelkategorie ermöglichen. Die notwendigen Informationen sind in den Properties enthalten).</para>
+					<para xml:id="en_5819" xml:lang="en">The theoretical processing model only defines, how the combined properties of an offer are being determined. The significance of the properties are described within the annotation of the XSD more detailed. The use of properties is the domain of the distribution system (e.g. a distribution system may enable a search for hotel categories. The information needed are included in the Properties).</para>
+					<para xml:id="de_5820" xml:lang="de">Da auch PriceItem Elemente Properties enthalten können, lassen sich die Gesamteigenschaften des Angebotes sehr flexibel steuern. Die Verarbeitung der Properties Elemente einer Hauptkomponenteninstanz folgt einem einfachen Ablauf:</para>
+					<para xml:id="en_5820" xml:lang="en">As also PriceItem Elements may contain Properties, the overall properties of an offer can be managed in a very flexible manner. The processing of Properties Elements of a Maincomponentinstance follows a simple pattern:</para>
+					<itemizedlist>
+						<listitem>
+							<para xml:id="de_5821" xml:lang="de">Zunächst werden alle Properties gemäß ihrer PropertyAggregatingComponent den Komponenteninstanzen zugeordnet.</para>
+							<para xml:id="en_5821" xml:lang="en">At first all properties are assigned to the Component Instances according to their PropertyAggregatingComponent.</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_5822" xml:lang="de">Dann werden je Komponenteninstanz sämtliche zugeordneten PropertyGroup Elemente übernommen. Ein PropertyGroup Element wird übernommen, wenn:</para>
+							<para xml:id="en_5822" xml:lang="en">Then for each Component Instance all assigned PropertyGroup elements are adopted. A PropertyGroup Element is adopted if:</para>
+							<itemizedlist>
+								<listitem>
+									<para xml:id="de_5823" xml:lang="de">Die Condition der PropertyGroup erfüllt ist (oder die PropertyGroup über keine Condition verfügt).</para>
+									<para xml:id="en_5823" xml:lang="en">The Condition of the PropertyGroup is fulfilled (or if the PropertyGroup has no Condition).</para>
+								</listitem>
+								<listitem>
+									<para xml:id="de_5824" xml:lang="de">Falls sich die PropertyGroup innerhalb eines PriceItem befindet und das PriceItem am Ende der Preisberechnung aktiv war.</para>
+									<para xml:id="en_5824" xml:lang="en">If the PropertyGroup is positioned within a PriceItem and the PriceItem was active at the end of the price calculation.</para>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+						<listitem>
+							<para xml:id="de_5825" xml:lang="de">Die übernommenen PropertyGroup Elemente werden nach dem Wert des Priority Attributs sortiert. Bei gleicher Priority werden die PropertyGroup Elemente nach documentDocumentO-order sortiert.</para>
+							<para xml:id="en_5825" xml:lang="en">The adopted PropertyGroup Elements are sorted according to the value of their Priority Attribut. If the priority is equal the PropertyGroup Elements are sorted for documentDocumentO-order.</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_5826" xml:lang="de">Die PropertyGroup Elemente werden in dieser Reihenfolge zusammengefasst. Kind-Elemente der PropertyGroup überschreiben entsprechende zuvor gefundene Elemente mit identischem PropertyIdentfier. Das Endergebnis ist je PropertyAggregatingComponent eine einzelne PropertyGroup, welche sämtliche zusammengefassten Eigenschaften der PropertyAggregatingComponent enthält.</para>
+							<para xml:id="en_5826" xml:lang="en">The PropertyGroup Elements are merged in the follwing order: Child-Elements of the PropertyGroup overwrite corresponding elementsfound earlier with identical PropertyIdentfier. DThe final result is a single PropertyGroup for each PropertyAggregatingComponent, which contains all combined properties of the PropertyAggregatingComponent.</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_5827" xml:lang="de">Die beiden Eigenschaften PriceType und TextInformation spielen eine Sonderrolle: Diese Eigenschaften können nicht sinnvoll zusammengefasst werden und werden somit bei dieser Verarbeitung ignoriert. Die Eigenschaften bleiben in den jeweiligen Properties Elementen verteilt im Angebot erhalten und können falls notwendig dort ausgewertet werden.</para>
+							<para xml:id="en_5827" xml:lang="en">Both properties PriceType and TextInformation play a special role: those properties cannot be combined meaningfully and thus are being ignored during this processing. The properties remain in the offer distributed within the respective Properties Elementes and may be evaluated if necessary.</para>
+						</listitem>
+					</itemizedlist>
+					
+					<para xml:id="de_5828" xml:lang="de">Nach der Verarbeitung existiert somit für jede PropertyAggregatingComponent-Instanz eine PropertyGroup Element. PropertyAggregatingComponent-Instanz bedeutet z.B., dass ein zusammengesetzter Flug ein PropertyGroup Element je Flugbestandteil enthält.</para>
+					<para xml:id="en_5828" xml:lang="en">After the processing therefore for each PropertyAggregatingComponent-Instance a PropertyGroup Element exists. PropertyAggregatingComponent-Instance means for instance, that a composed flight contains one PropertyGroup Element for each flight component.</para>
+					<para xml:id="de_5829" xml:lang="de">Eine vollständige Liste der Properties, PropertyIdentifier und PropertyAggregatingComponents finden Sie im Anhang <link linkend="AnhangPropertiesAccommodations">"Properties - Eigenschaften und Ausstattungen"</link></para>
+					<para xml:id="en_5829" xml:lang="en">You may find a complete list of Properties, PropertyIdentifier and PropertyAggregatingComponents within the Annex<link linkend="AnhangPropertiesAccommodations">"Properties - Properties - characteristics and facilities"</link></para>
+				</section>
+				<section xml:id="OtdsProcessPropertiesTime">
+					<title><phrase xml:id="de_8568" xml:lang="de">Zeitverarbeitung innerhalb der Properties</phrase><phrase xml:id="en_8568" xml:lang="en">Processing times within Properties</phrase></title>
+					<para xml:id="det_8569" xml:lang="de">Innerhalb der Properties werden auch Zeiten definiert.
+						Diese Zeiten finden wie alle Property-Eigenschaften <emphasis role="bold"
+							>keine</emphasis> Berücksichtigung bei der Produkterstellung oder der
+						Preiskalkulation. Vielmehr werden diese angegeben Zeiten zur
+						Angebotsdarstellung oder auch zur Suche/Filterung von Angeboten benutzt. Im
+						Falle der Zeiten können hierbei auch Zeitunterschiede von Relevanz sein, wie
+						zum Beispiel die Flugdauer, also der Zeitunterschied zwischen der Abflugzeit
+						und der Ankunftszeit eines Fluges. Bei der Berechnung von Zeitunterschieden
+						und auch bei der Anzeige von Zeiten ist aber im zeitlich engen Kontext von
+						Zeitumstellungen (z.B. Winter- / Sommerzeit) eine Angabe eines
+						UTCOffsetOfTimeZone für eine eindeutige Interpretation der Zeiten notwendig.
+						Der UTCOffsetOfTimeZone spezifiziert zu welcher Zeitzone die in Time
+						angegeben Zeit gehört. </para>
+					<para xml:id="det_8570" xml:lang="de">In diesem Zusammenhang gibt die OTDS-Verarbeitung vor,
+						wie die über OTDS gelieferten Zeiten
+						"Properties/.../Time/@UTCOffsetOfTimeZone" interpretiert werden müssen. Die
+						Zeitangabe im Element <code>Time</code> folgt der Notation [hh:mm:ss] mit hh
+						zwischen 00 und 23 bzw. mm und ss zwischen 00 und 59. Diese Zeit ist immer
+						die lokale Zeit bezogen auf den geografischen Kontext (Ort des CheckIn oder
+						CheckOut). Bei Zeiten innerhalb einer Zeitumstellungsphase kann die
+						Interpretation der Zeit davon abhängen, ob sich die Zeitangabe auf die Zeit
+						vor der Umstellung oder nach der Umstellung bezieht. Genau in diesen Fällen
+						ist eine Angabe des Attributes Time/@UTCOffsetOfTimeZone zwingend
+						erforderlich. Die Offsetangabe im Attribut <code>UTCOffsetOfTimeZone</code>
+						folgt der Notation [+|-][hh][:][mm] mit hh zwischen 00 und 23 und mm
+						zwischen 00 und 59. Beispiel: Die angegebene Zeit ist 02:30 Uhr. Um 03:00
+						Uhr wird die Zeit um 1 Stunde zurückgestellt. Damit gibt es die Uhrzeit
+						02:30 Uhr zweimal. Nämlich einmal vor der Umstellung und einmal eine Stunde
+						später nach der Zeitumstellung. Um in dieser Situation die Definition der
+						Zeit eindeutig zu gestalten, muss das Attribut "UTCOffsetOfTimeZone" gemäß
+						der beabsichtigten Zeitzonenzuordnung angegeben werden. War die Zeitzone vor
+						der Zeitumstellung "UTC+6" und nach der Umstellung "UTC+5", so gilt für
+						unser Beispiel: <programlisting><![CDATA[ 
+	<Time UTCOffsetOfTimeZone="+06:00">02:30</Time>     entspricht 02:30 Uhr vor der Zeitumstellung
+	<Time UTCOffsetOfTimeZone="+05:00">02:30</Time>     entspricht 02:30 Uhr nach der Zeitumstellung
+]]></programlisting> Mit dieser Definition können nun eindeutige Zeiten und Zeitdifferenzen
+						angegeben werden. Beachte: Bei der Berechnung von Zeitdifferenzen müssen
+						alle beteiligten Zeiten das Attribut "UTCOffsetOfTimeZone" angegeben haben.
+						Ansonten wird in der Berechnung das Attribut für alle Zeitangaben ignoriert.
+						Die OTDS-Empfehlung ist, alle Zeiten 2 Tage rund um Zeitumstellungstermine
+						mit dem Attribut "UTCOffsetOfTimeZone" zu versehen. </para>
+				</section>
 			</section>
 		</section>
 	</section>
