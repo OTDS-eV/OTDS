@@ -4800,6 +4800,15 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="CityPairProduction"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="CompareOperationEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Equal"/>
+			<xs:enumeration value="LessThan"/>
+			<xs:enumeration value="LessThanOrEqual"/>
+			<xs:enumeration value="GreaterThan"/>
+			<xs:enumeration value="GreaterThanOrEqual"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!--Begin of  rules definition-->
 	<xs:complexType name="DayAllocationStartType">
 		<xs:attribute name="Source" type="SourceAttributeType" default="Product">
@@ -5528,6 +5537,11 @@ This is based on the total number of nights For this reason the return date is e
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="CompareValuesConditionType">
+		<xs:simpleContent>
+			<xs:extension base="BaseTagTypeList"/>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="ConditionalTagConditionType">
@@ -6910,6 +6924,60 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
+	<xs:complexType name="CompareType" internal:otdsversion="2.0">
+		<xs:choice minOccurs="2" maxOccurs="unbounded">
+			<xs:element name="Key" type="EmptyKeyConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_321">Dieses Element adressiert eine Menge von Key-Values  innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Menge der Key-Values wird eingegrenzt durch die Angabe in den Attributen Source und DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Tag" type="EmptyTagConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_322">Dieses Element adressiert ein Menge von Tag-Values innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. 
+Die Menge der Tag-Values wird eingegrenzt durch die Angabe in den Attributen Class, TagValueType, Source und DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen. 
+Die Attribute @Offset und @Length definieren welcher Anteil des Tag-Values betrachtet werden soll.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConditionalTag" type="EmptyTagConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_371">Dieses Element adressiert ein Menge von ConditionalTag-Values innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. 
+Die Menge der ConditionalTag--Values wird eingegrenzt durch die Angabe in den Attributen Class, TagValueType, Source und DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen. 
+Die Attribute @Offset und @Length definieren welcher Anteil des ConditionalTag-Values betrachtet werden soll.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Element">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_386">Dieses Element adressiert ein Menge von Komponenten-Ausprägungs-Values innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. 
+Derzeit exsitieren lediglich Abflughafen, Zielflughafen und Catchment-Airports als verwendbare Ausprägungen.
+Dementsprechen eingegrenzt wird diese Menge an Komponenten-Ausprägungsvalues durch die Angabe einer bestimmten Komponentenausprägung als Wert von "Element" einer bestimmten Source und der DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen. 
+Die Attribute @Offset und @Length definieren welcher Anteil des ConditionalTag-Values betrachtet werden soll.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MatchElementEnum">
+							<xs:attributeGroup ref="ConditionAttributeGroup"/>
+							<xs:attributeGroup ref="SourceAttributeGroup"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Values" type="CompareValuesConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_387">Dieses Element definiert eine Menge von Values, </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="Operation" type="CompareOperationEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Dieses Attribut legt die Vergleichsoperation fest. Es stehen die klassischen mathematischen Vergleichoperationen zur Verfügung:
+- Equal
+- LessThan
+- LessThanOrEqual
+- GreaterThan
+- GreaterThanOrEqual</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 	<!--  Availability Types definitions -->
 	<!--  Availability definitions -->
 	<xs:complexType name="AvailabilitiesType">
@@ -6928,7 +6996,6 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 				inkrementelle Updates immer eindeutig reproduzierbar ist. Viele Beispiele
 				unterschiedlicher Verfügbarkeitslieferungen finden Sie in der Thematischen
 				Dokumentation unter Availabilities.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_407">Under this branch the availability of the accommodation is defined. Taken together with the conditions and corresponding DefaultDayStates, it is possible to receive either availability by day, or duration based availabilities. In general, the definition of the DefaultDayStates allows the delivery of either only positive availabilities or only negative availabilities. The level Availabilities defines which type of availabilities will be provided. If, for example, the availabilities are controlled by the occupancies, each limited occupancy will have its own Availabilities branch with a corresponding occupancy condition under "Conditions". In general, the key for the Availabilities node should correlate exactly with this condition, so that the key is always unambiguously reproducible for incremental updates. Many examples of different availability provision can be found in the thematic documentation under Availabilities.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
@@ -8251,6 +8318,38 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 
 
 Nodes are to be addressed using the "Source" attribute, and for tags also via "Location".</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Compare" type="CompareType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_388">Dieses Element definiert die Bedingung, ob Werte aus mehreren definierten Wertemengen bzgl. einer definierten Vergleichsoperation übereinstimmen.
+Die Vergleichoperation wird mit dem Attribut @Operation festgelegt.										Das Compare-Element beinhaltet mehrere Unterelementen in einer definierten Reihehfolge. Jedes dieser Unterelemente referenziert eine Menge von Werten.
+Die Compare-Bedingung ist erfüllt, wenn jede dieser Value-Mengen wenigstens ein Element enthält, welche(s) die unter Compare/@Operation angegebene Vergleichoperation bzgl. der Nachbar-Wertemenge(n) erfüllt.
+In der Regel sind hier alle betrachteten Value-Types vom Typ "String". Lediglich die Tags und ConditionalTags können explizit noch spezische ValueTypes wie "Numeric" oder "Price" ausprägen. 
+
+Der größer/kleiner Vergleich ergibt beim Vergleich unterschiedlicher ValueTypes das Ergebnis "False".
+
+Der String-Vergleich folgt der lexikalischen Standard-Sortierung in OTDS, deren aufsteigende Reihenfolge  wie folgt definiert ist:
+
+Zeichenketten werden grundsätzlich mit dem linken Zeichen beginnend	Zeichen für Zeichen sortiert, wobei das erste Zeichen die höchste Priorität besitzt. Die Sortierung folgt den ASCII-Values der Zeichen und entspricht damit folgender aufsteigenden Liste: 
+-
+.
+0
+1
+2
+3 
+usw.
+A
+B
+C 
+usw.
+_ 
+a 
+b
+c 
+usw.
+|
+~ </xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
