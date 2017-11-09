@@ -1486,6 +1486,16 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 												Special case: If the addressing of the tag is not distinct relating to Source, the grouping will take place via identical tag-tuples sorted in XML DocumentOrder.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
+										<xs:element name="GroupStartDate" type="GroupStartDateType" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes StartDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GroupEndDate" type="GroupEndDateType" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes EndDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
+											</xs:annotation>
+										</xs:element>
 									</xs:choice>
 								</xs:sequence>
 							</xs:complexType>
@@ -5516,6 +5526,50 @@ Danach wird mit den ermittelten Werten gepr√ºft ob die definierte Bedingung erf√
 			<xs:extension base="PersonGenderEnumList">
 				<xs:attributeGroup ref="ConditionAttributeGroup"/>
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="GroupStartDateType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyElementType">
+				<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder Checkout-Datum zur Emittlung des Startdatums der Gruppe verwendet wird. 
+
+Ist dieses Attribut nicht angegeben, so gilt der unter CandidateInstance/@Source angegebene Source-Value</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+							used in order to determine the start date of a group</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckIn">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder Checkout) der referenzierten Komponente, welches als Startdatum der Gruppe verwendet werden soll.</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+							the referenced component to be used as a start date of a group</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="GroupEndDateType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyElementType">
+				<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder Checkout-Datum zur Emittlung des Endedatums einer Gruppe verwendet wird.
+
+Ist dieses Attribut nicht angegeben, so gilt der unter CandidateInstance/@Source angegebene Source-Value</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+							used in order to determine the end date of a group.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckOut">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder Checkout) der referenzierten Komponente, welches als Endedatum der Gruppe verwendet werden soll.</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+							the referenced component to be used as an end date of a group.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>

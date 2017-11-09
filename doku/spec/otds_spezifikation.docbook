@@ -5892,14 +5892,20 @@
 							wir also später, dass nur der erste Flug der Fluggruppierung gültig ist,
 							so würde in diesem Fall der Flug Hin1 Rück1 übrig bleiben. </para><para xml:id="en_5061" xml:lang="en">Example list: 
 <programlisting>1. Outbound 01 Return 01 Priority 1 with Hotel A room Double Board H
-2. Outbound 02 Return 02 Priority 2 with Hotel A room Double Board H
-3. Outbound 04 Return 04 Priority 4 with Hotel A room Double Board H
-4. Outbound 01 Return 02 Priority 5 with Hotel A room Double Board H
-5. Outbound 01 Return 04 Priority 7 with Hotel A room Single Board H
-6. Outbound 02 Return 01 Priority 8 with Hotel A room Single Board H
-7. Outbound 02 Return 04 Priority 10 with Hotel A room Single Board H
-8. Outbound 04 Return 01 Priority 14 with Hotel A room Single Board H
-9. Outbound 04 Return 02 Priority 15 with Hotel A room Single Board H</programlisting>If it is later stated that only the first flight of the flight group is valid, the flight Outbound1 Return1 would be left in this case.</para>
+2. Outbound 02 Inbound 02 Priority 2 with Hotel A room Double Board H
+3. Outbound 04 Inbound 04 Priority 4 with Hotel A room Double Board H
+4. Outbound 01 Inbound 02 Priority 5 with Hotel A room Double Board H
+5. Outbound 01 Inbound 04 Priority 7 with Hotel A room Single Board H
+6. Outbound 02 Inbound 01 Priority 8 with Hotel A room Single Board H
+7. Outbound 02 Inbound 04 Priority 10 with Hotel A room Single Board H
+8. Outbound 04 Inbound 01 Priority 14 with Hotel A room Single Board H
+9. Outbound 04 Inbound 02 Priority 15 with Hotel A room Single Board H</programlisting>If it is later stated that only the first flight of the flight group is valid, the flight Outbound1 Return1 would be left in this case.</para>
+						<section xml:id="OtdsStrategyRulesGroupDefinitionsGroupByGroupDates">
+							<title><phrase xml:id="de_6009" xml:lang="de">Erweiterung der Termindefinitionen der Gruppierungen (V2.0)</phrase><phrase xml:id="en_6009"
+									xml:lang="en">Extension to define the dates of the groups (V2.0)</phrase></title>
+							<para xml:id="de_6001" xml:lang="de">Im ersten Ansatz des <code>GroupByEqual</code> wurde explizit definiert, dass die Group immer das CheckIn und CheckOut der CandidateInstance als vorgegebene Rahmenparameter hat.
+								Ab der Version 2.0 ist es nun möglich, mit den optionalen Elementen <code>GroupStartDate</code> und <code>GroupEndDate</code> die Rahmenparamater individuell zu beeinflussen. Im Zusammenhang mit dem CityPair gibt es damit eine Möglichkeit zu steuern, das Übernachflüge im Bezug auf das CityPair ggf. identisch wie Nicht-Übernachtflüge behandelt werden.</para>
+						</section>
 					</section>
 					<section xml:id="OtdsStrategyRulesGroupDefinitionsIndices">
 						<title><phrase xml:id="de_1192" xml:lang="de">Verwendung von Tags als Indizes für die
@@ -18875,9 +18881,59 @@ usw.]]></programlisting>
 					</task>
 				</section>
 			</section>
-			<section xml:id="OtdsProcessProduct">
-				<title><phrase xml:id="de_2885" xml:lang="de">Verarbeitung der Product-Rules</phrase><phrase xml:id="en_2885" xml:lang="en">Processing of the product rules</phrase></title>
-
+			<section xml:id="OtdsProcessDataProcessing">
+				<title><phrase xml:id="de_6002" xml:lang="de">Überblick</phrase><phrase xml:id="en_6002" xml:lang="en">Overview</phrase></title>
+				<para xml:id="de_6003" xml:lang="de">
+					Die Verarbeitung lässt sich in einzelne voneinander getrennte aber bzgl. der Reihenfolge fest vorgegebene Teilprozesse unterteilen.</para>
+				<orderedlist>
+					<listitem>
+						<para xml:id="det_6005" xml:lang="de">Ermittlung der Angebots-Kandidaten (GenericTag- und AvailabilityState-Conditions sind undefined)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6006" xml:lang="de">Auswertung der Verfügbarkeiten (Availabilities / Availability)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6020" xml:lang="de">Nachträgliche erneute Auswertung der Product- und DefinedComponent-Filter (AvailabilityState-Conditions sind nun definiert)</para>
+					</listitem>
+					<listitem>
+						<para>Auswertung der PriceItems</para>
+						<orderedlist>
+							<listitem>
+								<para xml:id="det_6007" xml:lang="de">Auswertung der PriceItem-Conditions (ExecutionOrder=BeforeCombinatorics  => AfterCombinatoric- , Last- and GenericTag-Conditions sind undefined)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6021" xml:lang="de">Auswertung der Kombinatorik von PriceItems (Combinatorics)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6008" xml:lang="de">Auswertung der PriceItem-Conditions (ExecutionOrder=AfterCombinatorics  => Last- and GenericTag-Conditions sind undefined) </para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6011" xml:lang="de">Auswertung der PriceItem-Conditions (ExecutionOrder=Last  => GenericTag-Conditions sind undefined) </para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6010" xml:lang="de">Auswertung der GenericAbsolute Values</para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6014" xml:lang="de">Finale Preisberechnung der Angebots-Kandidaten</para>
+							</listitem>
+						</orderedlist>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6015" xml:lang="de">Auswertung der Buchungsparameter (Booking / BookingGroup)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6016" xml:lang="de">Auswertung der Angebotseigenschaften (Properties)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6012" xml:lang="de">Auswertung der GenericTag-Values</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6013" xml:lang="de">Nachträgliche erneute Auswertung der Product- und DefinedComponent-Filter (GenericTag-Conditions sind nun definiert)</para>
+					</listitem>
+				</orderedlist>
+				<para>Die einzelnen Prozessschritte werden nun in den folgenden Kapiteln beschrieben. Die Reihenfolge ist in sofern zwingend, da die Reihenfolge entscheidet, welche Conditions ggf. als undefined auszuwerten sind und auch ab wann konkrete Werte für GenericAbsolutes zur Verfügung stehen.</para>
+			<section xml:id="OtdsProcessOfferCandidates">
+				<title><phrase xml:id="de_2885" xml:lang="de">Erzeugung der Angebotskandidaten (<code>Product-Rules</code> und <code>Filter</code>)</phrase><phrase xml:id="en_2885" xml:lang="en">Evaluation of offer candidates (<code>Product-Rules</code> and <code>Filter</code>)</phrase></title>
 				<para xml:id="de_2886" xml:lang="de">Für die Zusammenstellung von Produkten und Flügen wird ein umfangreiches Regelwerk zur
 					Verfügung gestellt, welches aus den gelieferten Einzelkomponenten unter Beachtung aller
 					Bedingungen und Regeln verkaufsfertige Produkte und zusammengestellte Flüge erzeugt. Dafür
@@ -18930,7 +18986,6 @@ usw.]]></programlisting>
 									<code>CombiComponent</code> / <code>DefinedComponent</code> .
 								See also <xref linkend="OtdsProcessDataModelSubstitutions"/></para>
 						</listitem>
-
 						<listitem>
 							<para xml:id="de_2894" xml:lang="de">Der zentrale Vorgang der Produktverarbeitung ist die Bildung aller möglichen
 								Kombinationen der Komponenteninstanzen. Im obigen Beispiel einer Pauschalreise
@@ -18998,7 +19053,9 @@ usw.]]></programlisting>
 					<para xml:id="de_2898" xml:lang="de">Zur Vervollständigung einer kompletten Angebotsproduktion fehlen noch die Schritte
 						der <link linkend="OtdsProcessAvailability">Auswertung der gelieferten Vakanzen</link>
 						und die <link linkend="OtdsProcessPriceCalculation">Auswertung der gelieferten
-							Preisregeln</link>. </para><para xml:id="en_2898" xml:lang="en">In order to complete the entire process of producing an offer, the following steps must be carried out: the <link linkend="OtdsProcessAvailability">evaluation of vacancies delivered</link> and the <link linkend="OtdsProcessPriceCalculation">evaluation of the price rules delivered</link>.</para>
+							Preisregeln</link> und die <link linkend="OtdsProcessGenericTagValueEvaluation">Auswertung der Priorisierung (GenericTag) und der dadurch möglichen nachträglichen Filterung von Angebotskandidaten.</link>. </para>
+					<para xml:id="en_2898" xml:lang="en">In order to complete the entire process of producing an offer, the following steps must be carried out: the <link linkend="OtdsProcessAvailability">evaluation of vacancies delivered</link> 
+						and the <link linkend="OtdsProcessPriceCalculation">evaluation of the price rules delivered</link> and the <link linkend="OtdsProcessGenericTagValueEvaluation">Evaluation of the defined priority (GenericTag) and the retroactive invalidation of offer candidates</link>.</para>
 
 					<para xml:id="de_2899" xml:lang="de">
 						<emphasis>Das hier beschriebene Modell beschreibt nicht eine Implementierung des
@@ -21108,6 +21165,10 @@ usw.]]></programlisting>
 								or in the case of a duration discount.</para>
 						</listitem>
 						<listitem>
+							<para xml:id="de_6004" xml:lang="de">Erst jetzt können die konkreten Werte für die GenericAblutes errechnet und ersetzen die entsprechende Formel</para>
+							<para xml:id="en_6004" xml:lang="en">Now it is possible to replace the formal of the GenericAbsolutes by a concrete calculated value.</para>
+						</listitem>
+						<listitem>
 							<para xml:id="de_3196" xml:lang="de">Im letzten Schritt werden die endgültigen Preise errechnet. Dies erfolgt,
 								indem zunächst in jedem Day/Person-Knoten alle Kostenknoten berechnet und dann
 								summiert werden. Anschließend können daraus die Personenpreise, Tagespreise
@@ -23020,149 +23081,7 @@ usw.]]></programlisting>
 					<para xml:id="det_3658" xml:lang="de"/>
 				</section>
 
-				<section xml:id="OtdsProcessPriceCalculationSumUpPriceNodeElements">
-					<title><phrase xml:id="de_3659" xml:lang="de">Ermittlung der Gesamtkosten pro Tag, Person und Reise</phrase><phrase xml:id="en_3659" xml:lang="en">Calculation of total cost per day, person and trip</phrase></title>
-					<para xml:id="de_3660" xml:lang="de">Die Preisberechnung ist nahezu abgeschlossen. Alle PriceItems, die in der
-						Kostenmatrix verblieben sind, werden nun noch aufsummiert. Dies erfolgt
-						folgendermassen:</para><para xml:id="en_3660" xml:lang="en">The price calculation is almost complete. All PriceItems which are left in the cost matrix are now added up. This takes place as follows:</para>
-
-					<bridgehead xml:id="de_3661" xml:lang="de">Gesamtpreis pro Tag und Person (ein Day/Person-Knoten)</bridgehead><bridgehead xml:id="en_3661" xml:lang="en">Total price per day and person (a Day/Person node)</bridgehead>
-					<para xml:id="de_3662" xml:lang="de">Für jeden Kostenknoten innerhalb eines Day/Person-Knotens
-						wird der Wert des absoluten PriceItems mit den Werten aller assoziierten
-						relativenDayCount- und PersonCount-Bedingungen PriceItems multipliziert. Die
-						auf diese Weise ermittelten Werte für jeden Kostenknoten werden innerhalb
-						jedes Day/Person-Knotens aufsummiert, um den Gesamtpreis für einen Tag und
-						eine Person zu errechnen.</para><para xml:id="en_3662" xml:lang="en">For every price node within a Day/Person node, the value of the absolute PriceItem is multiplied with the values of all associated relative PriceItems. The values ascertained by these means for each cost node are added up within each Day/Person node, in order to calculate the total price for one day and one person.</para>
-					<bridgehead xml:id="de_3663" xml:lang="de">Beispiel</bridgehead><bridgehead xml:id="en_3663" xml:lang="en">Example</bridgehead>
-
-					<figure>
-						<title><phrase xml:id="de_3664" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</phrase><phrase xml:id="en_3664" xml:lang="en">Total cost of a Day/Person node</phrase></title>
-						<mediaobject>
-							<imageobject xml:id="de_5723" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonNode.png" format="PNG" contentdepth="70%"/></imageobject>
-							<imageobject xml:id="en_5723" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonNode_engl.png" format="PNG" contentdepth="70%"/></imageobject>
-							<textobject>
-								<para xml:id="de_3665" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</para><para xml:id="en_3665" xml:lang="en">Total cost of a Day/Person node</para>
-							</textobject>
-							<caption>
-								<para xml:id="de_3666" xml:lang="de"> </para><para xml:id="en_3666" xml:lang="en"/>
-							</caption>
-						</mediaobject>
-					</figure>
-
-					<para xml:id="de_3667" xml:lang="de">Um den Gesamtpreis des hervorgehobenen Day/Person-Knotens zu ermitteln, werden
-						zunächst die einzelnen Kostenknoten berechnet:</para><para xml:id="en_3667" xml:lang="en">In order to calculate the total price of the highlighted Day/Person node, the individual cost nodes are first calculated:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_3668" xml:lang="de">Kosten von Kostenknoten 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 *
-								PriceItem 6</para><para xml:id="en_3668" xml:lang="en">Cost of cost node 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 * PriceItem 6</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3669" xml:lang="de">Kosten von Kostenknoten 2 = PriceItem 2 * PriceItem 5</para><para xml:id="en_3669" xml:lang="en">Cost of cost node 2 = PriceItem 2 * PriceItem 5</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3670" xml:lang="de">Kosten von Kostenknoten 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para><para xml:id="en_3670" xml:lang="en">Cost of cost node 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para>
-						</listitem>
-					</itemizedlist>
-					<para xml:id="de_3671" xml:lang="de">Der Gesamtpreis ergibt sich dann aus der Summe der Kosten der Kostenknoten:</para><para xml:id="en_3671" xml:lang="en">The total price is then calculated from the sum of the costs of the cost node:</para>
-					<para xml:id="de_3672" xml:lang="de">Gesamtkosten pro Tag und Person = Kosten von Kostenknoten 1 + Kosten von
-						Kostenknoten 2 + Kosten von Kostenknoten 3</para><para xml:id="en_3672" xml:lang="en">Total cost per day and person = cost of cost node 1 + cost of cost node 2 + cost of cost node 3</para>
-
-					<bridgehead xml:id="de_3673" xml:lang="de">Gesamtpreis pro Tag</bridgehead><bridgehead xml:id="en_3673" xml:lang="en">Total price per day</bridgehead>
-					<para xml:id="de_3674" xml:lang="de">Um den Gesamtpreis für einen Tag zu berechnen, werden alle Kosten der
-						Day/Person-Knoten dieses Tages summiert. In der Kostenmatrix werden also Spaltensummen
-						gebildet und so die Kosten jeder Person für einen bestimmten Tag summiert.</para><para xml:id="en_3674" xml:lang="en">In order to calculate the total price for one day, all costs of the Day/Person node of this day are added. In this way, column sums are created in the cost matrix and the costs for each person are added for a specific day.</para>
-
-					<bridgehead xml:id="de_3675" xml:lang="de">Gesamtpreis pro Person</bridgehead><bridgehead xml:id="en_3675" xml:lang="en">Total price per person</bridgehead>
-					<para xml:id="de_3676" xml:lang="de">Um den Gesamtpreis für einen Person zu berechnen, werden alle Kosten der
-						Day/Person-Knoten dieser Person summiert. In der Kostenmatrix werden also Zeilensummen
-						gebildet und so die Kosten jedes Tages für eine bestimmte Person summiert.</para><para xml:id="en_3676" xml:lang="en">In order to calculate the total price for one person, all costs of the Day/Person node of that person are added. In this way, row sums are created in the cost matrix and the costs for each day are added for a specific person.</para>
-
-					<bridgehead xml:id="de_3677" xml:lang="de">Gesamtpreis pro Reise</bridgehead><bridgehead xml:id="en_3677" xml:lang="en">Total price per trip</bridgehead>
-					<para xml:id="de_3678" xml:lang="de">Um den Gesamtpreis der Reise zu berechnen, werden die Kosten aller Day/Person-Knoten
-						der Kostenmatrix summiert.</para><para xml:id="en_3678" xml:lang="en">In order to calculate the total price of the trip, the costs of all day/person nodes in the cost matrix are added.</para>
-					<para xml:id="det_3679" xml:lang="de"/>
-
-					<figure>
-						<title><phrase xml:id="de_3680" xml:lang="de">Gesamtkosten pro Tag, Person oder Reise</phrase><phrase xml:id="en_3680" xml:lang="en">Total cost per day, person or trip</phrase></title>
-						<mediaobject>
-							<imageobject xml:id="de_5724" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct.png" format="PNG" contentdepth="70%"/></imageobject>
-							<imageobject xml:id="en_5724" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct_engl.png" format="PNG" contentdepth="70%"/></imageobject>
-							<textobject>
-								<para xml:id="de_3681" xml:lang="de">Gesamtkosten pro Tag, Person und Reise</para><para xml:id="en_3681" xml:lang="en">Total cost per day, person and trip</para>
-							</textobject>
-							<caption>
-								<para xml:id="de_3682" xml:lang="de"> </para><para xml:id="en_3682" xml:lang="en"/>
-							</caption>
-						</mediaobject>
-					</figure>
-					<bridgehead xml:id="de_3683" xml:lang="de">Tagespreise und Tagespreisanteile zur Auswertung der
-						DayPriceIndex-Condition</bridgehead><bridgehead xml:id="en_3683" xml:lang="en">Day prices and day price components for the evaluation of the DayPriceIndex condition</bridgehead>
-					<para xml:id="de_3684" xml:lang="de">Für die Auswertung der <code>Condition</code> zum
-						Ausführungszeitpunkt <code>ImpactExecutionOrder=Last</code> ist es
-						notwendig, Tagespreise zu ermitteln um Teilbedingungen an die günstigsten
-						bzw. teuersten Tage (<code>DayImpact</code>, <code>DayPriceIndex</code>)
-						auswerten zu können. Es ist in dieser Bedingung nicht nur möglich, sich auf
-						die günstigsten bzw. teuersten Tage zu beziehen, sondern zusätzlich auch auf
-						die günstigsten bzw. teuersten <emphasis role="italic">Anteile</emphasis>
-						der Tagespreise. Dies wird erreicht, indem nur PriceItems mit bestimmten
-						Klassennamen in die Berechnung der Tagespreise einfließen
-							(<code>ConsideredPriceItemClasses</code> ) oder alternativ PriceItems
-						mit bestimmten Klassennamen ausgeschlossen werden
-							(<code>NotConsideredPriceItemClasses</code>). Weiterhin ist zu beachten,
-						dass die <code>DayPriceIndex</code>-Condition den Typ des Tages spezifiziert
-						(Stay oder CheckInOut).</para><para xml:id="en_3684" xml:lang="en">For the evaluation of the <code>Condition</code> at the time of execution <code>ImpactExecutionOrder=Last</code> , it is necessary to calculate the day prices, in order to be able to evaluate the subconditions on the cheapest or most expensive days (<code>DayImpact</code> , <code>DayPriceIndex</code> ). In this condition, it is not only possible to refer to the cheapest or most expensive days, but also to refer the cheapest or most expensive <emphasis role="italic">components</emphasis> of the day prices. This is achieved in that only PriceItems with certain class names are taken into consideration for the day prices ( <code>ConsideredPriceItemClasses</code> ) or alternatively, PriceItems with certain class names can be excluded (<code>NotConsideredPriceItemClasses</code> ). It should also be noted that the <code>DayPriceIndex</code>  condition specifies the type of day (Stay or CheckInOut).</para>
-					<para xml:id="de_3685" xml:lang="de">Es wird davon ausgegangen, dass alle PriceItems in der Kostenmatrix im Sinne der
-							<code>Condition</code> mit <code>ImpactExecutionOrder=AfterCombinatorics</code>
-						gültig sind. Die Berechnung folgt folgendem Ablauf:</para><para xml:id="en_3685" xml:lang="en">It is assumed that all PriceItems in the cost matrix are valid in the sense of the <code>Condition</code> with <code>ImpactExecutionOrder=AfterCombinatorics</code> . The calculation follows the following sequence:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_3686" xml:lang="de">Es werden die relevanten Tage durch Auswertung des Attributes
-									<code>IntervalType</code> der Condition <code>DayPriceIndex</code>
-								bestimmt. Dieses Attribut definiert, ob <code>Stay</code>-Tage oder
-									<code>CheckInOut</code>-Tage bezüglich der Preishöhe betrachtet werden.
-							</para><para xml:id="en_3686" xml:lang="en">The relevant days are defined via the evaluation of the attribute <code>IntervalType</code> of the condition <code>DayPriceIndex</code>  This attribute defines whether <code>Stay</code>  days or <code>CheckInOut</code>  days are being regarded in relation to the price level.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3687" xml:lang="de">Für alle Day/Person-Knoten der relevanten Tage werden die Kosten jedes
-								Kostenknotens ermittelt. Jedes PriceItems innerhalb des Kostenknotens wird
-								zunächst auf Relevanz überprüft. </para><para xml:id="en_3687" xml:lang="en">The costs of every cost node are calculated for all day/person nodes of the relevant days. Each PriceItem within the cost node is firstly checked for relevance.</para>
-							<para xml:id="de_3688" xml:lang="de">Ein PriceItem ist relevant, wenn folgende Kriterien erfüllt sind:</para><para xml:id="en_3688" xml:lang="en">A PriceItem is relevant if the following criteria are fulfilled:</para>
-								
-								<itemizedlist>
-									<listitem>
-										<para xml:id="de_3689" xml:lang="de">Bei Angabe von <code>ConsideredPriceItemClasses</code> der
-											Klassenname des PriceItems angegeben ist</para><para xml:id="en_3689" xml:lang="en">The class name of the PriceItem is specified with the specification of the <code>ConsideredPriceItemClasses</code> </para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_3690" xml:lang="de">Bei Angabe von <code>NotConsideredPriceItemClasses</code> der
-											Klassenname des PriceItems nicht angegeben ist</para><para xml:id="en_3690" xml:lang="en">The class name of the PriceItem is not specified with the specification of the <code>NotConsideredPriceItemClasses</code> </para>
-									</listitem>
-								</itemizedlist>
-							<para xml:id="de_4956" xml:lang="de">
-								Falls das absolute PriceItem des Kostenknotens nicht relevant
-								ist, sind die Kosten des Kostenknotens Null. Ansonsten errechnen sich die
-								Kosten der Kostenknotens aus dem Wert des absoluten PriceItems multipliziert
-								mit den Werten aller relevanten relativen PriceItems.</para><para xml:id="en_4956" xml:lang="en">In a case where the absolute PriceItem of the cost node is not relevant, the cost of the cost node is zero. Otherwise, the costs of the cost node can be calculated from the value of the absolute PriceItem, multiplied by the values of all relevant relative PriceItems.</para>
-							<para xml:id="de_3691" xml:lang="de">Um die Kosten des Day/Person-Knotens zu bestimmen, werden die ermittelten
-								Kosten der Kostenknoten summiert.</para><para xml:id="en_3691" xml:lang="en">In order to determine the cost of a day/person node, the ascertained costs of the cost node are added.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3692" xml:lang="de">Anschliessend erfolgt die Kostenberechnung für jeden Tag
-								durch Bildung der Spaltensummern in der Kostenmatrix wie oben
-								beschrieben.</para><para xml:id="en_3692" xml:lang="en">Next, the cost calculation for each day is carried out through the creation of column sums in the matrix, as described above.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3693" xml:lang="de">Die Tage werden nach den ermittelten Tagespreisen
-								aufsteigend sortiert. Sollte eine eindeutige Sortierung aufgrund
-								gleicher Tagespreise nicht möglich sein, wird in zweiter Ordnung
-								aufsteigend nach Datum sortiert. Daraus ergeben sich
-								Positionsindizes für die Tage, die in der
-								<code>DayPriceIndex</code>-Bedingung für die Adressierung der Tage
-								genutzt werden. </para><para xml:id="en_3693" xml:lang="en">The days are sorted in ascending order of the day prices calculated. If unambiguous sorting is not possible due to identical day prices, then sorting can secondarily use the ascending date order. From this, position indices are created for the days in which the <code>DayPriceIndex</code> condition is used for the addressing of the days.</para>
-						</listitem>
-					</itemizedlist>
-					<para xml:id="det_3694" xml:lang="de"/>
-				</section>
+				
 
 				<section xml:id="OtdsProcessPriceCalculationStoreCombinablePriceItems">
 					<title><phrase xml:id="de_3695" xml:lang="de">Vermerken der kombinierbaren PriceItems</phrase><phrase xml:id="en_3695" xml:lang="en">Noting the combinable PriceItems</phrase></title>
@@ -23175,13 +23094,153 @@ usw.]]></programlisting>
 				</section>
 
 			</section>
-
-			
-			
 			<section xml:id="OtdsProcessGenericTagConditions">
 				<title><phrase xml:id="de_6132" xml:lang="de">Auswertung der GenericTag-Bedingungen</phrase><phrase xml:id="en_6132" xml:lang="en">Evaluation of GenericTag conditions</phrase></title>
 				<para xml:id="det_6133">Nach der Preisberechnung werden die GenericTag-Bedingungen der Filter der Product- und DefinedComponents nachträglich ausgewertet. Bis zu diesem Zeitpunkt wurden diese Bedingungen mit dem Wert "undefined" ausgewertet, da die Auswertung vorher noch nicht stattfinden konnte.</para>
 				<para xml:id="de_6134">Mehr Details zur Undefined-Auswertung finden Sie im Kapitel <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)"</link> </para><para xml:id="en_6134">You will find more details about "undefined" evaluation in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)"</link> </para>	
+			</section>
+			<section xml:id="OtdsProcessPriceCalculationSumUpPriceNodeElements">
+				<title><phrase xml:id="de_3659" xml:lang="de">Ermittlung der Gesamtkosten pro Tag, Person und Reise</phrase><phrase xml:id="en_3659" xml:lang="en">Calculation of total cost per day, person and trip</phrase></title>
+				<para xml:id="de_3660" xml:lang="de">Die Preisberechnung ist nahezu abgeschlossen. Alle PriceItems, die in der
+					Kostenmatrix verblieben sind, werden nun noch aufsummiert. Dies erfolgt
+					folgendermassen:</para><para xml:id="en_3660" xml:lang="en">The price calculation is almost complete. All PriceItems which are left in the cost matrix are now added up. This takes place as follows:</para>
+				
+				<bridgehead xml:id="de_3661" xml:lang="de">Gesamtpreis pro Tag und Person (ein Day/Person-Knoten)</bridgehead><bridgehead xml:id="en_3661" xml:lang="en">Total price per day and person (a Day/Person node)</bridgehead>
+				<para xml:id="de_3662" xml:lang="de">Für jeden Kostenknoten innerhalb eines Day/Person-Knotens
+					wird der Wert des absoluten PriceItems mit den Werten aller assoziierten
+					relativenDayCount- und PersonCount-Bedingungen PriceItems multipliziert. Die
+					auf diese Weise ermittelten Werte für jeden Kostenknoten werden innerhalb
+					jedes Day/Person-Knotens aufsummiert, um den Gesamtpreis für einen Tag und
+					eine Person zu errechnen.</para><para xml:id="en_3662" xml:lang="en">For every price node within a Day/Person node, the value of the absolute PriceItem is multiplied with the values of all associated relative PriceItems. The values ascertained by these means for each cost node are added up within each Day/Person node, in order to calculate the total price for one day and one person.</para>
+				<bridgehead xml:id="de_3663" xml:lang="de">Beispiel</bridgehead><bridgehead xml:id="en_3663" xml:lang="en">Example</bridgehead>
+				
+				<figure>
+					<title><phrase xml:id="de_3664" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</phrase><phrase xml:id="en_3664" xml:lang="en">Total cost of a Day/Person node</phrase></title>
+					<mediaobject>
+						<imageobject xml:id="de_5723" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonNode.png" format="PNG" contentdepth="70%"/></imageobject>
+						<imageobject xml:id="en_5723" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonNode_engl.png" format="PNG" contentdepth="70%"/></imageobject>
+						<textobject>
+							<para xml:id="de_3665" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</para><para xml:id="en_3665" xml:lang="en">Total cost of a Day/Person node</para>
+						</textobject>
+						<caption>
+							<para xml:id="de_3666" xml:lang="de"> </para><para xml:id="en_3666" xml:lang="en"/>
+						</caption>
+					</mediaobject>
+				</figure>
+				
+				<para xml:id="de_3667" xml:lang="de">Um den Gesamtpreis des hervorgehobenen Day/Person-Knotens zu ermitteln, werden
+					zunächst die einzelnen Kostenknoten berechnet:</para><para xml:id="en_3667" xml:lang="en">In order to calculate the total price of the highlighted Day/Person node, the individual cost nodes are first calculated:</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_3668" xml:lang="de">Kosten von Kostenknoten 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 *
+							PriceItem 6</para><para xml:id="en_3668" xml:lang="en">Cost of cost node 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 * PriceItem 6</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3669" xml:lang="de">Kosten von Kostenknoten 2 = PriceItem 2 * PriceItem 5</para><para xml:id="en_3669" xml:lang="en">Cost of cost node 2 = PriceItem 2 * PriceItem 5</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3670" xml:lang="de">Kosten von Kostenknoten 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para><para xml:id="en_3670" xml:lang="en">Cost of cost node 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para>
+					</listitem>
+				</itemizedlist>
+				<para xml:id="de_3671" xml:lang="de">Der Gesamtpreis ergibt sich dann aus der Summe der Kosten der Kostenknoten:</para><para xml:id="en_3671" xml:lang="en">The total price is then calculated from the sum of the costs of the cost node:</para>
+				<para xml:id="de_3672" xml:lang="de">Gesamtkosten pro Tag und Person = Kosten von Kostenknoten 1 + Kosten von
+					Kostenknoten 2 + Kosten von Kostenknoten 3</para><para xml:id="en_3672" xml:lang="en">Total cost per day and person = cost of cost node 1 + cost of cost node 2 + cost of cost node 3</para>
+				
+				<bridgehead xml:id="de_3673" xml:lang="de">Gesamtpreis pro Tag</bridgehead><bridgehead xml:id="en_3673" xml:lang="en">Total price per day</bridgehead>
+				<para xml:id="de_3674" xml:lang="de">Um den Gesamtpreis für einen Tag zu berechnen, werden alle Kosten der
+					Day/Person-Knoten dieses Tages summiert. In der Kostenmatrix werden also Spaltensummen
+					gebildet und so die Kosten jeder Person für einen bestimmten Tag summiert.</para><para xml:id="en_3674" xml:lang="en">In order to calculate the total price for one day, all costs of the Day/Person node of this day are added. In this way, column sums are created in the cost matrix and the costs for each person are added for a specific day.</para>
+				
+				<bridgehead xml:id="de_3675" xml:lang="de">Gesamtpreis pro Person</bridgehead><bridgehead xml:id="en_3675" xml:lang="en">Total price per person</bridgehead>
+				<para xml:id="de_3676" xml:lang="de">Um den Gesamtpreis für einen Person zu berechnen, werden alle Kosten der
+					Day/Person-Knoten dieser Person summiert. In der Kostenmatrix werden also Zeilensummen
+					gebildet und so die Kosten jedes Tages für eine bestimmte Person summiert.</para><para xml:id="en_3676" xml:lang="en">In order to calculate the total price for one person, all costs of the Day/Person node of that person are added. In this way, row sums are created in the cost matrix and the costs for each day are added for a specific person.</para>
+				
+				<bridgehead xml:id="de_3677" xml:lang="de">Gesamtpreis pro Reise</bridgehead><bridgehead xml:id="en_3677" xml:lang="en">Total price per trip</bridgehead>
+				<para xml:id="de_3678" xml:lang="de">Um den Gesamtpreis der Reise zu berechnen, werden die Kosten aller Day/Person-Knoten
+					der Kostenmatrix summiert.</para><para xml:id="en_3678" xml:lang="en">In order to calculate the total price of the trip, the costs of all day/person nodes in the cost matrix are added.</para>
+				<para xml:id="det_3679" xml:lang="de"/>
+				
+				<figure>
+					<title><phrase xml:id="de_3680" xml:lang="de">Gesamtkosten pro Tag, Person oder Reise</phrase><phrase xml:id="en_3680" xml:lang="en">Total cost per day, person or trip</phrase></title>
+					<mediaobject>
+						<imageobject xml:id="de_5724" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct.png" format="PNG" contentdepth="70%"/></imageobject>
+						<imageobject xml:id="en_5724" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct_engl.png" format="PNG" contentdepth="70%"/></imageobject>
+						<textobject>
+							<para xml:id="de_3681" xml:lang="de">Gesamtkosten pro Tag, Person und Reise</para><para xml:id="en_3681" xml:lang="en">Total cost per day, person and trip</para>
+						</textobject>
+						<caption>
+							<para xml:id="de_3682" xml:lang="de"> </para><para xml:id="en_3682" xml:lang="en"/>
+						</caption>
+					</mediaobject>
+				</figure>
+				<bridgehead xml:id="de_3683" xml:lang="de">Tagespreise und Tagespreisanteile zur Auswertung der
+					DayPriceIndex-Condition</bridgehead><bridgehead xml:id="en_3683" xml:lang="en">Day prices and day price components for the evaluation of the DayPriceIndex condition</bridgehead>
+				<para xml:id="de_3684" xml:lang="de">Für die Auswertung der <code>Condition</code> zum
+					Ausführungszeitpunkt <code>ImpactExecutionOrder=Last</code> ist es
+					notwendig, Tagespreise zu ermitteln um Teilbedingungen an die günstigsten
+					bzw. teuersten Tage (<code>DayImpact</code>, <code>DayPriceIndex</code>)
+					auswerten zu können. Es ist in dieser Bedingung nicht nur möglich, sich auf
+					die günstigsten bzw. teuersten Tage zu beziehen, sondern zusätzlich auch auf
+					die günstigsten bzw. teuersten <emphasis role="italic">Anteile</emphasis>
+					der Tagespreise. Dies wird erreicht, indem nur PriceItems mit bestimmten
+					Klassennamen in die Berechnung der Tagespreise einfließen
+					(<code>ConsideredPriceItemClasses</code> ) oder alternativ PriceItems
+					mit bestimmten Klassennamen ausgeschlossen werden
+					(<code>NotConsideredPriceItemClasses</code>). Weiterhin ist zu beachten,
+					dass die <code>DayPriceIndex</code>-Condition den Typ des Tages spezifiziert
+					(Stay oder CheckInOut).</para><para xml:id="en_3684" xml:lang="en">For the evaluation of the <code>Condition</code> at the time of execution <code>ImpactExecutionOrder=Last</code> , it is necessary to calculate the day prices, in order to be able to evaluate the subconditions on the cheapest or most expensive days (<code>DayImpact</code> , <code>DayPriceIndex</code> ). In this condition, it is not only possible to refer to the cheapest or most expensive days, but also to refer the cheapest or most expensive <emphasis role="italic">components</emphasis> of the day prices. This is achieved in that only PriceItems with certain class names are taken into consideration for the day prices ( <code>ConsideredPriceItemClasses</code> ) or alternatively, PriceItems with certain class names can be excluded (<code>NotConsideredPriceItemClasses</code> ). It should also be noted that the <code>DayPriceIndex</code>  condition specifies the type of day (Stay or CheckInOut).</para>
+				<para xml:id="de_3685" xml:lang="de">Es wird davon ausgegangen, dass alle PriceItems in der Kostenmatrix im Sinne der
+					<code>Condition</code> mit <code>ImpactExecutionOrder=AfterCombinatorics</code>
+					gültig sind. Die Berechnung folgt folgendem Ablauf:</para><para xml:id="en_3685" xml:lang="en">It is assumed that all PriceItems in the cost matrix are valid in the sense of the <code>Condition</code> with <code>ImpactExecutionOrder=AfterCombinatorics</code> . The calculation follows the following sequence:</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_3686" xml:lang="de">Es werden die relevanten Tage durch Auswertung des Attributes
+							<code>IntervalType</code> der Condition <code>DayPriceIndex</code>
+							bestimmt. Dieses Attribut definiert, ob <code>Stay</code>-Tage oder
+							<code>CheckInOut</code>-Tage bezüglich der Preishöhe betrachtet werden.
+						</para><para xml:id="en_3686" xml:lang="en">The relevant days are defined via the evaluation of the attribute <code>IntervalType</code> of the condition <code>DayPriceIndex</code>  This attribute defines whether <code>Stay</code>  days or <code>CheckInOut</code>  days are being regarded in relation to the price level.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3687" xml:lang="de">Für alle Day/Person-Knoten der relevanten Tage werden die Kosten jedes
+							Kostenknotens ermittelt. Jedes PriceItems innerhalb des Kostenknotens wird
+							zunächst auf Relevanz überprüft. </para><para xml:id="en_3687" xml:lang="en">The costs of every cost node are calculated for all day/person nodes of the relevant days. Each PriceItem within the cost node is firstly checked for relevance.</para>
+						<para xml:id="de_3688" xml:lang="de">Ein PriceItem ist relevant, wenn folgende Kriterien erfüllt sind:</para><para xml:id="en_3688" xml:lang="en">A PriceItem is relevant if the following criteria are fulfilled:</para>
+						
+						<itemizedlist>
+							<listitem>
+								<para xml:id="de_3689" xml:lang="de">Bei Angabe von <code>ConsideredPriceItemClasses</code> der
+									Klassenname des PriceItems angegeben ist</para><para xml:id="en_3689" xml:lang="en">The class name of the PriceItem is specified with the specification of the <code>ConsideredPriceItemClasses</code> </para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_3690" xml:lang="de">Bei Angabe von <code>NotConsideredPriceItemClasses</code> der
+									Klassenname des PriceItems nicht angegeben ist</para><para xml:id="en_3690" xml:lang="en">The class name of the PriceItem is not specified with the specification of the <code>NotConsideredPriceItemClasses</code> </para>
+							</listitem>
+						</itemizedlist>
+						<para xml:id="de_4956" xml:lang="de">
+							Falls das absolute PriceItem des Kostenknotens nicht relevant
+							ist, sind die Kosten des Kostenknotens Null. Ansonsten errechnen sich die
+							Kosten der Kostenknotens aus dem Wert des absoluten PriceItems multipliziert
+							mit den Werten aller relevanten relativen PriceItems.</para><para xml:id="en_4956" xml:lang="en">In a case where the absolute PriceItem of the cost node is not relevant, the cost of the cost node is zero. Otherwise, the costs of the cost node can be calculated from the value of the absolute PriceItem, multiplied by the values of all relevant relative PriceItems.</para>
+						<para xml:id="de_3691" xml:lang="de">Um die Kosten des Day/Person-Knotens zu bestimmen, werden die ermittelten
+							Kosten der Kostenknoten summiert.</para><para xml:id="en_3691" xml:lang="en">In order to determine the cost of a day/person node, the ascertained costs of the cost node are added.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3692" xml:lang="de">Anschliessend erfolgt die Kostenberechnung für jeden Tag
+							durch Bildung der Spaltensummern in der Kostenmatrix wie oben
+							beschrieben.</para><para xml:id="en_3692" xml:lang="en">Next, the cost calculation for each day is carried out through the creation of column sums in the matrix, as described above.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3693" xml:lang="de">Die Tage werden nach den ermittelten Tagespreisen
+							aufsteigend sortiert. Sollte eine eindeutige Sortierung aufgrund
+							gleicher Tagespreise nicht möglich sein, wird in zweiter Ordnung
+							aufsteigend nach Datum sortiert. Daraus ergeben sich
+							Positionsindizes für die Tage, die in der
+							<code>DayPriceIndex</code>-Bedingung für die Adressierung der Tage
+							genutzt werden. </para><para xml:id="en_3693" xml:lang="en">The days are sorted in ascending order of the day prices calculated. If unambiguous sorting is not possible due to identical day prices, then sorting can secondarily use the ascending date order. From this, position indices are created for the days in which the <code>DayPriceIndex</code> condition is used for the addressing of the days.</para>
+					</listitem>
+				</itemizedlist>
+				<para xml:id="det_3694" xml:lang="de"/>
 			</section>
 			<section xml:id="OtdsProcessBooking">
 				<title><phrase xml:id="de_3698" xml:lang="de">Verarbeitung der <code>BookingParameter</code></phrase><phrase xml:id="en_3698" xml:lang="en">Processing of the <code>BookingParameter</code> </phrase></title>
@@ -23756,6 +23815,7 @@ usw.]]></programlisting>
 						Die OTDS-Empfehlung ist, alle Zeiten 2 Tage rund um Zeitumstellungstermine
 						mit dem Attribut "UTCOffsetOfTimeZone" zu versehen. </para>
 				</section>
+			</section>
 			</section>
 		</section>
 	</section>
