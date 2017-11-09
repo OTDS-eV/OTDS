@@ -1199,11 +1199,57 @@
 						Preisbestandteile.</para><para xml:id="en_771" xml:lang="en">Travel components are as described previously: Accommodation (Accommodations), flights (Flights), additional services (Addons), and are supplied in the corresponding branches: Accommodations, Flights, AddonServices. In the travel components, price components (PriceItems), availability (Availabilities) and properties (Properties) are also supplied. The calculation of the price occurs at the point of product creation and uses the supplied rules for the combinability of the price components.</para>
 					<para xml:id="de_772" xml:lang="de">Eine typische Datenlieferung wird nur wenige Einträge zu den Produkten benötigen, da
 						hier mit wenigen generischen Regeln alles Notwendige abbildbar ist. </para><para xml:id="en_772" xml:lang="en">A typical data delivery will only require a few entries for the products, as it is possible here to describe everything necessary using a few generic rules.</para>
-					<para xml:id="de_773" xml:lang="de">In OTDS ist es somit möglich, "Nur-Hotel"- und
+					<para xml:id="det_773" xml:lang="de">In OTDS ist es somit möglich, "Nur-Hotel"- und
 						"Pauschaldaten" aber auch andere Produkttypen in einer Datenlieferung
-						zusammenzufassen. </para><para xml:id="en_773" xml:lang="en">In OTDS it is therefore possible to combine "Hotel-Only" and "Package" data, as well as other product types in a data delivery.</para>
+						zusammenzufassen und mit Hilfe der Regeln zu definieren, welche Komponente in welchem Kontext verwendet werden darf und wieviel die Komponente bei dieser Verwendung kosten soll. </para><para xml:id="en_773" xml:lang="en">In OTDS it is therefore possible to combine "Hotel-Only" and "Package" data, as well as other product types in a data delivery.</para>
+					<para>Kernpunkt der Produktdefinition sind zum Einen die verschiedenen
+						<code>ProductType</code>-Angaben</para>
+					<informaltable border="0" style="border-collapse:  collapse;width:200pt" width="900">
+						<thead>
+							<tr>
+								<td rowspan="1" colspan="1">ProductType</td>
+								<td rowspan="1" colspan="1"><para xml:id="det_8618" xml:lang="de">Bedeutung</para></td>
+							</tr>
+						</thead>
+						
+						<tr>
+							<td rowspan="1" colspan="1">AccommodationOnly</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8610" xml:lang="de">Angebote, die nur das Hotel ohne jeglichen Transfer/Flug enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">FlightAccommodation</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8611" xml:lang="de">Angebote, die Flüge enthalten und zwischen den Flügen zusätzlich Hotelunterkünfte enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">OnewayFlightOnly</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8612" xml:lang="de">Angebote, die nur eine Flugstrecke ohne Aufenthalt zwischen den Flügen enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">ReturnFlightOnly</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8613" xml:lang="de">Angebote, die nur einen Hinflug und einen Rückflug ohne zusätzliche Unterkunft enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">Addon</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8614" xml:lang="de">Angebote, die als Zusatzleistung zu anderen Reiseleistungen verkauft werden.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">AccommodationForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8615" xml:lang="de">Unterkünfte, die zur Paketierung mit Flügen genutzt werden können.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">ReturnFlightForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8616" xml:lang="de">ReturnFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">OnewayFlightForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8617" xml:lang="de">OnewayFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para></td>
+						</tr>
+					</informaltable>
+					<para>zum Anderen sind es die sehr flexiblen Regeln, mit denen die Kombinierbarkeit der Komponenten in Abhängigkeit der Verwendung festgelegt werden können.</para>
 					<para xml:id="de_774" xml:lang="de">Die Regeln zur Produktbildung sind fast identisch mit den Regeln zur Erweiterung von
 						Komponenten.</para><para xml:id="en_774" xml:lang="en">The rules for product creation are almost identical with the rules for the extension of components.</para>
+					<para xml:id="de_8621" xml:lang="de">Beispiele für die Definition verschiedener Produktarten und weitere Erklärungen finden Sie im Praxiskapitel 2 zu <link
+						linkend="OtdsProductsComponentsProducts">Produktdefinitionen</link>.</para>
 					<para xml:id="de_775" xml:lang="de">Beispiele und weitere Erklärungen, wie diese Regeln genau
 						angewendet werden, erfahren Sie im Kapitel über die <link
 							linkend="OtdsStrategyRules">Regelwerke zur Bildung von Produkten oder
@@ -5046,23 +5092,72 @@
 							</section>
 				</section>
 			</section>
-
-				<section xml:id="OtdsStrategyConditionBasicsGlobalValues">
-					<title><phrase xml:id="de_1095" xml:lang="de">Konfigurationsparameter (GlobalValues)</phrase><phrase xml:id="en_1095" xml:lang="en">Configuration parameter (GlobalValues)</phrase></title>
-					<para xml:id="de_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS durch das Vertriebssystem von außen
-						vorgegeben werden. Die Angabe der GlobalValues erfolgt in dem Zweig "Products".
-						Die Werte fließen in die Produktbildung und Preisberechnung mit ein. Beispiele für
-						GlobalValues sind die Angabe von Subcontractors (Exklusivkunden) oder spezifischen
-						SalesChannel wie Onlinevertrieb und Reisebürovertrieb. </para><para xml:id="en_1096" xml:lang="en">GlobalValues are values which are predefined externally by the sales system in OTDS. The specification of the GlobalValues is carried out in the "Products" branch. The values enter into the product creation and price calculation. Examples for GlobalValues are the specification of subcontractors (exclusive clients) or specific SalesChannels such as online sales and travel agency sales.</para>
-					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Keys-Conditions und Tags-Conditions
-						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Keys conditions and Tags conditions.</para>
+			<section xml:id="OtdsStrategyGlobalValues">
+				<title><phrase xml:id="de_1095" xml:lang="de"> Steuerung der Angebote und Preise für bestimmte
+							Märkte, Vertriebsysteme , Vertriebschannels oder Vertriebspartner mit
+							Konfigurationsparametern (GlobalValues)</phrase><phrase xml:id="en_1095"
+							xml:lang="en">Stearing of offers and prices for markets, distribution systems, distribution channels and distributors by configuration parameter (GlobalValues)</phrase></title>
+				<section xml:id="OtdsStrategyGlobalValuesOverview">
+					<title><phrase xml:id="de_6006" xml:lang="de">Überblick</phrase><phrase xml:id="en_6006"
+							xml:lang="en">Overview</phrase></title>
+					<para xml:id="det_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS-Lieferung definiert werden, um die Angebote und Preise passend zum Verarbeitungskontext zu beeinflussen.
+						Ein Verarbeitungskontext einer OTDS-Verarbeitung deckt dabei in der Regel mehrere Kontext-Szenarien ab.
+						Beispiel: Ich verarbeite die OTDS-Daten im Kontext des deutschen Marktes, für das Vertriebsystem "Traffics", für Reisebüros und für die Währung Euro. 
+						Je nach den eingestellten Kontextszenarien der Datennutzung sorgt das theoretische OTDS-Verarbeitungsmodell dafür, dass die Verarbeitung der OTDS-Daten passend zum Verarbeitungs-Kontext zum richtigen Ergebnis führt.
+						Jedes Kontextszenario gehört zu einem bestimmten Kontext-Typ.	
+					</para>
+					<itemizedlist>
+						<para>Folgende Kontext-Typen gibt es derzeit:</para>
+						<listitem>
+							<para xml:lang="de">Distributionsystem-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Markt-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Currency-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">DistributionChannel-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Distributor-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Reseller-Kontext</para>
+						</listitem>
+					</itemizedlist>
+					<para>
+						  
+						In OTDS entspricht ein definiertes Kontext-Szenario der Definition eines <code>GlobalValues</code>. 
+						Die Angabe der <code>GlobalValues</code> erfolgt in dem Zweig <code>OTDS/Products/GlobalValues/</code>".
+						Zum Beispiel definiert der folgende GlobalValue das Kontext-Szenario für den deutschen Markt.</para>
+					<programlisting><![CDATA[<Products>
+   <GlobalValue Key="SalesMarketDE">
+    <Tags>
+     <Tag Class="SalesMarket">DE</Tag>
+    </Tags>
+    <ParameterSet Key="DE">
+     <SalesMarket>DE</SalesMarket>
+    </ParameterSet>
+   </GlobalValue>
+  </Products>]]></programlisting>
+					<para xml:lang="de"> Jeder <code>GlobalValue</code> definiert einen <code>Key</code> oder auch
+					ein oder mehrere <code>Tags</code>. Die entsprechende Integration dieser Keys
+					oder Tags in entsprechenden <code>Filter</code> und <code>Condition</code>
+					beeinflusst die Produktbildung und Preisberechnung passend zum jeweiligen
+					Verarbeitungs-Kontext. Die Kontext-Szenarios werden durch die Angabe spezifischer
+						<code>ParameterSets</code> innerhalb des <code>GlobalValue</code> festgelegt. Beispiele der verschiedenen
+						Kontext-Typen und der <code>ParameterStes</code>finden Sie in den folgenden Unterkapiteln.</para>
+					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Key-Conditions und Tag-Conditions
+						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Key conditions and Tag conditions.</para>
 					<figure>
 						<info>
 							<title><phrase xml:id="de_1098" xml:lang="de">GlobalValues</phrase><phrase xml:id="en_1098" xml:lang="en">GlobalValues</phrase></title>
 						</info>
 						<mediaobject>
 							<imageobject>
-								<imagedata fileref="figures/globalvalues.png" format="PNG" contentwidth="80%"/>
+								<imagedata fileref="figures/globalvalues.png" format="PNG" contentwidth="50%"/>
 							</imageobject>
 							<textobject>
 								<para xml:id="de_1099" xml:lang="de">GlobalValues</para><para xml:id="en_1099" xml:lang="en">GlobalValues</para>
@@ -5071,14 +5166,38 @@
 					</figure>
 					<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 						Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
-					
-					<section xml:id="OtdsStrategyConditionBasicsGlobalValuesFeatureContext">
-						<title><phrase xml:id="de_6147" xml:lang="de"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase><phrase xml:id="en_6147" xml:lang="en"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase></title>
-						<para xml:id="det_6146" xml:lang="de">Mit diesem <code>GlobalValue/FeatureContext</code> kann man einen <code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn dieser <code>FeautureContext</code> gewünscht ist. Die Verarbeitung mit einem spezifisches <code>FeautureContext</code> kann zu einem anderen Ergebnis führen als ohne den <code>FeautureContext</code>.
-							Derzeit gibt es nur einen <code>FeautureContext</code>=<code>CityPairProduction</code>.
-							Mit diesem <code>FeautureContext</code> erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des <code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
-					</section>
 				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributionSystems">
+					<title><phrase xml:id="det_6000" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebsysteme</phrase></title>
+						<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesMarkets">
+					<title><phrase xml:id="det_6001" xml:lang="de">Regelwerke zur Steuerung spezifischer Märkte</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesCurencies">
+					<title><phrase xml:id="det_6002" xml:lang="de">Regelwerke zur Steuerung spezifischer Währungen</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributionChannels">
+					<title><phrase xml:id="det_6003" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebschannels</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributors">
+					<title><phrase xml:id="det_6004" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebspartner</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesResellers">
+					<title><phrase xml:id="det_6005" xml:lang="de">Regelwerke zur Steuerung spezifischer Reseller</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyConditionBasicsGlobalValuesFeatureContext">
+					<title><phrase xml:id="de_6147" xml:lang="de"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase><phrase xml:id="en_6147" xml:lang="en"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase></title>
+					<para xml:id="det_6146" xml:lang="de">Mit diesem <code>GlobalValue/FeatureContext</code> kann man einen <code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn dieser <code>FeautureContext</code> gewünscht ist. Die Verarbeitung mit einem spezifisches <code>FeautureContext</code> kann zu einem anderen Ergebnis führen als ohne den <code>FeautureContext</code>.
+						Derzeit gibt es nur einen <code>FeautureContext</code>=<code>CityPairProduction</code>.
+						Mit diesem <code>FeautureContext</code> erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des <code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
+				</section>
+			</section>
 				<section xml:id="OtdsStrategyRules">
 					<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Bildung von Produkten und Kombination von Komponenten</phrase><phrase xml:id="en_1115" xml:lang="en">Rule sets for the compilation of products and combination of components</phrase></title>
 					<section>
@@ -6785,7 +6904,6 @@ usw.]]></programlisting>
 						
 					</section>
 				</section>
-			
 			<section xml:id="OtdsStrategyConditionalTag">
 				<title><phrase xml:id="de_6276" xml:lang="de">Bedingte Kennzeichnung von Knoten aber auch Personen und Tagen zur Preisberechnung
 					(ConditionalTags)</phrase><phrase xml:id="en_6276" xml:lang="en">Conditional marking of nodes, as well as persons and days, for price calculation (ConditionalTags)</phrase></title>
@@ -10478,6 +10596,18 @@ usw.]]></programlisting>
 								<entry>
 									<para xml:id="de_1749" xml:lang="de"> </para><para xml:id="en_1749" xml:lang="en"/>
 								</entry>
+							</row>
+							<row valign="top">
+								<entry>
+									<para xml:id="de_8619" xml:lang="de">Unterkünfte, die für die Paketierung benutzt werden können.</para>
+								</entry>
+								<entry/>
+							</row>
+							<row valign="top">
+								<entry>
+									<para xml:id="de_8620" xml:lang="de">Flüge, die für die Paketierung benutzt werden können.</para>
+								</entry>
+								<entry/>
 							</row>
 						</tbody>
 					</tgroup>

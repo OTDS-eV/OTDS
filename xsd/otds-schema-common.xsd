@@ -756,6 +756,18 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl de
 							<xs:documentation xml:lang="en" xml:id="en_96">Under this branch the reservation parameters for the corresponding brand are placed.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Brand.
+Zum Beispiel: 
+- MarketingBrandName
+- MarketingBrandCode
+</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_6">Master data for accommodation:
+Name, address, location of accommodation, category
+Features and characteristics of the property</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -923,14 +935,6 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 							</xs:complexContent>
 						</xs:complexType>
 					</xs:element>
-					<xs:element name="VirtualComponent" type="RuleVirtualComponentType">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem
-								definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
-								Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
-							</xs:documentation>
-						</xs:annotation>
-					</xs:element>
 					<xs:element name="AccommodationWrapper" type="RuleAccommodationWrapperComponentType" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_549">Dieses Element definiert, dass in dem
@@ -971,6 +975,36 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 							<xs:documentation xml:lang="en" xml:id="en_551">This element defines that an AddonWrapper is part of the defined product. 
 							The AddonWrapper contains one or more Addon components. If there are several AddonWrapper, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
 The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ExternalComponent">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_">Dieses Element definiert, dass dieses Produkt zwingend eine externe, also nicht in der Lieferung enthaltene, Komponente des mit @Role definierten Typs benötigt. Das verarbeitenden System ergänzt das Produkt um die externe Komponenten.
+				Erst mit dieser externen Komponente ist das Produkt vollständig. Die externe Komponente ist immer zeit - und personenallozierend. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
+				Key-, Tag, ConditionalTag-, Filtern oder Conditions in Kombination mit externen Komponenten werden derzeit explizit als "False" ausgewertet.
+
+Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
+
+Das optionale Attribut "Name" ermöglicht einen möglichen Bezug auf diese Komponente in Filtern und Conditions über das Attribute "Source" in Kombination mit dem Präfix "#"+Name. 
+
+Die klassische Product-Definition eines DataMix-Produktes besteht damit aus 3 Components:
+1. ExternalComponent "Outbound"
+2. Accommodation
+3. ExternalComponent "Inbound" 
+</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="RuleExternalComponentType"/>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="VirtualComponent" type="RuleVirtualComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem
+								definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
+								Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
+							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
@@ -1992,6 +2026,18 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
+			<xs:element name="MarketingBrandName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_141">Enthält den MarketingBrandNamen unter dem das Angebot verkauft werden soll. In den meisten Fällen entspricht dies dem Veranstaltenamen des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben. Beispiel FTI und XFTI.   Die Definition des MarketingBrandNames erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MarketingBrandCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_141">Enthält ein Kürzel, welches die MarketingBrand des Angebotes definiert. In den meisten Fällen entspricht die MarketingBrand dem Buchungscode des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben und trotzdem mit dem Buchungscode des Veranstalters gebucht. Beispiel FTI und XFTI.   Die Definition der MarketingBrand erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="AccommodationCity" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_141">Stadt, in der die Unterkunft / das Hotel liegt.</xs:documentation>
@@ -2985,15 +3031,24 @@ A more detailed description of the attributes can be found in the "Thematic docu
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
+	<xs:group name="DistributorIdentificationGroup">
+		<xs:sequence>
+			<xs:element name="CrsSystem" type="CrsSystemEnum"/>
+			<xs:element name="AgencyCode" type="xs:string"/>
+			<xs:element name="BrandCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="ResellerType">
+		<xs:choice>
+			<xs:element name="ResellerType" type="ResellerTypeEnum"/>
+			<xs:group ref="DistributorIdentificationGroup"/>
+		</xs:choice>
+	</xs:complexType>
 	<xs:complexType name="ParameterSetType">
 		<xs:complexContent>
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:choice>
-					<xs:sequence>
-						<xs:element name="CrsSystem" type="CrsSystemEnum"/>
-						<xs:element name="AgencyCode" type="xs:string"/>
-						<xs:element name="BrandCode" type="xs:string"/>
-					</xs:sequence>
+					<xs:group ref="DistributorIdentificationGroup"/>
 					<xs:element name="SalesChannel" type="SalesChannelEnum">
 						<xs:annotation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten SalesChannel. Die möglichen Werte sind:
@@ -3034,6 +3089,11 @@ Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
 Derzeit gibt es nur einen FeautureContext "City-Pair-Production".
 
 Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Reseller" type="ResellerType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
@@ -4789,6 +4849,12 @@ For the complete list see the technical documentation.</xs:documentation>
 			<xs:enumeration value="Merlin"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="ResellerTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PackageMixResellers"/>
+			<xs:enumeration value="PureResellers"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="SalesChannelEnum">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_274">Definiert verschiedene SalesChannel</xs:documentation>
@@ -6014,6 +6080,32 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 	</xs:complexType>
 	<xs:complexType name="RuleVirtualComponentType">
 		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
+	</xs:complexType>
+	<xs:complexType name="RuleExternalComponentType">
+		<xs:attribute name="Name" type="NameType">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_105">Dieses Element definiert einen Namen, der innerhalb der ProductRules von den Filtern innerhalb des Attributes "Source" in Kombination mit dem Präfix "#" als Referenz benutzt werden kann. 
+							</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_105">This element defines a name within the product rules of the filters using the "Source" attribute as the reference.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
+		<xs:attribute name="Role" type="RoleEnum" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="det_342">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
+Aktuell können explizit nur nur Flughafenbedingungen bzgl. der externen Komponente formuliert werden. 
+Dementsprechend werden Key-, Tag- und ConditionalTag-Filter und -Conditions in Kombination mit externen Komponenten explizit als "False" ausgewertet.
+
+
+Mögliche Werte für die Role sind: 
+
+- OnewayFlight
+- Outbound
+- Inbound
+- Accommodation
+- Addon</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="KeyConditionType">
 		<xs:simpleContent>

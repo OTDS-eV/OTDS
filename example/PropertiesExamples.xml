@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.9.1" UpdateMode="New">
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.9.3" UpdateMode="New">
 	<Products UpdateMode="New">
 		<Product Key="AccomOnly" ProductType="AccommodationOnly" UpdateMode="New">
 			<Components UpdateMode="New">
@@ -8,14 +8,53 @@
 		</Product>
 	</Products>
 	<Brands UpdateMode="New">
-		<Brand Key="TO1" UpdateMode="New">
+		<!--Hier die Definition einer Standardbrand anhand des Beispiels "Big Xtra". Der Buchungscode ist identisch mit dem MarketingBrandCode.  -->
+		<Brand Key="BIG" UpdateMode="New">
 			<Booking UpdateMode="New">
-				<BookingGroup Source="ThisComponent" Area="GlobalArea" Class="Default" Priority="0">
-					<BookingParameter Field="BrandCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
-						<Value>TO1</Value>
+				<BookingGroup  Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>BIG</Value>
 					</BookingParameter>
 				</BookingGroup>
 			</Booking>
+			<Properties Key="1">
+				<PropertyGroup>
+					<MarketingBrandName>Big Xtra GmbH</MarketingBrandName>
+					<MarketingBrandCode>BIG</MarketingBrandCode>
+				</PropertyGroup>
+			</Properties>
+		</Brand>
+		<!--Hier die Definition einer spezifischen MarketingBrand, die aber über den Standard-Veranstalterbuchungscode gebucht wird.  -->
+		<Brand Key="SKTV" UpdateMode="New">
+			<Booking UpdateMode="New">
+				<BookingGroup  Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>BIG</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Properties Key="1">
+				<PropertyGroup>
+					<MarketingBrandName>Sonnenklar TV</MarketingBrandName>
+					<MarketingBrandCode>SKTV</MarketingBrandCode>
+				</PropertyGroup>
+			</Properties>
+		</Brand>
+		<!--Hier die Definition eines der DatMix-Veranstalters, der in der Regel auch wie eine spezifische MarketingBrand aufgebaut ist und in der Regel auch über den Standard-Veranstalterbuchungscode gebucht wird.  -->
+		<Brand Key="XBIG" UpdateMode="New">
+			<Booking UpdateMode="New">
+				<BookingGroup  Area="GlobalArea">
+					<BookingParameter Field="BrandCode">
+						<Value>BIG</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Properties Key="1">
+				<PropertyGroup>
+					<MarketingBrandName>Big Xtra GmbH XBIG</MarketingBrandName>
+					<MarketingBrandCode>XBIG</MarketingBrandCode>
+				</PropertyGroup>
+			</Properties>
 		</Brand>
 	</Brands>
 	<Accommodations UpdateMode="New">
