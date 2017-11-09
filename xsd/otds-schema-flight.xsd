@@ -20,6 +20,11 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 				<xs:sequence>
 					<xs:element name="OnewayFlights" type="OnewayFlightsType" minOccurs="0"/>
 					<xs:element name="ReturnFlights" type="ReturnFlightsType" minOccurs="0"/>
+					<xs:element name="FlightWrapper" type="WrapperType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_547">Die FlightWrapper definieren eine zusätzliche Instanz zwischen der ComponentenInstanz "Flights" und der eigentlichen "OnewayFlight"-Komponente. In der Produktregel oder in DefinedComponents können hierarchische Abhängigkeiten zwischen den FlightWrappern und den OnewayFlights festgelegt werden. FlightWrapper werden dazu benutzt, die Abhängigkeit zwischen mehreren OnewayFlights bei kombinierten OnewayFlights abzubilden. Für mehr Details dazu finden Sie in der Dokumentation unter dem Schlagwort "Wrapper-Komponenten" und in Beispiel "WrapperComponent_Examples.xml".</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_492">Preisbestandteile auf dieser Ebene gelten sowohl für OnewayFlights als auch für ReturnFlights.

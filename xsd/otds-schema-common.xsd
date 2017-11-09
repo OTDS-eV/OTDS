@@ -927,7 +927,50 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem
 								definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
-								Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.</xs:documentation>
+								Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccommodationWrapper" type="RuleAccommodationWrapperComponentType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_549">Dieses Element definiert, dass in dem
+								definierten Produkt ein AccommodationWarpper enthalten ist, der eine oder mehrere Accommodations enthalten. 
+								Falls mehrere AccommodationWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_549">This element defines that an AccommodationWrapper is part of the defined product. 
+							The AccommodationWrapper contains one or more accommodation components. If there are several AccommodationWrappers, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FlightWrapper" type="RuleFlightWrapperComponentType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_550">Dieses Element definiert, dass in dem
+								definierten Produkt ein FlightWrapper enthalten ist, der eine oder mehrere OnewayFlights enthalten. 
+								Falls mehrere FlightWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_550">This element defines that an FlightWrapper is part of the defined product. 
+							The FlightWrapper contains one or more OnewayFlight components. If there are several FlightWrapper, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AddonWrapper" type="RuleAddonWrapperComponentType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_551">Dieses Element definiert, dass in dem
+								definierten Produkt ein AddonWrapper enthalten ist, der eine oder mehrere Addons enthalten. 
+								Falls mehrere AddonWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_551">This element defines that an AddonWrapper is part of the defined product. 
+							The AddonWrapper contains one or more Addon components. If there are several AddonWrapper, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
@@ -3950,6 +3993,38 @@ https://en.wikipedia.org/wiki/Airline_codes
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="WrapperType">
+		<xs:complexContent>
+			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+				<xs:sequence>
+					<xs:element name="Booking" type="BookingType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_538">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_538">In this element, all values ​​required for booking are combined. Other namespaces can be added to the BookingEntry later, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_539">Merkmale und Eigenschaften des AccommodationWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_539">Features and characteristics of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_540">Einschränkungen des AccommodationWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_540">Restrictions of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_541">Preisbestandteile des AccommodationWrappers </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_541">Pricing components of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
@@ -4588,6 +4663,10 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="Outbound"/>
 			<xs:enumeration value="Inbound"/>
 			<xs:enumeration value="Accommodation"/>
+			<xs:enumeration value="Addon"/>
+			<xs:enumeration value="AccommodationWrapper"/>
+			<xs:enumeration value="FlightWrapper"/>
+			<xs:enumeration value="AddonWrapper"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ExecutionOrderEnum">
@@ -5733,6 +5812,63 @@ This is based on the total number of nights For this reason the return date is e
 				<xs:sequence maxOccurs="2">
 					<xs:element name="SellingAccom" type="RuleSellingAccomComponentType" minOccurs="0"/>
 				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleAccommodationWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="Accommodation" type="RuleAccommodationComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_551">Hier können nur CombiComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_552">Hier können nur DefinedComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleFlightWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="OnewayFlight" type="RuleOnewayFlightComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_553">Hier können nur CombiComponents mit der Role="OnewayFlight" oder "Outbound" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_554">Hier können nur DefinedComponents mit der Role="OnewayFlight" oder "Outbound" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleAddonWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="Addon" type="RuleAddonComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_555">Hier können nur CombiComponents mit der Role="Addon" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_556">Hier können nur DefinedComponents mit der Role="Addon" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
