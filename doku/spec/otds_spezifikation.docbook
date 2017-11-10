@@ -4,7 +4,7 @@
 ]>
 <!-- <book xmlns="http://docbook.org/ns/docbook" version="5.0">
     <title>OTDS - Open Travel Data Structure</phrase></title>-->
-<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="OtdsSpec" version="5.0" class="specification">
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="OtdsSpec" version="5.0" class="specification" xmlns:internal="http://otds-group.org/otds/internal">
 	<info xml:id="OtdsSpecInfo">
 		<title><phrase xml:id="de_527" xml:lang="de">OTDS Spezifikation Version 1.9.3</phrase><phrase xml:id="en_527" xml:lang="en">OTDS Specification Version 1.9.3</phrase></title>
 		<authorgroup>
@@ -251,17 +251,18 @@
 				<bridgehead xml:id="de_581" xml:lang="de">Komponente</bridgehead><bridgehead xml:id="en_581" xml:lang="en">Component</bridgehead>
 				<para xml:id="de_582" xml:lang="de">Eine Komponente stellt in OTDS eine Reisekomponente dar. In dem Sinne gibt es aktuell in
 					OTDS folgende Komponenten: </para><para xml:id="en_582" xml:lang="en">A component describes a travel component in OTDS. In this sense, OTDS currently has the following components:</para>
-				<para xml:id="de_583" xml:lang="de">Unterkünfte, Flüge und Zusatzleistungen.</para><para xml:id="en_583" xml:lang="en">Accommodation, flights and additional services.</para>
+				<para xml:id="de_583" xml:lang="de">Unterkünfte (<code>Accommodations</code>), Flüge (<code>Flights</code>) und
+					Zusatzleistungen (<code>Addons</code>).</para><para xml:id="en_583" xml:lang="en">Accommodation (<code>Accommodations</code>), flights (<code>Flights</code>) and additional services (<code>Addons</code>).</para>
 				<bridgehead xml:id="de_584" xml:lang="de">Unterkomponente</bridgehead><bridgehead xml:id="en_584" xml:lang="en">Subcomponent</bridgehead>
 				<para xml:id="de_585" xml:lang="de">Die Unterkomponenten beschreiben die verschiedenen Ausprägungen einer Komponente.
 					Folgende Unterkomponenten sind in OTDS definiert: 
 				</para><para xml:id="en_585" xml:lang="en">The subcomponents describe the various manifestations of a component. The following subcomponents are defined in OTDS:</para>
 				<itemizedlist>
 					<listitem>
-						<para xml:id="de_586" xml:lang="de">Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; Board</para><para xml:id="en_586" xml:lang="en">Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; Board</para>
+						<para xml:id="de_586" xml:lang="de">Accommodations -&gt; Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; Board</para><para xml:id="en_586" xml:lang="en">Accommodations -&gt; Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; Board</para>
 					</listitem>
 					<listitem>
-						<para xml:id="de_587" xml:lang="de">Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; SellingUnit</para><para xml:id="en_587" xml:lang="en">Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; SellingUnit</para>
+						<para xml:id="de_587" xml:lang="de">Accommodations -&gt; Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; SellingUnit</para><para xml:id="en_587" xml:lang="en">Accommodations -&gt; Accommodation -&gt; SellingAccommodation -&gt; Unit -&gt; SellingUnit</para>
 					</listitem>
 					<listitem>
 						<para xml:id="de_588" xml:lang="de">Flights -&gt; OnewayFlights -&gt; OnewayFlight -&gt; BookingClass</para><para xml:id="en_588" xml:lang="en">Flights -&gt; OnewayFlights -&gt; OnewayFlight -&gt; BookingClass</para>
@@ -1059,17 +1060,32 @@
 						Praxisteil "Produktregeln" im Kapitel "Optionale und obligatorische Addons". </para><para xml:id="en_748" xml:lang="en">Some examples of how Addons can be assigned to products can be found in the practice section "Product rules" in the chapter "Optional and mandatory Addons".</para>
 				</section>
 				<section xml:id="OtdsStrategyComponentDefinedComponents">
-					<title><phrase xml:id="de_749" xml:lang="de">Neu definierte Komponenten (DefinedComponents)</phrase><phrase xml:id="en_749" xml:lang="en">Newly defined components (DefinedComponents)</phrase></title>
-					<para xml:id="de_750" xml:lang="de">Unter kombinierten Komponenten verstehen wir in OTDS, wenn mehrere
-						Einzel-Komponenten kombiniert werden und wiederum als Komponente in OTDS benutzt
-						werden.</para><para xml:id="en_750" xml:lang="en">In OTDS we understand combined components as being several individual components combined and then used themselves as components in OTDS.</para>
+					<title><phrase xml:id="de_749" xml:lang="de">Neu definierte Komponenten (DefinedComponents) und
+							Hüllen (Wrapper)</phrase><phrase xml:id="en_749" xml:lang="en">Newly
+							defined components (DefinedComponents) and wrappers
+						(Wrapper)</phrase></title>
+					<para xml:id="de_750" xml:lang="de">Unter kombinierten Komponenten verstehen wir in OTDS, wenn
+						mehrere homogene Einzel-Komponenten kombiniert werden und wiederum als
+						Komponente in OTDS benutzt werden.</para><para xml:id="en_750" xml:lang="en">In OTDS we understand combined components as being several
+						homogeneous components combined and then used themselves as a new component
+						in OTDS.</para>
 					<para xml:id="de_751" xml:lang="de">In OTDS werden die dazu notwendigen Regeln in der
-						Komponente "DefinedComponents" platziert. In OTDS V1.0 wurde diese
-						Vorgehensweise vorerst auf folgende Szenarien begrenzt:</para><para xml:id="en_751" xml:lang="en">In OTDS the rules required for this are located in the components "DefinedComponents". In OTDS V1.0 this process is for now limited to the following scenarios:</para>
-					
+						Komponente "DefinedComponent" platziert.</para><para xml:id="en_751" xml:lang="en">In OTDS the rules required for this are located in the
+						components "DefinedComponent".</para>
+					<para xml:id="de_766" xml:lang="de">In den DefinedComponents ist auch die Umsetzung von
+						sogenannten Flughüllen möglich. Flughüllen sind hier mehrere kombinierte
+						Einzelflüge, deren Buchungsparameter durch explizit für diese Kombination
+						definierte Parameter ersetzt werden. Die Flughüllen werden über die Regeln
+						individuell mit realen Flügen gefüllt. Gebucht wird letztendlich immer die
+						Flughülle, der dann innerhalb des Reservierungssystems die einzelnen
+						Flugkomponenten zugeordnet werden. Die Zuordnung der Einzelflüge innerhalb
+						des CRS-Systems regelt das CRS-System selbst. OTDS bildet lediglich genau
+						diese Regeln ab, um die Flüge in der Datenproduktion
+						zusammenzuführen.</para><para xml:id="en_766" xml:lang="en">In DefinedComponents it is also possible to produce so-called flight wrappers. Flight wrappers are defined here as several combined individual flights, whose booking parameters are replaced by parameters explicitly defined for this combination. The flight wrappers are individually filled with real flights in accordance with the rules. It is ultimately the flight wrapper which is booked, with the individual flight components then being allocated to it within the reservation system. The allocation of individual flights within the CRS system is regulated by the CRS system itself. OTDS describes these rules exactly in order to combine the flights in the data production.</para>
+					<bridgehead xml:id="de_753" xml:lang="de">Folgende Kombinationen sind möglich:</bridgehead><bridgehead xml:id="en_753" xml:lang="en">Following combnations are possible:</bridgehead>
 					<orderedlist numeration="loweralpha">
 						<listitem>
-							<bridgehead xml:id="de_753" xml:lang="de">Erweiterte Onewayflüge</bridgehead><bridgehead xml:id="en_753" xml:lang="en">Extended OnewayFlights</bridgehead>
+							<bridgehead xml:id="de_6250" xml:lang="de">Erweiterte Onewayflüge</bridgehead><bridgehead xml:id="en_6250" xml:lang="en">Extended OnewayFlights</bridgehead>
 							<para xml:id="de_754" xml:lang="de">In manchen Veranstaltersystemen werden einzelne OnewayFlüge durch andere
 								Onewayflüge erweitert. So ist es möglich, dass Hauptflüge mit
 								verschiedenen Zubringer- und Verteilerflügen zu einer Vielzahl von
@@ -1142,29 +1158,24 @@
 							</figure>
 							
 						</listitem>
+						<listitem>
+							<bridgehead xml:id="de_6251" xml:lang="de">Kombinationen von Unterkünften</bridgehead><bridgehead xml:id="en_6251" xml:lang="en">Combinations of accommodations</bridgehead>
+						</listitem>
+						<listitem>
+							<bridgehead xml:id="de_6252" xml:lang="de">Kombinationen von Zusatzleistungen</bridgehead><bridgehead xml:id="en_6252" xml:lang="en">Combinations of addon services</bridgehead>
+						</listitem>
 					</orderedlist>
 					
-					<bridgehead xml:id="de_765" xml:lang="de">Flughüllen in DefinedComponents</bridgehead><bridgehead xml:id="en_765" xml:lang="en">Flight wrappers in DefinedComponents</bridgehead>
-					<para xml:id="de_766" xml:lang="de">In den DefinedComponents ist auch die Umsetzung von
-						sogenannten Flughüllen möglich. Flughüllen sind hier mehrere kombinierte
-						Einzelflüge, deren Buchungsparameter durch explizit für diese Kombination
-						definierte Parameter ersetzt werden. Die Flughüllen werden über die Regeln
-						individuell mit realen Flügen gefüllt. Gebucht wird letztendlich immer die
-						Flughülle, der dann innerhalb des Reservierungssystems die einzelnen
-						Flugkomponenten zugeordnet werden. Die Zuordnung der Einzelflüge innerhalb
-						des CRS-Systems regelt das CRS-System selbst. OTDS bildet lediglich genau
-						diese Regeln ab, um die Flüge in der Datenproduktion
-						zusammenzuführen.</para><para xml:id="en_766" xml:lang="en">In DefinedComponents it is also possible to produce so-called flight wrappers. Flight wrappers are defined here as several combined individual flights, whose booking parameters are replaced by parameters explicitly defined for this combination. The flight wrappers are individually filled with real flights in accordance with the rules. It is ultimately the flight wrapper which is booked, with the individual flight components then being allocated to it within the reservation system. The allocation of individual flights within the CRS system is regulated by the CRS system itself. OTDS describes these rules exactly in order to combine the flights in the data production.</para>
-					<para xml:id="de_767" xml:lang="de">Die so zusammengestellten Flüge können sowohl als
+					<para xml:id="de_767" xml:lang="de">Die so zusammengestellten Komponenten können sowohl als
 						Einzelprodukte definiert als auch zur Kombination innerhalb von
-						Pauschalangeboten benutzt werden. </para><para xml:id="en_767" xml:lang="en">The flights which are combined in this way can either be defined as single products, or used for combinations within package offers.</para>
+						Pauschalangeboten benutzt werden. </para><para xml:id="en_767" xml:lang="en">The combined components can either be defined as single products, or used for combinations within package offers.</para>
 					<para xml:id="de_768" xml:lang="de">Beispiele und weitere Erklärungen, wie diese Regeln genau
 						angewendet werden, erfahren Sie im Kapitel über die <link
 							linkend="OtdsStrategyRules">Regelwerke zur Bildung von Produkten oder
-							auch zur Kombination von Flügen</link>.</para><para xml:id="en_768" xml:lang="en">Examples and further explanations of exactly how these rules are
+							auch zur Kombination von Komponenten</link>.</para><para xml:id="en_768" xml:lang="en">Examples and further explanations of exactly how these rules are
 						applied can be found in the chapter regarding the <link
 							linkend="OtdsStrategyRules"> rule sets for the composition of products
-							or for the combination of flights</link>.</para>
+							or for the combination of components</link>.</para>
 				</section>
 				<section xml:id="OtdsStrategyComponentProducts">
 					<title><phrase xml:id="de_769" xml:lang="de">Produkte und Produktregeln (Product-Rules)</phrase><phrase xml:id="en_769" xml:lang="en">Products and product rules (ProductRules)</phrase></title>
@@ -1188,11 +1199,57 @@
 						Preisbestandteile.</para><para xml:id="en_771" xml:lang="en">Travel components are as described previously: Accommodation (Accommodations), flights (Flights), additional services (Addons), and are supplied in the corresponding branches: Accommodations, Flights, AddonServices. In the travel components, price components (PriceItems), availability (Availabilities) and properties (Properties) are also supplied. The calculation of the price occurs at the point of product creation and uses the supplied rules for the combinability of the price components.</para>
 					<para xml:id="de_772" xml:lang="de">Eine typische Datenlieferung wird nur wenige Einträge zu den Produkten benötigen, da
 						hier mit wenigen generischen Regeln alles Notwendige abbildbar ist. </para><para xml:id="en_772" xml:lang="en">A typical data delivery will only require a few entries for the products, as it is possible here to describe everything necessary using a few generic rules.</para>
-					<para xml:id="de_773" xml:lang="de">In OTDS ist es somit möglich, "Nur-Hotel"- und
+					<para xml:id="det_773" xml:lang="de">In OTDS ist es somit möglich, "Nur-Hotel"- und
 						"Pauschaldaten" aber auch andere Produkttypen in einer Datenlieferung
-						zusammenzufassen. </para><para xml:id="en_773" xml:lang="en">In OTDS it is therefore possible to combine "Hotel-Only" and "Package" data, as well as other product types in a data delivery.</para>
+						zusammenzufassen und mit Hilfe der Regeln zu definieren, welche Komponente in welchem Kontext verwendet werden darf und wieviel die Komponente bei dieser Verwendung kosten soll. </para><para xml:id="en_773" xml:lang="en">In OTDS it is therefore possible to combine "Hotel-Only" and "Package" data, as well as other product types in a data delivery.</para>
+					<para>Kernpunkt der Produktdefinition sind zum Einen die verschiedenen
+						<code>ProductType</code>-Angaben</para>
+					<informaltable border="0" style="border-collapse:  collapse;width:200pt" width="900">
+						<thead>
+							<tr>
+								<td rowspan="1" colspan="1">ProductType</td>
+								<td rowspan="1" colspan="1"><para xml:id="det_8618" xml:lang="de">Bedeutung</para></td>
+							</tr>
+						</thead>
+						
+						<tr>
+							<td rowspan="1" colspan="1">AccommodationOnly</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8610" xml:lang="de">Angebote, die nur das Hotel ohne jeglichen Transfer/Flug enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">FlightAccommodation</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8611" xml:lang="de">Angebote, die Flüge enthalten und zwischen den Flügen zusätzlich Hotelunterkünfte enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">OnewayFlightOnly</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8612" xml:lang="de">Angebote, die nur eine Flugstrecke ohne Aufenthalt zwischen den Flügen enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">ReturnFlightOnly</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8613" xml:lang="de">Angebote, die nur einen Hinflug und einen Rückflug ohne zusätzliche Unterkunft enthalten.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">Addon</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8614" xml:lang="de">Angebote, die als Zusatzleistung zu anderen Reiseleistungen verkauft werden.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">AccommodationForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8615" xml:lang="de">Unterkünfte, die zur Paketierung mit Flügen genutzt werden können.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">ReturnFlightForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8616" xml:lang="de">ReturnFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">OnewayFlightForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="det_8617" xml:lang="de">OnewayFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para></td>
+						</tr>
+					</informaltable>
+					<para>zum Anderen sind es die sehr flexiblen Regeln, mit denen die Kombinierbarkeit der Komponenten in Abhängigkeit der Verwendung festgelegt werden können.</para>
 					<para xml:id="de_774" xml:lang="de">Die Regeln zur Produktbildung sind fast identisch mit den Regeln zur Erweiterung von
 						Komponenten.</para><para xml:id="en_774" xml:lang="en">The rules for product creation are almost identical with the rules for the extension of components.</para>
+					<para xml:id="de_8621" xml:lang="de">Beispiele für die Definition verschiedener Produktarten und weitere Erklärungen finden Sie im Praxiskapitel 2 zu <link
+						linkend="OtdsProductsComponentsProducts">Produktdefinitionen</link>.</para>
 					<para xml:id="de_775" xml:lang="de">Beispiele und weitere Erklärungen, wie diese Regeln genau
 						angewendet werden, erfahren Sie im Kapitel über die <link
 							linkend="OtdsStrategyRules">Regelwerke zur Bildung von Produkten oder
@@ -4748,7 +4805,8 @@
 						<para xml:id="de_1094" xml:lang="de">Weitere Details finden Sie in der <link xlink:href="../technisch/otds_technisch.html#DayPriceIndex">Technischen
 							Dokumentation für OTDS </link>.</para><para xml:id="en_1094" xml:lang="en">Further details can be found in the <link xlink:href="../technisch/otds_technisch.html#DayPriceIndex">Technical documentation for OTDS</link>.</para>
 						
-					</section><section xml:id="OtdsStrategyConditionBoolOperation">
+					</section>
+					<section xml:id="OtdsStrategyConditionBoolOperation">
 						<title><phrase xml:id="de_1101" xml:lang="de">Logische Verknüpfungen der Bedingungen</phrase><phrase xml:id="en_1101" xml:lang="en">Logical connectives of the conditions</phrase></title>
 						
 						<bridgehead xml:id="de_1102" xml:lang="de">Logische Verknüpfungen</bridgehead><bridgehead xml:id="en_1102" xml:lang="en">Logical connectives</bridgehead>
@@ -5032,24 +5090,74 @@
 	</PriceItem>
 </PriceItems>]]></programlisting>
 							</section>
-					</section>
+				</section>
 			</section>
-				<section xml:id="OtdsStrategyConditionBasicsGlobalValues">
-					<title><phrase xml:id="de_1095" xml:lang="de">Konfigurationsparameter (GlobalValues)</phrase><phrase xml:id="en_1095" xml:lang="en">Configuration parameter (GlobalValues)</phrase></title>
-					<para xml:id="de_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS durch das Vertriebssystem von außen
-						vorgegeben werden. Die Angabe der GlobalValues erfolgt in dem Zweig "Products".
-						Die Werte fließen in die Produktbildung und Preisberechnung mit ein. Beispiele für
-						GlobalValues sind die Angabe von Subcontractors (Exklusivkunden) oder spezifischen
-						SalesChannel wie Onlinevertrieb und Reisebürovertrieb. </para><para xml:id="en_1096" xml:lang="en">GlobalValues are values which are predefined externally by the sales system in OTDS. The specification of the GlobalValues is carried out in the "Products" branch. The values enter into the product creation and price calculation. Examples for GlobalValues are the specification of subcontractors (exclusive clients) or specific SalesChannels such as online sales and travel agency sales.</para>
-					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Keys-Conditions und Tags-Conditions
-						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Keys conditions and Tags conditions.</para>
+			<section xml:id="OtdsStrategyGlobalValues">
+				<title><phrase xml:id="de_1095" xml:lang="de"> Steuerung der Angebote und Preise für bestimmte
+							Märkte, Vertriebsysteme , Vertriebschannels oder Vertriebspartner mit
+							Konfigurationsparametern (GlobalValues)</phrase><phrase xml:id="en_1095"
+							xml:lang="en">Stearing of offers and prices for markets, distribution systems, distribution channels and distributors by configuration parameter (GlobalValues)</phrase></title>
+				<section xml:id="OtdsStrategyGlobalValuesOverview">
+					<title><phrase xml:id="de_6006" xml:lang="de">Überblick</phrase><phrase xml:id="en_6006"
+							xml:lang="en">Overview</phrase></title>
+					<para xml:id="det_1096" xml:lang="de">GlobalValues sind Werte, die in OTDS-Lieferung definiert werden, um die Angebote und Preise passend zum Verarbeitungskontext zu beeinflussen.
+						Ein Verarbeitungskontext einer OTDS-Verarbeitung deckt dabei in der Regel mehrere Kontext-Szenarien ab.
+						Beispiel: Ich verarbeite die OTDS-Daten im Kontext des deutschen Marktes, für das Vertriebsystem "Traffics", für Reisebüros und für die Währung Euro. 
+						Je nach den eingestellten Kontextszenarien der Datennutzung sorgt das theoretische OTDS-Verarbeitungsmodell dafür, dass die Verarbeitung der OTDS-Daten passend zum Verarbeitungs-Kontext zum richtigen Ergebnis führt.
+						Jedes Kontextszenario gehört zu einem bestimmten Kontext-Typ.	
+					</para>
+					<itemizedlist>
+						<para>Folgende Kontext-Typen gibt es derzeit:</para>
+						<listitem>
+							<para xml:lang="de">Distributionsystem-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Markt-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Currency-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">DistributionChannel-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Distributor-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Reseller-Kontext</para>
+						</listitem>
+					</itemizedlist>
+					<para>
+						  
+						In OTDS entspricht ein definiertes Kontext-Szenario der Definition eines <code>GlobalValues</code>. 
+						Die Angabe der <code>GlobalValues</code> erfolgt in dem Zweig <code>OTDS/Products/GlobalValues/</code>".
+						Zum Beispiel definiert der folgende GlobalValue das Kontext-Szenario für den deutschen Markt.</para>
+					<programlisting><![CDATA[<Products>
+   <GlobalValue Key="SalesMarketDE">
+    <Tags>
+     <Tag Class="SalesMarket">DE</Tag>
+    </Tags>
+    <ParameterSet Key="DE">
+     <SalesMarket>DE</SalesMarket>
+    </ParameterSet>
+   </GlobalValue>
+  </Products>]]></programlisting>
+					<para xml:lang="de"> Jeder <code>GlobalValue</code> definiert einen <code>Key</code> oder auch
+					ein oder mehrere <code>Tags</code>. Die entsprechende Integration dieser Keys
+					oder Tags in entsprechenden <code>Filter</code> und <code>Condition</code>
+					beeinflusst die Produktbildung und Preisberechnung passend zum jeweiligen
+					Verarbeitungs-Kontext. Die Kontext-Szenarios werden durch die Angabe spezifischer
+						<code>ParameterSets</code> innerhalb des <code>GlobalValue</code> festgelegt. Beispiele der verschiedenen
+						Kontext-Typen und der <code>ParameterStes</code>finden Sie in den folgenden Unterkapiteln.</para>
+					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Key-Conditions und Tag-Conditions
+						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Key conditions and Tag conditions.</para>
 					<figure>
 						<info>
 							<title><phrase xml:id="de_1098" xml:lang="de">GlobalValues</phrase><phrase xml:id="en_1098" xml:lang="en">GlobalValues</phrase></title>
 						</info>
 						<mediaobject>
 							<imageobject>
-								<imagedata fileref="figures/globalvalues.png" format="PNG" contentwidth="80%"/>
+								<imagedata fileref="figures/globalvalues.png" format="PNG" contentwidth="50%"/>
 							</imageobject>
 							<textobject>
 								<para xml:id="de_1099" xml:lang="de">GlobalValues</para><para xml:id="en_1099" xml:lang="en">GlobalValues</para>
@@ -5058,14 +5166,38 @@
 					</figure>
 					<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 						Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
-					
-					<section xml:id="OtdsStrategyConditionBasicsGlobalValuesFeatureContext">
-						<title><phrase xml:id="de_6147" xml:lang="de"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase><phrase xml:id="en_6147" xml:lang="en"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase></title>
-						<para xml:id="det_6146" xml:lang="de">Mit diesem <code>GlobalValue/FeatureContext</code> kann man einen <code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn dieser <code>FeautureContext</code> gewünscht ist. Die Verarbeitung mit einem spezifisches <code>FeautureContext</code> kann zu einem anderen Ergebnis führen als ohne den <code>FeautureContext</code>.
-							Derzeit gibt es nur einen <code>FeautureContext</code>=<code>CityPairProduction</code>.
-							Mit diesem <code>FeautureContext</code> erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des <code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
-					</section>
 				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributionSystems">
+					<title><phrase xml:id="det_6000" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebsysteme</phrase></title>
+						<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesMarkets">
+					<title><phrase xml:id="det_6001" xml:lang="de">Regelwerke zur Steuerung spezifischer Märkte</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesCurencies">
+					<title><phrase xml:id="det_6002" xml:lang="de">Regelwerke zur Steuerung spezifischer Währungen</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributionChannels">
+					<title><phrase xml:id="det_6003" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebschannels</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributors">
+					<title><phrase xml:id="det_6004" xml:lang="de">Regelwerke zur Steuerung spezifischer Vertriebspartner</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesResellers">
+					<title><phrase xml:id="det_6005" xml:lang="de">Regelwerke zur Steuerung spezifischer Reseller</phrase></title>
+					<para></para>
+				</section>
+				<section xml:id="OtdsStrategyConditionBasicsGlobalValuesFeatureContext">
+					<title><phrase xml:id="de_6147" xml:lang="de"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase><phrase xml:id="en_6147" xml:lang="en"><code>GlobalValue/FeatureContext</code> (CityPairProduction)</phrase></title>
+					<para xml:id="det_6146" xml:lang="de">Mit diesem <code>GlobalValue/FeatureContext</code> kann man einen <code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn dieser <code>FeautureContext</code> gewünscht ist. Die Verarbeitung mit einem spezifisches <code>FeautureContext</code> kann zu einem anderen Ergebnis führen als ohne den <code>FeautureContext</code>.
+						Derzeit gibt es nur einen <code>FeautureContext</code>=<code>CityPairProduction</code>.
+						Mit diesem <code>FeautureContext</code> erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des <code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
+				</section>
+			</section>
 				<section xml:id="OtdsStrategyRules">
 					<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Bildung von Produkten und Kombination von Komponenten</phrase><phrase xml:id="en_1115" xml:lang="en">Rule sets for the compilation of products and combination of components</phrase></title>
 					<section>
@@ -5116,11 +5248,20 @@
 							<para xml:id="de_1127" xml:lang="de">Addon</para><para xml:id="en_1127" xml:lang="en">Addon</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_1128" xml:lang="de">Neu definierte Komponenten (<code>DefinedComponent</code>)</para><para xml:id="en_1128" xml:lang="en">Newly defined components (<code>DefinedComponent</code> )</para>
+							<para xml:id="de_1128" xml:lang="de">Neu definierte Komponenten (<code>DefinedComponent</code>, <code>CombiComponent</code>) </para><para xml:id="en_1128" xml:lang="en">Newly defined components (<code>DefinedComponent</code>, <code>CombiComponent</code>)</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_1129" xml:lang="de">Bereits definierte Produkte als Bezugskomponente
-									(<code>ProductComponent</code>)</para><para xml:id="en_1129" xml:lang="en">Products which have already been defined as reference components (<code>ProductComponent</code> )</para>
+									(<code>ProductComponent</code>)</para><para xml:id="en_1129" xml:lang="en">Products which have already been defined as reference components (<code>ProductComponent</code>)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6253" xml:lang="de">Flughüllen (<code>FlightWrapper</code>) </para><para xml:id="en_6253" xml:lang="en">Flight wrappers (<code>Flightwrapper</code>)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6254" xml:lang="de">Hüllen für Unterkünfte  (<code>AccommodationWrapper</code>) </para><para xml:id="en_6254" xml:lang="en">Wrapper for accommodations (<code>AccommodationWrapper</code>)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6255" xml:lang="de">Hüllen für Zusatzleistungen (<code>AccommodationWrapper</code>) </para><para xml:id="en_6255" xml:lang="en">Wrapper for addon services (<code>AccommodationWrapper</code>)</para>
 						</listitem>
 						<listitem>
 							<para xml:id="de_8574" xml:lang="de">Virtuelle Komponenten (<code>VirtualComponent</code>) um
@@ -5257,8 +5398,41 @@
 						Bedingungen beliebig logisch verknüpft werden können. </para><para xml:id="en_1141" xml:lang="en">In the example above you can see that the match conditions can be logically connected to any other related conditions.</para>
 					<para xml:id="det_1142" xml:lang="de"/>
 				</section>
+				<section xml:id="OtdsStrategyRulesProductTypes">
+					<title><phrase xml:id="de_1148" xml:lang="de">Festlegung der Produkttypen</phrase><phrase xml:id="en_1148" xml:lang="en">Definition of product types</phrase></title>
+					<para xml:id="de_1149" xml:lang="de">OTDS kennt aktuell 5 Produkttypen: </para><para xml:id="en_1149" xml:lang="en">OTDS currently has 5 product types:</para>
+					
+					<itemizedlist>
+						<listitem>
+							<para xml:id="de_1150" xml:lang="de">AccommodationOnly</para><para xml:id="en_1150" xml:lang="en">AccommodationOnly</para>
+							<para xml:id="de_1151" xml:lang="de">Zur Definition von Produkten, die nur eine Unterkunft enthalten</para><para xml:id="en_1151" xml:lang="en">For the definition of products which only contain accommodation</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1152" xml:lang="de">OnewayFlightOnly</para><para xml:id="en_1152" xml:lang="en">OnewayFlightOnly</para>
+							<para xml:id="de_1153" xml:lang="de">Zur Definition von Produkten, die nur einen Einzelflug enthalten</para><para xml:id="en_1153" xml:lang="en">For the definition of products which contain only a one-way flight</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1154" xml:lang="de">ReturnFlightOnly</para><para xml:id="en_1154" xml:lang="en">ReturnFlightOnly</para>
+							<para xml:id="de_1155" xml:lang="de">Zur Definition von Produkten, die aus einen Hin- und
+								einem Rückflug bestehen</para><para xml:id="en_1155" xml:lang="en">For the definition of products consisting of an outbound and a return flight</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1156" xml:lang="de">FlightAccommodation</para><para xml:id="en_1156" xml:lang="en">FlightAccommodation</para>
+							<para xml:id="de_1157" xml:lang="de">Zur Definition von Produkten, die aus einem Hin-Und Rückflug plus
+								entsprechender Unterkunft vor Ort bestehen</para><para xml:id="en_1157" xml:lang="en">For the definition of products consisting of an outbound and return flight plus corresponding accommodation at the destination</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1158" xml:lang="de">Addon</para><para xml:id="en_1158" xml:lang="en">Addon</para>
+							<para xml:id="de_1159" xml:lang="de">Zur Definition von Zusatzleistungen, die optional zu Produkten angeboten
+								werden können </para><para xml:id="en_1159" xml:lang="en">For the definition of additional services which are offered optionally in addition to the product</para>
+							
+						</listitem>
+					</itemizedlist>					
+				</section>
 				<section xml:id="OtdsStrategyRulesTags">
-					<title><phrase xml:id="de_1143" xml:lang="de">Markierungen (Tags) in Produkten</phrase><phrase xml:id="en_1143" xml:lang="en">Markers (tags) in products</phrase></title>
+					<title><phrase xml:id="de_1143" xml:lang="de">Markierungen (Tags) in Produkten</phrase><phrase
+							xml:id="en_1143" xml:lang="en">Markers (Tags) in
+						products</phrase></title>
 					<para xml:id="de_1144" xml:lang="de">Innerhalb der Produktdefinition können besondere
 						Markierungen (Tags) festgelegt werden. Auf diese Tags kann man sich
 						innerhalb der Komponentendaten beziehen und damit spezielle Preise,
@@ -5287,9 +5461,8 @@
 		</Condition>
 	</PriceItem>
 </Accommodations>
-]]></programlisting></para><para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its use in pricing:<programlisting>
-							<![CDATA[<Products>
-  <Product Key="Package1" ProductType="AccommodationOnly">
+]]></programlisting></para><para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its use in pricing:
+						<programlisting><![CDATA[<Products><Product Key="Package1" ProductType="AccommodationOnly">
     <Tag Class="Product">AccomOnly</Tag>
     <Filter>
       ...
@@ -5340,38 +5513,8 @@
 					<title><phrase xml:lang="de" xml:id="de_5041">Buchungsparameter (Booking) in Produkten</phrase><phrase xml:lang="en" xml:id="en_5041">Booking parameters (Booking) in products</phrase></title>
 					<para xml:lang="de" xml:id="de_5042">Das Booking-Element innerhalb der Produktdefinition dient zur globalen Definition von Buchungsparametern. Die Platzierung der Reiseart (TravelType) ist an dieser Stelle sinnvoll.</para><para xml:lang="en" xml:id="en_5042">The Booking element within the product definition serves the global definition of booking parameters. The placement of the travel type (TravelType) is significant in this position.</para>
 				</section>
-				<section xml:id="OtdsStrategyRulesProductTypes">
-					<title><phrase xml:id="de_1148" xml:lang="de">Festlegung der Produkttypen</phrase><phrase xml:id="en_1148" xml:lang="en">Definition of product types</phrase></title>
-					<para xml:id="de_1149" xml:lang="de">OTDS kennt aktuell 5 Produkttypen: </para><para xml:id="en_1149" xml:lang="en">OTDS currently has 5 product types:</para>
-						
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_1150" xml:lang="de">AccommodationOnly</para><para xml:id="en_1150" xml:lang="en">AccommodationOnly</para>
-							<para xml:id="de_1151" xml:lang="de">Zur Definition von Produkten, die nur eine Unterkunft enthalten</para><para xml:id="en_1151" xml:lang="en">For the definition of products which only contain accommodation</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1152" xml:lang="de">OnewayFlightOnly</para><para xml:id="en_1152" xml:lang="en">OnewayFlightOnly</para>
-							<para xml:id="de_1153" xml:lang="de">Zur Definition von Produkten, die nur einen Einzelflug enthalten</para><para xml:id="en_1153" xml:lang="en">For the definition of products which contain only a one-way flight</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1154" xml:lang="de">ReturnFlightOnly</para><para xml:id="en_1154" xml:lang="en">ReturnFlightOnly</para>
-							<para xml:id="de_1155" xml:lang="de">Zur Definition von Produkten, die aus einen Hin- und
-								einem Rückflug bestehen</para><para xml:id="en_1155" xml:lang="en">For the definition of products consisting of an outbound and a return flight</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1156" xml:lang="de">FlightAccommodation</para><para xml:id="en_1156" xml:lang="en">FlightAccommodation</para>
-							<para xml:id="de_1157" xml:lang="de">Zur Definition von Produkten, die aus einem Hin-Und Rückflug plus
-								entsprechender Unterkunft vor Ort bestehen</para><para xml:id="en_1157" xml:lang="en">For the definition of products consisting of an outbound and return flight plus corresponding accommodation at the destination</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1158" xml:lang="de">Addon</para><para xml:id="en_1158" xml:lang="en">Addon</para>
-							<para xml:id="de_1159" xml:lang="de">Zur Definition von Zusatzleistungen, die optional zu Produkten angeboten
-								werden können </para><para xml:id="en_1159" xml:lang="en">For the definition of additional services which are offered optionally in addition to the product</para>
-
-						</listitem>
-					</itemizedlist>					
-				</section>
-			  <section xml:id="OtdsStrategyProductGenericTag">
+				
+			  	<section xml:id="OtdsStrategyProductGenericTag">
 			    <title>
 						<phrase xml:lang="de" xml:id="de_5043">Kennzeichnung von Produkt-Features
 							durch <code>GenericTag</code> in Produkten (Version 1.9, V1.9) (Entfernt
@@ -5450,8 +5593,9 @@
 			  </section>
 				<section xml:id="OtdsStrategyRulesProductDefinedComponents">
 					<title><phrase xml:id="de_1160" xml:lang="de">Regeln zur Definition kombinierter Komponenten (DefinedComponents)</phrase><phrase xml:id="en_1160" xml:lang="en">Rules for the definition of combined components (DefinedComponents)</phrase></title>
-					<para xml:id="de_1161" xml:lang="de">Die gleichen Regelmechanismen finden auch Verwendung für die Erweiterung von
-						Komponenten.</para><para xml:id="en_1161" xml:lang="en">The same rule mechanisms are also used for the expansion of components.</para>
+					<para xml:id="de_1161" xml:lang="de">Die gleichen Regelmechanismen der Produktdefinition finden
+						auch Verwendung für die Erweiterung von Komponenten.</para><para xml:id="en_1161" xml:lang="en">The expansion of components is using the same rule mechanisms
+						as the product definition.</para>
 					<figure>
 						<info>
 							<title><phrase xml:id="de_1162" xml:lang="de">Überblick über die Struktur von DefinedComponents</phrase><phrase xml:id="en_1162" xml:lang="en">Overview of the structure of DefinedComponents</phrase></title>
@@ -5547,7 +5691,177 @@
     </And>
   </Filter>
 </DefineComponent>]]></programlisting>
-					<para xml:id="det_1170" xml:lang="de"/>
+					<para xml:id="de_1170" xml:lang="de"/>
+					<section xml:id="OtdsStrategyWrappers">
+						<title>
+							<phrase xml:id="de_1258" xml:lang="de">Komponentenhüllen (<code>FlightWrapper</code>, <code>AccommodationWrapper</code>, <code>AddonWrapper</code>)</phrase>
+							<phrase xml:id="en_1258" xml:lang="en">Component wrappers (<code>FlightWrapper</code>, <code>AccommodationWrapper</code>, <code>AddonWrapper</code>)</phrase>
+						</title>
+						<para xml:id="de_1259" xml:lang="de">Falls die Kombination von Komponenten einer
+							tabellarischen Zuordnung von Codes entspricht und zusätzlich die
+							kombinierte Komponente eigene Buchungsparameter, PriceItems und ggf.
+							auch eigene Properties ausprägt, dann empfiehlt sich die Verwendung von
+							Wrappern. Wenn bei der Umsetzung einer Datenlieferung in OTDS eine große
+							Anzahl von DefinedComponents > 20 oder auch sehr lange Filterbedingung
+							mit mehr als 1000 Einzelbedingungen in den DefinedComponents entstehen,
+							dann ist das ein hinreichendes Indiz dafür, dass man besser
+							Komponentenhüllen verwendet.</para>
+						<para xml:id="de_6256" xml:lang="de">Die Hüllen enthalten, dann Regelparameter und zusätzliche Informationen für die kombinierte Komponente.</para>
+						<para xml:id="de_6257" xml:lang="de">Es gibt <code>FlightWrapper</code>, <code>AccommodationWrapper</code> und <code>AddonWrapper</code> jeweils unterhalb des Elemente <code>Flights</code>, <code>Accommodations</code> und <code>Addons</code>.</para>
+						<figure>
+							<info>
+								<title><phrase xml:id="de_6258" xml:lang="de">Komponentenhüllen</phrase><phrase xml:id="en_6258" xml:lang="en">Component wrappers</phrase></title>
+							</info>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/wrappers.png" format="PNG" contentwidth="60%"/>
+								</imageobject>
+								<textobject>
+									<para xml:id="de_6259" xml:lang="de">Komponentenhüllen</para><para xml:id="en_6259" xml:lang="en">Component wrappers</para>
+								</textobject>
+							</mediaobject>
+						</figure>
+						
+						<para xml:id="de_6260" xml:lang="de">So könnte die Definition eines <code>FlightWrapper</code> aussehen.</para>
+						<programlisting><![CDATA[<Otds>
+	...
+	<Flights UpdateMode="Merge">
+		<OnewayFlights UpdateMode="Merge">
+			...
+		</OnewayFlights>
+		<FlightWrapper Key="H_POPMUC6A_POPDUS6A_AB6025V7">
+			<Tags>
+				<Tag Class="FlightWrapperCode">POPMUC6A</Tag>
+				<Tag Class="TwoLeg_WrapperCode_Leg1">POPDUS6A</Tag>
+				<Tag Class="TwoLeg_WrapperCode_Leg2">AB6025V7</Tag>
+				...
+			</Tags>
+			<Booking>
+				<BookingGroup Area="ServiceArea" Source="OnewayFlight" Priority="1">
+					<BookingParameter Field="RequestCode">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="ServiceCode">
+						<Value>POPMUC6A</Value>
+					</BookingParameter>
+				</BookingGroup>
+				...
+			</Booking>
+			<Filter Key="1">
+				...
+			</Filter>
+			<PriceItems Key="Zusatz-Y">
+				...
+			</PriceItems>
+		</FlightWrapper>
+		...
+	</Flights>
+</Otds>]]></programlisting>
+						
+						<para xml:id="de_6261" xml:lang="de">Die Tags regeln durch direkten Vergleich mit Komponenten-Tags, welche Flüge kombiniert werden sollen.</para>
+						<para xml:id="de_6262" xml:lang="de">Buchungsparameter, Filter, PriceItems und Properties können für die Kombination spezifisch ergänzt werden.</para>
+						<para xml:id="de_6263" xml:lang="de">Die Wrapper können unter Components in der Product-Definition oder in den DefinedComponents direkt oder über die <code>Role</code> referenziert werden.</para>
+						
+						<para xml:id="de_6264" xml:lang="de">So könnte eine DefinedComponent-Definition mit einem <code>FlightWrapper</code> aussehen:</para>
+						<programlisting><![CDATA[<DefineComponent Key="TwoLeg" Role="OnewayFlight">
+	<Components>
+		<FlightWrapper Name="TwoLegFlightwrapper" DayAllocationIndex="1">
+			<OnewayFlight Name="XLegLeg1" DayAllocationIndex="1"/>
+			<OnewayFlight Name="XLegLeg2" DayAllocationIndex="2"/>
+		</FlightWrapper>
+	</Components>
+	<Filter Key="1">
+		<And>
+			<MatchEqual>
+				<Tag Source="#TwoLegFlightwrapper" Class="TwoLeg_WrapperCode_Leg1"/>
+				<Tag Source="#XLegLeg1" Class="FlightCode"/>
+			</MatchEqual>
+			<MatchEqual>
+				<Tag Source="#TwoLegFlightwrapper" Class="TwoLeg_WrapperCode_Leg2"/>
+				<Tag Source="#XLegLeg2" Class="FlightCode"/>
+			</MatchEqual>
+		</And>
+	</Filter>
+</DefineComponent>]]></programlisting>
+						<para xml:id="de_6265" xml:lang="de">Die Tags im entsprechenden FlightWrapper regeln welche beiden Flüge kombiniert werden sollen.</para>
+						
+						<para xml:id="de_6266" xml:lang="de">So könnte eine Product-Definition mit einem <code>AccommodationWrapper</code> aussehen:</para>
+						<programlisting><![CDATA[<Product Key="RoundtripPackage3" ProductType="FlightAccommodation">
+	<Components>
+		<AccommodationWrapper DayAllocationIndex="0">
+			<Accommodation Name="Paket3Item1" DayAllocationIndex="1"/>
+			<Accommodation Name="Paket3Item2" DayAllocationIndex="2"/>
+			<Accommodation Name="Paket3Item3" DayAllocationIndex="3"/>
+		</AccommodationWrapper>
+		<DefinedComponent Name="ReturnFlight" UseRole="ReturnFlight"/>
+	</Components>
+	<Filter Key="Default">
+		<And>
+			<MatchEqual>
+				<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+				<Element Source="#Paket3Item1">CatchmentAirport</Element>
+				<Tag Source="AccommodationWrapper" Class="CatchmentAirport"/>
+			</MatchEqual>
+			<Tags Source="AccommodationWrapper" Class="PaketWrapperType">3</Tags>
+			<MatchEqual>
+				<Tag Source="AccommodationWrapper" Class="Paket_Item_1_HotelCode"/>
+				<Tag Source="#Paket3Item1" Class="HotelCode"/>
+			</MatchEqual>
+			<MatchEqual>
+				<Tag Source="AccommodationWrapper" Class="Paket_Item_2_HotelCode"/>
+				<Tag Source="#Paket3Item2" Class="HotelCode"/>
+			</MatchEqual>
+			<MatchEqual>
+				<Tag Source="AccommodationWrapper" Class="Paket_Item_3_HotelCode"/>
+				<Tag Source="#Paket3Item3" Class="HotelCode"/>
+			</MatchEqual>
+		</And>
+	</Filter>
+</Product>]]></programlisting>
+						<para xml:id="de_6267" xml:lang="de">Die Tags im Accommodationwrapper regeln welche 3 Accommodations als Paket angeboten werden sollen.</para>
+						<para xml:id="de_6268" xml:lang="de">Diese Product-Definition definiert alle Kombinationen mit 3 Accommodations. Wenn man eine Kombination mit 4 Accommodations definieren möchte braucht man eine weitere Product-Definition. Dies lässt sich um gehen, indem man die Wrapper Definition in die <code>DefineComponent</code> verlagert.</para>
+						<para xml:id="de_6269" xml:lang="de">Hier ein Beispiel für eine entsprechende Product-Definition, die über die <code>Role</code> auf die entsprechenden DefinedComponents verweist:</para>
+						<programlisting><![CDATA[<Product Key="RoundtripPackageGeneral" ProductType="FlightAccommodation">
+	<Components>
+		<DefinedComponent Name="AccomPackageWrapper" UseRole="AccommodationWrapper" DayAllocationIndex="0"/>
+		<DefinedComponent Name="ReturnFlight" UseRole="ReturnFlight"/>
+	</Components>
+	<Filter Key="Default">
+		<MatchEqual>
+			<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+			<Element Source="Accommodation" DayAllocation="First">CatchmentAirport</Element>
+		</MatchEqual>
+		<MatchEqual>
+			<Element Source="ReturnFlight.Inbound">DepartureAirport</Element>
+			<Element Source="Accommodation" DayAllocation="Last">CatchmentAirport</Element>
+		</MatchEqual>
+	</Filter>
+</Product>]]></programlisting>
+						
+						<para xml:id="de_6270" xml:lang="de">Die Wrapper können direkt über die <code>Source="AccommodationWrapper"</code> referenziert werden. Man kann aber auch direkt die <code>Accommodations</code> in den Wrappern referenzieren.</para>
+						<para xml:id="de_6271" xml:lang="de">Die Integration der Wrappers in den Komponentenbaum folgt
+							folgendem Schaubild:</para>
+						<figure>
+							<info>
+								<title><phrase xml:id="de_6272" xml:lang="de">Komponentenbaum mit Wrappern</phrase><phrase
+									xml:id="en_6272" xml:lang="en">Tree of components with
+										wrappers</phrase></title>
+							</info>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/wrapperinstancetree.png" format="PNG" contentwidth="80%"/>
+								</imageobject>
+								<textobject>
+									<para xml:id="de_6273" xml:lang="de">Komponentenbaum mit Wrappern</para><para xml:id="en_6273" xml:lang="en">Tree of components with wrappers</para>
+								</textobject>
+							</mediaobject>
+						</figure>
+						<para xml:id="de_6274" xml:lang="de">Die Lage der Outbound-Instance hängt von der Definition
+							der Datenlieferung ab.</para>
+						<para xml:id="de_6275" xml:lang="de">Die Wrapperkomponenten sind virtuelle Komponenten und
+							weder Zeit- noch Personen-allozierend.</para>
+
+					</section>
 				</section>
 				</section>
 					<section xml:id="OtdsStrategyRulesGroupDefinitions">
@@ -5697,14 +6011,20 @@
 							wir also später, dass nur der erste Flug der Fluggruppierung gültig ist,
 							so würde in diesem Fall der Flug Hin1 Rück1 übrig bleiben. </para><para xml:id="en_5061" xml:lang="en">Example list: 
 <programlisting>1. Outbound 01 Return 01 Priority 1 with Hotel A room Double Board H
-2. Outbound 02 Return 02 Priority 2 with Hotel A room Double Board H
-3. Outbound 04 Return 04 Priority 4 with Hotel A room Double Board H
-4. Outbound 01 Return 02 Priority 5 with Hotel A room Double Board H
-5. Outbound 01 Return 04 Priority 7 with Hotel A room Single Board H
-6. Outbound 02 Return 01 Priority 8 with Hotel A room Single Board H
-7. Outbound 02 Return 04 Priority 10 with Hotel A room Single Board H
-8. Outbound 04 Return 01 Priority 14 with Hotel A room Single Board H
-9. Outbound 04 Return 02 Priority 15 with Hotel A room Single Board H</programlisting>If it is later stated that only the first flight of the flight group is valid, the flight Outbound1 Return1 would be left in this case.</para>
+2. Outbound 02 Inbound 02 Priority 2 with Hotel A room Double Board H
+3. Outbound 04 Inbound 04 Priority 4 with Hotel A room Double Board H
+4. Outbound 01 Inbound 02 Priority 5 with Hotel A room Double Board H
+5. Outbound 01 Inbound 04 Priority 7 with Hotel A room Single Board H
+6. Outbound 02 Inbound 01 Priority 8 with Hotel A room Single Board H
+7. Outbound 02 Inbound 04 Priority 10 with Hotel A room Single Board H
+8. Outbound 04 Inbound 01 Priority 14 with Hotel A room Single Board H
+9. Outbound 04 Inbound 02 Priority 15 with Hotel A room Single Board H</programlisting>If it is later stated that only the first flight of the flight group is valid, the flight Outbound1 Return1 would be left in this case.</para>
+						<section xml:id="OtdsStrategyRulesGroupDefinitionsGroupByGroupDates">
+							<title><phrase xml:id="de_6009" xml:lang="de">Erweiterung der Termindefinitionen der Gruppierungen (V2.0)</phrase><phrase xml:id="en_6009"
+									xml:lang="en">Extension to define the dates of the groups (V2.0)</phrase></title>
+							<para xml:id="de_6001" xml:lang="de">Im ersten Ansatz des <code>GroupByEqual</code> wurde explizit definiert, dass die Group immer das CheckIn und CheckOut der CandidateInstance als vorgegebene Rahmenparameter hat.
+								Ab der Version 2.0 ist es nun möglich, mit den optionalen Elementen <code>GroupStartDate</code> und <code>GroupEndDate</code> die Rahmenparamater individuell zu beeinflussen. Im Zusammenhang mit dem CityPair gibt es damit eine Möglichkeit zu steuern, das Übernachflüge im Bezug auf das CityPair ggf. identisch wie Nicht-Übernachtflüge behandelt werden.</para>
+						</section>
 					</section>
 					<section xml:id="OtdsStrategyRulesGroupDefinitionsIndices">
 						<title><phrase xml:id="de_1192" xml:lang="de">Verwendung von Tags als Indizes für die
@@ -6584,11 +6904,10 @@ usw.]]></programlisting>
 						
 					</section>
 				</section>
-			
 			<section xml:id="OtdsStrategyConditionalTag">
-				<title><phrase xml:id="de_1258" xml:lang="de">Bedingte Kennzeichnung von Knoten aber auch Personen und Tagen zur Preisberechnung
-					(ConditionalTags)</phrase><phrase xml:id="en_1258" xml:lang="en">Conditional marking of nodes, as well as persons and days, for price calculation (ConditionalTags)</phrase></title>
-				<para xml:id="de_1259" xml:lang="de">ConditionalTags sind so wie auch Tags freie Markierungen,
+				<title><phrase xml:id="de_6276" xml:lang="de">Bedingte Kennzeichnung von Knoten aber auch Personen und Tagen zur Preisberechnung
+					(ConditionalTags)</phrase><phrase xml:id="en_6276" xml:lang="en">Conditional marking of nodes, as well as persons and days, for price calculation (ConditionalTags)</phrase></title>
+				<para xml:id="de_6277" xml:lang="de">ConditionalTags sind so wie auch Tags freie Markierungen,
 					die aber in Ergänzung zu den Tags auch noch eine Condition enthalten. Genau wie
 					die Tags definiert auch das ConditionalTag ein frei wählbares Wertepaar,
 					bestehend aus einem Attribut "Class" und dem Wert des ConditionalTag-Elements.
@@ -10278,6 +10597,18 @@ usw.]]></programlisting>
 									<para xml:id="de_1749" xml:lang="de"> </para><para xml:id="en_1749" xml:lang="en"/>
 								</entry>
 							</row>
+							<row valign="top">
+								<entry>
+									<para xml:id="de_8619" xml:lang="de">Unterkünfte, die für die Paketierung benutzt werden können.</para>
+								</entry>
+								<entry/>
+							</row>
+							<row valign="top">
+								<entry>
+									<para xml:id="de_8620" xml:lang="de">Flüge, die für die Paketierung benutzt werden können.</para>
+								</entry>
+								<entry/>
+							</row>
 						</tbody>
 					</tgroup>
 				</informaltable>
@@ -13015,13 +13346,11 @@ usw.]]></programlisting>
 
 				</section>
 				<section xml:id="OtdsProcessDataModelCombiComponents">
-					<title><phrase xml:id="de_2165" xml:lang="de"><code>CombiComponent</code>, <code>DefineComponent</code> und
-							<code>DefinedComponent</code></phrase><phrase xml:id="en_2165" xml:lang="en"><code>CombiComponent</code> , <code>DefineComponent</code> and <code>DefinedComponent</code> </phrase></title>
+					<title><phrase xml:id="de_2165" xml:lang="de"><code>CombiComponent</code>, <code>DefineComponent</code> und <code>DefinedComponent</code></phrase><phrase xml:id="en_2165" xml:lang="en"><code>CombiComponent</code> , <code>DefineComponent</code> and <code>DefinedComponent</code></phrase></title>
 
 					<para xml:id="de_2166" xml:lang="de">Diese Elemente bieten die Möglichkeit, Komponenten zu gruppieren, neu
 						zusammenzusetzen und wiederverwendbare Komponentenstrukturen zu definieren und zu
-						referenzieren. Insbesondere (und dies ist in OTDS-1.0 auch die einzige Anwendung)
-						können Flüge aus einzelnen Teilflügen zusammengestellt und in anderen Regeln als
+						referenzieren. Insbesondere können Flüge aus einzelnen Teilflügen zusammengestellt und in anderen Regeln als
 						Ganzes referenziert werden.</para><para xml:id="en_2166" xml:lang="en">These elements offer the opportunity to group components, to recompile them, and to define and reference reusable component structures. Flights can be compiled from individual part flights (and this is also the only use in OTDS 1.0) and referenced in other rules as a whole.</para>
 
 					<para xml:id="de_2167" xml:lang="de">Damit eine zusammengesetzte Komponentenstruktur als Komponente eines anderen Typs
@@ -13067,7 +13396,29 @@ usw.]]></programlisting>
 							</listitem>
 						</varlistentry>
 					</variablelist>
-
+				</section>
+				<section xml:id="OtdsProcessDataModelWrapperComponents">
+					<title><phrase xml:id="de_6278" xml:lang="de"><code>Wrapper</code>-Komponenten (<code>AccommodationWrapper</code>, <code>FlightWrapper</code> und <code>AddonWrapper</code>)</phrase><phrase xml:id="en_6278" xml:lang="en"><code>Wrapper</code> components (<code>AccommodationWrapper</code>, <code>FlightWrapper</code> und <code>AddonWrapper</code>)</phrase></title>
+					<para xml:id="det_2174" xml:lang="de">Mit der OTDS-Version 2.0 sind <code>Wrapper</code>-Komponenten eingeführt worden. <code>Wrapper</code>-Komponenten sind im Gegensatz zu <code>CombiComponentes</code> echte Komponenten.</para>
+					<para xml:id="det_6279" xml:lang="de">Eine <code>Wrapper</code>-Komponente definiert sich innerhalb einer <code>Product</code>- bzw. <code>DefineComponent</code>-Definition als Hülle um eine oder mehrere Komponenten des identischen Typs. Somit definieren sich <code>AccommodationWrapper</code> nur als Hülle um <code>Accommodations</code>, <code>FlightWrapper</code> als Hülle um <code>Flights</code> und <code>AddonWrapper</code> als Hülle um <code>Addons</code>.</para>
+					<para xml:id="det_6280" xml:lang="de">Im Komponentenbaum wird mit dem <code>Wrapper</code>
+						eine zusätzliche echte Komponente mit eigenen Filtern,
+						PriceItems, etc. um die umhüllten Komponenten eingefügt.</para>
+					<para xml:id="det_6281" xml:lang="de">Eine <code>Wrapper</code>-Komponente referenziert
+						innerhalb einer <code>Product</code>- bzw.
+							<code>DefineComponent</code>-Definition alle gelieferten
+						entsprechenden <code>Wrapper</code>-Komponenten inkl. der darin
+						jeweils referenzierten Komponenten. Zum Beispiel referenziert
+						das Element <code>Product/Component/AccommodationWrapper</code>
+						alle Elemente des Pfades
+							<code>Otds/Accommodations/AccommodationWrapper</code> aus
+						der OTDS-Datenlieferung.</para>
+					<para xml:id="det_6282" xml:lang="de">Eine beispielhafte Darstellung des Komponentenbaumes im Zusammenspiel mit Wrappern finden Sie im nächsten Kapitel <link linkend="OtdsProcessDataModelSubstitutionResult">Ergebnis der Substitution</link></para>
+				</section>
+					
+				<section xml:id="OtdsProcessDataModelCombiningComponents">
+					<title><phrase xml:id="de_6283" xml:lang="de">Vorgehensweise bei der Kombination mehrerer Komponenten</phrase></title>
+					
 					<para xml:id="de_2175" xml:lang="de">Die Interpretation als zusammengesetzte Komponente erfolgt durch korrekte Auswertung
 						der Bezüge auf diese Komponente: Das <code>Source</code> Attribut wird so ausgewertet,
 						dass der Eindruck einer zusammengesetzten Komponente entsteht. Andere Bezüge (z.B. die
@@ -13163,22 +13514,28 @@ usw.]]></programlisting>
 						einfaches <code>FlightAccommodation</code> Produkt erzeugt zum Beispiel folgenden
 						Datenbaum (das folgende Beispiel ist <emphasis>kein</emphasis> OTDS Dokument, sondern
 						verdeutlicht nur das substituierte Datenmodell):</para><para xml:id="en_2184" xml:lang="en">The end result of the substitution is <emphasis>one</emphasis> expanded data tree for each <emphasis>expanded</emphasis> product rule (an expanded product rule is a rule following the dissolution of all <code>DefinedComponent</code> references). A simple <code>FlightAccommodation</code> product for example would produce the following data tree (the following example is <emphasis>not</emphasis> an OTDS document, but simply illustrates the substituted data model):</para>
-
+					<para xml:id="de_6285" xml:lang="de">In den folgenden Darstellungen des substituierten Datenmodel wird jeweils aus einer Menge von Datenelementen eines ausgewählt. Mehrere Elemente aus denen nur eines ausgewählt werden soll, werden zum besseren Verständnis durch [One Of] und [/One Of] eingeschlosssen.</para>
 					<programlisting><![CDATA[<Product ProductType="FlightAccommodation">
   <Brands>
-    <Brand> ... </Brand>
-    <Brand> ... </Brand>
-    ...
+    [One of]
+      <Brand> ... </Brand>
+      <Brand> ... </Brand>
+      ...
+    [/One of]
   </Brands>
   <Accommodations>
-    <Accommodation> ... </Accommodation>
-    <Accommodation> ... </Accommodation>
-    ...
+    [One of]
+      <Accommodation> ... </Accommodation>
+      <Accommodation> ... </Accommodation>
+      ...
+    [/One of]
   </Accommodations>
   <ReturnFlights>
-    <ReturnFlight> ... </ReturnFlight>
-    <ReturnFlight> ... </ReturnFlight>
-    ...
+    [One of]
+      <ReturnFlight> ... </ReturnFlight>
+      <ReturnFlight> ... </ReturnFlight>
+      ...
+    [/One of]
   </ReturnFlights>
   <Filter>
     <MatchEqual>
@@ -13191,62 +13548,112 @@ usw.]]></programlisting>
 					<para xml:id="de_2185" xml:lang="de">Ein komplexeres Beispiel ergibt sich, wenn auch definierte Komponenten im Spiel
 						sind. So führt die Produktspezifikation</para><para xml:id="en_2185" xml:lang="en">A more complex example is produced when defined components are also involved. In this way the product specification,</para>
 
-					<programlisting><![CDATA[<Product ProductType="FlightAccommodation">
-  <Components>
-    <Accommodation/>
-    <DefinedComponent Role="ReturnFlight"/>
-  </Components>
-  <Filter>
-    <MatchEqual>
-      <Element Source="Accommodation">CatchmentAirport</Element>
-      <Element Source="ReturnFlight.Outbound">ArrivalAirpot</Element>
-    </MatchEqual>
-  </Filter>
-</Product>]]></programlisting>
+					<programlisting><![CDATA[<Otds>
+  <Products>						
+    <Product ProductType="FlightAccommodation">
+      <Components>
+        <Accommodation/>
+        <DefinedComponent Role="ReturnFlight"/>
+      </Components>
+      <Filter>
+        <MatchEqual>
+          <Element Source="Accommodation">CatchmentAirport</Element>
+          <Element Source="ReturnFlight.Outbound">ArrivalAirpot</Element>
+        </MatchEqual>
+      </Filter>
+    </Product>
+  </Products>
+  ...
+
+  <DefinedComponents>
+    <DefineComponent Key="ReturnFlight" Role="ReturnFlight">
+      <Components>
+        <CombiComponent Role="Outbound" Name="Outbound" DayAllocationIndex="-1">
+          <OnewayFlight/>
+        </CombiComponent>
+        <CombiComponent Role="Inbound" Name="Inbound" DayAllocationIndex="2">
+          <OnewayFlight/>
+        </CombiComponent>
+      </Components>
+      <Filter Key="1">
+        <And>
+          <MatchEqual>
+            <Element Source="Outbound">DepartureAirport</Element>
+            <Element Source="Inbound">ArrivalAirport</Element>
+          </MatchEqual>
+          <MatchEqual>
+            <Element Source="Outbound">ArrivalAirport</Element>
+            <Element Source="Inbound">DepartureAirport</Element>
+          </MatchEqual>
+        </And>
+      </Filter>
+    </DefineComponent>
+  </DefinedComponents>
+</Otds>
+]]></programlisting>
 
 					<para xml:id="de_2186" xml:lang="de">unter Anwendung der im vorherigen Kapitel angegebenen Definition für die
 							<code>DefinedComponent</code> mit Rolle <code>ReturnFlight</code> zu folgendem
 						Produktdatenbaum:</para><para xml:id="en_2186" xml:lang="en">applying the definition given in the previous chapter of the <code>DefinedComponent</code> with the role <code>ReturnFlight</code> , leads to the following product data tree:</para>
 
 					<programlisting><![CDATA[<Product ProductType="FlightAccommodation">
-  <Brands>
-    <Brand> ... </Brand>
-    <Brand> ... </Brand>
-    ...
+   <Brands>
+    [One of]
+      <Brand> ... </Brand>
+      <Brand> ... </Brand>
+      ...
+    [/One of]
   </Brands>
   <Accommodations>
-    <Accommodation> ... </Accommodation>
-    <Accommodation> ... </Accommodation>
-    ...
+    [One of]
+      <Accommodation> ... </Accommodation>
+      <Accommodation> ... </Accommodation>
+      ...
+    [/One of]
   </Accommodations>
-  <CombiComponent Role="ReturnFlight">
-    <CombiComponent Role="Outbound" DayAllocationIndex="-1">
-      <OnewayFlights>
-        <OnewayFlight> ... <OnewayFlight>
-        <OnewayFlight> ... <OnewayFlight>
-        ...
-      </OnewayFlights>
-    </CombiComponent>
-    <CombiComponent Role="Inbound" DayAllocationIndex="1">
-      <OnewayFlights>
-        <OnewayFlight> ... <OnewayFlight>
-        <OnewayFlight> ... <OnewayFlight>
-        ...
-      </OnewayFlights>
-    </CombiComponent>
-    <Filter>
-      <And>
-        <MatchEqual>
-          <Element Source="Outbound">DepartureAirport</Element>
-          <Element Source="Inbound">ArrivalAirport</Element>
-        </MatchEqual>
-        <MatchEqual>
-          <Element Source="Outbound">ArrivalAirport</Element>
-          <Element Source="Inbound">DepartureAirport</Element>
-        </MatchEqual>
-      </And>
-    </Filter>
-  </CombiComponent>
+  <Flighta>
+    [One of]
+      <CombiComponent Role="ReturnFlight">
+        <CombiComponent Role="Outbound" DayAllocationIndex="-1">
+          [One of]
+            <OnewayFlight> ... <OnewayFlight>
+            <OnewayFlight> ... <OnewayFlight>
+            ...
+          [/One of]
+          [One of]
+            <OnewayFlight> ... <OnewayFlight>
+            <OnewayFlight> ... <OnewayFlight>
+            ...
+          [/One of]
+        </CombiComponent>
+        <CombiComponent Role="Inbound" DayAllocationIndex="1">
+          [One of]
+            <OnewayFlight> ... <OnewayFlight>
+            <OnewayFlight> ... <OnewayFlight>
+            ...
+          [/One of]
+          [One of]
+            <OnewayFlight> ... <OnewayFlight>
+            <OnewayFlight> ... <OnewayFlight>
+            ...
+          [/One of]
+        </CombiComponent>
+        <Filter>
+          <And>
+            <MatchEqual>
+              <Element Source="Outbound">DepartureAirport</Element>
+              <Element Source="Inbound">ArrivalAirport</Element>
+            </MatchEqual>
+            <MatchEqual>
+              <Element Source="Outbound">ArrivalAirport</Element>
+              <Element Source="Inbound">DepartureAirport</Element>
+            </MatchEqual>
+          </And>
+        </Filter>
+      </CombiComponent>
+      ...
+    [/One of]
+  </Flights>
   <Filter>
     <MatchEqual>
       <Element Source="Accommodation">CatchmentAirport</Element>
@@ -13255,6 +13662,133 @@ usw.]]></programlisting>
   </Filter>
 </Product>]]></programlisting>
 
+
+
+					<para xml:id="det_6286" xml:lang="de">Und nachfolgend dazu im Unterschied das Substitionsergebnis bei der Umsetzung mit FlightWrappern</para>
+					<para xml:id="det_6287" xml:lang="de">Hier die <code>Product</code>-Definition:</para>
+					
+					<programlisting><![CDATA[<Product Key="Wrapper" ProductType="FlightAccommodation">
+	<Components>
+		<Accommodation/>
+		<CombiComponent Role="Outbound">
+			<FlightWrapper>
+				<OnewayFlight Name="FirstOutFlight" DayAllocationIndex="1"/>
+				<OnewayFlight Name="SecondOutFlight" DayAllocationIndex="2"/>
+			</FlightWrapper>
+		</CombiComponent>
+		<CombiComponent Role="Inbound">
+			<FlightWrapper>
+				<OnewayFlight Name="FirstInFlight" DayAllocationIndex="1"/>
+				<OnewayFlight Name="SecondInFlight" DayAllocationIndex="2"/>
+			</FlightWrapper>
+		</CombiComponent>
+	</Components>
+	<Filter>
+		<MatchEqual>
+			<Element Source="Outbound">ArrivalAirport</Element>
+			<Element Source="Accommodation">CatchmentAirport</Element>
+		</MatchEqual>
+		<MatchEqual>
+			<Element Source="Inbound">ArrivalAirport</Element>
+			<Element Source="Accommodation">CatchmentAirport</Element>
+		</MatchEqual>
+		<MatchEqual>
+			<Element Source="Outbound">DepartureAirport</Element>
+			<Element Source="Inbound">ArrivalAirport</Element>
+		</MatchEqual>
+	</Filter>
+</Product>
+]]></programlisting>
+					
+					<para xml:id="de_6288" xml:lang="de">Die Substitution unter Anwendung der im vorherigen Kapitel angegebenen Definition für die
+						<code>Wrapper</code>-Komponenten führt zu folgendem	Produktdatenbaum:</para>
+					<programlisting><![CDATA[<Product ProductType="FlightAccommodation">
+  <Brands>
+    [One of]
+      <Brand> ... </Brand>
+      <Brand> ... </Brand>
+      ...
+    [/One of]
+  </Brands>
+  <Accommodations>
+    [One of]
+      <Accommodation> ... </Accommodation>
+      <Accommodation> ... </Accommodation>
+      ...
+    [/One of]
+  </Accommodations>
+  <Flighta>
+    [One of]
+      <CombiComponent Role="ReturnFlight">
+        <CombiComponent Role="Outbound" DayAllocationIndex="-1">
+          [One of]
+            <FlightWrapper>
+              [One of]
+                <OnewayFlight> ... <OnewayFlight>
+                <OnewayFlight> ... <OnewayFlight>
+                ...
+              [/One of]
+              [One of]
+                <OnewayFlight> ... <OnewayFlight>
+                <OnewayFlight> ... <OnewayFlight>
+                ...
+              [/One of]
+              <Tags>...</Tags>
+              <Filter>...</Filter>
+              <Booking>...</Booking>
+              <PriceItems>...</PriceItems>
+            <FlightWrapper>
+            ...
+          [/One of]
+        </CombiComponent>
+        <CombiComponent Role="Inbound" DayAllocationIndex="1">
+          [One of]
+            <FlightWrapper>
+              [One of]
+                <OnewayFlight> ... <OnewayFlight>
+                <OnewayFlight> ... <OnewayFlight>
+                ...
+              [/One of]
+              [One of]
+                <OnewayFlight> ... <OnewayFlight>
+                <OnewayFlight> ... <OnewayFlight>
+                ...
+              [/One of]
+              <Tags>...</Tags>
+              <Filter>...</Filter>
+              <Booking>...</Booking>
+              <PriceItems>...</PriceItems>
+            <FlightWrapper>
+            ...
+          [/One of]
+        </CombiComponent>
+        <Filter>
+          <And>
+            <MatchEqual>
+				<Element Source="Outbound">ArrivalAirport</Element>
+				<Element Source="Accommodation">CatchmentAirport</Element>
+			</MatchEqual>
+			<MatchEqual>
+				<Element Source="Inbound">ArrivalAirport</Element>
+				<Element Source="Accommodation">CatchmentAirport</Element>
+			</MatchEqual>
+			<MatchEqual>
+				<Element Source="Outbound">DepartureAirport</Element>
+				<Element Source="Inbound">ArrivalAirport</Element>
+			</MatchEqual>
+          </And>
+        </Filter>
+      </CombiComponent>
+      ...
+    [/One of]
+  </Flights>
+  <Filter>
+    <MatchEqual>
+      <Element Source="Accommodation">CatchmentAirport</Element>
+      <Element Source="ReturnFlight.Outbound">ArrivalAirpot</Element>
+    </MatchEqual>
+  </Filter>
+</Product>]]></programlisting>
 				</section>
 				<section xml:id="OtdsProcessDataModelSubstitutionAddons">
 					<title><phrase xml:id="de_2187" xml:lang="de">Verarbeitung von After-Sale Angeboten: <code>ProductComponent</code></phrase><phrase xml:id="en_2187" xml:lang="en">Processing of After-Sale offers: <code>ProductComponent</code> </phrase></title>
@@ -13794,7 +14328,6 @@ usw.]]></programlisting>
 									<entry>-</entry>
 									<entry>-</entry>
 								</row>
-
 								<row>
 									<entry><code>ProductComponent</code></entry>
 									<entry>-</entry>
@@ -13813,6 +14346,36 @@ usw.]]></programlisting>
 									<entry>-</entry>
 									<entry>X</entry>
 									<entry>X</entry>
+									<entry>-</entry>
+								</row>
+								<row>
+									<entry><code>AccommodationWrapper</code></entry>
+									<entry>X</entry>
+									<entry>-</entry>
+									<entry>X</entry>
+									<entry>-</entry>
+									<entry>-</entry>
+									<entry>-</entry>
+									<entry>-</entry>
+								</row>
+								<row>
+									<entry><code>FlightWrapper</code></entry>
+									<entry>X</entry>
+									<entry>-</entry>
+									<entry>X</entry>
+									<entry>-</entry>
+									<entry>-</entry>
+									<entry>-</entry>
+									<entry>-</entry>
+								</row>
+								<row>
+									<entry><code>AddonWrapper</code></entry>
+									<entry>X</entry>
+									<entry>-</entry>
+									<entry>X</entry>
+									<entry>-</entry>
+									<entry>-</entry>
+									<entry>-</entry>
 									<entry>-</entry>
 								</row>
 							</tbody>
@@ -13880,6 +14443,13 @@ usw.]]></programlisting>
 								<para xml:id="de_2256" xml:lang="de">Eine <code>ProductComponent</code> referenziert ein vollständiges
 									Produkt. Diese Angabe wird an einigen Stellen gesondert gehandhabt und
 									dient der Definition von optionalen Zusatzleistungen.</para><para xml:id="en_2256" xml:lang="en">A <code>ProductComponent</code>  refers to a complete product. This information is handled separately in some places and is used to define optional additional services.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term xml:id="de_6289" xml:lang="de"><code>Wrapper</code>-Komponenten</term><term xml:id="en_6289" xml:lang="en"><code>Wrapper</code> components </term>
+							<listitem>
+								<para xml:id="de_6290" xml:lang="de">Eine <code>Wrapper</code>-Komponente ist ist nicht Teil der statischen Komponentenhierarchie. Die Hierarchie einer <code>Wrapper</code>-Komponente
+									hängt von der Struktur der Produktspezifikation ab. Die <code>Wrapper</code>-Komponente ist aber im Gegensatz zur CombiComponent eine echte Komponente und fügt damit auch Tags, PriceItems etc. in den OTDS Datenbaum ein.</para>
 							</listitem>
 						</varlistentry>
 					</variablelist>
@@ -18441,9 +19011,59 @@ usw.]]></programlisting>
 					</task>
 				</section>
 			</section>
-			<section xml:id="OtdsProcessProduct">
-				<title><phrase xml:id="de_2885" xml:lang="de">Verarbeitung der Product-Rules</phrase><phrase xml:id="en_2885" xml:lang="en">Processing of the product rules</phrase></title>
-
+			<section xml:id="OtdsProcessDataProcessing">
+				<title><phrase xml:id="de_6002" xml:lang="de">Überblick</phrase><phrase xml:id="en_6002" xml:lang="en">Overview</phrase></title>
+				<para xml:id="de_6003" xml:lang="de">
+					Die Verarbeitung lässt sich in einzelne voneinander getrennte aber bzgl. der Reihenfolge fest vorgegebene Teilprozesse unterteilen.</para>
+				<orderedlist>
+					<listitem>
+						<para xml:id="det_6005" xml:lang="de">Ermittlung der Angebots-Kandidaten (GenericTag- und AvailabilityState-Conditions sind undefined)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6006" xml:lang="de">Auswertung der Verfügbarkeiten (Availabilities / Availability)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6020" xml:lang="de">Nachträgliche erneute Auswertung der Product- und DefinedComponent-Filter (AvailabilityState-Conditions sind nun definiert)</para>
+					</listitem>
+					<listitem>
+						<para>Auswertung der PriceItems</para>
+						<orderedlist>
+							<listitem>
+								<para xml:id="det_6007" xml:lang="de">Auswertung der PriceItem-Conditions (ExecutionOrder=BeforeCombinatorics  => AfterCombinatoric- , Last- and GenericTag-Conditions sind undefined)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6021" xml:lang="de">Auswertung der Kombinatorik von PriceItems (Combinatorics)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6008" xml:lang="de">Auswertung der PriceItem-Conditions (ExecutionOrder=AfterCombinatorics  => Last- and GenericTag-Conditions sind undefined) </para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6011" xml:lang="de">Auswertung der PriceItem-Conditions (ExecutionOrder=Last  => GenericTag-Conditions sind undefined) </para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6010" xml:lang="de">Auswertung der GenericAbsolute Values</para>
+							</listitem>
+							<listitem>
+								<para xml:id="det_6014" xml:lang="de">Finale Preisberechnung der Angebots-Kandidaten</para>
+							</listitem>
+						</orderedlist>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6015" xml:lang="de">Auswertung der Buchungsparameter (Booking / BookingGroup)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6016" xml:lang="de">Auswertung der Angebotseigenschaften (Properties)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6012" xml:lang="de">Auswertung der GenericTag-Values</para>
+					</listitem>
+					<listitem>
+						<para xml:id="det_6013" xml:lang="de">Nachträgliche erneute Auswertung der Product- und DefinedComponent-Filter (GenericTag-Conditions sind nun definiert)</para>
+					</listitem>
+				</orderedlist>
+				<para>Die einzelnen Prozessschritte werden nun in den folgenden Kapiteln beschrieben. Die Reihenfolge ist in sofern zwingend, da die Reihenfolge entscheidet, welche Conditions ggf. als undefined auszuwerten sind und auch ab wann konkrete Werte für GenericAbsolutes zur Verfügung stehen.</para>
+			<section xml:id="OtdsProcessOfferCandidates">
+				<title><phrase xml:id="de_2885" xml:lang="de">Erzeugung der Angebotskandidaten (<code>Product-Rules</code> und <code>Filter</code>)</phrase><phrase xml:id="en_2885" xml:lang="en">Evaluation of offer candidates (<code>Product-Rules</code> and <code>Filter</code>)</phrase></title>
 				<para xml:id="de_2886" xml:lang="de">Für die Zusammenstellung von Produkten und Flügen wird ein umfangreiches Regelwerk zur
 					Verfügung gestellt, welches aus den gelieferten Einzelkomponenten unter Beachtung aller
 					Bedingungen und Regeln verkaufsfertige Produkte und zusammengestellte Flüge erzeugt. Dafür
@@ -18496,7 +19116,6 @@ usw.]]></programlisting>
 									<code>CombiComponent</code> / <code>DefinedComponent</code> .
 								See also <xref linkend="OtdsProcessDataModelSubstitutions"/></para>
 						</listitem>
-
 						<listitem>
 							<para xml:id="de_2894" xml:lang="de">Der zentrale Vorgang der Produktverarbeitung ist die Bildung aller möglichen
 								Kombinationen der Komponenteninstanzen. Im obigen Beispiel einer Pauschalreise
@@ -18564,7 +19183,9 @@ usw.]]></programlisting>
 					<para xml:id="de_2898" xml:lang="de">Zur Vervollständigung einer kompletten Angebotsproduktion fehlen noch die Schritte
 						der <link linkend="OtdsProcessAvailability">Auswertung der gelieferten Vakanzen</link>
 						und die <link linkend="OtdsProcessPriceCalculation">Auswertung der gelieferten
-							Preisregeln</link>. </para><para xml:id="en_2898" xml:lang="en">In order to complete the entire process of producing an offer, the following steps must be carried out: the <link linkend="OtdsProcessAvailability">evaluation of vacancies delivered</link> and the <link linkend="OtdsProcessPriceCalculation">evaluation of the price rules delivered</link>.</para>
+							Preisregeln</link> und die <link linkend="OtdsProcessGenericTagValueEvaluation">Auswertung der Priorisierung (GenericTag) und der dadurch möglichen nachträglichen Filterung von Angebotskandidaten.</link>. </para>
+					<para xml:id="en_2898" xml:lang="en">In order to complete the entire process of producing an offer, the following steps must be carried out: the <link linkend="OtdsProcessAvailability">evaluation of vacancies delivered</link> 
+						and the <link linkend="OtdsProcessPriceCalculation">evaluation of the price rules delivered</link> and the <link linkend="OtdsProcessGenericTagValueEvaluation">Evaluation of the defined priority (GenericTag) and the retroactive invalidation of offer candidates</link>.</para>
 
 					<para xml:id="de_2899" xml:lang="de">
 						<emphasis>Das hier beschriebene Modell beschreibt nicht eine Implementierung des
@@ -20674,6 +21295,10 @@ usw.]]></programlisting>
 								or in the case of a duration discount.</para>
 						</listitem>
 						<listitem>
+							<para xml:id="de_6004" xml:lang="de">Erst jetzt können die konkreten Werte für die GenericAblutes errechnet und ersetzen die entsprechende Formel</para>
+							<para xml:id="en_6004" xml:lang="en">Now it is possible to replace the formal of the GenericAbsolutes by a concrete calculated value.</para>
+						</listitem>
+						<listitem>
 							<para xml:id="de_3196" xml:lang="de">Im letzten Schritt werden die endgültigen Preise errechnet. Dies erfolgt,
 								indem zunächst in jedem Day/Person-Knoten alle Kostenknoten berechnet und dann
 								summiert werden. Anschließend können daraus die Personenpreise, Tagespreise
@@ -22586,149 +23211,7 @@ usw.]]></programlisting>
 					<para xml:id="det_3658" xml:lang="de"/>
 				</section>
 
-				<section xml:id="OtdsProcessPriceCalculationSumUpPriceNodeElements">
-					<title><phrase xml:id="de_3659" xml:lang="de">Ermittlung der Gesamtkosten pro Tag, Person und Reise</phrase><phrase xml:id="en_3659" xml:lang="en">Calculation of total cost per day, person and trip</phrase></title>
-					<para xml:id="de_3660" xml:lang="de">Die Preisberechnung ist nahezu abgeschlossen. Alle PriceItems, die in der
-						Kostenmatrix verblieben sind, werden nun noch aufsummiert. Dies erfolgt
-						folgendermassen:</para><para xml:id="en_3660" xml:lang="en">The price calculation is almost complete. All PriceItems which are left in the cost matrix are now added up. This takes place as follows:</para>
-
-					<bridgehead xml:id="de_3661" xml:lang="de">Gesamtpreis pro Tag und Person (ein Day/Person-Knoten)</bridgehead><bridgehead xml:id="en_3661" xml:lang="en">Total price per day and person (a Day/Person node)</bridgehead>
-					<para xml:id="de_3662" xml:lang="de">Für jeden Kostenknoten innerhalb eines Day/Person-Knotens
-						wird der Wert des absoluten PriceItems mit den Werten aller assoziierten
-						relativenDayCount- und PersonCount-Bedingungen PriceItems multipliziert. Die
-						auf diese Weise ermittelten Werte für jeden Kostenknoten werden innerhalb
-						jedes Day/Person-Knotens aufsummiert, um den Gesamtpreis für einen Tag und
-						eine Person zu errechnen.</para><para xml:id="en_3662" xml:lang="en">For every price node within a Day/Person node, the value of the absolute PriceItem is multiplied with the values of all associated relative PriceItems. The values ascertained by these means for each cost node are added up within each Day/Person node, in order to calculate the total price for one day and one person.</para>
-					<bridgehead xml:id="de_3663" xml:lang="de">Beispiel</bridgehead><bridgehead xml:id="en_3663" xml:lang="en">Example</bridgehead>
-
-					<figure>
-						<title><phrase xml:id="de_3664" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</phrase><phrase xml:id="en_3664" xml:lang="en">Total cost of a Day/Person node</phrase></title>
-						<mediaobject>
-							<imageobject xml:id="de_5723" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonNode.png" format="PNG" contentdepth="70%"/></imageobject>
-							<imageobject xml:id="en_5723" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonNode_engl.png" format="PNG" contentdepth="70%"/></imageobject>
-							<textobject>
-								<para xml:id="de_3665" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</para><para xml:id="en_3665" xml:lang="en">Total cost of a Day/Person node</para>
-							</textobject>
-							<caption>
-								<para xml:id="de_3666" xml:lang="de"> </para><para xml:id="en_3666" xml:lang="en"/>
-							</caption>
-						</mediaobject>
-					</figure>
-
-					<para xml:id="de_3667" xml:lang="de">Um den Gesamtpreis des hervorgehobenen Day/Person-Knotens zu ermitteln, werden
-						zunächst die einzelnen Kostenknoten berechnet:</para><para xml:id="en_3667" xml:lang="en">In order to calculate the total price of the highlighted Day/Person node, the individual cost nodes are first calculated:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_3668" xml:lang="de">Kosten von Kostenknoten 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 *
-								PriceItem 6</para><para xml:id="en_3668" xml:lang="en">Cost of cost node 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 * PriceItem 6</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3669" xml:lang="de">Kosten von Kostenknoten 2 = PriceItem 2 * PriceItem 5</para><para xml:id="en_3669" xml:lang="en">Cost of cost node 2 = PriceItem 2 * PriceItem 5</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3670" xml:lang="de">Kosten von Kostenknoten 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para><para xml:id="en_3670" xml:lang="en">Cost of cost node 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para>
-						</listitem>
-					</itemizedlist>
-					<para xml:id="de_3671" xml:lang="de">Der Gesamtpreis ergibt sich dann aus der Summe der Kosten der Kostenknoten:</para><para xml:id="en_3671" xml:lang="en">The total price is then calculated from the sum of the costs of the cost node:</para>
-					<para xml:id="de_3672" xml:lang="de">Gesamtkosten pro Tag und Person = Kosten von Kostenknoten 1 + Kosten von
-						Kostenknoten 2 + Kosten von Kostenknoten 3</para><para xml:id="en_3672" xml:lang="en">Total cost per day and person = cost of cost node 1 + cost of cost node 2 + cost of cost node 3</para>
-
-					<bridgehead xml:id="de_3673" xml:lang="de">Gesamtpreis pro Tag</bridgehead><bridgehead xml:id="en_3673" xml:lang="en">Total price per day</bridgehead>
-					<para xml:id="de_3674" xml:lang="de">Um den Gesamtpreis für einen Tag zu berechnen, werden alle Kosten der
-						Day/Person-Knoten dieses Tages summiert. In der Kostenmatrix werden also Spaltensummen
-						gebildet und so die Kosten jeder Person für einen bestimmten Tag summiert.</para><para xml:id="en_3674" xml:lang="en">In order to calculate the total price for one day, all costs of the Day/Person node of this day are added. In this way, column sums are created in the cost matrix and the costs for each person are added for a specific day.</para>
-
-					<bridgehead xml:id="de_3675" xml:lang="de">Gesamtpreis pro Person</bridgehead><bridgehead xml:id="en_3675" xml:lang="en">Total price per person</bridgehead>
-					<para xml:id="de_3676" xml:lang="de">Um den Gesamtpreis für einen Person zu berechnen, werden alle Kosten der
-						Day/Person-Knoten dieser Person summiert. In der Kostenmatrix werden also Zeilensummen
-						gebildet und so die Kosten jedes Tages für eine bestimmte Person summiert.</para><para xml:id="en_3676" xml:lang="en">In order to calculate the total price for one person, all costs of the Day/Person node of that person are added. In this way, row sums are created in the cost matrix and the costs for each day are added for a specific person.</para>
-
-					<bridgehead xml:id="de_3677" xml:lang="de">Gesamtpreis pro Reise</bridgehead><bridgehead xml:id="en_3677" xml:lang="en">Total price per trip</bridgehead>
-					<para xml:id="de_3678" xml:lang="de">Um den Gesamtpreis der Reise zu berechnen, werden die Kosten aller Day/Person-Knoten
-						der Kostenmatrix summiert.</para><para xml:id="en_3678" xml:lang="en">In order to calculate the total price of the trip, the costs of all day/person nodes in the cost matrix are added.</para>
-					<para xml:id="det_3679" xml:lang="de"/>
-
-					<figure>
-						<title><phrase xml:id="de_3680" xml:lang="de">Gesamtkosten pro Tag, Person oder Reise</phrase><phrase xml:id="en_3680" xml:lang="en">Total cost per day, person or trip</phrase></title>
-						<mediaobject>
-							<imageobject xml:id="de_5724" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct.png" format="PNG" contentdepth="70%"/></imageobject>
-							<imageobject xml:id="en_5724" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct_engl.png" format="PNG" contentdepth="70%"/></imageobject>
-							<textobject>
-								<para xml:id="de_3681" xml:lang="de">Gesamtkosten pro Tag, Person und Reise</para><para xml:id="en_3681" xml:lang="en">Total cost per day, person and trip</para>
-							</textobject>
-							<caption>
-								<para xml:id="de_3682" xml:lang="de"> </para><para xml:id="en_3682" xml:lang="en"/>
-							</caption>
-						</mediaobject>
-					</figure>
-					<bridgehead xml:id="de_3683" xml:lang="de">Tagespreise und Tagespreisanteile zur Auswertung der
-						DayPriceIndex-Condition</bridgehead><bridgehead xml:id="en_3683" xml:lang="en">Day prices and day price components for the evaluation of the DayPriceIndex condition</bridgehead>
-					<para xml:id="de_3684" xml:lang="de">Für die Auswertung der <code>Condition</code> zum
-						Ausführungszeitpunkt <code>ImpactExecutionOrder=Last</code> ist es
-						notwendig, Tagespreise zu ermitteln um Teilbedingungen an die günstigsten
-						bzw. teuersten Tage (<code>DayImpact</code>, <code>DayPriceIndex</code>)
-						auswerten zu können. Es ist in dieser Bedingung nicht nur möglich, sich auf
-						die günstigsten bzw. teuersten Tage zu beziehen, sondern zusätzlich auch auf
-						die günstigsten bzw. teuersten <emphasis role="italic">Anteile</emphasis>
-						der Tagespreise. Dies wird erreicht, indem nur PriceItems mit bestimmten
-						Klassennamen in die Berechnung der Tagespreise einfließen
-							(<code>ConsideredPriceItemClasses</code> ) oder alternativ PriceItems
-						mit bestimmten Klassennamen ausgeschlossen werden
-							(<code>NotConsideredPriceItemClasses</code>). Weiterhin ist zu beachten,
-						dass die <code>DayPriceIndex</code>-Condition den Typ des Tages spezifiziert
-						(Stay oder CheckInOut).</para><para xml:id="en_3684" xml:lang="en">For the evaluation of the <code>Condition</code> at the time of execution <code>ImpactExecutionOrder=Last</code> , it is necessary to calculate the day prices, in order to be able to evaluate the subconditions on the cheapest or most expensive days (<code>DayImpact</code> , <code>DayPriceIndex</code> ). In this condition, it is not only possible to refer to the cheapest or most expensive days, but also to refer the cheapest or most expensive <emphasis role="italic">components</emphasis> of the day prices. This is achieved in that only PriceItems with certain class names are taken into consideration for the day prices ( <code>ConsideredPriceItemClasses</code> ) or alternatively, PriceItems with certain class names can be excluded (<code>NotConsideredPriceItemClasses</code> ). It should also be noted that the <code>DayPriceIndex</code>  condition specifies the type of day (Stay or CheckInOut).</para>
-					<para xml:id="de_3685" xml:lang="de">Es wird davon ausgegangen, dass alle PriceItems in der Kostenmatrix im Sinne der
-							<code>Condition</code> mit <code>ImpactExecutionOrder=AfterCombinatorics</code>
-						gültig sind. Die Berechnung folgt folgendem Ablauf:</para><para xml:id="en_3685" xml:lang="en">It is assumed that all PriceItems in the cost matrix are valid in the sense of the <code>Condition</code> with <code>ImpactExecutionOrder=AfterCombinatorics</code> . The calculation follows the following sequence:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_3686" xml:lang="de">Es werden die relevanten Tage durch Auswertung des Attributes
-									<code>IntervalType</code> der Condition <code>DayPriceIndex</code>
-								bestimmt. Dieses Attribut definiert, ob <code>Stay</code>-Tage oder
-									<code>CheckInOut</code>-Tage bezüglich der Preishöhe betrachtet werden.
-							</para><para xml:id="en_3686" xml:lang="en">The relevant days are defined via the evaluation of the attribute <code>IntervalType</code> of the condition <code>DayPriceIndex</code>  This attribute defines whether <code>Stay</code>  days or <code>CheckInOut</code>  days are being regarded in relation to the price level.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3687" xml:lang="de">Für alle Day/Person-Knoten der relevanten Tage werden die Kosten jedes
-								Kostenknotens ermittelt. Jedes PriceItems innerhalb des Kostenknotens wird
-								zunächst auf Relevanz überprüft. </para><para xml:id="en_3687" xml:lang="en">The costs of every cost node are calculated for all day/person nodes of the relevant days. Each PriceItem within the cost node is firstly checked for relevance.</para>
-							<para xml:id="de_3688" xml:lang="de">Ein PriceItem ist relevant, wenn folgende Kriterien erfüllt sind:</para><para xml:id="en_3688" xml:lang="en">A PriceItem is relevant if the following criteria are fulfilled:</para>
-								
-								<itemizedlist>
-									<listitem>
-										<para xml:id="de_3689" xml:lang="de">Bei Angabe von <code>ConsideredPriceItemClasses</code> der
-											Klassenname des PriceItems angegeben ist</para><para xml:id="en_3689" xml:lang="en">The class name of the PriceItem is specified with the specification of the <code>ConsideredPriceItemClasses</code> </para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_3690" xml:lang="de">Bei Angabe von <code>NotConsideredPriceItemClasses</code> der
-											Klassenname des PriceItems nicht angegeben ist</para><para xml:id="en_3690" xml:lang="en">The class name of the PriceItem is not specified with the specification of the <code>NotConsideredPriceItemClasses</code> </para>
-									</listitem>
-								</itemizedlist>
-							<para xml:id="de_4956" xml:lang="de">
-								Falls das absolute PriceItem des Kostenknotens nicht relevant
-								ist, sind die Kosten des Kostenknotens Null. Ansonsten errechnen sich die
-								Kosten der Kostenknotens aus dem Wert des absoluten PriceItems multipliziert
-								mit den Werten aller relevanten relativen PriceItems.</para><para xml:id="en_4956" xml:lang="en">In a case where the absolute PriceItem of the cost node is not relevant, the cost of the cost node is zero. Otherwise, the costs of the cost node can be calculated from the value of the absolute PriceItem, multiplied by the values of all relevant relative PriceItems.</para>
-							<para xml:id="de_3691" xml:lang="de">Um die Kosten des Day/Person-Knotens zu bestimmen, werden die ermittelten
-								Kosten der Kostenknoten summiert.</para><para xml:id="en_3691" xml:lang="en">In order to determine the cost of a day/person node, the ascertained costs of the cost node are added.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3692" xml:lang="de">Anschliessend erfolgt die Kostenberechnung für jeden Tag
-								durch Bildung der Spaltensummern in der Kostenmatrix wie oben
-								beschrieben.</para><para xml:id="en_3692" xml:lang="en">Next, the cost calculation for each day is carried out through the creation of column sums in the matrix, as described above.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3693" xml:lang="de">Die Tage werden nach den ermittelten Tagespreisen
-								aufsteigend sortiert. Sollte eine eindeutige Sortierung aufgrund
-								gleicher Tagespreise nicht möglich sein, wird in zweiter Ordnung
-								aufsteigend nach Datum sortiert. Daraus ergeben sich
-								Positionsindizes für die Tage, die in der
-								<code>DayPriceIndex</code>-Bedingung für die Adressierung der Tage
-								genutzt werden. </para><para xml:id="en_3693" xml:lang="en">The days are sorted in ascending order of the day prices calculated. If unambiguous sorting is not possible due to identical day prices, then sorting can secondarily use the ascending date order. From this, position indices are created for the days in which the <code>DayPriceIndex</code> condition is used for the addressing of the days.</para>
-						</listitem>
-					</itemizedlist>
-					<para xml:id="det_3694" xml:lang="de"/>
-				</section>
+				
 
 				<section xml:id="OtdsProcessPriceCalculationStoreCombinablePriceItems">
 					<title><phrase xml:id="de_3695" xml:lang="de">Vermerken der kombinierbaren PriceItems</phrase><phrase xml:id="en_3695" xml:lang="en">Noting the combinable PriceItems</phrase></title>
@@ -22741,13 +23224,153 @@ usw.]]></programlisting>
 				</section>
 
 			</section>
-
-			
-			
 			<section xml:id="OtdsProcessGenericTagConditions">
 				<title><phrase xml:id="de_6132" xml:lang="de">Auswertung der GenericTag-Bedingungen</phrase><phrase xml:id="en_6132" xml:lang="en">Evaluation of GenericTag conditions</phrase></title>
 				<para xml:id="det_6133">Nach der Preisberechnung werden die GenericTag-Bedingungen der Filter der Product- und DefinedComponents nachträglich ausgewertet. Bis zu diesem Zeitpunkt wurden diese Bedingungen mit dem Wert "undefined" ausgewertet, da die Auswertung vorher noch nicht stattfinden konnte.</para>
 				<para xml:id="de_6134">Mehr Details zur Undefined-Auswertung finden Sie im Kapitel <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt der Bedingungsauswertung und die dreiwertige Auswertungslogik (true|false|undefined)"</link> </para><para xml:id="en_6134">You will find more details about "undefined" evaluation in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of condition evaluation and the triadic analysis logic (true|false|undefined)"</link> </para>	
+			</section>
+			<section xml:id="OtdsProcessPriceCalculationSumUpPriceNodeElements">
+				<title><phrase xml:id="de_3659" xml:lang="de">Ermittlung der Gesamtkosten pro Tag, Person und Reise</phrase><phrase xml:id="en_3659" xml:lang="en">Calculation of total cost per day, person and trip</phrase></title>
+				<para xml:id="de_3660" xml:lang="de">Die Preisberechnung ist nahezu abgeschlossen. Alle PriceItems, die in der
+					Kostenmatrix verblieben sind, werden nun noch aufsummiert. Dies erfolgt
+					folgendermassen:</para><para xml:id="en_3660" xml:lang="en">The price calculation is almost complete. All PriceItems which are left in the cost matrix are now added up. This takes place as follows:</para>
+				
+				<bridgehead xml:id="de_3661" xml:lang="de">Gesamtpreis pro Tag und Person (ein Day/Person-Knoten)</bridgehead><bridgehead xml:id="en_3661" xml:lang="en">Total price per day and person (a Day/Person node)</bridgehead>
+				<para xml:id="de_3662" xml:lang="de">Für jeden Kostenknoten innerhalb eines Day/Person-Knotens
+					wird der Wert des absoluten PriceItems mit den Werten aller assoziierten
+					relativenDayCount- und PersonCount-Bedingungen PriceItems multipliziert. Die
+					auf diese Weise ermittelten Werte für jeden Kostenknoten werden innerhalb
+					jedes Day/Person-Knotens aufsummiert, um den Gesamtpreis für einen Tag und
+					eine Person zu errechnen.</para><para xml:id="en_3662" xml:lang="en">For every price node within a Day/Person node, the value of the absolute PriceItem is multiplied with the values of all associated relative PriceItems. The values ascertained by these means for each cost node are added up within each Day/Person node, in order to calculate the total price for one day and one person.</para>
+				<bridgehead xml:id="de_3663" xml:lang="de">Beispiel</bridgehead><bridgehead xml:id="en_3663" xml:lang="en">Example</bridgehead>
+				
+				<figure>
+					<title><phrase xml:id="de_3664" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</phrase><phrase xml:id="en_3664" xml:lang="en">Total cost of a Day/Person node</phrase></title>
+					<mediaobject>
+						<imageobject xml:id="de_5723" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonNode.png" format="PNG" contentdepth="70%"/></imageobject>
+						<imageobject xml:id="en_5723" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonNode_engl.png" format="PNG" contentdepth="70%"/></imageobject>
+						<textobject>
+							<para xml:id="de_3665" xml:lang="de">Gesamtkosten eines Day/Person-Knotens</para><para xml:id="en_3665" xml:lang="en">Total cost of a Day/Person node</para>
+						</textobject>
+						<caption>
+							<para xml:id="de_3666" xml:lang="de"> </para><para xml:id="en_3666" xml:lang="en"/>
+						</caption>
+					</mediaobject>
+				</figure>
+				
+				<para xml:id="de_3667" xml:lang="de">Um den Gesamtpreis des hervorgehobenen Day/Person-Knotens zu ermitteln, werden
+					zunächst die einzelnen Kostenknoten berechnet:</para><para xml:id="en_3667" xml:lang="en">In order to calculate the total price of the highlighted Day/Person node, the individual cost nodes are first calculated:</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_3668" xml:lang="de">Kosten von Kostenknoten 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 *
+							PriceItem 6</para><para xml:id="en_3668" xml:lang="en">Cost of cost node 1 = PriceItem 1 * PriceItem 4 * PriceItem 5 * PriceItem 6</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3669" xml:lang="de">Kosten von Kostenknoten 2 = PriceItem 2 * PriceItem 5</para><para xml:id="en_3669" xml:lang="en">Cost of cost node 2 = PriceItem 2 * PriceItem 5</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3670" xml:lang="de">Kosten von Kostenknoten 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para><para xml:id="en_3670" xml:lang="en">Cost of cost node 3 = PriceItem 3 * PriceItem 5 * PriceItem 6</para>
+					</listitem>
+				</itemizedlist>
+				<para xml:id="de_3671" xml:lang="de">Der Gesamtpreis ergibt sich dann aus der Summe der Kosten der Kostenknoten:</para><para xml:id="en_3671" xml:lang="en">The total price is then calculated from the sum of the costs of the cost node:</para>
+				<para xml:id="de_3672" xml:lang="de">Gesamtkosten pro Tag und Person = Kosten von Kostenknoten 1 + Kosten von
+					Kostenknoten 2 + Kosten von Kostenknoten 3</para><para xml:id="en_3672" xml:lang="en">Total cost per day and person = cost of cost node 1 + cost of cost node 2 + cost of cost node 3</para>
+				
+				<bridgehead xml:id="de_3673" xml:lang="de">Gesamtpreis pro Tag</bridgehead><bridgehead xml:id="en_3673" xml:lang="en">Total price per day</bridgehead>
+				<para xml:id="de_3674" xml:lang="de">Um den Gesamtpreis für einen Tag zu berechnen, werden alle Kosten der
+					Day/Person-Knoten dieses Tages summiert. In der Kostenmatrix werden also Spaltensummen
+					gebildet und so die Kosten jeder Person für einen bestimmten Tag summiert.</para><para xml:id="en_3674" xml:lang="en">In order to calculate the total price for one day, all costs of the Day/Person node of this day are added. In this way, column sums are created in the cost matrix and the costs for each person are added for a specific day.</para>
+				
+				<bridgehead xml:id="de_3675" xml:lang="de">Gesamtpreis pro Person</bridgehead><bridgehead xml:id="en_3675" xml:lang="en">Total price per person</bridgehead>
+				<para xml:id="de_3676" xml:lang="de">Um den Gesamtpreis für einen Person zu berechnen, werden alle Kosten der
+					Day/Person-Knoten dieser Person summiert. In der Kostenmatrix werden also Zeilensummen
+					gebildet und so die Kosten jedes Tages für eine bestimmte Person summiert.</para><para xml:id="en_3676" xml:lang="en">In order to calculate the total price for one person, all costs of the Day/Person node of that person are added. In this way, row sums are created in the cost matrix and the costs for each day are added for a specific person.</para>
+				
+				<bridgehead xml:id="de_3677" xml:lang="de">Gesamtpreis pro Reise</bridgehead><bridgehead xml:id="en_3677" xml:lang="en">Total price per trip</bridgehead>
+				<para xml:id="de_3678" xml:lang="de">Um den Gesamtpreis der Reise zu berechnen, werden die Kosten aller Day/Person-Knoten
+					der Kostenmatrix summiert.</para><para xml:id="en_3678" xml:lang="en">In order to calculate the total price of the trip, the costs of all day/person nodes in the cost matrix are added.</para>
+				<para xml:id="det_3679" xml:lang="de"/>
+				
+				<figure>
+					<title><phrase xml:id="de_3680" xml:lang="de">Gesamtkosten pro Tag, Person oder Reise</phrase><phrase xml:id="en_3680" xml:lang="en">Total cost per day, person or trip</phrase></title>
+					<mediaobject>
+						<imageobject xml:id="de_5724" xml:lang="de"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct.png" format="PNG" contentdepth="70%"/></imageobject>
+						<imageobject xml:id="en_5724" xml:lang="en"><imagedata fileref="figures/TotalCostsPerDayPersonOrProduct_engl.png" format="PNG" contentdepth="70%"/></imageobject>
+						<textobject>
+							<para xml:id="de_3681" xml:lang="de">Gesamtkosten pro Tag, Person und Reise</para><para xml:id="en_3681" xml:lang="en">Total cost per day, person and trip</para>
+						</textobject>
+						<caption>
+							<para xml:id="de_3682" xml:lang="de"> </para><para xml:id="en_3682" xml:lang="en"/>
+						</caption>
+					</mediaobject>
+				</figure>
+				<bridgehead xml:id="de_3683" xml:lang="de">Tagespreise und Tagespreisanteile zur Auswertung der
+					DayPriceIndex-Condition</bridgehead><bridgehead xml:id="en_3683" xml:lang="en">Day prices and day price components for the evaluation of the DayPriceIndex condition</bridgehead>
+				<para xml:id="de_3684" xml:lang="de">Für die Auswertung der <code>Condition</code> zum
+					Ausführungszeitpunkt <code>ImpactExecutionOrder=Last</code> ist es
+					notwendig, Tagespreise zu ermitteln um Teilbedingungen an die günstigsten
+					bzw. teuersten Tage (<code>DayImpact</code>, <code>DayPriceIndex</code>)
+					auswerten zu können. Es ist in dieser Bedingung nicht nur möglich, sich auf
+					die günstigsten bzw. teuersten Tage zu beziehen, sondern zusätzlich auch auf
+					die günstigsten bzw. teuersten <emphasis role="italic">Anteile</emphasis>
+					der Tagespreise. Dies wird erreicht, indem nur PriceItems mit bestimmten
+					Klassennamen in die Berechnung der Tagespreise einfließen
+					(<code>ConsideredPriceItemClasses</code> ) oder alternativ PriceItems
+					mit bestimmten Klassennamen ausgeschlossen werden
+					(<code>NotConsideredPriceItemClasses</code>). Weiterhin ist zu beachten,
+					dass die <code>DayPriceIndex</code>-Condition den Typ des Tages spezifiziert
+					(Stay oder CheckInOut).</para><para xml:id="en_3684" xml:lang="en">For the evaluation of the <code>Condition</code> at the time of execution <code>ImpactExecutionOrder=Last</code> , it is necessary to calculate the day prices, in order to be able to evaluate the subconditions on the cheapest or most expensive days (<code>DayImpact</code> , <code>DayPriceIndex</code> ). In this condition, it is not only possible to refer to the cheapest or most expensive days, but also to refer the cheapest or most expensive <emphasis role="italic">components</emphasis> of the day prices. This is achieved in that only PriceItems with certain class names are taken into consideration for the day prices ( <code>ConsideredPriceItemClasses</code> ) or alternatively, PriceItems with certain class names can be excluded (<code>NotConsideredPriceItemClasses</code> ). It should also be noted that the <code>DayPriceIndex</code>  condition specifies the type of day (Stay or CheckInOut).</para>
+				<para xml:id="de_3685" xml:lang="de">Es wird davon ausgegangen, dass alle PriceItems in der Kostenmatrix im Sinne der
+					<code>Condition</code> mit <code>ImpactExecutionOrder=AfterCombinatorics</code>
+					gültig sind. Die Berechnung folgt folgendem Ablauf:</para><para xml:id="en_3685" xml:lang="en">It is assumed that all PriceItems in the cost matrix are valid in the sense of the <code>Condition</code> with <code>ImpactExecutionOrder=AfterCombinatorics</code> . The calculation follows the following sequence:</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_3686" xml:lang="de">Es werden die relevanten Tage durch Auswertung des Attributes
+							<code>IntervalType</code> der Condition <code>DayPriceIndex</code>
+							bestimmt. Dieses Attribut definiert, ob <code>Stay</code>-Tage oder
+							<code>CheckInOut</code>-Tage bezüglich der Preishöhe betrachtet werden.
+						</para><para xml:id="en_3686" xml:lang="en">The relevant days are defined via the evaluation of the attribute <code>IntervalType</code> of the condition <code>DayPriceIndex</code>  This attribute defines whether <code>Stay</code>  days or <code>CheckInOut</code>  days are being regarded in relation to the price level.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3687" xml:lang="de">Für alle Day/Person-Knoten der relevanten Tage werden die Kosten jedes
+							Kostenknotens ermittelt. Jedes PriceItems innerhalb des Kostenknotens wird
+							zunächst auf Relevanz überprüft. </para><para xml:id="en_3687" xml:lang="en">The costs of every cost node are calculated for all day/person nodes of the relevant days. Each PriceItem within the cost node is firstly checked for relevance.</para>
+						<para xml:id="de_3688" xml:lang="de">Ein PriceItem ist relevant, wenn folgende Kriterien erfüllt sind:</para><para xml:id="en_3688" xml:lang="en">A PriceItem is relevant if the following criteria are fulfilled:</para>
+						
+						<itemizedlist>
+							<listitem>
+								<para xml:id="de_3689" xml:lang="de">Bei Angabe von <code>ConsideredPriceItemClasses</code> der
+									Klassenname des PriceItems angegeben ist</para><para xml:id="en_3689" xml:lang="en">The class name of the PriceItem is specified with the specification of the <code>ConsideredPriceItemClasses</code> </para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_3690" xml:lang="de">Bei Angabe von <code>NotConsideredPriceItemClasses</code> der
+									Klassenname des PriceItems nicht angegeben ist</para><para xml:id="en_3690" xml:lang="en">The class name of the PriceItem is not specified with the specification of the <code>NotConsideredPriceItemClasses</code> </para>
+							</listitem>
+						</itemizedlist>
+						<para xml:id="de_4956" xml:lang="de">
+							Falls das absolute PriceItem des Kostenknotens nicht relevant
+							ist, sind die Kosten des Kostenknotens Null. Ansonsten errechnen sich die
+							Kosten der Kostenknotens aus dem Wert des absoluten PriceItems multipliziert
+							mit den Werten aller relevanten relativen PriceItems.</para><para xml:id="en_4956" xml:lang="en">In a case where the absolute PriceItem of the cost node is not relevant, the cost of the cost node is zero. Otherwise, the costs of the cost node can be calculated from the value of the absolute PriceItem, multiplied by the values of all relevant relative PriceItems.</para>
+						<para xml:id="de_3691" xml:lang="de">Um die Kosten des Day/Person-Knotens zu bestimmen, werden die ermittelten
+							Kosten der Kostenknoten summiert.</para><para xml:id="en_3691" xml:lang="en">In order to determine the cost of a day/person node, the ascertained costs of the cost node are added.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3692" xml:lang="de">Anschliessend erfolgt die Kostenberechnung für jeden Tag
+							durch Bildung der Spaltensummern in der Kostenmatrix wie oben
+							beschrieben.</para><para xml:id="en_3692" xml:lang="en">Next, the cost calculation for each day is carried out through the creation of column sums in the matrix, as described above.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_3693" xml:lang="de">Die Tage werden nach den ermittelten Tagespreisen
+							aufsteigend sortiert. Sollte eine eindeutige Sortierung aufgrund
+							gleicher Tagespreise nicht möglich sein, wird in zweiter Ordnung
+							aufsteigend nach Datum sortiert. Daraus ergeben sich
+							Positionsindizes für die Tage, die in der
+							<code>DayPriceIndex</code>-Bedingung für die Adressierung der Tage
+							genutzt werden. </para><para xml:id="en_3693" xml:lang="en">The days are sorted in ascending order of the day prices calculated. If unambiguous sorting is not possible due to identical day prices, then sorting can secondarily use the ascending date order. From this, position indices are created for the days in which the <code>DayPriceIndex</code> condition is used for the addressing of the days.</para>
+					</listitem>
+				</itemizedlist>
+				<para xml:id="det_3694" xml:lang="de"/>
 			</section>
 			<section xml:id="OtdsProcessBooking">
 				<title><phrase xml:id="de_3698" xml:lang="de">Verarbeitung der <code>BookingParameter</code></phrase><phrase xml:id="en_3698" xml:lang="en">Processing of the <code>BookingParameter</code> </phrase></title>
@@ -23322,6 +23945,7 @@ usw.]]></programlisting>
 						Die OTDS-Empfehlung ist, alle Zeiten 2 Tage rund um Zeitumstellungstermine
 						mit dem Attribut "UTCOffsetOfTimeZone" zu versehen. </para>
 				</section>
+			</section>
 			</section>
 		</section>
 	</section>
