@@ -7812,10 +7812,35 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="AvailabilityRequestConditionType">
+		<xs:restriction base="xs:string">
+			<xs:length value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="AvailabilityEmptyType"/>
 	<xs:complexType name="AvailabilityStateType">
 		<xs:simpleContent>
 			<xs:extension base="AvailabilityRequestType">
+				<xs:attribute name="State" type="AvailabilityStateEnum" default="Open">
+					<xs:annotation>
+						<xs:documentation>Dieses Attribut definiert welchen Verfügbarkeitsstatus ein Termin bzgl. der Anreise, Abreise oder des Aufenthaltes hat. 
+
+Folgende Verfügbarkeitsstati sind möglich: 
+- Open
+- Request
+- Closed
+- StopSale
+- Blacklisted
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="AvailabilityStateConditionType">
+		<xs:simpleContent>
+			<xs:extension base="AvailabilityRequestConditionType">
 				<xs:attribute name="State" type="AvailabilityStateEnum" default="Open">
 					<xs:annotation>
 						<xs:documentation>Dieses Attribut definiert welchen Verfügbarkeitsstatus ein Termin bzgl. der Anreise, Abreise oder des Aufenthaltes hat. 
@@ -8225,6 +8250,56 @@ All the days from check-in up to and including the day of check-out are to be co
 The default is "Stay".</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="AvailabilityConditionType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="Stay" type="AvailabilityStateConditionType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="det_421">Ist dieses Element in einer Lieferung enthalten, so definiert das Element, dass an diesem Termin einen spezifischen Verfügbarkeitsstatus.
+
+Im Attribut @State können folgende Verfügbarkeitsstati angegeben werden: 
+- Open
+- Request
+- Closed
+- StopSale
+- Blacklisted
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Enthält das Stay-Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthalt-Verfügbarkeits-Status möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+Mit dem State-Attribut gibt man den generellen Status bzgl. des Aufenthaltes an.
+
+Die Definition des Stay-Elementes ersetzt eine gleichzeitge Definition von DefaultDayState/Open,
+DefaultDayState/Closed,
+DefaultDayState/Request,
+DefaultDayState/StopSales,
+DefaultDayState/Blacklisted.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CheckIn" type="AvailabilityStateConditionType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="det_422">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin  die Anreise uneingeschränkt  möglich. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Anreise maximal für diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CheckOut" type="AvailabilityStateConditionType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="det_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="ConditionAttributeGroup"/>
+		<xs:attributeGroup ref="SourceAttributeGroup"/>
 	</xs:complexType>
 	<!-- Begin of Definition of condition groups-->
 	<xs:group name="AtomicBaseConditionGroup">
@@ -8882,6 +8957,7 @@ usw.
 			<xs:group ref="AtomicRulesConditionGroup"/>
 			<xs:group ref="AtomicProductPriceConditionGroup"/>
 			<xs:group ref="AtomicCountConditionGroup"/>
+			<xs:group ref="AtomicAvailabilityConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
 					<xs:group ref="ConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
@@ -9170,6 +9246,11 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 		<xs:choice>
 			<xs:element name="DayCount" type="DayCountConditionType" internal:otdsversion="1.9"/>
 			<xs:element name="PersonCount" type="PersonCountConditionType" internal:otdsversion="1.9"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="AtomicAvailabilityConditionGroup">
+		<xs:choice>
+			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="1.9"/>
 		</xs:choice>
 	</xs:group>
 	<xs:group name="AtomicGenericTagConditionGroup">
