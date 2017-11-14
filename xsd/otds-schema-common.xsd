@@ -234,6 +234,11 @@ The default is 0.</xs:documentation>
 				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
 			</xs:annotation>
 		</xs:attributeGroup>
+		<xs:attribute name="LogicalRelation" type="LogicalRelationEnum" use="optional" default="Or">
+			<xs:annotation>
+				<xs:documentation>Dieses Attribut definiert, ob die ermittelte Menge der PriceItem-Paare mit anderen Apply-Mengen verodert oder verundet werden. Default = "Or"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:attributeGroup>
 	<xs:complexType name="BookingWithoutNodeType">
 		<xs:annotation>
@@ -5051,6 +5056,12 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Blacklisted"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="LogicalRelationEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="And"/>
+			<xs:enumeration value="Or"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!--Begin of  rules definition-->
 	<xs:complexType name="DayAllocationStartType">
 		<xs:attribute name="Source" type="SourceAttributeType" default="Product">
@@ -6718,9 +6729,10 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 	</xs:complexType>
 	<xs:group name="PriceAppliedByGroup">
 		<xs:sequence>
-			<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">In diesem Element wird definiert, welche anderen PriceItems auf dieses
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">In diesem Element wird definiert, welche anderen PriceItems auf dieses
 						PriceItem wirken können. Das Element enthält einen oder mehrere Values eines
 						PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
 						PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
@@ -6732,7 +6744,7 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 						Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
 						Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags sind
 						Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
-					<xs:documentation xml:lang="en">In this element is being defined which other PriceItems can
+						<xs:documentation xml:lang="en">In this element is being defined which other PriceItems can
 						have an impact on this PriceItem. The element holds one or several values of
 						a PriceTags; in addition the Class of the PriceTag is defined within the
 						attribute "Class". A number of values can be specified in a list separated
@@ -6744,11 +6756,11 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 						Source="Hierarchy.All:ThisComponent" will be used, which references the
 						acutal Component including all ancestors and descendants. PriceTags are
 						tags, that are defined at the node "PriceItem".</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">In diesem Element wird definiert, welche Preisbestandteile mit
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">In diesem Element wird definiert, welche Preisbestandteile mit
 						prozentualem Zu- oder Abschlag eine Wirkung auf diesen Wert haben. Das
 						Element enthält den Wert des Attributs "Class" des entsprechenden
 						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
@@ -6760,22 +6772,82 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 						müssen beide Attribute erfüllt sein. Ist nur ein Attribut gefüllt, so muss
 						dieses erfüllt sein. Ist sowohl "Source" als auch "Component" nicht gefüllt,
 						so gilt ab Version V2.0 für Source der Default: ?? @ToDo</xs:documentation>
-					<xs:documentation xml:lang="en">In this element is being defined, which price components have an impact on this value with a percentage surcharge or discount. 
+						<xs:documentation xml:lang="en">In this element is being defined, which price components have an impact on this value with a percentage surcharge or discount. 
 						The element holds the value of the attribute "Class" of the corresponding PriceItem. A number of values can be specified in a list separated by Space. 
 						In the attribute "Component" can be defined to which component the AppliedBy refers to. If "Component" has no value, the default is "ThisComponent".
 						
 						In the course of developing OTDS 2.0 the attribute "Source" has been added, which in the future will completely replace the attribut "Component". 
 						If both attributes have a value, both attribute have to be fulfilled. If only one attribute is filled, this attribute needs to be fulfilled. If neither
 						"Source" nor "Component" is filled, from version V2.0 for Source the default ist valid.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="PriceItemClassTypeList">
-							<xs:attributeGroup ref="ApplyAttributeGroup"/>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AppliedByAll" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotAppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">In diesem Element wird definiert, welche anderen PriceItems auf dieses
+						PriceItem wirken können. Das Element enthält einen oder mehrere Values eines
+						PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
+						PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
+						getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition
+						mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values
+						beziehen. Das Attribut "Source" wird hier auch häufig mit der Eigenschaft
+						"Hierarchy.All" verwendet, um PriceItems aus mehren SubKomponenten
+						gleichzeitig zu referenzieren. Am häufigsten wird
+						Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
+						Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags sind
+						Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
+						<xs:documentation xml:lang="en">In this element is being defined which other PriceItems can
+						have an impact on this PriceItem. The element holds one or several values of
+						a PriceTags; in addition the Class of the PriceTag is defined within the
+						attribute "Class". A number of values can be specified in a list separated
+						by Space. Also just like in the Tag-Condition it is possible to reference to
+						certain sectors of the PriceTag-Value with the help of the attributes Length
+						and Offset. The attribute "Source" in this aspect also is frequently used
+						with the property "Hierarchy.All", in order to reference to PriceItems from
+						several SubComponents at the same time. Most commonly the
+						Source="Hierarchy.All:ThisComponent" will be used, which references the
+						acutal Component including all ancestors and descendants. PriceTags are
+						tags, that are defined at the node "PriceItem".</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="NotAppliedBy" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotAppliedByAll" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="en">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="PriceImpactPercentType">
@@ -7091,63 +7163,6 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 	<xs:group name="ApplyToGroup">
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
-				<xs:element name="ApplyTo">
-					<xs:annotation>
-						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
-						<xs:documentation xml:lang="en">The value is specified, which is registered with the PriceItem in the attribute "Class". If there are several they can be given as a list separated by space.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:simpleContent>
-							<xs:extension base="PriceItemClassTypeList">
-								<xs:attributeGroup ref="ApplyAttributeGroup"/>
-								<xs:attribute name="Include" type="IncludeAttributeEnum">
-									<xs:annotation>
-										<xs:documentation xml:lang="de">Mit Include="ApplyDescendants" können weitere PriceItems
-											inkludiert werden, die von den adressierten PriceItems
-											angewendet werden. So kann man bestimmte
-											PercentPriceItems zuordnen und zusätzlich alle
-											PriceItems inkludieren, die sich über ApplyTo und
-											AppliedBy auf dieses PriceItem beziehen. Dieses Attribut
-											berücksichtigt nur eine Apply-Hierarchie! Sollte ein
-											Bezug auf ein generisches Absolute hergestellt werden,
-											so wird hierbei dessen Include nicht
-											mitberücksichtigt.</xs:documentation>
-										<xs:documentation xml:lang="en">With Include="ApplyDescendants" more PriceItems can be
-											included that are applied by the addressed PriceItems.
-											So you can assign specific PercentPriceItems and
-											additionally include all PriceItems that refer to this
-											PriceItem via ApplyTo and AppliedBy. This attribute only
-											considers an Apply hierarchy! If a reference to a
-											generic absolute is to be obtained, its include will not
-											be taken into account.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-							</xs:extension>
-						</xs:simpleContent>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="ApplyToAll">
-					<xs:annotation>
-						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
-						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:attributeGroup ref="ApplyAttributeGroup"/>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="NotApplyTo">
-					<xs:annotation>
-						<xs:documentation xml:lang="de">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
-						<xs:documentation xml:lang="en">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:simpleContent>
-							<xs:extension base="PriceItemClassTypeList">
-								<xs:attributeGroup ref="ApplyAttributeGroup"/>
-							</xs:extension>
-						</xs:simpleContent>
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="ApplyToPriceTags" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_398">In diesem Element wird definiert, auf welche anderen PriceItems dieses
@@ -7193,6 +7208,119 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 								</xs:attribute>
 							</xs:extension>
 						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ApplyTo">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="en">The value is specified, which is registered with the PriceItem in the attribute "Class". If there are several they can be given as a list separated by space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
+								<xs:attribute name="Include" type="IncludeAttributeEnum">
+									<xs:annotation>
+										<xs:documentation xml:lang="de">Mit Include="ApplyDescendants" können weitere PriceItems
+											inkludiert werden, die von den adressierten PriceItems
+											angewendet werden. So kann man bestimmte
+											PercentPriceItems zuordnen und zusätzlich alle
+											PriceItems inkludieren, die sich über ApplyTo und
+											AppliedBy auf dieses PriceItem beziehen. Dieses Attribut
+											berücksichtigt nur eine Apply-Hierarchie! Sollte ein
+											Bezug auf ein generisches Absolute hergestellt werden,
+											so wird hierbei dessen Include nicht
+											mitberücksichtigt.</xs:documentation>
+										<xs:documentation xml:lang="en">With Include="ApplyDescendants" more PriceItems can be
+											included that are applied by the addressed PriceItems.
+											So you can assign specific PercentPriceItems and
+											additionally include all PriceItems that refer to this
+											PriceItem via ApplyTo and AppliedBy. This attribute only
+											considers an Apply hierarchy! If a reference to a
+											generic absolute is to be obtained, its include will not
+											be taken into account.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ApplyToAll">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotApplyToPriceTags" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_398">In diesem Element wird definiert, auf welche anderen PriceItems dieses
+							PriceItem wirkt. Das Element enthält einen oder mehrere Values eines
+							PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
+							PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
+							getrennt angegeben werden. Außerdem kann man sich wie in der
+							Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des
+							PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig
+							mit der Eigenschaft "Hierarchy.All" verwendet, um PriceItems aus mehren
+							SubKomponenten gleichzeitig zu referenzieren. Am Häufigsten wird
+							Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
+							Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags
+							sind Tags, die am Knoten "PriceItem" definiert
+							werden.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="en_398">In this element is being defined, which other PriceItems this PriceItem may have an impact on. 
+							The element holds one or several values of a PriceTags; in addition the Class of the PriceTag is defined within the attribute "Class". 
+							A number of values can be specified in a list separated by Space. Also just like in the Tag-Condition it is possible to reference to certain 
+							sectors of the PriceTag-Value with the help of the attributes Length and Offset. The attribute "Source" in this aspect also is frequently used 
+							with the property "Hierarchy.All", in order to reference to PriceItems from several SubComponents at the same time. Most commonly the 
+							Source="Hierarchy.All:ThisComponent" will be used, which references the acutal Component including all ancestors and descendants. 
+							PriceTags are tags, that are defined at the node "PriceItem".</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="TagConditionType">
+								<xs:attribute name="Include" type="IncludeAttributeEnum">
+									<xs:annotation>
+										<xs:documentation xml:lang="de">Mit Include="ApplyDescendants" können weitere PriceItems inkludiert
+											werden, die von den adressierten PriceItems angewendet werden. So kann man bestimmte PercentPriceItems zuordnen
+											und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem
+											beziehen. Dieses Attribut berücksichtigt nur eine Apply-Hierarchie! Sollte ein Bezug auf ein generisches
+											Absolute hergestellt werden, so wird hierbei dessen	Include nicht mitberücksichtigt.</xs:documentation>
+										<xs:documentation xml:lang="en">With Include="ApplyDescandents" more PriceItems can be
+											included that are applied by the addressed PriceItems.
+											So you can assign specific PercentPriceItems and
+											additionally include all PriceItems that refer to this
+											PriceItem via ApplyTo and AppliedBy. This attribute only
+											considers an Apply hierarchy! If a reference to a
+											generic absolute is to be obtained, its include will not
+											be taken into account.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotApplyTo">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="en">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotApplyToAll">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:choice>
