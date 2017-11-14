@@ -8129,15 +8129,16 @@ usw.]]></programlisting>
 				  
 			  	</section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">
-					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>,
-						<code>AppliedBy</code>)</phrase><phrase xml:id="en_1363" xml:lang="en">Effect (<code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code>, <code>AppliedBy</code> )</phrase></title>
+					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>, <code>AppliedBy</code>, <code>ApplyToPriceTags</code>)</phrase><phrase xml:id="en_1363" xml:lang="en">Precentage effect (<code>ApplyTo</code>, <code>AppliedBy</code>, <code>ApplyToPriceTags</code>)</phrase></title>
 					<para xml:id="de_1364" xml:lang="de">Prozentuale PriceItems müssen sich immer auf mindestens ein absolutes PriceItem
 						beziehen, um angewendet zu werden. Diese Beziehung wird bei den prozentualen
-						PriceItems durch das Element <code>ApplyTo</code> hergestellt, in dem die
-						PriceItem-Class des absoluten PriceItems angegeben wird. Es können in dem Element
+						PriceItems z.B. durch das Element <code>ApplyTo</code> hergestellt, in dem die
+						PriceItem-Class des absoluten PriceItems als Bezug angegeben wird. Es können in dem Element
 						mehrere PriceItem-Classes angegeben werden, wenn das prozentuale PriceItem auf mehrere
-						absolute PriceItems wirken soll. Alle absoluten PriceItems können durch Hinzufügen des
-						leeren Elements <code>ApplyToAll</code> referenziert werden.</para><para xml:id="en_1364" xml:lang="en">Percentage PriceItems must always refer to at least one absolute PriceItem in order to function. This relationship with the percentage PriceItems is established through the element <code>ApplyTo</code>  in which the class of the absolute PriceItem is indicated. Multiple PriceItem classes can be entered in the element if the percentage PriceItem is to influence several absolute PriceItems. All absolute PriceItems can be referred to by adding the empty element <code>ApplyToAll</code> .</para>
+						absolute PriceItems wirken soll. Es gibt weitere Bezugsmöglichkeiten zum Beispiel  können alle absoluten PriceItems durch Hinzufügen des
+						leeren Elements <code>ApplyToAll</code> referenziert werden.</para><para xml:id="en_1364" xml:lang="en">Percentage PriceItems must always refer to at least one absolute PriceItem in order to function. This relationship with the percentage PriceItems can be established through the element <code>ApplyTo</code>  in which the class of the absolute PriceItem is indicated. Multiple PriceItem classes can be entered in the element if the percentage PriceItem is to influence several absolute PriceItems. 
+							
+							There are much more ways to define relationship between absolute and percentage PriceItems. For example all absolute PriceItems can be referred to by adding the empty element <code>ApplyToAll</code> .</para>
 					<para xml:id="de_1365" xml:lang="de">Der Wirkungsradius von <code>ApplyTo</code> ist standardmäßig auf absolute
 						PriceItems derselben Komponente begrenzt. Dadurch ist sichergestellt, dass
 						beispielsweise ein prozentuales PriceItem der Unterkunft sich nicht fälschlicherweise
@@ -8168,29 +8169,62 @@ usw.]]></programlisting>
 						absoluten und prozentualen PriceItems nicht bei den prozuentualen
 						PriceItems, sondern bei den absoluten PriceItems. OTDS bietet für diesen
 						Sonderfall die Möglichkeit, an Stelle von <code>ApplyTo</code> bei
-						prozentualen PriceItems das Attribut <code>AppliedBy</code> bei absoluten
+						prozentualen PriceItems das Element <code>AppliedBy</code> bei absoluten
 						PriceItems zu nutzen. Auch dort bezieht man sich jeweils innerhalb eines
 							<code>AppliedBy</code> nur auf die im Attribut <code>Component</code>
 						angegebene Komponente.</para><para xml:id="en_1367" xml:lang="en">Some tour operators do not store the relationships between absolute and percentage PriceItems with the percentage PriceItems, but rather with the absolute PriceItems. For this special case, OTDS offers the possibility of using the attribute <code>AppliedBy</code> for absolute PriceItems instead of <code>ApplyTo</code> for percentage PriceItems. Here too, within each <code>AppliedBy</code> , one only refers to the component specified in the attribute <code>Component</code> .</para>
 					<para xml:id="de_1368" xml:lang="de">Es können die Komponenten Accommodation, OnewayFlight und ReturnFlight angegeben
 						werden. Die Angabe <code>ThisComponent</code> ist die Standardeinstellung und
 						referenziert die Komponente des prozentualen PriceItem selbst.</para><para xml:id="en_1368" xml:lang="en">The components Accommodation, OnewayFlight and ReturnFlight can be specified. The specification of <code>ThisComponent</code> is the default setting and refers to the component of the percentage PriceItem itself.</para>
-					<para xml:id="de_1369" xml:lang="de">Die Angaben <code>ApplyTo</code>, <code>NotApplyTo</code>, <code>ApplyToPriceTags</code> und <code>AppliedBy</code>
-						sind optional. Fehlen die Angaben, so findet keine Zuweisung statt. Bei mehrfacher
-						Verwendung von <code>ApplyTo</code> oder <code>NotApplyTo</code> werden die
-						Percent-Values nur auf die Absolute-Values angewendet, die alle Bedingungen erfüllen.
-							<code>ApplyTo</code> und <code>NotApplyTo</code> auf die gleiche PriceItemClass
-						ist zwar sinnlos, aber nicht verboten. In einem solchen Fall werden beide Wirkungen
-						angewendet.</para><para xml:id="en_1369" xml:lang="en">The specifications <code>ApplyTo</code> , <code>NotApplyTo</code> and <code>AppliedBy</code> are optional. If no specifications are given, nothing is assigned. With multiple use of <code>ApplyTo</code> or <code>NotApplyTo</code> , the PercentValues are only applied to the AbsoluteValues which fulfil all conditions. <code>ApplyTo</code> and <code>NotApplyTo</code> on the same PriceItemClass is senseless but not forbidden. In such a case, both effects are applied.</para>
-					<para xml:id="de_5350" xml:lang="de">Wichtige Hinweise: a) Eine Platzierung mehrerer <code>ApplyTo</code> , <code>ApplyToAll</code> , <code>NotAppliedTo</code> zu einer Komponente ist aktuell nicht vorgesehen. b) <code>ApplyTo</code> , <code>ApplyToAll</code> , <code>NotAppliedTo</code> in Kombination mit <code>AppliedBy</code> werden ver-ODER-rt.</para><para xml:id="en_5350" xml:lang="en">Important information: a) a placement of multiple <code>ApplyTo</code>, <code>ApplyToAll</code>, <code>NotAppliedTo</code> to a component is currently not possible. b) <code>ApplyTo</code> , <code>ApplyToAll</code> , <code>NotAppliedTo</code> in combination with <code>AppliedBy</code> have to be concatenated with OR.</para>
-					<para xml:id="de_1370" xml:lang="de">
-						<emphasis role="bold">!Wichtig! Wird innerhalb eines Hotels <code>ApplyTo</code> oder
-								<code>NotApplyTo</code> gleichzeitig mit <code>AppliedBy</code> angewendet,
-							werden auch dort die Percent-Values nur auf die Absolut-Values bezogen, die alle
-							Bedingungen erfüllen.</emphasis>
-					</para><para xml:id="en_1370" xml:lang="en">
-						<emphasis role="bold">Important! If <code>ApplyTo</code> or <code>NotApplyTo</code> is applied simultaneously with <code>AppliedBy</code> within a hotel, then there too, the Percent-Values will only refer to the Absolute-Values which fulfil all of the conditions.</emphasis>
+					<para>Die Angaben bzgl. der Beziehungen zwischen Absolute-PriceItems und Percent-PriceItems also zum Beispiel in <code>ApplyTo</code> nennt man <code>Apply</code>-Bedingungen.</para>
+					<para><emphasis>Im folgenden eine Auflistung aller <code>Apply</code>-Bedingungen:</emphasis></para> 
+					<para xml:id="de_3620" xml:lang="de">Bei Absolute-PriceItems über die Angabe von:</para><para xml:id="en_3621" xml:lang="en">For Absolute-PriceItems via the specification of:</para>
+					<itemizedlist>
+						<listitem>
+							<para><code>Absolute/AppliedBy</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/AppliedByPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/AppliedByAll</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedBy</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByAll</code></para>
+						</listitem>
+					</itemizedlist>
+					<para xml:id="de_3621" xml:lang="de">Bei Percent-PriceItems über die Angabe von:</para><para xml:id="en_3621" xml:lang="en">For Percent-PriceItems via the specification of:</para>
+					<itemizedlist>
+						<listitem>
+							<para role="NoTrans"><code>Percent/ApplyTo</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToAll</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyTo</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToAll</code></para>
+						</listitem>
+					</itemizedlist>	
+					<para>Seid Version 2.0 sind hier einige Apply-Bedingungen dazu gekommen. Die genaue Markierung der in Version 2.0 ergänzten Elemente und Attribute finden Sie in der <link xlink:href="../technisch/otds_technisch.html#ApplyTo">Technischen Dokumentation unter ApplyTo</link>.</para>
+					<para>Seid der Version 2.0 kann in jeder Apply-Bedingungen das Attribut <code>@LogicalRelation</code>="And|Or" benutzt werden um zu spezifizieren, ob es sich um eine And-Apply-Bedingung oder eine Or-Apply-Bedingung handelt.
+						Eine Beziehung zwischen einem Percent-PriceItem und einem Absolute-PriceItem ist nur dann gültig, wenn alle And-Apply-Bedingungen und mindestens eine Or-Apply-Bedingung zwischen den beiden PriceItems erfüllt sind.   
 					</para>
+					<para>Einde detaillierte Beschreibung der Auswertung der einzelnen Apply-Bedingungen finden Sie im Kapitel 2 unter <link linkend="OtdsProcessPriceCalculationAssignRelative2AbsolutePriceItems">Zuweisung der prozentualen zu absoluten PriceItems</link></para>
 					<para xml:id="det_1371" xml:lang="de"/>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemCondition">
@@ -23004,31 +23038,63 @@ usw.]]></programlisting>
 				</section>
 
 				<section xml:id="OtdsProcessPriceCalculationAssignRelative2AbsolutePriceItems">
-					<title><phrase xml:id="de_3616" xml:lang="de">Zuweisung der prozentualen zu absoluten PriceItems</phrase><phrase xml:id="en_3616" xml:lang="en">Allocation of the percentage to absolute PriceItems</phrase></title>
+					<title><phrase xml:id="de_3616" xml:lang="de">Zuweisung der relativen (prozentualen) zu absoluten PriceItems</phrase><phrase xml:id="en_3616" xml:lang="en">Allocation of the relative (percentage) to absolute PriceItems</phrase></title>
 
 					<para xml:id="de_3617" xml:lang="de">Für die weitere Preisberechnung ist es notwendig, die Beziehung zwischen absoluten
 						und relativen PriceItems herzustellen. In jedem Day/Person-Knoten der Kostenmatrix
 						liegen die PriceItems noch ungeordnet und ohne Bezug zueinander vor.</para><para xml:id="en_3617" xml:lang="en">For the further price calculation it is necessary to create the relationship between absolute and relative PriceItems. In every day/person node of the cost matrix the PriceItems are still unordered and without relation to one another.</para>
-					<para xml:id="de_3618" xml:lang="de">Jedes relative PriceItem definiert einen Zu- oder Abschlag auf ein oder mehrere
-						absolute PriceItems.</para><para xml:id="en_3618" xml:lang="en">Every relative PriceItem defines a surcharge or discount for one or several absolute PriceItems.</para>
-					<para xml:id="de_3619" xml:lang="de">Die Beziehung zwischen absoluten und relativen PriceItems kann sowohl bei absoluten
-						als auch bei relativen PriceItems definiert werden und wird über den Klassennamen der
-						PriceItems hergestellt (Attribut <code>Class</code>):</para><para xml:id="en_3619" xml:lang="en">The relationship between absolute and relative PriceItems can be defined with absolute as well as relative PriceItems and is created via the group name of the Priceitems (Attribute <code>Class</code> ):</para>
+					<para xml:id="de_3618" xml:lang="de">Jedes relative PriceItem definiert einen Zu- oder Abschlag und bezieht sich dabei auf ein oder mehrere	absolute PriceItems.</para><para xml:id="en_3618" xml:lang="en">Every relative PriceItem defines a surcharge or discount for one or several related absolute PriceItems.</para>
+					<para xml:id="de_3619" xml:lang="de">Die Beziehung zwischen absoluten und relativen PriceItems kann sowohl bei absoluten als auch bei relativen PriceItems definiert werden. 
+						Die Definition kann dabei sowohl Klassennamen (Attribut <code>Class</code>) als auch Preismarkierungen (Element <code>PriceTags</code>) benutzen.</para>
+					<para xml:id="en_3619" xml:lang="en">The relationship between absolute and relative PriceItems can be defined with absolute as well as relative PriceItems.
+						The definition can use priceitem classes (Attribute <code>Class</code> as well as priceitem tags (element <code>Pricetags</code> ).</para>
+					<para xml:id="de_3620" xml:lang="de">Bei Absolute-PriceItems über die Angabe von:</para><para xml:id="en_3621" xml:lang="en">For Absolute-PriceItems via the specification of:</para>
 					<itemizedlist>
 						<listitem>
-							<para xml:id="de_3620" xml:lang="de">Bei absoluten PriceItems über die Angabe von
-								<code>Absolute/AppliedBy</code></para><para xml:id="en_3620" xml:lang="en">With absolute Priceitems via the entry of <code>Absolute/AppliedBy</code> </para>
+							<para><code>Absolute/AppliedBy</code></para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_3621" xml:lang="de">Bei relativen PriceItems über die Angabe von <code>Percent/ApplyTo</code>, <code>Percent/ApplyToPriceTags</code>,
-								<code>Percent/ApplyToAll</code>, <code>Percent/ApplyToPriceTags</code> oder
-								<code>Percent/NotApplyTo</code></para><para xml:id="en_3621" xml:lang="en">For relative PriceItems via the specification of <code>Percent/ApplyTo</code> , <code>Percent/ApplyToPriceTags</code> , <code>Percent/ApplyToAll</code> , <code>Percent/ApplyToPriceTags</code> or <code>Percent/NotApplyTo</code> </para>
+							<para><code>Absolute/AppliedByPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/AppliedByAll</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedBy</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByAll</code></para>
 						</listitem>
 					</itemizedlist>
-					<para xml:id="de_3622" xml:lang="de">Die Beziehungen zwischen absoluten und relativen
-						PriceItems werden für jeden Day/Person-Knoten der Kostenmatrix separat
-						erstellt, da sich PriceItems in unterschiedlichen Day/Person-Knoten
-						gegenseitig nicht beeinflussen.</para><para xml:id="en_3622" xml:lang="en">The relationships between absolute and relative PriceItems are created separately for each day/person node of the cost matrix, because PriceItems in different day/person nodes do not influence each other.</para>
+					<para xml:id="de_3621" xml:lang="de">Bei Percent-PriceItems über die Angabe von:</para><para xml:id="en_3621" xml:lang="en">For Percent-PriceItems via the specification of:</para>
+					<itemizedlist>
+						<listitem>
+							<para role="NoTrans"><code>Percent/ApplyTo</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToAll</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyTo</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToAll</code></para>
+						</listitem>
+					</itemizedlist>	
+					<para>Jedes dieser <code>ApplyTo...</code>, <code>NotApplyTo...</code>, <code>AppliedBy...</code> und <code>NotAppliedBy...</code>-Elemente formuliert jeweils eine Bedingung. 
+						Diese Bedingung soll im folgenden der Einfachheit <code>Apply</code>-Bedingung genannt werden.
+						In jeder Apply-Bedingungen kann das Attribut <code>@LogicalRelation</code>="And|Or" benutzt werden um zu spezifizieren, ob es sich um eine And-Apply-Bedingung oder eine Or-Apply-Bedingung handelt.
+						Eine Beziehung zwischen einem Percent-PriceItem und einem Absolute-PriceItem ist nur dann gültig, wenn alle And-Apply-Bedingungen und mindestens eine Or-Apply-Bedingung zwischen den beiden PriceItems erfüllt sind.   
+					</para>
 					<para xml:id="de_3623" xml:lang="de">Innerhalb eines Day/Person-Knotens werden folgende Verarbeitungsschritte ausgeführt: </para><para xml:id="en_3623" xml:lang="en">Within a day/person node, the following processing steps are carried out:</para>
 					<itemizedlist>
 						<listitem>
@@ -23040,81 +23106,83 @@ usw.]]></programlisting>
 								PriceItems. Jeder Day/Person-Knoten erhält demnach genauso viele Kostenknoten
 								wie er absolute PriceItems enthält.</para><para xml:id="en_3625" xml:lang="en">A cost node is created for every absolute PriceItem, which is placed within the day/person node. A cost node is an organisational frame for exactly one absolute PriceItem and all associated relative PriceItems. Each day/person node contains therefore exactly the same amount of cost nodes as it does absolute PriceItems.</para>
 							<para xml:id="de_3626" xml:lang="de">Dem neu erzeugten Kostenknoten wird das absolute PriceItem zugewiesen. </para><para xml:id="en_3626" xml:lang="en">The absolute PriceItem is allocated to the newly created cost node.</para>
-							<para xml:id="de_3627" xml:lang="de">Hat das absolute PriceItem die Angabe <code>AppliedBy</code>, werden alle
-								relativen PriceItems im selben Day/Person-Knoten bestimmt, deren Attribut
-									<code>Class</code> mit einem der angegebenen Class-Namen übereinstimmt und
-								dem Kostenknoten zugewiesen.</para><para xml:id="en_3627" xml:lang="en">If the absolute PriceItem has the entry <code>AppliedBy</code> , then all the relative PriceItems in the same day/person node are defined, whose attribute <code>Class</code> matches that of an entered class name, and is allocated to the cost node.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3628" xml:lang="de"><emphasis role="bold">Zuweisung der relativen PriceItems:</emphasis></para><para xml:id="en_3628" xml:lang="en"><emphasis role="bold">Processing the relative PriceItems:</emphasis></para>
-							<para xml:id="de_3629" xml:lang="de">Es werden anschliessend alle relativen PriceItems des Day/Person-Knotens der
-								Reihe nach betrachtet und folgende Verarbeitungsschritte durchgeführt (unter
-								Beachtung der anschliessend aufgeführten zusätzlichen Regeln):</para><para xml:id="en_3629" xml:lang="en">Consequently, all relative PriceItems of the day/person node are observed in sequence and the following processing steps are carried out (under observation of the additional rules carried out consequently):</para>
-							<itemizedlist>
-								<listitem>
-									<para xml:id="de_3630" xml:lang="de">Hat das relative PriceItem eine Angabe <code>ApplyToAll</code>, wird
-										das relative PriceItem in alle Kostenknoten des Day/Person-Knotens
-										kopiert.</para><para xml:id="en_3630" xml:lang="en">Where the relative PriceItem is designated <code>ApplyToAll</code> , it is copied into all cost nodes of the day/person nodes.</para>
-								</listitem>
-								<listitem>
-									<para xml:id="de_3631" xml:lang="de">Hat das relative PriceItem eine Angabe
-											<code>ApplyTo</code>, wird das relative PriceItem in
-										alle Kostenknoten kopiert, deren absolutes PriceItem im
-										Klassennamen mit einem der angegebenen Klassennamen
-										übereinstimmt.</para><para xml:id="en_3631" xml:lang="en">Where the relative PriceItem has an <code>ApplyTo</code> entry, it is copied into all cost nodes where the category name of the absolute PriceItem matches one of the given category names.</para>
-								</listitem>
-								<listitem>
-									<para xml:lang="de" xml:id="de_5332">Hat das relative PriceItem eine Angabe
-											<code>ApplyToPriceTags</code>, wird das relative
-										PriceItem in alle Kostenknoten kopiert, deren absolutes
-										PriceItem ein PriceTag besitzt, welches mit der Definition
-										in <code>ApplyToPriceTags</code> übereinstimmt
-										übereinstimmt.</para><para xml:lang="en" xml:id="en_5332">If the relative PriceItem has an <code>ApplyToPriceTags</code> entry, the relative PriceItem is copied into all cost nodes whose absolute PriceItem possesses a PriceTag which matches the definition in <code>ApplyToPriceTags</code> .</para>
-								</listitem>
-								<listitem>
-									<para xml:id="de_3632" xml:lang="de">Hat das relative PriceItem eine Angabe
-											<code>NotApplyTo</code>, wird das relative PriceItem
-										allen Kostenknoten zugewiesen, deren absolutes PriceItem im
-										Klassennamen mit keinem der angegebenen Klassennamen
-										übereinstimmt. </para><para xml:id="en_3632" xml:lang="en">Where the relative PriceItem has a <code>NotApplyTo</code> entry, it is copied into all cost nodes where the category name of the absolute PriceItem does not match any of the given category names.</para>
-								</listitem>
-							</itemizedlist>
+							<para xml:id="de_3627" xml:lang="de">Nun wird anhand der <code>Apply</code>-Bedingungen
+									geprüft, welche für welche relative PriceItems des
+									DayPerson-Knotens eine gültige Beziehung zu dem absoluten
+									PriceItem definiert ist.</para>
+							<para xml:id="en_3627" xml:lang="en">Based on the <code>Apply</code> conditions we identfy
+									which relative PriceItems of the related day/person node define
+									a valid relationship to the absolute PriceItem.</para>
 							<para xml:id="de_3633" xml:lang="de">Relative PriceItems, die keinem Kostenknoten zugewiesen werden konnten,
 								werden entfernt.</para><para xml:id="en_3633" xml:lang="en">Relative PriceItems that could not be assigned to any cost node are removed.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_3634" xml:lang="de">Bei der Herstellung dieser Beziehungen sind zusätzlich folgende Punkte zu
-								beachten:</para><para xml:id="en_3634" xml:lang="en">In establishing this relationship the following additional points should be noted:</para>
-							<itemizedlist>
-								<listitem>
-									<para xml:id="de_3635" xml:lang="de">Das Attribut <code>Component</code> von
-											<code>Absolute/AppliedBy</code>, <code>Percent/ApplyTo</code>,
-											<code>Percent/ApplyToAll</code> und
-											<code>Percent/NotApplyTo</code> wird bei der Zuweisung von
-										relativen zu absoluten PriceItems berücksichtigt: Die Komponente des
-										absoluten PriceItems und des relativen PriceItems müssen mit der
-										Angaben im Attribut <code>Component</code> übereinstimmen, damit die
-										Zuweisung erfolgt.</para><para xml:id="en_3635" xml:lang="en">The<code>Component</code> attribute of<code>Absolute/AppliedBy</code> , <code>Percent/ApplyTo</code> , <code>Percent/ApplyToAll</code> and <code>Percent/NotApplyTo</code> are taken into account in the allocation of relative and absolute PriceItems: The components of the absolute and relative PriceItems must match the information in the <code>Component</code> attribute for the assignment to be made.</para>
-								</listitem>
-								<listitem>
-									<para xml:id="de_3636" xml:lang="de">Relative PriceItems werden einem Kostenknoten maximal
-										einmal zugewiesen, niemals mehrfach, wie es beispielsweise
-										durch gleichzeitige Angabe von
-											<code>Absolute/AppliedBy</code> und
-											<code>Percent/ApplyTo</code> passieren könnte.</para><para xml:id="en_3636" xml:lang="en">Relative PriceItems can only be assigned to a cost node once, never in multiples as might occur through the simultaneous indication of<code>Absolute/AppliedBy</code> and <code>Percent/ApplyTo</code> .</para>
-								</listitem>
-							</itemizedlist>
+							<para xml:id="de_3638" xml:lang="de">Nach Abarbeitung dieser Schritte sind die Beziehungen von absoluten und relativen
+								PriceItems in jedem Day/Person-Knoten hergestellt.</para><para xml:id="en_3638" xml:lang="en">After executing these steps the relations between absolute and relative PriceItems for each day/person node are produced.</para>
 						</listitem>
 					</itemizedlist>
-					<para xml:id="de_3637" xml:lang="de">Hinweis: Da relative PriceItems mehreren Kostenknoten
-						zugewiesen werden können, werden relative PriceItems in einem solchen Fall
-						dupliziert und liegen innerhalb eines Day/Person-Knoten nach der
-						Verarbeitung dann mehrfach vor (in einem <emphasis role="italic"
-							>Kostenknoten</emphasis> gibt es jedoch jedes relative PriceItem maximal
-						einmal).</para><para xml:id="en_3637" xml:lang="en">Note: As relative PriceItems can be assigned to multiple cost nodes, they are (in such a case) duplicated and available within the day/person node after processing (in a <emphasis role="italic"> cost node</emphasis>each relative PriceItem can occur only once).</para>
+					<para>Im Folgenden die Auswertung der einzelnen Apply-Bedingungen:</para>
+					<para>Alle Apply-Bedingungnen besitzen ein Attribut @LogicalRelation. Bei der Auswertung der Bedingungen müssen alle Apply-Bedingungen mit @LogicalRelation="And" ausnahmslos erfüllt werden. Bei der Auswertung der Apply-Bedingungen mit @LogicalRelation="Or" reicht es wenn eine dieser Bedingungen erfüllt ist.
+					</para>
+					<para>Beachte: Es muss immer mindestens eine Or-Bedingung vorhanden sein, um eine gültige Beziehung zwischen zwei PriceItems herzustellen.</para>
+					<para>Jede der Apply-Bedingungen kann nur erfüllt werden, wenn das untersuchte PriceItem an einer Komponente bzw. Unterkomponente definiert ist, die durch die Angaben in  @Source bzw. @Component referenziert wird.</para>
+					<para><emphasis>Absolute-PriceItem</emphasis></para>
+					<itemizedlist>
+						<listitem>
+							<para><code>Absolute/AppliedBy</code></para>
+							<para>Die Bedingung ist erfüllt, wenn mindestens eine Price-Class, der unter <code>Absolute/AppliedBy</code> angegeben Liste von Price-Classes, am untersuchten Percent-PriceItem unter Percent/@Class definiert ist.</para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/AppliedByPriceTags</code></para>
+							<para>Die Bedingung ist erfüllt, wenn es mindestens ein PriceTag am untersuchten PriceItem gibt, welches die unter <code>Absolute/AppliedByPriceTags</code> angegeben Angaben erfüllt.
+								Dabei werden die von <code>Tags</code> bekannten Eigenschaften wie <code>@Class</code>, <code>@TagValueType</code>, <code>@Offset</code>, <code>@Length</code> abgeprüft. Beachte: <code>AppliedByPriceTags</code> kann eine Liste von <code>PriceTag</code>-Values enthalten.</para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/AppliedByAll</code></para>
+							<para>Die Bedingung ist erfüllt, wenn das untersuchte PriceItem an einer Komponente bzw. Unterkomponente definiert ist, die durch die Angaben in  @Source bzw. @Component referenziert wird.</para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedBy</code></para>
+							<para>Die Bedingung ist erfüllt, wenn <emphasis>keine</emphasis> Price-Class, der unter <code>Absolute/AppliedBy</code> angegeben Liste von Price-Classes, am untersuchten Percent-PriceItem unter Percent/@Class definiert ist.</para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByPriceTags</code></para>
+							<para>Die Bedingung ist erfüllt, wenn es <emphasis>kein</emphasis>  PriceTag am untersuchten PriceItem gibt, welches die unter <code>Absolute/AppliedByPriceTags</code> angegeben Angaben erfüllt.
+								Dabei werden die von <code>Tags</code> bekannten Eigenschaften wie <code>@Class</code>, <code>@TagValueType</code>, <code>@Offset</code>, <code>@Length</code> abgeprüft. Beachte: <code>NotAppliedByPriceTags</code> kann eine Liste von <code>PriceTag</code>-Value enthalten.</para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByAll</code></para>
+							<para>Die Bedingung ist erfüllt, wenn das untersuchte PriceItem an <emphasis>keiner</emphasis> Komponente bzw. Unterkomponente definiert ist, die durch die Angaben in  @Source bzw. @Component referenziert wird.</para>
+						</listitem>
+					</itemizedlist>
+					<para><emphasis>Percent-PriceItem</emphasis></para>
+					<itemizedlist>
+						<listitem>
+							<para role="NoTrans"><code>Percent/ApplyTo</code></para>
+							<para>Die Bedingung ist erfüllt, wenn mindestens eine Price-Class, der unter <code>Percent/ApplyTo</code> angegeben Liste von Price-Classes, am untersuchten Absolute-PriceItem unter Absolute/@Class bzw. GenricAbsolute/@Class definiert ist.</para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToPriceTags</code></para>
+							<para>Die Bedingung ist erfüllt, wenn es mindestens ein PriceTag am untersuchten PriceItem gibt, welches die unter <code>Percent/ApplyToPriceTags</code> angegeben Angaben erfüllt.
+								Dabei werden die von <code>Tags</code> bekannten Eigenschaften wie <code>@Class</code>, <code>@TagValueType</code>, <code>@Offset</code>, <code>@Length</code> abgeprüft. Beachte: <code>ApplyToPriceTags</code> kann eine Liste von <code>PriceTag</code>-Values enthalten.</para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToAll</code></para>
+							<para>Die Bedingung ist erfüllt, wenn das untersuchte PriceItem an einer Komponente bzw. Unterkomponente definiert ist, die durch die Angaben in  @Source bzw. @Component referenziert wird.</para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyTo</code></para>
+							<para>Die Bedingung ist erfüllt, wenn <emphasis>keine</emphasis> Price-Class, der unter <code>Percent/NotApplyTo</code> angegeben Liste von Price-Classes, am untersuchten Absolute-PriceItem unter Absolute/@Class definiert ist.</para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToPriceTags</code></para>
+							<para>Die Bedingung ist erfüllt, wenn es <emphasis>kein</emphasis>  PriceTag am untersuchten PriceItem gibt, welches die unter <code>Percent/NotApplyToPriceTags</code> angegeben Angaben erfüllt.
+								Dabei werden die von <code>Tags</code> bekannten Eigenschaften wie <code>@Class</code>, <code>@TagValueType</code>, <code>@Offset</code>, <code>@Length</code> abgeprüft. Beachte: <code>NotApplyToPriceTags</code> kann eine Liste von <code>PriceTag</code>-Value enthalten.</para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToAll</code></para>
+							<para>Die Bedingung ist erfüllt, wenn das untersuchte PriceItem an <emphasis>keiner</emphasis> Komponente bzw. Unterkomponente definiert ist, die durch die Angaben in  @Source bzw. @Component referenziert wird.</para>
+						</listitem>
+					</itemizedlist>	
 
-					<para xml:id="de_3638" xml:lang="de">Nach Abarbeitung dieser Schritte sind die Beziehungen von absoluten und relativen
-						PriceItems in jedem Day/Person-Knoten hergestellt.</para><para xml:id="en_3638" xml:lang="en">After executing these steps the relations between absolute and relative PriceItems for each day/person node are produced.</para>
 					<bridgehead xml:id="de_3639" xml:lang="de">Beispiel</bridgehead><bridgehead xml:id="en_3639" xml:lang="en">Example</bridgehead>
 					<para xml:id="de_3640" xml:lang="de">Das folgende Schaubild verdeutlicht die Ausgangssituation
 						in einem Day/Person-Knoten und das Ergebnis der oben beschriebenen
@@ -23155,6 +23223,7 @@ usw.]]></programlisting>
 								Day/Person-Knoten nicht existiert. PriceItem 7 wird daher entfernt.</para><para xml:id="en_3650" xml:lang="en">PriceItem 7 cannot be assigned, because PriceItem 0 in this day/person node does not exist. PriceItem 7 is therefore removed.</para>
 						</listitem>
 					</itemizedlist>
+					<para>In diesem Schaubild, sieht es so aus, als wenn vereinzelte Percent-PriceItems quasi "dupliziert" würden. Tatsächlich ist das aber nur die Veranschaulichung der Anwendung der Percent-Prictems im Zusammenspiel mit mehreren Absolut-PriceItems.</para>	
 					<para xml:id="det_3651" xml:lang="de"/>
 				</section>
 

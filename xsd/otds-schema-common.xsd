@@ -3148,7 +3148,7 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 		</xs:attribute>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="ComponentAttributeGroup">
-		<xs:attribute name="Component" type="ComponentAttributeType" use="optional" default="ThisComponent">
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_266">Dieses Attribut gibt den Type einer Komponente
 					an. Folgende Typen stehen zur Auswahl: -
@@ -5923,6 +5923,11 @@ This is based on the total number of nights For this reason the return date is e
 		<xs:simpleContent>
 			<xs:extension base="ConsideredPriceTagsReferenceType">
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
+				<xs:attribute name="LogicalRelation" type="LogicalRelationEnum" use="optional" default="Or">
+					<xs:annotation>
+						<xs:documentation>Dieses Attribut definiert, ob die ermittelte Menge der PriceItem-Paare mit anderen Apply-Mengen verodert oder verundet werden. Default = "Or"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -6328,9 +6333,11 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 			<xs:choice>
 				<xs:element name="Absolute" type="PriceImpactAbsoluteType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_356">Definition des Absolutbetrags eines
-							Preisbestandteils (PriceItems) mit den Berechnungsgrundlagen und
-							Wirkungen.</xs:documentation>
+						<xs:documentation xml:lang="det" xml:id="de_356">Definition von fixen Absolutbeträgen mit der Festlegung des Values und der Aufteilung des Values auf die Kostenmatrix gemäß der Angaben unter DayBase und PersonBase.  
+Die Zuordnung des Absolutbetrages zu spezifischen Percent-PriceItems wird über einzelne Bedingungen in den Elementen AppliedBy... und NotAppliedBy... festgelegt.
+Die Percent-PriceItems ihrerseits können auch zusätzliche Bedingungen durch ApplyTo... und NotApplyTo... an die Zuordnung festlegen.
+Mit dem Attribut @LogicalRelation="And" oder "Or" definiert man And-Bedingungen bzw. Or-Bedingungen.
+Die finale Zuordnung eines Absoluten-PriceItems zu einem PercentPriceItem, erfolgt nur dann, wenn jede And-Bedingung und gleichzeitig mindestens 1 Or-Bedingung erfüllt ist.  </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_356">Definition of the absolute value of a price
 							component (PriceItem) with the bases for the calculation and
 							effects.</xs:documentation>
@@ -6338,19 +6345,25 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 				</xs:element>
 				<xs:element name="GenericAbsolute" type="PriceImpactGenericType" internal:otdsversion="1.9">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_357">Angabe eines prozentualen Auf- oder Abschlags. Wirkt auf bestimmte
-							PriceItems über ApplyTo oder NotApplyTo und wirkungsbezogene Bedingungen
-							auf Reisende und Termine.</xs:documentation>
+						<xs:documentation xml:lang="det" xml:id="de_357">Definition von zur Laufzeit berechneten Absolutbeträgen mit der Festlegung des zu berechneden Values durch Definition einer spezifischen Berechnungsvorschrift, welche unterhalb des Elementes GenericValue definiert wird.
+
+Die Aufteilung des Values auf die Kostenmatrix erfolgt gemäß der Angaben unter DayBase und PersonBase.
+  
+Die Zuordnung des Absolutbetrages zu spezifischen Percent-PriceItems wird über einzelne Bedingungen in den Elementen AppliedBy... und NotAppliedBy... festgelegt.
+Die Percent-PriceItems ihrerseits können auch zusätzliche Bedingungen durch ApplyTo... und NotApplyTo... an die Zuordnung festlegen.
+Mit dem Attribut @LogicalRelation="And" oder "Or" definiert man And-Bedingungen bzw. Or-Bedingungen.
+Die finale Zuordnung eines Absoluten-PriceItems zu einem PercentPriceItem, erfolgt nur dann, wenn jede And-Bedingung und gleichzeitig mindestens 1 Or-Bedingung erfüllt ist.  </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_357">Indication of surcharge or discount by percentage.
 							It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impacting travellers and dates,</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="Percent" type="PriceImpactPercentType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_506">Angabe eines prozentualem Auf- oder Abschlags.
-							Wirkt auf bestimmte PriceItems über ApplyTo oder NotApplyTo und
-							wirkungsbezogene Bedingungen auf Reisende und
-							Termine.</xs:documentation>
+						<xs:documentation xml:lang="det" xml:id="de_506">Definition von prozentualen Zu- oder Abschlägen.  
+Die Zuordnung des prozentualen Zu- oder Abschlages zu spezifischen Absolute-PriceItems wird über einzelne Bedingungen in den Elementen ApplyTo... und NotApplyTo... festgelegt.
+Die Absolute-PriceItems ihrerseits können auch zusätzliche Bedingungen durch  AppliedBy... und NotAppliedBy...  an die Zuordnung festlegen.
+Mit dem Attribut @LogicalRelation="And" oder "Or" definiert man And-Bedingungen bzw. Or-Bedingungen.
+Die finale Zuordnung eines Absoluten-PriceItems zu einem PercentPriceItem, erfolgt nur dann, wenn jede And-Bedingung und gleichzeitig mindestens 1 Or-Bedingung erfüllt ist.  </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_506">Indication of surcharge or discount by percentage.
 It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impacting travellers and dates.</xs:documentation>
 					</xs:annotation>
@@ -6732,8 +6745,10 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">In diesem Element wird definiert, welche anderen PriceItems auf dieses
-						PriceItem wirken können. Das Element enthält einen oder mehrere Values eines
+						<xs:documentation xml:lang="det">
+Dieses Element definiert die Bedingung , dass mindestens eines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent//PriceTags) definiert sein muss.
+
+Das Element enthält einen oder mehrere Values eines
 						PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
 						PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
 						getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition
@@ -6760,18 +6775,14 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 				</xs:element>
 				<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">In diesem Element wird definiert, welche Preisbestandteile mit
-						prozentualem Zu- oder Abschlag eine Wirkung auf diesen Wert haben. Das
-						Element enthält den Wert des Attributs "Class" des entsprechenden
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass mindestens eine der hier angegeben Price-Classes am korrelierenden Percent-PriceItem (Percent/@Class) definiert sein muss.
+
+Das Element enthält den Wert des Attributs "Class" des entsprechenden
 						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
 						angegeben werden. In dem Attribut "Component" kann man definieren, auf
-						welche Komponente sich das AppliedBy bezieht. Ist "Component" nicht gefüllt,
-						so gilt der Default="ThisComponent". Im Zuge der Erweiterung von OTDS 2.0
-						ist das Attribut "Source" hinzugekommen, welches in der Zukunft das Attribut
-						"Component" komplett ersetzen wird. Falls beide Attribute gefüllt sind, so
-						müssen beide Attribute erfüllt sein. Ist nur ein Attribut gefüllt, so muss
-						dieses erfüllt sein. Ist sowohl "Source" als auch "Component" nicht gefüllt,
-						so gilt ab Version V2.0 für Source der Default: ?? @ToDo</xs:documentation>
+						welche Komponente sich das AppliedBy bezieht. 
+
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">In this element is being defined, which price components have an impact on this value with a percentage surcharge or discount. 
 						The element holds the value of the attribute "Class" of the corresponding PriceItem. A number of values can be specified in a list separated by Space. 
 						In the attribute "Component" can be defined to which component the AppliedBy refers to. If "Component" has no value, the default is "ThisComponent".
@@ -6790,7 +6801,10 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 				</xs:element>
 				<xs:element name="AppliedByAll" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="det">
+Dieses Element definiert die Bedingung, dass das korrelierende Percent-PriceItem in einer der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein muss. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
@@ -6799,9 +6813,9 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 				</xs:element>
 				<xs:element name="NotAppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">In diesem Element wird definiert, welche anderen PriceItems auf dieses
-						PriceItem wirken können. Das Element enthält einen oder mehrere Values eines
-						PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent/PriceTags) definiert sein darf.
+
+Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
 						PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
 						getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition
 						mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values
@@ -6827,7 +6841,14 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 				</xs:element>
 				<xs:element name="NotAppliedBy" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass keines der hier angegeben Price-Classes am korrelierenden Percent-PriceItem (Percent/@Class) definiert sein darf.
+
+Das Element enthält den Wert des Attributs "Class" des entsprechenden
+						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
+						angegeben werden. In dem Attribut "Component" kann man definieren, auf
+						welche Komponente sich das AppliedBy bezieht. 
+
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
@@ -6840,7 +6861,9 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 				</xs:element>
 				<xs:element name="NotAppliedByAll" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Percent-PriceItem in keiner der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein darf. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
@@ -7165,8 +7188,9 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="ApplyToPriceTags" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_398">In diesem Element wird definiert, auf welche anderen PriceItems dieses
-							PriceItem wirkt. Das Element enthält einen oder mehrere Values eines
+						<xs:documentation xml:lang="det" xml:id="de_398">Dieses Element definiert die Bedingung , dass mindestens eines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein muss.
+
+Das Element enthält einen oder mehrere Values eines
 							PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
 							PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
 							getrennt angegeben werden. Außerdem kann man sich wie in der
@@ -7212,7 +7236,14 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 				</xs:element>
 				<xs:element name="ApplyTo">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass mindestens eine der hier angegeben PriceClasses am korrelierenden Absolute-PriceItem (Absolute/@Class bzw. GenericAbsolute/@Class) definiert sein muss.
+
+Das Element enthält den Wert des Attributs "Class" des entsprechenden
+						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
+						angegeben werden. In dem Attribut "Component" kann man definieren, auf
+						welche Komponente sich das AppliedBy bezieht. 
+
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">The value is specified, which is registered with the PriceItem in the attribute "Class". If there are several they can be given as a list separated by space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
@@ -7247,7 +7278,9 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 				</xs:element>
 				<xs:element name="ApplyToAll">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Absolue-PriceItem in einer der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein muss. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
@@ -7256,7 +7289,9 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 				</xs:element>
 				<xs:element name="NotApplyToPriceTags" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_398">In diesem Element wird definiert, auf welche anderen PriceItems dieses
+						<xs:documentation xml:lang="det" xml:id="de_398">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein darf.
+
+In diesem Element wird definiert, auf welche anderen PriceItems dieses
 							PriceItem wirkt. Das Element enthält einen oder mehrere Values eines
 							PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
 							PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
@@ -7303,7 +7338,14 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 				</xs:element>
 				<xs:element name="NotApplyTo">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceClasses am korrelierenden Absolute-PriceItem (Absolute/@Class bzw. GenericAbsolute/@Class) definiert sein darf.
+
+Das Element enthält den Wert des Attributs "Class" des entsprechenden
+						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
+						angegeben werden. In dem Attribut "Component" kann man definieren, auf
+						welche Komponente sich das AppliedBy bezieht. 
+
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
@@ -7316,7 +7358,9 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 				</xs:element>
 				<xs:element name="NotApplyToAll">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Absolue-PriceItem in keiner der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein darf. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
