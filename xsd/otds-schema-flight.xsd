@@ -150,16 +150,13 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 			<xs:extension base="FlightBaseType">
 				<xs:sequence>
 					<xs:group ref="FlightBaseDetailsGroup"/>
-					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0">
+					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_499">In diesem Zweig können außergewöhnliche
-								Auswirkungen auf den CheckIn und CheckOut der angrenzenden
-								Komponenten definiert werden. Aktuell kennen wir nur Fälle bei
-								Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen
-								oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann
-								definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf.
-								einen Tag später erfolgt. Wie gesagt ist für Accommodation zur Zeit
-								kein Fallbeispiel bekannt.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_499">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann
+ definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt. Seit Version 2.0 ist es nun möglich, dass man einer NeighbourComponentCorrection eine Condition mitgibt. Anwendungsfall, ist wenn eine Verschiebung durch einen  späten Flug bei bestimmten Hotels nicht gewünscht ist. 
+Falls nach der Auswertung der Condition identische "NeighbourComponentCorrection/CheckInDateOffset/@Component" bzw. "NeighbourComponentCorrection/CheckOutDateOffset/@Component" vorhanden sind, so wird jeweils das in XML-Order letzte davon benutzt.
+
+</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_499">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of cases involving flights.
 This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
 As previously stated there is currently no other known factor that would influence the Accommodation dates.</xs:documentation>
