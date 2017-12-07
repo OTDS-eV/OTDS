@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<Products>
+		<GlobalValues>
+			<!--Hier eine Auswahl von typischen GlobalValues. Suchen Sie jeweils nach dem Key-Value und Sie kommen zu der konkreten Bedingung.   -->
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung für den deutschen Markt aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="Market_DE">
+				<ParameterSet Key="1">
+					<SalesMarket>DE</SalesMarket>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung für den schweizer Markt aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="Market_CH">
+				<ParameterSet Key="1">
+					<SalesMarket>DE</SalesMarket>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung für schweizer Franken aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<!--Ein entsprechendes praktisches Beispiel hierfür finden Sie im "CurrencyExample.xml"   -->
+			<GlobalValue Key="CHF">
+				<ParameterSet Key="1">
+					<Currency>CHF</Currency>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung für Reisebüros (offline) aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="TravelAgencyOnly">
+				<ParameterSet Key="1">
+					<SalesChannel>TravelAgency</SalesChannel>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung durch TravelTainment aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="TraveltainmentOnly">
+				<ParameterSet Key="1">
+					<DistributionChannel>TravelTainment</DistributionChannel>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung für eine spezifische Agentur aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="Agency001760004Only">
+				<ParameterSet Key="1">
+					<CrsSystem>Toma</CrsSystem>
+					<AgencyCode>001760004</AgencyCode>
+					<BrandCode>TOCC</BrandCode>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung für eine Gruppe spezifischer Agenturen aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="AgencyGroupXXXOnly">
+				<ParameterSet Key="1">
+					<CrsSystem>Toma</CrsSystem>
+					<AgencyCode>001760004</AgencyCode>
+					<BrandCode>TOCC</BrandCode>
+				</ParameterSet>
+				<ParameterSet Key="1">
+					<CrsSystem>Toma</CrsSystem>
+					<AgencyCode>001760005</AgencyCode>
+					<BrandCode>TOCC</BrandCode>
+				</ParameterSet>
+				<ParameterSet Key="1">
+					<CrsSystem>Toma</CrsSystem>
+					<AgencyCode>001760006</AgencyCode>
+					<BrandCode>TOCC</BrandCode>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung das ein Reseller die Daten für die Paketierung nutzt aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="DataMixReseller">
+				<ParameterSet Key="1">
+					<Reseller>
+						<ResellerType>PackageMixResellers</ResellerType>
+					</Reseller>
+				</ParameterSet>
+			</GlobalValue>
+			<!--Dieser GlobalValue wird im Kontext einer Verarbeitung der Daten für spezifische Reseller aktiv. Entsprechende Key- und Tag-Bedingungen auf diesen GlobalValue sind nur in diesem Kontext erfüllt.   -->
+			<GlobalValue Key="ResellerAgenciesXXXOnly">
+				<ParameterSet Key="1">
+					<Reseller>
+						<CrsSystem>Toma</CrsSystem>
+						<AgencyCode>001760004</AgencyCode>
+						<BrandCode>TOCC</BrandCode>
+					</Reseller>
+				</ParameterSet>
+				<ParameterSet Key="2">
+					<Reseller>
+						<CrsSystem>Toma</CrsSystem>
+						<AgencyCode>001760005</AgencyCode>
+						<BrandCode>TOCC</BrandCode>
+					</Reseller>
+				</ParameterSet>
+				<ParameterSet Key="3">
+					<Reseller>
+						<CrsSystem>Toma</CrsSystem>
+						<AgencyCode>001760006</AgencyCode>
+						<BrandCode>TOCC</BrandCode>
+					</Reseller>
+				</ParameterSet>
+			</GlobalValue>
+		</GlobalValues>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+			<Filter Key="Standard">
+				<Tags Source="Accommodation" Class="PackageOnly"/>
+			</Filter>
+			<Filter Key="SalesChannel">
+				<And>
+					<!--Nur im Kontext einer Datenverarbeitung für Reisebüros dürfen die Accommodations kein Tag = "NoTravelAgency" haben  -->
+					<Imply>
+						<If>
+							<Keys Source="GlobalValue">TravelAgencyOnly</Keys>
+						</If>
+						<Then>
+							<Not>
+								<Tags Source="Accommodation" Class="SalesChannelExclusion">NoTravelAgency</Tags>
+							</Not>
+						</Then>
+					</Imply>
+					<!--Nur im Kontext einer Datenverarbeitung für OTAs dürfen die Accommodations kein Tag = "NoOnlineTravelAgencies" haben  -->
+					<Imply>
+						<If>
+							<Keys Source="GlobalValue">OnlineTravelAgencies</Keys>
+						</If>
+						<Then>
+							<Not>
+								<Tags Source="Accommodation" Class="SalesChannelExclusion">NoOnlineTravelAgencies</Tags>
+							</Not>
+						</Then>
+					</Imply>
+				</And>
+			</Filter>
+			<Filter Key="DistributionChannels">
+				<!--Nur im Kontext einer Datenverarbeitung für Reisebüros dürfen die Accommodations kein Tag = "NoTravelAgency" haben  -->
+				<Imply>
+					<If>
+						<Keys Source="GlobalValue">TraveltainmentOnly</Keys>
+					</If>
+					<Then>
+						<Duration Source="Product">
+							<Max>28</Max>
+						</Duration>
+					</Then>
+				</Imply>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands/>
+	<Accommodations>
+		<Accommodation Key="FUE101">
+			<Tags>
+				<Tag Class="Combi">AB</Tag>
+				<Tag Class="Product">AccomOnly</Tag>
+				<Tag Class="SalesChannelExclusion">NoTravelAgency</Tag>
+			</Tags>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationType>Hotel</AccommodationType>
+					<AccommodationName>Hotel Playa Esquinzo</AccommodationName>
+					<AccommodationOfficialCategory>4</AccommodationOfficialCategory>
+					<AccommodationAddress>
+						<Country>Spain</Country>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="FUE110">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FUE101</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<!--Diese Accommodation ist nur für den Schweizer Markt gültig  -->
+				<Filter Key="1">
+					<Keys Source="GlobalValue">Market_CH</Keys>
+				</Filter>
+				<Board Key="Board"/>
+				<Unit Key="R1">
+					<SellingUnit Key="R1">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>R1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>FUE</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="FUE102">
+			<Tags>
+				<Tag Class="Combi">AB</Tag>
+				<Tag Class="Product">AccomOnly</Tag>
+			</Tags>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationType>Hotel</AccommodationType>
+					<AccommodationName>Hotel Playa Planabe</AccommodationName>
+					<AccommodationOfficialCategory>4.5</AccommodationOfficialCategory>
+					<AccommodationAddress>
+						<Country>Spain</Country>
+					</AccommodationAddress>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="FUE102">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FUE102</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="R1">
+					<SellingUnit Key="R1">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>R1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>FUE</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="FUE002">
+			<Tags>
+				<Tag Class="Combi">AB</Tag>
+				<Tag Class="Product">AccomOnly</Tag>
+			</Tags>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationName>Hotel Playa Planabe</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="FUE002">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>FUE002</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="R1">
+					<SellingUnit Key="R1">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>R1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>FUE</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="PMI01">
+			<Tags>
+				<Tag Class="Product">AccomOnly</Tag>
+				<Tag Class="Combi">FK</Tag>
+			</Tags>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationName>Bayrisches Eck</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="PMI01">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>A2</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="PMI01">
+					<SellingUnit Key="PMI01">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceCode">
+									<Value>PMI01
+								</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="PMI02">
+			<Tags>
+				<Tag Class="Combi">FK</Tag>
+			</Tags>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationName>Bayrisches Eck</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="PMI02">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI02</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="DZ">
+					<SellingUnit Key="DZ">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="1">
+					<PriceItem Class="AAA">
+						<Absolute>
+							<Value>200</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>x</PersonBase>
+						</Absolute>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="PMI11">
+			<Tags>
+				<Tag Class="Combi">FK</Tag>
+			</Tags>
+			<Properties Key="1">
+				<PropertyGroup>
+					<AccommodationName>Bayrisches Eck</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="PMI11">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI11</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="DZ">
+					<SellingUnit Key="DZ">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="1">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="1">
+					<PriceItem Class="AAA">
+						<Absolute>
+							<Value>200</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>x</PersonBase>
+						</Absolute>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+</Otds>

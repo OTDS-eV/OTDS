@@ -54,7 +54,12 @@
 								<Departure>
 									<Airport>FRA</Airport>
 									<Time>12:20:00</Time>
-									<!-- Die Angabe der Zeit erfolgt in der Zeitzone am Ort des Abflug-Flughafens. Will man andere Zeitzonen benutzen, so kann man dies unter Angabe des DLC als Attribut im Element <Time> angeben, oder alternativ die Zeitangabe inklusive Angabe der Zeitzone angeben. Zum Beispiel in der Form: "12:20:46.275+01:00". OTDS folgt dabei der allgemeinen XML-Vorgabe für das Format von Zeiten xs:time .-->
+									<!-- Die Angabe der Zeit ist immer die Lokalzeit also in der Zeitzone am Ort des Abflug-Flughafens. 
+											Das zusätzliche neue Attribut "@UTCOffset" wird nur an den Tagen interpretiert, an den lokal eine Zeitumstellung stattfindet.
+Mit dem entsprechenden UTC-Offset definiert man, ob die angegebene lokale Zeit vor oder nach der Zeitumstellung definiert ist. 
+Ist kein Attribut angegeben, gilt die Zeitzone nach der Umstellung.
+Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
+-->
 								</Departure>
 								<Arrival>
 									<Airport>FUE</Airport>

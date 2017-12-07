@@ -33,23 +33,30 @@
 				
 		Gültige 'componentSteps' sind zunächst:
 		
-			- GlobalValue
-			- Product
-			- Product.Brand
-			- Product.Accommodation
-			- Product.Accommodation.SellingAccom
-			- Product.Accommodation.SellingAccom.Board
-			- Product.Accommodation.SellingAccom.Unit
-			- Product.Accommodation.SellingAccom.Unit.SellingUnit
-			- Product.OnewayFlight
-			- Product.OnewayFlight.BookingClass
-			- Product.ReturnFlight
-			- Product.ReturnFlight.BookingClass
-			- Product.ReturnFlight.Inbound
-			- Product.ReturnFlight.Outbound
-			- Product.Addon
-			- Product.Addon.Service
-			- Product.Addon.ServiceFeature				
+			- Products.GlobalValue
+			- Products.Product
+			- Products.Product.Brands
+			- Products.Product.Brands.Brand
+			- Products.Product.Accommodations
+			- Products.Product.Accommodations.Accommodation
+			- Products.Product.Accommodations.Accommodation.SellingAccom
+			- Products.Product.Accommodations.Accommodation.SellingAccom.Board
+			- Products.Product.Accommodations.Accommodation.SellingAccom.Unit
+			- Products.Product.Accommodations.Accommodation.SellingAccom.Unit.SellingUnit
+			- Products.Product.Accommodations.AccommodationWrapper
+			- Products.Product.Flights
+			- Products.Product.Flights.OnewayFlight
+			- Products.Product.Flights.OnewayFlight.BookingClass
+			- Products.Product.Flights.ReturnFlight
+			- Products.Product.Flights.ReturnFlight.BookingClass
+			- Products.Product.Flights.ReturnFlight.Inbound
+			- Products.Product.Flights.ReturnFlight.Outbound
+			- Products.Product.Flights.FlightWrapper
+			- Products.Product.Addons
+			- Products.Product.Addons.Addon
+			- Products.Product.Addons.Addon.Service
+			- Products.Product.Addons.Addon.ServiceFeature
+			- Products.Product.Addons.AddonWrapper				
 		
 		Desweiteren sind alle Unterschrittfolgen aus obigen Pfaden erlaubt, also 'Board', 'Accommodation.SellingAccom' oder 'SellingAccom.Unit.SellingUnit'. 
 		'Accommodation.Unit' hingegen ist nicht erlaubt, da in diesem Fall einige Zwischenschritte fehlen.
@@ -84,23 +91,30 @@
 				
 				Valid 'componentSteps' are:
 				
-				- GlobalValue
-				- Product
-				- Product.Brand
-				- Product.Accommodation
-				- Product.Accommodation.SellingAccom
-				- Product.Accommodation.SellingAccom.Board
-				- Product.Accommodation.SellingAccom.Unit
-				- Product.Accommodation.SellingAccom.Unit.SellingUnit
-				- Product.OnewayFlight
-				- Product.OnewayFlight.BookingClass
-				- Product.ReturnFlight
-				- Product.ReturnFlight.BookingClass
-				- Product.ReturnFlight.Inbound
-				- Product.ReturnFlight.Outbound
-				- Product.Addon
-				- Product.Addon.Service
-				- Product.Addon.ServiceFeature				
+			- Products.GlobalValue
+			- Products.Product
+			- Products.Product.Brands
+			- Products.Product.Brands.Brand
+			- Products.Product.Accommodations
+			- Products.Product.Accommodations.Accommodation
+			- Products.Product.Accommodations.Accommodation.SellingAccom
+			- Products.Product.Accommodations.Accommodation.SellingAccom.Board
+			- Products.Product.Accommodations.Accommodation.SellingAccom.Unit
+			- Products.Product.Accommodations.Accommodation.SellingAccom.Unit.SellingUnit
+			- Products.Product.Accommodations.AccommodationWrapper
+			- Products.Product.Flights
+			- Products.Product.Flights.OnewayFlight
+			- Products.Product.Flights.OnewayFlight.BookingClass
+			- Products.Product.Flights.ReturnFlight
+			- Products.Product.Flights.ReturnFlight.BookingClass
+			- Products.Product.Flights.ReturnFlight.Inbound
+			- Products.Product.Flights.ReturnFlight.Outbound
+			- Products.Product.Flights.FlightWrapper
+			- Products.Product.Addons
+			- Products.Product.Addons.Addon
+			- Products.Product.Addons.Addon.Service
+			- Products.Product.Addons.Addon.ServiceFeature
+			- Products.Product.Addons.AddonWrapper		
 				
 				In addition to that all subsequent steps from the paths above are permitted, that is 'Board', 'Accommodation.SellingAccom' or 'SellingAccom.Unit.SellingUnit'. 
 				'Accommodation.Unit' in the contrary is not permitted, as here some intermediate steps are missing.
@@ -110,7 +124,7 @@
 		<xs:union>
 			<xs:simpleType>
 				<xs:restriction base="xs:string">
-					<xs:pattern value="(((Scope.)?(global|local|current)\+?)?((((ComponentType.)?(real|virtual))|ComponentType.all)\+?)?((((Hierarchy.)?(self|ancestors|descendants))|Hierarchy.all)\+?)?((((DayAllocation.)?(first|last))|DayAllocation.all)\+?)?:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|GlobalValue|Product|Product\.Brand|Product\.Accommodation|Product\.Accommodation\.SellingAccom|Product\.Accommodation\.SellingAccom\.Board|Product\.Accommodation\.SellingAccom\.Unit|Product\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.OnewayFlight|Product\.OnewayFlight\.BookingClass|Product\.ReturnFlight|Product\.ReturnFlight\.BookingClass|Product\.ReturnFlight\.Inbound|Product\.ReturnFlight\.Outbound|Product\.Addon|Product\.Addon\.Service|Product\.Addon\.ServiceFeature|Brand|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
+					<xs:pattern value="((((Scope\.)?(global|local|current))|(((ComponentType.)?(real|virtual))|ComponentType\.all)|(((Hierarchy\.)?(self|ancestors|descendants))|Hierarchy\.all)|(((DayAllocation\.)?(first|last))|DayAllocation\.all))(\+(((Scope\.)?(global|local|current))|(((ComponentType.)?(real|virtual))|ComponentType\.all)|(((Hierarchy\.)?(self|ancestors|descendants))|Hierarchy\.all)|(((DayAllocation\.)?(first|last))|DayAllocation\.all)))*:)?(#[A-Za-z0-9\-_]+(\.(#[A-Za-z0-9\-_]+))*|(#[A-Za-z0-9\-_]+\.)*(ThisComponent|Products|Products\.GlobalValue|Products\.Product|Products\.Product\.Brands|Products\.Product\.Brands\.Brand|Products\.Product\.Accommodations|Products\.Product\.Accommodations\.Accommodation|Products\.Product\.Accommodations\.Accommodation\.SellingAccom|Products\.Product\.Accommodations\.Accommodation\.SellingAccom\.Board|Products\.Product\.Accommodations\.Accommodation\.SellingAccom\.Unit|Products\.Product\.Accommodations\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Products\.Product\.Accommodations\.AccommodationWrapper|Products\.Product\.Flights|Products\.Product\.Flights\.OnewayFlight|Products\.Product\.Flights\.OnewayFlight\.BookingClass|Products\.Product\.Flights\.ReturnFlight|Products\.Product\.Flights\.ReturnFlight\.BookingClass|Products\.Product\.Flights\.ReturnFlight\.Inbound|Products\.Product\.Flights\.ReturnFlight\.Outbound|Products\.Product\.Flights\.FlightWrapper|Products\.Product\.Addons\.Addon|Products\.Product\.Addons\.Addon\.Service|Products\.Product\.Addons\.Addon\.ServiceFeature|GlobalValue|Product|Product\.Brands|Product\.Brands\.Brand|Product\.Accommodations|Product\.Accommodations\.Accommodation|Product\.Accommodations\.Accommodation\.SellingAccom|Product\.Accommodations\.Accommodation\.SellingAccom\.Board|Product\.Accommodations\.Accommodation\.SellingAccom\.Unit|Product\.Accommodations\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Product\.Accommodations\.AccommodationWrapper|Product\.Flights|Product\.Flights\.OnewayFlight|Product\.Flights\.OnewayFlight\.BookingClass|Product\.Flights\.ReturnFlight|Product\.Flights\.ReturnFlight\.BookingClass|Product\.Flights\.ReturnFlight\.Inbound|Product\.Flights\.ReturnFlight\.Outbound|Product\.Flights\.FlightWrapper|Product\.Addons|Product\.Addons\.Addon|Product\.Addons\.Addon\.Service|Product\.Addons\.Addon\.ServiceFeature|Product\.Addons\.AddonWrapper|Brands|Brands\.Brand|Brand|Accommodations|Accommodations\.Accommodation|Accommodations\.Accommodation\.SellingAccom|Accommodations\.Accommodation\.SellingAccom\.Board|Accommodations\.Accommodation\.SellingAccom\.Unit|Accommodations\.Accommodation\.SellingAccom\.Unit\.SellingUnit|Accommodations\.AccommodationWrapper|AccommodationWrapper|Accommodation|Accommodation\.SellingAccom|Accommodation\.SellingAccom\.Board|Accommodation\.SellingAccom\.Unit|Accommodation\.SellingAccom\.Unit\.SellingUnit|Flights|Flights\.OnewayFlight|Flights\.OnewayFlight\.BookingClass|Flights\.ReturnFlight|Flights\.ReturnFlight\.BookingClass|Flights\.ReturnFlight\.Inbound|Flights\.ReturnFlight\.Outbound|Flights\.FlightWrapper|FlightWrapper|OnewayFlight|OnewayFlight\.BookingClass|ReturnFlight|ReturnFlight\.BookingClass|ReturnFlight\.Inbound|ReturnFlight\.Outbound|Addons|Addons\.Addon\.Service|Addons\.Addon\.ServiceFeature|Addons\.AddonWrapper|AddonWrapper|Addon|Addon\.Service|Addon\.ServiceFeature|SellingAccom|SellingAccom\.Board|SellingAccom\.Unit|SellingAccom\.Unit\.SellingUnit|BookingClass|Inbound|Outbound|Service|ServiceFeature|Board|Unit|Unit\.SellingUnit|SellingUnit))"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:union>
@@ -146,6 +160,9 @@ If the "Name" is unspecified, the following default values will be used dependin
 - In the context of a combined component, the default = "CombiComponent"</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="ProductComponentBaseGroup">
 		<xs:attribute name="DayAllocationIndex" type="xs:int">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_55">Dieses Attribut bestimmt die Platzierung der
@@ -662,14 +679,7 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl de
 				</xs:annotation>
 				<xs:complexType>
 					<xs:complexContent>
-						<xs:extension base="BaseOccupancyPersonType">
-							<xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
-								<xs:annotation>
-									<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
-Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
+						<xs:extension base="BaseOccupancyPersonType"/>
 					</xs:complexContent>
 				</xs:complexType>
 			</xs:element>
@@ -744,6 +754,18 @@ Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl de
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_96">Unter diesem Zweig werden die Buchungsparameter für die entsprechende Marke platziert. </xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_96">Under this branch the reservation parameters for the corresponding brand are placed.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Brand.
+Zum Beispiel: 
+- MarketingBrandName
+- MarketingBrandCode
+</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_6">Master data for accommodation:
+Name, address, location of accommodation, category
+Features and characteristics of the property</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -912,6 +934,78 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 								</xs:extension>
 							</xs:complexContent>
 						</xs:complexType>
+					</xs:element>
+					<xs:element name="AccommodationWrapper" type="RuleAccommodationWrapperComponentType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_549">Dieses Element definiert, dass in dem
+								definierten Produkt ein AccommodationWarpper enthalten ist, der eine oder mehrere Accommodations enthalten. 
+								Falls mehrere AccommodationWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_549">This element defines that an AccommodationWrapper is part of the defined product. 
+							The AccommodationWrapper contains one or more accommodation components. If there are several AccommodationWrappers, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FlightWrapper" type="RuleFlightWrapperComponentType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_550">Dieses Element definiert, dass in dem
+								definierten Produkt ein FlightWrapper enthalten ist, der eine oder mehrere OnewayFlights enthalten. 
+								Falls mehrere FlightWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_550">This element defines that an FlightWrapper is part of the defined product. 
+							The FlightWrapper contains one or more OnewayFlight components. If there are several FlightWrapper, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AddonWrapper" type="RuleAddonWrapperComponentType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_551">Dieses Element definiert, dass in dem
+								definierten Produkt ein AddonWrapper enthalten ist, der eine oder mehrere Addons enthalten. 
+								Falls mehrere AddonWrapper definiert sind, kann man
+								über das Attribut "Name" jede einzelne eindeutig kennzeichnen. Über
+								diese Kennzeichnung kann man sich in den Filtern eindeutig auf die WrapperKomponente beziehen. 
+								Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im
+								Reiseverlauf.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_551">This element defines that an AddonWrapper is part of the defined product. 
+							The AddonWrapper contains one or more Addon components. If there are several AddonWrapper, each one can be individually labelled using the "Name" attribute. You can refer to a certain component in the filters using this name.
+The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ExternalComponent">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_">Dieses Element definiert, dass dieses Produkt zwingend eine externe, also nicht in der Lieferung enthaltene, Komponente des mit @Role definierten Typs benötigt. Das verarbeitenden System ergänzt das Produkt um die externe Komponenten.
+				Erst mit dieser externen Komponente ist das Produkt vollständig. Die externe Komponente ist immer zeit - und personenallozierend. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
+				Key-, Tag, ConditionalTag-, Filtern oder Conditions in Kombination mit externen Komponenten werden derzeit explizit als "False" ausgewertet.
+
+Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
+
+Das optionale Attribut "Name" ermöglicht einen möglichen Bezug auf diese Komponente in Filtern und Conditions über das Attribute "Source" in Kombination mit dem Präfix "#"+Name. 
+
+Die klassische Product-Definition eines DataMix-Produktes besteht damit aus 3 Components:
+1. ExternalComponent "Outbound"
+2. Accommodation
+3. ExternalComponent "Inbound" 
+</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="RuleExternalComponentType"/>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="VirtualComponent" type="RuleVirtualComponentType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem
+								definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
+								Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
+							</xs:documentation>
+						</xs:annotation>
 					</xs:element>
 				</xs:choice>
 			</xs:extension>
@@ -1389,7 +1483,29 @@ By Tag elements you define, that the group contains only from those offer candid
 Die Rahmenparameter bzgl. CheckIn- und CheckOut-Terminen müssen ohenhin identisch sein.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
-												<xs:attribute name="Source" type="SourceAttributeType"/>
+												<xs:attribute name="Source" type="SourceAttributeType" use="required">
+													<xs:annotation>
+														<xs:documentation>Dieses Attribut definiert eine Referenz auf bestimmte Candidate Instance.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Airport">
+											<xs:annotation>
+												<xs:documentation>Die Angebote werden gruppiert, so dass Angebotskandidaten der Gruppe identische Values bzgl. des hier definierten Airports besitzen.
+</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="Source" type="SourceAttributeType" use="required">
+													<xs:annotation>
+														<xs:documentation>Dieses Attribut definiert eine Referenz auf eine bestimmte Candidate Instance in der der Airport betrachtet werden soll.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="AirportType" type="AirportTypesEnum" use="required">
+													<xs:annotation>
+														<xs:documentation>Dieses Attribut definiert welcher Airporttype betrachtet werden soll.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="Tag" type="EmptyTagGroupedByEqualType">
@@ -1402,6 +1518,16 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 </xs:documentation>
 												<xs:documentation xml:lang="en" xml:id="en_488">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a groupreferring to the tag addressed here have the same tag value .
 												Special case: If the addressing of the tag is not distinct relating to Source, the grouping will take place via identical tag-tuples sorted in XML DocumentOrder.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GroupStartDate" type="GroupStartDateType" minOccurs="0" internal:otdsversion="2.0">
+											<xs:annotation>
+												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes StartDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="GroupEndDate" type="GroupEndDateType" minOccurs="0" internal:otdsversion="2.0">
+											<xs:annotation>
+												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes EndDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
 											</xs:annotation>
 										</xs:element>
 									</xs:choice>
@@ -1691,15 +1817,6 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="ExternalParameter" internal:otdsversion="1.9">
-				<xs:annotation>
-					<xs:documentation xml:lang="de">Die Funktion ExternalParameter erlaubt, dass von außen ein vorgegebener Parameter in die OTDS-Verarbeitung eingeschleust werden kann.</xs:documentation>
-					<xs:documentation xml:lang="en">The function ExternalParameter allows to introduce a parameter within the OTDS-processing specified by external sources.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:attribute name="Feature" type="ProductFeatureAttributeEnum" use="required"/>
-				</xs:complexType>
-			</xs:element>
 		</xs:choice>
 		<xs:attributeGroup ref="TagAttributeGroup"/>
 	</xs:complexType>
@@ -1862,7 +1979,11 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 				If a reference to a generic Absolute is constructed, its Include will not be considered.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
+			<xs:group ref="PriceItemFilterGroup" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
+				</xs:annotation>
+			</xs:group>
 		</xs:sequence>
 	</xs:complexType>
 	<!--Begin of  property definition-->
@@ -1904,6 +2025,18 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 						</xs:any>
 					</xs:sequence>
 				</xs:complexType>
+			</xs:element>
+			<xs:element name="MarketingBrandName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_141">Enthält den MarketingBrandNamen unter dem das Angebot verkauft werden soll. In den meisten Fällen entspricht dies dem Veranstaltenamen des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben. Beispiel FTI und XFTI.   Die Definition des MarketingBrandNames erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MarketingBrandCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_141">Enthält ein Kürzel, welches die MarketingBrand des Angebotes definiert. In den meisten Fällen entspricht die MarketingBrand dem Buchungscode des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben und trotzdem mit dem Buchungscode des Veranstalters gebucht. Beispiel FTI und XFTI.   Die Definition der MarketingBrand erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+				</xs:annotation>
 			</xs:element>
 			<xs:element name="AccommodationCity" type="xs:string" minOccurs="0">
 				<xs:annotation>
@@ -2163,9 +2296,9 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="FlightBookingClassType" type="FlightBookingClassTypeEnum" minOccurs="0">
+			<xs:element name="FlightCabinClass" type="FlightCabinClassEnum" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_163">Spezifierung der Buchungsklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_163">Spezifizierung der Buchungsklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_163">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -2898,15 +3031,24 @@ A more detailed description of the attributes can be found in the "Thematic docu
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
+	<xs:group name="DistributorIdentificationGroup">
+		<xs:sequence>
+			<xs:element name="CrsSystem" type="CrsSystemEnum"/>
+			<xs:element name="AgencyCode" type="xs:string"/>
+			<xs:element name="BrandCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="ResellerType">
+		<xs:choice>
+			<xs:element name="ResellerType" type="ResellerTypeEnum"/>
+			<xs:group ref="DistributorIdentificationGroup"/>
+		</xs:choice>
+	</xs:complexType>
 	<xs:complexType name="ParameterSetType">
 		<xs:complexContent>
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:choice>
-					<xs:sequence>
-						<xs:element name="CrsSystem" type="CrsSystemEnum"/>
-						<xs:element name="AgencyCode" type="xs:string"/>
-						<xs:element name="BrandCode" type="xs:string"/>
-					</xs:sequence>
+					<xs:group ref="DistributorIdentificationGroup"/>
 					<xs:element name="SalesChannel" type="SalesChannelEnum">
 						<xs:annotation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten SalesChannel. Die möglichen Werte sind:
@@ -2939,6 +3081,19 @@ Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
 					<xs:element name="Currency" type="ISO4217CurrencyType" internal:otdsversion="1.9.2">
 						<xs:annotation>
 							<xs:documentation>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FeatureContext" type="FeatureContextEnum" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation>Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeautureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeautureContext kann zu einem anderen Ergebnsi führen als ohne den FeautureContext.
+Derzeit gibt es nur einen FeautureContext "City-Pair-Production".
+
+Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Reseller" type="ResellerType" internal:otdsversion="2.0">
+						<xs:annotation>
+							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
@@ -3213,8 +3368,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
           </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<!-- [A-Z0-9]{2} will be activated in Version 2.0-->
-		</xs:restriction>
+			<!-- [A-Z0-9]{2} will be activated in Version 2.0--> </xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TokenType">
 		<xs:restriction base="xs:string">
@@ -3419,7 +3573,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="TagsType" minOccurs="0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -3428,7 +3582,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="ProductTagsType" minOccurs="0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -3670,9 +3824,9 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_251">Type of flight (main; feeder, wrapper)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FlightBookingClassType" type="FlightBookingClassTypeEnum" minOccurs="0">
+			<xs:element name="FlightCabinClass" type="FlightCabinClassEnum" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_252">Spezifierung der Buchungsklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_252">Spezifierung der Kabinenklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_252">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -3690,8 +3844,16 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:element>
 			<xs:element name="StopOvers" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_255">Anzahl Stops der Route inkl. der technischen Stops innerhalb eines Segments.
-Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der Stops machen kann.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_255">Anzahl Stops innerhalb dieser Route. Technical Stops werden nicht hier, sondern im Element "TechnicalStopOvers" aufgeführt.
+Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der Stops machen kann. "Direct-Flights" und "NonStop-Flighs" dürfen keine  StopOvers haben.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_255">The number of stops en route, including technical stops within a segment. Leaving out the element means that the supplier can not make a statement about the number of stops.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TechnicalStopOvers" type="xs:unsignedInt" minOccurs="0" internal:otdsversion="2.0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_255">Definiert die Anzahl der technischen Stops auf dieser Route. Ein technischer Stop liegt dann vor, wenn die Aufenthaltszeit kleiner als 60 Minuten ist und sowohl Flugzeug als auch Flugnummer und auch der Carrier nicht gewechselt werrden.
+Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der technischen Stops machen kann.
+ "Direct-Flights" dürfen einen technischen Stop haben. "NonStop-Flighs" dürfen keinen  technischen Stop haben.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_255">The number of stops en route, including technical stops within a segment. Leaving out the element means that the supplier can not make a statement about the number of stops.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -3736,7 +3898,13 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 			</xs:element>
 			<xs:element name="Time" type="FlightTimeType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_259">Abflug- oder Ankunftszeit eines Flugs.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_259">Abflug- oder Ankunftszeit eines Flugs. Diese Zeit wird immer in der Lokalzeit des geographischen Kontext angegeben. Im Falle der Abflugzeit ist der geographische Kontext der Abflughafen. Im Falle der Ankunftszeit ist der geographische Kontext der Zielflughafen. 
+Für die genauere Spezifizierung der Zeit im Kontext einer Zeitumstellung sollte zusätzlich das Attribut UTCOffsetOfTimeZone angegeben werden.
+
+Es wird empfohlen den UTCOffsetOfTimeZone 2 Tage vor und nach einer Zeitumstellung generell anzugeben, da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffsetOfTimeZone nur dann benutzt, wenn alle Zeitangaben einen UTCOffsetOfTimeZone gesetzt haben.
+
+Sobald eine Zeitangabe ohne UTCOffsetOfTimeZone angegeben ist, so werden alle UTCOffsetOfTimeZone bei der Berechnung ignoriert.
+</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_259">Departure or arrival time of a flight.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -3755,12 +3923,20 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_261">Describes a temporal property, e.g. departure or arrival time</xs:documentation>
 		</xs:annotation>
 		<xs:simpleContent>
-			<xs:extension base="xs:time">
-				<xs:attribute name="DLCReference" type="IataAirportCodeType">
+			<xs:extension base="OtdsTimeType">
+				<xs:attribute name="UTCOffsetOfTimeZone" type="UTCOffsetType" internal:otdsversion="2.0">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_262">Ist die Referenz auf einen Flughafen gesetzt,
-							dann bezieht sich die Zeitangabe auf die Zeitzone, in der sich der
-							Flughafen befindet.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_262">Das Attribut UTCOffsetOfTimeZone wird lediglich dazu benutzt, die angegebene Zeit im Element "Time" im Falle einer Zeitumstellung genauer zu spezifizieren.
+Zur Verdeutlichung die LocalTime - UTCOffsetOfTimeZone ergibt immer die UTC-Time.
+
+
+Das UTCOffsetOfTimeZone enthält die Stunden, Minuten Verschiebung zur UTC-Zeit von der Zeitzone auf die sich die lokale Zeitangabe in LocalTime bezieht. Die Angabe erfolgt im Format [+|-hh:mm].
+
+Durch die entsprechend passende Wahl des UTCOffsetOfTimeZone wird festgelegt, ob die im Element LocalTime angegebene Zeit eine lokale Zeit vor oder nach einer Zeitumstellung ist. Das UTCOffsetOfTimeZone soll damit gewährleisten, dass die Berechnung von Zeitunterschieden auch über eine Zeitumstellung hinaus zu eindeutigen Ergebnissen führt.
+
+Es wird empfohlen den UTCOffsetOfTimeZone 2 Tage vor und nach einer Zeitumstellung generell zu liefern, da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffsetOfTimeZone nur dann benutzt, wenn alle Zeitangaben einen UTCOffsetOfTimeZone gesetzt haben.
+
+Sobald eine Zeitangabe ohne UTCOffsetOfTimeZone angegeben ist, so werden alle UTCOffsetOfTimeZone bei der Berechnung ignoriert.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_262">If the reference is to an airport it, the time entry refers to the time zone in which the airport is located.</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
@@ -3822,6 +3998,16 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:maxLength value="50"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="UTCOffsetType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[+-]([01][0-9]|2[0-3]):[0-5][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OtdsTimeType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="FigureType">
 		<xs:sequence>
 			<xs:choice>
@@ -3876,6 +4062,38 @@ https://en.wikipedia.org/wiki/Airline_codes
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="WrapperType">
+		<xs:complexContent>
+			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
+				<xs:sequence>
+					<xs:element name="Booking" type="BookingType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_538">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_538">In this element, all values ​​required for booking are combined. Other namespaces can be added to the BookingEntry later, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Properties" type="PropertiesType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_539">Merkmale und Eigenschaften des AccommodationWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_539">Features and characteristics of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Filter" type="FilterSimpleNodeType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_540">Einschränkungen des AccommodationWrappers</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_540">Restrictions of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_541">Preisbestandteile des AccommodationWrappers </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_541">Pricing components of the AccommodationWrapper</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
 	<!-- Base Enums -->
 	<!-- Start Property Enums -->
 	<xs:complexType name="CheckInOutOffsetType">
@@ -3902,6 +4120,13 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:documentation xml:lang="en" xml:id="en_267">In this list the various elements that can be
 				used for matching are specified.</xs:documentation>
 		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CatchmentAirport"/>
+			<xs:enumeration value="DepartureAirport"/>
+			<xs:enumeration value="ArrivalAirport"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AirportTypesEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="CatchmentAirport"/>
 			<xs:enumeration value="DepartureAirport"/>
@@ -4007,6 +4232,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="MountainView"/>
 			<xs:enumeration value="InnercourtView"/>
 			<xs:enumeration value="Kitchenette"/>
+			<xs:enumeration value="Budget" internal:otdsversion="2.0"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AccommodationTypeEnum">
@@ -4439,7 +4665,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="Other"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="FlightBookingClassTypeEnum">
+	<xs:simpleType name="FlightCabinClassEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Economy"/>
 			<xs:enumeration value="PremiumEconomy"/>
@@ -4506,6 +4732,10 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="Outbound"/>
 			<xs:enumeration value="Inbound"/>
 			<xs:enumeration value="Accommodation"/>
+			<xs:enumeration value="Addon"/>
+			<xs:enumeration value="AccommodationWrapper"/>
+			<xs:enumeration value="FlightWrapper"/>
+			<xs:enumeration value="AddonWrapper"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ExecutionOrderEnum">
@@ -4534,8 +4764,9 @@ https://en.wikipedia.org/wiki/Airline_codes
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="Accommodation"/>
-			<xs:enumeration value="ReturnFlight"/>
 			<xs:enumeration value="OnewayFlight"/>
+			<xs:enumeration value="ReturnFlight"/>
+			<xs:enumeration value="Flight" internal:otdsversion="2.0"/>
 			<xs:enumeration value="Addon"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -4619,6 +4850,12 @@ For the complete list see the technical documentation.</xs:documentation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Toma"/>
 			<xs:enumeration value="Merlin"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ResellerTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PackageMixResellers"/>
+			<xs:enumeration value="PureResellers"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="SalesChannelEnum">
@@ -4752,14 +4989,6 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="All"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="ComponentTypeEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="Accommodation"/>
-			<xs:enumeration value="OnewayFlight"/>
-			<xs:enumeration value="ReturnFlight"/>
-			<xs:enumeration value="Addon"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="ValueOptionsType">
 		<xs:union>
 			<xs:simpleType>
@@ -4800,6 +5029,29 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Up"/>
 			<xs:enumeration value="TowardsZero"/>
 			<xs:enumeration value="AwayFromZero"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FeatureContextEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CityPairProduction"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CompareOperationEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Equal"/>
+			<xs:enumeration value="LessThan"/>
+			<xs:enumeration value="LessThanOrEqual"/>
+			<xs:enumeration value="GreaterThan"/>
+			<xs:enumeration value="GreaterThanOrEqual"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvailabilityStateEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Open"/>
+			<xs:enumeration value="Closed"/>
+			<xs:enumeration value="Request"/>
+			<xs:enumeration value="StopSales"/>
+			<xs:enumeration value="Blacklisted"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--Begin of  rules definition-->
@@ -5167,59 +5419,173 @@ individual dates.</xs:documentation>
 		</xs:choice>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 	</xs:complexType>
+	<xs:complexType name="DurationStartType">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
+					Checkout-Datum zur Emittlung des Startdatums einer Duration verwendet wird. Wird dieses Attribut nicht geliefert, so gilt der Wert aus Duration/@Source benutzt. 
+
+Falls die Auflösung der Source mehrdeutig ist, so wird die Komponente in Abhängigkeit von DayReference referenziert. 
+
+Bei DayReference="CheckIn" wird die logisch erste KomponentenInstanz referenziert. 
+
+Bei DayReference="CheckOut" wird die logisch letzte KomponentenInstanz referenziert. 
+
+Logisch bedeutet, dass es die Reihenfolge ist, die durch das Attribut DayAllocation in der Product-Definition festgelegt wird. </xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+					used in order to determine the start date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckIn">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder
+					Checkout) der referenzierten Komponente, welches als Startdatum der Duration
+					verwendet werden soll.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+					the referenced component to be used as a start date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Offset" type="xs:integer" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der
+					referenzierten Komponente zu addieren, um das Startdatum der Duration zu
+					bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Startdatum der
+					Duration, verglichen mit dem Reisedatum.</xs:documentation>
+				<xs:documentation xml:lang="en">This number of days must be added to the travel date
+					of the referenced component in order to obtain the start date of the duration.
+					Negative/positive values signify an earlier/later start date or the duration,
+					compared to the travel date.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DurationEndType">
+		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder
+					Checkout-Datum zur Emittlung des Endedatums einer Duration verwendet wird. Wird dieses Attribut nicht geliefert, so gilt der Wert aus Duration/@Source benutzt.
+
+Falls die Auflösung der Source mehrdeutig ist, so wird die Komponente in Abhängigkeit von DayReference referenziert. 
+
+Bei DayReference="CheckIn" wird die logisch erste KomponentenInstanz referenziert. 
+
+Bei DayReference="CheckOut" wird die logisch letzte KomponentenInstanz referenziert. 
+
+Logisch bedeutet, dass es die Reihenfolge ist, die durch das Attribut DayAllocation in der Product-Definition festgelegt wird. </xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+					used in order to determine the end date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckOut">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder
+					Checkout) der referenzierten Komponente, welches als Endedatum der Duration
+					verwendet werden soll.</xs:documentation>
+				<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+					the referenced component to be used as an end date of a duration.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Offset" type="xs:integer" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Diese Anzahl von Tagen ist zum Reisedatum der
+					referenzierten Komponente zu addieren, um das Endedatum der Duration zu
+					bestimmen. Negative/positive Werte bedeuten ein früheres/späteres Endedatum der
+					Duration, verglichen mit dem Reisedatum.</xs:documentation>
+				<xs:documentation xml:lang="en">This number of days must be added to the travel date
+					of the referenced component in order to obtain the end date of the duration.
+					Negative/positive values signify an earlier/later end date of the duration,
+					compared to the travel date.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 	<xs:complexType name="DurationConditionType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_313">In diesem Element ist es möglich, Einschränkungen
 				auf Dauern zu definieren.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_313">In this element, it is possible to define restrictions on durations.</xs:documentation>
 		</xs:annotation>
-		<xs:choice>
-			<xs:sequence>
-				<xs:element name="Min" type="xs:unsignedInt" minOccurs="1">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:sequence>
-				<xs:element name="Max" type="xs:unsignedInt" minOccurs="1">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_503">Maximalaufenthaltsdauer</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-			</xs:sequence>
-			<xs:element name="Durations" minOccurs="1">
+		<xs:sequence>
+			<xs:element name="DurationStart" type="DurationStartType" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_316">In diesem Element können eine oder mehrere durch Space getrennte Durations definiert werden.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
+					<xs:documentation>Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Die Dauer ergibt sich aus der Differenz der Termine von DurationEnd-DurationStart.
+
+Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
+
+Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Element definierten/beschribenen Defaults der Attribute.
+</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:list itemType="xs:unsignedInt"/>
-				</xs:simpleType>
 			</xs:element>
-			<xs:element name="MultiplesOf" type="xs:unsignedInt" minOccurs="1">
+			<xs:element name="DurationEnd" type="DurationEndType" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
+					<xs:documentation>Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Die Dauer ergibt sich aus der Differenz der Termine von DurationEnd-DurationStart.
+
+Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
+
+Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Element definierten/beschribenen Defaults der Attribute.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="Min" type="xs:unsignedInt">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_314">Mindestaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_314">Minimum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Max" type="xs:unsignedInt" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_315">Maximalaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_315">Maximum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element name="Max" type="xs:unsignedInt">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_503">Maximalaufenthaltsdauer</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_503">Maximum stay</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="Durations">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_316">In diesem Element können eine oder mehrere durch Space getrennte Durations definiert werden.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_316">In this element, one or more durations separated by spaces are defined.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:list itemType="xs:unsignedInt"/>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MultiplesOf" type="xs:unsignedInt">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_317">Nur Dauern mit dieser Schrittweite sind erlaubt, 
 z.B. bei 7: es sind nur die Dauern 7, 14, 21, 28, ... erlaubt</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_317">Only durations in these increments are allowed,
+						<xs:documentation xml:lang="en" xml:id="en_317">Only durations in these increments are allowed,
 e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:choice>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 		<xs:attribute name="DurationUnit" type="DurationUnitEnum" default="Nights">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_318">Gibt an, in welcher Einheit die Dauer angegeben
 					wird. Standard ist Nights. Falls das Attribut nicht angegeben ist, wird der
-					Standard benutzt.</xs:documentation>
+					Standard benutzt.
+
+Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Beim Value "Nights" ergibt sich die Dauer aus der Differenz der Termine von DurationEnd-DurationStart.
+
+Bei Angabe der DurationUnit = "Hours" werden die in Min, Max, Durations, MultiplesOf angegebenen Werte in Stunden angegeben.
+Für den Vergleich mit der über DurationStart und DurationEnd ermittelten Dauer in Nächten werden diese Angaben durch 24 geteilt und abgerundet.
+
+Bei Angabe der DurationUnit = "Minutes" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
+Für den Vergleich mit der über DurationStart und DurationEnd ermittelten Dauer in Nächten werden diese Angaben durch 1440 geteilt und abgerundet.
+
+Bei Angabe der DurationUnit = "Weeks" sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen angegeben.
+Für den Vergleich mit der über DurationStart und DurationEnd ermittelten Dauer in Nächten werden diese Angaben mit 7 ultipliziert.
+
+Danach wird mit den ermittelten Werten geprüft ob die definierte Bedingung erfüllt ist.
+</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_318">Indicates in which unit the duration should be entered. Nights is the default. If the attribute is not specified, the default value will be used.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -5229,6 +5595,50 @@ e.g. in multiples of 7: thus only durations of 7, 14, 21, 28, ... are allowed</x
 			<xs:extension base="PersonGenderEnumList">
 				<xs:attributeGroup ref="ConditionAttributeGroup"/>
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="GroupStartDateType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyElementType">
+				<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder Checkout-Datum zur Emittlung des Startdatums der Gruppe verwendet wird. 
+
+Ist dieses Attribut nicht angegeben, so gilt der unter CandidateInstance/@Source angegebene Source-Value</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+							used in order to determine the start date of a group</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckIn">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder Checkout) der referenzierten Komponente, welches als Startdatum der Gruppe verwendet werden soll.</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+							the referenced component to be used as a start date of a group</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="GroupEndDateType">
+		<xs:simpleContent>
+			<xs:extension base="EmptyElementType">
+				<xs:attribute name="Source" type="SourceAttributeType" use="optional">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Komponente, deren Checkin- oder Checkout-Datum zur Emittlung des Endedatums einer Gruppe verwendet wird.
+
+Ist dieses Attribut nicht angegeben, so gilt der unter CandidateInstance/@Source angegebene Source-Value</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the component whose checkin or checkout date is
+							used in order to determine the end date of a group.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DayReference" type="DayReferenceEnum" default="CheckOut">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Identifiziert die Art des Datums (Checkin oder Checkout) der referenzierten Komponente, welches als Endedatum der Gruppe verwendet werden soll.</xs:documentation>
+						<xs:documentation xml:lang="en">Identifies the kind of date (checkin or checkout) of
+							the referenced component to be used as an end date of a group.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -5452,6 +5862,11 @@ This is based on the total number of nights For this reason the return date is e
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
+	<xs:complexType name="CompareValuesConditionType">
+		<xs:simpleContent>
+			<xs:extension base="BaseTagTypeList"/>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:complexType name="ConditionalTagConditionType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_337">Der TagConditionType definiert die Bedingung an
@@ -5520,6 +5935,63 @@ This is based on the total number of nights For this reason the return date is e
 				<xs:sequence maxOccurs="2">
 					<xs:element name="SellingAccom" type="RuleSellingAccomComponentType" minOccurs="0"/>
 				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleAccommodationWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="Accommodation" type="RuleAccommodationComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_551">Hier können nur CombiComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_552">Hier können nur DefinedComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleFlightWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="OnewayFlight" type="RuleOnewayFlightComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_553">Hier können nur CombiComponents mit der Role="OnewayFlight" oder "Outbound" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_554">Hier können nur DefinedComponents mit der Role="OnewayFlight" oder "Outbound" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RuleAddonWrapperComponentType">
+		<xs:complexContent>
+			<xs:extension base="RuleComponentBaseType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="Addon" type="RuleAddonComponentType"/>
+					<xs:element name="CombiComponent" type="RuleCombiComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_555">Hier können nur CombiComponents mit der Role="Addon" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="det_556">Hier können nur DefinedComponents mit der Role="Addon" definiert werden.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -5606,6 +6078,35 @@ Possible values ​​are currently:
 - Inbound
 
 In version 1.0, roles are still highly restricted. In later versions, all components will be able to be represented by means of DefinedComponents.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RuleVirtualComponentType">
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
+	</xs:complexType>
+	<xs:complexType name="RuleExternalComponentType">
+		<xs:attribute name="Name" type="NameType">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_105">Dieses Element definiert einen Namen, der innerhalb der ProductRules von den Filtern innerhalb des Attributes "Source" in Kombination mit dem Präfix "#" als Referenz benutzt werden kann. 
+							</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_105">This element defines a name within the product rules of the filters using the "Source" attribute as the reference.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
+		<xs:attribute name="Role" type="RoleEnum" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="det_342">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
+Aktuell können explizit nur nur Flughafenbedingungen bzgl. der externen Komponente formuliert werden. 
+Dementsprechend werden Key-, Tag- und ConditionalTag-Filter und -Conditions in Kombination mit externen Komponenten explizit als "False" ausgewertet.
+
+
+Mögliche Werte für die Role sind: 
+
+- OnewayFlight
+- Outbound
+- Inbound
+- Accommodation
+- Addon</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -5797,6 +6298,24 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:sequence>
 					<xs:element name="PriceItem" type="PriceItemType" maxOccurs="unbounded"/>
+					<xs:element name="Condition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_358">In diesem Element werden die Regeln zur
+						Verwendung der PriceItems definiert. Immer wiederkehrende Preis Conditions können hier definiert werden. Dadurch kann Redundanz in den Conditions jedes einzelnen
+						PriceItem vermieden werden. Gibt es eine Condtion in PriceItems so ist diese mit den einzelnen PriceItems Conditions UND-verknüpft.
+						Das Attribut ExecutionOrder definiert,
+						zu welchem Zeitpunkt die Conditions ausgewertet werden können. Wichtig ist
+						hierbei, dass Conditions, die die DayPriceIndexCondition enthalten, nur in
+						Verbindung mit dem Value ExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_358">In this element, the rules for using the PriceItems are defined. Recurring conditions can be defined here.
+								As a result, redundancy in the conditions of each PriceItem can be avoided. If there is a Condition in Price Items, this is AND-linked with the individual PriceItems Conditions. The ExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ExecutionOrder= "Last".</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConditionType"/>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -6043,12 +6562,12 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 			<xs:group ref="AtomicCombinableWhenGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="CombinableWhenGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="CombinableWhenGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="CombinableWhenGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="CombinableWhenGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
@@ -6474,7 +6993,8 @@ repräsentieren.</xs:documentation>
 									mehrfacher Angabe des Elementes besteht die finale Menge der
 									PriceItems aus einem Merge der PriceItems der einzelnen
 									ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung
-									von PriceItems statt. </xs:documentation>
+									von PriceItems statt.
+Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt. </xs:documentation>
 											<xs:documentation xml:lang="en">Restricts the PriceItems to be
 									considered to certain PriceItems of a specific type and/or with
 									certain Pricetags. The selection is made in the following order:
@@ -6748,42 +7268,14 @@ Reference to a combined component. Reference to prices for a CombiComponent is e
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="ConditionalTag" type="ConditionalTagType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="ProductTagsType">
+	<xs:complexType name="ProductsTagsType">
 		<xs:complexContent>
-			<xs:extension base="TagsType">
-				<xs:sequence>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_400">GenericTags sind Markierungen, deren Value von einer Funktion abhängt.
-								Folgende Funktionen sind aktuell integriert: - SortedCandidateGroup
-								Die SortedCandidateGroup definiert eine Gruppierung von
-								Angebots-Kandidaten, die in eine bestimmte Reihenfolge gebracht
-								werden. Jedes Angebot erhält als GenericTag-Value seine eigene
-								Position innerhalb der sortierten Angebotsgruppe. -
-								ExternalParameter Die Funktion ExternalParameter erlaubt, dass von
-								außen ein vorgegebener Parameter in die OTDS-Verarbeitung
-								eingeschleust werden kann. In Filtern und Conditions können
-								Bedingungen an die GenericTags formuliert werden. Die Funktion
-								"SortedCandidateGroup findet keine Berücksichtigung in der
-								Preisberechnung. </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_400">Generic Tags are labels whose value depends on a function.
-								The following functions are currently integrated: -
-								SortedCandidateGroup The SortedCandidateGroup defines a group of
-								offer candidates to be placed in a certain order. Each offer will
-								receive as GenericTag value its own position within the sorted range
-								group. - ExternalParameter The function ExternalParameter allows
-								that a given parameter can be introduced into the OTDS processing
-								from an external source. In Filters and Conditions conditions
-								regarding the GenericTags can be formulated. The function
-								"SortedCandidateGroup" is not considered in the price calculation. </xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
+			<xs:extension base="TagsType"/>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="TagType">
@@ -6859,6 +7351,60 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
+	<xs:complexType name="CompareType">
+		<xs:choice minOccurs="2" maxOccurs="unbounded">
+			<xs:element name="Key" type="EmptyKeyConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_321">Dieses Element adressiert eine Menge von Key-Values  innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. Die Menge der Key-Values wird eingegrenzt durch die Angabe in den Attributen Source und DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Tag" type="EmptyTagConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_322">Dieses Element adressiert ein Menge von Tag-Values innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. 
+Die Menge der Tag-Values wird eingegrenzt durch die Angabe in den Attributen Class, TagValueType, Source und DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen. 
+Die Attribute @Offset und @Length definieren welcher Anteil des Tag-Values betrachtet werden soll.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConditionalTag" type="EmptyTagConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_371">Dieses Element adressiert ein Menge von ConditionalTag-Values innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. 
+Die Menge der ConditionalTag--Values wird eingegrenzt durch die Angabe in den Attributen Class, TagValueType, Source und DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen. 
+Die Attribute @Offset und @Length definieren welcher Anteil des ConditionalTag-Values betrachtet werden soll.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Element">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_386">Dieses Element adressiert ein Menge von Komponenten-Ausprägungs-Values innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule angegebenen Komponenten. 
+Derzeit exsitieren lediglich Abflughafen, Zielflughafen und Catchment-Airports als verwendbare Ausprägungen.
+Dementsprechen eingegrenzt wird diese Menge an Komponenten-Ausprägungsvalues durch die Angabe einer bestimmten Komponentenausprägung als Wert von "Element" einer bestimmten Source und der DayAllocation. Im Falle, das mit Source und DayAllocation mehrere Komponenten-Instanzen referenziert werden, entscheidet @EvaluationMode, ob nur eine der Instanzen ("Any") die Bedingung erfüllen muss oder ob alle ("All") Instanzen die Bedingung erfüllen müssen. 
+Die Attribute @Offset und @Length definieren welcher Anteil des ConditionalTag-Values betrachtet werden soll.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MatchElementEnum">
+							<xs:attributeGroup ref="ConditionAttributeGroup"/>
+							<xs:attributeGroup ref="SourceAttributeGroup"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Values" type="CompareValuesConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_387">Dieses Element definiert eine Menge von Values, </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="Operation" type="CompareOperationEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Dieses Attribut legt die Vergleichsoperation fest. Es stehen die klassischen mathematischen Vergleichoperationen zur Verfügung:
+- Equal
+- LessThan
+- LessThanOrEqual
+- GreaterThan
+- GreaterThanOrEqual</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 	<!--  Availability Types definitions -->
 	<!--  Availability definitions -->
 	<xs:complexType name="AvailabilitiesType">
@@ -6877,7 +7423,6 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 				inkrementelle Updates immer eindeutig reproduzierbar ist. Viele Beispiele
 				unterschiedlicher Verfügbarkeitslieferungen finden Sie in der Thematischen
 				Dokumentation unter Availabilities.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_407">Under this branch the availability of the accommodation is defined. Taken together with the conditions and corresponding DefaultDayStates, it is possible to receive either availability by day, or duration based availabilities. In general, the definition of the DefaultDayStates allows the delivery of either only positive availabilities or only negative availabilities. The level Availabilities defines which type of availabilities will be provided. If, for example, the availabilities are controlled by the occupancies, each limited occupancy will have its own Availabilities branch with a corresponding occupancy condition under "Conditions". In general, the key for the Availabilities node should correlate exactly with this condition, so that the key is always unambiguously reproducible for incremental updates. Many examples of different availability provision can be found in the thematic documentation under Availabilities.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
@@ -6929,30 +7474,49 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 				<xs:sequence>
 					<xs:element name="DefaultDayState" type="DefaultDayStateType">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_412">Dieser Zweig definiert analog zu DayState, welche Stati gesetzt werden sollen, wenn in diesem AvailabilityBlock ein kompletter DayState oder auch einzelne Stati nicht besetzt sind. Dadurch kann man sowohl nur negative als auch nur positive Availabilities.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="det_412">Dieser Zweig definiert analog zu DayState, welche Stati gesetzt werden sollen, wenn in diesem AvailabilityBlock ein kompletter DayState oder auch einzelne Stati nicht besetzt sind. Dadurch kann man sowohl nur negative als auch nur positive Availabilities explizit liefern.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_412">In a similar manner to DayState, this branch defines which statuses should be set, if an entire DayState or individual statuses are not set in this AvailabilityBlock. Here you can have either negative Availabilities only or positive Availabilities only.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="DayState" type="DayStateType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_413">Unter diesem Zweig wird der
-								Verfügbarkeitsstatus eines Tages aus einem Availability-Block
-								definiert. Das Attribut "Offset" stellt eine Beziehung zum StartDate
-								im Elternknoten her. Startdate und Offset ergeben das Datum des
-								betrachteten Tages. Der erste Tag (StartDate) hat damit den
-								Offset=0. Es können sowohl Stati (Open, Request, Closed, ec) als
-								auch freie Plätze angegeben werden. Das reine Vorhandensein der
-								Elemente "Open", "Closed", etc. gibt den Status an. Bei Open und
-								Request können zusätzlich die Anzahl der freien Plätze als Value
-								übergeben werden. Zusätzlich zu den reinen Verfügbarkeiten kann
-								zusätzlich definiert werden, ob ein Tag auch zur An- bzw. Abreise
-								genutzt werden kann. Falls keine Angabe zur An-/Abreise gemacht
-								wird, so stellt dies keine Einschränkung bzgl. der
-								An-/Abreisemöglichkeiten dar. Sind der Verfügbarkeitsstatus oder der
-								An-Abreisestatus nicht besetzt, so werden als Defaultwert die unter
-								DefaultDayState definierten Werte benutzt. Der Key sollte
-								reproduzierbar sein, damit inkrementelle Updates einzelner Tage
-								möglich sind. Im einfachsten Fall entspricht der Key dem Offset. </xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="det_413">Unter diesem Zweig wird der	Verfügbarkeitsstatus eines Tages aus einem Availability-Block definiert. Das Attribut "Offset" im DayState-Knoten stellt eine Beziehung zum StartDate im Availabilityknoten her. Startdate und Offset ergeben das Datum des
+								betrachteten Termins im DaySate. Der erste Termin (StartDate) hat damit den	Offset=0. 
+
+Im DayState kann der Verfügbarkeitsstatus bzgl. der unterschiedlichen Tageskontexte - Aufenthaltes (Stay) 
+- Anreise (CheckIn) 
+- Abreise (CheckOut) 
+definiert werden.
+
+Folgende Verfügbarkeitsstati stehen zur Verfügung: 
+- Open
+- Request
+- Closed
+- StopSale
+- Blacklisted
+
+Seit Version 2.0 kann bzgl. jedes Tageskontexts das verfügbare Kontingent mit angegeben werden. In der Regel werden keine Kontingente >9 angegeben. Das obliegt aber dem Lieferanten.
+
+Eine Reise ist verfügbar, wenn an dem CheckIn-Termin eine der vorgegeben CheckIn-Stati gesetzt ist und ebenfalls am CheckOut-Termin eine der vorgegeben CheckOut-Stati gesetzt ist und alle Stay-Termine einen der vorgegebenen Stay-Stati gesetzt haben.  
+				Zusätzlich müssen jeweils auch noch die Anzahl der Personen bzw. gebuchten Units in die angegebenen Tageskontingente passen. 
+Ob Personen oder Units durch die Availability addressiert werden legt die Angabe unter Occupancy/Person/AvailabilityMatching fest. 
+
+Im Zusammenspiel mit den Angaben im Element DefaultDayState ist man in der Lage weitrecihende Default-Einstellungen für die Werte jedes DayStates vorgeben zu können.
+Ist zu einem Termin kein DayState-Element enthalten, so definieren die unter DefaultDayState angegebenen Elemente und ggf. deren Defaults die Default-Angaben für die Elemente Stay, CheckIn und CheckOut.
+
+Ist ein DayState für einen Termin angegeben, aber keines der Elemente
+Open
+Closed
+Request
+StopSales
+Blacklisted
+Stay
+angegeben, so definieren die entsprechenden unter DefaultDayState angegebenen Elemente die entsprechenden Defaultwerte.
+
+Ist ein DayState für einen Termin angegeben, aber es fehlt sowohl eine Angabe zu CheckIn als auch eine Angabe zu NoCheckIn, so definieren die unter DefaultDayState angegebenen Elemente CheckIn bzw. NoCheckIn und ggf. deren Defaults die Default-Angaben für das Element CheckIn und ggf. NoCheckIn
+
+Ist ein DayState für einen Termin angegeben, aber es fehlt sowohl eine Angabe zu CheckOut als auch eine Angabe zu NoCheckout, so definieren die unter DefaultDayState angegebenen Elemente Checkout bzw. NoCheckOut und ggf. deren Defaults die Default-Angaben für das Element CheckOut und ggf. NoCheckout.
+</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_413">Under this branch the availability status of a day from an AvailabilityBlock is defined. The "Offset" attribute creates a reference to the StartDate in the parent node. StartDate + Offset gives the date of the day concerned. The first day (StartDate) has the Offset=0. Statuses (Open, Request, Closed, etc) or also free spaces can be entered here. The mere presence of the elements "Open", "Closed", etc indicates the status. For Open and Request the number of free spaces can also be provided as a value. In addition to simply stating the availabilities, you can also define whether or not a day can be used as arrival or departure. If there is no entry for arrival/departure, there will be no restrictions displayed with regard to the departure/arrival options. If the availability status or departure/arrival status are not set, the default value defined under DefaultDayState will be used. The key should be reproducible, so as to make it possible to make incremental updates for individual days. In the simplest case the Key is the same as the Offset.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -6974,18 +7538,8 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 	</xs:complexType>
 	<xs:complexType name="DayStateType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_416">Dieser Type definiert den Verfügbarkeitsstatus
-				eines Tages aus einem Availability-Block. Das Attribut "Offset stellt eine Beziehung
-				zum StartDate im Elternknoten her. Startdate und Offset ergeben das Datum des
-				betrachteten Tages. Es können sowohl Stati (Open, Request, Closed, ec) als auch
-				freie Plätze angegeben werden. Das reine Vorhandensein der Elemente "Open",
-				"Closed", etc. gibt den Status an. Bei Open und Request können zusätzlich die Anzahl
-				der freien Plätze als Value übergeben werden. Zusätzlich zu den reinen
-				Verfügbarkeiten kann zusätzlich definiert werden, ob ein Tag auch zur An- bzw.
-				Abreise genutzt werden kann. Falls keine Angabe zur An-/Abreise gemacht wird, so
-				stellt dies keine Einschränkung bzgl. der An-/Abreisemöglichkeiten dar. Der Key
-				sollte reproduzierbar sein, damit inkrementelle Updates einzelner Tage möglich sind.
-				Im einfachsten Fall entspricht der Key dem Offset. </xs:documentation>
+			<xs:documentation>
+			</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_416">This Type defines the availability status of a
 				day from the availability block. The "Offset" attribute creates a reference to the
 				StartDate in the parent node. StartDate and Offset gives the date of the day
@@ -7005,59 +7559,118 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 					<xs:choice>
 						<xs:element name="Open" type="AvailabilityOpenType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
+</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_417">This element contains the amount of free availability for this day. If the element is present but without a Value, this means that the day is available in general.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Request" type="AvailabilityRequestType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
+</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_418">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Closed" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
+</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_419">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="StopSales" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
+</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_420">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Blacklisted" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_421">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass dieser Termin zur Zeit nicht angeboten werden kann, da es auf einer Blacklist steht. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_421">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass dieser Termin zur Zeit nicht angeboten werden kann, da es auf einer Blacklist steht. Das Element kann keinen Wert enthalten.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
+</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Stay" type="AvailabilityStateType">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="det_421">Ist dieses Element in einer Lieferung enthalten, so definiert das Element, dass an diesem Termin einen spezifischen Verfügbarkeitsstatus.
+
+Im Attribut @State können folgende Verfügbarkeitsstati angegeben werden: 
+- Open
+- Request
+- Closed
+- StopSale
+- Blacklisted
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Enthält das Stay-Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthalt-Verfügbarkeits-Status möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+Mit dem State-Attribut gibt man den generellen Status bzgl. des Aufenthaltes an.
+
+Die Definition des Stay-Elementes ersetzt eine gleichzeitge Definition von DefaultDayState/Open,
+DefaultDayState/Closed,
+DefaultDayState/Request,
+DefaultDayState/StopSales,
+DefaultDayState/Blacklisted.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
 					<xs:choice minOccurs="0">
-						<xs:element name="CheckIn" type="AvailabilityEmptyType">
+						<xs:element name="CheckIn" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_422">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin anreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_422">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin  die Anreise uneingeschränkt  möglich. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Anreise maximal für diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckIn" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_423">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin nicht anreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_423">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin  die Anreise nicht möglich ist. 
+Ist weder dieses Element noch das Element CheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_423">If this element is contained in a data delivery, it indicates that this is not a possible arrival date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
 					<xs:choice minOccurs="0">
-						<xs:element name="CheckOut" type="AvailabilityEmptyType">
+						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_424">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin abreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckOut" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_425">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass man an diesem  Termin abreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_425">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin  die Abreise nicht möglich ist. 
+Ist weder dieses Element noch das Element CheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_425">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
@@ -7074,11 +7687,10 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 	</xs:complexType>
 	<xs:complexType name="DefaultDayStateType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_427">Dieser Type definiert ganz analog zu DayState,
+			<xs:documentation xml:lang="de" xml:id="det_427">Dieser Type definiert ganz analog zu DayState,
 				welche Stati gesetzt werden sollen, wenn in diesem AvailabilityBlock ein kompletter
 				DayState oder auch einzelne Stati nicht besetzt sind. Dadurch kann man sowohl nur
-				negative als auch nur positive Availabilities. @ToDo: Satz
-				ergänzen</xs:documentation>
+				negative als auch nur positive Availabilities angeben.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_427">In the same way as DayState does, this Type defines which statuses should be set if a whole DayState or individual statuses are not filled in in this AvailabilityBlock. Here you can have either negative Availabilities only or positive Availabilities only.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
@@ -7087,84 +7699,107 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 					<xs:choice>
 						<xs:element name="Open" type="AvailabilityOpenType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_428">Dieses Element enthält die Anzahl freier
-									Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber
-									ohne Value, so bedeutet dies, dass der Tag generell verfügbar
-									ist.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_428">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState keines der Elemente Stay, Open, Closed, Request, StopSale, Blacklisted explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin mindestens ein Aufenthalt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthaltes möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DefaultDayState/Stay ersetzt.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_428">This element contains the amount of free availabilities for this day. If the element is present but without a Value, this means that the day is available in general.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Request" type="AvailabilityRequestType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_429">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_429">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState keines der Elemente Stay, Open, Closed, Request, StopSale, Blacklisted explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin mindestens ein Aufenthalt auf Nachfrage (Request) möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthaltes möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DefaultDayState/Stay ersetzt.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_429">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Closed" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_430">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_430">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState keines der Elemente Stay, Open, Closed, Request, StopSale, Blacklisted explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin für alle Aufenthalte ein Closed gesetzt ist.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DefaultDayState/Stay ersetzt.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_430">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="StopSales" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_431">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_431">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState keines der Elemente Stay, Open, Closed, Request, StopSale, Blacklisted explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin für alle Aufenthalte ein StopSale gesetzt ist.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DefaultDayState/Stay ersetzt.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_431">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Blacklisted" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_432">Ist dieses Element in einer Lieferung
-									enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht
-									angeboten werden kann, da es auf einer Blacklist steht. Das
-									Element kann keinen Wert enthalten.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_432">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState keines der Elemente Stay, Open, Closed, Request, StopSale, Blacklisted explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin alle Aufenthalte geblacklisted sind.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DefaultDayState/Stay ersetzt.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_432">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Stay" type="AvailabilityStateType">
+							<xs:annotation>
+								<xs:documentation xml:lang="de" xml:id="det_432">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState keines der Elemente Stay, Open, Closed, Request, StopSale, Blacklisted explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin mindestens ein Aufenthalt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthaltes möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+Mit dem State-Attribut gibt man den generellen Status bzgl. des Aufenthaltes an.
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+
+Die Definition des Stay-Elementes ersetzt eine gleichzeitge Definition von DefaultDayState/Open,
+DefaultDayState/Closed,
+DefaultDayState/Request,
+DefaultDayState/StopSales,
+DefaultDayState/Blacklisted.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_432">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
 					<xs:choice minOccurs="0">
-						<xs:element name="CheckIn" type="AvailabilityEmptyType">
+						<xs:element name="CheckIn" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_433">Ist dieses Element in einer Lieferung
-									enthalten, so zeigt es an, dass man an diesem Termin anreisen
-									kann. Das Element kann keinen Wert enthalten. Es ist optional,
-									da die Angabe bei Flights keinen Sinn macht. Bei Accommodations
-									ist CheckIn der Default.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_433">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState das Element CheckIn bzw. NoCheckIn nicht explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin eine Anreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Anreise nur für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt <CheckIn State="Open"/> als Default.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_433">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.
 It is optional, as it does not make sense to enter it for flights. For Accommodations, CheckIn is the default setting.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckIn" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_434">Ist dieses Element in einer Lieferung
+								<xs:documentation xml:lang="de" xml:id="det_434">Ist dieses Element in einer Lieferung
 									enthalten, so zeigt es an, dass man an diesem Termin nicht
-									anreisen kann. Das Element kann keinen Wert enthalten. Es ist
-									optional, da die Angabe bei Flights keinen Sinn macht. Bei
-									Accommodations ist CheckIn der Default.</xs:documentation>
+									anreisen kann. Das Element kann keinen Wert enthalten.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_434">If this element is contained in a data delivery, it indicates that this is not a possible arrival date. The element cannot contain a value.
 It is optional, as it does not make sense to enter it for flights. For Accommodations, CheckIn is the default setting.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:choice>
 					<xs:choice minOccurs="0">
-						<xs:element name="CheckOut" type="AvailabilityEmptyType">
+						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_435">Ist dieses Element in einer Lieferung
-									enthalten, so zeigt es an, dass man an diesem Termin abreisen
-									kann. Das Element kann keinen Wert enthalten. Es ist optional,
-									da die Angabe bei Flights keinen Sinn macht. Bei Accommodations
-									ist CheckOut der Default.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_435">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState das Element CheckOut bzw. NoCheckOut nicht explizit angegeben ist, Bzgl. dieses Defaults definiert das Element, dass an diesem Termin eine Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise nur für maximal diese Anzahl von Units bzw. Personen möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+Ist weder dieses Element noch das Element NoCheckOut angegeben,, so gilt <CheckOut State="Open">9</CheckOut>  als Default  </xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_435">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.
 It is optional, as it does not make sense to enter it for flights. For Accommodations, CheckOut is the default setting.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckOut" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_436">Ist dieses Element in einer Lieferung
+								<xs:documentation xml:lang="de" xml:id="det_436">Ist dieses Element in einer Lieferung
 									enthalten, so zeigt es an, dass man an diesem Termin abreisen
-									kann. Das Element kann keinen Wert enthalten. Es ist optional,
-									da die Angabe bei Flights keinen Sinn macht. Bei Accommodations
-									ist CheckOut der Default.</xs:documentation>
+									kann. Das Element kann keinen Wert enthalten.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_436">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.
 It is optional, as it does not make sense to enter it for flights. For Accommodations, CheckOut is the default setting.</xs:documentation>
 							</xs:annotation>
@@ -7199,6 +7834,26 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 		</xs:union>
 	</xs:simpleType>
 	<xs:complexType name="AvailabilityEmptyType"/>
+	<xs:complexType name="AvailabilityStateType">
+		<xs:simpleContent>
+			<xs:extension base="AvailabilityRequestType">
+				<xs:attribute name="State" type="AvailabilityStateEnum" default="Open">
+					<xs:annotation>
+						<xs:documentation>Dieses Attribut definiert welchen Verfügbarkeitsstatus ein Termin bzgl. der Anreise, Abreise oder des Aufenthaltes hat. 
+
+Folgende Verfügbarkeitsstati sind möglich: 
+- Open
+- Request
+- Closed
+- StopSale
+- Blacklisted
+
+Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<!-- Begin of ConditionalTagCondition type-->
 	<xs:group name="ConditionOfConditionalTagGroup">
 		<xs:choice>
@@ -7207,12 +7862,12 @@ It is optional, as it does not make sense to enter it for flights. For Accommoda
 			<xs:group ref="AtomicDayImpactConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="ConditionOfConditionalTagGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
@@ -7553,9 +8208,10 @@ standard usage of "From" is with negative values. From=-x defines all days from 
 It is rare to use a positive value in relation to "From", i.e. "From=x", and it will define all days from the Xth cheapest day.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:group ref="ConsideredPriceItemsGroup" maxOccurs="unbounded">
+			<xs:group ref="PriceItemFilterGroup" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" zw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "COnsideredPriceTags",  "NotCOnsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
+Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5708">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
 				</xs:annotation>
 			</xs:group>
@@ -7624,7 +8280,12 @@ This condition explicitly does not check whether or not certain days of a trip f
 			</xs:group>
 			<xs:element name="Duration" type="DurationConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfall: Wenn im Zusammenspiel mit der Dauer die Source="ReturnFlight" angegeben wird, dann wird damit die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges adressiert. Will man die Dauer vom CheckIn des Hinfluges bis zum CheckOut des Rückfluges adressieren, dann muss man Source="Product" wählen.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_458">Dieses Element definiert die Bedingung, ob die gerade betrachtete Reisedauer in einer Liste von Dauern enthalten ist. Dabei können erlaubte Reisedauern explizit angegeben werden oder Einschränkungen für gültigen Reisedauern angegeben werden (minimale bzw. maximale gültige Reisedauer). Ebenso ist es möglich, erlaubte Reisedauern über Schrittweiten anzugeben, z.B. das Vielfache von 7 Tagen. Über das Attribut "Source" kann die betrachtete Dauer näher bestimmt werden. Bei den Dauern ist die nähere Bestimmung der betrachteten Dauer dann entscheidend, wenn es um Pauschalangebote bei Fernreisen geht. Dann kann die Dauer der Unterkunft von der Dauer der Reise abweichen, wenn Übernachtflüge benutzt werden. Sonderfälle, bei denen die Dauer ggf. nicht vom CheckIn bis zum CheckOut einer Komponente gehen, können über eine explizite Angabedes des Start- und Endpunktes in den Elementen DurationStart und DurationEnd angegeben werden. 
+Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
+
+Die Sonderlocke, dass mit der Source="ReturnFlight" die Dauer vom CheckIn des Hinfluges bis zum CheckIn des Rückfluges referenziert wird, ist seid der Version 2.0 nicht mehr gültig. Die Source="ReturnFlight" wird ab Version 2.0 nach den normalen OTDS Regeln interpretiert.
+
+Das Attribut "DurationUnit" definiert, in welcher Einheit die Dauer angegeben wird. Default ist "Nights"</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_458">This element defines the condition as to whether a list of duration contains the travel duration currently being viewed. Specific allowed durations can be entered or restrictions for valid durations (minimum or maximum valid duration). It is also possible to enter durations in increments, e.g. in multiples of 7 days.
 The "Source" attribute allows the viewed duration to be more precisely defined.
 For durations, the more precise definition of the current duration is crucial when dealing with package deals for long-haul journeys. The duration of the accommodation may then differ from the duration of the journey if overnight flights are taken. Exception: If, in combination with the duration, the Source="ReturnFlight" is being indicated, then the duration from CheckIn for the outbound flight until CheckIn for the return flight is addressed. If the intention is to address the duration from CheckIn for the outbound flight until CheckOut for the return flight, then Source="Product" needs to be selected.</xs:documentation>
@@ -8196,6 +8857,38 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 Nodes are to be addressed using the "Source" attribute, and for tags also via "Location".</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="Compare" type="CompareType" internal:otdsversion="2.0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_388">Dieses Element definiert die Bedingung, ob Werte aus mehreren definierten Wertemengen bzgl. einer definierten Vergleichsoperation übereinstimmen.
+Die Vergleichoperation wird mit dem Attribut @Operation festgelegt.										Das Compare-Element beinhaltet mehrere Unterelementen in einer definierten Reihehfolge. Jedes dieser Unterelemente referenziert eine Menge von Werten.
+Die Compare-Bedingung ist erfüllt, wenn jede dieser Value-Mengen wenigstens ein Element enthält, welche(s) die unter Compare/@Operation angegebene Vergleichoperation bzgl. der Nachbar-Wertemenge(n) erfüllt.
+In der Regel sind hier alle betrachteten Value-Types vom Typ "String". Lediglich die Tags und ConditionalTags können explizit noch spezische ValueTypes wie "Numeric" oder "Price" ausprägen. 
+
+Der größer/kleiner Vergleich ergibt beim Vergleich unterschiedlicher ValueTypes das Ergebnis "False".
+
+Der String-Vergleich folgt der lexikalischen Standard-Sortierung in OTDS, deren aufsteigende Reihenfolge  wie folgt definiert ist:
+
+Zeichenketten werden grundsätzlich mit dem linken Zeichen beginnend	Zeichen für Zeichen sortiert, wobei das erste Zeichen die höchste Priorität besitzt. Die Sortierung folgt den ASCII-Values der Zeichen und entspricht damit folgender aufsteigenden Liste: 
+-
+.
+0
+1
+2
+3 
+usw.
+A
+B
+C 
+usw.
+_ 
+a 
+b
+c 
+usw.
+|
+~ </xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:choice>
 	</xs:group>
 	<!-- Begin of General condition type-->
@@ -8212,12 +8905,12 @@ Nodes are to be addressed using the "Source" attribute, and for tags also via "L
 			<xs:group ref="AtomicCountConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="ConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="ConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="ConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="ConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
@@ -8275,12 +8968,12 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			<xs:group ref="AtomicImpactConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="PersonFilterConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="PersonFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="PersonFilterConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="PersonFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:choice>
@@ -8291,12 +8984,12 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			<xs:group ref="AtomicImpactConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="DayFilterConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="DayFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="DayFilterConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="DayFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:choice>
@@ -8343,12 +9036,12 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			<xs:group ref="AtomicDayImpactConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="CombinationConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="CombinationConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="CombinationConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="CombinationConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
@@ -8380,12 +9073,12 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 			<xs:group ref="AtomicDayPriceIndexConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:group ref="DayPriceIndexConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
@@ -8508,7 +9201,11 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 						Attribut "Class" referenziert welches GenericTag geprüft wird. Die Bedingung
 						ist erfüllt, wenn der Value des referenzierten GenericTags innerhalb der
 						Value-Bedingungen liegt. Eine GenericTag Bedingung ohne Value ist
-						"False".</xs:documentation>
+						"False".
+Die Auswertung der GenericTag-Bedingung erfolgt nur in Product- und DefinedComponent-Filtern. In allen anderen Conditions und Filtern werden GenericTag-Bedingungen als "False" ausgewertet.
+Die Auswertung der GenericTag-Bedingung erfolgt  nach dem letzten Step der  Preisberechnung, also nach ExcecutionOrder ="Last".
+Bis dahin ist die GenericTag-Bedingung als "undefined" zu bewerten.  
+Der Umgang mit "undefined" Bedingungen wird in der Dokumentation beschrieben. (Suchen Sie dazu bitte nach "undefined")</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5869">The GenericTag-Condition defines a condition for the
 						GenericTag. The attribute "Class" references, which GenericTag is to be
 						evaluated. The condition is satisfied, if the value of the referenced
