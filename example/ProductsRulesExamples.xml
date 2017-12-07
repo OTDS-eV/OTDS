@@ -74,7 +74,7 @@
 				</And>
 			</Filter>
 		</Product>
-		<!-- Eine Produktregel welche den Flug über CombiComponents enthält  -->
+		<!-- Eine Produktregel welche den Flug über DefinedComponents enthält  -->
 		<Product Key="PackageWithCombiFlights" ProductType="FlightAccommodation">
 			<Components>
 				<Accommodation/>
@@ -85,6 +85,47 @@
 					<Element Source="Accommodation">CatchmentAirport</Element>
 					<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
 				</MatchEqual>
+			</Filter>
+		</Product>
+		<!-- Seit Version 2.0 werden die Produkte, die für die Paketierung mit externen Komponenten bereitgestellt werden, über eine neue Komponente "ExternalComponent" identifiziert und im Gegensatz zu vorher nicht mehr mit dem ProductTyp = "AccommodationOnly" sondern mit  ProductTyp = "FlightAccommodation" geliefert.-->
+		<!-- Nachfolgend die Definition von Unterkünften, die mit "externen" Flügen zusammen als Pauschalangebot verkauft werden sollen. -->
+		<Product Key="AccomOnlyForMix" ProductType="FlightAccommodation">
+			<Components>
+				<ExternalComponent Role="Outbound" DayAllocationIndex="-1"/>
+				<Accommodation DayAllocationIndex="0"/>
+				<ExternalComponent Role="Inbound" DayAllocationIndex="1"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Source="Accommodation" Class="MixOnly"/>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</Product>
+		<!-- Nachfolgend die Definition von Flügen, die mit "externen" Unterkünften zusammen als Pauschalangebot verkauft werden sollen. -->
+		<Product Key="FlightOnlyForMix" ProductType="FlightAccommodation">
+			<Components>
+				<CombiComponent Role="Outbound">
+					<OnewayFlight DayAllocationIndex="-1"/>
+				</CombiComponent>
+				<ExternalComponent Role="Accommodation" DayAllocationIndex="0"/>
+				<CombiComponent Role="Inbound">
+					<OnewayFlight DayAllocationIndex="1"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<Tags Source="OnewayFlight" Class="MixOnly"/>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+						<Element Source="Inbound">DepartureAirport</Element>
+					</MatchEqual>
+				</And>
 			</Filter>
 		</Product>
 	</Products>
