@@ -231,7 +231,8 @@ The default is 0.</xs:documentation>
 		</xs:annotation>
 		<xs:attributeGroup ref="ComponentAttributeGroup">
 			<xs:annotation>
-				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_8843">Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_8843">The attribute Component defines, which component the PriceItem refers to. By explicitly defining a componente it is possible to have a Percent-PriceItem referring to an absolute PriceItem of another component. The attribute Source represents an extension of the attribute. If both the attribute 'Component' and the attribute 'Source' are stated, only Source will be analyzed. If both attributes are not stated, the value 'ThisComponent' is assumed for the attribute 'Component'.</xs:documentation>
 			</xs:annotation>
 		</xs:attributeGroup>
 	</xs:attributeGroup>
@@ -646,8 +647,10 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 									<xs:extension base="OccupancyPersonType">
 										<xs:attribute name="MatchAvailability" type="MatchAvailabilityEnum">
 											<xs:annotation>
-												<xs:documentation>Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
+												<xs:documentation xml:lang="de" xml:id="de_8844">Diese Element bestimmt, ob es einen Bezug zwischen der Anzahl der Personen und der in der Availability/DayState/Open angegebenen Zahl gibt. 
 Ist der Wert in Availability/DayState/Open eines Angebotes muss >= der Anzahl der mit "MatchCount" markierten Personen sein. Alle Personen, die mit "Ignore" markiert sind, spielen bei dieser Auswertung keine Rolle.</xs:documentation>
+												<xs:documentation xml:lang="en" xml:id="en_8844">This element defines if there is a correlation between the number of personen and the number stated in the Availability/DayState/Open. 
+If the value in Availability/DayState/Open of an offer must be >= the number of the persons marked with "MatchCount". All personen that are marked with "Ignore" are not considered in this evalation.</xs:documentation>
 											</xs:annotation>
 										</xs:attribute>
 									</xs:extension>
@@ -979,15 +982,28 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 					</xs:element>
 					<xs:element name="ExternalComponent" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="det_">Dieses Element definiert, dass dieses Produkt zwingend eine externe, also nicht in der Lieferung enthaltene, Komponente des mit @Role definierten Typs benötigt. Das verarbeitenden System ergänzt das Produkt um die externe Komponenten.
+							<xs:documentation xml:lang="de" xml:id="de_8845">Dieses Element definiert, dass dieses Produkt zwingend eine externe, also nicht in der Lieferung enthaltene, Komponente des mit @Role definierten Typs benötigt. Das verarbeitenden System ergänzt das Produkt um die externe Komponenten.
 				Erst mit dieser externen Komponente ist das Produkt vollständig. Die externe Komponente ist immer zeit - und personenallozierend. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
 				Key-, Tag, ConditionalTag-, Filtern oder Conditions in Kombination mit externen Komponenten werden derzeit explizit als "False" ausgewertet.
 
 Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
 
-Das optionale Attribut "Name" ermöglicht einen möglichen Bezug auf diese Komponente in Filtern und Conditions über das Attribute "Source" in Kombination mit dem Präfix "#"+Name. 
+Das optionale Attribut "Name" ermöglicht einen möglichen Bezug auf diese Komponente in Filtern und Conditions über das Attribut "Source" in Kombination mit dem Präfix "#"+Name. 
 
 Die klassische Product-Definition eines DataMix-Produktes besteht damit aus 3 Components:
+1. ExternalComponent "Outbound"
+2. Accommodation
+3. ExternalComponent "Inbound" 
+</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_8845">This element defines, that it is mandatory for the product to contain an external (thus not included in the delivery) component of the type defined by @Role. The processing system complements the product with the external components.
+				Only with this external component the product becomes complete. The external component always is time- and person allocating. Depending on the  @Role only the external components with Role="Accommodation" and Role="Addon" are flexible components with respect to time.
+				Key-, Tag, ConditionalTag-, Filter or Conditions in combination with external components as of today explicitly are evaluated as "False".
+
+The optional attribute "DayAllocationIndex" defines the correlation of the components within the itinerary.
+
+The optional attribute "Name" allows a possible reference to these components in Filters and Conditions concerning the attribute "Source" combined with the prefix "#"+Name. 
+
+The classic product definition of a DataMix-product thus consists of three Components:
 1. ExternalComponent "Outbound"
 2. Accommodation
 3. ExternalComponent "Inbound" 
@@ -1004,6 +1020,9 @@ Die klassische Product-Definition eines DataMix-Produktes besteht damit aus 3 Co
 							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem
 								definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
 								Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex"	bestimmt die Zuordnung der Komponenten im Reiseverlauf.
+							</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_101">This element definiert, that  the defined product contains a virtual component as a place holder. This component is a component with flexible time- and personen allocation 
+								It is not possible to refer to this component in filters nor in conditions. The optional attribute "DayAllocationIndex" defines the correlation of the components within the itinerary.
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -1291,11 +1310,9 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																				<xs:extension base="EmptyTagConditionType">
 																					<xs:attribute name="Padding" default=" ">
 																						<xs:annotation>
-																							<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-																							<xs:documentation xml:lang="en">Padding - Determines the character with which
-												the tag's single value before the Connection is
-												filled up. The default is a
-												space.</xs:documentation>
+																							<xs:documentation xml:lang="de" xml:id="de_8846">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																							<xs:documentation xml:lang="en" xml:id="en_8846">Padding - Determines the character with which
+												the tag's single value before the Connection is filled up. The default is a space.</xs:documentation>
 																						</xs:annotation>
 																						<xs:simpleType>
 																							<xs:restriction base="xs:string">
@@ -1305,8 +1322,8 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																					</xs:attribute>
 																					<xs:attribute name="PadLength" default="0">
 																						<xs:annotation>
-																							<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-																							<xs:documentation xml:lang="en">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																							<xs:documentation xml:lang="de" xml:id="de_8847">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																							<xs:documentation xml:lang="en" xml:id="en_8847">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
 																						</xs:annotation>
 																						<xs:simpleType>
 																							<xs:restriction base="xs:integer"/>
@@ -1319,8 +1336,8 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																</xs:sequence>
 																<xs:attribute name="Padding" default=" ">
 																	<xs:annotation>
-																		<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-																		<xs:documentation xml:lang="en">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
+																		<xs:documentation xml:lang="de" xml:id="de_8848">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																		<xs:documentation xml:lang="en" xml:id="en_8848">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
 																	</xs:annotation>
 																	<xs:simpleType>
 																		<xs:restriction base="xs:string">
@@ -1330,8 +1347,8 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 																</xs:attribute>
 																<xs:attribute name="PadLength" default="0">
 																	<xs:annotation>
-																		<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-																		<xs:documentation xml:lang="en">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																		<xs:documentation xml:lang="de" xml:id="de_8849">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																		<xs:documentation xml:lang="en" xml:id="en_8849">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
 																	</xs:annotation>
 																	<xs:simpleType>
 																		<xs:restriction base="xs:integer">
@@ -1441,7 +1458,7 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 		<xs:choice>
 			<xs:element name="SortedCandidateGroup" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation xml:lang="de">Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten,
+					<xs:documentation xml:lang="de" xml:id="de_8850">Die SortedCandidateGroup definiert eine Gruppierung von Angebots-Kandidaten,
 						die in eine bestimmte Reihenfolge gebracht werden. Jedes Angebot erhält als
 						GenericTag-Value seine eigene Position innerhalb der sortierten
 						Angebotsgruppe. Die Auswertung der Funktion findet erst nach der Auswertung
@@ -1450,11 +1467,11 @@ The attributes of the tag define which tag in the XML tree is referenced.</xs:do
 						ein GenericTag darf nur innerhalb von Product benutzt werden. In allen
 						anderen Fällen wird die Bedingung automatisch als "Undefined"
 						ausgewertet.</xs:documentation>
-					<xs:documentation xml:lang="en">The SortedCandidateGroup defines a group of offer candidates
+					<xs:documentation xml:lang="en" xml:id="en_8850">The SortedCandidateGroup defines a group of offer candidates
 						that shall be brought to a specific order. Each offer is assigned its
 						position within the sorted offer group as GenericTag-Value. The evaluation
 						of the function takes place only after the availability check and after the
-						price calculation is completed. Until the the value of the function is set
+						price calculation is completed. Until then the value of the function is set
 						as "Undefined". A GenericTag-condition on a GenericTag may only be used
 						within Product. In all other cases the condition automatically is
 						interpreted as "Undefined".</xs:documentation>
@@ -1479,31 +1496,35 @@ By Tag elements you define, that the group contains only from those offer candid
 									<xs:choice>
 										<xs:element name="CandidateInstance">
 											<xs:annotation>
-												<xs:documentation>Die Angebote werden gruppiert, so dass alle Angebotskandidaten der Gruppe identische durch CandidateInstance/@Source definiert Unterkomponenten besitzen.
+												<xs:documentation xml:lang="de" xml:id="de_8851">Die Angebote werden gruppiert, so dass alle Angebotskandidaten der Gruppe identische durch CandidateInstance/@Source definierte Unterkomponenten besitzen.
 Die Rahmenparameter bzgl. CheckIn- und CheckOut-Terminen müssen ohenhin identisch sein.</xs:documentation>
+<xs:documentation xml:lang="en" xml:id="en_8851">The offers are grouped in a way, that all offer candidates of the group have identical sub-components defined by the CandidateInstance/@Source. The framing parameters regarding CheckIn- and CheckOut-dates have to be identical anyway.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:attribute name="Source" type="SourceAttributeType" use="required">
 													<xs:annotation>
-														<xs:documentation>Dieses Attribut definiert eine Referenz auf bestimmte Candidate Instance.</xs:documentation>
+														<xs:documentation xml:lang="de" xml:id="de_8852">Dieses Attribut definiert eine Referenz auf bestimmte Candidate Instance.</xs:documentation>
+														<xs:documentation xml:lang="en" xml:id="en_8852">This attribute defines a reference to a certain Candidate Instance.</xs:documentation>
 													</xs:annotation>
 												</xs:attribute>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="Airport">
 											<xs:annotation>
-												<xs:documentation>Die Angebote werden gruppiert, so dass Angebotskandidaten der Gruppe identische Values bzgl. des hier definierten Airports besitzen.
-</xs:documentation>
+												<xs:documentation xml:lang="de" xml:id="de_8853">Die Angebote werden gruppiert, so dass Angebotskandidaten der Gruppe identische Values bzgl. des hier definierten Airports besitzen.</xs:documentation>
+												<xs:documentation xml:lang="en" xml:id="en_8853">The offers are grouped in a way, that the offer candidates of the groups have identical values regarding the airport defined here.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:attribute name="Source" type="SourceAttributeType" use="required">
 													<xs:annotation>
-														<xs:documentation>Dieses Attribut definiert eine Referenz auf eine bestimmte Candidate Instance in der der Airport betrachtet werden soll.</xs:documentation>
+														<xs:documentation xml:lang="de" xml:id="de_8854">Dieses Attribut definiert eine Referenz auf eine bestimmte Candidate Instance, in der der Airport betrachtet werden soll.</xs:documentation>
+														<xs:documentation xml:lang="en" xml:id="en_8854">This attribute defines a reference to a certain Candidate Instance, in which the airport is subject.</xs:documentation>
 													</xs:annotation>
 												</xs:attribute>
 												<xs:attribute name="AirportType" type="AirportTypesEnum" use="required">
 													<xs:annotation>
-														<xs:documentation>Dieses Attribut definiert welcher Airporttype betrachtet werden soll.</xs:documentation>
+														<xs:documentation xml:lang="de" xml:id="de_8855">Dieses Attribut definiert, welcher Airporttype betrachtet werden soll.</xs:documentation>
+														<xs:documentation xml:lang="en" xml:id="en_8855">This attribute defines which airport type shall be considered.</xs:documentation>
 													</xs:annotation>
 												</xs:attribute>
 											</xs:complexType>
@@ -1516,18 +1537,20 @@ Die Gruppierung erfolgt über das hier referenzierte Tag. Das bedeutet, alle Ele
 
 Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, so erfolgt die Gruppierung über identische in XML-DocumentOrder sortierte Tag-Tuple. 
 </xs:documentation>
-												<xs:documentation xml:lang="en" xml:id="en_488">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a groupreferring to the tag addressed here have the same tag value .
+												<xs:documentation xml:lang="en" xml:id="en_488">This element addresses a certain tag within the offer context. The grouping is done via the tag referenced here. That means that all elements of a group referring to the tag addressed here have the same tag value.
 												Special case: If the addressing of the tag is not distinct relating to Source, the grouping will take place via identical tag-tuples sorted in XML DocumentOrder.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 										<xs:element name="GroupStartDate" type="GroupStartDateType" minOccurs="0" internal:otdsversion="2.0">
 											<xs:annotation>
-												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes StartDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
+												<xs:documentation xml:lang="de" xml:id="de_8856">Dieses Element definiert ein vom Defaultverhalten abweichendes StartDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.</xs:documentation>
+												<xs:documentation xml:lang="en" xml:id="en_8856">This element defines a StartDate of the grouping that deviates from the default behavior. The default complies with the described defaults of the attributes contained in this element.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 										<xs:element name="GroupEndDate" type="GroupEndDateType" minOccurs="0" internal:otdsversion="2.0">
 											<xs:annotation>
-												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes EndDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
+												<xs:documentation xml:lang="de" xml:id="de_8857">Dieses Element definiert ein vom Defaultverhalten abweichendes EndDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.</xs:documentation>
+												<xs:documentation xml:lang="en" xml:id="en_8857">his element defines a EndDate of the grouping that deviates from the default behavior. The default complies with the described defaults of the attributes contained in this element.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 									</xs:choice>
@@ -1690,8 +1713,8 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 																								<xs:extension base="EmptyTagConditionType">
 																									<xs:attribute name="Padding" default=" ">
 																										<xs:annotation>
-																											<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-																											<xs:documentation xml:lang="en">Padding - Determines the character with which the tag's single value before the Connection is filled up. Default is a space.</xs:documentation>
+																											<xs:documentation xml:lang="de" xml:id="de_8858">Padding - Legt das Zeichen fest, mit dem der  Einzelvalue des Tags vor der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																											<xs:documentation xml:lang="en" xml:id="en_8858">Padding - Determines the character with which the tag's single value before the Connection is filled up. Default is a space.</xs:documentation>
 																										</xs:annotation>
 																										<xs:simpleType>
 																											<xs:restriction base="xs:string">
@@ -1701,8 +1724,8 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 																									</xs:attribute>
 																									<xs:attribute name="PadLength" default="0">
 																										<xs:annotation>
-																											<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-																											<xs:documentation xml:lang="en">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																											<xs:documentation xml:lang="de" xml:id="de_8859">Dieses Attribut definiert, dass der Einzelvalue des Tags vor der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Value schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																											<xs:documentation xml:lang="en" xml:id="en_8859">This attribute determines, that the tag's single value before the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
 																										</xs:annotation>
 																										<xs:simpleType>
 																											<xs:restriction base="xs:integer"/>
@@ -1715,8 +1738,8 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 																				</xs:sequence>
 																				<xs:attribute name="Padding" default=" ">
 																					<xs:annotation>
-																						<xs:documentation xml:lang="de">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
-																						<xs:documentation xml:lang="en">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
+																						<xs:documentation xml:lang="de" xml:id="de_8860">Padding - Legt das Zeichen fest, mit dem der Ergebniswert nach der Connection aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+																						<xs:documentation xml:lang="en" xml:id="en_8860">Padding - Determines the character with which the result value after the Connection is filled up. Default is a space.</xs:documentation>
 																					</xs:annotation>
 																					<xs:simpleType>
 																						<xs:restriction base="xs:string">
@@ -1726,8 +1749,8 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 																				</xs:attribute>
 																				<xs:attribute name="PadLength" default="0">
 																					<xs:annotation>
-																						<xs:documentation xml:lang="de">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
-																						<xs:documentation xml:lang="en">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
+																						<xs:documentation xml:lang="de" xml:id="de_8861">Dieses Attribut definiert, dass der Ergebniswert nach der Connection mit dem in Attribut "Padding" definierten Zeichen aufgefüllt wird. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Default ist 0. Das Padding erfolgt vor der Zeichenkette.</xs:documentation>
+																						<xs:documentation xml:lang="en" xml:id="en_8861">This attribute determines, that the result value after the Connection is filled up with the character defined within the attribute "Padding". In case the value already is longer than PadLength, Padding is not executed. Default is 0. The Padding takes place before the character string.</xs:documentation>
 																					</xs:annotation>
 																					<xs:simpleType>
 																						<xs:restriction base="xs:integer">
@@ -1824,28 +1847,24 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 		<xs:sequence>
 			<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte Menge von PriceItems 
+					<xs:documentation xml:lang="de" xml:id="de_8862">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte Menge von PriceItems 
 eines bestimmten Types und/oder mit bestimmten PriceTags oder PriceClasses. Je Element "ConsideredPriceItems" wird eine Menge von PriceItems definiert.
 Bei mehrfacher Angabe des Elementes werden die einzelnen Mengen ver-ODER-ert.
 Es findet keine Duplizierung von PriceItems statt. 
 Falls ConsideredPriceItems kein Unterelement enthält, so werden alle PriceItems gemäß der Angaben in den Attributen "Source" und "ConsideredPriceItemType" berücksichtigt.
 
-Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt in der folgenden Reihenfolge: 
+Die Definition der Ergebnismenge eines Elementes "ConsideredPriceItems" erfolgt in der folgenden Reihenfolge: 
 1. Auswahl der PriceItems gemäß der Attribute "Source" und "ConsideredPriceItemType"	
-
 2. Einschränkung der Auswahl der PreisItems auf bestimmte PriceClasses und PriceTags. Bei der Angabe mehrerer Unterelemente werden die einzelnen Einschränkungen bzgl. Tags und Classes ver-UND-et.
-
 3. Ergänzung der IncludedDescendants. </xs:documentation>
-					<xs:documentation xml:lang="en">Restricts the PriceItems that need to be considered to specific
-						PriceItems of a specific type and/or with specific PriceTags. The selection
-						takes place in the following order: 1. selection of the PriceItems according
-						to the PriceFilter 2. if applicable complement of the IncludedDescendants.
-						If the element is indicated several times the final amount of PriceItems
-						consists from a merge of PriceItems of the single ConsideredPriceItems
-						evaluation. There will be no duplication of PriceItems. If
-						ConsideredPriceItems contain no element, all PriceItems will be considered
-						according to the values in the attributes "Source" and
-						"ConsideredPriceItemType".</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_8862">Restricts the PriceItems that need to be considered to a specific numer of 
+						PriceItems of a specific type and/or with specific PriceTags or PriceClasses. For each element "ConsideredPriceItems" a numerb of PriceItems is defined. If there the element is indication several times the single numbers are connected with OR. 
+						There is no duplication of PriceItems.
+						In the case that ConsideredPriceItems contains no sub-element, all PriceItems are considered according to the information in the attributes "Source" and "ConsideredPriceItemType".
+						The definition of the result set of an element "ConsideredPriceItems" takes place in the following order:
+					  1. selection of the PriceItems according to the attributes "Source" and "ConsideredPriceItemType"
+					  2. Restriction of the selection of PriceItems to specific PriceCalsses and PriceTags. When more than one sub-elements are stated, the restrictions regarding Tags and Classes are connected with AND.
+						3. Complementation of the IncludedDescendants.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -1863,14 +1882,14 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 			<xs:extension base="PriceTagsReferenceType">
 				<xs:attribute name="Include" type="IncludeAttributeEnum">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Mit Include="ApplyDescandents" können weitere PriceItems inkludiert werden,
+						<xs:documentation xml:lang="de" xml:id="de_8863">Mit Include="ApplyDescandents" können weitere PriceItems inkludiert werden,
 							die von den adressierten PriceItems angewendet werden. So kann man
 							bestimmte PercentPriceItems zuordnen und zusätzlich alle PriceItems
 							inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem
 							beziehen. Dieses Attribut berücksichtigt nur eine Apply-Hierarchie!
 							Sollte ein Bezug auf ein generisches Abolute hergestellt werden, so wird
 							hierbei dessen Include nicht mit berücksichtigt.</xs:documentation>
-						<xs:documentation xml:lang="en">Include="ApplyDescandents" allows to include further PriceItems which are 
+						<xs:documentation xml:lang="en" xml:id="en_8863">Include="ApplyDescandents" allows to include further PriceItems which are 
 							applied by the addressed PriceItems. By doing so specific PercentPriceItems can be assigned. In addition all PriceItems
 							can be included that refer to this specific PriceItem via ApplyTo and AppliedBy. This attribute only considers one apply hierarchy!
 							If a reference to a generic absolute is being established, its Include will not be considered.</xs:documentation>
@@ -1881,11 +1900,11 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 	</xs:complexType>
 	<xs:complexType name="ConsideredPriceTagsReferenceType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de">Der TagConditionType definiert die Bedingung an bestimmte Tags inklusive Angabe
+			<xs:documentation xml:lang="de" xml:id="de_8864">Der TagConditionType definiert die Bedingung an bestimmte Tags inklusive Angabe
 				der Class, Location und Werte des Tags. Tags sind Wertepaare, die an definierten
 				Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die
 				Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
-			<xs:documentation xml:lang="en">The TagConditionType determines the condition on specific tags including the indication of the Class, Location and Values of the tag.
+			<xs:documentation xml:lang="en" xml:id="en_8864">The TagConditionType determines the condition on specific tags including the indication of the Class, Location and Values of the tag.
 				Tags are pairs of values that can be indicated at defined node points. In doing so one can influence the offer building as well as the price calculation.</xs:documentation>
 		</xs:annotation>
 		<xs:simpleContent>
@@ -1960,8 +1979,8 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 	</xs:complexType>
 	<xs:complexType name="IncludeAppliedDescendantsType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de">Ist dieses Element angegeben, werden zu den in PriceItemCollection
-				definierten PriceItems auch deren Descendants ergänzt. Descendendants sind
+			<xs:documentation xml:lang="de" xml:id="de_8865">Ist dieses Element angegeben, werden zu den in PriceItemCollection
+				definierten PriceItems auch deren Descendants ergänzt. Descendants sind
 				in dem Zusammenhang alle PriceItems, die durch ApplyTo und AppliedBy der
 				PriceItemCollection-PriceItems adressiert werden. So kann man in der
 				Collection bestimmte PercentPriceItems auswählen und zusätzlich alle
@@ -1971,8 +1990,8 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 				wird nur Apply-Hierarchie berücksichtigt! Sollte ein Bezug auf ein
 				generisches Absolute hergestellt werden, so wird hierbei dessen Include
 				nicht mitberücksichtigt.</xs:documentation>
-			<xs:documentation xml:lang="en">In case this element is indicated, the descendants of PriceItems defined in PriceItemCollection 
-				are complemented to those. Descendendants in this respect are all PriceItems that can be addressed by ApplyTo and AppliedBy 
+			<xs:documentation xml:lang="en" xml:id="en_8865">In case this element is indicated, the descendants of PriceItems defined in PriceItemCollection 
+				are complemented to those. Descendants in this respect are all PriceItems that can be addressed by ApplyTo and AppliedBy 
 				of the PriceItemCollection-PriceItems. Hence one can choose specific PercentPriceItems in the collection and additionally 
 				include all PriceItems that refer to this PriceItem via ApplyTo and AppliedBy. The selection of the descendants can be in turn 
 				restricted separately by the PriceItemFilter. For the selection of the descendants only the Apply hierarchy is considered! 
@@ -1981,7 +2000,8 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 		<xs:sequence>
 			<xs:group ref="PriceItemFilterGroup" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_8866">Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_8866">If no PriceItemFilterGroup is indicated, there will be no restriction of the PriceItems.</xs:documentation>
 				</xs:annotation>
 			</xs:group>
 		</xs:sequence>
@@ -2028,20 +2048,20 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 			</xs:element>
 			<xs:element name="MarketingBrandName" type="xs:string" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_141">Enthält den MarketingBrandNamen unter dem das Angebot verkauft werden soll. In den meisten Fällen entspricht dies dem Veranstaltenamen des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben. Beispiel FTI und XFTI.   Die Definition des MarketingBrandNames erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_141">Enthält den MarketingBrandNamen unter dem das Angebot verkauft werden soll. In den meisten Fällen entspricht dies dem Veranstaltenamen des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben. Beispiel FTI und XFTI. Die Definition des MarketingBrandNames erfolgt in der Regel innerhalb der Brand oder innerhalb des Products. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_141">Contains the MarketingBrandName under which the offer shall be sold. In most cases this name equals the tour operator name of the operator. In specific cases however an offer might be distributed under a separate MarketingBrand, for example FTI and XFTI. The definition of the MarketingBrandNames in general takes place within the Brand or within the Product.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="MarketingBrandCode" type="xs:string" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_141">Enthält ein Kürzel, welches die MarketingBrand des Angebotes definiert. In den meisten Fällen entspricht die MarketingBrand dem Buchungscode des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben und trotzdem mit dem Buchungscode des Veranstalters gebucht. Beispiel FTI und XFTI.   Die Definition der MarketingBrand erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_8867">Enthält ein Kürzel, welches die MarketingBrand des Angebotes definiert. In den meisten Fällen entspricht die MarketingBrand dem Buchungscode des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben und trotzdem mit dem Buchungscode des Veranstalters gebucht. Beispiel FTI und XFTI. Die Definition der MarketingBrand erfolgt in der Regel innerhalb der Brand oder innerhalb des Products. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_8867">Contains an abbreviation/acronym, which defines the MarketingBrand of the offer. In most cases the MarketingBrand equals the booking code of the tour operator. In specific cases however an offer might be distributed with under a separate MarketingBrand yet at the same time be booked with the booking code of the operator, for example FTI and XFTI. The definition of the MarketingBrand in general takes place within the Brand or within the Product.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="AccommodationCity" type="xs:string" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_141">Stadt, in der die Unterkunft / das Hotel liegt.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_8868">Stadt, in der die Unterkunft / das Hotel liegt.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_8868">Town or city in which the accommodation/hotel is located.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="AccommodationType" type="AccommodationTypeEnum" minOccurs="0">
@@ -2290,7 +2310,7 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 					<xs:sequence>
 						<xs:element name="FlightRoute" type="RouteType" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_162"/>
+								<xs:documentation xml:lang="de" xml:id="de_162">Spezifizierung aller notwendigen Informationen zur Beschreibung der Flug-Route und der Rahmenparameter, wie die Daten zu Abflug und Ankunft (Airport, DateOffset, Time, Terminal), zum Operating und Marketing Carrier (Carrier, Flugnummer), Flugtyp (Main, Feeder, Wrapper), Kabinenklasse (FlightCabinClass), Gesamtreisedauer (ElapsedFlyingTime), Fluggerät (Equipment), StopOvers und Technische Stops.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
@@ -2575,7 +2595,7 @@ DE Germany</xs:documentation>
 												Glückshotels, aber ggf. auch bei Rundreisen, um
 												diese auf Karten suchbar zu
 												machen.</xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_197">In the Accuracy element a relative distance in km can be stated to the specified coordinate. For example with budget hotels. Even round trips can be made searchable on maps.</xs:documentation>
+											<xs:documentation xml:lang="en" xml:id="en_197">In the Accuracy element a relative distance in kilometers can be stated to the specified coordinate. For example with budget hotels. Even round trips can be made searchable on maps.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 								</xs:sequence>
@@ -2620,17 +2640,20 @@ DE Germany</xs:documentation>
 			<xs:extension base="EmptyTagType">
 				<xs:attribute name="InternetAccessLocation" type="InternetAccessLocationEnum">
 					<xs:annotation>
-						<xs:documentation>Verschiedene Orte des Internanschlusses im Hotel</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_8869">Verschiedene Orte des Internanschlusses im Hotel</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_8869">Various locations of the internet access in a hotel</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:attribute name="InternetAccessCharge" type="InternetAccessChargeEnum">
 					<xs:annotation>
-						<xs:documentation>Kosten für Internetanschluss im Hotel</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_8870">Kosten für Internetanschluss im Hotel</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_8870">Charges for internet access in a hotel</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 				<xs:attribute name="InternetAccessType" type="InternetAccessTypeEnum">
 					<xs:annotation>
-						<xs:documentation>Zugangsart des Internetanschlusses</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_8872">Zugangsart des Internetanschlusses</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_8872">type of access to the internet</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -2679,7 +2702,7 @@ DE Germany</xs:documentation>
 						oder Kooperation: Die Zuordnung findet über eine Hotelketten-ID statt. Eine
 						Referenzliste finden Sie in der Dokumentation im Anhang unter Referenzlisten
 						/ Ketten-Kooperationen.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_206">Accommodation that is part of a chain or affiliation:
+					<xs:documentation xml:lang="en" xml:id="en_206">Chain or affiliation/cooperation the accommodation is part of:
 The attribution is carried out according to hotel chain ID. A list of references can be found in the documentation notes under reference lists / chain collaborations.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -2747,7 +2770,7 @@ The attribution is carried out according to hotel chain ID. A list of references
 	</xs:group>
 	<xs:complexType name="ConsideredPriceItemsType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines
+			<xs:documentation xml:lang="de" xml:id="de_8873">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines
 				bestimmten Types und/oder mit bestimmten PriceTags. Die Auswahl erfolgt in der
 				folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß PriceFilter 2. ggf. Ergänzung
 				der IncludedDescendants. Bei mehrfacher Angabe des Elementes besteht die finale
@@ -2756,7 +2779,7 @@ The attribution is carried out according to hotel chain ID. A list of references
 				statt. Falls ConsideredPriceItems kein Element enthält, so werden alle PriceItems
 				gemäß der Angaben in den Attributen "Source" und "ConsideredPriceItemType"
 				berücksichtigt.</xs:documentation>
-			<xs:documentation xml:lang="en">Restricts the PriceItems that need to be considered to specific PriceItems of a 
+			<xs:documentation xml:lang="en" xml:id="en_8873">Restricts the PriceItems that need to be considered to specific PriceItems of a 
 				specific type and/or with specific PriceTags. The selection takes place in the following order: 1. selection 
 				of the PriceItems according to the PriceFilter 2. if applicable complement of the IncludedDescendants. If the 
 				element is indicated several times the final amount of PriceItems consists from a merge of PriceItems of the 
@@ -2768,8 +2791,8 @@ The attribution is carried out according to hotel chain ID. A list of references
 			<xs:group ref="PriceItemFilterGroup" minOccurs="0"/>
 			<xs:element name="IncludeAppliedDescendants" type="IncludeAppliedDescendantsType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de">Ist dieses Element angegeben, werden zu den in PriceItemCollection
-						definierten PriceItems auch deren Descendants ergänzt. Descendendants sind
+					<xs:documentation xml:lang="de" xml:id="de_8874">Ist dieses Element angegeben, werden zu den in PriceItemCollection
+						definierten PriceItems auch deren Descendants ergänzt. Descendants sind
 						in dem Zusammenhang alle PriceItems, die durch ApplyTo und AppliedBy der
 						PriceItemCollection-PriceItems adressiert werden. So kann man in der
 						Collection bestimmte PercentPriceItems auswählen und zusätzlich alle
@@ -2779,8 +2802,8 @@ The attribution is carried out according to hotel chain ID. A list of references
 						wird nur Apply-Hierarchie berücksichtigt! Sollte ein Bezug auf ein
 						generisches Absolute hergestellt werden, so wird hierbei dessen Include
 						nicht mitberücksichtigt.</xs:documentation>
-					<xs:documentation xml:lang="en">In case this element is indicated, the descendants of PriceItems defined in PriceItemCollection 
-						are complemented to those. Descendendants in this respect are all PriceItems that can be addressed by ApplyTo and AppliedBy 
+					<xs:documentation xml:lang="en" xml:id="en_8874">In case this element is indicated, the descendants of PriceItems defined in PriceItemCollection 
+						are complemented to those. Descendants in this respect are all PriceItems that can be addressed by ApplyTo and AppliedBy 
 						of the PriceItemCollection-PriceItems. Hence one can choose specific PercentPriceItems in the collection and additionally 
 						include all PriceItems that refer to this PriceItem via ApplyTo and AppliedBy. The selection of the descendants can be in turn 
 						restricted separately by the PriceItemFilter. For the selection of the descendants only the Apply hierarchy is considered! 
@@ -2790,18 +2813,19 @@ The attribution is carried out according to hotel chain ID. A list of references
 		</xs:sequence>
 		<xs:attributeGroup ref="ComponentAttributeGroup">
 			<xs:annotation>
-				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_8875">Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component' der Wert 'ThisComponent' angenommen.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_8875">The attribute Component indicates, which component this PriceItem refers to. By explicitly indicating a component it is possible to have a Percent-PriceItem refer to an absolute PriceItemof a different component. The attribute Source is an increment of the attribute. If both attribute 'Component' and 'Source' are indicated at the same time, only Source will be evaluated. If both attributes are not indicated, the value 'ThisComponent' is assumed for the attribute 'Component'.</xs:documentation>
 			</xs:annotation>
 		</xs:attributeGroup>
 		<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
 			<xs:annotation>
-				<xs:documentation xml:lang="de">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
+				<xs:documentation xml:lang="de" xml:id="de_8876">Dieses Element definiert, welche Art PriceItems berücksichtigt werden. Es kann eine durch Space getrennte Liste von Values angegeben werden. Folgende Values sind möglich:
 - Absolutes: Es werden nur absolute PriceItems berücksichtigt.
 - Percents: Es werden nur Percent-PriceItems berücksichtigt.
 - All: Es werden alle PriceItems berücksichtigt.
 - GenericAbsolute
 Default = "All"</xs:documentation>
-				<xs:documentation xml:lang="en">This element defines which kind of PriceItems will be considered. A list of values separated by space can be indicated. The following values may be used:
+				<xs:documentation xml:lang="en" xml:id="en_8876">This element defines which kind of PriceItems will be considered. A list of values separated by space can be indicated. The following values may be used:
 					- Absolutes: only absolute PriceItems are considered.
 					- Percents: only Percent-PriceItems are considered.
 					- All: all PriceItems are considered.
@@ -2815,20 +2839,20 @@ Default = "All"</xs:documentation>
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="ConsideredPriceTags" type="ConsideredPriceTagsReferenceType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
-						<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_8877">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_8877">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="NotConsideredPriceTags" type="ConsideredPriceTagsReferenceType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
-						<xs:documentation xml:lang="en">These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_8878">>Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_8878">>These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:group ref="ConsideredPriceItemsGroup">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" zw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices. Each element "ConsideredPriceItemClasses" respectively "NotConsideredPriceItemClasses" is evaluated in its component context. The result set of the valid PriceItems is the set union of the single evaluations. No PriceItems will be duplicated.</xs:documentation>
 					</xs:annotation>
 				</xs:group>
 			</xs:choice>
@@ -2872,12 +2896,12 @@ Default = "All"</xs:documentation>
 										DayTypes, welchen Tagen genau der Absolutpreis zugewiesen
 										wird. Mögliche Werte: - Stay: Alle "Stay"-Tage. -
 										CheckInOut: Das Intervall von CheckIn bis CheckOut inklusive
-										CheckIn und CheckOut. Default ist "Stay"</xs:documentation>
+										CheckIn und CheckOut. Default ist "Stay".</xs:documentation>
 									<xs:documentation xml:lang="en" xml:id="en_385">Based on the DayType, this attribute
 										defines the exact days to which the absolute price is
 										allocated. Potential values: - Stay: All "Stay" days. -
 										CheckInOut: The interval from CheckIn to CheckOut including
-										CheckIn and CheckOut. "Stay" is the default
+										CheckIn and CheckOut. "Stay" is the default.
 										setting.</xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
@@ -2892,21 +2916,28 @@ Default = "All"</xs:documentation>
 		<xs:sequence>
 			<xs:element name="DayBase" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Ist dieses Element angegeben, so werden nur die mit Source und IntervalType definierten Tage bei der Auswertung betrachtet. Ist das Element "PersonBase" nicht angegeben, so gilt die Condition für einen betrachteten Tag als erfüllt, wenn an diesem Tag für wenigstens 1 Person die Condition erfüllt ist.
+					<xs:documentation xml:lang="de" xml:id="de_8879" >Ist dieses Element angegeben, so werden nur die mit Source und IntervalType definierten Tage bei der Auswertung betrachtet. Ist das Element "PersonBase" nicht angegeben, so gilt die Condition für einen betrachteten Tag als erfüllt, wenn an diesem Tag für wenigstens 1 Person die Condition erfüllt ist.
 
 Falls das Element "PersonBase" angegeben ist, so werden alle Kostenknoten einzeln betrachtet und gemäß des Evaluationmodes ausgewertet. </xs:documentation>
+<xs:documentation xml:lang="en" xml:id="en_8879">If this element is indicated, only those days defined by Source and IntervalType will be considered in the evaluation. In case the element "PersonBase" is not indicated, the Condition for a specific day is regarded as fulfilled, if on this day the condition is fulfilled for at least one person.
+
+If the element "PersonBase" is indicated, all cost nodes are considered separately and evaluated according to the evaluation mode. </xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="EmptyElementType">
 							<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
 								<xs:annotation>
-									<xs:documentation>Hier können über einen Bezug zu einer Komponent-Instanz bestimmte Tage addressiert werden. Der Default ist "ThisComponent". </xs:documentation>
+									<xs:documentation xml:lang="de" xml:id="de_8880">Hier können über einen Bezug zu einer Komponent-Instanz bestimmte Tage addressiert werden. Der Default ist "ThisComponent". </xs:documentation>
+									<xs:documentation xml:lang="en" xml:id="en_8880">Here specific days can be addressed via a reference to a component instance. The default is "ThisComponent". </xs:documentation>
 								</xs:annotation>
 							</xs:attribute>
 							<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay">
 								<xs:annotation>
-									<xs:documentation>Mit diesem Attribut können über einen bestimmten  IntervalType bestimmte Tage addressiert werden. Mögliche Werte sind:
+									<xs:documentation xml:lang="de" xml:id="de_8881">Mit diesem Attribut können über einen bestimmten  IntervalType bestimmte Tage addressiert werden. Mögliche Werte sind:
+- Stay
+- CheckInOut</xs:documentation>
+<xs:documentation xml:lang="de" xml:id="de_8881">With the help of this attribute specitic days may be addressed via a specific IntervalType. The following values are allowed:
 - Stay
 - CheckInOut</xs:documentation>
 								</xs:annotation>
@@ -2917,9 +2948,12 @@ Falls das Element "PersonBase" angegeben ist, so werden alle Kostenknoten einzel
 			</xs:element>
 			<xs:element name="PersonBase" type="EmptyElementType" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Ist dieses Element angegeben, so werden die Personen betrachtet und gemäß dem angegebenen EvaluationMode ausgewertet. Ist das Element "DayBase" nicht angegeben, so gilt die Condition für eine betrachtete Person als erfüllt, wenn für diese Person wenigstens an einem Tag die Condition erfüllt ist.
+					<xs:documentation xml:lang="de" xml:id="de_8882">Ist dieses Element angegeben, so werden die Personen betrachtet und gemäß dem angegebenen EvaluationMode ausgewertet. Ist das Element "DayBase" nicht angegeben, so gilt die Condition für eine betrachtete Person als erfüllt, wenn für diese Person wenigstens an einem Tag die Condition erfüllt ist.
 
-Falls das Element "DayBase" angegeben ist, so werden alle Kostenknoten (ggf. eingeschränkt durch SOurce und IntervalType) einzeln betrachtet und gemäß des Evaluationmodes ausgewertet. </xs:documentation>
+Falls das Element "DayBase" angegeben ist, so werden alle Kostenknoten (ggf. eingeschränkt durch Source und IntervalType) einzeln betrachtet und gemäß des Evaluationmodes ausgewertet. </xs:documentation>
+<xs:documentation xml:lang="en" xml:id="en_8882">If this element is indicated, the persons are considered and evaluated according to the EvaluationMode indicated. If the element "DayBase" is not indicated, the condition for the considered person is regarded as fulfilled, if the condition is fulfilled for this person at least on one day.
+
+If the element "DayBase" is indicated, all cost nodes (if necessary restricted by Source and IntervalType) are considered separately and evaluated according to the evaluation mode.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -2949,7 +2983,7 @@ Falls das Element "DayBase" angegeben ist, so werden alle Kostenknoten (ggf. ein
 								so wird ein Default-Element erzeugt, welches die Attribute mit den
 								vorgegebenen Defaultwerten enthält. Mehr Details finden sich in den
 								Beschreibungen der Attribute und auch in der "Thematischen
-								Dokumentation" im Kapitel "DayAllocation" (@ToDo Hans) </xs:documentation>
+								Dokumentation" im Kapitel "DayAllocation".</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_212">This element defines the beginning of the DayAllocationInterval at the DayAllocationLevel. By default, a product has only one DayAllocationLevel, whose beginning is the first day of the trip. The explicit indication of a "DayAllocationStart" is not necessary.
 
 If a single day is assigned more than one component at the same time it will result in multiple DayAllocationLevels. This may for example be the case in relation to add-ons. In this case, an explicit "DayAllocationStart" must be specified that defines the start of the add-on. The DayAllocation levels differ from each other according to the value of the "DayAllocationLevel" attribute.
@@ -3051,7 +3085,7 @@ A more detailed description of the attributes can be found in the "Thematic docu
 					<xs:group ref="DistributorIdentificationGroup"/>
 					<xs:element name="SalesChannel" type="SalesChannelEnum">
 						<xs:annotation>
-							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten SalesChannel. Die möglichen Werte sind:
+							<xs:documentation xml:lang="de" xml:id="de_8883">Dieses Element definiert den GlobalValue für einen bestimmten SalesChannel. Die möglichen Werte sind:
 
 - OnlineTravelAgency
 Vermarktung der Angebote über Webseiten
@@ -3059,41 +3093,60 @@ Vermarktung der Angebote über Webseiten
 Vermarktung der Angebote über Reisebüros
 - Intern
 Innerbetriebliche Vermarktung der Reisen </xs:documentation>
+<xs:documentation xml:lang="en" xml:id="en_8883">This element defines the GlobalValue for a specific SalesChannel. The following values may be used:
+
+- OnlineTravelAgency
+Selling of travel via webpages
+- TravelAgency
+Selling of travel via travel agencies
+- Intern
+Selling of travel intra-companies</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="DistributionChannel" type="DistributionChannelEnum">
 						<xs:annotation>
-							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten DistributionChannel:
-
+							<xs:documentation xml:lang="de" xml:id="de_8884">Dieses Element definiert den GlobalValue für einen bestimmten DistributionChannel:
 - Bewotec
-Vermarktung der Angebote über den Distributo "Bewotec"
+Vermarktung der Angebote über den Distributor "Bewotec"
 - TravelTainment
-Vermarktung der Angebote über den Distributo "Traveltainment"
+Vermarktung der Angebote über den Distributor "Traveltainment"
 - Traffics
-Vermarktung der Angebote über den Distributo "Traffics"</xs:documentation>
+Vermarktung der Angebote über den Distributor "Traffics"</xs:documentation>
+<xs:documentation xml:lang="en" xml:id="en_8884">This element defines the GlobalValue for a specific DistributionChannel:
+- Bewotec
+Selling via distributor "Bewotec"
+- TravelTainment
+Selling via distributor "Traveltainment"
+- Traffics
+Selling via distributor "Traffics"</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="SalesMarket" type="ISO3166CountryType" internal:otdsversion="1.9">
 						<xs:annotation>
-							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten Markt, welcher einem Land entspricht. Die Währung folgt der Definition gemäß der ISO3166 Norm für Länder.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_8885">Dieses Element definiert den GlobalValue für einen bestimmten Markt, welcher einem Land entspricht. Die Währung folgt der Definition gemäß der ISO3166 Norm für Länder.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_8885">This element defines the GlobalValue for a specific market, which represents a country. The currency is defined according to ISO3166 norm for countries.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Currency" type="ISO4217CurrencyType" internal:otdsversion="1.9.2">
 						<xs:annotation>
-							<xs:documentation>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_8886">Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_8886">This element defines the GlobalValue for a specific currency. The currency is defined according to ISO4217 norm for currencies.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="FeatureContext" type="FeatureContextEnum" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation>Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeautureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeautureContext kann zu einem anderen Ergebnsi führen als ohne den FeautureContext.
-Derzeit gibt es nur einen FeautureContext "City-Pair-Production".
+							<xs:documentation xml:lang="de" xml:id="de_8887">Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeautureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeatureContext kann zu einem anderen Ergebnis führen als ohne den FeatureContext.
+Derzeit gibt es nur einen FeatureContext "City-Pair-Production".
 
 Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
+<xs:documentation xml:lang="de" xml:id="de_8887">This set of parameters serves to define a GlobalValue that only is activated when this specific FeautureContext is desired. The processing with a specific FeatureContext can lead to a different result than without the FeautureContext.
+At present there is only one FeatureContext "City-Pair-Production". By this feature for flights or packaged travel offers exactly one flight per CityPair, date and duration is returned. This flight must be booked with a specific  CityPairCode (ie. DUSPMI). The provider of the data is responsible that the use of GlobalValues leads to the processing results desired.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Reseller" type="ResellerType" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation>Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_8888">Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_8888">This element defines the GlobalValue for a specific reseller, which is explicitly identified by the combined information of CRS-System, AgencyCode and BrandCode.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
@@ -3106,7 +3159,7 @@ Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen F
 				<xs:documentation xml:lang="de" xml:id="de_402">Mit diesem Attribut kann man das Tag weiter
 					spezifizieren, auf dessen Knoten sich der Inhalt bezieht.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_402">With this attribute, it is possible to further
-					specify the tag, the node of which the contents refer to.</xs:documentation>
+					specify the tag, to whose node the content refers to.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="TagValueType" type="TagValueTypeEnum" default="String">
@@ -3162,8 +3215,10 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 		</xs:attribute>
 		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
 			<xs:annotation>
-				<xs:documentation>Mit der Source kann man die Addressierung noch feiner auflösen als mit dem Attribute Component.
+				<xs:documentation xml:lang="de" xml:id="de_8889">Mit der Source kann man die Adressierung noch feiner auflösen als mit dem Attribute 'Component'.
 					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_8889">With the Source the addressing can be dismantled even further than with the attribute 'Component'.
+					If both attributes 'Component' and 'Source' are indicated at the same time, only 'Source' will be evaluated. If none of the attributes are indicated, for tha attribut 'Component' the value 'ThisComponent' is presumed.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
@@ -3222,26 +3277,21 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 		<xs:attribute name="EvaluationMode" type="EvaluationModeEnum" default="Any">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_218">Dieses Attribut definiert die Interpretation der
-					Auswertung im Falle, dass die Werte im Attribut "Source" auch nach Auswertung
+					Auswertung im Falle, dass die Werte im Attribut 'Source' auch nach Auswertung
 					der DayAllocation auf mehrere Komponenten verweisen. Das kann passieren, wenn
 					gleiche Komponenten zur gleichen Zeit stattfinden, also eine Überschneidung in
 					der DayAllocation haben. Beispiel sind hier Addons, die sich häufig
-					überschneiden können. Mögliche Werte sind: - Any: Wenn dieser Wert gesetzt ist,
-					wird die Bedingung wahr, sobald eine der adressierten Komponenten die Bedingung
-					erfüllt. - All: Wenn dieser Wert gesetzt ist, wird die Bedingung nur wahr, wenn
-					alle adressierten Komponenten die Bedingung erfüllen. Wenn das Attribut nicht
-					gefüllt ist, wird als Standard "Any" verwendet. </xs:documentation>
+					überschneiden können. Mögliche Werte sind: 
+					- Any: Wenn dieser Wert gesetzt ist, wird die Bedingung wahr, sobald eine der adressierten Komponenten die Bedingung
+					erfüllt. 
+					- All: Wenn dieser Wert gesetzt ist, wird die Bedingung nur wahr, wenn	alle adressierten Komponenten die Bedingung erfüllen. 
+					Wenn das Attribut nicht gefüllt ist, wird als Standard "Any" verwendet. </xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_218">This attribute defines the interpretation of the analysis in the event that the values ​​in the attribute "Source" also refer to several components after the DayAllocation evaluation. This can happen if the same components take place at the same time and thus overlap with the DayAllocation. Add-ons are an example of this, as they can often overlap.
 Possible values are:
-
-
 - Any
 If this value is specified, the condition is met if any of the components addressed satisfies the condition.
-
 - All
 If this value is specified, the condition is met only if all components meet the condition addressed.
-
-
 If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -3249,14 +3299,14 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	<xs:attributeGroup name="TagReferenceAttributeGroup">
 		<xs:attribute name="Offset" type="xs:unsignedInt">
 			<xs:annotation>
-				<xs:documentation xml:lang="de">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)</xs:documentation>
-				<xs:documentation xml:lang="en">Determines the position, from which on the body of the tag element shall be compared. (Default is position 0 - this corresponds to the first character.)</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_8890">Gibt die Position an, ab der der Body des Tag-Elementes verglichen werden soll. (Default ist Position 0 - dies entspricht dem ersten Zeichen.)</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_8890">Determines the position, from which on the body of the tag element shall be compared. (Default is position 0 - this corresponds to the first character.)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Length" type="xs:unsignedInt">
 			<xs:annotation>
-				<xs:documentation xml:lang="de">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen.</xs:documentation>
-				<xs:documentation xml:lang="en">Determines the number of characters, which shall be compared in the body of the tag element. If the attribute is not filled, always the body of the TagElement is compared until the end of the character string.</xs:documentation>
+				<xs:documentation xml:lang="de"  xml:id="de_8891">Gibt die Anzahl der Zeichen an, die im Body des Tag-Elementes verglichen werden sollen. Ist das Attribut nicht besetzt, so wird immer der Body des TagElementes bis zum Ende der Zeichenkette verglichen.</xs:documentation>
+				<xs:documentation xml:lang="en"  xml:id="en_8891">Determines the number of characters, which shall be compared in the body of the tag element. If the attribute is not filled, always the body of the TagElement is compared until the end of the character string.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
@@ -3364,11 +3414,14 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="IataAirlineCodeType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de">Typ für IATA Airline Codes ("IATA two character designator code", see http://www.iata.org/services/pages/codes.aspx )
+			<xs:documentation xml:lang="de"  xml:id="de_8892">Typ für IATA Airline Codes ("IATA Zweiletter-Code", siehe http://www.iata.org/services/pages/codes.aspx )
+          </xs:documentation>
+          <xs:documentation xml:lang="en"  xml:id="en_8892">Type for IATA Airline Codes ("IATA two character designator code", see http://www.iata.org/services/pages/codes.aspx )
           </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<!-- [A-Z0-9]{2} will be activated in Version 2.0--> </xs:restriction>
+			<!-- [A-Z0-9]{2} will be activated in Version 2.0-->
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TokenType">
 		<xs:restriction base="xs:string">
@@ -3899,13 +3952,16 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 			<xs:element name="Time" type="FlightTimeType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_259">Abflug- oder Ankunftszeit eines Flugs. Diese Zeit wird immer in der Lokalzeit des geographischen Kontext angegeben. Im Falle der Abflugzeit ist der geographische Kontext der Abflughafen. Im Falle der Ankunftszeit ist der geographische Kontext der Zielflughafen. 
-Für die genauere Spezifizierung der Zeit im Kontext einer Zeitumstellung sollte zusätzlich das Attribut UTCOffsetOfTimeZone angegeben werden.
+Für die genauere Spezifizierung der Zeit im Kontext einer Zeitumstellung sollte zusätzlich das Attribut 'UTCOffsetOfTimeZone' angegeben werden.
 
 Es wird empfohlen den UTCOffsetOfTimeZone 2 Tage vor und nach einer Zeitumstellung generell anzugeben, da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffsetOfTimeZone nur dann benutzt, wenn alle Zeitangaben einen UTCOffsetOfTimeZone gesetzt haben.
 
 Sobald eine Zeitangabe ohne UTCOffsetOfTimeZone angegeben ist, so werden alle UTCOffsetOfTimeZone bei der Berechnung ignoriert.
 </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_259">Departure or arrival time of a flight.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_259">Departure or arrival time of a flight.This time always is indicated in the local time of the geographic context. In the case of the departure time the geographic context is the departure airport. In the case of the arrival time the geographic context is the arrival airport. For a more precise specification of the time in the context of a time shift the attribute 'UTCOffsetOfTimeZone' should also be indicated.
+					It is recommended to generally indicate the 'UTCOffsetOfTimeZone' two days before and after a time shift, as according to the processing modell the calculation of time differences only uses the UTCOffsetOfTimeZone if all time indications carry the UTCOffsetOfTimeZone.
+					As soon as a time indication carries no UTCOffsetOfTimeZone, all UTCOffsetOfTimeZone will be ignored for the calculation.					
+					 </xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Terminal" type="xs:string" minOccurs="0">
@@ -3928,7 +3984,6 @@ Sobald eine Zeitangabe ohne UTCOffsetOfTimeZone angegeben ist, so werden alle UT
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_262">Das Attribut UTCOffsetOfTimeZone wird lediglich dazu benutzt, die angegebene Zeit im Element "Time" im Falle einer Zeitumstellung genauer zu spezifizieren.
 Zur Verdeutlichung die LocalTime - UTCOffsetOfTimeZone ergibt immer die UTC-Time.
-
 
 Das UTCOffsetOfTimeZone enthält die Stunden, Minuten Verschiebung zur UTC-Zeit von der Zeitzone auf die sich die lokale Zeitangabe in LocalTime bezieht. Die Angabe erfolgt im Format [+|-hh:mm].
 
@@ -4813,7 +4868,7 @@ For the complete list see the technical documentation.</xs:documentation>
 			<xs:enumeration value="FirstMinute"/>
 			<xs:enumeration value="LastMinute"/>
 			<xs:enumeration value="UltraFirstMinute"/>
-			<xs:enumeration value="UltraLastMinute"/>				
+			<xs:enumeration value="UltraLastMinute"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="RoundingEnum">
