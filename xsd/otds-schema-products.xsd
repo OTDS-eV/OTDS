@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
-<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified" xmlns:internal="http://otds-group.org/otds/internal">
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<xs:include schemaLocation="otds-schema-common.xsd"/>
 	<xs:include schemaLocation="otds-schema-flight.xsd"/>
 	<xs:include schemaLocation="otds-schema-accommodation.xsd"/>
@@ -8,7 +9,7 @@
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0"/>
+					<xs:element name="Tags" type="ProductsTagsType" minOccurs="0"/>
 					<xs:element name="GlobalValues" type="GlobalValuesType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_518">Definition der GlobalValues wie Subcontractors (Exklusivkunden) und spezifische Saleschannel</xs:documentation>
@@ -50,15 +51,8 @@ Features and characteristics of the property</xs:documentation>
 - FlightAccommodation
  Beinhaltet alle Pauschalangebote bestehend aus Hin- und Rückflug + Unterkunft, die ggf. auch PflichtAddons enthalten können.
 
-- OptionalAccommodationAddons
- Beinhaltet die Regeln für die optinal zu Unterkünften zubuchbaren Addons. Diese Regeln sind zur Auswertung im Aftersales-Bereich gedacht.
-
-- OptionalOnewayFlightAddons
- Beinhaltet die Regeln für die optinal zu Oneways zubuchbaren Addons. Diese Regeln sind zur Auswertung im Aftersales-Bereich gedacht.
-
-- OptionalReturnFlightAddons
- Beinhaltet die Regeln für die optinal zu Returns zubuchbaren Addons. Diese Regeln sind zur Auswertung im Aftersales-Bereich gedacht.
-</xs:documentation>
+- Addon
+ Beinhaltet die Regeln für die optinal zubuchbaren Addons. Diese Regeln sind zur Auswertung im Aftersales-Bereich gedacht.</xs:documentation>
 											<xs:documentation xml:lang="en" xml:id="en_519">The type of product defined with this rule is specified in this attribute. The following values are permitted:
 - AccommodationOnly
 Contains all hotel-only offers, which can also contain CompulsoryAddons.
@@ -80,20 +74,6 @@ Contains the rules for the Addons that are optionally bookable with one-way flig
 
 - OptionalReturnFlightAddons
 Contains the rules for the Addons optionally bookable with return flights. These rules are intended for evaluation in the after-sales area.</xs:documentation>
-										</xs:annotation>
-									</xs:attribute>
-									<xs:attribute name="ProductFeatures" type="ProductFeaturesAttributeListType">
-										<xs:annotation>
-											<xs:documentation>Hier können ProductFeatures  angegeben werden, die von der OTDS-Datenlieferung unterstützt werden. 
-Mögliche Values sind:
-
-- PartyPriceProduction
-- AdultPriceProduction
-- CityPairProduction
-
-Es kann eine durch Space getrennte Liste der Values angegeben werden. 
-
-Falls die Features hier gesetzt sind, können entsprechende externe Parameter bei der Verarbeitung gesetzt werden, die sich auf die Produktion auswirken. Das wird durch GenericTags erreicht, die den Value des externen Parameters annehmen.</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
 								</xs:extension>

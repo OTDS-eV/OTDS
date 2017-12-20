@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
+	<!-- Dieses Beispiel zeigt die Verwendung von Compare in Filtern und Conditions.
+		Es geht hier ausschließlich um die Verdeutlichung des Compare-Konstruktes-->
+	<Products>
+		<Product Key="Package" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<DefinedComponent UseRole="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<!--Diese Bedingung ist die allgemeinere Alternative zu einer spezifischen Bedingung direkt in jeder Accommodation.  -->
+					<Compare Operation="LessThan">
+						<Tag Source="Accommodation" Class="ArrivalAllowedAfter"/>
+						<Tag Source="Outbound" Class="ArrivalTime"/>
+						<Tag Source="Accommodation" Class="ArrivalAllowedBefore"/>
+					</Compare>
+				</And>
+			</Filter>
+		</Product>
+		<Product Key="Hotel" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+				<Addon DayAllocationLevel="1"/>
+			</Components>
+			<Filter Key="1">
+				<MatchEqual>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+					<Element Source="Addon">CatchmentAirport</Element>
+				</MatchEqual>
+			</Filter>
+			<DayAllocation>
+				<DayAllocationStart DayAllocationLevel="1" Source="Accommodation"/>
+				<DayAllocationEnd DayAllocationLevel="1" Source="Accommodation"/>
+			</DayAllocation>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TO1"/>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="TT01">
+			<Tags>
+				<Tag Class="ArrivalAllowedAfter">09:00</Tag>
+				<Tag Class="ArrivalAllowedBefore">18:30</Tag>
+				<Tag Class="Latitude" TagValueType="Numeric">40.9</Tag>
+				<Tag Class="Longitude" TagValueType="Numeric">-73.8</Tag>
+			</Tags>
+			<Filter Key="1">
+				<!-- Alternative zum Filter unter Product kann man auch einen spezifischen FIlter direkt in der Accommodation angeben-->
+				<Compare Operation="LessThan">
+					<Values>09:00</Values>
+					<Tag Source="Outbound" Class="ArrivalTime"/>
+					<Values>18:30</Values>
+				</Compare>
+			</Filter>
+			<SellingAccom Key="TT01">
+				<Booking/>
+				<Board Key="Board"/>
+				<Unit Key="DZ">
+					<SellingUnit Key="DZ">
+						<Booking/>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+			<PriceItems Key="1">
+				<PriceItem Class="TransferSupplement">
+					<Absolute>
+						<Value>15</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>x</PersonBase>
+					</Absolute>
+					<!--Die folgende Condition beschränkt den Zuschlag auf Ankunftszeiten des Hinfluges innerhalb eines bestimmten Zeitintervals  -->
+					<Condition>
+							<Compare Operation="LessThanOrEqual">
+								<Values>08:00</Values>
+								<Tag Source="Outbound" Class="ArrivalTime"/>
+								<Values>19:00</Values>
+							</Compare>
+					</Condition>
+				</PriceItem>
+			</PriceItems>
+		</Accommodation>
+	</Accommodations>
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="Test1">
+				<Tags>
+					<Tag Class="ArrivalTime">14:30</Tag>
+				</Tags>
+				<Properties Key="1">
+					<PropertyGroup>
+						<FlightRoutes>
+							<FlightRoute>
+								<Departure>
+									<Airport>DUS</Airport>
+									<Time>12:10:00</Time>
+								</Departure>
+								<Arrival>
+									<Airport>PMI</Airport>
+									<Time>14:30:00</Time>
+								</Arrival>
+							</FlightRoute>
+						</FlightRoutes>
+					</PropertyGroup>
+				</Properties>
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Test1"/>
+			</OnewayFlight>
+		</OnewayFlights>
+	</Flights>
+	<Addons>
+		<Addon Key="LitteItalyCars">
+			<Service Key="Test1"/>
+			<Filter Key="1">
+				<!--Der folgende Filter beschränkt den Mietwagen auf Hotels innerhlab eines Rechtecks von bestimmten Längengraden und Breitengraden  -->
+				<And>
+					<Compare Operation="LessThanOrEqual">
+						<Values>40.7</Values>
+						<Tag Source="Accommodation" Class="Latitude" TagValueType="Numeric"/>
+						<Values>41.0</Values>
+					</Compare>
+					<Compare Operation="LessThanOrEqual">
+						<Values>-73.9</Values>
+						<Tag Source="Accommodation" Class="Longitude" TagValueType="Numeric"/>
+						<Values>-73.6</Values>
+					</Compare>
+				</And>
+			</Filter>
+		</Addon>
+	</Addons>
+</Otds>
