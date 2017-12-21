@@ -240,6 +240,51 @@ The default is 0.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
+	<xs:attributeGroup name="ApplyToAttributeGroup">
+		<xs:annotation>
+			<xs:documentation>Attributsgruppe zur Steuerung aller ApplyTos wie z.B.: ApplyTo, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ApplyAttributeGroup">
+			<xs:annotation>
+				<xs:documentation>Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
+			</xs:annotation>
+		</xs:attributeGroup>
+		<xs:attribute name="Include" type="IncludeAttributeEnum">
+			<xs:annotation>
+				<xs:documentation xml:lang="de">Mit Include="ApplyDescendants" können weitere PriceItems
+					inkludiert werden, die von den adressierten PriceItems
+					angewendet werden. So kann man bestimmte
+					PercentPriceItems zuordnen und zusätzlich alle
+					PriceItems inkludieren, die sich über ApplyTo und
+					AppliedBy auf dieses PriceItem beziehen. Dieses Attribut
+					berücksichtigt nur eine Apply-Hierarchie! Sollte ein
+					Bezug auf ein generisches Absolute hergestellt werden,
+					so wird hierbei dessen Include nicht
+					mitberücksichtigt.</xs:documentation>
+				<xs:documentation xml:lang="en">With Include="ApplyDescendants" more PriceItems can be
+					included that are applied by the addressed PriceItems.
+					So you can assign specific PercentPriceItems and
+					additionally include all PriceItems that refer to this
+					PriceItem via ApplyTo and AppliedBy. This attribute only
+					considers an Apply hierarchy! If a reference to a
+					generic absolute is to be obtained, its include will not
+					be taken into account.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:complexType name="PriceTagsApplyType">
+		<xs:annotation>
+			<xs:documentation>Der TagConditionType definiert die Bedingung an bestimmte Tags inklusive Angabe
+				der Class, Location und Werte des Tags. Tags sind Wertepaare, die an definierten
+				Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die
+				Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="ConsideredPriceTagsReferenceType">
+				<xs:attributeGroup ref="ApplyAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:complexType name="BookingWithoutNodeType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_59">In diesem Element werden alle Values
@@ -1865,7 +1910,7 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 	</xs:complexType>
 	<xs:complexType name="ApplyToPriceTagsType">
 		<xs:simpleContent>
-			<xs:extension base="PriceTagsReferenceType">
+			<xs:extension base="PriceTagsApplyType">
 				<xs:attribute name="Include" type="IncludeAttributeEnum">
 					<xs:annotation>
 						<xs:documentation xml:lang="de">Mit Include="ApplyDescandents" können weitere PriceItems inkludiert werden,
@@ -5913,24 +5958,6 @@ This is based on the total number of nights For this reason the return date is e
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="PriceTagsReferenceType">
-		<xs:annotation>
-			<xs:documentation>Der TagConditionType definiert die Bedingung an bestimmte Tags inklusive Angabe
-				der Class, Location und Werte des Tags. Tags sind Wertepaare, die an definierten
-				Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die
-				Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
-		</xs:annotation>
-		<xs:simpleContent>
-			<xs:extension base="ConsideredPriceTagsReferenceType">
-				<xs:attributeGroup ref="SourceAttributeGroup"/>
-				<xs:attribute name="LogicalRelation" type="LogicalRelationEnum" use="optional" default="Or">
-					<xs:annotation>
-						<xs:documentation>Dieses Attribut definiert, ob die ermittelte Menge der PriceItem-Paare mit anderen Apply-Mengen verodert oder verundet werden. Default = "Or"</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
 	<xs:complexType name="RuleComponentBaseType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_341">Von diesem Basistyp werden für die verschiedenen
@@ -6743,7 +6770,7 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 	<xs:group name="PriceAppliedByGroup">
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
-				<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
+				<xs:element name="AppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 					<xs:annotation>
 						<xs:documentation xml:lang="det">
 Dieses Element definiert die Bedingung , dass mindestens eines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent//PriceTags) definiert sein muss.
@@ -6811,7 +6838,7 @@ Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribu
 						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="NotAppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
+				<xs:element name="NotAppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
 					<xs:annotation>
 						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent/PriceTags) definiert sein darf.
 
@@ -7186,7 +7213,7 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 	<xs:group name="ApplyToGroup">
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
-				<xs:element name="ApplyToPriceTags" maxOccurs="unbounded">
+				<xs:element name="ApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation xml:lang="det" xml:id="de_398">Dieses Element definiert die Bedingung , dass mindestens eines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein muss.
 
@@ -7210,34 +7237,6 @@ Das Element enthält einen oder mehrere Values eines
 							Source="Hierarchy.All:ThisComponent" will be used, which references the acutal Component including all ancestors and descendants. 
 							PriceTags are tags, that are defined at the node "PriceItem".</xs:documentation>
 					</xs:annotation>
-					<xs:complexType>
-						<xs:complexContent>
-							<xs:extension base="TagConditionType">
-								<xs:attribute name="LogicalRelation" type="LogicalRelationEnum" use="optional" default="Or">
-									<xs:annotation>
-										<xs:documentation>Dieses Attribut definiert, ob die ermittelte Menge der PriceItem-Paare mit anderen Apply-Mengen verodert oder verundet werden. Default = "Or"</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-								<xs:attribute name="Include" type="IncludeAttributeEnum">
-									<xs:annotation>
-										<xs:documentation xml:lang="de">Mit Include="ApplyDescendants" können weitere PriceItems inkludiert
-											werden, die von den adressierten PriceItems angewendet werden. So kann man bestimmte PercentPriceItems zuordnen
-											und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem
-											beziehen. Dieses Attribut berücksichtigt nur eine Apply-Hierarchie! Sollte ein Bezug auf ein generisches
-											Absolute hergestellt werden, so wird hierbei dessen	Include nicht mitberücksichtigt.</xs:documentation>
-										<xs:documentation xml:lang="en">With Include="ApplyDescandents" more PriceItems can be
-											included that are applied by the addressed PriceItems.
-											So you can assign specific PercentPriceItems and
-											additionally include all PriceItems that refer to this
-											PriceItem via ApplyTo and AppliedBy. This attribute only
-											considers an Apply hierarchy! If a reference to a
-											generic absolute is to be obtained, its include will not
-											be taken into account.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-							</xs:extension>
-						</xs:complexContent>
-					</xs:complexType>
 				</xs:element>
 				<xs:element name="ApplyTo">
 					<xs:annotation>
@@ -7255,28 +7254,6 @@ Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, we
 						<xs:simpleContent>
 							<xs:extension base="PriceItemClassTypeList">
 								<xs:attributeGroup ref="ApplyAttributeGroup"/>
-								<xs:attribute name="Include" type="IncludeAttributeEnum">
-									<xs:annotation>
-										<xs:documentation xml:lang="de">Mit Include="ApplyDescendants" können weitere PriceItems
-											inkludiert werden, die von den adressierten PriceItems
-											angewendet werden. So kann man bestimmte
-											PercentPriceItems zuordnen und zusätzlich alle
-											PriceItems inkludieren, die sich über ApplyTo und
-											AppliedBy auf dieses PriceItem beziehen. Dieses Attribut
-											berücksichtigt nur eine Apply-Hierarchie! Sollte ein
-											Bezug auf ein generisches Absolute hergestellt werden,
-											so wird hierbei dessen Include nicht
-											mitberücksichtigt.</xs:documentation>
-										<xs:documentation xml:lang="en">With Include="ApplyDescendants" more PriceItems can be
-											included that are applied by the addressed PriceItems.
-											So you can assign specific PercentPriceItems and
-											additionally include all PriceItems that refer to this
-											PriceItem via ApplyTo and AppliedBy. This attribute only
-											considers an Apply hierarchy! If a reference to a
-											generic absolute is to be obtained, its include will not
-											be taken into account.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
 							</xs:extension>
 						</xs:simpleContent>
 					</xs:complexType>
@@ -7292,7 +7269,7 @@ Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribu
 						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="NotApplyToPriceTags" maxOccurs="unbounded">
+				<xs:element name="NotApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation xml:lang="det" xml:id="de_398">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein darf.
 
@@ -7317,34 +7294,6 @@ In diesem Element wird definiert, auf welche anderen PriceItems dieses
 							Source="Hierarchy.All:ThisComponent" will be used, which references the acutal Component including all ancestors and descendants. 
 							PriceTags are tags, that are defined at the node "PriceItem".</xs:documentation>
 					</xs:annotation>
-					<xs:complexType>
-						<xs:complexContent>
-							<xs:extension base="TagConditionType">
-								<xs:attribute name="LogicalRelation" type="LogicalRelationEnum" use="optional" default="Or">
-									<xs:annotation>
-										<xs:documentation>Dieses Attribut definiert, ob die ermittelte Menge der PriceItem-Paare mit anderen Apply-Mengen verodert oder verundet werden. Default = "Or"</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-								<xs:attribute name="Include" type="IncludeAttributeEnum">
-									<xs:annotation>
-										<xs:documentation xml:lang="de">Mit Include="ApplyDescendants" können weitere PriceItems inkludiert
-											werden, die von den adressierten PriceItems angewendet werden. So kann man bestimmte PercentPriceItems zuordnen
-											und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem
-											beziehen. Dieses Attribut berücksichtigt nur eine Apply-Hierarchie! Sollte ein Bezug auf ein generisches
-											Absolute hergestellt werden, so wird hierbei dessen	Include nicht mitberücksichtigt.</xs:documentation>
-										<xs:documentation xml:lang="en">With Include="ApplyDescandents" more PriceItems can be
-											included that are applied by the addressed PriceItems.
-											So you can assign specific PercentPriceItems and
-											additionally include all PriceItems that refer to this
-											PriceItem via ApplyTo and AppliedBy. This attribute only
-											considers an Apply hierarchy! If a reference to a
-											generic absolute is to be obtained, its include will not
-											be taken into account.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-							</xs:extension>
-						</xs:complexContent>
-					</xs:complexType>
 				</xs:element>
 				<xs:element name="NotApplyTo">
 					<xs:annotation>
