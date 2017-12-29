@@ -977,7 +977,7 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ExternalComponent">
+					<xs:element name="ExternalComponent" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="det_">Dieses Element definiert, dass dieses Produkt zwingend eine externe, also nicht in der Lieferung enthaltene, Komponente des mit @Role definierten Typs benötigt. Das verarbeitenden System ergänzt das Produkt um die externe Komponenten.
 				Erst mit dieser externen Komponente ist das Produkt vollständig. Die externe Komponente ist immer zeit - und personenallozierend. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
@@ -999,7 +999,7 @@ Die klassische Product-Definition eines DataMix-Produktes besteht damit aus 3 Co
 							</xs:complexContent>
 						</xs:complexType>
 					</xs:element>
-					<xs:element name="VirtualComponent" type="RuleVirtualComponentType">
+					<xs:element name="VirtualComponent" type="RuleVirtualComponentType" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem
 								definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
@@ -1520,12 +1520,12 @@ Sonderfall: Sollte die Adressierung des Tags bzgl. Source nicht eindeutig sein, 
 												Special case: If the addressing of the tag is not distinct relating to Source, the grouping will take place via identical tag-tuples sorted in XML DocumentOrder.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="GroupStartDate" type="GroupStartDateType" minOccurs="0">
+										<xs:element name="GroupStartDate" type="GroupStartDateType" minOccurs="0" internal:otdsversion="2.0">
 											<xs:annotation>
 												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes StartDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element name="GroupEndDate" type="GroupEndDateType" minOccurs="0">
+										<xs:element name="GroupEndDate" type="GroupEndDateType" minOccurs="0" internal:otdsversion="2.0">
 											<xs:annotation>
 												<xs:documentation>Dieses Element definiert ein vom Defaultverhalten abweichendes EndDate der Gruppierung. Der Default richtet sich nach den beschriebenen Defaults der in diesem Element enthaltenen Attribute.  </xs:documentation>
 											</xs:annotation>
@@ -2040,13 +2040,13 @@ Die Auswertung der Impact-Bedingungen erfolgt so, als wenn die ganze Condition d
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="MarketingBrandName" type="xs:string" minOccurs="0">
+			<xs:element name="MarketingBrandName" type="xs:string" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_141">Enthält den MarketingBrandNamen unter dem das Angebot verkauft werden soll. In den meisten Fällen entspricht dies dem Veranstaltenamen des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben. Beispiel FTI und XFTI.   Die Definition des MarketingBrandNames erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="MarketingBrandCode" type="xs:string" minOccurs="0">
+			<xs:element name="MarketingBrandCode" type="xs:string" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_141">Enthält ein Kürzel, welches die MarketingBrand des Angebotes definiert. In den meisten Fällen entspricht die MarketingBrand dem Buchungscode des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben und trotzdem mit dem Buchungscode des Veranstalters gebucht. Beispiel FTI und XFTI.   Die Definition der MarketingBrand erfolgt in der Regel, innerhalb der Brand oder innerhalb des Products. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
@@ -3382,8 +3382,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
           </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<!-- [A-Z0-9]{2} will be activated in Version 2.0-->
-		</xs:restriction>
+			<!-- [A-Z0-9]{2} will be activated in Version 2.0--> </xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TokenType">
 		<xs:restriction base="xs:string">
@@ -3588,7 +3587,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="TagsType" minOccurs="0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -3597,7 +3596,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="TagsType" minOccurs="0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -3839,7 +3838,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_251">Type of flight (main; feeder, wrapper)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FlightCabinClass" type="FlightCabinClassEnum" minOccurs="0">
+			<xs:element name="FlightCabinClass" type="FlightCabinClassEnum" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_252">Spezifierung der Kabinenklasse (z.B. Economy, PremiumEconomy, Business, First)</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_252">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
@@ -3864,7 +3863,7 @@ Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über
 					<xs:documentation xml:lang="en" xml:id="en_255">The number of stops en route, including technical stops within a segment. Leaving out the element means that the supplier can not make a statement about the number of stops.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="TechnicalStopOvers" type="xs:unsignedInt" minOccurs="0">
+			<xs:element name="TechnicalStopOvers" type="xs:unsignedInt" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_255">Definiert die Anzahl der technischen Stops auf dieser Route. Ein technischer Stop liegt dann vor, wenn die Aufenthaltszeit kleiner als 60 Minuten ist und sowohl Flugzeug als auch Flugnummer und auch der Carrier nicht gewechselt werrden.
 Das Weglassen dieses Elementes bedeutet, dass der Lieferrant keine Aussage über die Anzahl der technischen Stops machen kann.
@@ -4825,6 +4824,10 @@ For the complete list see the technical documentation.</xs:documentation>
 			<xs:enumeration value="FlightSupplement"/>
 			<xs:enumeration value="FlightTax"/>
 			<xs:enumeration value="SecurityCharge"/>
+			<xs:enumeration value="FirstMinute"/>
+			<xs:enumeration value="LastMinute"/>
+			<xs:enumeration value="UltraFirstMinute"/>
+			<xs:enumeration value="UltraLastMinute"/>				
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="RoundingEnum">
@@ -6309,6 +6312,24 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:sequence>
 					<xs:element name="PriceItem" type="PriceItemType" maxOccurs="unbounded"/>
+					<xs:element name="Condition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_358">In diesem Element werden die Regeln zur
+						Verwendung der PriceItems definiert. Immer wiederkehrende Preis Conditions können hier definiert werden. Dadurch kann Redundanz in den Conditions jedes einzelnen
+						PriceItem vermieden werden. Gibt es eine Condtion in PriceItems so ist diese mit den einzelnen PriceItems Conditions UND-verknüpft.
+						Das Attribut ExecutionOrder definiert,
+						zu welchem Zeitpunkt die Conditions ausgewertet werden können. Wichtig ist
+						hierbei, dass Conditions, die die DayPriceIndexCondition enthalten, nur in
+						Verbindung mit dem Value ExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_358">In this element, the rules for using the PriceItems are defined. Recurring conditions can be defined here.
+								As a result, redundancy in the conditions of each PriceItem can be avoided. If there is a Condition in Price Items, this is AND-linked with the individual PriceItems Conditions. The ExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ExecutionOrder= "Last".</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConditionType"/>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -6359,14 +6380,14 @@ It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impactin
 					</xs:annotation>
 				</xs:element>
 			</xs:choice>
-			<xs:element name="Condition" minOccurs="0">
+			<xs:element name="Condition" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_358">In diesem Element werden die Regeln zur
-						Verwendung der PriceItems definiert. Das Attribut ExecutionOrder definiert,
+						Verwendung der PriceItems definiert. Das Attribut ImpactExecutionOrder definiert,
 						zu welchem Zeitpunkt die Conditions ausgewertet werden können. Wichtig ist
 						hierbei, dass Conditions, die die DayPriceIndexCondition enthalten, nur in
-						Verbindung mit dem Value ExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_358">In this element, the rules for using the PriceItems are defined. The ExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ExecutionOrder= "Last".</xs:documentation>
+						Verbindung mit dem Value ImpactExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_358">In this element, the rules for using the PriceItems are defined. The ImpactExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ImpactExecutionOrder= "Last".</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:complexContent>
@@ -7344,7 +7365,7 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
-	<xs:complexType name="CompareType" internal:otdsversion="2.0">
+	<xs:complexType name="CompareType">
 		<xs:choice minOccurs="2" maxOccurs="unbounded">
 			<xs:element name="Key" type="EmptyKeyConditionType">
 				<xs:annotation>
@@ -8201,7 +8222,7 @@ standard usage of "From" is with negative values. From=-x defines all days from 
 It is rare to use a positive value in relation to "From", i.e. "From=x", and it will define all days from the Xth cheapest day.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:group ref="PriceItemFilterGroup" minOccurs="0">
+			<xs:group ref="PriceItemFilterGroup" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "COnsideredPriceTags",  "NotCOnsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
 Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
@@ -8850,7 +8871,7 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 Nodes are to be addressed using the "Source" attribute, and for tags also via "Location".</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Compare" type="CompareType">
+			<xs:element name="Compare" type="CompareType" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_388">Dieses Element definiert die Bedingung, ob Werte aus mehreren definierten Wertemengen bzgl. einer definierten Vergleichsoperation übereinstimmen.
 Die Vergleichoperation wird mit dem Attribut @Operation festgelegt.										Das Compare-Element beinhaltet mehrere Unterelementen in einer definierten Reihehfolge. Jedes dieser Unterelemente referenziert eine Menge von Werten.
