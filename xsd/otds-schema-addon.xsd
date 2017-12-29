@@ -116,12 +116,19 @@ Special case:
 					</xs:element>
 					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_42">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann
+							<xs:documentation xml:lang="de" xml:id="det_42">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann
  definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt. Seit Version 2.0 ist es nun möglich, dass man einer NeighbourComponentCorrection eine Condition mitgibt. Anwendungsfall, ist wenn eine Verschiebung durch einen  späten Flug bei bestimmten Hotels nicht gewünscht ist. 
-Falls nach der Auswertung der Condition identische "NeighbourComponentCorrection/CheckInDateOffset/@Component" bzw. "NeighbourComponentCorrection/CheckOutDateOffset/@Component" vorhanden sind, so wird jeweils das in XML-Order letzte davon benutzt.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_42">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of flight implications.
-This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
-As previously stated there is currently no case example for Accommodation.</xs:documentation>
+Bzgl. der Impact-Bedingungen erfolgt die Auswertung der  Condition analog zu den Filtern durch Anwendung eines umhüllenden "NonImpact" auch wenn dieser nicht explizit angegeben ist.
+Falls nach der Auswertung der Condition identische "NeighbourComponentCorrection/CheckInDateOffset/@Component" bzw. "NeighbourComponentCorrection/CheckOutDateOffset/@Component" vorhanden sind, so wird jeweils das in XML-Order erste davon benutzt.
+5.Die Auswertung der NeighbourComponentCorrections erfolgt durch Iteration aller möglicher Condition-Varianten . 
+Die Conditions in den NeighbourComponentCorrections (im folgenden NCC genannt) können Termin-Bedingungen enthalten, die wiederum durch die NCC beeinflusst werden, was einen Zirkelbezug bedeuten würde.
+
+Dieser Zirkelbezug wird durch folgende Vorgehensweise vermieden:
+Sind NCC mit Condition vorhanden, so wird formal jede mögliche Variante von NCC-Kombinationen (incl. alle Conditions sind False, also keine NCC mit Conditions) angewendet.
+Für jede der so erhaltenen Angebotskandidaten wird geprüft, ob die zugrunde liegenden Anahmen bzgl. der NCC-Conditions erfüllt ist.
+Wird mindestens eine Annahme nicht erfüllt, so wird der Angebots-Kandidat verworfen. 
+Diese Art der Verarbeitung definiert auch das Verhalten bei terminabhängigen Conditions korrekt. Im Normalfall (also keine terminabhängigen Conditions) kann praktisch die Auswertung auch direkt vorgenommen werden.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_42">Text ist identisch zu den anderen NeighbourComponentCorrections unter SellingAccom und Addon</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded">
