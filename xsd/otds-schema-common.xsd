@@ -7859,11 +7859,6 @@ Mögliche Werte sind:
 - Request</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="DayType" type="DayTypeEnum" use="required">
-					<xs:annotation>
-						<xs:documentation>Dieses Attribute definiert für welche DayTypes der in @State angegebene Verfügbarkeitsstatus gilt.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -8264,59 +8259,12 @@ The default is "Stay".</xs:documentation>
 		<xs:sequence>
 			<xs:element name="ValidState" type="ValidStateType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="det_421">Mit diesem Element kann mit dem Attribut @State ein ein spezifischer DayStatus für ein spezifischen @DayType definiert werden. Die Angabe eines Values ist derzeit nicht möglich.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="det_421">Mit diesem Element kann mit dem Attribut @State ein ein spezifischer DayStatus definiert werden, der als valide gilt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
-		<xs:attribute name="DayAllocation" type="DayAllocationEnum">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_217">Dieses Attribut definiert die Zuweisung im
-					Falle, dass die Werte im Attribut "Source" auf mehrere Komponenten verweisen.
-					Das kann zum Beispiel vorkommen, wenn man ein Produkt definiert, welches
-					zusammengesetzte Flüge über CombiComponents verwenden soll. Die Adressierung
-					über Source kann nur den Flug im Allgemeinen ansprechen. Der Flug besteht aber
-					in dem Falle aus mehreren Einzelkomponenten. Die Adressierung über "Source" wäre
-					nicht eindeutig möglich. Mögliche Werte sind: - First: Nur die zeitlich erste
-					Komponente wird bzgl. der Bedingung ausgewertet. Die zeitliche Reihenfolge
-					entspricht der Sortierung des Attributs "DayAllocationIndex" der entsprechenden
-					Komponenten. - Last: Nur die zeitlich letzte Komponente wird bzgl. der Bedingung
-					ausgewertet. Die zeitliche Reihenfolge entspricht der Sortierung des Attributs
-					"DayAllocationIndex" der entsprechenden Komponenten. - All: Alle Komponenten
-					werden bzgl. der Bedingung ausgewertet. Die Bedingung ist nur erfüllt, wenn alle
-					Komponenten die Bedingung erfüllen. Wenn das Attribut nicht gefüllt ist, wird
-					ein Standard verwendet, der von der verwendeten Condition abhängt. 
-					Der Default ist "All" wenn nicht eine der folgenden Bedingungen erfüllt ist:
-					Die Condition enthält den DayType="CheckIn", dann ist der Default von DayAllocation="First"
-					Die Condition enthält den DayType="CheckOut", dann ist der Default von DayAllocation="Last"
-					Bei allen Auswertungen welche sich auf "DepartureAirport" beziehen, wird der Default von DayAllocation="First" (Airports Bedingung, MatchEqual, etc.)
-					Bei allen Auswertungen welche sich auf "ArrivalAirport" beziehen, wird der Default von DayAllocation="Last" (Airports Bedingung, MatchEqual, etc.)
-					Bei BookingDateOffset-Bedingungen wird der Default von DayAllocation="First"
-</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_217">This attribute defines the allocation where the
-					values ​​in the attribute "Source" refer to more than one component. This can
-					occur, for example, if a product that should use composite flights via
-					CombiComponents is defined. The addressing through "Source" can refer only to
-					the flight in general. The flight, in this case however, consists of several
-					individual components. The addressing through "source" would explicitly not be
-					possible. Possible values are: - First Only the temporal first component is
-					evaluated according to this condition. The chronological sequence follows the
-					order of the "DayAllocationIndex" attributes of the corresponding components. -
-					Last Only the temporal last component is evaluated according to this condition.
-					The chronological sequence follows the order of the "DayAllocationIndex"
-					attributes of the corresponding components. - All All components are evaluated
-					according to the condition. The condition is met only if all components meet the
-					condition. If the attribute is not defined, a standard value is used, which is
-					dependant on the relevant condition. 					
-					The Default is "All" if the condition is not one of the following:
-					If the Condition contains the DayType="CheckIn", the Default is DayAllocation="First"
-					If the Condition contains ths DayType="CheckOut", the Default is DayAllocation="Last"
-					For all evaluations which refer to "DepartureAirport", the Default is DayAllocation="First" (Airports Condition, MatchEqual, etc.)
-					For all evaluations which refer to "ArrivalAirport", the Default is DayAllocation="Last" (Airports Condition, MatchEqual, etc.)
-					The BookingDateOffset-Condition has the Default DayAllocation="First"</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 	</xs:complexType>
 	<!-- Begin of Definition of condition groups-->
 	<xs:group name="AtomicBaseConditionGroup">
@@ -9269,7 +9217,8 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 		<xs:choice>
 			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation>Mit dieser Bedingung lässt sich die allgemiene Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn die durch Source und DayAllocation addressierte HauptkomponentenInstanz an jedem Tag mit passenden DayType (Stay, CheckIn, CheckOut) nach der Auswertung der Availabilities einen der hier aufgeführten DayType-Stati besitzt. Bis zur Auswertung der Availabilities gilt diese Bedingung als undefined und wird dementsprechend nach OTDS-Vorschrift ausgewertet. 
+					<xs:documentation>Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn die durch Source addressierte HauptkomponentenInstanz an jedem StayTag nach der Auswertung der Availabilities einen der hier aufgeführten AvailabilityStay-State besitzt. 
+Bis zur Auswertung der Availabilities gilt diese Bedingung als undefined und wird dementsprechend erst nach der Auswertung der Availabilities explizit nach OTDS-Vorschrift ausgewertet. 
 Die AvailabiltyState-Bedingung wird nur in den Filtern auf Product und DefineComponent-Ebene ausgewertet. In allen anderen Positionen bleibt die Auswertung der Bedingung = "undefined".</xs:documentation>
 				</xs:annotation>
 			</xs:element>
