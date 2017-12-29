@@ -5890,6 +5890,71 @@
 					</section>
 				</section>
 				</section>
+				<section xml:id="OtdsStrategyProductNeighbourComponentCorrection">
+					<title><phrase xml:id="de" xml:lang="de">Verschiebung des CheckIn oder CheckOut von Nachbarkomponenten (NeighbourComponentCorrection)(V2.0)</phrase>
+						<phrase xml:id="en" xml:lang="en">Shift of <code>CheckIn</code> or <code>CheckOut</code> of the neighbouring components (NeighbourComponentCorrection)(V2.0)</phrase></title>
+					<para  xml:id="de" xml:lang="de">Bei Produkten mit mehreren Komponenten werden die CheckIn und CheckOut benachbarter Komponenten in der Regel lückenlos aneinandergefügt. 
+						Der CheckOut-Termin der vorherigen Komponente ist in der Regel identisch mit dem CheckIn der nachfolgenden Komponente. 
+						In besonderen Fällen ist es aber notwendig hier eine Lücke oder eine stärkere Überlappung zu definieren. Ein klassischer Fall ist, dass ein Hinflug ins Zielgebiet frühmorgens startet z.B. 01:00 Uhr früh 
+						und nach kurzer Flugdauer frühmorgens im Zielgebiet landet z.B. 2:30 Uhr. Standardmäßig würde die OTDS-Verarbeitung in diesem Fall den CheckIn im Hotel auf den Termin der Landung des Flugzeuges setzen.
+						Die Erwartungshaltung eines Pauschaltouristen wäre aber, dass er noch in der Nacht sein Zimmer beziehen kann, um ggf. direkt zu schlafen. Dazu müsste aber der CheckIn im Hotel schon am Tag vorher stattfinden.
+						Genau dieses Verhalten, kann der Datenlieferant mit der <code>NeighbourComponentCorrection</code> beeinflussen bzw. anpassen.
+						In diesem Fall würde der "virtuelle" CheckOut-Termin des Fluges, auf den sich der CheckIn des Hotels bezieht, künstlich um 1 Tag früher gelegt. Dadurch erfolgt der CheckIn im Hotel auch einen Tag früher.
+						Der "virtuelle" CheckOut-Termin des Fluges hat keine Auswirkungen auf Conditions, die sich auf den "echten" CheckOut-Termin des Fluges beziehen.
+						Hier ein Beispiel, wie eine solche <code>NeighbourComponentCorrection</code> aussieht:
+						<programlisting><![CDATA[<OnewayFlight>
+	...
+	<NeighbourComponentCorrection>
+		<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+	</NeighbourComponentCorrection>
+	...
+</OnewayFlight>]]></programlisting>
+						
+						<figure>
+							<info>
+								<title><phrase xml:id="de" xml:lang="de">Aufbau der <code>NeighbourComponentCorrection</code></phrase><phrase
+									xml:id="en" xml:lang="en">Structure of the <code>NeighbourComponentCorrection</code></phrase></title>
+							</info>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/neighbourcomponentcorrection.png" format="PNG" contentwidth="80%"/>
+								</imageobject>
+								<textobject>
+									<para xml:id="de" xml:lang="de">Aufbau der <code>NeighbourComponentCorrection</code></para><para xml:id="en" xml:lang="en">Structure of the <code>NeighbourComponentCorrection</code></para>
+								</textobject>
+							</mediaobject>
+						</figure>
+						<figure>
+							<info>
+								<title><phrase xml:id="de" xml:lang="de">Mögliche Platzierungen der  <code>NeighbourComponentCorrection</code></phrase><phrase
+									xml:id="en" xml:lang="en">Possible locations of the  <code>NeighbourComponentCorrection</code></phrase></title>
+							</info>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/allneighbourcomponentcorrections.png" format="PNG" contentwidth="80%"/>
+								</imageobject>
+								<textobject>
+									<para xml:id="de" xml:lang="de">Mögliche Platzierungen der <code>NeighbourComponentCorrection</code></para><para xml:id="en" xml:lang="en">Possible locations of the <code>NeighbourComponentCorrection</code></para>
+								</textobject>
+							</mediaobject>
+						</figure>
+					</para>
+					<para   xml:id="de" xml:lang="de">Ab Version 2.0 gibt es auch die Möglichkeit einer <code>NeighbourComponentCorrection</code> auch eine Condition mitzugeben. Eine Condition ist dann sinnvoll, 
+						wenn die Verschiebeung nur unter bestimmten Bedingungen erfolgen soll. Gerne will man bei Luxus-Unterkünften den Reisenden den maximalen Komfort bieten und deshalb erheblich flexibler früh 
+						einchecken nzw. spät auschecken. Hier ein Beispiel, wie eine solche <code>NeighbourComponentCorrection</code> aussieht: 
+						<programlisting><![CDATA[<OnewayFlight>
+	...
+	<NeighbourComponentCorrection>
+		<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+		<Condition>
+			<Tags Source="Accommodation" Class="LuxusCheckInCheckOut">True</Tags>
+		</Condition>
+	</NeighbourComponentCorrection>
+	...
+</OnewayFlight>]]></programlisting>
+						Diese <code>NeighbourComponentCorrection</code> könnten dann zum Beispiel auch noch an Flügen definiert werden, die um 6:00 Uhr landen, damit bei Luxusunterkünften immer ein CheckIn direkt nach Ankunft möglich ist.	
+					</para>
+				</section>
 					<section xml:id="OtdsStrategyRulesGroupDefinitions">
 					<title><phrase xml:id="de_1171" xml:lang="de">Gruppierung und Priorisierung von Angeboten in
 							Angebotsgruppen (Thema: Flugpriorisierung) (V1.9:
