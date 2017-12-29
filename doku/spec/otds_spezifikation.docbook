@@ -5917,7 +5917,7 @@
 							</info>
 							<mediaobject>
 								<imageobject>
-									<imagedata fileref="figures/neighbourcomponentcorrection.png" format="PNG" contentwidth="80%"/>
+									<imagedata fileref="figures/neighbourcomponentcorrection.png" format="PNG" contentwidth="50%"/>
 								</imageobject>
 								<textobject>
 									<para xml:id="de" xml:lang="de">Aufbau der <code>NeighbourComponentCorrection</code></para><para xml:id="en" xml:lang="en">Structure of the <code>NeighbourComponentCorrection</code></para>
@@ -5939,10 +5939,13 @@
 							</mediaobject>
 						</figure>
 					</para>
-					<para   xml:id="de" xml:lang="de">Ab Version 2.0 gibt es auch die Möglichkeit einer <code>NeighbourComponentCorrection</code> auch eine Condition mitzugeben. Eine Condition ist dann sinnvoll, 
-						wenn die Verschiebeung nur unter bestimmten Bedingungen erfolgen soll. Gerne will man bei Luxus-Unterkünften den Reisenden den maximalen Komfort bieten und deshalb erheblich flexibler früh 
-						einchecken nzw. spät auschecken. Hier ein Beispiel, wie eine solche <code>NeighbourComponentCorrection</code> aussieht: 
-						<programlisting><![CDATA[<OnewayFlight>
+					<para xml:id="de" xml:lang="de">Ab Version 2.0 gibt es auch die Möglichkeit einer
+						<code>NeighbourComponentCorrection</code> eine Condition mitzugeben. Eine
+					Condition ist dann sinnvoll, wenn die Verschiebeung nur unter bestimmten
+					Bedingungen erfolgen soll. Ggf. will ein Veranstalter bei Luxus-Unterkünften den
+					Reisenden den maximalen Komfort bieten und deshalb erheblich flexibler früh
+					einchecken bzw. spät auschecken. Hier ein Beispiel, wie eine solche
+						<code>NeighbourComponentCorrection</code> aussehen könnte: <programlisting><![CDATA[<OnewayFlight>
 	...
 	<NeighbourComponentCorrection>
 		<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
@@ -5951,9 +5954,11 @@
 		</Condition>
 	</NeighbourComponentCorrection>
 	...
-</OnewayFlight>]]></programlisting>
-						Diese <code>NeighbourComponentCorrection</code> könnten dann zum Beispiel auch noch an Flügen definiert werden, die um 6:00 Uhr landen, damit bei Luxusunterkünften immer ein CheckIn direkt nach Ankunft möglich ist.	
-					</para>
+</OnewayFlight>]]></programlisting> Diese <code>NeighbourComponentCorrection</code> könnten dann zum
+					Beispiel auch noch an Flügen definiert werden, die um 6:00 Uhr landen, damit bei
+					Luxusunterkünften immer ein CheckIn direkt nach der Ankunft möglich ist. </para>
+					<para xml:id="de" xml:lang="de">Bei der Verarbeitung von <code>NeighbourComponentCorrection</code> im Kontext von Bedingungen mit  Terminbedigung besteht die Gefahr eines Zirkelbezugs. 
+					Bitte beachten Sie diesbzgl. die spezifische Verarbeitungsvorschrift für <code>NeighbourComponentCorrection</code> mit Bedingungen, die in Kapitel 3 detailierter beschrieben wird.</para>
 				</section>
 					<section xml:id="OtdsStrategyRulesGroupDefinitions">
 					<title><phrase xml:id="de_1171" xml:lang="de">Gruppierung und Priorisierung von Angeboten in
@@ -20143,8 +20148,8 @@ usw.]]></programlisting>
 
 										<step>
 											<para xml:id="de_3019" xml:lang="de">Bestimme zu jeder Instanz <replaceable>i</replaceable> in
-												<replaceable>L</replaceable> unter Berücksichtigung der ggf. angegebenen <code>Conditions</code> den
-													<code>NeighbourComponentCorretion/CheckInDateOffset</code>
+												<replaceable>L</replaceable> unter Berücksichtigung einer ggf. angegebenen <code>NeighbourComponentCorrection/Condition</code> (seit Version 2.0) den
+													<code>NeighbourComponentCorrection/CheckInDateOffset</code>
 												<replaceable>CIOi</replaceable> und den
 													<code>NeighbourComponentCorrection/CheckOutDateOffset</code>
 												<replaceable>COOi</replaceable>. Die Angabe des Offsets
@@ -20165,6 +20170,7 @@ usw.]]></programlisting>
 												da sich mehrere Angaben theoretisch überschneiden können, da
 												ein Wert immer eine Menge erzeugt. In der Realität sollte
 												dieser Fall nicht vorkommen.)</para><para xml:id="en_3019" xml:lang="en">Determine the <code>NeighbourComponentCorretion/CheckInDateOffset</code> <replaceable>CIOi</replaceable> and then <code>NeighbourComponentCorrection/CheckOutDateOffset</code> <replaceable>COOi</replaceable> for each <replaceable>i</replaceable> instance in <replaceable>L</replaceable>. The offset entry will depend on the type of neighbour instance (Attribut <code>ComponentType</code> from <code>CheckInDateOffset</code> and <code>CheckOutdateOffset</code> ). This value is evaluated like a <code>Source</code>  reference: The amount for the referenced component instances is determined for each <code>CheckInDateOffset</code> or <code>CheckOutDateOffset</code> element. The first entry in <replaceable>document-order</replaceable>, which contains the neighbouring components in this amount, determines the offset. Where no matching information is otherwise to be found, the default value is defined by an offset specification without a <code>ComponentType</code> (the entry in <replaceable>document-order</replaceable> ' is only required because multiple entries may in theory overlap, as a value will always produce an amount. In reality this should not occur.)</para>
+											<para xml:id="de" xml:lang="de">Sollte eine <code>NeighbourComponentCorrection/Condition</code> abhängig </para>
 										</step>
 
 										<step>
@@ -20361,6 +20367,30 @@ usw.]]></programlisting>
 									</procedure>
 								</step>
 							</procedure>
+							<para xml:id="de" xml:lang="de">Seit Version 2.0 kann innerhalb der <code>NeighbourComponentCorrection</code> (im folgenden NCC genannt) eine Condition definiert werden.
+								Diese Condition können Termin-/Dauer-Bedingungen enthalten, die wiederum durch die NCC beeinflusst werden, was einen Zirkelbezug bedeuten würde.
+								Dieser Zirkelbezug wird durch folgende Vorgehensweise der Verarbeitung vermieden:
+								Sind NCC mit Condition vorhanden, so wird formal jede mögliche Variante von NCC-Kombinationen (incl. alle Conditions = False, also keine NCC mit Conditions) angewendet.
+								Für jede der so erhaltenen Angebotskandidaten wird geprüft, ob die zugrunde liegenden Annahmen bzgl. der NCC-Conditions erfüllt ist.
+								Wird mindestens eine Annahme nicht erfüllt, so wird der Angebots-Kandidat verworfen.   
+								Diese Art der Verarbeitung definiert auch das Verhalten bei terminabhängigen Conditions korrekt. 
+								Im Normalfall (also keine terminabhängigen Conditions) kann praktisch die Auswertung auch direkt vorgenommen werden.</para>
+							<example>
+								<title><phrase xml:id="de" xml:lang="de">Beispiel: Es liegen 3 unterschiedliche NCCs vor:</phrase></title>
+										<para  xml:id="de" xml:lang="de">NCC1 ohne Condition</para>
+										<para  xml:id="de" xml:lang="de">NCC2 mit Condition</para>
+										<para  xml:id="de" xml:lang="de">NCC3 mit Condition</para>
+								
+										<para  xml:id="de" xml:lang="de">Folgende Iterationen werden durchlaufen:</para>
+										<para  xml:id="de" xml:lang="de">NCC1 + NCC2 + NCC3   (Annahme: NCC2 und NCC3 Condition ist erfüllt)</para>
+										<para  xml:id="de" xml:lang="de">NCC1 + NCC2          (Annahme: NCC2 Condition ist erfüllt und NCC3 Condition ist nicht erfüllt)</para>
+										<para  xml:id="de" xml:lang="de">NCC1        + NCC3   (Annahme: NCC2 Condition ist nicht erfüllt und NCC3 Condition ist erfüllt)</para>
+									
+								<para xml:id="de" xml:lang="de"> Es entstehen 3 Angebotskandidaten. Für jeden wird die
+										entsprechende Annahme geprüft. Wird die Annahme erfüllt, so
+										liegt ein gültiger Kandidat vor. Durch diese Vorgehensweise
+										können mehrere gültige Kandidaten entstehen. </para>
+							</example>
 						</task>
 
 						<task xml:id="OtdsProcessProductAllocationTimeInstanzdauer">
