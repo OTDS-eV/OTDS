@@ -7853,7 +7853,7 @@ Fehlt das Attribut gilt der Default = "Open"</xs:documentation>
 			<xs:extension base="ValidStateValueType">
 				<xs:attribute name="State" type="AvailabilityStateConditionEnum" use="required">
 					<xs:annotation>
-						<xs:documentation>Dieses Attribut definiert welchen Verfügbarkeitsstatus bezogen auf @DayType als valide gilt.
+						<xs:documentation>Dieses Attribut definiert welcher Verfügbarkeitsstatus als valide gilt.
 Mögliche Werte sind:
 - Open
 - Request</xs:documentation>
@@ -8259,12 +8259,28 @@ The default is "Stay".</xs:documentation>
 		<xs:sequence>
 			<xs:element name="ValidState" type="ValidStateType" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="det_421">Mit diesem Element kann mit dem Attribut @State ein ein spezifischer DayStatus definiert werden, der als valide gilt.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="det_421">Mit diesem Element kann mit dem Attribut @State ein ein spezifischer AvailabilityStatus definiert werden, der als valide gilt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-		<xs:attributeGroup ref="SourceAttributeGroup"/>
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional" default="ThisComponent">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de">Dieses Attribut gibt den Type einer Komponente
+					an. Folgende Typen stehen zur Auswahl: -
+					Accommodation, - Flight, - Addon, - ThisComponent.
+					Mit der Source kann man die Addressierung noch feiner auflösen.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component' der Wert 'ThisComponent' angenommen.
+					</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en">This attribute specifies the type of a
+					component. In the case of a CombiComponent, type refers to the first
+					component indicated. The following types are available: - Accommodation,
+					- Flight, - Add-on, - ThisComponent.
+					With the help of Source the addressing can be refined further. 
+					If the attribute 'Component' and the attribute 'Source' are indicated at the same time, only Source is being evaluated. If both attributes are not indicated, the value 'ThisComponent' is assumed for the attribute 'Component'.
+					</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<!-- Begin of Definition of condition groups-->
 	<xs:group name="AtomicBaseConditionGroup">
@@ -9217,7 +9233,7 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 		<xs:choice>
 			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation>Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn die durch Source addressierte HauptkomponentenInstanz an jedem StayTag nach der Auswertung der Availabilities einen der hier aufgeführten AvailabilityStay-State besitzt. 
+					<xs:documentation>Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn der AvailabilityStatus der durch @Component adressierten Hauptkomponentensinstanz nach der Auswertung der Availabilities einen der aufgeführten ValidState/@State als Komponentenstatus besitzt. 
 Bis zur Auswertung der Availabilities gilt diese Bedingung als undefined und wird dementsprechend erst nach der Auswertung der Availabilities explizit nach OTDS-Vorschrift ausgewertet. 
 Die AvailabiltyState-Bedingung wird nur in den Filtern auf Product und DefineComponent-Ebene ausgewertet. In allen anderen Positionen bleibt die Auswertung der Bedingung = "undefined".</xs:documentation>
 				</xs:annotation>

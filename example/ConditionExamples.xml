@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
 	<!-- Dieses Beispiel zeigt die Verwendung von Conditions. 
-		Es geht an dieser Stelle um die Verdeutlichung des Condition-Konstruktes.
-		Jede Condition für sich betrachtet ist sinnvoll und richtig, nicht aber die Conditions in Kombination -->
+		Es geht an dieser Stelle um die Verdeutlichung der einzelnen Condition-Anteile.
+		Jede Condition für sich betrachtet ist sinnvoll und richtig, nicht aber die Conditions in dieser Zusammenstellung.
+		Beachte: die Condition-Anteile sind in der gleichen Form auch in Filtern anwendbar.
+-->
 	<Products UpdateMode="New">
 		<Product Key="Package" ProductType="FlightAccommodation" UpdateMode="New">
 			<Components UpdateMode="New">
@@ -16,47 +18,24 @@
 	</Brands>
 	<Accommodations UpdateMode="New">
 		<Accommodation Key="TT01" UpdateMode="New">
-			<Properties Key="1" UpdateMode="New">
-				<PropertyGroup Priority="0">
-					<AccommodationName>Hotel "Beach"</AccommodationName>
-				</PropertyGroup>
-			</Properties>
 			<SellingAccom Key="TT01" UpdateMode="New">
 				<Booking UpdateMode="New">
-					<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
-						<BookingParameter Field="ServiceCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
 							<Value>TT01</Value>
-						</BookingParameter>
-						<BookingParameter Field="RequestCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
-							<Value>H</Value>
 						</BookingParameter>
 					</BookingGroup>
 				</Booking>
-				<Filter Key="1" UpdateMode="New">
-					<And>
-						<BookingDate Source="Product">
-							<Max>2013-01-31</Max>
-						</BookingDate>
-						<Date Source="ThisComponent" DayType="CheckIn">
-							<Min>2013-11-03</Min>
-						</Date>
-					</And>
-				</Filter>
 				<Board Key="Board" UpdateMode="New"/>
 				<Unit Key="DZ" UpdateMode="New">
 					<SellingUnit Key="DZ" UpdateMode="New">
 						<Booking UpdateMode="New">
-							<BookingGroup Area="ServiceArea" Priority="0" Class="Default" Source="ThisComponent">
-								<BookingParameter Field="ServiceFeatureCode" Index="0" LeftSeparator="" RightSeparator="" Padding=" " Name="Default" PadCondition="Always" PadLength="0" PadOrientation="Right">
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
 									<Value>DZ</Value>
 								</BookingParameter>
 							</BookingGroup>
 						</Booking>
-						<Properties Key="1" UpdateMode="New">
-							<PropertyGroup Priority="0">
-								<UnitName>Doppelzimmer</UnitName>
-							</PropertyGroup>
-						</Properties>
 						<Occupancy Key="1" UpdateMode="New">
 							<Person>
 								<Count>2</Count>
@@ -274,6 +253,13 @@
 											<Tag Source="Outbound" Class="ArrivalTime"/>
 											<Tag Source="Accommodation" Class="LastCheckInTime"/>
 										</Compare>
+										<AvailabilityState Component="Flight">
+											<ValidState State="Open"/>
+										</AvailabilityState>
+										<AvailabilityState Component="Accommodation">
+											<ValidState State="Open"/>
+											<ValidState State="Request"/>
+										</AvailabilityState>
 									</And>
 								</Condition>
 								<!--Ende der Beispiel Condition-->
