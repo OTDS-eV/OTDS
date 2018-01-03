@@ -6,7 +6,8 @@
     <title>OTDS - Open Travel Data Structure</phrase></title>-->
 <article xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="OtdsSpec" version="5.0" class="specification" xmlns:internal="http://otds-group.org/otds/internal">
 	<info xml:id="OtdsSpecInfo">
-		<title><phrase xml:id="de_527" xml:lang="de">OTDS Spezifikation Version 1.9.3</phrase><phrase xml:id="en_527" xml:lang="en">OTDS Specification Version 1.9.3</phrase></title>
+		<title><phrase xml:id="de_527" xml:lang="de">OTDS Spezifikation Version 2.0</phrase><phrase
+				xml:id="en_527" xml:lang="en">OTDS Specification Version 2.0</phrase></title>
 		<authorgroup>
 			<author>
 				<personname>
@@ -711,13 +712,25 @@
 						geliefert werden, die auch im Veranstaltersystem zur Produkterstellung und
 						Preisberechnung benutzt werden. Ein vorheriges Kombinieren bzw.
 						Zusammenfassen von Flügen ist nicht sinnvoll. </para><para xml:id="en_670" xml:lang="en">The OTDS flight data delivery differentiates between the delivery of Onewayflights, which may be combined through the rules to create Returnflights, and already compiled Returnflights, which may already exist in the tour operator system as Returnflights. In OTDS the smallest units of flights, which are also used in the tour operator system for product creation and price calculation, should always be supplied. A pre-combination or summary of flights is not practical.</para>
-					<para xml:id="det_5920" xml:lang="de">
-						Preisbestandteile auf der Ebene Flights/PriceItems platziert gelten sowohl für OnewayFlights als auch für ReturnFlights.
-						Durch Wahl der entsprechenden Source innerhalb der Conditions können die Preisbestandteile entsprechend nur einer Componentengruppe zugeordnet werden.
-						Beachte: Ein PriceItem wird nur einmal gültig und wird nicht automatisch in jede der Unterkomponenten expandiert. Es findet also keine Vervielfältigung eines PriceItems statt.
-						
-						Auch im Rahmen der ConsoderedPriceItems und ApplyTos, werden die hier plazierten PriceItems sowohl durch die Angabe von Source= ReturnFlight, OnewayFlight, Outbound, Inbound und entsprechend definierte #Names addressiert.
-					</para>
+					<para xml:id="de_8950" xml:lang="de">Preisbestandteile auf der Ebene Flights/PriceItems
+						platziert gelten sowohl für OnewayFlights als auch für ReturnFlights. Durch
+						Wahl der entsprechenden Source innerhalb der Conditions können die
+						Preisbestandteile entsprechend nur einer Komponentengruppe zugeordnet
+						werden. Beachte: Ein PriceItem wird nur einmal gültig und wird nicht
+						automatisch in jede der Unterkomponenten expandiert. Es findet also keine
+						Vervielfältigung eines PriceItems statt. Auch im Rahmen der
+						ConsideredPriceItems und ApplyTos werden die hier plazierten PriceItems
+						sowohl durch die Angabe von Source= ReturnFlight, OnewayFlight, Outbound,
+						Inbound und entsprechend definierte #Names adressiert. </para>
+					<para xml:id="en_8950" xml:lang="en">PriceItems placed in the level Flights/PriceItems apply to
+						both OnewayFlights and ReturnFlights. By choosing the corresponding Source
+						within the Conditions the price items can be assigned to only one component
+						group. Note: A PriceItem one is valid once and is not expanded automatically
+						into each of the sub-components. Hence there is no duplication of a
+						PriceItem. Also within the contet of ConsideredPriceItems and ApplyTos the
+						PriceItems placed here are addressed by the indication of Source=
+						ReturnFlight, OnewayFlight, Outbound, Inbound, as well as by accordingly
+						defined #Names. </para>
 					<section xml:id="OtdsStrategyComponentFlightsOneway">
 						<title><phrase xml:id="de_671" xml:lang="de">Oneway Flüge</phrase><phrase xml:id="en_671" xml:lang="en">Oneway flights</phrase></title>
 						<figure>
@@ -750,9 +763,19 @@
 							definiert. Jeder Knoten "OnewayFlight" erfordert die Angabe eines eindeutigen
 							Schlüsselwertes für diesen Knoten. </para><para xml:id="en_678" xml:lang="en">The node OnewayFlight stands for every individually supplied oneway flight. The node OnewayFlight defines the smallest unit of one-way flights present in a tour operator system. The route of the oneway flight is defined within this node. In addition, it is possible to supply various booking classes. The flight can be restricted to specific conditions through the filter. For example, the flight days can be defined in the filters. Every "OnewayFlight" node requires the specification of an unambiguous key value for this node.</para>
 						
-						<para xml:id="det_5861" xml:lang="de">Falls der Value des Elementes "CheckOutDateOffset"=1 ist, so handelt es sich bei dem Flug um einen Übernachtflug. Fehlt das Element oder der Value ist = 0 so handelt es sich um keinen Übernachtflug. </para>
-						<para xml:id="det_5863" xml:lang="de">Falls ein Flug sich bzgl. der Buchungstermine der Nachbarkomponenten wie ein Übernachtflug verhalten soll, so benutzen die das Elementes "NeighbourComponentCorrection" dafür. </para>
-						<para xml:id="det_5864" xml:lang="de">Praxisbeispiele hierfür finden Sie im Kapitel 2 <link linkend="OtdsExperiencesOverNightFlights">Übernachtflüge in der Praxis.</link></para>
+						<para xml:id="de_5861" xml:lang="de">Falls der Value des Elementes "CheckOutDateOffset"=1 ist, so handelt es sich bei dem Flug um einen Übernachtflug. Fehlt das Element oder der Value ist = 0 so handelt es sich um keinen Übernachtflug. </para>
+						<para xml:id="en_5861" xml:lang="en">In case the value of the element "CheckOutDateOffset"=1,
+							the flight is defined as an overnight flight. If the element is missing
+							or the value = 0, it is not an overnight flight. </para>
+						<para xml:id="de_5863" xml:lang="de">Falls ein Flug sich bzgl. der Buchungstermine der
+							Nachbarkomponenten wie ein Übernachtflug verhalten soll, so benutzen Sie
+							das Element "NeighbourComponentCorrection" dafür. </para>
+						<para xml:id="en_5863" xml:lang="en">If a flight shall be treated like an overnight flight
+							regarding the booking dates of the neighbouring components, please use
+							the element "NeighbourComponentCorrection". </para>
+						<para xml:id="de_5864" xml:lang="de">Praxisbeispiele hierfür finden Sie im Kapitel 2 <link linkend="OtdsExperiencesOverNightFlights">Übernachtflüge in der Praxis.</link></para>
+						<para xml:id="en_5864" xml:lang="en">You may find case examples in Chapter 2 <link
+								linkend="OtdsExperiencesOverNightFlights">Overnight Flights in Practice</link></para>
 			
 						<para xml:id="de_679" xml:lang="de">Über die Properties innerhalb dieses Knotens besteht die Möglichkeit, die Route genauer zu beschreiben. Mehr dazu im übernächsten Kapitel "FlightRoute".</para><para xml:id="en_679" xml:lang="en">Via the Properties within this node, it is possible to describe the route more precisely. More information on this will follow in the chapter after next, "FlightRoute".</para>
 						<para xml:id="de_680" xml:lang="de">Im "Booking" Element werden die Informationen geliefert, die zum Buchen eines Oneway Fluges notwendig sind.</para><para xml:id="en_680" xml:lang="en">In the "Booking" element, information necessary for the booking of a oneway flight is supplied.</para>
@@ -1199,64 +1222,64 @@
 						Preisbestandteile.</para><para xml:id="en_771" xml:lang="en">Travel components are as described previously: Accommodation (Accommodations), flights (Flights), additional services (Addons), and are supplied in the corresponding branches: Accommodations, Flights, AddonServices. In the travel components, price components (PriceItems), availability (Availabilities) and properties (Properties) are also supplied. The calculation of the price occurs at the point of product creation and uses the supplied rules for the combinability of the price components.</para>
 					<para xml:id="de_772" xml:lang="de">Eine typische Datenlieferung wird nur wenige Einträge zu den Produkten benötigen, da
 						hier mit wenigen generischen Regeln alles Notwendige abbildbar ist. </para><para xml:id="en_772" xml:lang="en">A typical data delivery will only require a few entries for the products, as it is possible here to describe everything necessary using a few generic rules.</para>
-					<para xml:id="det_773" xml:lang="de">In OTDS ist es somit möglich, "Nur-Hotel"- und
-						"Pauschaldaten" aber auch andere Produkttypen in einer Datenlieferung
-						zusammenzufassen und mit Hilfe der Regeln zu definieren, welche Komponente in welchem Kontext verwendet werden darf und wieviel die Komponente bei dieser Verwendung kosten soll. </para><para xml:id="en_773" xml:lang="en">In OTDS it is therefore possible to combine "Hotel-Only" and "Package" data, as well as other product types in a data delivery.</para>
-					<para>Kernpunkt der Produktdefinition sind zum Einen die verschiedenen
-						<code>ProductType</code>-Angaben</para>
+					<para xml:id="de_8951" xml:lang="de">In OTDS ist es somit möglich, "Nur-Hotel"- und "Pauschal"-Daten aber auch andere Produkttypen in einer Datenlieferung
+						und mit Hilfe der Regeln zu definieren, welche Komponente in welchem Kontext verwendet werden darf und wieviel die Komponente bei dieser Verwendung kosten soll. </para><para xml:id="en_773" xml:lang="en">In OTDS it is therefore possible to combine "Hotel-Only" and "Package" data, as well as other product types in a data delivery.</para>
+					<para xml:id="de_8952" xml:lang="de">Ein Kernpunkt der Produktdefinition sind die verschiedenen <code>ProductType</code>-Angaben:</para>
+					<para xml:id="en_8951" xml:lang="en">In OTDS it is thus possible to group "Hotel-only"- and "package travel"-data as well as other product types in one and the same data delivery. At the same time it is possible
+						and - by applying rules - to define, which component may be used in which context as well as how much this component may cost in this specific constellation.</para>
+					<para xml:id="en_8952" xml:lang="en">One central point of the product definition are the different <code>ProductType</code>-specifications:</para>
 					<informaltable border="0" style="border-collapse:  collapse;width:200pt" width="900">
 						<thead>
 							<tr>
 								<td rowspan="1" colspan="1">ProductType</td>
-								<td rowspan="1" colspan="1"><para xml:id="det_8618" xml:lang="de">Bedeutung</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_8618" xml:lang="de">Bedeutung</para><para xml:id="en_8618" xml:lang="en">Meaning</para></td>
 							</tr>
 						</thead>
 						
 						<tr>
 							<td rowspan="1" colspan="1">AccommodationOnly</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8610" xml:lang="de">Angebote, die nur das Hotel ohne jeglichen Transfer/Flug enthalten.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8953" xml:lang="de">Angebote, die nur das Hotel ohne jeglichen Transfer/Flug enthalten.</para><para xml:id="en_8953" xml:lang="en">Offers that only include the hotel/accommodation without any transfer and/or flight.</para></td>
 						</tr>
 						<tr>
 							<td rowspan="1" colspan="1">FlightAccommodation</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8611" xml:lang="de">Angebote, die Flüge enthalten und zwischen den Flügen zusätzlich Hotelunterkünfte enthalten.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8954" xml:lang="de">Angebote, die Flüge und zwischen den Flügen zusätzlich Hotelunterkünfte enthalten.</para><para xml:id="en_8954" xml:lang="en">Offers including flights and additional hotel stays between flights.</para></td>
 						</tr>
 						<tr>
 							<td rowspan="1" colspan="1">OnewayFlightOnly</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8612" xml:lang="de">Angebote, die nur eine Flugstrecke ohne Aufenthalt zwischen den Flügen enthalten.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8955" xml:lang="de">Angebote, die nur eine Flugstrecke ohne Aufenthalt zwischen den Flügen enthalten.</para><para xml:id="en_8955" xml:lang="en">Offers that only include one flight route without any stay between the flights.</para></td>
 						</tr>
 						<tr>
 							<td rowspan="1" colspan="1">ReturnFlightOnly</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8613" xml:lang="de">Angebote, die nur einen Hinflug und einen Rückflug ohne zusätzliche Unterkunft enthalten.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8613" xml:lang="de">Angebote, die nur einen Hinflug und einen Rückflug ohne zusätzliche Unterkunft enthalten.</para><para xml:id="en_8613" xml:lang="en">Offers including only one outbound and one return flight without any additonal accommodation.</para></td>
 						</tr>
 						<tr>
 							<td rowspan="1" colspan="1">Addon</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8614" xml:lang="de">Angebote, die als Zusatzleistung zu anderen Reiseleistungen verkauft werden.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8614" xml:lang="de">Angebote, die als Zusatzleistung zu anderen Reiseleistungen verkauft werden.</para><para xml:id="en_8614" xml:lang="en">Offers that are sold as an add-on service in combination with other travel services.</para></td>
 						</tr>
 						<tr>
 							<td rowspan="1" colspan="1">AccommodationForMix</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8615" xml:lang="de">Unterkünfte, die zur Paketierung mit Flügen genutzt werden können.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8615" xml:lang="de">Unterkünfte, die zur Paketierung mit Flügen genutzt werden können.</para><para xml:id="en_8615" xml:lang="en">Accommodation which can be used for packages in combination with flights.</para></td>
 						</tr>
 						<tr>
 							<td rowspan="1" colspan="1">ReturnFlightForMix</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8616" xml:lang="de">ReturnFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8616" xml:lang="de">ReturnFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para><para xml:id="en_8616" xml:lang="en">ReturnFlights which can be used for packages in combination with accommodations.</para></td>
 						</tr>
 						<tr>
 							<td rowspan="1" colspan="1">OnewayFlightForMix</td>
-							<td rowspan="1" colspan="1"><para xml:id="det_8617" xml:lang="de">OnewayFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8617" xml:lang="de">OnewayFlights, die zur Paketierung mit Unterkünften genutzt werden können.</para><para xml:id="en_8617" xml:lang="en">OnewayFlights which can be used for packages in combination with accommodations.</para></td>
 						</tr>
 					</informaltable>
-					<para>zum Anderen sind es die sehr flexiblen Regeln, mit denen die Kombinierbarkeit der Komponenten in Abhängigkeit der Verwendung festgelegt werden können.</para>
+					<para xml:id="de_8956" xml:lang="de">Der zweite Kernpunkt sind die sehr flexiblen Regeln, mit denen die Kombinierbarkeit der
+						Komponenten in Abhängigkeit der Verwendung festgelegt werden kann.</para>
+					<para xml:id="en_8956" xml:lang="en">The other central point are the very flexible rules, which allow to define the combinability of the
+						componenten in dependence of the use.</para>
 					<para xml:id="de_774" xml:lang="de">Die Regeln zur Produktbildung sind fast identisch mit den Regeln zur Erweiterung von
 						Komponenten.</para><para xml:id="en_774" xml:lang="en">The rules for product creation are almost identical with the rules for the extension of components.</para>
 					<para xml:id="de_8621" xml:lang="de">Beispiele für die Definition verschiedener Produktarten und weitere Erklärungen finden Sie im Praxiskapitel 2 zu <link
 						linkend="OtdsProductsComponentsProducts">Produktdefinitionen</link>.</para>
-					<para xml:id="de_775" xml:lang="de">Beispiele und weitere Erklärungen, wie diese Regeln genau
-						angewendet werden, erfahren Sie im Kapitel über die <link
-							linkend="OtdsStrategyRules">Regelwerke zur Bildung von Produkten oder
-							auch zur Kombination von Flügen</link>.</para><para xml:id="en_775" xml:lang="en">Examples and further explanations of exactly how these rules are
-						applied can be found in the chapter regarding the <link
-							linkend="OtdsStrategyRules"> rule sets for the composition of products
-							or for the combination of flights</link>.</para>
+					<para xml:id="de_775" xml:lang="de">Beispiele und weitere Erklärungen, wie diese Regeln genau angewendet werden, erfahren Sie im Kapitel über die <link
+							linkend="OtdsStrategyRules">Regelwerke zur Bildung von Produkten oder auch zur Kombination von Flügen</link>.</para><para xml:id="en_775" xml:lang="en">Examples and further explanations of exactly how these rules are
+						applied can be found in the chapter regarding the <link	linkend="OtdsStrategyRules"> rule sets for the composition of products or for the combination of flights</link>.</para>
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyKey">
@@ -9067,7 +9090,7 @@ usw.]]></programlisting>
   <DayState Offset="19"><Open/></DayState>
   <DayState Offset="20"><Open/></DayState>
 </Availability>]]></programlisting>
-						<para xml:id="de" xml:lang="de">Neue Möglichkeit der Lieferung:</para><para xml:id="en" xml:lang="en">New possibility of delivery:</para>
+						<para xml:id="de_8958" xml:lang="de">Neue Möglichkeit der Lieferung:</para><para xml:id="en_8958" xml:lang="en">New possibility of delivery:</para>
 						<programlisting><![CDATA[<Availability Key="2012-01-01" Start="2012-01-01" End="2012-01-31">
   <DefaultDayState>
     <Stay State="Closed"/>
@@ -9094,7 +9117,7 @@ usw.]]></programlisting>
     </DayState>
   </Availability>
 </Availabilities>]]></programlisting>
-						<para xml:id="de" xml:lang="de">Neue Möglichkeit der Lieferung:</para><para xml:id="en" xml:lang="en">New possibility of delivery:</para>
+						<para xml:id="de_8957" xml:lang="de">Neue Möglichkeit der Lieferung:</para><para xml:id="en_8957" xml:lang="en">New possibility of delivery:</para>
 						<programlisting><![CDATA[<Availabilities Key="...">
   <Availability Key="..." Start="2012-03-01" End=“2012-03-31“>
     <DefaultDayState>
