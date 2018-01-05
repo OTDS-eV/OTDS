@@ -4933,22 +4933,36 @@
 								also individual durations. The duration can also be delivered in
 								different units (nights, hours, minutes). See the attribute
 								"DurationUnit".</para>
-
-							<para xml:id="det_5866" xml:lang="de">Möchte man von der
+							<para xml:id="de_5866" xml:lang="de">Möchte man von der
 								Standard-Interpretation (Anfang bis Ende der Source-Komponente)
 								abweichen, so kann über spezifische Angaben in den Elementen
 								"DurationStart" und "DurationEnd" der Start- und EndTermin der
-								Duration sehr spezisch referenziert werden. Die Dauer ergibt sich
+								Duration sehr spezifisch referenziert werden. Die Dauer ergibt sich
 								aus der Differenz der Termine von DurationEnd-DurationStart. Es
 								sollte dabei berücksichtigt werden, dass die Termine der jeweiligen
 								Komponenten immer bezogen auf die Lokalzeit der jeweiligen
 								Komponente sind. Fehlt das Element "DurationStart" oder
 								"DurationEnd", so ergibt sich der zu verwendende Default jeweils aus
-								den Defaults der nun beschrieben Attribute. @Source Die hier
+								den Defaults der nun beschrieben Attribute.</para>
+							<para xml:id="en_5866" xml:lang="en">In order to deviate from the standard interpretation
+								(beginning to the end of the Source component) the start and end
+								date of the duration can be very specifically referenced to via
+								setting in the elements "DurationStart" und "DurationEnd". The
+								duration results from the difference between the dates of
+								DurationEnd-DurationStart. It should be considered however, that the
+								dates of the corresponding components always refer to the local time
+								of the component. If the element "DurationStart" or "DurationEnd" is
+								missing, the default to be applied results from the defaults of the
+								attributes described below.</para> 
+							<bridgehead xml:id="de_4739" xml:lang="de">@Source</bridgehead>	
+							<bridgehead xml:id="en_4739" xml:lang="en">@Source</bridgehead>
+							<para xml:id="de_835" xml:lang="de">Die hier
 								angegebene Source ersetzt den unter Duration/@Source angegebenen
 								Value. Falls dieses Attribut nicht angegeben ist, dann wird der
 								Value aus Duration/@Source benutzt. </para>
-							<para xml:lang="de" xml:id="det_5902">Falls die Auflösung der Source
+							<para xml:id="en_835" xml:lang="en">The Source indicated here replaces the value given in Duration/@Source. If this
+								attribute is not indicated, the Value from Duration/@Source is applied. </para>
+							<para xml:lang="de" xml:id="de_8973">Falls die Auflösung der Source
 								mehrdeutig ist, so wird die Komponente in Abhängigkeit von
 								DayReference referenziert. Bei DayReference="CheckIn" wird die
 								logisch erste KomponentenInstanz referenziert. Bei
@@ -4956,35 +4970,73 @@
 								referenziert. Logisch bedeutet, dass es die Reihenfolge ist, die
 								durch das Attribut DayAllocation in der Product-Definition
 								festgelegt wird. </para>
-							<para xml:lang="de" xml:id="det_5901">@DayReference Die DayReference
+							<para xml:lang="en" xml:id="en_8973">In case the dissolving of the Source is ambiguous, the
+								component is referenced in in relation to DayReference. When
+								DayReference="CheckIn" the logically first component instance is
+								referenced. When DayReference="CheckOut" the logically last
+								component instance is referenced. Logical means, that it is the
+								order which is defined by the attribute DayAllocation in the
+								product definition. </para>
+							<bridgehead xml:id="de_8970" xml:lang="de">@DayReference</bridgehead>	
+							<bridgehead xml:id="en_8970" xml:lang="en">@DayReference</bridgehead>
+							<para xml:lang="de" xml:id="de_8972">Die DayReference
 								definiert, welcher Tag der referenzierten Komponente referenziert
 								wird. Es sind nur die beiden Values "CheckIn" oder "CheckOut"
 								erlaubt. Defaults sind: DurationStart/@DayReference = CheckIn und
 								DurationEnd/@DayReference = CheckOut @Offset Der Offset gibt an, ob
 								auf den referenzierten Termin des Tages noch Tage aufaddiert oder
 								abgezogen werden. Default = 0 </para>
-							<para xml:id="det_5867" xml:lang="de">Mit dem Attribut "DurationUnit",
-								kann man bestimmen in welcher Einheit die Dauer angegeben ist.
-								Default ist Nights. In diesem Fall entspricht die Dauer der Anzahl
-								der Mitternachtsübergänge zwischen dem Starttermin und dem
-								Endtermin. Bei Angabe der DurationUnit = "Hours" werden die in Min,
-								Max, Durations, MultiplesOf angegebenen Werte in Stunden angegeben.
+							<para xml:lang="en" xml:id="en_8972">The DayReference defines, which day of the referenced
+								component is referenced. Only the two values "CheckIn" or "CheckOut"
+								are allowed. Defaults are: DurationStart/@DayReference = CheckIn and
+								DurationEnd/@DayReference = CheckOut</para> 
+							<bridgehead xml:id="de_8971" xml:lang="de">@Offset</bridgehead>	
+							<bridgehead xml:id="en_8971" xml:lang="en">@Offset</bridgehead>	
+							<para xml:lang="de" xml:id="de_781">Der Offset gibt an, ob
+								auf den referenzierten Termin des Tages noch Tage aufaddiert oder
+								abgezogen werden. Default = 0 </para>
+							<para xml:lang="en" xml:id="en_781">The Offset defines, if days are added to or substracted
+								from the date of the day.Default = 0 </para>
+							<bridgehead xml:id="de_713" xml:lang="de">@DurationUnit</bridgehead>	
+							<bridgehead xml:id="en_713" xml:lang="en">@DurationUnit</bridgehead>	
+							<para xml:id="de_5867" xml:lang="de">Mit dem Attribut "DurationUnit" kann man bestimmen in
+								welcher Einheit die Dauer angegeben ist. Default ist Nights. In
+								diesem Fall entspricht die Dauer der Anzahl der
+								Mitternachtsübergänge zwischen dem Starttermin und dem Endtermin.
+								Bei Angabe der DurationUnit = "Hours" werden die in Min, Max,
+								Durations, MultiplesOf angegebenen Werte in Stunden angegeben. Für
+								den Vergleich mit der über DurationStart und DurationEnd ermittelten
+								Dauer in Nächten werden diese Angaben durch 24 geteilt und
+								abgerundet. Bei Angabe der DurationUnit = "Minutes" sind die in Min,
+								Max, Durations, MultiplesOf angegebenen Werte in Minuten angegeben.
 								Für den Vergleich mit der über DurationStart und DurationEnd
-								ermittelten Dauer in Nächten werden diese Angaben durch 24 geteilt
-								und abgerundet. Bei Angabe der DurationUnit = "Minutes" sind die in
-								Min, Max, Durations, MultiplesOf angegebenen Werte in Minuten
+								ermittelten Dauer in Nächten werden diese Angaben durch 1440 geteilt
+								und abgerundet. Bei Angabe der DurationUnit = "Weeks" sind die in
+								Min, Max, Durations, MultiplesOf angegebenen Werte in Wochen
 								angegeben. Für den Vergleich mit der über DurationStart und
-								DurationEnd ermittelten Dauer in Nächten werden diese Angaben durch
-								1440 geteilt und abgerundet. Bei Angabe der DurationUnit = "Weeks"
-								sind die in Min, Max, Durations, MultiplesOf angegebenen Werte in
-								Wochen angegeben. Für den Vergleich mit der über DurationStart und
 								DurationEnd ermittelten Dauer in Nächten werden diese Angaben mit 7
-								ultipliziert. Danach wird mit den ermittelten Werten geprüft ob die
+								multipliziert. Danach wird mit den ermittelten Werten geprüft ob die
 								definierte Bedingung erfüllt ist. </para>
-
-							<para xml:id="de_888" xml:lang="de">Es folgen 3 Beispiele für
+							<para xml:id="en_5867" xml:lang="en">With the attribute "DurationUnit" the unit of the
+								duration is defined. Default ist Nights. In this case the duration
+								equals the number of midnight transitions between the start date and
+								the end date. If the DurationUnit = "Hours" the values stated in
+								Min, Max, Durations, MultiplesOf are indicated in hours. For the
+								comparison with the duration calculated via DurationStart and
+								DurationEnd in nights those values are devided by 24 and rounded
+								down. If the DurationUnit = "Minutes" the values stated in Min, Max,
+								Durations, MultiplesOf are indicated in minutes. For the comparison
+								with the duration calculated via DurationStart and DurationEnd in
+								nights those values are devided by 1440 and rounded down. If the
+								DurationUnit = "Weeks" the values stated in Min, Max, Durations,
+								MultiplesOf are indicated in weeks. For the comparison with the
+								duration calculated via DurationStart and DurationEnd in nights
+								those values are multiplied by 7. Afterwards with the help of the
+								calculated values it is evaluated if the defined condition is
+								fulfilled. </para>
+							<para xml:id="de_888" xml:lang="de">Es folgen drei Beispiele für
 								Duration-Conditions:</para>
-							<para xml:id="en_888" xml:lang="en">The following are two examples of
+							<para xml:id="en_888" xml:lang="en">The following are three examples of
 								Duration conditions:</para>
 							<programlisting><![CDATA[
 <Condition>
@@ -45199,7 +45251,6 @@ usw.]]></programlisting>
 							</tbody>
 						</tgroup>
 					</table>
-					<para xml:id="det_4739" xml:lang="de"/>
 				</section>
 				<section xml:id="AnhangHotelChain">
 					<title><phrase xml:id="de_4740" xml:lang="de">Hotelketten</phrase><phrase
