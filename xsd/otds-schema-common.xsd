@@ -8,6 +8,7 @@
   <!-- Import xml: namespace -->
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"
     schemaLocation="http://www.w3.org/2001/xml.xsd" />
+  <xs:include schemaLocation="otds-docbook-subset.xsd"/>
   <xs:simpleType name="SourceAttributeType">
     <xs:annotation>
       <xs:documentation xml:lang="de"> Die Source Angabe folgt folgender Syntax source = (
@@ -2307,21 +2308,25 @@
           <xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the
             accommodation/hotel is located.</xs:documentation>
         </xs:annotation>
-      </xs:element>     
-       <xs:element name="AccommodationCity" minOccurs="0">
+      </xs:element>
+      <xs:element name="AccommodationCity" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="de" xml:id="de_141">Stadt, in der die Unterkunft / das Hotel
             liegt.</xs:documentation>
           <xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the
             accommodation/hotel is located.</xs:documentation>
         </xs:annotation>
-         <xs:complexType>
-           <xs:sequence>
-             <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>   
-             <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>   
-           </xs:sequence>
-         </xs:complexType>        
-       </xs:element>     
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
+              maxOccurs="unbounded"/>
+            <xs:element name="MediaContent" type="MediaContentType" minOccurs="0"
+              maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="AccommodationType" type="AccommodationTypeEnum" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="de" xml:id="de_142">Typ der Unterkunft: z.B. Hotel, Club,
@@ -2371,11 +2376,15 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>   
-            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>   
+            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
+              maxOccurs="unbounded"/>
+            <xs:element name="MediaContent" type="MediaContentType" minOccurs="0"
+              maxOccurs="unbounded"/>
           </xs:sequence>
-        </xs:complexType>        
-      </xs:element>       
+        </xs:complexType>
+      </xs:element>
       <xs:element name="UnitType" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="de" xml:id="de_146">Art der Unit/Unterkunft: - Double, -
@@ -2430,15 +2439,19 @@
           <xs:documentation xml:lang="de" xml:id="de_150">Unter dem Element Name wird die
             vollständige Bezeichnung der Verpflegung definiert.</xs:documentation>
           <xs:documentation xml:lang="en" xml:id="en_150">Under the Name element, the full
-            description of the board is defined.</xs:documentation>          
+            description of the board is defined.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>   
-            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>   
+            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
+              maxOccurs="unbounded"/>
+            <xs:element name="MediaContent" type="MediaContentType" minOccurs="0"
+              maxOccurs="unbounded"/>
           </xs:sequence>
-        </xs:complexType>        
-      </xs:element>         
+        </xs:complexType>
+      </xs:element>
       <xs:element name="BoardType" type="BoardTypeEnum" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="de" xml:id="de_151">Art der Verpflegung: - SelfCatering, -
@@ -2469,11 +2482,15 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>   
-            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>   
+            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
+              maxOccurs="unbounded"/>
+            <xs:element name="MediaContent" type="MediaContentType" minOccurs="0"
+              maxOccurs="unbounded"/>
           </xs:sequence>
-        </xs:complexType>        
-      </xs:element> 
+        </xs:complexType>
+      </xs:element>
       <xs:element name="AddonServiceType" minOccurs="0">
         <xs:complexType>
           <xs:choice>
@@ -2493,7 +2510,7 @@
             />
           </xs:choice>
         </xs:complexType>
-      </xs:element>     
+      </xs:element>
       <xs:element name="AddonServiceName" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="de" xml:id="de_154">Unter diesem Element wird die vollständige
@@ -2503,11 +2520,15 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>   
-            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>   
+            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
+              maxOccurs="unbounded"/>
+            <xs:element name="MediaContent" type="MediaContentType" minOccurs="0"
+              maxOccurs="unbounded"/>
           </xs:sequence>
-        </xs:complexType>        
-      </xs:element>      
+        </xs:complexType>
+      </xs:element>
       <xs:element name="AddonServiceFeatureName" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="de" xml:id="de_155">Unter diesem Element wird die vollständige
@@ -2517,11 +2538,15 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>   
-            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>   
+            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
+              maxOccurs="unbounded"/>
+            <xs:element name="MediaContent" type="MediaContentType" minOccurs="0"
+              maxOccurs="unbounded"/>
           </xs:sequence>
-        </xs:complexType>        
-      </xs:element>        
+        </xs:complexType>
+      </xs:element>
       <xs:element name="AddonCatchmentRailwayStations" minOccurs="0">
         <xs:annotation>
           <xs:documentation xml:lang="de" xml:id="de_156">Das Element RailwayStation listet alle
@@ -2700,7 +2725,7 @@
             </xs:element>
           </xs:sequence>
         </xs:complexType>
-      </xs:element>     
+      </xs:element>
       <xs:element name="AddonCarRentalProperties" type="CarRentalPropertiesType" minOccurs="0"
         internal:otdsversion="1.9"/>
       <xs:element name="Condition" type="ConditionType" minOccurs="0">
@@ -2729,29 +2754,27 @@
   </xs:complexType>
   <xs:complexType name="ReferenceTagType" internal:otdsversion="2.0">
     <xs:annotation>
-      <xs:documentation xml:lang="de" xml:id="del_">Das Element Reference beinhaltet alle
-        Verweise, die sich auf externe Referenzsysteme beziehen. Hier werden z.B. Giata-ID eines
-        Hotels oder die Geonames-ID eines Ortes referenziert.</xs:documentation>
+      <xs:documentation xml:lang="de" xml:id="del_">Das Element Reference beinhaltet alle Verweise,
+        die sich auf externe Referenzsysteme beziehen. Hier werden z.B. Giata-ID eines Hotels oder
+        die Geonames-ID eines Ortes referenziert.</xs:documentation>
     </xs:annotation>
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="ReferenceSystem" type="xs:string">
           <xs:annotation>
             <xs:documentation xml:lang="de" xml:id="del_">Die folgenden Referenzsysteme können
-              aktuell verwendet werden: 
-              - Giata (https://www.giata.com/de/multicodes/) 
-              - Geonames (http://www.geonames.org/export/codes.html) 
-              Eine vollständige Liste finden Sie in der
+              aktuell verwendet werden: - Giata (https://www.giata.com/de/multicodes/) - Geonames
+              (http://www.geonames.org/export/codes.html) Eine vollständige Liste finden Sie in der
               Technischen Dokumentation.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
         <xs:attribute name="ReferenceType" type="xs:string">
           <xs:annotation>
-            <xs:documentation xml:lang="de" xml:id="del_">In Abhängigkeit vom Referenzsystem
-              wird hiermit der Typ der Referenz festgelegt. Es handelt sich hierbei meist um
-              eine ID, zur eindeutigen Identifikation von Hotels, Schiffe etc. oder von Orten,
-              Ortsteilen oder POI etc. Eine vollständige Liste finden Sie in der Technischen
-              Dokumentation. </xs:documentation>
+            <xs:documentation xml:lang="de" xml:id="del_">In Abhängigkeit vom Referenzsystem wird
+              hiermit der Typ der Referenz festgelegt. Es handelt sich hierbei meist um eine ID, zur
+              eindeutigen Identifikation von Hotels, Schiffe etc. oder von Orten, Ortsteilen oder
+              POI etc. Eine vollständige Liste finden Sie in der Technischen Dokumentation.
+            </xs:documentation>
           </xs:annotation>
         </xs:attribute>
       </xs:extension>
@@ -2764,14 +2787,61 @@
     </xs:annotation>
     <xs:simpleContent>
       <xs:extension base="xs:string">
-      <xs:attribute ref="xml:lang" use="optional">
-        <xs:annotation>
-          <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
-            angegeben.</xs:documentation>
-        </xs:annotation>
-      </xs:attribute>
+        <xs:attribute ref="xml:lang" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
+              angegeben.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
       </xs:extension>
     </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="StructuredTextType" internal:otdsversion="2.0">
+    <xs:annotation>
+      <xs:documentation xml:lang="de" xml:id="del_">Strukturierter Text auf Basis eines
+        vereinfachten DocBook-Subsets mit Sprachangabe z.B. für Deutsch xml:lang="de"
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="info" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="de" xml:id="del_">Informationen über Copyright, Anbieter etc.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element ref="section" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="de" xml:id="del_">Abschnitt mit struktiertem Text
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>     
+    </xs:sequence>
+    <xs:attribute ref="xml:lang" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
+          angegeben.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="MediaContentType" internal:otdsversion="2.0">
+    <xs:annotation>
+      <xs:documentation xml:lang="de" xml:id="del_">Auflistung verschiedener Media-Content-Links für
+        den jeweilige Objektknoten z.B. AccommodationName </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="info" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="de" xml:id="del_">Informationen über Copyright, Anbieter etc.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element ref="mediaobject" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="de" xml:id="del_">Auflistung der Mediaobjekte wie z.B. Bilder,
+            Videos, Texte etc. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="AddressType">
     <xs:annotation>
@@ -3102,11 +3172,16 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>   
-            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"/>   
+            <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SimpleText" type="SimpleTextType" minOccurs="1" maxOccurs="unbounded"
+            />
+            <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
+              maxOccurs="unbounded"/>
+            <xs:element name="MediaContent" type="MediaContentType" minOccurs="0"
+              maxOccurs="unbounded"/>
           </xs:sequence>
-        </xs:complexType>        
-      </xs:element>       
+        </xs:complexType>
+      </xs:element>
       <xs:group ref="AccommodationCategoryGroup" minOccurs="0"/>
       <xs:element name="AccommodationChain" type="xs:unsignedInt" minOccurs="0">
         <xs:annotation>
