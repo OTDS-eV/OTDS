@@ -8044,8 +8044,8 @@
 					Konfigurationsparametern (GlobalValues)</phrase><phrase xml:id="en_1095"
 						xml:lang="en">Stearing of offers and prices for markets, distribution systems, distribution channels and distributors by configuration parameter (GlobalValues)</phrase></title>
 				<section xml:id="OtdsStrategyGlobalValuesOverview">
-					<title><phrase xml:id="de_6006" xml:lang="de">Überblick</phrase><phrase
-							xml:id="en_6006" xml:lang="en">Overview</phrase></title>
+					<title><phrase xml:id="de_6006" xml:lang="de">Überblick</phrase><phrase xml:id="en_6006"
+						xml:lang="en">Overview</phrase></title>
 					<para xml:id="de_1096" xml:lang="de">GlobalValues sind Werte, die in
 						OTDS-Lieferungen definiert werden, um die Angebote und Preise passend zum
 						Verarbeitungskontext zu beeinflussen. Ein Verarbeitungskontext einer
@@ -8065,15 +8065,12 @@
 						that the processing of the OTDS data in-line with the processing model leads to the correct result.
 						Each context szenario belongs to a specific context type. </para>
 					<itemizedlist>
-						<para xml:id="de_1047" xml:lang="de">Folgende Kontext-Typen gibt es derzeit:</para>
-						<para xml:id="en_1047" xml:lang="en">As of today, there are the following context types:</para>
+						<para>Folgende Kontext-Typen gibt es derzeit:</para>
 						<listitem>
-							<para xml:lang="de" xml:id="de_1059">Distributionsystem-Kontext</para>
-							<para xml:lang="en" xml:id="en_1059">Distributionsystem context</para>
+							<para xml:lang="de">Vertriebsystem-Kontext</para>
 						</listitem>
 						<listitem>
-							<para xml:lang="de" xml:id="de_8980">Markt-Kontext</para>
-							<para xml:lang="en" xml:id="en_8980">Market context</para>
+							<para xml:lang="de">Markt-Kontext</para>
 						</listitem>
 						<listitem>
 							<para xml:lang="de">Währung-Kontext</para>
@@ -8091,17 +8088,25 @@
 							<para xml:lang="de">Feature-Kontext</para>
 						</listitem>
 					</itemizedlist>
-					<para>
-						In OTDS entspricht ein definiertes Kontext-Szenario der Definition eines GlobalValues. 
-						Die Angabe der GlobalValues erfolgt in dem Zweig "OTDS/Products/GlobalValues/".
-						Zum Beispiel definiert der folgende GlobalValue das Kontext-Szenario für den deutschen Markt.</para>
-					<para xml:lang="de"> Jeder GlobalValue definiert einen Key oder auch
-						ein oder mehrere Tags. Die entsprechende Integration dieser Keys
-						oder Tags in entsprechenden Filter und Condition
-						beeinflusst die Produktbildung und Preisberechnung passend zum jeweiligen
-						Verarbeitungs-Kontext. Die Kontext-Szenarios werden durch die Angabe spezifischer
-						ParameterSets innerhalb des GlobalValue festgelegt. Beispiele der verschiedenen
-						Kontext-Typen und der ParameterSets finden Sie in den folgenden Unterkapiteln.</para>
+					<para xml:lang="de" xml:id="de_8985"> In OTDS entspricht ein definiertes Kontext-Szenario der Definition eines
+							<code>GlobalValues</code>. Die Angabe der <code>GlobalValues</code>
+						erfolgt in dem Zweig <code>OTDS/Products/GlobalValues/</code>". Zum Beispiel
+						definiert der folgende GlobalValue das Kontext-Szenario für den deutschen
+						Markt.</para>
+					<para xml:lang="en" xml:id="en_8985"> In OTDS a defined context scenario corresponds to the defintion of a
+						<code>GlobalValues</code>. The indication of the <code>GlobalValues</code>
+						takes place in the branch <code>OTDS/Products/GlobalValues/</code>". The following GlobalValue for example
+						defines the context-scenario for the German market.</para>
+					<para xml:lang="de" xml:id="de_8986"> Jeder <code>GlobalValue</code> definiert einen <code>Key</code> oder auch ein oder mehrere <code>Tags</code>. Die
+						entsprechende Integration dieser Keys oder Tags in entsprechenden <code>Filter</code> und <code>Condition</code> beeinflusst die
+						Produktbildung und Preisberechnung passend zum jeweiligen Verarbeitungs-Kontext. Die Kontext-Szenarios werden durch die Angabe
+						spezifischer <code>ParameterSets</code> innerhalb des <code>GlobalValue</code> festgelegt. Beispiele der verschiedenen
+						Kontext-Typen und der <code>ParameterSets</code> finden Sie in den folgenden Unterkapiteln.</para>
+					<para xml:lang="en" xml:id="en_8986"> Each <code>GlobalValue</code> defines a <code>Key</code> or one or several <code>Tags</code>. The
+						integration of these Keys or Tags in corresponding <code>Filter</code> and <code>Condition</code> has an impact on the product
+						composition as well as on the price calculation in accordance to the corresponding processing context.
+						The context scenarios are determined by the indication of specific <code>ParameterSets</code> within the <code>GlobalValue</code>. 
+						You may find examples for the various context types and <code>ParameterSets</code> in the following sections.</para>
 					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Key-Conditions und Tag-Conditions
 						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Key conditions and Tag conditions.</para>
 					<figure>
@@ -8241,18 +8246,29 @@
   							</Products>]]>
 				</programlisting>
 				</section>
-				<section xml:id="OtdsStrategyConditionBasicsGlobalValuesFeatureContext">
+				<section xml:id="OtdsStrategyGlobalValuesFeatureContext">
 					<title><phrase xml:id="de_6147" xml:lang="de">GlobalValue/FeatureContext (CityPairProduction, V2.0)</phrase><phrase xml:id="en_6147" xml:lang="en">GlobalValue/FeatureContext (CityPairProduction, v2.0)</phrase></title>
-					<para xml:id="det_6146" xml:lang="de">Mit diesem GlobalValue/FeatureContext kann man einen
-						GlobalValue definieren, der nur dann aktiv wird, wenn dieser FeatureContext
-						gewünscht ist. Die Verarbeitung mit einem spezifisches FeautureContext kann
-						zu einem anderen Ergebnis führen als ohne den FeautureContext. Derzeit gibt
-						es nur einen FeautureContext=CityPairProduction. Mit diesem FeautureContext
-						erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro
-						CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode
-						(z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich,
-						dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung
-						führt.</para>
+					<para xml:id="de_6146" xml:lang="de">Mit diesem
+							<code>GlobalValue/FeatureContext</code> kann man einen
+							<code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn
+						dieser <code>FeatureContext</code> gewünscht ist. Die Verarbeitung mit
+						einem spezifischen <code>FeatureContext</code> kann zu einem anderen
+						Ergebnis führen als ohne den <code>FeatureContext</code>. Derzeit gibt es
+						nur einen <code>FeatureContext</code>=<code>CityPairProduction</code>. Mit
+						diesem <code>FeatureContext</code> erhalten Sie bei Flügen oder
+						Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher
+						mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der
+						Datenlieferant ist dafür verantwortlich, dass die Verwendung des
+							<code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
+					<para xml:id="en_6146" xml:lang="en">With this <code>GlobalValue/FeatureContext</code> a 
+						<code>GlobalValue</code> can be defined, that only is activated, when
+						this <code>FeatureContext</code> is desired. The processing with a specific
+						<code>FeatureContext</code> may lead to a different result than without the
+						<code>FeatureContext</code>. 
+						At present there is only one <code>FeatureContext</code>=<code>CityPairProduction</code>. 
+						With this <code>FeatureContext</code> for flights or package offers there will be exactly one flight per CityPair, date and duration
+						that is booked with a specific CityPairCode (e.g. DUSPMI). It is within the data supplier's responsibility to ensure that the use of the
+						<code>GlobalValues</code> leads to the processing results desired.</para>
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyRules">
