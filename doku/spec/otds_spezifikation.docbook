@@ -12838,100 +12838,80 @@ usw.]]></programlisting>
     <ApplyTo Component=“ReturnFlight“>Grundflugpreis</ApplyTo>
   </Percent>
 </PriceItem>]]></programlisting>
-					<para xml:id="de_1366" xml:lang="de">Statt die absoluten PriceItems anzugeben,
-						auf die ein prozentuales PriceItem wirken soll, können alternativ auch die
-						PriceItems angegeben werden, auf die das prozentuale PriceItem nicht wirken
-						darf. Dies erfolgt durch das Element <code>NotApplyTo</code>. Wird
-							<code>NotApplyTo</code> verwendet, wird das prozentuale PriceItem auf
-						alle absoluten PriceItems angewendet, die nicht explizit ausgeschlossen
-						sind. Dabei sind nur die PriceItems der Komponente eingeschlossen, die durch
-						das Attribut <code>Component</code> angegeben ist. Im Standardfall ist es
-						die Komponente, in der man sich befindet. </para>
-					<para xml:id="en_1366" xml:lang="en">Instead of specifying the absolute
-						PriceItems which are to be influenced by a percentage PriceItem, it is also
-						alternatively possible to specify the PriceItems which are not to be
-						influenced by the percentage PriceItem. This occurs via the element
-							<code>NotApplyTo</code> . If <code>NotApplyTo</code> is used, the
-						percentage PriceItem is applied to all absolute PriceItems which are not
-						explicitly excluded. In this, the only PriceItems included are those of the
-						component which is specified by the attribute <code>Component</code> . In
-						the standard case, it is the component you are currently in.</para>
-					<para xml:lang="de" xml:id="de_5253">Neu in der Version 1.9 ist die Möglichkeit,
-						die Wirkung über PriceTags zu definieren. In dem ApplyToPriceTags Element
-						werden alle PriceTags aufgelistet, auf die ein prozentuales PriceItem wirken
-						soll. PriceTags sind Tags, die am Knoten "PriceItem" definiert
-						werden.</para>
-					<para xml:lang="en" xml:id="en_5253">Another new development in version 1.9 is
-						the possibility of defining influence via PriceTags. In the ApplyToPriceTags
-						element, all PriceTags are listed which are to be influenced by a percentage
-						PriceItem. PriceTags are tags which are defined at the "PriceItem"
-						node.</para>
-					<para xml:id="de_1367" xml:lang="de">Manche Veranstalter hinterlegen die
-						Beziehungen zwischen absoluten und prozentualen PriceItems nicht bei den
-						prozuentualen PriceItems, sondern bei den absoluten PriceItems. OTDS bietet
-						für diesen Sonderfall die Möglichkeit, an Stelle von <code>ApplyTo</code>
-						bei prozentualen PriceItems das Attribut <code>AppliedBy</code> bei
-						absoluten PriceItems zu nutzen. Auch dort bezieht man sich jeweils innerhalb
-						eines <code>AppliedBy</code> nur auf die im Attribut <code>Component</code>
-						angegebene Komponente.</para>
-					<para xml:id="en_1367" xml:lang="en">Some tour operators do not store the
-						relationships between absolute and percentage PriceItems with the percentage
-						PriceItems, but rather with the absolute PriceItems. For this special case,
-						OTDS offers the possibility of using the attribute <code>AppliedBy</code>
-						for absolute PriceItems instead of <code>ApplyTo</code> for percentage
-						PriceItems. Here too, within each <code>AppliedBy</code> , one only refers
-						to the component specified in the attribute <code>Component</code> .</para>
-					<para xml:id="de_1368" xml:lang="de">Es können die Komponenten Accommodation,
-						OnewayFlight und ReturnFlight angegeben werden. Die Angabe
-							<code>ThisComponent</code> ist die Standardeinstellung und referenziert
-						die Komponente des prozentualen PriceItem selbst.</para>
-					<para xml:id="en_1368" xml:lang="en">The components Accommodation, OnewayFlight
-						and ReturnFlight can be specified. The specification of
-							<code>ThisComponent</code> is the default setting and refers to the
-						component of the percentage PriceItem itself.</para>
-					<para xml:id="de_1369" xml:lang="de">Die Angaben <code>ApplyTo</code>,
-							<code>NotApplyTo</code>, <code>ApplyToPriceTags</code> und
-							<code>AppliedBy</code> sind optional. Fehlen die Angaben, so findet
-						keine Zuweisung statt. Bei mehrfacher Verwendung von <code>ApplyTo</code>
-						oder <code>NotApplyTo</code> werden die Percent-Values nur auf die
-						Absolute-Values angewendet, die alle Bedingungen erfüllen.
-							<code>ApplyTo</code> und <code>NotApplyTo</code> auf die gleiche
-						PriceItemClass ist zwar sinnlos, aber nicht verboten. In einem solchen Fall
-						werden beide Wirkungen angewendet.</para>
-					<para xml:id="en_1369" xml:lang="en">The specifications <code>ApplyTo</code> ,
-							<code>NotApplyTo</code> and <code>AppliedBy</code> are optional. If no
-						specifications are given, nothing is assigned. With multiple use of
-							<code>ApplyTo</code> or <code>NotApplyTo</code> , the PercentValues are
-						only applied to the AbsoluteValues which fulfil all conditions.
-							<code>ApplyTo</code> and <code>NotApplyTo</code> on the same
-						PriceItemClass is senseless but not forbidden. In such a case, both effects
-						are applied.</para>
-					<para xml:id="de_5350" xml:lang="de">Wichtige Hinweise: a) Eine Platzierung
-						mehrerer <code>ApplyTo</code> , <code>ApplyToAll</code> ,
-							<code>NotAppliedTo</code> zu einer Komponente ist aktuell nicht
-						vorgesehen. b) <code>ApplyTo</code> , <code>ApplyToAll</code> ,
-							<code>NotAppliedTo</code> in Kombination mit <code>AppliedBy</code>
-						werden ver-ODER-rt.</para>
-					<para xml:id="en_5350" xml:lang="en">Important information: a) a placement of
-						multiple <code>ApplyTo</code>, <code>ApplyToAll</code>,
-							<code>NotAppliedTo</code> to a component is currently not possible. b)
-							<code>ApplyTo</code> , <code>ApplyToAll</code> ,
-							<code>NotAppliedTo</code> in combination with <code>AppliedBy</code>
-						have to be concatenated with OR.</para>
-					<para xml:id="de_1370" xml:lang="de">
-						<emphasis role="bold">!Wichtig! Wird innerhalb eines Hotels
-								<code>ApplyTo</code> oder <code>NotApplyTo</code> gleichzeitig mit
-								<code>AppliedBy</code> angewendet, werden auch dort die
-							Percent-Values nur auf die Absolut-Values bezogen, die alle Bedingungen
-							erfüllen.</emphasis>
+					<para xml:id="de_1366" xml:lang="de">Statt die absoluten PriceItems anzugeben, auf die ein prozentuales PriceItem wirken
+						soll, können alternativ auch die PriceItems angegeben werden, auf die das prozentuale
+						PriceItem nicht wirken darf. Dies erfolgt durch das Element <code>NotApplyTo</code>.
+						Wird <code>NotApplyTo</code> verwendet, wird das prozentuale PriceItem auf alle
+						absoluten PriceItems angewendet, die nicht explizit ausgeschlossen sind. Dabei sind
+						nur die PriceItems der Komponente eingeschlossen, die durch das Attribut
+							<code>Component</code> angegeben ist. Im Standardfall ist es die Komponente, in
+						der man sich befindet. </para><para xml:id="en_1366" xml:lang="en">Instead of specifying the absolute PriceItems which are to be influenced by a percentage PriceItem, it is also alternatively possible to specify the PriceItems which are not to be influenced by the percentage PriceItem. This occurs via the element <code>NotApplyTo</code> . If <code>NotApplyTo</code> is used, the percentage PriceItem is applied to all absolute PriceItems which are not explicitly excluded. In this, the only PriceItems included are those of the component which is specified by the attribute <code>Component</code> . In the standard case, it is the component you are currently in.</para>
+					<para xml:lang="de" xml:id="de_5253">Neu in der Version 1.9 ist die Möglichkeit, die Wirkung
+						über PriceTags zu definieren. In dem ApplyToPriceTags Element werden alle
+						PriceTags aufgelistet, auf die ein prozentuales PriceItem wirken soll.
+						PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</para><para xml:lang="en" xml:id="en_5253">Another new development in version 1.9 is the possibility of defining influence via PriceTags. In the ApplyToPriceTags element, all PriceTags are listed which are to be influenced by a percentage PriceItem. PriceTags are tags which are defined at the "PriceItem" node.</para>
+					<para xml:lang="de" xml:id="de_5253">Ebenfalls neu in der Version 1.9 ist die Möglichkeit zusätzlich bzw. alternativ zum Attribut <code>@Component</code> auch noch das Attribut <code>@Source</code> anzugeben. Mit <code>@Source</code> lässt sich noch viel feingranularer steuern welche PriceItems referenziert werden sollen.</para>
+					<para xml:id="de_1367" xml:lang="de">Manche Veranstalter hinterlegen die Beziehungen zwischen
+						absoluten und prozentualen PriceItems nicht bei den prozuentualen
+						PriceItems, sondern bei den absoluten PriceItems. OTDS bietet für diesen
+						Sonderfall die Möglichkeit, an Stelle von <code>ApplyTo</code> bei
+						prozentualen PriceItems das Element <code>AppliedBy</code> bei absoluten
+						PriceItems zu nutzen. Auch dort bezieht man sich jeweils innerhalb eines
+							<code>AppliedBy</code> nur auf die im Attribut <code>Component</code>
+						angegebene Komponente.</para><para xml:id="en_1367" xml:lang="en">Some tour operators do not store the relationships between absolute and percentage PriceItems with the percentage PriceItems, but rather with the absolute PriceItems. For this special case, OTDS offers the possibility of using the attribute <code>AppliedBy</code> for absolute PriceItems instead of <code>ApplyTo</code> for percentage PriceItems. Here too, within each <code>AppliedBy</code> , one only refers to the component specified in the attribute <code>Component</code> .</para>
+					<para xml:id="de_1368" xml:lang="de">Es können die Komponenten Accommodation, OnewayFlight und ReturnFlight angegeben
+						werden. Die Angabe <code>ThisComponent</code> ist die Standardeinstellung und
+						referenziert die Komponente des prozentualen PriceItem selbst.</para><para xml:id="en_1368" xml:lang="en">The components Accommodation, OnewayFlight and ReturnFlight can be specified. The specification of <code>ThisComponent</code> is the default setting and refers to the component of the percentage PriceItem itself.</para>
+					<para>Die Angaben bzgl. der Beziehungen zwischen Absolute-PriceItems und Percent-PriceItems also zum Beispiel in <code>ApplyTo</code> nennt man <code>Apply</code>-Bedingungen.</para>
+					<para><emphasis>Im folgenden eine Auflistung aller <code>Apply</code>-Bedingungen:</emphasis></para> 
+					<para xml:id="de_3620" xml:lang="de">Bei Absolute-PriceItems über die Angabe von:</para><para xml:id="en_3621" xml:lang="en">For Absolute-PriceItems via the specification of:</para>
+					<itemizedlist>
+						<listitem>
+							<para><code>Absolute/AppliedBy</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/AppliedByPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/AppliedByAll</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedBy</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Absolute/NotAppliedByAll</code></para>
+						</listitem>
+					</itemizedlist>
+					<para xml:id="de_3621" xml:lang="de">Bei Percent-PriceItems über die Angabe von:</para><para xml:id="en_3621" xml:lang="en">For Percent-PriceItems via the specification of:</para>
+					<itemizedlist>
+						<listitem>
+							<para role="NoTrans"><code>Percent/ApplyTo</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/ApplyToAll</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyTo</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToPriceTags</code></para>
+						</listitem>
+						<listitem>
+							<para><code>Percent/NotApplyToAll</code></para>
+						</listitem>
+					</itemizedlist>	
+					<para xml:id="de" xml:lang="de">Seid Version 2.0 sind hier einige Apply-Bedingungen dazu gekommen und die möglichen Attribute wurden harmonisiert. Die genaue Markierung der in Version 2.0 ergänzten Elemente und Attribute finden Sie in der <link xlink:href="../technisch/otds_technisch.html#ApplyTo">Technischen Dokumentation unter ApplyTo</link>.</para>
+					<para  xml:id="de" xml:lang="de">Seid der Version 2.0 kann in jeder Apply-Bedingungen das Attribut <code>@LogicalRelation</code>="And|Or" benutzt werden um zu spezifizieren, ob es sich um eine And-Apply-Bedingung oder eine Or-Apply-Bedingung handelt.
+						Eine Beziehung zwischen einem Percent-PriceItem und einem Absolute-PriceItem ist nur dann gültig, wenn alle And-Apply-Bedingungen und mindestens eine Or-Apply-Bedingung zwischen den beiden PriceItems erfüllt sind.   
 					</para>
-					<para xml:id="en_1370" xml:lang="en">
-						<emphasis role="bold">Important! If <code>ApplyTo</code> or
-								<code>NotApplyTo</code> is applied simultaneously with
-								<code>AppliedBy</code> within a hotel, then there too, the
-							Percent-Values will only refer to the Absolute-Values which fulfil all
-							of the conditions.</emphasis>
-					</para>
+					<para xml:id="de" xml:lang="de">Einde detaillierte Beschreibung der Auswertung der einzelnen Apply-Bedingungen finden Sie im Kapitel 2 unter <link linkend="OtdsProcessPriceCalculationAssignRelative2AbsolutePriceItems">Zuweisung der prozentualen zu absoluten PriceItems</link></para>
+					<para xml:id="de_1371" xml:lang="de"/>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemCondition">
 					<title><phrase xml:id="de_1372" xml:lang="de">Bedingungen (Condition)</phrase>
@@ -35124,7 +35104,6 @@ usw.]]></programlisting>
 							Kombinierbarkeit testen </bridgehead>
 						<bridgehead xml:id="en_3366" xml:lang="en">Example 1, step 2: Test CE2a for
 							combinability</bridgehead>
-
 						<figure>
 							<title><phrase xml:id="de_3367" xml:lang="de">PriceItem Kombinatorik
 									Schritt 2</phrase><phrase xml:id="en_3367" xml:lang="en"
