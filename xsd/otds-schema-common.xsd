@@ -1597,26 +1597,23 @@ Die Definition der Ergebnismenge eines Elementes "ConsideredPriceItems" erfolgt 
 				<xs:sequence>
 					<xs:element name="CheckInDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_279">Mit diesem Element wird definiert, welche Überschneidung das Ende der vorhergehenden Komponente mit dem Anfang dieser Komponente hat. Der Offset ist abhängig vom angrenzenden Komponententyp. Dieser wird durch das Attribut "ComponentType" definiert. 
-Der Endtermin der vorhergehenden Komponente bestimmt sich aus dem Anfangstermin dieser Komponente und dem CheckInOffset. Falls CheckInOffset nicht gesetzt ist, so gilt der Defaultwert, also CheckInOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen und vorhergehenden Unterkünften. Bei sehr früh morgens abfliegenden Flügen aus dem Zielgebiet kann es sein, dass ggf. eine Nacht früher aus dem Hotel ausgecheckt werden muss. (Siehe auch Aufbau des Produktes über die Produktregel in der Thematischen Dokumentation)</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_279">This element is used to define the overlap of the end of the previous component and the start of the current component. The offset depends on the adjacent component type. This is defined by the "ComponentType" attribute. The end date of the previous component is determined by the start date of this component + the CheckInOffset. If CheckInOffset is not set, then a default value will be used, thus CheckInOffset = 0. Currently this scenario is known only for flights and preceding accommodation. With very early morning flights departing from the destination, it may be necessary to check out a night earlier from the hotel. </xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_279">Mit diesem Element wird definiert, welche Überschneidung das Ende der vorhergehenden Komponente mit dem Anfang dieser Komponente hat. Der Offset ist abhängig vom angrenzenden Komponententyp. Dieser wird durch das Attribut "Component" definiert. Der Endtermin der vorhergehenden Komponente bestimmt sich aus dem Anfangstermin dieser Komponente und dem CheckInOffset. Falls CheckInOffset nicht gesetzt ist, so gilt der Defaultwert, also CheckInOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen und vorhergehenden Unterkünften. Bei sehr früh morgens abfliegenden Flügen aus dem Zielgebiet kann es sein, dass ggf. eine Nacht früher aus dem Hotel ausgecheckt werden muss.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_279">This element is used to define the overlap of
+								the end of the previous component and the start of the current
+								component. The offset depends on the adjacent component type. This
+								is defined by the "ComponentType" attribute. The end date of the
+								previous component is determined by the start date of this component
+								+ the CheckInOffset. If CheckInOffset is not set, then a default
+								value will be used, thus CheckInOffset = 0. Currently this scenario
+								is known only for flights and preceding accommodation. With very
+								early morning flights departing from the destination, it may be
+								necessary to check out a night earlier from the hotel. </xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="CheckOutDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_280">Mit diesem Element wird definiert, welche
-								Überschneidung der Anfang der angrenzenden nachfolgenden Komponente
-								mit dem Ende dieser Komponente hat. Der Offset ist abhängig vom
-								angrenzenden Komponententyp. Dieser wird durch das Attribut
-								"ComponentType" definiert. Der Anfangstermin der angrenzenden
-								Komponente bestimmt sich aus dem Endtermin dieser Komponente und dem
-								CheckOutOffset. Falls CheckOutOffset nicht gesetzt ist, so gilt der
-								Defaultwert, also CheckOutOffset=0. Aktuell kennen wir dieses
-								Szenario nur bei Flügen und nachfolgenden Unterkünften. Bei sehr
-								früh morgens im Zielgebiet ankommenden Flügen kann es vorkommen,
-								dass ggf. eine Nacht früher im Hotel eingecheckt werden muss.
-								(@ToDo: Siehe auch Aufbau des Produktes über die Produktregel in der
-								Thematischen Dokumentation)</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_280">Mit diesem Element wird definiert, welche Überschneidung der Anfang der angrenzenden nachfolgenden Komponente mit dem Ende dieser Komponente hat. Der Offset ist abhängig vom angrenzenden Komponententyp. Dieser wird durch das Attribut "Component" definiert. Der Anfangstermin der angrenzenden Komponente bestimmt sich aus dem Endtermin dieser Komponente und dem CheckOutOffset. Falls CheckOutOffset nicht gesetzt ist, so gilt der Defaultwert, also CheckOutOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen und nachfolgenden Unterkünften. Bei sehr früh morgens im Zielgebiet ankommenden Flügen kann es vorkommen, dass ggf. eine Nacht früher im Hotel eingecheckt werden muss.
+</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_280">This element is used to define an overlap
 								between the beginning of the adjacent component and the end of the
 								current component. The offset depends on the adjacent component
@@ -1629,6 +1626,19 @@ Der Endtermin der vorhergehenden Komponente bestimmt sich aus dem Anfangstermin 
 								destination, it may be necessary to check in a night earlier to the
 								hotel. </xs:documentation>
 						</xs:annotation>
+					</xs:element>
+					<xs:element name="Condition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="det" xml:id="de_358">In diesem Element werden die Regeln zur Verwendung der NeigbourComponentCorrection definiert. 
+Bedingungen mit ExecutionOrder="AfterCombinatorics" oder "Last" werden als undefined ausgewertet. Es findet keine erneute Auswertung zu einem späteren Zeitpunkt  statt. 
+Die Auswertung der Impact-Bedingungen erfolgt so, als wenn die ganze Condition durch ein "NonImpact"-Element umschlossen wäre.
+</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConditionType"/>
+							</xs:complexContent>
+						</xs:complexType>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>

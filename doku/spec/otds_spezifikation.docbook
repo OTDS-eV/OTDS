@@ -9290,45 +9290,104 @@
 
 					</section>
 				</section>
-			</section>
-			<section xml:id="OtdsStrategyRulesGroupDefinitions">
-				<title><phrase xml:id="de_1171" xml:lang="de">Gruppierung und Priorisierung von
-						Angeboten in Angebotsgruppen (Thema: Flugpriorisierung) (V1.9:
-						GenericTags)</phrase><phrase xml:id="en_1171" xml:lang="en">Grouping and
-						prioritisation of offers in offer groups (theme: flight prioritisation)
-						(v1.9: GenericTags)</phrase></title>
-				<section xml:id="OtdsStrategyRulesGroupDefinitionsOverview">
-					<title><phrase xml:id="de_1172" xml:lang="de">Überblick</phrase><phrase
-							xml:id="en_1172" xml:lang="en">Overview</phrase></title>
-					<para xml:id="de_1173" xml:lang="de">Eine Priorisierung von Angeboten bestimmter
-						Angebotsgruppen existiert aktuell nur für das Thema "Flugpriorisierung"
-						innerhalb von Pauschalobjekten. Ursprünglich entspringt die Notwendigkeit
-						der Flugpriorisierung aus der Anforderung, die Angebotsvielfalt im ersten
-						Blick auf einen Flug je Abreisetag zu reduzieren. Es handelt sich hier um
-						eine Anforderung aus den Anfängen des Pauschalreise-Vertriebs, welche sich
-						bis heute durchgesetzt hat und deshalb auch in OTDS abbildbar sein muss.
-						OTDS beschränkt sich dabei nicht auf Flüge im speziellen, sondern hält die
-						Integration dieses Mechanismus offen und erlaubt die Anwendung für beliebige
-						Produkte und Anwendungsbereiche. Die Beschreibung indes bezieht sich vorerst
-						rein auf die Flugpriorisierung. </para>
-					<para xml:id="en_1173" xml:lang="en">A prioritising of offers in specific offer
-						groups currently only exists for the theme "Flight prioritisation" within
-						the package objects. The necessity of flight prioritisation originally stems
-						from the challenge of reducing the wide range of offers at first glance to a
-						flight per departure day. This is a challenge existing since the beginning
-						of package tour sales which has continued until today and must therefore
-						also be addressed in OTDS. Here OTDS does not limit itself to flights
-						specifically, but leaves the integration of the mechanism open and allows
-						its use for any other products and areas of application. For now the
-						description refers only to flight prioritisation.</para>
-					<para xml:id="de_1174" xml:lang="de">Die Flug-Prioritäten geben bei der
-						Kombination mit Unterkünften an, welche Flüge vorrangig angezeigt werden
-						sollen. Hier gibt es ggf. zwei Ausprägungen: </para>
-					<para xml:id="en_1174" xml:lang="en">When combined with accommodation, the
-						flight priorities specify which flights should be shown first. This may be
-						done in two ways:</para>
-
-					<orderedlist>
+				</section>
+				<section xml:id="OtdsStrategyProductNeighbourComponentCorrection">
+					<title><phrase xml:id="de" xml:lang="de">Verschiebung des CheckIn oder CheckOut von Nachbarkomponenten (NeighbourComponentCorrection)(V2.0)</phrase>
+						<phrase xml:id="en" xml:lang="en">Shift of <code>CheckIn</code> or <code>CheckOut</code> of the neighbouring components (NeighbourComponentCorrection)(V2.0)</phrase></title>
+					<para  xml:id="de" xml:lang="de">Bei Produkten mit mehreren Komponenten werden die CheckIn und CheckOut benachbarter Komponenten in der Regel lückenlos aneinandergefügt. 
+						Der CheckOut-Termin der vorherigen Komponente ist in der Regel identisch mit dem CheckIn der nachfolgenden Komponente. 
+						In besonderen Fällen ist es aber notwendig hier eine Lücke oder eine stärkere Überlappung zu definieren. Ein klassischer Fall ist, dass ein Hinflug ins Zielgebiet frühmorgens startet z.B. 01:00 Uhr früh 
+						und nach kurzer Flugdauer frühmorgens im Zielgebiet landet z.B. 2:30 Uhr. Standardmäßig würde die OTDS-Verarbeitung in diesem Fall den CheckIn im Hotel auf den Termin der Landung des Flugzeuges setzen.
+						Die Erwartungshaltung eines Pauschaltouristen wäre aber, dass er noch in der Nacht sein Zimmer beziehen kann, um ggf. direkt zu schlafen. Dazu müsste aber der CheckIn im Hotel schon am Tag vorher stattfinden.
+						Genau dieses Verhalten, kann der Datenlieferant mit der <code>NeighbourComponentCorrection</code> beeinflussen bzw. anpassen.
+						In diesem Fall würde der "virtuelle" CheckOut-Termin des Fluges, auf den sich der CheckIn des Hotels bezieht, künstlich um 1 Tag früher gelegt. Dadurch erfolgt der CheckIn im Hotel auch einen Tag früher.
+						Der "virtuelle" CheckOut-Termin des Fluges hat keine Auswirkungen auf Conditions, die sich auf den "echten" CheckOut-Termin des Fluges beziehen.
+						Hier ein Beispiel, wie eine solche <code>NeighbourComponentCorrection</code> aussieht:
+						<programlisting><![CDATA[<OnewayFlight>
+	...
+	<NeighbourComponentCorrection>
+		<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+	</NeighbourComponentCorrection>
+	...
+</OnewayFlight>]]></programlisting>
+						
+						<figure>
+							<info>
+								<title><phrase xml:id="de" xml:lang="de">Aufbau der <code>NeighbourComponentCorrection</code></phrase><phrase
+									xml:id="en" xml:lang="en">Structure of the <code>NeighbourComponentCorrection</code></phrase></title>
+							</info>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/neighbourcomponentcorrection.png" format="PNG" contentwidth="50%"/>
+								</imageobject>
+								<textobject>
+									<para xml:id="de" xml:lang="de">Aufbau der <code>NeighbourComponentCorrection</code></para><para xml:id="en" xml:lang="en">Structure of the <code>NeighbourComponentCorrection</code></para>
+								</textobject>
+							</mediaobject>
+						</figure>
+						<figure>
+							<info>
+								<title><phrase xml:id="de" xml:lang="de">Mögliche Platzierungen der  <code>NeighbourComponentCorrection</code></phrase><phrase
+									xml:id="en" xml:lang="en">Possible locations of the  <code>NeighbourComponentCorrection</code></phrase></title>
+							</info>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/allneighbourcomponentcorrections.png" format="PNG" contentwidth="80%"/>
+								</imageobject>
+								<textobject>
+									<para xml:id="de" xml:lang="de">Mögliche Platzierungen der <code>NeighbourComponentCorrection</code></para><para xml:id="en" xml:lang="en">Possible locations of the <code>NeighbourComponentCorrection</code></para>
+								</textobject>
+							</mediaobject>
+						</figure>
+					</para>
+					<para xml:id="de" xml:lang="de">Ab Version 2.0 gibt es auch die Möglichkeit einer
+						<code>NeighbourComponentCorrection</code> eine Condition mitzugeben. Eine
+					Condition ist dann sinnvoll, wenn die Verschiebeung nur unter bestimmten
+					Bedingungen erfolgen soll. Ggf. will ein Veranstalter bei Luxus-Unterkünften den
+					Reisenden den maximalen Komfort bieten und deshalb erheblich flexibler früh
+					einchecken bzw. spät auschecken. Hier ein Beispiel, wie eine solche
+						<code>NeighbourComponentCorrection</code> aussehen könnte: <programlisting><![CDATA[<OnewayFlight>
+	...
+	<NeighbourComponentCorrection>
+		<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+		<Condition>
+			<Tags Source="Accommodation" Class="LuxusCheckInCheckOut">True</Tags>
+		</Condition>
+	</NeighbourComponentCorrection>
+	...
+</OnewayFlight>]]></programlisting> Diese <code>NeighbourComponentCorrection</code> könnten dann zum
+					Beispiel auch noch an Flügen definiert werden, die um 6:00 Uhr landen, damit bei
+					Luxusunterkünften immer ein CheckIn direkt nach der Ankunft möglich ist. </para>
+					<para xml:id="de" xml:lang="de">Bei der Verarbeitung von <code>NeighbourComponentCorrection</code> im Kontext von Bedingungen mit  Terminbedigung besteht die Gefahr eines Zirkelbezugs. 
+					Bitte beachten Sie diesbzgl. die spezifische Verarbeitungsvorschrift für <code>NeighbourComponentCorrection</code> mit Bedingungen, die in Kapitel 3 detailierter beschrieben wird.</para>
+				</section>
+					<section xml:id="OtdsStrategyRulesGroupDefinitions">
+					<title><phrase xml:id="de_1171" xml:lang="de">Gruppierung und Priorisierung von Angeboten in
+							Angebotsgruppen (Thema: Flugpriorisierung) (V1.9:
+							GenericTags)</phrase><phrase xml:id="en_1171" xml:lang="en">Grouping and
+							prioritisation of offers in offer groups (theme: flight prioritisation)
+							(v1.9: GenericTags)</phrase></title>
+					<section xml:id="OtdsStrategyRulesGroupDefinitionsOverview">
+						<title><phrase xml:id="de_1172" xml:lang="de">Überblick</phrase><phrase xml:id="en_1172" xml:lang="en">Overview</phrase></title>
+						<para xml:id="de_1173" xml:lang="de">Eine Priorisierung von Angeboten bestimmter
+							Angebotsgruppen existiert aktuell nur für das Thema "Flugpriorisierung"
+							innerhalb von Pauschalobjekten. Ursprünglich entspringt die
+							Notwendigkeit der Flugpriorisierung aus der Anforderung, die
+							Angebotsvielfalt im ersten Blick auf einen Flug je Abreisetag zu
+							reduzieren. Es handelt sich hier um eine Anforderung aus den Anfängen
+							des Pauschalreise-Vertriebs, welche sich bis heute durchgesetzt hat und
+							deshalb auch in OTDS abbildbar sein muss. OTDS beschränkt sich dabei
+							nicht auf Flüge im speziellen, sondern hält die Integration dieses
+							Mechanismus offen und erlaubt die Anwendung für beliebige Produkte und
+							Anwendungsbereiche. Die Beschreibung indes bezieht sich vorerst rein auf
+							die Flugpriorisierung. </para><para xml:id="en_1173" xml:lang="en">A prioritising of offers in specific offer groups currently only exists for the theme "Flight prioritisation" within the package objects. The necessity of flight prioritisation originally stems from the challenge of reducing the wide range of offers at first glance to a flight per departure day. This is a challenge existing since the beginning of package tour sales which has continued until today and must therefore also be addressed in OTDS. Here OTDS does not limit itself to flights specifically, but leaves the integration of the mechanism open and allows its use for any other products and areas of application. For now the description refers only to flight prioritisation.</para>
+						<para xml:id="de_1174" xml:lang="de">Die Flug-Prioritäten geben bei der Kombination mit
+							Unterkünften an, welche Flüge vorrangig angezeigt werden sollen. Hier
+							gibt es ggf. zwei Ausprägungen: </para><para xml:id="en_1174" xml:lang="en">When combined with accommodation, the flight priorities specify
+							which flights should be shown first. This may be done in two
+							ways:</para>
+			
+						<orderedlist>
 						<listitem>
 							<para xml:id="de_1175" xml:lang="de">Nur der am höchsten priorisierte
 								Flug ist tatsächlich buchbar. Alle anderen sind nicht
@@ -31861,34 +31920,48 @@ usw.]]></programlisting>
 												same <code>CheckIn</code>, <code>CheckOut</code>
 												and <code>Stay</code> values as the parent
 												components.</para>
-											</step>
-										</procedure>
-									</step>
-								</procedure>
-							</task>
+										</step>
+									</procedure>
+								</step>
+							</procedure>
+							<para xml:id="de" xml:lang="de">Seit Version 2.0 kann innerhalb der <code>NeighbourComponentCorrection</code> (im folgenden NCC genannt) eine Condition definiert werden.
+								Diese Condition können Termin-/Dauer-Bedingungen enthalten, die wiederum durch die NCC beeinflusst werden, was einen Zirkelbezug bedeuten würde.
+								Dieser Zirkelbezug wird durch folgende Vorgehensweise der Verarbeitung vermieden:
+								Sind NCC mit Condition vorhanden, so wird formal jede mögliche Variante von NCC-Kombinationen (incl. alle Conditions = False, also keine NCC mit Conditions) angewendet.
+								Für jede der so erhaltenen Angebotskandidaten wird geprüft, ob die zugrunde liegenden Annahmen bzgl. der NCC-Conditions erfüllt ist.
+								Wird mindestens eine Annahme nicht erfüllt, so wird der Angebots-Kandidat verworfen.   
+								Diese Art der Verarbeitung definiert auch das Verhalten bei terminabhängigen Conditions korrekt. 
+								Im Normalfall (also keine terminabhängigen Conditions) kann praktisch die Auswertung auch direkt vorgenommen werden.</para>
+							<example>
+								<title><phrase xml:id="de" xml:lang="de">Beispiel: Es liegen 3 unterschiedliche NCCs vor:</phrase></title>
+										<para  xml:id="de" xml:lang="de">NCC1 ohne Condition</para>
+										<para  xml:id="de" xml:lang="de">NCC2 mit Condition</para>
+										<para  xml:id="de" xml:lang="de">NCC3 mit Condition</para>
+								
+										<para  xml:id="de" xml:lang="de">Folgende Iterationen werden durchlaufen:</para>
+										<para  xml:id="de" xml:lang="de">NCC1 + NCC2 + NCC3   (Annahme: NCC2 und NCC3 Condition ist erfüllt)</para>
+										<para  xml:id="de" xml:lang="de">NCC1 + NCC2          (Annahme: NCC2 Condition ist erfüllt und NCC3 Condition ist nicht erfüllt)</para>
+										<para  xml:id="de" xml:lang="de">NCC1        + NCC3   (Annahme: NCC2 Condition ist nicht erfüllt und NCC3 Condition ist erfüllt)</para>
+									
+								<para xml:id="de" xml:lang="de"> Es entstehen 3 Angebotskandidaten. Für jeden wird die
+										entsprechende Annahme geprüft. Wird die Annahme erfüllt, so
+										liegt ein gültiger Kandidat vor. Durch diese Vorgehensweise
+										können mehrere gültige Kandidaten entstehen. </para>
+							</example>
+						</task>
 
-							<task xml:id="OtdsProcessProductAllocationTimeInstanzdauer">
-								<title><phrase xml:id="de_3045" xml:lang="de"
-											><code>Instanzdauer</code> (
-											<replaceable>I</replaceable> )</phrase><phrase
-										xml:id="en_3045" xml:lang="en"><code>Instanzdauer</code> (
-											<replaceable>I</replaceable> )</phrase></title>
+						<task xml:id="OtdsProcessProductAllocationTimeInstanzdauer">
+							<title><phrase xml:id="de_3045" xml:lang="de"><code>Instanzdauer</code> ( <replaceable>I</replaceable> )</phrase><phrase xml:id="en_3045" xml:lang="en"><code>Instanzdauer</code> ( <replaceable>I</replaceable> )</phrase></title>
 
-								<tasksummary>
-									<para xml:id="de_3046" xml:lang="de">Die Dauer einer Instanz
-										hängt von der Komponente ab:</para>
-									<para xml:id="en_3046" xml:lang="en">The duration of an instance
-										depends upon the component:</para>
-								</tasksummary>
-								<procedure>
-									<step>
-										<para xml:id="de_3047" xml:lang="de">Ist die
-											Komponenteninstanz zeitlich flexibel, hat sie keine
-											Instanzdauer.</para>
-										<para xml:id="en_3047" xml:lang="en">If the component
-											instance is flexible in time, it has no instance
-											duration.</para>
-									</step>
+							<tasksummary>
+								<para xml:id="de_3046" xml:lang="de">Die Dauer einer Instanz hängt von der Komponente ab:</para><para xml:id="en_3046" xml:lang="en">The duration of an instance depends upon the component:</para>
+							</tasksummary>
+							<procedure>
+								<step>
+									<para xml:id="de_3047" xml:lang="de">Ist die Komponenteninstanz zeitlich flexibel, hat sie keine
+										Instanzdauer.</para><para xml:id="en_3047" xml:lang="en">If the component instance is flexible in time, it has no instance duration.</para>
+								</step>
+
 
 									<step>
 										<para xml:id="de_3048" xml:lang="de">Nicht flexible
