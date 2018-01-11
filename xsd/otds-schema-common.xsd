@@ -1678,7 +1678,7 @@ Der Endtermin der vorhergehenden Komponente bestimmt sich aus dem Anfangstermin 
 		      <xs:documentation xml:lang="en" xml:id="en_8868">Town or city in which the accommodation/hotel is located.</xs:documentation>
 		    </xs:annotation>
 		  </xs:element>
-		  <xs:element name="AccommodationCityInfo" type="MediaContentInfoType" minOccurs="0"/>
+		  <xs:element name="AccommodationCityInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="AccommodationType" type="AccommodationTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_142">Typ der Unterkunft: 
@@ -1720,7 +1720,7 @@ etc.
 		        The text should be short and is legally binding.</xs:documentation>
 		    </xs:annotation>
 		  </xs:element>
-		  <xs:element name="UnitInfo" type="MediaContentInfoType" minOccurs="0"/>
+		  <xs:element name="UnitInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="UnitType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_146">Art der Unit/Unterkunft: - Double, - Apartment, 	- Studio, - Bungalow, - Triple, - Suite, - Other. Seit Version 1.1 können in diesem Element auch mehrere UnitTypes durch "Space" getrennt angegeben werden. Die Unit erfüllt damit alle der angegebenen Eigenschaften.</xs:documentation>
@@ -1773,7 +1773,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 		        the board is defined.</xs:documentation>
 		    </xs:annotation>
 		  </xs:element>
-      <xs:element name="BoardInfo" type="MediaContentInfoType" minOccurs="0" />
+      <xs:element name="BoardInfo" type="ContentInfoType" minOccurs="0" />
 			<xs:element name="BoardType" type="BoardTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_151">Art der Verpflegung: - SelfCatering, - Breakfast, - HalfBoard, - HalfBoardPlus, - FullBoard, - FullBoardPlus, - AllInclusive, - AllInclusivePlus </xs:documentation>
@@ -1798,7 +1798,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 		      <xs:documentation xml:lang="en" xml:id="en_153">Under this element, the full description of the add-ons is defined.</xs:documentation>
 		    </xs:annotation>
 		  </xs:element>
-      <xs:element name="AddonInfo" type="MediaContentInfoType" minOccurs="0"/>
+      <xs:element name="AddonInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="AddonServiceType" minOccurs="0">
 				<xs:complexType>
 					<xs:choice>
@@ -1823,14 +1823,14 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 		      <xs:documentation xml:lang="en" xml:id="en_154">Under this element, the full description of the service is defined.</xs:documentation>
 		    </xs:annotation>
 		  </xs:element>
-      <xs:element name="AddonServiceInfo" type="MediaContentInfoType" minOccurs="0"/>
+      <xs:element name="AddonServiceInfo" type="ContentInfoType" minOccurs="0"/>
 		  <xs:element name="AddonServiceFeatureName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 		    <xs:annotation>
 		      <xs:documentation xml:lang="de" xml:id="de_155">Unter diesem Element wird die vollständige Bezeichnung der ServiceFeatures definiert.</xs:documentation>
 		      <xs:documentation xml:lang="en" xml:id="en_155">Under this element, the full description of the ServiceFeatures is defined.</xs:documentation>
 		    </xs:annotation>
 		  </xs:element>
-      <xs:element name="AddonServiceFeatureInfo" type="MediaContentInfoType" minOccurs="0"/>
+      <xs:element name="AddonServiceFeatureInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="AddonCatchmentRailwayStations" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_156">Das Element RailwayStation listet alle Bahnhöfe im Zielgebiet auf, über welche das Hotel angefahren werden kann.</xs:documentation>
@@ -1853,8 +1853,14 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="GeneralIncludedServiceEnum">
+									  <xs:attribute ref="xml:lang" use="optional">
+									    <xs:annotation>
+									      <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
+									        angegeben.</xs:documentation>
+									    </xs:annotation>
+									  </xs:attribute>
 										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType"/>
-									</xs:extension>
+									</xs:extension>	  
 								</xs:simpleContent>
 							</xs:complexType>
 						</xs:element>
@@ -1873,6 +1879,12 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="MandatoryServicePaidAtLocationEnum">
+									  <xs:attribute ref="xml:lang" use="optional">
+									    <xs:annotation>
+									      <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
+									        angegeben.</xs:documentation>
+									    </xs:annotation>
+									  </xs:attribute>
 										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType" default="None"/>
 									</xs:extension>
 								</xs:simpleContent>
@@ -1939,7 +1951,7 @@ For the complete list see the technical documentation.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Text" type="xs:string"/>
+					  <xs:element name="Text" type="LanguageTextType"/>
 					</xs:sequence>
 					<xs:attribute name="ConfirmBeforeBooking" type="IntBooleanType" default="0">
 						<xs:annotation>
@@ -1998,7 +2010,7 @@ For the complete list see the technical documentation.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-  <xs:complexType name="MediaContentInfoType" internal:otdsversion="2.0">
+  <xs:complexType name="ContentInfoType" internal:otdsversion="2.0">
     <xs:annotation>
       <xs:documentation xml:lang="de" xml:id="del_">nicht-buchbare Zusatzinformationen wie Referenzen, Langtexte und Medialinks</xs:documentation>
     </xs:annotation>
@@ -2006,7 +2018,7 @@ For the complete list see the technical documentation.</xs:documentation>
       <xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="StructuredText" type="StructuredTextType" minOccurs="0"
         maxOccurs="unbounded"/>
-      <xs:element name="MediaContent" type="MediaContentLinkType" minOccurs="0"
+      <xs:element name="MediaContent" type="ContentLinkType" minOccurs="0"
         maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
@@ -2081,7 +2093,7 @@ For the complete list see the technical documentation.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="MediaContentLinkType" internal:otdsversion="2.0">
+  <xs:complexType name="ContentLinkType" internal:otdsversion="2.0">
     <xs:annotation>
       <xs:documentation xml:lang="de" xml:id="del_">Auflistung verschiedener Media-Content-Links für
         den jeweilige Objektknoten z.B. AccommodationName </xs:documentation>
@@ -2122,14 +2134,14 @@ For the complete list see the technical documentation.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_174">Post code / ZipCode</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="City" type="xs:string" minOccurs="0">
+			<xs:element name="City" type="LanguageTextType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_175">Imm Element City wird die Stadt
 						hinterlegt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_175">In the City element, the city is specified.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Country" type="xs:string" minOccurs="0">
+		  <xs:element name="Country" type="LanguageTextType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_176">In dem Element Country wird das Land ausgeschrieben hinterlegt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_176">In the Country element the country is specified
@@ -2197,6 +2209,12 @@ For the complete list see the technical documentation.</xs:documentation>
 										<xs:documentation xml:lang="en" xml:id="en_185">Description of the region</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
+							  <xs:attribute ref="xml:lang" use="optional">
+							    <xs:annotation>
+							      <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
+							        angegeben.</xs:documentation>
+							    </xs:annotation>
+							  </xs:attribute>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="Country" minOccurs="0">
@@ -2228,6 +2246,12 @@ DE Germany</xs:documentation>
 										<xs:documentation xml:lang="en" xml:id="en_189">Description of country</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
+							  <xs:attribute ref="xml:lang" use="optional">
+							    <xs:annotation>
+							      <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
+							        angegeben.</xs:documentation>
+							    </xs:annotation>
+							  </xs:attribute>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="Destination" minOccurs="0">
@@ -2255,6 +2279,12 @@ DE Germany</xs:documentation>
 										<xs:documentation xml:lang="en" xml:id="en_193">Description of the destination</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
+							  <xs:attribute ref="xml:lang" use="optional">
+							    <xs:annotation>
+							      <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des SimpleText-Elements
+							        angegeben.</xs:documentation>
+							    </xs:annotation>
+							  </xs:attribute>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="GeoCode" minOccurs="0">
@@ -2315,7 +2345,7 @@ DE Germany</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_199">The Code attribute specifies the station code. The reference system is defined under System Reference.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Name" type="xs:string">
+		  <xs:element name="Name" type="LanguageTextType">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_200">Das Attribute Name gibt den Namen des Bahnhofes an.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_200">The Name attribute states the name of the train
@@ -2387,7 +2417,7 @@ DE Germany</xs:documentation>
 		      <xs:documentation xml:lang="en" xml:id="en_205">The official name of the accommodation / hotel</xs:documentation>
 		    </xs:annotation>
 		  </xs:element>
-      <xs:element name="AccommodationInfo" type="MediaContentInfoType" minOccurs="0"/>
+      <xs:element name="AccommodationInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:group ref="AccommodationCategoryGroup" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Kategorie der Unterkunft (Offizielle und Veranstalterkategorie).</xs:documentation>
@@ -8986,7 +9016,7 @@ The evaluation of the GenericTag condition takes place after the last step of th
 					<xs:documentation xml:lang="en" xml:id="en_5875">Type of insurance</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Description" type="xs:string" minOccurs="0">
+		  <xs:element name="Description" type="LanguageTextType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_5876">Beschreibung der Versicherung</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5876">Description of insurance</xs:documentation>
