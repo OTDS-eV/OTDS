@@ -25,9 +25,7 @@
 		<Accommodation Key="TT01">
 			<Properties Key="1">
 				<PropertyGroup>
-					<AccommodationName>
-					  <SimpleText>Hotel "Beach"</SimpleText>
-					</AccommodationName>
+					<AccommodationName>Hotel "Beach"</AccommodationName>
 				</PropertyGroup>
 			</Properties>
 			<SellingAccom Key="TT01">
@@ -93,9 +91,7 @@
 						</Booking>
 						<Properties Key="1">
 							<PropertyGroup>
-								<UnitName>
-								  <SimpleText>Doppelzimmer</SimpleText>
-								</UnitName>
+								<UnitName>Doppelzimmer</UnitName>
 							</PropertyGroup>
 						</Properties>
 						<Occupancy Key="1">
@@ -382,9 +378,7 @@
 						</Booking>
 						<Properties Key="1">
 							<PropertyGroup>
-								<UnitName>
-								  <SimpleText>Doppelzimmer D</SimpleText>
-								</UnitName>
+								<UnitName>Doppelzimmer D</UnitName>
 							</PropertyGroup>
 						</Properties>
 						<Occupancy Key="1">
@@ -614,9 +608,7 @@
 						</Booking>
 						<Properties Key="1">
 							<PropertyGroup>
-								<UnitName>
-								  <SimpleText>Doppelzimmer D</SimpleText>
-								</UnitName>
+								<UnitName>Doppelzimmer D</UnitName>
 							</PropertyGroup>
 						</Properties>
 						<Occupancy Key="1">
@@ -880,9 +872,7 @@
 						</Booking>
 						<Properties Key="1">
 							<PropertyGroup>
-								<UnitName>
-								  <SimpleText>Doppelzimmer D</SimpleText>
-								</UnitName>
+								<UnitName>Doppelzimmer D</UnitName>
 							</PropertyGroup>
 						</Properties>
 						<Occupancy Key="1">
@@ -1131,6 +1121,89 @@
 										=	A1 + A2 + ( (A1 ) * (- 0,1) ) + ( ( A1) * (- 0,05) ) + ( A1 + A2 +  ( (A1 ) * (- 0,1) ) + ( ( A2) * (- 0,05) ) )* (-0,25) )   
 										=  0,85A1 + A2 + ( 0,85A1 + A2 ) * (-0,25) =  0.6375 A1 + 0,75A2 = 31,875 + 22,5 = 54,375	
 								-->
+						</PriceItems>
+						<Availabilities Key="DZ-3">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+					<SellingUnit Key="DZ-5">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer D</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<MinAge>13</MinAge>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MaxAge>12</MaxAge>
+								<MinCount>0</MinCount>
+								<MaxCount>1</MaxCount>
+							</Person>
+						</Occupancy>
+						<!-- Start der Beispiele für sinnvolle Applys    -->
+						<PriceItems Key="1">
+							<!-- AppliedBy: Alle Percent-PriceItems mit Class="FBProzent" wirken bzgl. Ihres przentualen Ab-/ Zuschlages auf dieses PriceItem. -->
+							<PriceItem Class="AbsoluteA">
+								<Absolute>
+									<Value>100</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+									<AppliedBy>FBProzent</AppliedBy>
+								</Absolute>
+							</PriceItem>
+							<!-- ApplyTo ohne Angabe von @LogicalRelation: Bei fehlende Angabe von @LogicalRelation kommt der Default @LogicalRelation="Or" zum Tragen. Aufgrund des @LogicalRelation="Or" werden der Menge der Percent-Absolut-PriceItem-Paare die Paare aus diesem Percent-PriceItem und AbsolutPriceItems hinzugefügt, bei denen @Class != "AbsoluteA" und die in der gleichen Kompontent wie das PercentPriceItem sind. @LogicalRelation="Or" kann andere ApplyDefinitionen nicht einschränken. -->
+							<PriceItem Class="FBProzent">
+								<Percent>
+									<Value>-10</Value>
+									<NotApplyTo>AbsoluteA</NotApplyTo>
+								</Percent>
+							</PriceItem>
+							<!-- ApplyTo mit @LogicalRelation="And": Aufgrund des @LogicalRelation="And" werden zuerst alle Percent-Absolut-PriceItem-Paare mit @LogicalRelation="Or" gebildet. Danach werden diese PriceItem-Paare durch die ApplyBedingungen mit @LogicalRelation="And" eingeschränkt. In diesem Fall bedeutet dies, dass das PriceItemPaar, welches aufgrund der ApplyBedingung des AbsolutPriceItems "AbsoluteA" gebildet wurde nun aufgrund der Bedingung <NotApplyTo LogicalRelation="And">AbsoluteA</NotApplyTo> aus der Ergebnismenge wieder ausgeschlossen wird. @LogicalRelation="And" kann andere ApplyDefinitionen nur einschränken und nicht erweitern.  -->
+							<PriceItem Class="FBProzent">
+								<Percent>
+									<Value>-40</Value>
+									<NotApplyTo LogicalRelation="And">AbsoluteA</NotApplyTo>
+								</Percent>
+							</PriceItem>
+							<!-- Nachfolgend eine komplett sinnfreie Auflistung verschiendenster Apply Möglichkeiten in PercentPriceitems -->
+							<PriceItem Class="FBAProzent">
+								<Percent>
+									<Value>-40</Value>
+									<NotApplyTo LogicalRelation="And">AbsoluteA</NotApplyTo>
+									<NotApplyToAll/>
+									<ApplyToAll/>
+									<ApplyToPriceTags Class="a">a</ApplyToPriceTags>
+									<NotApplyToPriceTags Class="a">p</NotApplyToPriceTags>
+								</Percent>
+							</PriceItem>
+							<PriceItem Class="AbsoluteAB">
+								<Absolute>
+									<Value>100</Value>
+									<DayBase>x</DayBase>
+									<PersonBase>1</PersonBase>
+									<AppliedBy>FBProzent</AppliedBy>
+									<NotAppliedBy>a</NotAppliedBy>
+									<AppliedByPriceTags Class="as"/>
+									<NotAppliedByAll Source="SellingAccom" Component="Accommodation"></NotAppliedByAll>
+									<NotAppliedByPriceTags Class="asd" Source="#beliebig">MichNicht</NotAppliedByPriceTags>
+								</Absolute>
+							</PriceItem>
 						</PriceItems>
 						<Availabilities Key="DZ-3">
 							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">

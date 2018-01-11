@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="1.9" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
 	<Products UpdateMode="New">
-		<GenericTag Class="CityPairProduction" TagValueType="String">
-			<ExternalParameter Feature="CityPairProduction"/>
-		</GenericTag>
-		<Product Key="Package" ProductType="FlightAccommodation" ProductFeatures="CityPairProduction" UpdateMode="New">
+	<GlobalValues>
+		<GlobalValue Key="CityPairProduction">
+			<ParameterSet Key="CityPairProduction">
+				<FeatureContext>CityPairProduction</FeatureContext>
+			</ParameterSet>
+		</GlobalValue>
+	</GlobalValues>
+		<Product Key="Package" ProductType="FlightAccommodation" UpdateMode="New">
 			<Tags UpdateMode="New">
 				<Tag Class="Product" TagValueType="String">Pauschal</Tag>
 				<!-- Hier sind beispielhaft verschiedene Möglichkeiten für sinnvolle Gruppierungen bzgl. der Flugpriorisierung aufgeführt. In der praxis werden in der Regel nicht mehrere Gruppierungen nebeneinander stehen.-->
@@ -218,10 +222,8 @@
 						<Date Source="Inbound" DayType="CheckIn"/>
 					</BookingParameter>
 					<Condition>
-						<!--Dieser Bedingung sorgt dafür, dass falls eine Verarbeitung mit dem externen Parameter CityPairProduction=true durchgeführt wird, die FLugcodes durch CityPairCodes ersetzt werden. Die Flughafencodes müssen dazu in den Flügen in entsprechenden Tags enthalten sein.   -->
-						<GenericTag Class="CityPairProduction">
-							<Value>true</Value>
-						</GenericTag>
+						<!--Dieser Bedingung sorgt dafür, dass falls eine Verarbeitung mit dem FeautureContext=CityPairProduction durchgeführt wird, die FLugcodes durch CityPairCodes ersetzt werden. Die Flughafencodes müssen dazu in den Flügen in entsprechenden Tags enthalten sein.   -->
+						<Keys Source="GlobalValue">CityPairProduction</Keys>
 					</Condition>
 				</BookingGroup>
 			</Booking>
@@ -236,11 +238,9 @@
 						<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
 					</MatchEqual>
 					<Imply>
-						<!--Dieser Imply sorgt dafür, dass falls eine Verarbeitung mit dem externen Parameter CityPairProduction=true durchgeführt wird, nur das erste Angebot jeder Fluggruppe gültig ist.   -->
+						<!--Dieser Imply sorgt dafür, dass falls eine Verarbeitung mit dem FeatureContext="CityPairProduction" durchgeführt wird, nur das erste Angebot jeder Fluggruppe gültig ist.   -->
 						<If>
-							<GenericTag Class="CityPairProduction">
-								<Value>true</Value>
-							</GenericTag>
+							<Keys Source="GlobalValue">CityPairProduction</Keys>
 						</If>
 						<Then>
 							<GenericTag Class="CityPairGrouping">
