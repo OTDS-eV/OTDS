@@ -22,20 +22,23 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 					<xs:element name="ReturnFlights" type="ReturnFlightsType" minOccurs="0"/>
 					<xs:element name="FlightWrapper" type="WrapperType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="det_547">Die FlightWrapper definieren eine zusätzliche Instanz zwischen der ComponentenInstanz "Flights" und der eigentlichen "OnewayFlight"-Komponente. In der Produktregel oder in DefinedComponents können hierarchische Abhängigkeiten zwischen den FlightWrappern und den OnewayFlights festgelegt werden. FlightWrapper werden dazu benutzt, die Abhängigkeit zwischen mehreren OnewayFlights bei kombinierten OnewayFlights abzubilden. Für mehr Details dazu finden Sie in der Dokumentation unter dem Schlagwort "Wrapper-Komponenten" und in Beispiel "WrapperComponent_Examples.xml".</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_547">Die FlightWrapper definieren eine zusätzliche Instanz zwischen der ComponentenInstanz "Flights" und der eigentlichen "OnewayFlight"-Komponente. In der Produktregel oder in DefinedComponents können hierarchische Abhängigkeiten zwischen den FlightWrappern und den OnewayFlights festgelegt werden. FlightWrapper werden dazu benutzt, die Abhängigkeit zwischen mehreren OnewayFlights bei kombinierten OnewayFlights abzubilden. Für mehr Details dazu finden Sie in der Dokumentation unter dem Schlagwort "Wrapper-Komponenten" und in Beispiel "WrapperComponent_Examples.xml".</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_547">The FlightWrapper defina an additional instance between the ComponentInstance "Flights" and the actual "OnewayFlight" component. In the product rule or in DefinedComponents hierarchical dependencies between the FlightWrappers and the OnewayFlights can be defined. FlightWrapper are used to express the dependency between several OnewayFlights for combined OnewayFlights. For more details please consult the documentation, searching for "Wrapper components", and the example"WrapperComponent_Examples.xml".</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_492">Preisbestandteile auf dieser Ebene gelten sowohl für OnewayFlights als auch für ReturnFlights.
-Durch Wahl der entsprechenden Source innerhlab der Conditions können die Preisbestandteile entsprechend nur einer Componentengruppe zugeordnet werden.
+Durch Wahl der entsprechenden Source innerhalb der Conditions können die Preisbestandteile entsprechend nur einer Componentengruppe zugeordnet werden.
 
-Beachte: Ein PriceItem wird nur einmal gültig und wird nicht automatisch in jede der Unterkomponenten expandiert. Es findet also keine Vervielfältigung eines Preisitems statt.
+Beachte: Ein PriceItem wird nur einmal gültig und wird nicht automatisch in jede der Unterkomponenten expandiert. Es findet also keine Vervielfältigung eines PreisItems statt.
 
-Auch im Rahmen der ConsoderedPriceItems und ApplyTos, werden die hier plazierten PriceItems sowohl durch die Angabe von Source= ReturnFlight, OnewayFlight, Outbound, Inbound und entsprechend definierte #Names addressiert.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_492">Price components on the OnewayFlights level
-								Rates that apply to all flights in the data delivery, such as fuel
-								surcharges.</xs:documentation>
+Auch im Rahmen der ConsideredPriceItems und ApplyTos werden die hier plazierten PriceItems sowohl durch die Angabe von Source= ReturnFlight, OnewayFlight, Outbound, Inbound und entsprechend definierte #Names adressiert.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_492">Price components on this level are valid for OnewayFlights as well as for ReturnFlights. By chosing the corresponding Source within the conditions, the price components can be assigned to only one component group.
+
+Note: a PriceItem only is valid once and is not expanded automatically in each of the sub-components. Hence there is no duplication of the PriceItem.
+
+In addition, within the context of ConsideredPriceItems and ApplyTos, the PriceItems placed here are addressed by indicating Source= ReturnFlight, OnewayFlight, Outbound, Inbound as well as by correspondigly defined #Names.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -108,10 +111,8 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 				<xs:sequence>
 					<xs:element name="ReturnFlight" type="ReturnType" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_494">Definition aller Hin- und Rückflüge, sofern
-								diese nicht durch Kombination von Einzelflügen abgebildet werden
-								können.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_494">Definition of all return flights where they cannot be represented by a combination of individual flights.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_494">Definition aller Hin- und Rückflüge, sofern diese nicht durch Kombination von Einzelflügen abgebildet werden	können.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_494">Definition of all return flights, in case they cannot be represented by a combination of individual flights.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<!--In V2.0 the Element PriceItems was moved from here to Otds/Flights/PriceItems" -->
@@ -125,12 +126,7 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 				<xs:sequence>
 					<xs:element name="Booking" type="BookingType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_497">In diesem Element werden alle Values
-								zusammengefasst, die zum Buchen notwendig sind. Später können über
-								den BookingEntry andere Namespaces ergänzt werden, so dass
-								spezifisch für verschiedene Buchungssysteme Values zusammen mit dem
-								dazugehörenden Parameternamen angegeben werden
-								können.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_497">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so dass spezifisch für verschiedene Buchungssysteme Values zusammen mit dem 	dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_497">In this element, all values ​​required for booking are combined. Other Namespaces can later be added via the BookingEntry, so that values specific to different booking systems are specified along with the corresponding parameter name​​.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -141,10 +137,8 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 	</xs:complexType>
 	<xs:complexType name="OnewayType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_498">Beschreibt einen Flug (flach oder als Menge von
-				Segmenten).</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_498">Describes a flight (flat or as a series of
-				segments).</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_498">Beschreibt einen Flug (flach oder als Menge von Segmenten).</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_498">Describes a flight (flat or as a series of segments).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="FlightBaseType">
@@ -170,8 +164,7 @@ Diese Art der Verarbeitung definiert auch das Verhalten bei terminabhängigen Co
 					<xs:element name="BookingClass" type="BookingClassType" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_500">Definiert Buchungsklassen für den Flug und mögliche Verfügbarkeiten.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_500">Defines booking classes for the flight and
-								possible availability.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_500">Defines booking classes for the flight and possible availability.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -229,29 +222,30 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 			</xs:element>
 			<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_503">Preisberechnung der Flugangebote innerhalb
-						einer Buchungsklasse.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_503">Calculation of prices for flight deals within a
-						booking class.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_503">Preisberechnung der Flugangebote innerhalb einer Buchungsklasse.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_503">Calculation of prices for flight deals within a booking class.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_9">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
+
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken, obwohl eine Übernachtung an dem Termin nicht mehr möglich ist.
-Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher definition von Availabilties zusammengefasst werden können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen nach "Availability".</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_9">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.</xs:documentation>
+Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher Definition von Availabilties zusammengefasst werden, können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen Sie nach "Availability".</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
+
+Please note: the last possible CheckOut date always has to be included in the Availability.
+At the end of the season and also for overnight flights this leads to the general necessity of explicitly adding this last CheckOut date in the Availability including the possibility to check out on this date although an overnight stay is not possible on this date.
+Availabilities can be defined on many different layers. How these levels can be merged in case of a multiple definition of Availabilities is explained in the OTDS documentation. Please take advantage of the search by searching for “Availability”.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="OutboundFlightType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_504">Beschreibt einen Flug (flach oder als Menge von
-				Segmenten).</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_504">Describes a flight (flat or as a series of
-				segments).</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_504">Beschreibt einen Flug (flach oder als Menge von Segmenten).</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_504">Describes a flight (flat or as a series of segments).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
@@ -278,10 +272,8 @@ As previously stated there is currently no case example for Accommodation.</xs:d
 	</xs:complexType>
 	<xs:complexType name="InboundFlightType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_506">Beschreibt einen Flug (flach oder als Menge von
-				Segmenten).</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_506">Describes a flight (flat or as a series of
-				segments).</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_506">Beschreibt einen Flug (flach oder als Menge von Segmenten).</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_506">Describes a flight (flat or as a series of segments).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
@@ -308,10 +300,8 @@ As previously stated there is currently no other known factor that would influen
 	</xs:complexType>
 	<xs:complexType name="ReturnType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_508">Beschreibt einen Hin- und Rückflug (flach oder
-				als Kombination aus zwei Oneway-Flügen).</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_508">Describes a return flight (flat, or as a
-				combination of two one-way flights).</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_508">Beschreibt einen Hin- und Rückflug (flach oder als Kombination aus zwei Oneway-Flügen).</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_508">Describes a return flight (flat, or as a combination of two one-way flights).</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="FlightBaseType">
@@ -339,8 +329,7 @@ Describes the inbound flight in greater detail. Defines the flight as flat or se
 					<xs:element name="BookingClass" type="BookingClassType" minOccurs="1" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_511">Definiert Buchungsklassen für den Return-Flug und die möglichen Verfügbarkeiten.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_511">Defines booking classes for the return
-								flight, and possible availability.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_511">Defines booking classes for the return flight, and possible availability.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
@@ -353,11 +342,16 @@ Describes the inbound flight in greater detail. Defines the flight as flat or se
 					</xs:element>
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_9">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
+							<xs:documentation xml:lang="de" xml:id="de_8941">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken, obwohl eine Übernachtung an dem Termin nicht mehr möglich ist.
 Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher definition von Availabilties zusammengefasst werden können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen nach "Availability".</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_9">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_8941">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration condition under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
+
+Please note: the last possible CheckOut date always has to be included in the Availability.
+
+At the end of the season and also for overnight flights this leads to the general necessity of explicitly adding this last CheckOut date in the Availability including the possibility to check out on this date although an overnight stay is not possible on this date.
+Availabilities can be defined on many different layers. How these levels can be merged in case of a multiple definition of Availabilities is explained in the OTDS documentation. Please take advantage of the search by searching for “Availability”.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -366,10 +360,8 @@ Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie
 	</xs:complexType>
 	<xs:complexType name="BookingClassType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_513">Basisinformationen der
-				Buchungsklasse.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_513">Basic information for the booking
-				class.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_513">Basisinformationen der Buchungsklasse.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_513">Basic information for the booking class.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
@@ -386,35 +378,26 @@ Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_515">Die dem Flug zugeordnete Belegung. Hier kann die Mindestanforderung für die Reisenden definiert werden. Fehlt der Zweig Occupancy, so gibt es keine Einschränkungen bzgl. der Reisenden. Es wird ein Default angenommen, der beliebige Personen in beliebiger Anzahl zulässt. Der Default definiert ebenfalls, dass MatchAvaillability="MatchCount" gesetzt ist. Damit wird ausgedrückt, dass die Anzahl der gebuchten Personen größer gleich dem unter Availability/DayState/Open gelieferten Values ist. Der Default beschreibt weiterhin, dass für Personen unter 2 Jahren MatchAvailability="Ignore" gesetzt ist. Babies besetzen also keinen der verfügbaren Plätze.
 </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_515">The assigned capacity for the flight Here,
-								the minimum occupancy requirement is defined. If the Occupancy
-								branch is not specified, there are no restrictions on the number of
-								passengers. A default is assumed, which allows any number of people
-								in any number of permutations.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_515">The assigned capacity for the flight. Here, the minimum occupancy requirement is defined. If the Occupancy branch is not specified, there are no restrictions on the number of passengers. A default is assumed, which allows any number of people in any number of permutations.The default also defines that MatchAvaillability="MatchCount" is set. Herewith is expressed, that the number of booked persons is greater than or equals the value stated in Availability/DayState/Open. The default further expresses, that for persons under the age of 2 years MatchAvailability="Ignore" is set. Hence babies occupy none of the available seats.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_516">Unter diesem Zweig werden die Verfügbarkeiten
-								eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine
-								und Dauern als verfügbar, sofern diese nicht schon an anderer Stelle
-								eingeschränkt wurden. Die Ebene Availabilities definiert, welche Art
-								der Verfügbarkeitssteuerung vorliegt. Wenn zum Beispiel eine
-								Steuerung der Verfügbarkeiten über die Belegung stattfindet, so wird
-								es je eingeschränkter Belegung einen eigenen Availabilities-Zweig
-								mit einer entsprechenden unter "Conditions" geben. In der Regel
-								sollte der Key des Availabilities-Knoten genau mit dieser Condition
-								korrelieren, damit der Key für inkrementelle Updates immer eindeutig
-								reproduzierbar ist. 
+							<xs:documentation xml:lang="de" xml:id="de_516">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als verfügbar, sofern diese nicht schon an anderer Stelle eingeschränkt wurden. Die Ebene Availabilities definiert, welche Art der Verfügbarkeitssteuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Belegung stattfindet, so wird es je eingeschränkter Belegung einen eigenen Availabilities-Zweig mit einer entsprechenden unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist. 
+
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
-Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_516">Under this branch the availability of the object is defined. If this branch is omitted, all dates and durations are considered available unless already restricted elsewhere. The Availabilities level defines which kind of availability management is possible. For example, where restrictions on the available occupancy are imposed, each restricted occupancy will have its own Availabilities branch with a corresponding one entered under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.</xs:documentation>
+
+Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit, an diesem Termin auszuchecken.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_516">Under this branch the availability of the object is defined. If this branch is omitted, all dates and durations are considered available unless already restricted elsewhere. The Availabilities level defines which kind of availability management is possible. For example, where restrictions on the available occupancy are imposed, each restricted occupancy will have its own Availabilities branch with a corresponding one entered under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
+
+Please note: the last possible CheckOut date always has to be included in the Availability.
+
+At the end of the season and also for overnight flights this leads to the general necessity of explicitly adding this last CheckOut date in the Availability including the possibility to check out on this date.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_517">Preis-Bestandteile abhängig von der
-								Buchungsklasse</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_517">Preis-Bestandteile abhängig von der Buchungsklasse</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_517">Price components are dependent upon the booking class</xs:documentation>
 						</xs:annotation>
 					</xs:element>
