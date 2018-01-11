@@ -7742,8 +7742,8 @@ The result of this filter is to sort participants in descending order by age and
 	<xs:complexType name="PersonIndexConditionType">
 		<xs:sequence>
 			<xs:choice>
-				<xs:choice maxOccurs="2">
-					<xs:element name="Until" type="NonZeroIntegerType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="Until" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer bestimmten Person. Until=x definiert die X ältesten Personen. 
 									Until=-x definiert alle Personen dem Alter nach aufsteigend bis zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten Personen, die über From=-x definiert werden. </xs:documentation>
@@ -7754,7 +7754,7 @@ Until=x defines the X oldest persons.
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="From" type="NonZeroIntegerType">
+					<xs:element name="From" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer bestimmten Person. Standardverwendung ist hier From=-x. From=-x
 									definiert die X jüngsten Personen. From=x definiert alle Personen dem Alter nach aufsteigend ab der X-ältesten Person (inklusive der Xten Person).</xs:documentation>
@@ -7765,7 +7765,7 @@ From=-x. From=-x defines the X youngest persons.
 From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-				</xs:choice>
+				</xs:sequence>
 				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch
@@ -7949,13 +7949,6 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="Repeat" type="xs:positiveInteger">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_508">Dieses Attribut gibt an, dass es sich um ein sich wiederholendes Muster von Indizes handelt. Der angegebene Value definiert
-					die Weite des Wiederholungszyklus.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_508">This attribute indicates that there is a repeating pattern of indices. The specified value defines the size of the repeat cycle.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 		<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay">
 			<xs:annotation>
