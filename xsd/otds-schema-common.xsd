@@ -4703,6 +4703,12 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Blacklisted"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AvailabilityStateConditionEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Open"/>
+			<xs:enumeration value="Request"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!--Begin of  rules definition-->
 	<xs:complexType name="DayAllocationStartType">
 		<xs:attribute name="Source" type="SourceAttributeType" default="Product">
@@ -7121,9 +7127,13 @@ Folgende Verfügbarkeitsstati stehen zur Verfügung:
 
 Seit Version 2.0 kann bzgl. jedes Tageskontexts das verfügbare Kontingent mit angegeben werden. In der Regel werden keine Kontingente &gt;9 angegeben. Das obliegt aber dem Lieferanten.
 
-Eine Reise ist verfügbar, wenn an dem CheckIn-Termin einer der vorgegeben CheckIn-Stati gesetzt ist, ebenfalls am CheckOut-Termin einer der vorgegeben CheckOut-Stati gesetzt ist und alle Stay-Termine einen der vorgegebenen Stay-Stati gesetzt haben.  
-Zusätzlich müssen jeweils auch noch die Anzahl der Personen bzw. gebuchten Units in die angegebenen Tageskontingente passen. 
-Ob Personen oder Units durch die Availability adressiert werden, legt die Angabe unter Occupancy/Person/AvailabilityMatching fest. 
+Eine Reise ist verfügbar, wenn 
+1. die CheckIn-Termine der Hauptkomponenten-Instanzen die CheckIn-Stati "Open" oder "Request" besitzen 
+2. die CheckOut-Termine der Hauptkomponenten-Instanzen die CheckOut-Stati "Open" oder "Request" besitzen
+3. die Stay-Termine der Hauptkomponenten-Instanzen die Stay-Stati "Open" oder "Request" besitzen
+4. die Anzahl der Personen bzw. gebuchten Units in die ggf. angegebenen Tageskontingente (Vaues in Stay, CheckIn, CheckOut oder Stay) passen. 
+Ob Personen oder Units durch die Availability addressiert werden legt die Angabe unter Occupancy/Person/AvailabilityMatching fest. 
+Mit der AvailabilityState-Condition lässt sich die Gültikeit bezogen auf die AvailabilityStates weiter einschränken.
 
 Im Zusammenspiel mit den Angaben im Element DefaultDayState ist man in der Lage, weitreichende Default-Einstellungen für die Werte jedes DayStates vorgeben zu können.
 Ist zu einem Termin kein DayState-Element enthalten, so definieren die unter DefaultDayState angegebenen Elemente und ggf. deren Defaults die Default-Angaben für die Elemente Stay, CheckIn und CheckOut.
@@ -7207,62 +7217,47 @@ If a DayState is given for a date, but holds no indication for neither CheckOut 
 					<xs:choice>
 						<xs:element name="Open" type="AvailabilityOpenType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.
+								<xs:documentation xml:lang="de" xml:id="det_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
 
-Die Festlegung, welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
 
-Eine Definition in diesem Element wird durch eine gleichzeitige Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_417">This element contains the amount of free availabilities for this day. If the element is present but without a Value, this means that the day is available in general.
-The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.								
-								</xs:documentation>
+Grundsätzlich gilt der Status "Open" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_417">This element contains the amount of free availability for this day. If the element is present but without a Value, this means that the day is available in general.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Request" type="AvailabilityRequestType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.
-
-Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
-
-Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_418">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt. Grundsätzlich gilt der Status "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_418">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Closed" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten. Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+								<xs:documentation xml:lang="de" xml:id="det_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_419">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay</xs:documentation>
+Grundsätzlich gilt der Status "Closed" als nicht verfügbar.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_419">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="StopSales" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.
-Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+								<xs:documentation xml:lang="de" xml:id="det_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_420">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.</xs:documentation>
+
+
+Grundsätzlich gilt der Status "StopSales" als nicht verfügbar.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_420">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Blacklisted" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_421">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass dieser Termin zur Zeit nicht angeboten werden kann, da es auf einer Blacklist steht. Das Element kann keinen Wert enthalten.
-Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+								<xs:documentation xml:lang="de" xml:id="det_421">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass dieser Termin zur Zeit nicht angeboten werden kann, da es auf einer Blacklist steht. Das Element kann keinen Wert enthalten.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.
-								</xs:documentation>
+
+
+Grundsätzlich gilt der Status "Balcklisted" als nicht verfügbar.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Stay" type="AvailabilityStateType">
@@ -7275,7 +7270,7 @@ Im Attribut @State können folgende Verfügbarkeitsstati angegeben werden:
 - StopSale
 - Blacklisted
 
-Die Festlegung, welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+Grundsätzlich gelten die Stati "Open" und "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.
 
 Enthält das Stay-Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthalt-Verfügbarkeits-Status möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
 Mit dem State-Attribut gibt man den generellen Status bzgl. des Aufenthaltes an.
@@ -7315,12 +7310,10 @@ DefaultDayState/Blacklisted.</xs:documentation>
 								<xs:documentation xml:lang="de" xml:id="de_422">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Anreise uneingeschränkt möglich. Enthält dieses Element eine Zahl, so drückt diese aus, dass die Anreise maximal für diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
 
 Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.
 
-Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. 
-								In case the element contains a value it expresses, that the arrival is possible for this maximum number of units or persons. The attribute Occupancy/Person/@MatchAvailability determines if the number indicates the amount of persons.
-Via the attribute "State" the general status of the arrival is indicated.
-If neither this element nor the element NoCheckIn is indicated, the default regarding CheckIn repectively NoCheckIn as given in DefaultDayState applies.</xs:documentation>
+Grundsätzlich gelten die Stati "Open" und "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckIn" type="AvailabilityEmptyType">
@@ -7335,13 +7328,15 @@ Ist weder dieses Element noch das Element CheckIn angegeben, so gilt der im Defa
 					<xs:choice minOccurs="0">
 						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
-Mit dem State-Attribut gibt man den generellen Status bzgl. der Abreise an.
-Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. 
-								In case the element contains a value it expresses, that the departure is possible for this maximum number of units or persons. The attribute Occupancy/Person/@MatchAvailability determines if the number indicates the amount of persons.
-Via the attribute "State" the general status of the departure is indicated.
-If neither this element nor the element NoCheckOut is indicated, the default regarding CheckOut repectively NoCheckOut as given in DefaultDayState applies.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.
+
+
+Grundsätzlich gelten die Stati "Open" und "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckOut" type="AvailabilityEmptyType">
@@ -7515,6 +7510,11 @@ If neither this element nor the element NoCheckOut indicated, <CheckOut State="O
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="ValidStateValueType">
+		<xs:restriction base="xs:string">
+			<xs:length value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="AvailabilityEmptyType"/>
 	<xs:complexType name="AvailabilityStateType">
 		<xs:simpleContent>
@@ -7530,17 +7530,21 @@ Folgende Verfügbarkeitsstati sind möglich:
 - StopSale
 - Blacklisted
 
-Die Festlegung, welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8938">This attribute defines, which availability status a date has regarding the arrival, departure, or stay. 
-
-The following availability statuses may be applied: 
+Fehlt das Attribut gilt der Default = "Open"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ValidStateType">
+		<xs:simpleContent>
+			<xs:extension base="ValidStateValueType">
+				<xs:attribute name="State" type="AvailabilityStateConditionEnum" use="required">
+					<xs:annotation>
+						<xs:documentation>Dieses Attribut definiert welcher Verfügbarkeitsstatus als valide gilt.
+Mögliche Werte sind:
 - Open
-- Request
-- Closed
-- StopSale
-- Blacklisted
-
-The determination which availability statusesi in which context lead to displaying the offer, takes place in the product definition by a corresponding availability filter.</xs:documentation>
+- Request</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -7882,6 +7886,33 @@ All days of the stay are to be considered
 All the days from check-in up to and including the day of check-out are to be considered.
 
 The default is "Stay".</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="AvailabilityConditionType">
+		<xs:sequence>
+			<xs:element name="ValidState" type="ValidStateType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="det_421">Mit diesem Element kann mit dem Attribut @State ein ein spezifischer AvailabilityStatus definiert werden, der als valide gilt.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional" default="ThisComponent">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de">Dieses Attribut gibt den Type einer Komponente
+					an. Folgende Typen stehen zur Auswahl: -
+					Accommodation, - Flight, - Addon, - ThisComponent.
+					Mit der Source kann man die Addressierung noch feiner auflösen.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component' der Wert 'ThisComponent' angenommen.
+					</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en">This attribute specifies the type of a
+					component. In the case of a CombiComponent, type refers to the first
+					component indicated. The following types are available: - Accommodation,
+					- Flight, - Add-on, - ThisComponent.
+					With the help of Source the addressing can be refined further. 
+					If the attribute 'Component' and the attribute 'Source' are indicated at the same time, only Source is being evaluated. If both attributes are not indicated, the value 'ThisComponent' is assumed for the attribute 'Component'.
+					</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -8458,6 +8489,7 @@ etc.
 			<xs:group ref="AtomicRulesConditionGroup"/>
 			<xs:group ref="AtomicProductPriceConditionGroup"/>
 			<xs:group ref="AtomicCountConditionGroup"/>
+			<xs:group ref="AtomicAvailabilityConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
 					<xs:group ref="ConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
@@ -8737,6 +8769,17 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 		<xs:choice>
 			<xs:element name="DayCount" type="DayCountConditionType" internal:otdsversion="1.9"/>
 			<xs:element name="PersonCount" type="PersonCountConditionType" internal:otdsversion="1.9"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="AtomicAvailabilityConditionGroup">
+		<xs:choice>
+			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="1.9">
+				<xs:annotation>
+					<xs:documentation>Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn der AvailabilityStatus der durch @Component adressierten Hauptkomponentensinstanz nach der Auswertung der Availabilities einen der aufgeführten ValidState/@State als Komponentenstatus besitzt. 
+Bis zur Auswertung der Availabilities gilt diese Bedingung als undefined und wird dementsprechend erst nach der Auswertung der Availabilities explizit nach OTDS-Vorschrift ausgewertet. 
+Die AvailabiltyState-Bedingung wird nur in den Filtern auf Product und DefineComponent-Ebene ausgewertet. In allen anderen Positionen bleibt die Auswertung der Bedingung = "undefined".</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:choice>
 	</xs:group>
 	<xs:group name="AtomicGenericTagConditionGroup">
