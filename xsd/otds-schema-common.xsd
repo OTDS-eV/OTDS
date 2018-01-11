@@ -1,4 +1,4 @@
-<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <!-- Test -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
@@ -2546,7 +2546,7 @@ Default = "All"</xs:documentation>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="PersonBase"/>
+			<xs:element name="PersonBase" type="PriceImpactBaseValueType"/>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="AllocationBaseConditionGroup">
@@ -3138,6 +3138,15 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 				</xs:list>
 			</xs:simpleType>
 			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NonZeroIntegerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de">Eine Integerzahl ohne Null</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en">An integer without zero</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:minExclusive value="0"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductFeaturesAttributeListType">
@@ -4384,10 +4393,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 	<!-- End Property Enums -->
 	<xs:simpleType name="OTDSVersionEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="1.9"/>
-			<xs:enumeration value="1.9.1"/>
-			<xs:enumeration value="1.9.2"/>
-			<xs:enumeration value="1.9.3"/>
+			<xs:enumeration value="2.0"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -6502,7 +6508,7 @@ Das Element enthält einen oder mehrere Values eines
 						Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
 						Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags sind
 						Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_8912">In this element is being defined which other PriceItems can
+						<xs:documentation xml:lang="en" xml:id="en_8912">In this element is being defined which other PriceItems can
 						have an impact on this PriceItem. The element holds one or several values of
 						a PriceTags; in addition the Class of the PriceTag is defined within the
 						attribute "Class". A number of values can be specified in a list separated
@@ -6514,11 +6520,11 @@ Das Element enthält einen oder mehrere Values eines
 						Source="Hierarchy.All:ThisComponent" will be used, which references the
 						acutal Component including all ancestors and descendants. PriceTags are
 						tags, that are defined at the node "PriceItem".</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_8913">In diesem Element wird definiert, welche Preisbestandteile mit
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_8913">In diesem Element wird definiert, welche Preisbestandteile mit
 						prozentualem Zu- oder Abschlag eine Wirkung auf diesen Wert haben. Das
 						Element enthält den Wert des Attributs "Class" des entsprechenden
 						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
@@ -6530,7 +6536,7 @@ Das Element enthält einen oder mehrere Values eines
 						müssen beide Attribute erfüllt sein. Ist nur ein Attribut gefüllt, so muss
 						dieses erfüllt sein. Ist sowohl "Source" als auch "Component" nicht gefüllt,
 						so gilt ab Version V2.0 für Source der Default: ?? @ToDo</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_8913">In this element is being defined, which price components have an impact on this value with a percentage surcharge or discount. 
+						<xs:documentation xml:lang="en" xml:id="en_8913">In this element is being defined, which price components have an impact on this value with a percentage surcharge or discount. 
 						The element holds the value of the attribute "Class" of the corresponding PriceItem. A number of values can be specified in a list separated by Space. 
 						In the attribute "Component" can be defined to which component the AppliedBy refers to. If "Component" has no value, the default is "ThisComponent".
 						
@@ -6806,7 +6812,6 @@ repräsentieren.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<!-- 20151002, hjr: replaced local type by global type "ConsideredPriceItemsType" -->
 									<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_8927">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines bestimmten Types und/oder mit bestimmten PriceTags. Die Auswahl erfolgt in der	folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß	PriceFilter 2. Ggf. Ergänzung der IncludedDescendants. Bei mehrfacher Angabe des Elementes besteht die finale Menge der PriceItems aus einem Merge der PriceItems der einzelnen ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung von PriceItems statt.
@@ -6816,91 +6821,6 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 									occurs multiple times, the final amount of the PriceItems consists from a merge of the PriceItems of the individual
 									ConsideredPriceItems evaluations. There will be no duplication of PriceItems. If no PriceItemFilterGroup is indicated, there will be no limitation of PriceItems. </xs:documentation>
 										</xs:annotation>
-										<!--
-							<xs:complexType>
-								<xs:sequence>
-									<xs:group ref="PriceItemFilterGroup"/>
-									<xs:element name="IncludeAppliedDescendants" type="IncludeAppliedDescendantsType" minOccurs="0" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_8928">Ist dieses Element
-												angegeben, werden zu den in PriceItemCollection
-												definierten Priceitems auch deren Descendants
-												ergänzt. Descendendants sind in dem Zusammenhang
-												alle PriceItems, die durch ApplyTo und AppliedBy der
-												PrideItemCollection-Pricetems adressiert werden. So
-												kann man in der Collection bestimmte
-												PercentPriceItems auswählen und zusätzlich alle
-												PriceItems inkludieren, die sich über ApplyTo und
-												AppliedBy auf dieses PriceItem beziehen. Die Auswahl
-												der Descendants lässt sich wiederum durch den
-												PriceItemFilter separat einschränken. Bei der
-												Auswahl der Descendants wird nur Apply-Hierarchie
-												berücksichtigt! Sollte ein Bezug auf ein generisches
-												Abolute hergestellt werden, so wird hierbei dessen
-												Include nicht mitberücksichtigt.</xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_8928">Include="ApplyDescandents" allows to include
-												further PriceItems which are applied by the
-												addressed PriceItems. By doing so specific
-												PercentPriceItems can be assigned. In addition all
-												PriceItems can be included that refer to this
-												specific PriceItem via ApplyTo and AppliedBy. This
-												attribute only considers one apply hierarchy! If a
-												reference to a generic absolute is being
-												established, its Include will not be
-												considered.</xs:documentation>
-										</xs:annotation>
-<!- - 20151002, hjr: shifted into global type "IncludeAppliedDescendantsType"
-										<xs:complexType>
-											<xs:sequence>
-												<xs:group ref="PriceItemFilterGroup"/>
-											</xs:sequence>
-											<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum">
-												<xs:annotation>
-													<xs:documentation xml:lang="de" xml:id="de_8929">Dieses Element
-												definiert, welche Art PriceItems berücksichtigt
-												werden. Es kann eine durch Space getrennte Liste
-												von Values angegeben werden. Folgende Values sind
-												möglich: - Absolutes Es werden nur absolute
-												PriceItems berücksichtigt. - Percents Es werden
-												nur Percent-PriceItems berücksichtigt. - All Es
-												werden alle PriceItems berücksichtigt. Default =
-												"All"</xs:documentation>
-													<xs:documentation xml:lang="en" xml:id="en_8929">This element
-												defines which type of PriceItems should be
-												considered. A list of values separated by space
-												can be specified. The following values are
-												possible: - Absolute: Only absolute PriceItems are
-												considered. - Percents: Only Percent-PriceItems
-												are considered. - All: all PriceItems are
-												considered. Default = "All"</xs:documentation>
-												</xs:annotation>
-											</xs:attribute>
-										</xs:complexType>
-- ->
-									</xs:element>
-								</xs:sequence>
-								<xs:attributeGroup ref="SourceAttributeGroup"/>
-								<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
-									<xs:annotation>
-										<xs:documentation xml:lang="de" xml:id="de_8930">Dieses Element definiert,
-											welche Art PriceItems berücksichtigt werden. Es kann
-											eine durch Space getrennte Liste von Values angegeben
-											werden. Folgende Values sind möglich: - Absolutes Es
-											werden nur absolute PriceItems berücksichtigt. -
-											Percents Es werden nur Percent-PriceItems
-											berücksichtigt. - All Es werden alle PriceItems
-											berücksichtigt. Default = "All"</xs:documentation>
-										<xs:documentation xml:lang="en" xml:id="en_8930">This element defines which
-											type of PriceItems should be considered. A list of
-											values separated by space can be specified. The
-											following values are possible: - Absolute: Only absolute
-											PriceItems are considered. - Percents: Only
-											Percent-PriceItems are considered. - All: all PriceItems
-											are considered. Default = "All"</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-							</xs:complexType>
--->
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -7823,7 +7743,7 @@ The result of this filter is to sort participants in descending order by age and
 		<xs:sequence>
 			<xs:choice>
 				<xs:choice maxOccurs="2">
-					<xs:element name="Until" type="NonZeroIntegerListType">
+					<xs:element name="Until" type="NonZeroIntegerType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer bestimmten Person. Until=x definiert die X ältesten Personen. 
 									Until=-x definiert alle Personen dem Alter nach aufsteigend bis zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten Personen, die über From=-x definiert werden. </xs:documentation>
@@ -7834,7 +7754,7 @@ Until=x defines the X oldest persons.
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="From" type="NonZeroIntegerListType">
+					<xs:element name="From" type="NonZeroIntegerType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer bestimmten Person. Standardverwendung ist hier From=-x. From=-x
 									definiert die X jüngsten Personen. From=x definiert alle Personen dem Alter nach aufsteigend ab der X-ältesten Person (inklusive der Xten Person).</xs:documentation>
