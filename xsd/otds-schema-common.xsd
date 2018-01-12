@@ -6954,6 +6954,22 @@ Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribu
 	</xs:group>
 	<xs:group name="ConsideredPriceItemsGroup">
 		<xs:choice>
+			<xs:element name="ConsideredPriceItemClasses" type="PriceItemClassTypeList">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_397">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_397">The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotConsideredPriceItemClasses" type="PriceItemClassTypeList">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_399">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_399">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="DayPriceIndexConsideredPriceItemsGroup">
+		<xs:choice>
 			<xs:element name="ConsideredPriceItemClasses">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_397">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
@@ -7927,14 +7943,46 @@ standard usage of "From" is with negative values. From=-x defines all days from 
 It is rare to use a positive value in relation to "From", i.e. "From=x", and it will define all days from the Xth cheapest day.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:group ref="PriceItemFilterGroup" minOccurs="0" internal:otdsversion="2.0">
+			<xs:sequence>
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden. Jedes Element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
+					<xs:documentation>Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden. Jedes Element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
 Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_5708">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices. Each element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" respectively "NotConsideredPriceItemClasses" is evaluated in its Component context. The resulting amount of valid PriceItems equals the set union of particular evaluations. In the process no PriceItems are duplicated.
-					If no PriceItemFilterGroup is indicated, there is no limitation of the PriceItems.</xs:documentation>
 				</xs:annotation>
-			</xs:group>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="ConsideredPriceTags">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_8877">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_8877">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConsideredPriceTagsReferenceType">
+									<xs:attributeGroup ref="ComponentAttributeGroup"/>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="NotConsideredPriceTags">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_8878">>Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_8878">>These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConsideredPriceTagsReferenceType">
+									<xs:attributeGroup ref="ComponentAttributeGroup"/>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:group ref="DayPriceIndexConsideredPriceItemsGroup">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_452">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices. Each element "ConsideredPriceItemClasses" respectively "NotConsideredPriceItemClasses" is evaluated in its component context. The result set of the valid PriceItems is the set union of the single evaluations. No PriceItems will be duplicated.</xs:documentation>
+						</xs:annotation>
+					</xs:group>
+				</xs:choice>
+			</xs:sequence>
 			<xs:element name="DayFilter" type="DayFilterType" minOccurs="0" internal:otdsversion="1.9.1">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_5708">Der DayFilter schränkt die betrachteten Tage auf bestimmte Tage ein. Die eingeschränkten Tage müssen alle Bedingungen hinsichtlich der angegebenen Date, Weekdays und ConditionalTags erfüllen.</xs:documentation>
