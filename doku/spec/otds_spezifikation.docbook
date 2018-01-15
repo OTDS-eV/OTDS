@@ -8079,7 +8079,7 @@
 							<para xml:lang="de">Markt-Kontext</para>
 						</listitem>
 						<listitem>
-							<para xml:lang="de">Währung-Kontext</para>
+							<para xml:lang="de">Währungs-Kontext</para>
 						</listitem>
 						<listitem>
 							<para xml:lang="de">Feature-Kontext</para>
@@ -8127,7 +8127,7 @@
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesDistributors">
 					<title><phrase xml:id="det_6004" xml:lang="de">Vertriebspartner-Kontext (Distributor)</phrase></title>
-					<para>Ein Vertriebspartner ist ein Vermittler oder ein Händler, der Produkte oder Dienstleistungen vertreibt. Zum Beispiel, eine bestimmte Webseite oder ein bestimmtes Reisebüro. </para>
+					<para>Ein Vertriebspartner ist ein Mittler oder ein Händler, der Reiseprodukte oder -Dienstleistungen vertreibt, zum Beispiel eine bestimmtes Online-Reiseportal (OTA) oder ein bestimmtes Reisebüro.</para>
 					
 <programlisting><![CDATA[<Products>
 	<GlobalValue Key="TUI">
@@ -8169,26 +8169,27 @@
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-					<para xml:id="det_9036" xml:lang="de">Die Angebote im Kontext sind entweder für Webseiten oder für Reisebüros.</para>
+					<para xml:id="det_9036" xml:lang="de">Über die Festlegung der SalesChannels Travel Agency und OnlineTravelAgency im Beispiel oben definiert der Datenlieferant, dass diese beiden Vertriebskanäle unterschiedlich beliefert werden.
+						Betrachtet man die OTDS-Lieferung im Kontext des Vertriebskanals "Reisebüros", ist der erste GlobalValue aktiv. Der zweite hingegen wird behandelt, als wenn er nicht existent wäre. Umgekehrt wäre der zweite GlobalValue aktiv, wenn die Lieferung im Kontext "OnlineTravelAgency" betrachtet wird. Der GlobalValue "TravelAgency" würde in diesem Falle als inaktiv behandelt.</para>
 					
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesDistributionSystems">
-					<title><phrase xml:id="det_6000" xml:lang="de">Vertriebsystem-Kontext
+					<title><phrase xml:id="det_6000" xml:lang="de">Vertriebssystem-Kontext
 								(<code>DistributionChannel</code>)</phrase></title>
-					<para>Vertriebsystem ist ein aus Gründen der Markenpflege eingerichtetes Vertriebssystem, bei welchem die Ware nur über ausgewählte Händler vertrieben wird. Dieses Element definiert den GlobalValue für einen bestimmten Vertriebsystem.</para> 
+					<para>Vertriebssystem ist ein aus Gründen der Markenpflege eingerichtetes Vertriebssystem, bei welchem die Ware nur über ausgewählte Händler vertrieben wird. Dieses Element definiert den GlobalValue für einen bestimmten Vertriebssystem.</para> 
 					
 					<itemizedlist><para>Die möglichen Werte sind:</para>
 						<listitem>
-							<para>Bewotec - Vermarktung der Angebote über den Distributor "Bewotec"</para>
+							<para>Bewotec - Vermarktung der Angebote über das Vertriebssystem "Bewotec"</para>
 						</listitem>
 						<listitem>
-							<para>TravelTainment - Vermarktung der Angebote über den Distributor "Traveltainment"</para>
+							<para>TravelTainment - Vermarktung der Angebote über das Vertriebssystem "Traveltainment"</para>
 						</listitem>
 						<listitem>
-							<para>Traffics - Vermarktung der Angebote über den Distributor "Traffics"</para>
+							<para>Traffics - Vermarktung der Angebote über das Vertriebssystem "Traffics"</para>
 						</listitem>
 						<listitem>
-							<para>Schmetterling - Vermarktung der Angebote über den Distributor "Schmetterling"</para>
+							<para>Schmetterling - Vermarktung der Angebote über das Vertriebssystem "Schmetterling"</para>
 						</listitem>
 					</itemizedlist>
 
@@ -8218,7 +8219,7 @@
 		<Tags>
     		<Tag Class="SalesMarket">DE</Tag>
     	</Tags>
-    		<ParameterSet Key="DE">
+    		<ParameterSet Key="Deutschland">
     			<SalesMarket>DE</SalesMarket>
 			</ParameterSet>
    	</GlobalValue>
@@ -8226,31 +8227,33 @@
 		<Tags>
     		<Tag Class="SalesMarket">CH</Tag>
     	</Tags>
-    		<ParameterSet Key="CH">
+    		<ParameterSet Key="Schweiz">
     			<SalesMarket>CH</SalesMarket>
 			</ParameterSet>
    	</GlobalValue>
    </Products>]]></programlisting>
-					<para xml:id="det_9034" xml:lang="de">Im obigen Beispiel kann entweder deutsche oder schweizer Markt betrachtet werden. Wenn eine aktiv ist, zweite wird nicht existenz sein.</para>
+					<para xml:id="det_9034" xml:lang="de">Über die Festlegung des Vertriebssystem-Kontext auf die SalesMarkets "Deutschland" und "Schweiz" im Beispiel oben definiert der Datenlieferant, dass diese beiden Märkte unterschiedlich beliefert werden.
+						Betrachtet man die OTDS-Lieferung im Kontext des Marktes "Deutschland", ist der erste GlobalValue aktiv. Der zweite hingegen wird behandelt, als wenn er nicht existent wäre und umgekehrt.</para>
 			
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesCurencies">
-					<title><phrase xml:id="det_6002" xml:lang="de">Währung-Kontext (Currency)</phrase></title>
+					<title><phrase xml:id="det_6002" xml:lang="de">Währungs-Kontext (Currency)</phrase></title>
 					<para>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen. Ein Beispiel dazu.</para>
 					
 <programlisting><![CDATA[<Products>
-	<GlobalValue Key="EUR">
+	<GlobalValue Key="EURO">
 		<ParameterSet Key="1">
 			<Currency>EUR</Currency>
 		</ParameterSet>
 	</GlobalValue>
-	<GlobalValue Key="CHF">
+	<GlobalValue Key="SchweizerFrank">
 		<ParameterSet Key="1">
 			<Currency>CHF</Currency>
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-					<para xml:id="det_9030" xml:lang="de">Im obigen Beispiel wird zwei Währungen betrachtet. Wenn eine aktiv ist, zweite wird nicht existenz sein.</para>
+					<para xml:id="det_9030" xml:lang="de">Über die Festlegung des Vertriebssystem-Kontext auf die Währung "EURO" und "SchweizerFrank" im Beispiel oben definiert der Datenlieferant, dass diese beiden Märkte unterschiedlich beliefert werden.
+						Betrachtet man die OTDS-Lieferung im Kontext des Marktes "EURO", ist der erste GlobalValue aktiv. Der zweite hingegen wird behandelt, als wenn er nicht existent wäre und umgekehrt.</para>
 			
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesFeatureContext">
@@ -8288,7 +8291,7 @@
 		</GlobalValue>
 	</GlobalValues>
 </Products>]]></programlisting>
-					<para xml:id="det_9033" xml:lang="de">In diesem Beispiel wird das Kontext für CityPairProduction aktiv. Die Key Bedingung ist frei wählbar.</para>	
+					<para xml:id="det_9033" xml:lang="de">Möchte der Datenlieferant erreichen, dass seine Datenlieferung im Kontext einer CityPairProduction genutzt wird, um bspw. eine spezifische Flugverbindung hervorzuheben, setzt er den FeatureContext "CityPairProduction". Der GlobalValue wird dann aktiv. Soll der Kontext CityPairProduction nicht genutzt werden, bleibt der Feature Context undefiniert und der GlobalValue inaktiv.</para>	
 					
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesResellers">
