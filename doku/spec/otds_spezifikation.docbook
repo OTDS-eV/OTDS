@@ -8067,6 +8067,12 @@
 					<itemizedlist>
 						<para>Folgende Kontext-Typen gibt es derzeit:</para>
 						<listitem>
+							<para xml:lang="de">Vertriebspartner-Kontext</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="de">Vertriebskanal-Kontext</para>
+						</listitem>
+						<listitem>
 							<para xml:lang="de">Vertriebsystem-Kontext</para>
 						</listitem>
 						<listitem>
@@ -8076,16 +8082,10 @@
 							<para xml:lang="de">Währung-Kontext</para>
 						</listitem>
 						<listitem>
-							<para xml:lang="de">Vertriebskanal-Kontext</para>
-						</listitem>
-						<listitem>
-							<para xml:lang="de">Vertriebspartner-Kontext</para>
+							<para xml:lang="de">Feature-Kontext</para>
 						</listitem>
 						<listitem>
 							<para xml:lang="de">Wiederverkäufer-Kontext</para>
-						</listitem>
-						<listitem>
-							<para xml:lang="de">Feature-Kontext</para>
 						</listitem>
 					</itemizedlist>
 					<para xml:lang="de" xml:id="de_8985"> In OTDS entspricht ein definiertes Kontext-Szenario der Definition eines
@@ -8125,75 +8125,18 @@
 					<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 						Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
 				</section>
-				<section xml:id="OtdsStrategyGlobalValuesDistributionSystems">
-					<title><phrase xml:id="det_6000" xml:lang="de">Vertriebsystem-Kontext
-								(<code>DistributionChannel</code>)</phrase></title>
-					<para>Vertriebsystem ist ein aus Gründen der Markenpflege eingerichtetes Vertriebssystem, bei welchem die Ware nur über ausgewählte Händler vertrieben wird. Dieses Element definiert den GlobalValue für einen bestimmten Vertriebsystem.</para> 
+				<section xml:id="OtdsStrategyGlobalValuesDistributors">
+					<title><phrase xml:id="det_6004" xml:lang="de">Vertriebspartner-Kontext (Distributor)</phrase></title>
+					<para>Ein Vertriebspartner ist ein Vermittler oder ein Händler, der Produkte oder Dienstleistungen vertreibt. Zum Beispiel, eine bestimmte Webseite oder ein bestimmtes Reisebüro. </para>
 					
-					<itemizedlist><para>Die möglichen Werte sind:</para>
-						<listitem>
-							<para>Bewotec - Vermarktung der Angebote über den Distributor "Bewotec"</para>
-						</listitem>
-						<listitem>
-							<para>TravelTainment - Vermarktung der Angebote über den Distributor "Traveltainment"</para>
-						</listitem>
-						<listitem>
-							<para>Traffics - Vermarktung der Angebote über den Distributor "Traffics"</para>
-						</listitem>
-					</itemizedlist>
-
 <programlisting><![CDATA[<Products>
-	<GlobalValue Key="Traveltainment_System">
+	<GlobalValue Key="TUI">
 		<ParameterSet Key="1">
-			<DistributionChannel>TravelTainment</DistributionChannel>
-		</ParameterSet>
-	</GlobalValue>
-	<GlobalValue Key="Bewotec_System">
-		<ParameterSet Key="1">
-			<DistributionChannel>Bewotec</DistributionChannel>
+			<Distributor>TUI ReiseCenter</Distributor>
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-				
-				</section>
-				<section xml:id="OtdsStrategyGlobalValuesMarkets">
-					<title><phrase xml:id="det_6001" xml:lang="de">Markt-Kontext (SalesMarket)</phrase></title>
-					<para>Dieses Element definiert den GlobalValue für einen bestimmten Markt, welcher einem Land entspricht. Die Währung folgt der Definition gemäß der ISO3166 Norm für Länder.Dieses Beispiel
-						definiert der folgende GlobalValue das Kontext-Szenario für den deutschen
-						Markt.</para>
 					
-<programlisting><![CDATA[<Products>
-	<GlobalValue Key="SalesMarketDE">
-		<Tags>
-    		<Tag Class="SalesMarket">DE</Tag>
-    	</Tags>
-    		<ParameterSet Key="DE">
-    			<SalesMarket>DE</SalesMarket>
-    				<Filter>
-                    	<Keys Source="global:GlobalValue">CHF</Keys>
-            	    </Filter>
-			</ParameterSet>
-   	</GlobalValue>
-</Products>]]></programlisting>
-			
-				</section>
-				<section xml:id="OtdsStrategyGlobalValuesCurencies">
-					<title><phrase xml:id="det_6002" xml:lang="de">Währung-Kontext (Currency)</phrase></title>
-					<para>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen. Ein Beispiel dazu.</para>
-					
-<programlisting><![CDATA[<Products>
-	<GlobalValue Key="EUR">
-		<ParameterSet Key="1">
-			<Currency>EUR</Currency>
-		</ParameterSet>
-	</GlobalValue>
-	<GlobalValue Key="USD">
-		<ParameterSet Key="1">
-			<Currency>USD</Currency>
-		</ParameterSet>
-	</GlobalValue>
-</Products>]]></programlisting>
-			
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesDistributionChannels">
 					<title><phrase xml:id="det_6003" xml:lang="de">Vertriebskanal-Kontext (SalesChannel)</phrase></title>
@@ -8215,50 +8158,108 @@
 					</itemizedlist>
 					
 <programlisting><![CDATA[<Products>
-	<GlobalValue Key="TravelAgency_System">
+	<GlobalValue Key="TravelAgency">
 		<ParameterSet Key="1">
 			<SalesChannel>TravelAgency</SalesChannel>
 		</ParameterSet>
 	</GlobalValue>
+	<GlobalValue Key="OnlineTravelAgency">
+		<ParameterSet Key="1">
+			<SalesChannel>OnlineTravelAgency</SalesChannel>
+		</ParameterSet>
+	</GlobalValue>
 </Products>]]></programlisting>
+					<para xml:id="det_9036" xml:lang="de">Die Angebote im Kontext sind entweder für Webseiten oder für Reisebüros.</para>
+					
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesDistributionSystems">
+					<title><phrase xml:id="det_6000" xml:lang="de">Vertriebsystem-Kontext
+								(<code>DistributionChannel</code>)</phrase></title>
+					<para>Vertriebsystem ist ein aus Gründen der Markenpflege eingerichtetes Vertriebssystem, bei welchem die Ware nur über ausgewählte Händler vertrieben wird. Dieses Element definiert den GlobalValue für einen bestimmten Vertriebsystem.</para> 
+					
+					<itemizedlist><para>Die möglichen Werte sind:</para>
+						<listitem>
+							<para>Bewotec - Vermarktung der Angebote über den Distributor "Bewotec"</para>
+						</listitem>
+						<listitem>
+							<para>TravelTainment - Vermarktung der Angebote über den Distributor "Traveltainment"</para>
+						</listitem>
+						<listitem>
+							<para>Traffics - Vermarktung der Angebote über den Distributor "Traffics"</para>
+						</listitem>
+						<listitem>
+							<para>Schmetterling - Vermarktung der Angebote über den Distributor "Schmetterling"</para>
+						</listitem>
+					</itemizedlist>
+
+<programlisting><![CDATA[<Products>
+	<GlobalValue Key="Traveltainment_System">
+		<ParameterSet Key="1">
+			<DistributionChannel>TravelTainment</DistributionChannel>
+		</ParameterSet>
+	</GlobalValue>
+	<GlobalValue Key="Bewotec_System">
+		<ParameterSet Key="1">
+			<DistributionChannel>Bewotec</DistributionChannel>
+		</ParameterSet>
+	</GlobalValue>
+	</Products>]]></programlisting>
+					<para xml:id="det_9035" xml:lang="de">Wie in dem Beispiel zu sehen ist, kann die Daten durch zwei Händler verarbeitet werden. Wenn eine aktiv ist, zweite wird nicht existenz sein.</para>
+				
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesMarkets">
+					<title><phrase xml:id="det_6001" xml:lang="de">Markt-Kontext (SalesMarket)</phrase></title>
+					<para>Dieses Element definiert den GlobalValue für einen bestimmten Markt, welcher einem Land entspricht. Der Markt folgt der Definition gemäß der ISO3166 Norm für Länder.Dieses Beispiel
+						definiert der folgende GlobalValue das Kontext-Szenario für den deutschen
+						Markt.</para>
+					
+<programlisting><![CDATA[<Products>
+	<GlobalValue Key="SalesMarketDE">
+		<Tags>
+    		<Tag Class="SalesMarket">DE</Tag>
+    	</Tags>
+    		<ParameterSet Key="DE">
+    			<SalesMarket>DE</SalesMarket>
+			</ParameterSet>
+   	</GlobalValue>
+   	<GlobalValue Key="SalesMarketDE">
+		<Tags>
+    		<Tag Class="SalesMarket">CH</Tag>
+    	</Tags>
+    		<ParameterSet Key="CH">
+    			<SalesMarket>CH</SalesMarket>
+			</ParameterSet>
+   	</GlobalValue>
+   </Products>]]></programlisting>
+					<para xml:id="det_9034" xml:lang="de">Im obigen Beispiel kann entweder deutsche oder schweizer Markt betrachtet werden. Wenn eine aktiv ist, zweite wird nicht existenz sein.</para>
 			
 				</section>
-				<section xml:id="OtdsStrategyGlobalValuesDistributors">
-					<title><phrase xml:id="det_6004" xml:lang="de">Vertriebspartner-Kontext (Distributor)</phrase></title>
-					<para>Ein Vertriebspartner ist ein Vermittler oder ein Händler, der Produkte oder Dienstleistungen vertreibt. Zum Beispiel, eine bestimmte Webseite oder ein bestimmtes Reisebüro. </para>
-				
+				<section xml:id="OtdsStrategyGlobalValuesCurencies">
+					<title><phrase xml:id="det_6002" xml:lang="de">Währung-Kontext (Currency)</phrase></title>
+					<para>Dieses Element definiert den GlobalValue für eine bestimmte Währung. Die Währung folgt der  Definition gemäß der ISO4217 Norm für Währungen. Ein Beispiel dazu.</para>
+					
 <programlisting><![CDATA[<Products>
-	<GlobalValue Key="TUI">
+	<GlobalValue Key="EUR">
 		<ParameterSet Key="1">
-			<Distributor>TUI ReiseCenter</Distributor>
+			<Currency>EUR</Currency>
+		</ParameterSet>
+	</GlobalValue>
+	<GlobalValue Key="CHF">
+		<ParameterSet Key="1">
+			<Currency>CHF</Currency>
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-				
-				</section>
-				<section xml:id="OtdsStrategyGlobalValuesResellers">
-					<title><phrase xml:id="det_6005" xml:lang="de">Wiederverkäufer-Kontext (Reseller)</phrase></title>
-					<para>Wiederverkäufer fungieren als Absatzmittler entweder zwischen Hersteller und Einzelhandel (Großhandel), zwischen Großhandel und Verbraucher (Einzelhandel) oder direkt zwischen Hersteller und Verbraucher (Fabrikverkauf).
-						Dieses Element definiert den GlobalValue für einen bestimmten Wiederverkäufer, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</para>
-				
-<programlisting><![CDATA[<Products>
-	<GlobalValue Key="Wiederverkäufer_FTI_100170">
-		<ParameterSet Key="FTI_100170">
-			<CrsSystem>Toma</CrsSystem>
-			<AgencyCode>100170</AgencyCode>
-			<BrandCode>FTI</BrandCode>
-		</ParameterSet>
-	</GlobalValue>
-</Products>]]></programlisting>
-				
+					<para xml:id="det_9030" xml:lang="de">Im obigen Beispiel wird zwei Währungen betrachtet. Wenn eine aktiv ist, zweite wird nicht existenz sein.</para>
+			
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesFeatureContext">
 					<title><phrase xml:id="de_6147" xml:lang="de">FeatureContext (CityPairProduction,
-							V2.0)</phrase><phrase xml:id="en_6147" xml:lang="en">FeatureContext
+						V2.0)</phrase><phrase xml:id="en_6147" xml:lang="en">FeatureContext
 							(CityPairProduction, v2.0)</phrase></title>
 					<para xml:id="de_6146" xml:lang="de">Mit diesem
-							<code>GlobalValue/FeatureContext</code> kann man einen
-							<code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn
+						<code>GlobalValue/FeatureContext</code> kann man einen
+						<code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn
 						dieser <code>FeatureContext</code> gewünscht ist. Die Verarbeitung mit
 						einem spezifischen <code>FeatureContext</code> kann zu einem anderen
 						Ergebnis führen als ohne den <code>FeatureContext</code>. Derzeit gibt es
@@ -8267,7 +8268,7 @@
 						Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher
 						mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der
 						Datenlieferant ist dafür verantwortlich, dass die Verwendung des
-							<code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
+						<code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
 					<para xml:id="en_6146" xml:lang="en">With this <code>GlobalValue/FeatureContext</code> a 
 						<code>GlobalValue</code> can be defined, that only is activated, when
 						this <code>FeatureContext</code> is desired. The processing with a specific
@@ -8279,13 +8280,52 @@
 						<code>GlobalValues</code> leads to the processing results desired.</para>
 					
 <programlisting><![CDATA[<Products>
-	<GlobalValue Key="...">
+	<GlobalValues>
+		<GlobalValue Key="CityPairProduction">
+			<ParameterSet Key="CityPairProduction">
+				<FeatureContext>CityPairProduction</FeatureContext>
+			</ParameterSet>
+		</GlobalValue>
+	</GlobalValues>
+</Products>]]></programlisting>
+					<para xml:id="det_9033" xml:lang="de">In diesem Beispiel wird das Kontext für CityPairProduction aktiv. Die Key Bedingung ist frei wählbar.</para>	
+					
+				</section>
+				<section xml:id="OtdsStrategyGlobalValuesResellers">
+					<title><phrase xml:id="det_6005" xml:lang="de">Wiederverkäufer-Kontext (Reseller)</phrase></title>
+					<para>Wiederverkäufer fungieren als Absatzmittler entweder zwischen Hersteller und Einzelhandel (Großhandel), zwischen Großhandel und Verbraucher (Einzelhandel) oder direkt zwischen Hersteller und Verbraucher (Fabrikverkauf).
+						Dieses Element definiert den GlobalValue für einen bestimmten Wiederverkäufer, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</para>
+				
+<programlisting><![CDATA[<Products>
+	<GlobalValue Key="Wiederverkäufer_TUI">
 		<ParameterSet Key="1">
-			<FeatureContext>...</FeatureContext>
+			<Reseller>
+				<ResellerType>TUI</ResellerType>
+			</Reseller>
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
+					<para xml:id="det_9031" xml:lang="de">In diesem Beispiel wird gezeigt, dass die Verarbeitung für ein Reseller aktiv ist. Die Key Bedingung ist frei wählbar.</para>
 					
+<programlisting><![CDATA[<Products>
+	<GlobalValue Key="Wiederverkäufer_FTI">
+		<ParameterSet Key="FTI_100170">
+			<Reseller>
+				<CrsSystem>Toma</CrsSystem>
+				<AgencyCode>100170</AgencyCode>
+				<BrandCode>FTI</BrandCode>
+			</Reseller>
+		</ParameterSet>
+		<ParameterSet Key="FTI_100171">
+			<Reseller>
+				<CrsSystem>Toma</CrsSystem>
+				<AgencyCode>100171</AgencyCode>
+				<BrandCode>FTI</BrandCode>
+			</Reseller>
+		</ParameterSet>
+	</GlobalValue>
+</Products>]]></programlisting>
+					<para xml:id="det_9032" xml:lang="de">Hier sind die Daten für spezifische Reseller aktiv. Die Key Bedingung ist frei wählbar.</para>				
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyRules">
