@@ -2722,7 +2722,7 @@ Mögliche Werte sind:
 - PureReseller
 PackageMixReseller sind Reseller, die Produkte des Lieferanten nutzen, um diese zusammen mit anderen Komponenten als Paket zu verkaufen. Im Gegensatz dazu verkaufen die PureReseller die Einzelkomponenten des Lieferanten als eigenständiges Produkt weiter.
  </xs:documentation>
- <xs:documentation xml:lang="en" xml:id="en_3273">This element defines a general reseller type. 
+					<xs:documentation xml:lang="en" xml:id="en_3273">This element defines a general reseller type. 
 Possible values are:
 - PackageMixReseller
 - PureReseller
@@ -3142,18 +3142,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:simpleType>
 				<xs:list>
 					<xs:simpleType>
-						<xs:union>
-							<xs:simpleType>
-								<xs:restriction base="xs:int">
-									<xs:minExclusive value="0"/>
-								</xs:restriction>
-							</xs:simpleType>
-							<xs:simpleType>
-								<xs:restriction base="xs:int">
-									<xs:maxExclusive value="0"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:union>
+						<xs:restriction base="NonZeroIntegerType"/>
 					</xs:simpleType>
 				</xs:list>
 			</xs:simpleType>
@@ -3165,8 +3154,21 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 			<xs:documentation xml:lang="de" xml:id="de">Eine Integerzahl ohne Null</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en">An integer without zero</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="xs:int">
-			<xs:minExclusive value="0"/>
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:union>
+					<xs:simpleType>
+						<xs:restriction base="xs:int">
+							<xs:minExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+					<xs:simpleType>
+						<xs:restriction base="xs:int">
+							<xs:maxExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:union>
+			</xs:simpleType>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductFeaturesAttributeListType">
@@ -7660,7 +7662,7 @@ Fehlt das Attribut gilt der Default = "Open"</xs:documentation>
 Mögliche Werte sind:
 - Open
 - Request</xs:documentation>
-<xs:documentation xml:lang="en" xml:id="en_1439">This attribute defines, which availability state is considered valid.
+						<xs:documentation xml:lang="en" xml:id="en_1439">This attribute defines, which availability state is considered valid.
 Possible values are:
 - Open
 - Request</xs:documentation>
@@ -7866,7 +7868,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 		<xs:sequence>
 			<xs:choice>
 				<xs:sequence>
-					<xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
+					<xs:element name="Until" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
@@ -7881,7 +7883,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 							check-out day and all other days prior to it.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
+					<xs:element name="From" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
@@ -7947,7 +7949,7 @@ The default is "Stay".</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_449">A condition that is valid for the days that are among the x cheapest/most expensive days.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Until" type="xs:int" minOccurs="0">
+			<xs:element name="Until" type="NonZeroIntegerType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_450">Anzahl der Tage bis zu einem Xten Tag. Die	Sortierung der Tage erfolgt nach aufsteigenden Preisen. Positive Werte (also
 						Until=x) definieren die X günstigsten Tage inklusive des Xten Tages. Negative Werte definieren ALLE Tage BIS zum X teuersten Tag. 
@@ -7955,7 +7957,7 @@ The default is "Stay".</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_450">Number of days up until the Xth day. The days are sorted by price in ascending order. Positive values (Until=x) define the X cheapest days up to and including the Xth day. Negative values define ALL days up to and including the X most expensive day. NOT to be confused with the definition of the X most expensive days, which are displayed via the element "From=-x".</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="From" type="xs:int" minOccurs="0">
+			<xs:element name="From" type="NonZeroIntegerType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_451">Anzahl der Tage ab einem Xten Tag. Die Sortierung der Tage erfolgt nach aufsteigenden Preisen. Die
 						Standardverwendung von "From" wird mit negativen Werten sein. From=-x definiert alle Tage ab dem X teuersten Tag inklusive des Xten Tages. Was so
@@ -7970,7 +7972,7 @@ It is rare to use a positive value in relation to "From", i.e. "From=x", and it 
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_1440">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden. Jedes Element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
 Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
-<xs:documentation xml:lang="en" xml:id="en_1440">Here the PriceItems are defined respectively excluded, which are used for evaluating the PriceIndex. Each element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses", and "NotConsideredPriceItemClasses" is evaluated within its Component context. The result set of the valid PriceItems is the united set of the single evaluations. In this process no PriceItems are duplicated. If no PriceItemFilterGroup is indicated, there will be no restriction of the PriceItems.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_1440">Here the PriceItems are defined respectively excluded, which are used for evaluating the PriceIndex. Each element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses", and "NotConsideredPriceItemClasses" is evaluated within its Component context. The result set of the valid PriceItems is the united set of the single evaluations. In this process no PriceItems are duplicated. If no PriceItemFilterGroup is indicated, there will be no restriction of the PriceItems.</xs:documentation>
 				</xs:annotation>
 				<xs:choice maxOccurs="unbounded">
 					<xs:element name="ConsideredPriceTags">
@@ -8919,10 +8921,10 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 		<xs:choice>
 			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation  xml:lang="de" xml:id="de_3277">Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn der AvailabilityStatus der durch @Component adressierten Hauptkomponentensinstanz nach der Auswertung der Availabilities einen der aufgeführten ValidState/@State als Komponentenstatus besitzt. 
+					<xs:documentation xml:lang="de" xml:id="de_3277">Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn der AvailabilityStatus der durch @Component adressierten Hauptkomponentensinstanz nach der Auswertung der Availabilities einen der aufgeführten ValidState/@State als Komponentenstatus besitzt. 
 Bis zur Auswertung der Availabilities gilt diese Bedingung als undefined und wird dementsprechend erst nach der Auswertung der Availabilities explizit nach OTDS-Vorschrift ausgewertet. 
 Die AvailabiltyState-Bedingung wird nur in den Filtern auf Product und DefineComponent-Ebene ausgewertet. In allen anderen Positionen bleibt die Auswertung der Bedingung = "undefined".</xs:documentation>
-<xs:documentation  xml:lang="en" xml:id="en_3277">With the condition the general evaluation of the availabilities can be further restricted. The condition is fulfilled, if the AvailabilityState of the main component instance addressed by @Component after the evaluation of the availabilities has one of the ValidState/@State indicated as component state. 
+					<xs:documentation xml:lang="en" xml:id="en_3277">With the condition the general evaluation of the availabilities can be further restricted. The condition is fulfilled, if the AvailabilityState of the main component instance addressed by @Component after the evaluation of the availabilities has one of the ValidState/@State indicated as component state. 
 Until the evaluation of the availabilities this condition is considered undefined. Hence it is only evaluated after the evaluation of the availabilities, and follows explicitly the OTDS regulation.
 The AvailabiltyState condition is evaluated only in filters on Product and DefineComponent level. In all other positions the evaluation of the condition = "undefined".</xs:documentation>
 				</xs:annotation>
