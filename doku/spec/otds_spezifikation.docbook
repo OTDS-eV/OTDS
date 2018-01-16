@@ -8133,8 +8133,23 @@
 						composition as well as on the price calculation in accordance to the corresponding processing context.
 						The context aspects with its individual single contexts are determined by the indication of specific <code>ParameterSets</code> within the <code>GlobalValue</code>. 
 						You may find examples for the various context aspects, single contexts and the corresponding <code>ParameterSets</code> in the following sections.</para>
-					<para xml:id="de_1097" xml:lang="de">Auf die Konfigurationsparameter kann durch Key-Conditions und Tag-Conditions
-						Bezug genommen werden.</para><para xml:id="en_1097" xml:lang="en">The configuration parameter can be referred to in Key conditions and Tag conditions.</para>
+					<para xml:id="det" xml:lang="de">Hier ein Beispiel wie ein Filter aussehen könnte, der im
+						Zusammenspiel mit dem oben definierten GlobalValue ein Hotel für den
+						Vertrieb im deutschen Markt untersagt.</para>
+					<programlisting><![CDATA[<Accommodation>
+	...
+	<Filter>
+	    ...
+	    <Not>
+			<Keys Source=global:GobalValue>SalesiInDE</Keys>
+		</Not>
+		...
+	</Filter>
+	...
+</Accommodation>]]></programlisting>
+					<para xml:id="det_1097" xml:lang="de">In diesem Beispiel wir der Key des GlobalValues benutzt.
+						Es könnte aber genauso ein am GlobalValue definiertes "Tag" für den Filter
+						benutzt werden.</para>
 					<figure>
 						<info>
 							<title><phrase xml:id="de_1098" xml:lang="de">GlobalValues</phrase><phrase xml:id="en_1098" xml:lang="en">GlobalValues</phrase></title>
@@ -8148,7 +8163,12 @@
 							</textobject>
 						</mediaobject>
 					</figure>
-					
+					<para xml:id="det" xml:lang="de"> Ein GlobalValue ist über die Definitionen im ParameterSet
+						eindeutig definiert. In einem GlobalValue können theoretisch mehrere
+						ParameterSets angegeben werden. Praktisch ist das nur sinnvoll, wenn man
+						eine spezifische Gruppe von Distributoren oder eine spezifische Gruppe von
+						Resellern definieren möchte. Der GlobalValue wird dann aktiv, wenn eines der
+						ParameterSets vom gewählten Kontext erfüllt wird. </para>
 					<para xml:id="de_1100" xml:lang="de">Weitere Informationen finden Sie in der <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technischen
 						Dokumentation für OTDS </link>.</para><para xml:id="en_1100" xml:lang="en">Please obtain further information from the <link xlink:href="../technisch/otds_technisch.html#GlobalValues">Technical documentation for OTDS</link> .</para>
 				</section>
@@ -8178,7 +8198,7 @@
 		</ParameterSet>
 	</GlobalValue>	
 </Products>]]></programlisting>
-					<para xml:id="det" xml:lang="de">Über die Festlegung dieser zwei GlobalValues im Beispiel oben
+					<para xml:id="det" xml:lang="de">Über die Angabe dieser zwei GlobalValues im Beispiel oben
 						definiert der Datenlieferant, dass beid er Datenprodukten für diese beiden
 						Vertriebsagenturen (Reisebüros oder Webseiten) spezifische Regeln zum Zuge
 						kommen, in denen in Filtern oder Conditions Bezug auf diese GlobalValues
@@ -8193,7 +8213,7 @@
 						GlobalValue aktiv, und der erste GlobalValue inaktiv. So kommt man zu einer
 						Kontextsensitiven Verarbeitung der OTDS-Datenlieferung. Bei der Verarbeitung
 						der Daten im Kontext jeglicher anderer Vertriebsagentur würden hingegen
-						beide GlobalValues inaktiv sein und die VErarbeitung würde damit zum
+						beide GlobalValues inaktiv sein und die Verarbeitung würde damit zum
 						richtigen Ergebnsi führen.</para>
 					
 				</section>
@@ -8229,15 +8249,15 @@
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-					<para xml:id="det_9036" xml:lang="de">Über die Festlegung der SalesChannels Travel Agency und
-						OnlineTravelAgency im Beispiel oben definiert der Datenlieferant, dass für
-						die Verarbeitung der Daten an manchen Stellen für diese beiden
-						Vertriebskanäle spezifische Regeln angegeben sind. Betrachtet man die
-						OTDS-Lieferung im Kontext des Vertriebskanals "Reisebüros", ist der erste
-						GlobalValue aktiv. Der zweite hingegen wird behandelt, als wenn er nicht
-						existent wäre. Umgekehrt wäre der zweite GlobalValue aktiv, wenn die
-						Lieferung im Kontext "OnlineTravelAgency" betrachtet wird. Der GlobalValue
-						"TravelAgency" würde in diesem Falle als inaktiv behandelt.</para>
+					<para xml:id="det_9036" xml:lang="de">Über die Angabe dieser zwei GlobalValues im Beispiel oben
+						definiert der Datenlieferant, dass für die Verarbeitung der Daten an manchen
+						Stellen für diese beiden Vertriebskanäle spezifische Regeln angegeben sind.
+						Betrachtet man die OTDS-Lieferung im Kontext des Vertriebskanals
+						"Reisebüros", ist der erste GlobalValue mit SalesChannel="TravelAgency"
+						aktiv. Der zweite hingegen wird behandelt, als wenn er nicht existent wäre.
+						Umgekehrt wäre der zweite GlobalValue aktiv, wenn die Lieferung im Kontext
+						"OnlineTravelAgency" betrachtet wird. Der GlobalValue "TravelAgency" würde
+						in diesem Falle als inaktiv behandelt.</para>
 					
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesDistributionSystems">
@@ -8245,7 +8265,7 @@
 								(<code>DistributionChannel</code>)</phrase></title>
 					<para>Vertriebssysteme sind Dienstleister, die die Vertriebsagenturen mit der nötigen
 						Infrastruktur versorgen um Reisen effizient an die Reisenden zu vermitteln.
-						In EInzelfällen ist es gewünscht, dass die Verarbweitung der Daten in
+						In Einzelfällen ist es gewünscht, dass die Verarbeitung der Daten in
 						bestimmten Systemen unterschiedlich vorgenommen wird. In der Regel geht es
 						hier um Optimierungsaspekte der Verarbeitung, welche Vertriebssystem
 						abhängig gestaltbar sind. Korrespondierend zu den großen Vertriebssystemen
@@ -8281,23 +8301,22 @@
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-					<para xml:id="det_9035" xml:lang="de">Über die Festlegung der DistributionChannel
-						TravelTainment und Bewotec im Beispiel oben definiert der Datenlieferant,
-						dass für die Verarbeitung der Daten an manchen Stellen für diese beiden
-						Vertriebskanäle spezifische Regeln angegeben sind. Falls die OTDS-Lieferung
-						durch das Vertriebssystem "TravelTainment" verarbeitet werden, so ist der
-						erste GlobalValue aktiv. Der zweite hingegen wird behandelt, als wenn er
-						nicht existent wäre. Wird hingegen die Lieferung durch Bewotec verarbeitet,
-						so wäre der zweite GlobalValue aktiv und der erste wäre inaktiv. Bei der
-						Verarbeitung der Daten durch andere Vertriebssysteme würden hingegen beide
-						GlobalValues inaktiv sein.  </para>
+					<para xml:id="det_9035" xml:lang="de">Über die Angabe dieser zwei GlobalValues im Beispiel oben
+						definiert der Datenlieferant, dass für die Verarbeitung der Daten an manchen
+						Stellen für diese beiden Vertriebskanäle spezifische Regeln angegeben sind.
+						Falls die OTDS-Lieferung durch das Vertriebssystem "TravelTainment"
+						verarbeitet werden, so ist der erste GlobalValue aktiv. Der zweite hingegen
+						wird behandelt, als wenn er nicht existent wäre. Wird hingegen die Lieferung
+						durch Bewotec verarbeitet, so wäre der zweite GlobalValue aktiv und der
+						erste wäre inaktiv. Bei der Verarbeitung der Daten durch andere
+						Vertriebssysteme würden hingegen beide GlobalValues inaktiv sein. </para>
 				
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesMarkets">
 					<title><phrase xml:id="det_6001" xml:lang="de">Markt-Kontext (SalesMarket)</phrase></title>
-					<para>Dieses Element definiert den GlobalValue für einen bestimmten Markt, welcher einem Land entspricht. Der Markt folgt der Definition gemäß der ISO3166 Norm für Länder.Dieses Beispiel
-						definiert der folgende GlobalValue das Kontext-Szenario für den deutschen
-						Markt.</para>
+					<para>Dieses Element definiert den GlobalValue für einen bestimmten Markt, welcher einem Land
+						entspricht. Der Markt folgt der Definition gemäß der ISO3166 (Alpha-2) Norm
+						für Länder.Dieses Beispiel definiert die GlobalValues für 2 Märkte.</para>
 					
 <programlisting><![CDATA[<Products>
 	<GlobalValue Key="SalesMarketDE">
@@ -8317,8 +8336,12 @@
 			</ParameterSet>
    	</GlobalValue>
    </Products>]]></programlisting>
-					<para xml:id="det_9034" xml:lang="de">Über die Festlegung des Vertriebssystem-Kontext auf die SalesMarkets "Deutschland" und "Schweiz" im Beispiel oben definiert der Datenlieferant, dass diese beiden Märkte unterschiedlich beliefert werden.
-						Betrachtet man die OTDS-Lieferung im Kontext des Marktes "Deutschland", ist der erste GlobalValue aktiv. Der zweite hingegen wird behandelt, als wenn er nicht existent wäre und umgekehrt.</para>
+					<para xml:id="det_9034" xml:lang="de">Über die Angabe dieser zwei GlobalValues im Beispiel oben
+						definiert der Datenlieferant, dass für diese beiden Märkte an manchen
+						Stellen spezifische Regeln angegeben sind. Betrachtet man die OTDS-Lieferung
+						im Kontext des Marktes "Deutschland", ist der erste GlobalValue mit
+						SalesMarket="DE" aktiv. Der zweite hingegen wird behandelt, als wenn er
+						nicht existent wäre.</para>
 			
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesCurencies">
@@ -8331,41 +8354,49 @@
 			<Currency>EUR</Currency>
 		</ParameterSet>
 	</GlobalValue>
-	<GlobalValue Key="SchweizerFrank">
+	<GlobalValue Key="SchweizerFranken">
 		<ParameterSet Key="1">
 			<Currency>CHF</Currency>
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-					<para xml:id="det_9030" xml:lang="de">Über die Festlegung des Vertriebssystem-Kontext auf die Währung "EURO" und "SchweizerFrank" im Beispiel oben definiert der Datenlieferant, dass diese beiden Märkte unterschiedlich beliefert werden.
-						Betrachtet man die OTDS-Lieferung im Kontext des Marktes "EURO", ist der erste GlobalValue aktiv. Der zweite hingegen wird behandelt, als wenn er nicht existent wäre und umgekehrt.</para>
+					<para xml:id="det_9030" xml:lang="de">Über die Angabe dieser zwei GlobalValues im Beispiel oben
+						definiert der Datenlieferant, dass die Lieferung im Kontext dieser beiden
+						Währungen verarbeitet werden kann. Verarbeitet man die OTDS-Lieferung im
+						Kontext des Marktes "EURO", ist der erste GlobalValue mit dem Parameter
+						Currency="EUR" aktiv. Der zweite hingegen wird behandelt, als wenn er nicht
+						existent wäre. Die Regeln in der Datenlieferung stellen dann sicher, dass
+						das Ergebnis der Preisberechnung einem Euro-Wert ergibt. </para>
 			
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesFeatureContext">
 					<title><phrase xml:id="de_6147" xml:lang="de">FeatureContext (CityPairProduction,
 						V2.0)</phrase><phrase xml:id="en_6147" xml:lang="en">FeatureContext
 							(CityPairProduction, v2.0)</phrase></title>
-					<para xml:id="de_6146" xml:lang="de">Mit diesem
-						<code>GlobalValue/FeatureContext</code> kann man einen
-						<code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn
-						dieser <code>FeatureContext</code> gewünscht ist. Die Verarbeitung mit
-						einem spezifischen <code>FeatureContext</code> kann zu einem anderen
-						Ergebnis führen als ohne den <code>FeatureContext</code>. Derzeit gibt es
-						nur einen <code>FeatureContext</code>=<code>CityPairProduction</code>. Mit
-						diesem <code>FeatureContext</code> erhalten Sie bei Flügen oder
+					<para xml:id="de_6146" xml:lang="de">Mit diesem <code>GlobalValue/FeatureContext</code> kann
+						man einen <code>GlobalValue</code> definieren, der nur dann aktiv wird, wenn
+						dieser <code>FeatureContext</code> gewünscht ist. Die Verarbeitung mit einem
+						spezifischen <code>FeatureContext</code> kann zu einem anderen Ergebnis
+						führen als ohne den <code>FeatureContext</code>. Derzeit gibt es nur einen
+							<code>FeatureContext</code>=<code>CityPairProduction</code>. Mit diesem
+							<code>FeatureContext</code> erhalten Sie bei Flügen oder
 						Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher
 						mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der
 						Datenlieferant ist dafür verantwortlich, dass die Verwendung des
-						<code>GlobalValues</code> zu der gewünschten Verarbeitung führt.</para>
-					<para xml:id="en_6146" xml:lang="en">With this <code>GlobalValue/FeatureContext</code> a 
-						<code>GlobalValue</code> can be defined, that only is activated, when
+							<code>GlobalValues</code> zu der gewünschten Verarbeitung führt und am
+						Ende den passenden Flug zum CityPair-Buchungscode ausgibt.</para>
+					<para xml:id="en_6146" xml:lang="en">With this <code>GlobalValue/FeatureContext</code> a
+							<code>GlobalValue</code> can be defined, that only is activated, when
 						this <code>FeatureContext</code> is desired. The processing with a specific
-						<code>FeatureContext</code> may lead to a different result than without the
-						<code>FeatureContext</code>. 
-						At present there is only one <code>FeatureContext</code>=<code>CityPairProduction</code>. 
-						With this <code>FeatureContext</code> for flights or package offers there will be exactly one flight per CityPair, date and duration
-						that is booked with a specific CityPairCode (e.g. DUSPMI). It is within the data supplier's responsibility to ensure that the use of the
-						<code>GlobalValues</code> leads to the processing results desired.</para>
+							<code>FeatureContext</code> may lead to a different result than without
+						the <code>FeatureContext</code>. At present there is only one
+							<code>FeatureContext</code>=<code>CityPairProduction</code>. With this
+							<code>FeatureContext</code> for flights or package offers there will be
+						exactly one flight per CityPair, date and duration that is booked with a
+						specific CityPairCode (e.g. DUSPMI). It is within the data supplier's
+						responsibility to ensure that the use of the <code>GlobalValues</code> leads
+						to desired data processing with the specific flight that fits to the
+						CityPair booking code.</para>
 					
 <programlisting><![CDATA[<Products>
 	<GlobalValues>
@@ -8376,27 +8407,37 @@
 		</GlobalValue>
 	</GlobalValues>
 </Products>]]></programlisting>
-					<para xml:id="det_9033" xml:lang="de">Möchte der Datenlieferant erreichen, dass seine Datenlieferung im Kontext einer CityPairProduction genutzt wird, um bspw. eine spezifische Flugverbindung hervorzuheben, setzt er den FeatureContext "CityPairProduction". Der GlobalValue wird dann aktiv. Soll der Kontext CityPairProduction nicht genutzt werden, bleibt der Feature Context undefiniert und der GlobalValue inaktiv.</para>	
+					<para xml:id="det_9033" xml:lang="de">Über die Angabe dieses GlobalValues signalisiert der
+						Datenlieferant, dass die Datenlieferung auch im Kontext "CityPairProduction"
+						verarbeitet werden kann. In diesem Kontext garantiert der Datenlieferant,
+						dass am Ende je Tag nur der passende CityPair-Flug als Ergebnis herauskommt.
+						Dieser Kontext schränkt die aus der Datenverarbeitung resultierende Anzahl
+						der Produkte ein. Ohne diesen Kontext ergibt die Datenverarbeitung ggf. pro
+						Tag mehrere Flüge, welche dann mit individuellen Flugcodes gebucht werden
+						müssen. Vertriebssysteme die Pauschalreisen ausschließlich über
+						CityPair-Codes (z.B.: DUSPMI) buchen, müssen diesen Kontext aktivieren, wenn
+						er vom Datenlieferanten angegeben ist.    </para>	
 					
 				</section>
 				<section xml:id="OtdsStrategyGlobalValuesResellers">
 					<title><phrase xml:id="det_6005" xml:lang="de">Wiederverkäufer-Kontext (Reseller)</phrase></title>
-					<para>Wiederverkäufer fungieren als Absatzmittler entweder zwischen Hersteller und Einzelhandel (Großhandel), zwischen Großhandel und Verbraucher (Einzelhandel) oder direkt zwischen Hersteller und Verbraucher (Fabrikverkauf).
-						Dieses Element definiert den GlobalValue für einen bestimmten Wiederverkäufer, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</para>
-				
-<programlisting><![CDATA[<Products>
-	<GlobalValue Key="Wiederverkäufer_TUI">
-		<ParameterSet Key="1">
-			<Reseller>
-				<ResellerType>TUI</ResellerType>
-			</Reseller>
-		</ParameterSet>
-	</GlobalValue>
-</Products>]]></programlisting>
-					<para xml:id="det_9031" xml:lang="de">In diesem Beispiel wird gezeigt, dass die Verarbeitung für ein Reseller aktiv ist. Die Key Bedingung ist frei wählbar.</para>
+					<para>Wiederverkäufer sind den Distributoren sehr ähnlich. Im Unterschied zu den Distributoren
+						bucht der Wiederverkäufer z.B. einen Flug auf seinen Namen beim Lieferanten
+						und bieten dann diesen Flug dem Endkunden zu Kauf an. Der Vermittler
+						hingegen vermittelt die Flugbuchung nur. Die Buchung selbst wird beim
+						Vermittler vom Endkunden direkt beim Lieferanten durchgeführt. Mit dem
+						Wiederverkäufer-Kontext kann also gesteuert werden, dass bestimmte Produkte
+						ggf. nicht oder nur für Wiederverkäufer oder auch spezielle Wiederverkäufer
+						zur Verfügung gestellt werden. Oder der Lieferant kann auch die
+						Preiskalkulation diesbzgl. beeinflussen. Ein bestimmter Wiederverkäufer wird
+						durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode
+						eindeutig identifiziert. Optional kann man aber auch die Gruppe der
+						Wiederverkäufer an sich addressieren. Hier im folgenden ein paar Beispiele für "Reseller-GlobalValues".
+					</para>
+					<para xml:id="det_9031" xml:lang="de">In diesem Beispiel werden 2 spezifische Reseller über GlobalValues definiert.</para>
 					
-<programlisting><![CDATA[<Products>
-	<GlobalValue Key="Wiederverkäufer_FTI">
+					<programlisting><![CDATA[<Products>
+	<GlobalValue Key="Wiederverkäufer_FTI_100170">
 		<ParameterSet Key="FTI_100170">
 			<Reseller>
 				<CrsSystem>Toma</CrsSystem>
@@ -8404,6 +8445,8 @@
 				<BrandCode>FTI</BrandCode>
 			</Reseller>
 		</ParameterSet>
+	</GlobalValue>
+	<GlobalValue Key="Wiederverkäufer_FTI_100171">
 		<ParameterSet Key="FTI_100171">
 			<Reseller>
 				<CrsSystem>Toma</CrsSystem>
@@ -8413,7 +8456,42 @@
 		</ParameterSet>
 	</GlobalValue>
 </Products>]]></programlisting>
-					<para xml:id="det_9032" xml:lang="de">Hier sind die Daten für spezifische Reseller aktiv. Die Key Bedingung ist frei wählbar.</para>				
+					<para xml:id="det" xml:lang="de">Über die Angabe dieser zwei GlobalValues im Beispiel oben
+						definiert der Datenlieferant, dass die Verarbeitung der Lieferung im Kontext dieser beiden
+						Wiederverkäufer besondere Regeln zur Produktbildung und Preisberechnung enthalten kann. Verarbeitet man die OTDS-Lieferung im
+						Kontext eines Wiederverkäufers (z.b. einer bestimmten Webseite), welcher für den Lieferant bei der Brand FTI die Toma-Agenturnummer 100171 hat, so ist der erste GlobalValue mit den 
+						Parametern CrsSystem = "Toma", AgencyCode = "100170, BrandCode ="FTI" aktiv.
+						Der 2. GlobalValue wäre nicht aktiv, da die Parameter nicht zu diesem Kontext passen. Der zweite GlobalValue wird behandelt, als wenn er nicht existent wäre.
+					</para>
+					<para xml:id="det" xml:lang="de">In folgenden Beispiel werden 2 spezifische Resellertypen über
+						GlobalValues definiert. OTDS definiert derzeit 2 unterschiedliche
+						Wiederverkäufertypen "PackageMix-Resellers" und "Pure-Resellers".
+						PackageMixReseller sind Wiederverkäufer die Produkte des Lieferanten nutzen,
+						um diese zusammen mit anderen Komponenten als Paket zu verkaufen. Im
+						Gegensatz dazu verkaufen die PureReseller die Einzelkomponenten des
+						Lieferanten als eigenständiges Produkt weiter.</para>
+<programlisting><![CDATA[<Products>
+	<GlobalValue Key="Wiederverkäufer_PackageMix">
+		<ParameterSet Key="1">
+			<Reseller>
+				<ResellerType>PackageMixResellers</ResellerType>
+			</Reseller>
+		</ParameterSet>
+	</GlobalValue>
+	<GlobalValue Key="Wiederverkäufer_PureReseller">
+		<ParameterSet Key="1">
+			<Reseller>
+				<ResellerType>PureResellers</ResellerType>
+			</Reseller>
+		</ParameterSet>
+	</GlobalValue>
+</Products>]]></programlisting>
+				<para xml:id="det" xml:lang="de">Über die Angabe dieser zwei GlobalValues im Beispiel oben
+					definiert der Datenlieferant, dass für die Verarbeitung der Daten an manchen
+					Stellen für diese beiden Typen von Wiederverkäufern spezifische Regeln angegeben sind.
+					Falls die OTDS-Lieferung im Kontext eines PackageMix-Resellers verarbeitet wird, so ist der erste GlobalValue mit dem Parameter ResellerType="PackageMixReseller" aktiv. Der zweite hingegen
+					wird behandelt, als wenn er nicht existent wäre.
+				</para>	
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyRules">
