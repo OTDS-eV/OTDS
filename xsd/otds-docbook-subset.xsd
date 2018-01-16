@@ -15,7 +15,9 @@
 		<xs:attribute ref="xlink:show"/>
 		<xs:attribute ref="xlink:actuate"/>
 	</xs:attributeGroup>
-	<xs:element name="title">
+  <xs:element name="title">
+  </xs:element>
+  <xs:element name="_title">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="inlinemediaobject"/>
@@ -340,18 +342,13 @@
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element ref="title"/>
-        </xs:choice>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element ref="author"/>
           <xs:element ref="copyright"/>
-          <xs:element ref="date"/>
           <xs:element ref="keywordset"/>
           <xs:element ref="pubdate"/>
           <xs:element ref="publisher"/>
         </xs:choice>
       </xs:choice>
-      <xs:attribute ref="xml:lang" use="optional"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="_info">
@@ -442,7 +439,14 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="keywordset">
+  <xs:element name="keywordset">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="keyword" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_keywordset">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="keyword" maxOccurs="unbounded"/>
@@ -452,7 +456,8 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="keyword">
+  <xs:element name="keyword"/>
+  <xs:element name="_keyword">
 		<xs:complexType mixed="true">
 			<xs:attribute name="role"/>
 			<xs:attributeGroup ref="db.common.attributes"/>
@@ -1243,7 +1248,16 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="para">
+  <xs:element name="para">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="itemizedlist"/>
+        <xs:element ref="orderedlist"/>
+        <xs:element ref="para"/>
+      </xs:choice>      
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_para">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="info"/>
@@ -1507,7 +1521,19 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="itemizedlist">
+  <xs:element name="itemizedlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="itemizedlist"/>
+          <xs:element ref="orderedlist"/>
+          <xs:element ref="para"/>
+        </xs:choice>
+        <xs:element ref="listitem" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_itemizedlist">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:sequence>
@@ -1529,7 +1555,46 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="orderedlist">
+  <xs:element name="orderedlist">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="title"/>
+            <xs:element ref="titleabbrev"/>
+          </xs:choice>
+          <xs:element ref="info" minOccurs="0"/>
+        </xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="itemizedlist"/>
+          <xs:element ref="orderedlist"/>
+          <xs:element ref="para"/>
+        </xs:choice>
+        <xs:element ref="listitem" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="continuation">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="continues"/>
+            <xs:enumeration value="restarts"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="startingnumber" type="xs:NMTOKEN"/>
+      <xs:attribute name="numeration">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="arabic"/>
+            <xs:enumeration value="upperalpha"/>
+            <xs:enumeration value="loweralpha"/>
+            <xs:enumeration value="upperroman"/>
+            <xs:enumeration value="lowerroman"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_orderedlist">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:sequence>
@@ -1639,7 +1704,18 @@
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="listitem">
+  <xs:element name="listitem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="itemizedlist"/>
+          <xs:element ref="orderedlist"/>
+          <xs:element ref="para"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_listitem">
 		<xs:complexType>
 			<xs:choice maxOccurs="unbounded">
 				<xs:element ref="itemizedlist"/>
@@ -2716,7 +2792,15 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="figure">
+  <xs:element name="figure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="title" minOccurs="0"/>
+        <xs:element ref="mediaobject" minOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_figure">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:sequence>
@@ -2878,7 +2962,19 @@
 			<xs:attribute name="floatstyle"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="mediaobject">
+  <xs:element name="mediaobject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="videoobject"/>
+          <xs:element ref="audioobject"/>
+          <xs:element ref="imageobject"/>
+        </xs:choice>
+        <xs:element ref="caption" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_mediaobject">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="info" minOccurs="0"/>
@@ -2915,7 +3011,14 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="videoobject">
+  <xs:element name="videoobject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="videodata"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_videoobject">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="info" minOccurs="0"/>
@@ -2926,7 +3029,14 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="audioobject">
+  <xs:element name="audioobject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="audiodata"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_audioobject">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="info" minOccurs="0"/>
@@ -2940,14 +3050,22 @@
 	<xs:element name="imageobject">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="info" minOccurs="0"/>
 				<xs:element ref="imagedata"/>
 			</xs:sequence>
 			<xs:attribute name="role"/>
-			<xs:attributeGroup ref="db.common.attributes"/>
-			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
+  <xs:element name="_imageobject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="info" minOccurs="0"/>
+        <xs:element ref="imagedata"/>
+      </xs:sequence>
+      <xs:attribute name="role"/>
+      <xs:attributeGroup ref="db.common.attributes"/>
+      <xs:attributeGroup ref="db.common.linking.attributes"/>
+    </xs:complexType>
+  </xs:element>
 	<xs:element name="textobject">
 		<xs:complexType>
 			<xs:sequence>
@@ -3019,7 +3137,15 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="videodata">
+  <xs:element name="videodata">
+    <xs:complexType>
+      <xs:attribute name="format"/>
+      <xs:attribute name="fileref"/>
+      <xs:attribute name="width"/>
+      <xs:attribute name="depth"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_videodata">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="info" minOccurs="0"/>
@@ -3064,7 +3190,13 @@
 			<xs:attribute name="contentdepth"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="audiodata">
+  <xs:element name="audiodata">
+    <xs:complexType>
+      <xs:attribute name="format"/>
+      <xs:attribute name="fileref"/>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_audiodata">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="info" minOccurs="0"/>
@@ -3076,7 +3208,15 @@
 			<xs:attribute name="entityref" type="xs:ENTITY"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="imagedata">
+  <xs:element name="imagedata">
+    <xs:complexType>
+      <xs:attribute name="format"/>
+      <xs:attribute name="fileref"/>
+      <xs:attribute name="width"/>
+      <xs:attribute name="depth"/>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_imagedata">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="info" minOccurs="0"/>
@@ -3134,7 +3274,16 @@
 			<xs:attribute name="encoding"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="caption">
+  <xs:element name="caption">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute ref="xml:lang" use="optional" default="de"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_caption">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="itemizedlist"/>
@@ -3538,7 +3687,8 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="orgname">
+  <xs:element name="orgname"/>
+	<xs:element name="_orgname">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="inlinemediaobject"/>
@@ -3703,7 +3853,15 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="personname">
+  <xs:element name="personname">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="firstname"/>
+        <xs:element ref="surname"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_personname">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="inlinemediaobject"/>
@@ -3731,7 +3889,25 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="author">
+  <xs:element name="author">
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element ref="personname"/>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="email"/>
+          </xs:choice>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element ref="orgname"/>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="email"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_author">
 		<xs:complexType>
 			<xs:choice>
 				<xs:sequence>
@@ -3999,7 +4175,15 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="copyright">
+  <xs:element name="copyright">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="year" maxOccurs="unbounded"/>
+        <xs:element ref="holder" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_copyright">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="year" maxOccurs="unbounded"/>
@@ -4010,7 +4194,8 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="year">
+  <xs:element name="year"/>
+	<xs:element name="_year">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="inlinemediaobject"/>
@@ -4033,7 +4218,8 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="holder">
+  <xs:element name="holder"/>
+	<xs:element name="_holder">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="inlinemediaobject"/>
@@ -4109,7 +4295,7 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="date">
+  <xs:element name="date">
 		<xs:complexType mixed="true">
 			<xs:attribute name="role"/>
 			<xs:attributeGroup ref="db.common.attributes"/>
@@ -4678,14 +4864,22 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="pubdate">
+  <xs:element name="pubdate"/>
+  <xs:element name="_pubdate">
 		<xs:complexType mixed="true">
 			<xs:attribute name="role"/>
 			<xs:attributeGroup ref="db.common.attributes"/>
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="publisher">
+  <xs:element name="publisher">
+    <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="publishername"/>
+    </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+	<xs:element name="_publisher">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="publishername"/>
@@ -4696,7 +4890,8 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="publishername">
+  <xs:element name="publishername"/>
+	<xs:element name="_publishername">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="inlinemediaobject"/>
@@ -4980,7 +5175,8 @@
 			<xs:attributeGroup ref="db.common.linking.attributes"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="email">
+  <xs:element name="email"/>
+	<xs:element name="_email">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="inlinemediaobject"/>
@@ -7051,10 +7247,7 @@
             <xs:choice maxOccurs="unbounded">
               <xs:element ref="itemizedlist"/>
               <xs:element ref="orderedlist"/>
-              <xs:element ref="simplelist"/>
               <xs:element ref="figure"/>
-              <xs:element ref="table"/>
-              <xs:element ref="mediaobject"/>
               <xs:element ref="para"/>
             </xs:choice>
             <xs:choice minOccurs="0">
@@ -7068,7 +7261,6 @@
           </xs:sequence>
         </xs:choice>
       </xs:sequence>
-      <xs:attribute ref="xml:lang" use="optional"/>
     </xs:complexType>
   </xs:element>
 	<xs:element name="_section">
