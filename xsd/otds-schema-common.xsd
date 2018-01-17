@@ -230,7 +230,8 @@ The default is 0.</xs:documentation>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="ApplyAttributeGroup">
 		<xs:annotation>
-			<xs:documentation>Attributsgruppe zur Steuerung aller Applies wie z.B.: ApplyTo, AppliedBy, etc.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_1446">Attributsgruppe zur Steuerung aller Applies wie z.B.: ApplyTo, AppliedBy, etc.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_1446">Attribute group for steering all Applies as for example: ApplyTo, AppliedBy, etc.</xs:documentation>
 		</xs:annotation>
 		<xs:attributeGroup ref="ComponentAttributeGroup">
 			<xs:annotation>
@@ -238,7 +239,57 @@ The default is 0.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_8843">The attribute Component defines, which component the PriceItem refers to. By explicitly defining a componente it is possible to have a Percent-PriceItem referring to an absolute PriceItem of another component. The attribute Source represents an extension of the attribute. If both the attribute 'Component' and the attribute 'Source' are stated, only Source will be analyzed. If both attributes are not stated, the value 'ThisComponent' is assumed for the attribute 'Component'.</xs:documentation>
 			</xs:annotation>
 		</xs:attributeGroup>
+		<xs:attribute name="LogicalRelation" type="LogicalRelationEnum" use="optional" default="Or">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_3205">Dieses Attribut definiert, ob die ermittelte Menge der PriceItem-Paare mit anderen Apply-Mengen verodert oder verundet werden. Default = "Or"</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_3205">This attribute defines, if the identified set of PriceItem pairs is combined with other Apply sets by OR or AND. Default = "Or"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:attributeGroup>
+	<xs:attributeGroup name="ApplyToAttributeGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_3205">Attributsgruppe zur Steuerung aller ApplyTos wie z.B.: ApplyTo, etc.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_3205">Attribute group for steering all ApplyTos as for example: ApplyTo, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="ApplyAttributeGroup">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_3220">Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_3220">The attribute Component indicates, which component this PriceItem refers to. With the explicit indication of a component it becomes possible, that a Percent-PriceItem refers to an absolute PriceItem of another component. The attribute Source is an extension of the attribute. If both attributes 'Component' and 'Source' are indicated simultaneously, only Source is evaluated. If none of the attributes are indicated, the value  'ThisComponent' is assumed for the attribute 'Component'.</xs:documentation>
+			</xs:annotation>
+		</xs:attributeGroup>
+		<xs:attribute name="Include" type="IncludeAttributeEnum">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_3248">Mit Include="ApplyDescendants" können weitere PriceItems
+					inkludiert werden, die von den adressierten PriceItems
+					angewendet werden. So kann man bestimmte
+					PercentPriceItems zuordnen und zusätzlich alle
+					PriceItems inkludieren, die sich über ApplyTo und
+					AppliedBy auf dieses PriceItem beziehen. Dieses Attribut
+					berücksichtigt nur eine Apply-Hierarchie! Sollte ein
+					Bezug auf ein generisches Absolute hergestellt werden,
+					so wird hierbei dessen Include nicht
+					mitberücksichtigt.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_3248">With Include="ApplyDescendants" more PriceItems can be
+					included that are applied by the addressed PriceItems.
+					So you can assign specific PercentPriceItems and
+					additionally include all PriceItems that refer to this
+					PriceItem via ApplyTo and AppliedBy. This attribute only
+					considers an Apply hierarchy! If a reference to a
+					generic absolute is to be obtained, its Include will not
+					be taken into account.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:complexType name="PriceTagsApplyType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_3253">The TagConditionType defines a condition for certain tags including the indication of Class, Location and value of the tag. Tags are value pairs indicated in defined node points. By tags the compilation of offers as well as the price calculation can be influenced.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="ConsideredPriceTagsReferenceType">
+				<xs:attributeGroup ref="ApplyAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
 	<xs:complexType name="BookingWithoutNodeType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_59">In diesem Element werden alle Values
@@ -704,14 +755,15 @@ If the value in Availability/DayState/Open of an offer must be >= the number of 
 					<xs:element name="MaxAge" type="PersonAgeType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_92">Höchstalter der Person(en)</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_92">Maximum age of the person (s)</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_92">Maximum age of the person(s)</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
 				<xs:sequence>
 					<xs:element name="MaxAge" type="PersonAgeType" minOccurs="1">
 						<xs:annotation>
-							<xs:documentation>Höchstalter der Person(en)</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_3263">Höchstalter der Person(en)</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_3263">Maximum age of the person(s)</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -926,10 +978,10 @@ The classic product definition of a DataMix-product thus consists of three Compo
 					</xs:element>
 					<xs:element name="VirtualComponent" type="RuleVirtualComponentType" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_101">Dieses Element definiert, dass in dem definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
+							<xs:documentation xml:lang="de" xml:id="de_9000">Dieses Element definiert, dass in dem definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
 Man kann sich in Filtern oder Conditions nicht auf diese Komponente beziehen.	Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im Reiseverlauf.
 							</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_101">This element definiert, that the defined product contains a virtual component as a place holder. This component is a component with flexible time- and person allocation. 
+							<xs:documentation xml:lang="en" xml:id="en_9000">This element definiert, that the defined product contains a virtual component as a place holder. This component is a component with flexible time- and person allocation. 
 It is not possible to refer to this component in filters nor in conditions. The optional attribute "DayAllocationIndex" defines the correlation of the components within the itinerary.
 							</xs:documentation>
 						</xs:annotation>
@@ -1238,7 +1290,7 @@ Die Rahmenparameter bzgl. CheckIn- und CheckOut-Terminen müssen ohenhin identis
 														<xs:documentation xml:lang="en" xml:id="en_8854">This attribute defines a reference to a certain Candidate Instance, in which the airport is subject.</xs:documentation>
 													</xs:annotation>
 												</xs:attribute>
-												<xs:attribute name="AirportType" type="AirportTypesEnum" use="required">
+												<xs:attribute name="AirportType" type="AirportTypeEnum" use="required">
 													<xs:annotation>
 														<xs:documentation xml:lang="de" xml:id="de_8855">Dieses Attribut definiert, welcher Airporttype betrachtet werden soll.</xs:documentation>
 														<xs:documentation xml:lang="en" xml:id="en_8855">This attribute defines which airport type shall be considered.</xs:documentation>
@@ -1509,7 +1561,7 @@ Die Definition der Ergebnismenge eines Elementes "ConsideredPriceItems" erfolgt 
 	</xs:complexType>
 	<xs:complexType name="ApplyToPriceTagsType">
 		<xs:simpleContent>
-			<xs:extension base="PriceTagsReferenceType">
+			<xs:extension base="PriceTagsApplyType">
 				<xs:attribute name="Include" type="IncludeAttributeEnum">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_8863">Mit Include="ApplyDescandents" können weitere PriceItems inkludiert werden,
@@ -1550,26 +1602,23 @@ Die Definition der Ergebnismenge eines Elementes "ConsideredPriceItems" erfolgt 
 				<xs:sequence>
 					<xs:element name="CheckInDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_279">Mit diesem Element wird definiert, welche Überschneidung das Ende der vorhergehenden Komponente mit dem Anfang dieser Komponente hat. Der Offset ist abhängig vom angrenzenden Komponententyp. Dieser wird durch das Attribut "ComponentType" definiert. 
-Der Endtermin der vorhergehenden Komponente bestimmt sich aus dem Anfangstermin dieser Komponente und dem CheckInOffset. Falls CheckInOffset nicht gesetzt ist, so gilt der Defaultwert, also CheckInOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen und vorhergehenden Unterkünften. Bei sehr früh morgens abfliegenden Flügen aus dem Zielgebiet kann es sein, dass ggf. eine Nacht früher aus dem Hotel ausgecheckt werden muss. (Siehe auch Aufbau des Produktes über die Produktregel in der Thematischen Dokumentation)</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_279">This element is used to define the overlap of the end of the previous component and the start of the current component. The offset depends on the adjacent component type. This is defined by the "ComponentType" attribute. The end date of the previous component is determined by the start date of this component + the CheckInOffset. If CheckInOffset is not set, then a default value will be used, thus CheckInOffset = 0. Currently this scenario is known only for flights and preceding accommodation. With very early morning flights departing from the destination, it may be necessary to check out a night earlier from the hotel. </xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_279">Mit diesem Element wird definiert, welche Überschneidung das Ende der vorhergehenden Komponente mit dem Anfang dieser Komponente hat. Der Offset ist abhängig vom angrenzenden Komponententyp. Dieser wird durch das Attribut "Component" definiert. Der Endtermin der vorhergehenden Komponente bestimmt sich aus dem Anfangstermin dieser Komponente und dem CheckInOffset. Falls CheckInOffset nicht gesetzt ist, so gilt der Defaultwert, also CheckInOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen und vorhergehenden Unterkünften. Bei sehr früh morgens abfliegenden Flügen aus dem Zielgebiet kann es sein, dass ggf. eine Nacht früher aus dem Hotel ausgecheckt werden muss.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_279">This element is used to define the overlap of
+								the end of the previous component and the start of the current
+								component. The offset depends on the adjacent component type. This
+								is defined by the "ComponentType" attribute. The end date of the
+								previous component is determined by the start date of this component
+								+ the CheckInOffset. If CheckInOffset is not set, then a default
+								value will be used, thus CheckInOffset = 0. Currently this scenario
+								is known only for flights and preceding accommodation. With very
+								early morning flights departing from the destination, it may be
+								necessary to check out a night earlier from the hotel. </xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="CheckOutDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_280">Mit diesem Element wird definiert, welche
-								Überschneidung der Anfang der angrenzenden nachfolgenden Komponente
-								mit dem Ende dieser Komponente hat. Der Offset ist abhängig vom
-								angrenzenden Komponententyp. Dieser wird durch das Attribut
-								"ComponentType" definiert. Der Anfangstermin der angrenzenden
-								Komponente bestimmt sich aus dem Endtermin dieser Komponente und dem
-								CheckOutOffset. Falls CheckOutOffset nicht gesetzt ist, so gilt der
-								Defaultwert, also CheckOutOffset=0. Aktuell kennen wir dieses
-								Szenario nur bei Flügen und nachfolgenden Unterkünften. Bei sehr
-								früh morgens im Zielgebiet ankommenden Flügen kann es vorkommen,
-								dass ggf. eine Nacht früher im Hotel eingecheckt werden muss.
-								(@ToDo: Siehe auch Aufbau des Produktes über die Produktregel in der
-								Thematischen Dokumentation)</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_280">Mit diesem Element wird definiert, welche Überschneidung der Anfang der angrenzenden nachfolgenden Komponente mit dem Ende dieser Komponente hat. Der Offset ist abhängig vom angrenzenden Komponententyp. Dieser wird durch das Attribut "Component" definiert. Der Anfangstermin der angrenzenden Komponente bestimmt sich aus dem Endtermin dieser Komponente und dem CheckOutOffset. Falls CheckOutOffset nicht gesetzt ist, so gilt der Defaultwert, also CheckOutOffset=0. Aktuell kennen wir dieses Szenario nur bei Flügen und nachfolgenden Unterkünften. Bei sehr früh morgens im Zielgebiet ankommenden Flügen kann es vorkommen, dass ggf. eine Nacht früher im Hotel eingecheckt werden muss.
+</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_280">This element is used to define an overlap
 								between the beginning of the adjacent component and the end of the
 								current component. The offset depends on the adjacent component
@@ -1582,6 +1631,19 @@ Der Endtermin der vorhergehenden Komponente bestimmt sich aus dem Anfangstermin 
 								destination, it may be necessary to check in a night earlier to the
 								hotel. </xs:documentation>
 						</xs:annotation>
+					</xs:element>
+					<xs:element name="Condition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation xml:lang="det" xml:id="de_358">In diesem Element werden die Regeln zur Verwendung der NeigbourComponentCorrection definiert. 
+Bedingungen mit ExecutionOrder="AfterCombinatorics" oder "Last" werden als undefined ausgewertet. Es findet keine erneute Auswertung zu einem späteren Zeitpunkt  statt. 
+Die Auswertung der Impact-Bedingungen erfolgt so, als wenn die ganze Condition durch ein "NonImpact"-Element umschlossen wäre.
+</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConditionType"/>
+							</xs:complexContent>
+						</xs:complexType>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>
@@ -2411,10 +2473,10 @@ DE Germany</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_205">The official name of the accommodation / hotel</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AccommodationInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:group ref="AccommodationCategoryGroup" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Kategorie der Unterkunft (Offizielle und Veranstalterkategorie).</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_3268">Kategorie der Unterkunft (Offizielle und Veranstalterkategorie).</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_3268">Category of the accommodation (official and tour operator category).</xs:documentation>
 				</xs:annotation>
 			</xs:group>
 			<xs:element name="AccommodationChain" type="xs:unsignedInt" minOccurs="0">
@@ -2627,7 +2689,7 @@ Default = "All"</xs:documentation>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="PersonBase"/>
+			<xs:element name="PersonBase" type="PriceImpactBaseValueType"/>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="AllocationBaseConditionGroup">
@@ -2655,7 +2717,7 @@ If the element "PersonBase" is indicated, all cost nodes are considered separate
 									<xs:documentation xml:lang="de" xml:id="de_8881">Mit diesem Attribut können über einen bestimmten  IntervalType bestimmte Tage addressiert werden. Mögliche Werte sind:
 - Stay
 - CheckInOut</xs:documentation>
-									<xs:documentation xml:lang="de" xml:id="de_8881">With the help of this attribute specitic days may be addressed via a specific IntervalType. The following values are allowed:
+									<xs:documentation xml:lang="en" xml:id="en_8881">With the help of this attribute specitic days may be addressed via a specific IntervalType. The following values are allowed:
 - Stay
 - CheckInOut</xs:documentation>
 								</xs:annotation>
@@ -2792,7 +2854,21 @@ A more detailed description of the attributes can be found in the "Thematic docu
 	</xs:group>
 	<xs:complexType name="ResellerType">
 		<xs:choice>
-			<xs:element name="ResellerType" type="ResellerTypeEnum"/>
+			<xs:element name="ResellerType" type="ResellerTypeEnum">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_3273">Dieses Element definiert einen generellen Resellertypen. 
+Mögliche Werte sind:
+- PackageMixReseller
+- PureReseller
+PackageMixReseller sind Reseller, die Produkte des Lieferanten nutzen, um diese zusammen mit anderen Komponenten als Paket zu verkaufen. Im Gegensatz dazu verkaufen die PureReseller die Einzelkomponenten des Lieferanten als eigenständiges Produkt weiter.
+ </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_3273">This element defines a general reseller type. 
+Possible values are:
+- PackageMixReseller
+- PureReseller
+PackageMixReseller are Reseller who use products of a supplier in order to combine them with other components and sell them as a package. The PureReseller on the contrary sell the single components of the supplier as an independent product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:group ref="DistributorIdentificationGroup"/>
 		</xs:choice>
 	</xs:complexType>
@@ -2861,13 +2937,16 @@ Selling via distributor "Schmetterling"</xs:documentation>
 Derzeit gibt es nur einen FeatureContext "City-Pair-Production".
 
 Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
-							<xs:documentation xml:lang="de" xml:id="de_8887">This set of parameters serves to define a GlobalValue that only is activated when this specific FeautureContext is desired. The processing with a specific FeatureContext can lead to a different result than without the FeautureContext.
+							<xs:documentation xml:lang="en" xml:id="en_8887">This set of parameters serves to define a GlobalValue that only is activated when this specific FeautureContext is desired. The processing with a specific FeatureContext can lead to a different result than without the FeautureContext.
 At present there is only one FeatureContext "City-Pair-Production". By this feature for flights or packaged travel offers exactly one flight per CityPair, date and duration is returned. This flight must be booked with a specific  CityPairCode (ie. DUSPMI). The provider of the data is responsible that the use of GlobalValues leads to the processing results desired.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Reseller" type="ResellerType" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_8888">Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_8888">Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.
+
+
+Wiederverkäufer sind den Distributoren sehr ähnlich. Im Unterschied zu den Distributoren bucht der Wiederverkäufer z.B. einen Flug auf seinen Namen beim Lieferanten und bieten dann diesen Flug dem Endkunden zu Kauf an. Der Vermittler hingegen vermittelt die Flugbuchung nur. Die Buchung selbst wird beim Vermittler vom Endkunden direkt beim Lieferanten durchgeführt. Mit dem Wiederverkäufer-Kontext kann also gesteuert werden, dass bestimmte Produkte ggf. nicht oder nur für Wiederverkäufer oder auch spezielle Wiederverkäufer zur Verfügung gestellt werden. Oder der Lieferant kann auch die Preiskalkulation diesbzgl. beeinflussen. Ein bestimmter Wiederverkäufer wird durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert. Optional kann man aber auch die Gruppe der Wiederverkäufer an sich über den ResellerType addressieren.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_8888">This element defines the GlobalValue for a specific reseller, which is explicitly identified by the combined information of CRS-System, AgencyCode and BrandCode.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -2918,7 +2997,7 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 		</xs:attribute>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="ComponentAttributeGroup">
-		<xs:attribute name="Component" type="ComponentAttributeType" use="optional" default="ThisComponent">
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_266">Dieses Attribut gibt den Type einer Komponente
 					an. Folgende Typen stehen zur Auswahl: -
@@ -3195,30 +3274,41 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="NonZeroIntegerListType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_162">Eine Liste von Integerzahlen ohne Null, durch Space
+			<xs:documentation xml:lang="de" xml:id="de_9005">Eine Liste von Integerzahlen ohne Null, durch Space
         getrennt.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_162">A list of integers without zero separated by spaces.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9005">A list of integers without zero separated by spaces.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction>
 			<xs:simpleType>
 				<xs:list>
 					<xs:simpleType>
-						<xs:union>
-							<xs:simpleType>
-								<xs:restriction base="xs:int">
-									<xs:minExclusive value="0"/>
-								</xs:restriction>
-							</xs:simpleType>
-							<xs:simpleType>
-								<xs:restriction base="xs:int">
-									<xs:maxExclusive value="0"/>
-								</xs:restriction>
-							</xs:simpleType>
-						</xs:union>
+						<xs:restriction base="NonZeroIntegerType"/>
 					</xs:simpleType>
 				</xs:list>
 			</xs:simpleType>
 			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NonZeroIntegerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de">Eine Integerzahl ohne Null</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en">An integer without zero</xs:documentation>
+		</xs:annotation>
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:union>
+					<xs:simpleType>
+						<xs:restriction base="xs:int">
+							<xs:minExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+					<xs:simpleType>
+						<xs:restriction base="xs:int">
+							<xs:maxExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:union>
+			</xs:simpleType>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductFeaturesAttributeListType">
@@ -3915,13 +4005,6 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="ArrivalAirport"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="AirportTypesEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="CatchmentAirport"/>
-			<xs:enumeration value="DepartureAirport"/>
-			<xs:enumeration value="ArrivalAirport"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="BoardTypeEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="None"/>
@@ -4465,10 +4548,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 	<!-- End Property Enums -->
 	<xs:simpleType name="OTDSVersionEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="1.9"/>
-			<xs:enumeration value="1.9.1"/>
-			<xs:enumeration value="1.9.2"/>
-			<xs:enumeration value="1.9.3"/>
+			<xs:enumeration value="2.0"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -4842,6 +4922,18 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Request"/>
 			<xs:enumeration value="StopSales"/>
 			<xs:enumeration value="Blacklisted"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LogicalRelationEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="And"/>
+			<xs:enumeration value="Or"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AvailabilityStateConditionEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Open"/>
+			<xs:enumeration value="Request"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--Begin of  rules definition-->
@@ -5715,20 +5807,6 @@ This is based on the total number of nights For this reason the return date is e
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="PriceTagsReferenceType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_8910">Der TagConditionType definiert die Bedingung an bestimmte Tags inklusive Angabe
-				der Class, Location und Werte des Tags. Tags sind Wertepaare, die an definierten
-				Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die
-				Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_8910">The TagConditionType defines the condition referring to specific tags including the indication of Class, Location and values of the tags. Tags are pairs of values, that may be indicated at defined node points. In doing so, the offer preparation as well as the price calculation may be influenced.</xs:documentation>
-		</xs:annotation>
-		<xs:simpleContent>
-			<xs:extension base="ConsideredPriceTagsReferenceType">
-				<xs:attributeGroup ref="SourceAttributeGroup"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
 	<xs:complexType name="RuleComponentBaseType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_341">Von diesem Basistyp werden für die verschiedenen
@@ -5755,8 +5833,8 @@ This is based on the total number of nights For this reason the return date is e
 					<xs:element name="Accommodation" type="RuleAccommodationComponentType"/>
 					<xs:element name="CombiComponent" type="RuleCombiComponentType">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_551">Hier können nur CombiComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_551">Here only CombiComponents with the Role="Accommodation" may be defined.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_9002">Hier können nur CombiComponents mit der Role="Accommodation" definiert werden.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_9002">Here only CombiComponents with the Role="Accommodation" may be defined.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="DefinedComponent" type="RuleDefinedComponentType">
@@ -5903,15 +5981,15 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 	<xs:complexType name="RuleExternalComponentType">
 		<xs:attribute name="Name" type="NameType">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_105">Dieses Element definiert einen Namen, der innerhalb der ProductRules von den Filtern innerhalb des Attributes "Source" in Kombination mit dem Präfix "#" als Referenz benutzt werden kann. 
+				<xs:documentation xml:lang="de" xml:id="de_9001">Dieses Element definiert einen Namen, der innerhalb der ProductRules von den Filtern innerhalb des Attributes "Source" in Kombination mit dem Präfix "#" als Referenz benutzt werden kann. 
 							</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_105">This element defines a name within the product rules of the filters using the "Source" attribute in combination with the prefix "#" as the reference.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9001">This element defines a name within the product rules of the filters using the "Source" attribute in combination with the prefix "#" as the reference.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
 		<xs:attribute name="Role" type="RoleEnum" use="required">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_342">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
+				<xs:documentation xml:lang="de" xml:id="de_9009">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
 Aktuell können explizit nur Flughafenbedingungen bzgl. der externen Komponente formuliert werden. 
 Dementsprechend werden Key-, Tag- und ConditionalTag-Filter und -Conditions in Kombination mit externen Komponenten explizit als "False" ausgewertet.
 
@@ -5922,7 +6000,7 @@ Mögliche Werte für die Role sind:
 - Inbound
 - Accommodation
 - Addon</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_342">This attribute defines the role, which an ExternalComponent takes over with reference to the ComponentType.  Depending on the @Role only the external componentes with Role="Accommodation" and Role="Addon" are components that are flexible timewise.
+				<xs:documentation xml:lang="en" xml:id="en_9009">This attribute defines the role, which an ExternalComponent takes over with reference to the ComponentType. Depending on the @Role only the external componentes with Role="Accommodation" and Role="Addon" are components that are flexible timewise.
 As of today only airport conditions with respect to the external component may be expressed.
 According to this Key-, Tag- and ConditionalTag-Filters and -Conditions in combination with external components will be explicitly evaluated as "False"
 
@@ -6126,9 +6204,9 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 					<xs:element name="PriceItem" type="PriceItemType" maxOccurs="unbounded"/>
 					<xs:element name="Condition" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_358">In diesem Element werden die Regeln zur Verwendung der PriceItems definiert. Immer wiederkehrende Preis Conditions können hier definiert werden. Dadurch kann Redundanz in den Conditions jedes einzelnen PriceItem vermieden werden. Gibt es eine Condtion in PriceItems, so ist diese mit den einzelnen PriceItems Conditions UND-verknüpft.
+							<xs:documentation xml:lang="de" xml:id="de_9003">In diesem Element werden die Regeln zur Verwendung der PriceItems definiert. Immer wiederkehrende Preis Conditions können hier definiert werden. Dadurch kann Redundanz in den Conditions jedes einzelnen PriceItem vermieden werden. Gibt es eine Condtion in PriceItems, so ist diese mit den einzelnen PriceItems Conditions UND-verknüpft.
 Das Attribut ExecutionOrder definiert, zu welchem Zeitpunkt die Conditions ausgewertet werden können. Wichtig ist hierbei, dass Conditions, die die DayPriceIndexCondition enthalten, nur in Verbindung mit dem Value ExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_358">In this element, the rules for using the PriceItems are defined. Recurring conditions can be defined here.
+							<xs:documentation xml:lang="en" xml:id="en_9003">In this element, the rules for using the PriceItems are defined. Recurring conditions can be defined here.
 								As a result, redundancy in the conditions of each PriceItem can be avoided. If there is a Condition in Price Items, this is AND-linked with the individual PriceItems Conditions. The ExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ExecutionOrder= "Last".</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
@@ -6159,7 +6237,11 @@ Das Attribut ExecutionOrder definiert, zu welchem Zeitpunkt die Conditions ausge
 			<xs:choice>
 				<xs:element name="Absolute" type="PriceImpactAbsoluteType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_356">Definition des Absolutbetrags eines Preisbestandteils (PriceItems) mit den Berechnungsgrundlagen und Wirkungen.</xs:documentation>
+						<xs:documentation xml:lang="det" xml:id="de_356">Definition von fixen Absolutbeträgen mit der Festlegung des Values und der Aufteilung des Values auf die Kostenmatrix gemäß der Angaben unter DayBase und PersonBase.  
+Die Zuordnung des Absolutbetrages zu spezifischen Percent-PriceItems wird über einzelne Bedingungen in den Elementen AppliedBy... und NotAppliedBy... festgelegt.
+Die Percent-PriceItems ihrerseits können auch zusätzliche Bedingungen durch ApplyTo... und NotApplyTo... an die Zuordnung festlegen.
+Mit dem Attribut @LogicalRelation="And" oder "Or" definiert man And-Bedingungen bzw. Or-Bedingungen.
+Die finale Zuordnung eines Absoluten-PriceItems zu einem PercentPriceItem, erfolgt nur dann, wenn jede And-Bedingung und gleichzeitig mindestens 1 Or-Bedingung erfüllt ist.  </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_356">Definition of the absolute value of a price
 							component (PriceItem) with the bases for the calculation and
 							effects.</xs:documentation>
@@ -6167,14 +6249,25 @@ Das Attribut ExecutionOrder definiert, zu welchem Zeitpunkt die Conditions ausge
 				</xs:element>
 				<xs:element name="GenericAbsolute" type="PriceImpactGenericType" internal:otdsversion="1.9">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_357">Angabe eines prozentualen Auf- oder Abschlags. Wirkt auf bestimmte PriceItems über ApplyTo oder NotApplyTo und wirkungsbezogene Bedingungen auf Reisende und Termine.</xs:documentation>
+						<xs:documentation xml:lang="det" xml:id="de_357">Definition von zur Laufzeit berechneten Absolutbeträgen mit der Festlegung des zu berechneden Values durch Definition einer spezifischen Berechnungsvorschrift, welche unterhalb des Elementes GenericValue definiert wird.
+
+Die Aufteilung des Values auf die Kostenmatrix erfolgt gemäß der Angaben unter DayBase und PersonBase.
+  
+Die Zuordnung des Absolutbetrages zu spezifischen Percent-PriceItems wird über einzelne Bedingungen in den Elementen AppliedBy... und NotAppliedBy... festgelegt.
+Die Percent-PriceItems ihrerseits können auch zusätzliche Bedingungen durch ApplyTo... und NotApplyTo... an die Zuordnung festlegen.
+Mit dem Attribut @LogicalRelation="And" oder "Or" definiert man And-Bedingungen bzw. Or-Bedingungen.
+Die finale Zuordnung eines Absoluten-PriceItems zu einem PercentPriceItem, erfolgt nur dann, wenn jede And-Bedingung und gleichzeitig mindestens 1 Or-Bedingung erfüllt ist.  </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_357">Indication of surcharge or discount by percentage.
 							It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impacting travellers and dates,</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="Percent" type="PriceImpactPercentType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_506">Angabe eines prozentualem Auf- oder Abschlags. Wirkt auf bestimmte PriceItems über ApplyTo oder NotApplyTo und wirkungsbezogene Bedingungen auf Reisende und Termine.</xs:documentation>
+						<xs:documentation xml:lang="det" xml:id="de_506">Definition von prozentualen Zu- oder Abschlägen.  
+Die Zuordnung des prozentualen Zu- oder Abschlages zu spezifischen Absolute-PriceItems wird über einzelne Bedingungen in den Elementen ApplyTo... und NotApplyTo... festgelegt.
+Die Absolute-PriceItems ihrerseits können auch zusätzliche Bedingungen durch  AppliedBy... und NotAppliedBy...  an die Zuordnung festlegen.
+Mit dem Attribut @LogicalRelation="And" oder "Or" definiert man And-Bedingungen bzw. Or-Bedingungen.
+Die finale Zuordnung eines Absoluten-PriceItems zu einem PercentPriceItem, erfolgt nur dann, wenn jede And-Bedingung und gleichzeitig mindestens 1 Or-Bedingung erfüllt ist.  </xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_506">Indication of surcharge or discount by percentage.
 It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impacting travellers and dates.</xs:documentation>
 					</xs:annotation>
@@ -6182,8 +6275,8 @@ It affects specific PriceItems via ApplyTo or NotApplyTo and conditions impactin
 			</xs:choice>
 			<xs:element name="Condition" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_358">In diesem Element werden die Regeln zur Verwendung der PriceItems definiert. Das Attribut ImpactExecutionOrder definiert, zu welchem Zeitpunkt die Conditions ausgewertet werden können. Wichtig ist hierbei, dass Conditions, die die DayPriceIndexCondition enthalten, nur in Verbindung mit dem Value ImpactExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_358">In this element, the rules for using the PriceItems are defined. The ImpactExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ImpactExecutionOrder= "Last".</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_9004">In diesem Element werden die Regeln zur Verwendung der PriceItems definiert. Das Attribut ImpactExecutionOrder definiert, zu welchem Zeitpunkt die Conditions ausgewertet werden können. Wichtig ist hierbei, dass Conditions, die die DayPriceIndexCondition enthalten, nur in Verbindung mit dem Value ImpactExecutionOrder= "Last" verwendet werden dürfen. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9004">In this element, the rules for using the PriceItems are defined. The ImpactExecutionOrder attribute defines at which time the conditions can be evaluated. It is important that conditions which include the DayPriceIndexCondition can only be used in conjunction with the value ImpactExecutionOrder= "Last".</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:complexContent>
@@ -6553,10 +6646,13 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 	</xs:complexType>
 	<xs:group name="PriceAppliedByGroup">
 		<xs:sequence>
-			<xs:element name="AppliedByPriceTags" type="PriceTagsReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_8912">In diesem Element wird definiert, welche anderen PriceItems auf dieses
-						PriceItem wirken können. Das Element enthält einen oder mehrere Values eines
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="AppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">
+Dieses Element definiert die Bedingung , dass mindestens eines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent//PriceTags) definiert sein muss.
+
+Das Element enthält einen oder mehrere Values eines
 						PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
 						PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
 						getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition
@@ -6567,7 +6663,7 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 						Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
 						Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags sind
 						Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_8912">In this element is being defined which other PriceItems can
+						<xs:documentation xml:lang="en" xml:id="en_8912">In this element is being defined which other PriceItems can
 						have an impact on this PriceItem. The element holds one or several values of
 						a PriceTags; in addition the Class of the PriceTag is defined within the
 						attribute "Class". A number of values can be specified in a list separated
@@ -6579,11 +6675,11 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 						Source="Hierarchy.All:ThisComponent" will be used, which references the
 						acutal Component including all ancestors and descendants. PriceTags are
 						tags, that are defined at the node "PriceItem".</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_8913">In diesem Element wird definiert, welche Preisbestandteile mit
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_8913">In diesem Element wird definiert, welche Preisbestandteile mit
 						prozentualem Zu- oder Abschlag eine Wirkung auf diesen Wert haben. Das
 						Element enthält den Wert des Attributs "Class" des entsprechenden
 						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
@@ -6595,22 +6691,94 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 						müssen beide Attribute erfüllt sein. Ist nur ein Attribut gefüllt, so muss
 						dieses erfüllt sein. Ist sowohl "Source" als auch "Component" nicht gefüllt,
 						so gilt ab Version V2.0 für Source der Default: ?? @ToDo</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_8913">In this element is being defined, which price components have an impact on this value with a percentage surcharge or discount. 
+						<xs:documentation xml:lang="en" xml:id="en_8913">In this element is being defined, which price components have an impact on this value with a percentage surcharge or discount. 
 						The element holds the value of the attribute "Class" of the corresponding PriceItem. A number of values can be specified in a list separated by Space. 
 						In the attribute "Component" can be defined to which component the AppliedBy refers to. If "Component" has no value, the default is "ThisComponent".
 						
 						In the course of developing OTDS 2.0 the attribute "Source" has been added, which in the future will completely replace the attribut "Component". 
 						If both attributes have a value, both attribute have to be fulfilled. If only one attribute is filled, this attribute needs to be fulfilled. If neither
-						"Source" nor "Component" is filled, from version V2.0 for Source the default ?? @ToDo is valid.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="PriceItemClassTypeList">
-							<xs:attributeGroup ref="ApplyAttributeGroup"/>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
+						"Source" nor "Component" is filled, from version V2.0 for Source the default ist valid.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AppliedByAll" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">
+Dieses Element definiert die Bedingung, dass das korrelierende Percent-PriceItem in einer der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein muss. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotAppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent/PriceTags) definiert sein darf.
+
+Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
+						PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
+						getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition
+						mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values
+						beziehen. Das Attribut "Source" wird hier auch häufig mit der Eigenschaft
+						"Hierarchy.All" verwendet, um PriceItems aus mehren SubKomponenten
+						gleichzeitig zu referenzieren. Am häufigsten wird
+						Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
+						Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags sind
+						Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
+						<xs:documentation xml:lang="en">In this element is being defined which other PriceItems can
+						have an impact on this PriceItem. The element holds one or several values of
+						a PriceTags; in addition the Class of the PriceTag is defined within the
+						attribute "Class". A number of values can be specified in a list separated
+						by Space. Also just like in the Tag-Condition it is possible to reference to
+						certain sectors of the PriceTag-Value with the help of the attributes Length
+						and Offset. The attribute "Source" in this aspect also is frequently used
+						with the property "Hierarchy.All", in order to reference to PriceItems from
+						several SubComponents at the same time. Most commonly the
+						Source="Hierarchy.All:ThisComponent" will be used, which references the
+						acutal Component including all ancestors and descendants. PriceTags are
+						tags, that are defined at the node "PriceItem".</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="NotAppliedBy" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass keines der hier angegeben Price-Classes am korrelierenden Percent-PriceItem (Percent/@Class) definiert sein darf.
+
+Das Element enthält den Wert des Attributs "Class" des entsprechenden
+						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
+						angegeben werden. In dem Attribut "Component" kann man definieren, auf
+						welche Komponente sich das AppliedBy bezieht. 
+
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotAppliedByAll" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Percent-PriceItem in keiner der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein darf. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+						<xs:documentation xml:lang="en">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="PriceImpactPercentType">
@@ -6664,7 +6832,7 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 									<xs:element name="Person" type="EmptyElementType" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_8916">Alle absoluten PriceItems bezogen auf eine Person bilden eine separate Gruppe.</xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="de_8916">All absolute PriceItems referring to a person form a separate group.</xs:documentation>
+											<xs:documentation xml:lang="en" xml:id="en_8916">All absolute PriceItems referring to a person form a separate group.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="Day" type="EmptyElementType" minOccurs="0">
@@ -6799,7 +6967,6 @@ repräsentieren.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<!-- 20151002, hjr: replaced local type by global type "ConsideredPriceItemsType" -->
 									<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_8927">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines bestimmten Types und/oder mit bestimmten PriceTags. Die Auswahl erfolgt in der	folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß	PriceFilter 2. Ggf. Ergänzung der IncludedDescendants. Bei mehrfacher Angabe des Elementes besteht die finale Menge der PriceItems aus einem Merge der PriceItems der einzelnen ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung von PriceItems statt.
@@ -6808,92 +6975,8 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 									1. selection of the PriceItems according to PriceFilter. 2. If necessary supplement of the IncludedDescendants. If the element
 									occurs multiple times, the final amount of the PriceItems consists from a merge of the PriceItems of the individual
 									ConsideredPriceItems evaluations. There will be no duplication of PriceItems. If no PriceItemFilterGroup is indicated, there will be no limitation of PriceItems. </xs:documentation>
+
 										</xs:annotation>
-										<!--
-							<xs:complexType>
-								<xs:sequence>
-									<xs:group ref="PriceItemFilterGroup"/>
-									<xs:element name="IncludeAppliedDescendants" type="IncludeAppliedDescendantsType" minOccurs="0" maxOccurs="unbounded">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_8928">Ist dieses Element
-												angegeben, werden zu den in PriceItemCollection
-												definierten Priceitems auch deren Descendants
-												ergänzt. Descendendants sind in dem Zusammenhang
-												alle PriceItems, die durch ApplyTo und AppliedBy der
-												PrideItemCollection-Pricetems adressiert werden. So
-												kann man in der Collection bestimmte
-												PercentPriceItems auswählen und zusätzlich alle
-												PriceItems inkludieren, die sich über ApplyTo und
-												AppliedBy auf dieses PriceItem beziehen. Die Auswahl
-												der Descendants lässt sich wiederum durch den
-												PriceItemFilter separat einschränken. Bei der
-												Auswahl der Descendants wird nur Apply-Hierarchie
-												berücksichtigt! Sollte ein Bezug auf ein generisches
-												Abolute hergestellt werden, so wird hierbei dessen
-												Include nicht mitberücksichtigt.</xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_8928">Include="ApplyDescandents" allows to include
-												further PriceItems which are applied by the
-												addressed PriceItems. By doing so specific
-												PercentPriceItems can be assigned. In addition all
-												PriceItems can be included that refer to this
-												specific PriceItem via ApplyTo and AppliedBy. This
-												attribute only considers one apply hierarchy! If a
-												reference to a generic absolute is being
-												established, its Include will not be
-												considered.</xs:documentation>
-										</xs:annotation>
-<!- - 20151002, hjr: shifted into global type "IncludeAppliedDescendantsType"
-										<xs:complexType>
-											<xs:sequence>
-												<xs:group ref="PriceItemFilterGroup"/>
-											</xs:sequence>
-											<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum">
-												<xs:annotation>
-													<xs:documentation xml:lang="de" xml:id="de_8929">Dieses Element
-												definiert, welche Art PriceItems berücksichtigt
-												werden. Es kann eine durch Space getrennte Liste
-												von Values angegeben werden. Folgende Values sind
-												möglich: - Absolutes Es werden nur absolute
-												PriceItems berücksichtigt. - Percents Es werden
-												nur Percent-PriceItems berücksichtigt. - All Es
-												werden alle PriceItems berücksichtigt. Default =
-												"All"</xs:documentation>
-													<xs:documentation xml:lang="en" xml:id="en_8929">This element
-												defines which type of PriceItems should be
-												considered. A list of values separated by space
-												can be specified. The following values are
-												possible: - Absolute: Only absolute PriceItems are
-												considered. - Percents: Only Percent-PriceItems
-												are considered. - All: all PriceItems are
-												considered. Default = "All"</xs:documentation>
-												</xs:annotation>
-											</xs:attribute>
-										</xs:complexType>
-- ->
-									</xs:element>
-								</xs:sequence>
-								<xs:attributeGroup ref="SourceAttributeGroup"/>
-								<xs:attribute name="ConsideredPriceItemType" type="ConsideredPriceItemTypeEnum" default="All">
-									<xs:annotation>
-										<xs:documentation xml:lang="de" xml:id="de_8930">Dieses Element definiert,
-											welche Art PriceItems berücksichtigt werden. Es kann
-											eine durch Space getrennte Liste von Values angegeben
-											werden. Folgende Values sind möglich: - Absolutes Es
-											werden nur absolute PriceItems berücksichtigt. -
-											Percents Es werden nur Percent-PriceItems
-											berücksichtigt. - All Es werden alle PriceItems
-											berücksichtigt. Default = "All"</xs:documentation>
-										<xs:documentation xml:lang="en" xml:id="en_8930">This element defines which
-											type of PriceItems should be considered. A list of
-											values separated by space can be specified. The
-											following values are possible: - Absolute: Only absolute
-											PriceItems are considered. - Percents: Only
-											Percent-PriceItems are considered. - All: all PriceItems
-											are considered. Default = "All"</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-							</xs:complexType>
--->
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -6916,65 +6999,22 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 	<xs:group name="ApplyToGroup">
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
-				<xs:element name="ApplyTo">
+				<xs:element name="ApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8931">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8931">The value is specified, which is registered with the PriceItem in the attribute "Class". If there are several they can be given as a list separated by space.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:simpleContent>
-							<xs:extension base="PriceItemClassTypeList">
-								<xs:attributeGroup ref="ApplyAttributeGroup"/>
-								<xs:attribute name="Include" type="IncludeAttributeEnum">
-									<xs:annotation>
-										<xs:documentation xml:lang="de" xml:id="de_8932">Mit Include="ApplyDescendants" können weitere PriceItems
-											inkludiert werden, die von den adressierten PriceItems angewendet werden. So kann man bestimmte
-											PercentPriceItems zuordnen und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und
-											AppliedBy auf dieses PriceItem beziehen. Dieses Attribut berücksichtigt nur eine Apply-Hierarchie! Sollte ein
-											Bezug auf ein generisches Absolute hergestellt werden, so wird hierbei dessen Include nicht
-											mitberücksichtigt.</xs:documentation>
-										<xs:documentation xml:lang="en" xml:id="en_8932">With Include="ApplyDescendants" more PriceItems can be
-											included that are applied by the addressed PriceItems.	So you can assign specific PercentPriceItems and
-											additionally include all PriceItems that refer to this PriceItem via ApplyTo and AppliedBy. This attribute only
-											considers an Apply hierarchy! If a reference to a generic absolute is to be obtained, its include will not
-											be taken into account.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
-							</xs:extension>
-						</xs:simpleContent>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="ApplyToAll">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8933">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8933">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:attributeGroup ref="ApplyAttributeGroup"/>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="NotApplyTo">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8934">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8934">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:simpleContent>
-							<xs:extension base="PriceItemClassTypeList">
-								<xs:attributeGroup ref="ApplyAttributeGroup"/>
-							</xs:extension>
-						</xs:simpleContent>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="ApplyToPriceTags" maxOccurs="unbounded">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_398">In diesem Element wird definiert, auf welche anderen PriceItems dieses
-							PriceItem wirkt. Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
-							PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space	getrennt angegeben werden. Außerdem kann man sich wie in der
-							Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig
-							mit der Eigenschaft "Hierarchy.All" verwendet, um PriceItems aus mehren	SubKomponenten gleichzeitig zu referenzieren. Am Häufigsten wird
-							Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle	Komponente inkl. alle Ancestors und Descendants referenziert. 
-							PriceTags	sind Tags, die am Knoten "PriceItem" definiert	werden.</xs:documentation>
+						<xs:documentation xml:lang="det" xml:id="de_398">Dieses Element definiert die Bedingung , dass mindestens eines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein muss.
+
+Das Element enthält einen oder mehrere Values eines
+							PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
+							PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
+							getrennt angegeben werden. Außerdem kann man sich wie in der
+							Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des
+							PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig
+							mit der Eigenschaft "Hierarchy.All" verwendet, um PriceItems aus mehren
+							SubKomponenten gleichzeitig zu referenzieren. Am Häufigsten wird
+							Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
+							Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags
+							sind Tags, die am Knoten "PriceItem" definiert
+							werden.</xs:documentation>
 						<xs:documentation xml:lang="de" xml:id="en_398">In this element is being defined, which other PriceItems this PriceItem may have an impact on. 
 							The element holds one or several values of a PriceTags; in addition the Class of the PriceTag is defined within the attribute "Class". 
 							A number of values can be specified in a list separated by Space. Also just like in the Tag-Condition it is possible to reference to certain 
@@ -6983,25 +7023,93 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 							Source="Hierarchy.All:ThisComponent" will be used, which references the acutal Component including all ancestors and descendants. 
 							PriceTags are tags, that are defined at the node "PriceItem".</xs:documentation>
 					</xs:annotation>
+				</xs:element>
+				<xs:element name="ApplyTo">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass mindestens eine der hier angegeben PriceClasses am korrelierenden Absolute-PriceItem (Absolute/@Class bzw. GenericAbsolute/@Class) definiert sein muss.
+
+Das Element enthält den Wert des Attributs "Class" des entsprechenden
+						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
+						angegeben werden. In dem Attribut "Component" kann man definieren, auf
+						welche Komponente sich das AppliedBy bezieht. 
+
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+						<xs:documentation xml:lang="en">The value is specified, which is registered with the PriceItem in the attribute "Class". If there are several they can be given as a list separated by space.</xs:documentation>
+					</xs:annotation>
 					<xs:complexType>
-						<xs:complexContent>
-							<xs:extension base="TagConditionType">
-								<xs:attribute name="Include" type="IncludeAttributeEnum">
-									<xs:annotation>
-										<xs:documentation xml:lang="de" xml:id="de_8935">Mit Include="ApplyDescendants" können weitere PriceItems inkludiert
-											werden, die von den adressierten PriceItems angewendet werden. So kann man bestimmte PercentPriceItems zuordnen
-											und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem
-											beziehen. Dieses Attribut berücksichtigt nur eine Apply-Hierarchie! Sollte ein Bezug auf ein generisches
-											Absolute hergestellt werden, so wird hierbei dessen	Include nicht mitberücksichtigt.</xs:documentation>
-										<xs:documentation xml:lang="en" xml:id="en_8935">With Include="ApplyDescandents" more PriceItems can be
-											included that are applied by the addressed PriceItems. So you can assign specific PercentPriceItems and
-											additionally include all PriceItems that refer to this PriceItem via ApplyTo and AppliedBy. This attribute only
-											considers an Apply hierarchy! If a reference to a generic absolute is to be obtained, its include will not
-											be taken into account.</xs:documentation>
-									</xs:annotation>
-								</xs:attribute>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
 							</xs:extension>
-						</xs:complexContent>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ApplyToAll">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Absolue-PriceItem in einer der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein muss. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_9010">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein darf.
+
+In diesem Element wird definiert, auf welche anderen PriceItems dieses
+							PriceItem wirkt. Das Element enthält einen oder mehrere Values eines
+							PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
+							PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
+							getrennt angegeben werden. Außerdem kann man sich wie in der
+							Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des
+							PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig
+							mit der Eigenschaft "Hierarchy.All" verwendet, um PriceItems aus mehren
+							SubKomponenten gleichzeitig zu referenzieren. Am Häufigsten wird
+							Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
+							Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags
+							sind Tags, die am Knoten "PriceItem" definiert
+							werden.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="en_9010">In this element is being defined, which other PriceItems this PriceItem may have an impact on. 
+							The element holds one or several values of a PriceTags; in addition the Class of the PriceTag is defined within the attribute "Class". 
+							A number of values can be specified in a list separated by Space. Also just like in the Tag-Condition it is possible to reference to certain 
+							sectors of the PriceTag-Value with the help of the attributes Length and Offset. The attribute "Source" in this aspect also is frequently used 
+							with the property "Hierarchy.All", in order to reference to PriceItems from several SubComponents at the same time. Most commonly the 
+							Source="Hierarchy.All:ThisComponent" will be used, which references the acutal Component including all ancestors and descendants. 
+							PriceTags are tags, that are defined at the node "PriceItem".</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="NotApplyTo">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceClasses am korrelierenden Absolute-PriceItem (Absolute/@Class bzw. GenericAbsolute/@Class) definiert sein darf.
+
+Das Element enthält den Wert des Attributs "Class" des entsprechenden
+						PriceItems. Es können auch mehrere Werte als Liste mit Space getrennt
+						angegeben werden. In dem Attribut "Component" kann man definieren, auf
+						welche Komponente sich das AppliedBy bezieht. 
+
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+						<xs:documentation xml:lang="en">Here PriceItems are excluded. The value is indicated which is stated in the PriceItem's attribute "Class".  If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceItemClassTypeList">
+								<xs:attributeGroup ref="ApplyAttributeGroup"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NotApplyToAll">
+					<xs:annotation>
+						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Absolue-PriceItem in keiner der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein darf. 
+
+Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:choice>
@@ -7009,10 +7117,26 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 	</xs:group>
 	<xs:group name="ConsideredPriceItemsGroup">
 		<xs:choice>
-			<xs:element name="ConsideredPriceItemClasses">
+			<xs:element name="ConsideredPriceItemClasses" type="PriceItemClassTypeList">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_397">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_397">The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NotConsideredPriceItemClasses" type="PriceItemClassTypeList">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_399">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_399">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="DayPriceIndexConsideredPriceItemsGroup">
+		<xs:choice>
+			<xs:element name="ConsideredPriceItemClasses">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9011">Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9011">The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
@@ -7024,8 +7148,8 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 			</xs:element>
 			<xs:element name="NotConsideredPriceItemClasses">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_399">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_399">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_9012">Hier werden PriceItems ausgeschlossen. Es wird der Wert angegeben, der beim PriceItem im Attribut "Class" eingetragen ist. Bei mehreren können diese als Liste durch Space getrennt angegeben werden.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9012">PriceItems are excluded here. The value given is that which is specified for the PriceItem in the attribute "Class". If there are several, these can be provided as a list separated by a space.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
@@ -7262,9 +7386,13 @@ Folgende Verfügbarkeitsstati stehen zur Verfügung:
 
 Seit Version 2.0 kann bzgl. jedes Tageskontexts das verfügbare Kontingent mit angegeben werden. In der Regel werden keine Kontingente &gt;9 angegeben. Das obliegt aber dem Lieferanten.
 
-Eine Reise ist verfügbar, wenn an dem CheckIn-Termin einer der vorgegeben CheckIn-Stati gesetzt ist, ebenfalls am CheckOut-Termin einer der vorgegeben CheckOut-Stati gesetzt ist und alle Stay-Termine einen der vorgegebenen Stay-Stati gesetzt haben.  
-Zusätzlich müssen jeweils auch noch die Anzahl der Personen bzw. gebuchten Units in die angegebenen Tageskontingente passen. 
-Ob Personen oder Units durch die Availability adressiert werden, legt die Angabe unter Occupancy/Person/AvailabilityMatching fest. 
+Eine Reise ist verfügbar, wenn 
+1. die CheckIn-Termine der Hauptkomponenten-Instanzen die CheckIn-Stati "Open" oder "Request" besitzen 
+2. die CheckOut-Termine der Hauptkomponenten-Instanzen die CheckOut-Stati "Open" oder "Request" besitzen
+3. die Stay-Termine der Hauptkomponenten-Instanzen die Stay-Stati "Open" oder "Request" besitzen
+4. die Anzahl der Personen bzw. gebuchten Units in die ggf. angegebenen Tageskontingente (Vaues in Stay, CheckIn, CheckOut oder Stay) passen. 
+Ob Personen oder Units durch die Availability addressiert werden legt die Angabe unter Occupancy/Person/AvailabilityMatching fest. 
+Mit der AvailabilityState-Condition lässt sich die Gültikeit bezogen auf die AvailabilityStates weiter einschränken.
 
 Im Zusammenspiel mit den Angaben im Element DefaultDayState ist man in der Lage, weitreichende Default-Einstellungen für die Werte jedes DayStates vorgeben zu können.
 Ist zu einem Termin kein DayState-Element enthalten, so definieren die unter DefaultDayState angegebenen Elemente und ggf. deren Defaults die Default-Angaben für die Elemente Stay, CheckIn und CheckOut.
@@ -7348,62 +7476,46 @@ If a DayState is given for a date, but holds no indication for neither CheckOut 
 					<xs:choice>
 						<xs:element name="Open" type="AvailabilityOpenType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.
+								<xs:documentation xml:lang="de" xml:id="det_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
 
-Die Festlegung, welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
 
-Eine Definition in diesem Element wird durch eine gleichzeitige Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_417">This element contains the amount of free availabilities for this day. If the element is present but without a Value, this means that the day is available in general.
-The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.								
-								</xs:documentation>
+Grundsätzlich gilt der Status "Open" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_417">This element contains the amount of free availability for this day. If the element is present but without a Value, this means that the day is available in general.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Request" type="AvailabilityRequestType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.
-
-Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
-
-Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_418">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.
+Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt. Grundsätzlich gilt der Status "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_418">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Closed" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten. Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+								<xs:documentation xml:lang="de" xml:id="det_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_419">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay</xs:documentation>
+Grundsätzlich gilt der Status "Closed" als nicht verfügbar.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_419">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="StopSales" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.
-Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+								<xs:documentation xml:lang="de" xml:id="det_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_420">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.</xs:documentation>
+
+
+Grundsätzlich gilt der Status "StopSales" als nicht verfügbar.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_420">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Blacklisted" type="AvailabilityEmptyType">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_421">Ist dieses Element in einer Lieferung enthalten so zeigt es an, dass dieser Termin zur Zeit nicht angeboten werden kann, da es auf einer Blacklist steht. Das Element kann keinen Wert enthalten.
-Die Festlegung welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
-Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value.
-								The determination, which availability statuses in which context lead to displaying the offer, takes place in the product defintion due to a corresponding availability filter.
-A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.
-								</xs:documentation>
+Eine Definition in diesem Element wird durch eine gleichzeitige Definition im Element DayState/Stay ersetzt.
+Grundsätzlich gilt der Status "Blacklisted" als nicht verfügbar.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_421">If this element is contained in a data delivery, it indicates that this date cannot currently be offered, as it appears on a blacklist. The element cannot contain a value. A definition in this element is replaced by a simultaneous definition in the element DayState/Stay.
+In general the State "Blacklisted" is reagarded as not available</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Stay" type="AvailabilityStateType">
@@ -7416,7 +7528,7 @@ Im Attribut @State können folgende Verfügbarkeitsstati angegeben werden:
 - StopSale
 - Blacklisted
 
-Die Festlegung, welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.
+Grundsätzlich gelten die Stati "Open" und "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.
 
 Enthält das Stay-Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthalt-Verfügbarkeits-Status möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
 Mit dem State-Attribut gibt man den generellen Status bzgl. des Aufenthaltes an.
@@ -7456,12 +7568,10 @@ DefaultDayState/Blacklisted.</xs:documentation>
 								<xs:documentation xml:lang="de" xml:id="de_422">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Anreise uneingeschränkt möglich. Enthält dieses Element eine Zahl, so drückt diese aus, dass die Anreise maximal für diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
 
 Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.
 
-Ist weder dieses Element noch das Element NoCheckIn angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw. NoCheckIn.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. 
-								In case the element contains a value it expresses, that the arrival is possible for this maximum number of units or persons. The attribute Occupancy/Person/@MatchAvailability determines if the number indicates the amount of persons.
-Via the attribute "State" the general status of the arrival is indicated.
-If neither this element nor the element NoCheckIn is indicated, the default regarding CheckIn repectively NoCheckIn as given in DefaultDayState applies.</xs:documentation>
+Grundsätzlich gelten die Stati "Open" und "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_422">If this element is contained in a data delivery, it indicates that this is a possible arrival date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckIn" type="AvailabilityEmptyType">
@@ -7476,13 +7586,15 @@ Ist weder dieses Element noch das Element CheckIn angegeben, so gilt der im Defa
 					<xs:choice minOccurs="0">
 						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
-Mit dem State-Attribut gibt man den generellen Status bzgl. der Abreise an.
-Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. 
-								In case the element contains a value it expresses, that the departure is possible for this maximum number of units or persons. The attribute Occupancy/Person/@MatchAvailability determines if the number indicates the amount of persons.
-Via the attribute "State" the general status of the departure is indicated.
-If neither this element nor the element NoCheckOut is indicated, the default regarding CheckOut repectively NoCheckOut as given in DefaultDayState applies.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="det_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
+
+Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
+
+Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.
+
+
+Grundsätzlich gelten die Stati "Open" und "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckOut" type="AvailabilityEmptyType">
@@ -7656,6 +7768,11 @@ If neither this element nor the element NoCheckOut indicated, <CheckOut State="O
 			</xs:simpleType>
 		</xs:union>
 	</xs:simpleType>
+	<xs:simpleType name="ValidStateValueType">
+		<xs:restriction base="xs:string">
+			<xs:length value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="AvailabilityEmptyType"/>
 	<xs:complexType name="AvailabilityStateType">
 		<xs:simpleContent>
@@ -7671,17 +7788,26 @@ Folgende Verfügbarkeitsstati sind möglich:
 - StopSale
 - Blacklisted
 
-Die Festlegung, welche Verfügbarkeitsstati in welchem Kontext zu einer Anzeige des Angebotes führen, erfolgt in der Product-Definition durch einen entsprechenden Availability-Filter.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8938">This attribute defines, which availability status a date has regarding the arrival, departure, or stay. 
 
-The following availability statuses may be applied: 
+Fehlt das Attribut gilt der Default = "Open"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ValidStateType">
+		<xs:simpleContent>
+			<xs:extension base="ValidStateValueType">
+				<xs:attribute name="State" type="AvailabilityStateConditionEnum" use="required">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_1439">Dieses Attribut definiert, welcher Verfügbarkeitsstatus als valide gilt.
+Mögliche Werte sind:
 - Open
-- Request
-- Closed
-- StopSale
-- Blacklisted
-
-The determination which availability statusesi in which context lead to displaying the offer, takes place in the product definition by a corresponding availability filter.</xs:documentation>
+- Request</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_1439">This attribute defines, which availability state is considered valid.
+Possible values are:
+- Open
+- Request</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 			</xs:extension>
@@ -7792,11 +7918,11 @@ The result of this filter is to sort participants in descending order by age and
 	<xs:complexType name="PersonIndexConditionType">
 		<xs:sequence>
 			<xs:choice>
-				<xs:choice maxOccurs="2">
-					<xs:element name="Until" type="NonZeroIntegerListType">
+				<xs:sequence minOccurs="0">
+					<xs:element name="Until" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer bestimmten Person. Until=x definiert die X ältesten Personen. 
-									Until=-x definiert alle Personen dem Alter nach aufsteigend bis zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten Personen, die über From=-x definiert werden. </xs:documentation>
+									Until=-x definiert alle Personen dem Alter nach absteigend bis zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten Personen, die über From=-x definiert werden. </xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
 
 Until=x defines the X oldest persons.
@@ -7804,10 +7930,10 @@ Until=x defines the X oldest persons.
 Until=-x defines all persons in ascending order by age up to the X-youngest person. NOT to be confused with the X-youngest persons, defined by From=-x.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="From" type="NonZeroIntegerListType">
+					<xs:element name="From" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer bestimmten Person. Standardverwendung ist hier From=-x. From=-x
-									definiert die X jüngsten Personen. From=x definiert alle Personen dem Alter nach aufsteigend ab der X-ältesten Person (inklusive der Xten Person).</xs:documentation>
+									definiert die X jüngsten Personen. From=x definiert alle Personen dem Alter nach absteigend ab der X-ältesten Person (inklusive der Xten Person).</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_529">Definition of all persons from a certain person. 
 							The standard usage for this is
 From=-x. From=-x defines the X youngest persons.
@@ -7815,7 +7941,7 @@ From=-x. From=-x defines the X youngest persons.
 From=x defines all persons in ascending order by age from the X-oldest person (including the Xth person).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-				</xs:choice>
+				</xs:sequence>
 				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch
@@ -7884,7 +8010,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 		<xs:sequence>
 			<xs:choice>
 				<xs:sequence>
-					<xs:element name="Until" type="NonZeroIntegerListType" minOccurs="0">
+					<xs:element name="Until" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_444">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich vor dem in "Until" angegebeben
@@ -7899,7 +8025,7 @@ At this point it makes sense to refer only to ConditionalTags which have no DayI
 							check-out day and all other days prior to it.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="From" type="NonZeroIntegerListType" minOccurs="0">
+					<xs:element name="From" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_445">Definiert innerhalb der zeitlich aufsteigenden
 							Tage alle Indizes, die sich zeitlich nach dem in "From" angegebeben
@@ -7965,7 +8091,7 @@ The default is "Stay".</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_449">A condition that is valid for the days that are among the x cheapest/most expensive days.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Until" type="xs:int" minOccurs="0">
+			<xs:element name="Until" type="NonZeroIntegerType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_450">Anzahl der Tage bis zu einem Xten Tag. Die	Sortierung der Tage erfolgt nach aufsteigenden Preisen. Positive Werte (also
 						Until=x) definieren die X günstigsten Tage inklusive des Xten Tages. Negative Werte definieren ALLE Tage BIS zum X teuersten Tag. 
@@ -7973,7 +8099,7 @@ The default is "Stay".</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_450">Number of days up until the Xth day. The days are sorted by price in ascending order. Positive values (Until=x) define the X cheapest days up to and including the Xth day. Negative values define ALL days up to and including the X most expensive day. NOT to be confused with the definition of the X most expensive days, which are displayed via the element "From=-x".</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="From" type="xs:int" minOccurs="0">
+			<xs:element name="From" type="NonZeroIntegerType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_451">Anzahl der Tage ab einem Xten Tag. Die Sortierung der Tage erfolgt nach aufsteigenden Preisen. Die
 						Standardverwendung von "From" wird mit negativen Werten sein. From=-x definiert alle Tage ab dem X teuersten Tag inklusive des Xten Tages. Was so
@@ -7984,28 +8110,54 @@ standard usage of "From" is with negative values. From=-x defines all days from 
 It is rare to use a positive value in relation to "From", i.e. "From=x", and it will define all days from the Xth cheapest day.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:group ref="PriceItemFilterGroup" minOccurs="0" internal:otdsversion="2.0">
+			<xs:sequence>
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_5708">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden. Jedes Element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
+					<xs:documentation xml:lang="de" xml:id="de_1440">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden. Jedes Element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
 Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_5708">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices. Each element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" respectively "NotConsideredPriceItemClasses" is evaluated in its Component context. The resulting amount of valid PriceItems equals the set union of particular evaluations. In the process no PriceItems are duplicated.
-					If no PriceItemFilterGroup is indicated, there is no limitation of the PriceItems.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_1440">Here the PriceItems are defined respectively excluded, which are used for evaluating the PriceIndex. Each element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses", and "NotConsideredPriceItemClasses" is evaluated within its Component context. The result set of the valid PriceItems is the united set of the single evaluations. In this process no PriceItems are duplicated. If no PriceItemFilterGroup is indicated, there will be no restriction of the PriceItems.</xs:documentation>
 				</xs:annotation>
-			</xs:group>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="ConsideredPriceTags">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_9007">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_9007">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConsideredPriceTagsReferenceType">
+									<xs:attributeGroup ref="ComponentAttributeGroup"/>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="NotConsideredPriceTags">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_9008">>Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_9008">>These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="ConsideredPriceTagsReferenceType">
+									<xs:attributeGroup ref="ComponentAttributeGroup"/>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:group ref="DayPriceIndexConsideredPriceItemsGroup">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_9006">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_9006">This is used to define or exclude the PriceItems that are used to evaluate the PriceIndices. Each element "ConsideredPriceItemClasses" respectively "NotConsideredPriceItemClasses" is evaluated in its component context. The result set of the valid PriceItems is the set union of the single evaluations. No PriceItems will be duplicated.</xs:documentation>
+						</xs:annotation>
+					</xs:group>
+				</xs:choice>
+			</xs:sequence>
 			<xs:element name="DayFilter" type="DayFilterType" minOccurs="0" internal:otdsversion="1.9.1">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_5708">Der DayFilter schränkt die betrachteten Tage auf bestimmte Tage ein. Die eingeschränkten Tage müssen alle Bedingungen hinsichtlich der angegebenen Date, Weekdays und ConditionalTags erfüllen.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="de_5708">The DayFilter restricts the days that are considered to specific days. The restricted days have to fulfill all conditions regarding the indicated Date, Weekdays and ConditionalTags</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_5708">The DayFilter restricts the days that are considered to specific days. The restricted days have to fulfill all conditions regarding the indicated Date, Weekdays and ConditionalTags</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="Repeat" type="xs:positiveInteger">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_508">Dieses Attribut gibt an, dass es sich um ein sich wiederholendes Muster von Indizes handelt. Der angegebene Value definiert
-					die Weite des Wiederholungszyklus.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_508">This attribute indicates that there is a repeating pattern of indices. The specified value defines the size of the repeat cycle.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 		<xs:attributeGroup ref="SourceAttributeGroup"/>
 		<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay">
 			<xs:annotation>
@@ -8023,6 +8175,32 @@ All days of the stay are to be considered
 All the days from check-in up to and including the day of check-out are to be considered.
 
 The default is "Stay".</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="AvailabilityConditionType">
+		<xs:sequence>
+			<xs:element name="ValidState" type="ValidStateType" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_1142">Mit diesem Element kann mit dem Attribut @State ein spezifischer AvailabilityStatus definiert werden, der als valide gilt.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_1142">This element via the attribute @State allows to define a specific AvailabilityState that is considered valid.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Component" type="ComponentAttributeType" use="optional" default="ThisComponent">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_1426">Dieses Attribut gibt den Type einer Komponente
+					an. Folgende Typen stehen zur Auswahl: -
+					Accommodation, - Flight, - Addon, - ThisComponent.
+					Mit der Source kann man die Addressierung noch feiner auflösen.
+					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component' der Wert 'ThisComponent' angenommen.
+					</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_1426">This attribute specifies the type of a
+					component. The following types are available: - Accommodation,
+					- Flight, - Add-on, - ThisComponent.
+					With the help of Source the addressing can be refined further. 
+					If the attribute 'Component' and the attribute 'Source' are indicated at the same time, only Source is being evaluated. If both attributes are not indicated, the value 'ThisComponent' is assumed for the attribute 'Component'.
+					</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
@@ -8491,7 +8669,7 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 									das Element AbsolutePriceItem innerhalb von
 									GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedAbsolute
 									keine Auswirkung.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="de_5866">This element is used only for GenericAbsolutes and has no
+								<xs:documentation xml:lang="en" xml:id="en_5866">This element is used only for GenericAbsolutes and has no
 									effect in a different context. The element is directly related
 									to the element GroupAbsolutePriceItemsBy/AbsolutePriceItem and
 									defines that the Generic Values are divided on the cost-nodes of
@@ -8599,6 +8777,7 @@ etc.
 			<xs:group ref="AtomicRulesConditionGroup"/>
 			<xs:group ref="AtomicProductPriceConditionGroup"/>
 			<xs:group ref="AtomicCountConditionGroup"/>
+			<xs:group ref="AtomicAvailabilityConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
 					<xs:group ref="ConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
@@ -8878,6 +9057,20 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 		<xs:choice>
 			<xs:element name="DayCount" type="DayCountConditionType" internal:otdsversion="1.9"/>
 			<xs:element name="PersonCount" type="PersonCountConditionType" internal:otdsversion="1.9"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="AtomicAvailabilityConditionGroup">
+		<xs:choice>
+			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="1.9">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_3277">Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Dieses Bedingung ist erfüllt, wenn der AvailabilityStatus der durch @Component adressierten Hauptkomponentensinstanz nach der Auswertung der Availabilities einen der aufgeführten ValidState/@State als Komponentenstatus besitzt. 
+Bis zur Auswertung der Availabilities gilt diese Bedingung als undefined und wird dementsprechend erst nach der Auswertung der Availabilities explizit nach OTDS-Vorschrift ausgewertet. 
+Die AvailabiltyState-Bedingung wird nur in den Filtern auf Product und DefineComponent-Ebene ausgewertet. In allen anderen Positionen bleibt die Auswertung der Bedingung = "undefined".</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_3277">With the condition the general evaluation of the availabilities can be further restricted. The condition is fulfilled, if the AvailabilityState of the main component instance addressed by @Component after the evaluation of the availabilities has one of the ValidState/@State indicated as component state. 
+Until the evaluation of the availabilities this condition is considered undefined. Hence it is only evaluated after the evaluation of the availabilities, and follows explicitly the OTDS regulation.
+The AvailabiltyState condition is evaluated only in filters on Product and DefineComponent level. In all other positions the evaluation of the condition = "undefined".</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:choice>
 	</xs:group>
 	<xs:group name="AtomicGenericTagConditionGroup">

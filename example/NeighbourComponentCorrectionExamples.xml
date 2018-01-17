@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
+	<!--Siehe finden die Beispiele in den entsprechenden OnewayFlight-Komponenten, die eine Verschiebung erfordern. -->
+	<Products>
+		<Product Key="Package1" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<ReturnFlight/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands/>
+	<Accommodations>
+		<Accommodation Key="PMI01">
+		<Tags>
+			<Tag Class="MaxNights">True</Tag>
+		</Tags>
+			<SellingAccom Key="PMI01">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI01</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="R1">
+					<SellingUnit Key="R1">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>R1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+		<Accommodation Key="PMI02">
+			<Tags>
+				<Tag Class="LuxusCheckInCheckOut">True</Tag>
+			</Tags>
+			<SellingAccom Key="PMI02">
+				<Booking>
+					<BookingGroup Area="ServiceArea">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI02</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="Board"/>
+				<Unit Key="R1">
+					<SellingUnit Key="R1">
+						<Booking>
+							<BookingGroup Area="ServiceArea">
+								<BookingParameter Field="ServiceFeatureCode">
+									<Value>R1</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Occupancy Key="1">
+							<Person>
+								<MinCount>1</MinCount>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+	<Flights>
+		<OnewayFlights>
+			<OnewayFlight Key="DUSPMI_Ankunft_1700">
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<BookingClass Key="Y"/>
+			</OnewayFlight>
+			<OnewayFlight Key="DUSPMI_Ankunft_0100">
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<NeighbourComponentCorrection>
+				<!-- Der CheckIn einer nachfolgenden Komponente Accommodation wird um einen Tag vorverlegt, da der virtuelle Termin des CheckOut dieses Fluges um einen Tag vorverlegt wird. Dieser virtuelle CheckOut-Termin des Fluges hat keine Auswirkungen auf den CheckOut des Fluges bzw. auf Conditions, die sich auf den CheckOut des Fluges beziehen. -->
+					<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+				</NeighbourComponentCorrection>
+				<BookingClass Key="Y"/>
+			</OnewayFlight>
+			<OnewayFlight Key="DUSPMI_Ankunft_0600">
+				<DepartureAirport>DUS</DepartureAirport>
+				<ArrivalAirport>PMI</ArrivalAirport>
+				<NeighbourComponentCorrection>
+				<!-- Das könnte zum Beispiel ein Flug sein, der um & Uhr morgens landet. Der CheckIn einer nachfolgenden Komponente Accommodation wird um einen Tag vorverlegt, da der virtuelle Termin des CheckOut dieses Fluges um einen Tag vorverlegt wird. Die Verschiebung findet nur statt, wenn die Accommodation das entsprechende <Tag Class="LuxusCheckInCheckOut">True</Tag>  enthält. -->
+					<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+					<Condition>
+						<Tags Source="Accommodation" Class="LuxusCheckInCheckOut">True</Tags>
+					</Condition>
+				</NeighbourComponentCorrection>
+				<BookingClass Key="Y"/>
+			</OnewayFlight>
+			<OnewayFlight Key="PMIDUS">
+				<DepartureAirport>PMI</DepartureAirport>
+				<ArrivalAirport>DUS</ArrivalAirport>
+				<BookingClass Key="Y"/>
+			</OnewayFlight>
+		</OnewayFlights>
+	</Flights>
+	<DefinedComponents>
+		<DefineComponent Key="1" Role="ReturnFlight">
+			<Components>
+				<OnewayFlight Name="Inbound" DayAllocationIndex="1"/>
+				<OnewayFlight Name="Outbound"  DayAllocationIndex="2"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">CatchmentAirport</Element>
+						<Element Source="Inbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">CatchmentAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>
