@@ -2239,30 +2239,6 @@
 									>Offers that are sold as an add-on service in combination with
 									other travel services.</para></td>
 						</tr>
-						<tr>
-							<td rowspan="1" colspan="1">AccommodationForMix</td>
-							<td rowspan="1" colspan="1"><para xml:id="de_8615" xml:lang="de"
-									>Unterkünfte, die zur Paketierung mit Flügen genutzt werden
-									können.</para><para xml:id="en_8615" xml:lang="en">Accommodation
-									which can be used for packages in combination with
-									flights.</para></td>
-						</tr>
-						<tr>
-							<td rowspan="1" colspan="1">ReturnFlightForMix</td>
-							<td rowspan="1" colspan="1"><para xml:id="de_8616" xml:lang="de"
-									>ReturnFlights, die zur Paketierung mit Unterkünften genutzt
-									werden können.</para><para xml:id="en_8616" xml:lang="en"
-									>ReturnFlights which can be used for packages in combination
-									with accommodations.</para></td>
-						</tr>
-						<tr>
-							<td rowspan="1" colspan="1">OnewayFlightForMix</td>
-							<td rowspan="1" colspan="1"><para xml:id="de_8617" xml:lang="de"
-									>OnewayFlights, die zur Paketierung mit Unterkünften genutzt
-									werden können.</para><para xml:id="en_8617" xml:lang="en"
-									>OnewayFlights which can be used for packages in combination
-									with accommodations.</para></td>
-						</tr>
 					</informaltable>
 					<para xml:id="de_8956" xml:lang="de">Der zweite Kernpunkt sind die sehr
 						flexiblen Regeln, mit denen die Kombinierbarkeit der Komponenten in
@@ -2285,6 +2261,60 @@
 						how these rules are applied can be found in the chapter regarding the <link
 							linkend="OtdsStrategyRules"> rule sets for the composition of products
 							or for the combination of flights</link>.</para>
+					<section xml:id="OtdsStrategyProductMixedProducts">
+						<title><phrase xml:id="de_776" xml:lang="de">Definition von Produkten, die zusammen mit externen Komponenten (<code>ExrternalComponent</code>) zu einem Paket zusammengestellt werden sollen (V2.0)</phrase>
+							<phrase xml:id="en_776" xml:lang="en">Definition of products, which are combined with external components (<code>ExrternalComponent</code>) to a packaged product (v2.0)</phrase></title>
+						<para xml:id="det_" xml:lang="de">Seit der Version 2.0 werden die Produktkomponenten, die
+							zusammen mit externen Komponenten zu einem Paket zusammengestellt werden
+							sollen, mit dem Produkttyp des angestrebten paketierten Produktes
+							gekennzeichnet. Darüber hinaus wird die extern benötigte Komponente
+							explizit als <code>ExternalComponent</code> mit entpsrechendem
+							Komponententyp (Role) angegeben.</para>
+						<para xml:id="det_" xml:lang="de">Im Folgenden ein Beispiel wie die Product-Definition von
+							gelieferten Hotelprodukten exemplarisch aussieht, die für die
+							Paketierung mit externen Flügen benutzt werden sollen.</para>
+						<programlisting><![CDATA[<Product Key="AccomOnlyForMix" ProductType="FlightAccommodation">
+	<Components>
+		<ExternalComponent Role="Outbound" DayAllocationIndex="-1"/>
+		<Accommodation DayAllocationIndex="0"/>
+		<ExternalComponent Role="Inbound" DayAllocationIndex="1"/>
+	</Components>
+	<Filter Key="1">
+		<And>
+			<Tags Source="Accommodation" Class="MixOnly"/>
+			<MatchEqual>
+				<Element Source="Accommodation">CatchmentAirport</Element>
+				<Element Source="Outbound">ArrivalAirport</Element>
+				<Element Source="Inbound">DepartureAirport</Element>
+			</MatchEqual>
+		</And>
+	</Filter>
+</Product>]]></programlisting>
+					</section>
+					<section xml:id="OtdsStrategyProductProductsFlexibleGaps">
+						<title><phrase xml:id="de_776" xml:lang="de">Definition von Produkten, die im Reiseverlauf eine bzgl. der Dauer flexible Lücke (VirtualComponent) besitzen (Beispiel: ReturnFlights) (V2.0)</phrase>
+							<phrase xml:id="en_776" xml:lang="en">Definition of products, which contain inside their itinerary a flexible duration gap (VirtualComponent) (example: Returnflights)(v2.0)</phrase></title>
+						<para xml:id="det_" xml:lang="de">Seit der Version 2.0 müssen die Produkte, die in ihrem Reiseverlauf eine flexible Lücke bzgl. der Dauer enthalten in der Prodct-Definition eine VirtualComponent 
+							definieren, die diese Lücke repräsentiert. Derzeit kennen wir nur das ReturnFlight-Product, bei dem dies auftritt.  
+						</para>
+						<para xml:id="det_" xml:lang="de">Im Folgenden ein Beispiel wie die Definition eines ReturnFlight-Products ab der Version 2.0 aussehen kann.</para>
+						<programlisting><![CDATA[<Product Key="ReturnFlightKey" ProductType="ReturnFlightOnly">
+	<Components>
+		<CombiComponent Role="Outbound" DayAllocationIndex="-1">
+		  <OnewayFlight/>
+		</CombiComponent>		  
+		<VirtualComponent DayAllocationIndex="0"/>
+		<CombiComponent Role="Inbound" DayAllocationIndex="1">
+		  <OnewayFlight/>
+		</CombiComponent>	
+	</Components>
+</Product>]]></programlisting>
+						<para xml:id="det_" xml:lang="de">Es gibt mehrer Möglichkeiten ein ReturnFlightOnly-product zu
+							definieren. Allen ist gemein, dass eine VirtualComponent enthalten ist,
+							welche die flexible Lücke zwischen Outbound und Inbound-Flug
+							repräsaentiert . Man kann sich mit Filtern und Conditions nicht auf die
+							VirtualComponent beziehen.</para>
+					</section>
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyKey">
