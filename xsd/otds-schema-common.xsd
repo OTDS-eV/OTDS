@@ -1,7 +1,10 @@
-<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <!-- Test -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+	<!-- Import xml: namespace -->
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+	<xs:include schemaLocation="otds-docbook-subset.xsd"/>
 	<xs:simpleType name="SourceAttributeType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_3298">
@@ -245,13 +248,13 @@ The default is 0.</xs:documentation>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="ApplyToAttributeGroup">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_3205">Attributsgruppe zur Steuerung aller ApplyTos wie z.B.: ApplyTo, etc.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_3205">Attribute group for steering all ApplyTos as for example: ApplyTo, etc.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_9065">Attributsgruppe zur Steuerung aller ApplyTos wie z.B.: ApplyTo, etc.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9065">Attribute group for steering all ApplyTos as for example: ApplyTo, etc.</xs:documentation>
 		</xs:annotation>
 		<xs:attributeGroup ref="ApplyAttributeGroup">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_3220">Das Attribut Component gibt an, auf welche Komponente sich dieses PriceItem bezieht. Durch die explizite Angabe einer Komponente ist es möglich, dass ein Percent-PriceItem sich auf ein absolutes PriceItem einer anderen Komponente bezieht. Das Attribut Source stellt eine Erweiterung zum Attribut dar. Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
-				<xs:documentation xml:lang="de" xml:id="de_3220">The attribute Component indicates, which component this PriceItem refers to. With the explicit indication of a component it becomes possible, that a Percent-PriceItem refers to an absolute PriceItem of another component. The attribute Source is an extension of the attribute. If both attributes 'Component' and 'Source' are indicated simultaneously, only Source is evaluated. If none of the attributes are indicated, the value  'ThisComponent' is assumed for the attribute 'Component'.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_3220">The attribute Component indicates, which component this PriceItem refers to. With the explicit indication of a component it becomes possible, that a Percent-PriceItem refers to an absolute PriceItem of another component. The attribute Source is an extension of the attribute. If both attributes 'Component' and 'Source' are indicated simultaneously, only Source is evaluated. If none of the attributes are indicated, the value  'ThisComponent' is assumed for the attribute 'Component'.</xs:documentation>
 			</xs:annotation>
 		</xs:attributeGroup>
 		<xs:attribute name="Include" type="IncludeAttributeEnum">
@@ -1715,7 +1718,7 @@ Die Auswertung der Impact-Bedingungen erfolgt so, als wenn die ganze Condition d
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="MarketingBrandName" type="xs:string" minOccurs="0" internal:otdsversion="2.0">
+			<xs:element name="MarketingBrandName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_141">Enthält den MarketingBrandNamen, unter dem das Angebot verkauft werden soll. In den meisten Fällen entspricht dies dem Veranstaltenamen des Veranstalters. In spezifischen Fällen wird ein Angebot aber unter einer separaten MarketingBrand vertrieben. Beispiel FTI und XFTI. Die Definition des MarketingBrandNames erfolgt in der Regel innerhalb der Brand oder innerhalb des Products. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_141">Contains the MarketingBrandName under which the offer shall be sold. In most cases this name equals the tour operator name of the operator. In specific cases however an offer might be distributed under a separate MarketingBrand, for example FTI and XFTI. The definition of the MarketingBrandNames in general takes place within the Brand or within the Product.</xs:documentation>
@@ -1727,12 +1730,13 @@ Die Auswertung der Impact-Bedingungen erfolgt so, als wenn die ganze Condition d
 					<xs:documentation xml:lang="en" xml:id="en_8867">Contains an abbreviation/acronym, which defines the MarketingBrand of the offer. In most cases the MarketingBrand equals the booking code of the tour operator. In specific cases however an offer might be distributed with under a separate MarketingBrand yet at the same time be booked with the booking code of the operator, for example FTI and XFTI. The definition of the MarketingBrand in general takes place within the Brand or within the Product.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AccommodationCity" type="xs:string" minOccurs="0">
+			<xs:element name="AccommodationCity" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_8868">Stadt, in der die Unterkunft / das Hotel liegt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_8868">Town or city in which the accommodation/hotel is located.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AccommodationCityInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="AccommodationType" type="AccommodationTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_142">Typ der Unterkunft: 
@@ -1767,13 +1771,14 @@ etc.
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="UnitName" type="xs:string" minOccurs="0">
+			<xs:element name="UnitName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_145">In dem Attribut Name wird der Unitname in Volltext zur Auszeichnung der Unit angegeben. Der Text sollte kurz sein und ist juristisch bindend. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_145">In the Name attribute the unit name is given in full text to label the unit.
-The text should be short and is legally binding.</xs:documentation>
+		        The text should be short and is legally binding.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="UnitInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="UnitType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_146">Art der Unit/Unterkunft: - Double, - Apartment, 	- Studio, - Bungalow, - Triple, - Suite, - Other. Seit Version 1.1 können in diesem Element auch mehrere UnitTypes durch "Space" getrennt angegeben werden. Die Unit erfüllt damit alle der angegebenen Eigenschaften.</xs:documentation>
@@ -1819,13 +1824,14 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:documentation xml:lang="en" xml:id="en_149">Type of main building in the accommodation</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BoardName" type="xs:string" minOccurs="0">
+			<xs:element name="BoardName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_150">Unter dem Element Name wird die vollständige Bezeichnung der Verpflegung definiert.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_150">Under the Name element, the full description of
-						the board is defined.</xs:documentation>
+		        the board is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="BoardInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="BoardType" type="BoardTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_151">Art der Verpflegung: - SelfCatering, - Breakfast, - HalfBoard, - HalfBoardPlus, - FullBoard, - FullBoardPlus, - AllInclusive, - AllInclusivePlus </xs:documentation>
@@ -1844,12 +1850,13 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:list itemType="BoardPropertiesEnum"/>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="AddonName" type="xs:string" minOccurs="0">
+			<xs:element name="AddonName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_153">Unter diesem Element wird die vollständige Bezeichnung des Addons definiert.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_153">Under this element, the full description of the add-ons is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AddonInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="AddonServiceType" minOccurs="0">
 				<xs:complexType>
 					<xs:choice>
@@ -1868,18 +1875,20 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					</xs:choice>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="AddonServiceName" type="xs:string" minOccurs="0">
+			<xs:element name="AddonServiceName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_154">Unter diesem Element wird die vollständige Bezeichnung des Service definiert.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_154">Under this element, the full description of the service is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AddonServiceFeatureName" type="xs:string" minOccurs="0">
+			<xs:element name="AddonServiceInfo" type="ContentInfoType" minOccurs="0"/>
+			<xs:element name="AddonServiceFeatureName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_155">Unter diesem Element wird die vollständige Bezeichnung der ServiceFeatures definiert.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_155">Under this element, the full description of the ServiceFeatures is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AddonServiceFeatureInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:element name="AddonCatchmentRailwayStations" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_156">Das Element RailwayStation listet alle Bahnhöfe im Zielgebiet auf, über welche das Hotel angefahren werden kann.</xs:documentation>
@@ -1902,6 +1911,12 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="GeneralIncludedServiceEnum">
+										<xs:attribute ref="xml:lang" use="optional" default="de">
+											<xs:annotation>
+												<xs:documentation xml:lang="de" xml:id="de_9075">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+												<xs:documentation xml:lang="en" xml:id="en_9075">In this attribute the language according to XML 1.0 is indicated within the element.</xs:documentation>
+											</xs:annotation>
+										</xs:attribute>
 										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType"/>
 									</xs:extension>
 								</xs:simpleContent>
@@ -1912,9 +1927,8 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 			</xs:element>
 			<xs:element name="MandatoryServicesPaidAtLocation" minOccurs="0" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_158">Zusatzleistungen, die oblogatorischer Bestandteil des Angebotes sind und zusätzliche Kosten vor Ort verursachen. </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_158">Add-ons that incur additional charges to be paid locally.
-Some add-ons are part of the offer and can not be deselected. Others are optional.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_158">Zusatzleistungen, die obligatorischer Bestandteil des Angebotes sind und zusätzliche Kosten vor Ort verursachen. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_158">Add-ons that incur additional charges to be paid locally.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1922,6 +1936,12 @@ Some add-ons are part of the offer and can not be deselected. Others are optiona
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="MandatoryServicePaidAtLocationEnum">
+										<xs:attribute ref="xml:lang" use="optional" default="de">
+											<xs:annotation>
+												<xs:documentation xml:lang="de" xml:id="de_9076">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+												<xs:documentation xml:lang="en" xml:id="en_9076">I In this attribute the language according to XML 1.0 is indicated within the element.</xs:documentation>
+											</xs:annotation>
+										</xs:attribute>
 										<xs:attribute name="ShortServiceAnnotation" type="ShortServiceAnnotationType" default="None"/>
 									</xs:extension>
 								</xs:simpleContent>
@@ -1988,7 +2008,7 @@ For the complete list see the technical documentation.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Text" type="xs:string"/>
+						<xs:element name="Text" type="LanguageTextType"/>
 					</xs:sequence>
 					<xs:attribute name="ConfirmBeforeBooking" type="IntBooleanType" default="0">
 						<xs:annotation>
@@ -2047,6 +2067,110 @@ For the complete list see the technical documentation.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
+	<xs:complexType name="ContentInfoType" internal:otdsversion="2.0">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9077">nicht-buchbare Zusatzinformationen wie Referenzen, Langtexte und Medialinks</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9077">non-bookable addon information like references, long descriptions, and media links</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="StructuredText" type="StructuredTextType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="MediaContent" type="ContentLinkType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReferenceTagType" internal:otdsversion="2.0">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9066">Das Element Reference beinhaltet alle Verweise, die sich auf externe Referenzsysteme beziehen. Hier werden z.B. Giata-ID eines Hotels oder
+        die Geonames-ID eines Ortes referenziert.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9066">The element Reference contains all references referring to externa reference systems. Here for example the Giata-ID of a hotels or the Geonames-ID of a destination is referenced.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="ReferenceSystem" type="xs:string">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_9067">Die folgenden Referenzsysteme können aktuell verwendet werden: - Giata (https://www.giata.com/de/multicodes/) - Geonames
+              (http://www.geonames.org/export/codes.html). Eine vollständige Liste finden Sie in der Technischen Dokumentation.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_9067">Currently the following reference systems may be used: - Giata (https://www.giata.com/de/multicodes/) - Geonames
+              (http://www.geonames.org/export/codes.html). A complete list may be found in the Technical Documentation.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ReferenceType" type="xs:string">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_9068">In Abhängigkeit vom Referenzsystem wird
+              hiermit der Typ der Referenz festgelegt. Es handelt sich hierbei meist um eine ID zur
+              eindeutigen Identifikation von Hotels, Schiffe etc. oder von Orten, Ortsteilen oder
+              POI etc. Eine vollständige Liste finden Sie in der Technischen Dokumentation.
+            </xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_9068">In dependency to the reference system the type of the reference is defined here.
+              This will be in most cases an ID for the unambiguous identification of hotels, ships etc. or of cities, districts, or POI etc. A complete list may be found in the Technical Documentation.
+            </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="LanguageTextType" internal:otdsversion="2.0">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9088">Text mit Sprachangabe, z.B. für Deutsch xml:lang="de"</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9088">Text with indication of the language, e.g. for German: xml:lang="de"</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="xml:lang" use="optional" default="de">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_9069">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_9069">In this attribute the language according to XML 1.0 is indicated within the element.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="StructuredTextType" internal:otdsversion="2.0">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9070">Strukturierter Text auf Basis eines vereinfachten DocBook-Subsets</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9070">Structured text based on a simplified DocBook-Subset</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="info" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9071">Informationen über Copyright, Anbieter etc.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9071">Information about Copyright, supplier etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="section" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9072">Abschnitt mit struktiertem Text</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9072">Section with structured text</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional" default="de">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9073">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9073">With this attribute the language according to XML 1.0 in indicated within the element.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ContentLinkType" internal:otdsversion="2.0">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9074">Auflistung verschiedener Media-Content-Links für den jeweiligen Objektknoten z.B. AccommodationName </xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9074">Listing of different media content links for the corresponding object node, e.g. AccommodationName </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="info" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9078">Informationen über Copyright, Anbieter etc.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9078">Informationen about Copyright, Supplier etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="mediaobject" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9079">Auflistung der Mediaobjekte wie z.B. Bilder, Videos, Texte etc. </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9079">Listinf of the media objects like pictures, videos, texts etc. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="AddressType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_172">Vollständige Adresse der Unterkunft / des Hotels.
@@ -2068,14 +2192,14 @@ For the complete list see the technical documentation.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_174">Post code / ZipCode</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="City" type="xs:string" minOccurs="0">
+			<xs:element name="City" type="LanguageTextType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_175">Imm Element City wird die Stadt
 						hinterlegt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_175">In the City element, the city is specified.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Country" type="xs:string" minOccurs="0">
+			<xs:element name="Country" type="LanguageTextType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_176">In dem Element Country wird das Land ausgeschrieben hinterlegt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_176">In the Country element the country is specified
@@ -2143,12 +2267,17 @@ For the complete list see the technical documentation.</xs:documentation>
 										<xs:documentation xml:lang="en" xml:id="en_185">Description of the region</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
+								<xs:attribute ref="xml:lang" use="optional" default="de">
+									<xs:annotation>
+										<xs:documentation xml:lang="de" xml:id="de_9080">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+										<xs:documentation xml:lang="en" xml:id="en_9080">In this attribute the language according to XML 1.0 is indicated within the element.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="Country" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_186">Das Element Land gibt die Landeszuordnung
-									des Hotels an.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_186">Das Element Land gibt die Landeszuordnung des Hotels an.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_186">The Land element specifies the map reference for the hotel.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
@@ -2174,12 +2303,17 @@ DE Germany</xs:documentation>
 										<xs:documentation xml:lang="en" xml:id="en_189">Description of country</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
+								<xs:attribute ref="xml:lang" use="optional" default="de">
+									<xs:annotation>
+										<xs:documentation xml:lang="de" xml:id="de_9081">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+										<xs:documentation xml:lang="en" xml:id="en_9081">In this attribute the language according to XML 1.0 is indicated within the element.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="Destination" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_190">Das Element Destination gibt die
-									Zielgebietszuordnung des Hotels an.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_190">Das Element Destination gibt die Zielgebietszuordnung des Hotels an.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_190">The Destination element specifies the geographic area of the hotel.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
@@ -2201,22 +2335,25 @@ DE Germany</xs:documentation>
 										<xs:documentation xml:lang="en" xml:id="en_193">Description of the destination</xs:documentation>
 									</xs:annotation>
 								</xs:attribute>
+								<xs:attribute ref="xml:lang" use="optional" default="de">
+									<xs:annotation>
+										<xs:documentation xml:lang="de" xml:id="de_9082">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+										<xs:documentation xml:lang="en" xml:id="den_90802">In this attribute the language according to XML 1.0 is indicated within the element.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="GeoCode" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_194">In dem Element GeoCode können die Längen-
-									und Breitengerade angegeben werden, wo sich die Unterkunft
-									befindet. Damit kann eine geo-referenzierte Kartendarstellung
-									der Ergebnisse durchgeführt werden.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_194">In dem Element GeoCode können die Längen- und Breitengerade angegeben werden, wo sich die Unterkunft
+									befindet. Damit kann eine geo-referenzierte Kartendarstellung der Ergebnisse durchgeführt werden.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_194">In the GeoCode element latitude and longitude are used to define the location of the accommodation. Thus, a geo-locative map display is produced.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
 									<xs:element name="Latitude" type="OWGS84Latitude">
 										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_195">Das Element Latitude gibt die
-												geographische Breite dezimal an.</xs:documentation>
+											<xs:documentation xml:lang="de" xml:id="de_195">Das Element Latitude gibt die	geographische Breite dezimal an.</xs:documentation>
 											<xs:documentation xml:lang="en" xml:id="en_195">The Latitude element specifies the latitude in decimal form.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
@@ -2229,11 +2366,8 @@ DE Germany</xs:documentation>
 									<xs:element name="Accuracy" type="xs:unsignedInt">
 										<xs:annotation>
 											<xs:documentation xml:lang="de" xml:id="de_197">In dem Element Accuracy (Genauigkeit)
-												kann eine Entfernung in km bezogen auf die
-												Koordinate angegeben werden. Zum Beispiel bei
-												Glückshotels, aber ggf. auch bei Rundreisen, um
-												diese auf Karten suchbar zu
-												machen.</xs:documentation>
+												kann eine Entfernung in km bezogen auf die Koordinate angegeben werden. Zum Beispiel bei
+												Glückshotels, aber ggf. auch bei Rundreisen, um diese auf Karten suchbar zu machen.</xs:documentation>
 											<xs:documentation xml:lang="en" xml:id="en_197">In the Accuracy element a relative distance in kilometers can be stated to the specified coordinate. For example with budget hotels. Even round trips can be made searchable on maps.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
@@ -2261,7 +2395,7 @@ DE Germany</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_199">The Code attribute specifies the station code. The reference system is defined under System Reference.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Name" type="xs:string">
+			<xs:element name="Name" type="LanguageTextType">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_200">Das Attribute Name gibt den Namen des Bahnhofes an.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_200">The Name attribute states the name of the train
@@ -2327,12 +2461,13 @@ DE Germany</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_204">Name, properties and characteristics of the accommodation.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="AccommodationName" type="xs:string" minOccurs="0">
+			<xs:element name="AccommodationName" type="LanguageTextType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_205">Offizieller Name der Unterkunft/des Hotels</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_205">The official name of the accommodation / hotel</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AccommodationInfo" type="ContentInfoType" minOccurs="0"/>
 			<xs:group ref="AccommodationCategoryGroup" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_3268">Kategorie der Unterkunft (Offizielle und Veranstalterkategorie).</xs:documentation>
@@ -7324,8 +7459,8 @@ If a DayState is given for a date, but holds no indication for neither CheckOut 
 	<xs:complexType name="DayStateType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_416">Dieser Type definiert den Verfügbarkeitsstatus eines Tages aus einem Availability-Block. Das Attribut "Offset" im DayState-Knotenstellt eine Beziehung zum StartDate im Availabilityknoten her. StartDate und Offset ergeben das Datum des betrachteten Termins. Es können sowohl unterschiedliche Stati (Open, Request, Closed, etc.) als auch freie Plätze angegeben werden. Das Vorhandensein der Elemente "Open", "Closed", etc. zeigt den Status an. Bei "Open" und "Request" können die Anzahl der verfügbaren Plätze auch als Wert angegeben werden. 
-			Zusätzlich zur einfachen Angabe der Availabilities kann definiert werden, ob ein Tag für Ankunft oder Abreise verwendet werden darf oder nicht. Wenn es keine weitere Information zu Ankunft/Abreise gibt, werden keine Einschränkungen bezüglich der Ankunft-/Abreise-Optionen angezeigt. 
-			Der Key sollte reproduzierbar sein, um Incremental Updates für einzelne Tage zu ermöglichen. Im einfachsten Falle entspricht Key dem Offset.
+Zusätzlich zur einfachen Angabe der Availabilities kann definiert werden, ob ein Tag für Ankunft oder Abreise verwendet werden darf oder nicht. Wenn es keine weitere Information zu Ankunft/Abreise gibt, werden keine Einschränkungen bezüglich der Ankunft-/Abreise-Optionen angezeigt. 
+Der Key sollte reproduzierbar sein, um Incremental Updates für einzelne Tage zu ermöglichen. Im einfachsten Falle entspricht Key dem Offset.
 			</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_416">This Type defines the availability status of a day from the availability block. The "Offset" attribute creates a reference to the StartDate in the parent node. StartDate and Offset gives the date of the day concerned. Either different statuses (Open, Request, Closed, etc.) or free spaces can be indicated. The mere presence of the elements "Open", "Closed", etc. indicates the status. For Open and Request the number of free spaces can also be provided as a value. In addition to simply stating the availabilities, you can also define whether or not a day can be used as arrival or departure. If there is no entry for arrival/departure, there will be no restrictions displayed with regard to the departure/arrival options. The key should be reproducible, so as to make it possible to make incremental updates for individual days. In the simplest case the Key is the same as the Offset.</xs:documentation>
 		</xs:annotation>
@@ -7335,37 +7470,40 @@ If a DayState is given for a date, but holds no indication for neither CheckOut 
 					<xs:choice>
 						<xs:element name="Open" type="AvailabilityOpenType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.
-Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
-
+								<xs:documentation xml:lang="de" xml:id="de_417">Dieses Element enthält die Anzahl freier Verfügbarkeiten für diesen Tag. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag generell verfügbar ist.
+Eine Definition in diesem Element wird durch eine gleichzeitige Definition im Element DayState/Stay ersetzt.
 
 Grundsätzlich gilt der Status "Open" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_417">This element contains the amount of free availability for this day. If the element is present but without a Value, this means that the day is available in general.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_417">This element contains the amount of free availability for this day. If the element is present but without a Value, this means that the day is available in general.
+A definition in the element is replaced by a simultaneous definition in the element  DayState/Stay.
+In general the State "Open" is considered as available. With the help of the AvailabilityState-Filter however this interpretation can be further restricted.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Request" type="AvailabilityRequestType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.
+								<xs:documentation xml:lang="de" xml:id="de_418">Dieses Element enthält die Anzahl der verfügbaren Plätze, die aber nur auf Anfrage zur Buchung freigegeben werden. Ist das Element vorhanden, aber ohne Value, so bedeutet dies, dass der Tag nur auf Anfrage verfügbar ist.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt. Grundsätzlich gilt der Status "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_418">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_418">This element contains the number of available spaces, which are however only released upon booking request. If this element is present, but without a Value, this means that the date is only available on request.
+								A definition in this element is replaced by a simultaneous definition in the element DayState/Stay. In general the State "Request" is considered available. With the help of the AvailabilityState-Filter however this interpretation can be restricted further.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Closed" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten.
+								<xs:documentation xml:lang="de" xml:id="de_419">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass ein Tag nicht verfügbar ist. Das Element kann keinen Wert enthalten.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
 Grundsätzlich gilt der Status "Closed" als nicht verfügbar.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_419">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_419">If this element is contained in a data delivery, it shows that a day is not available. The element cannot contain a value.
+								A definition in this element is replaced by a simultaneous definition in the element DayState/Stay. In general the State "Closed" is considered as not available.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="StopSales" type="AvailabilityEmptyType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.
+								<xs:documentation xml:lang="de" xml:id="de_420">Ist dieses Element in einer Lieferung enthalten, so zeigt es an, dass dieser Termin zur Zeit nicht angeboten wird. Das Element kann keinen Wert enthalten.
 Eine Definition in diesem Element wird durch eine gleichzeitge Definition im Element DayState/Stay ersetzt.
 
-
 Grundsätzlich gilt der Status "StopSales" als nicht verfügbar.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_420">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_420">If this element is contained in a data delivery, it indicates that this date is not currently offered. The element cannot contain a value.
+A definition in this element is replaced by a simultaneous definition in the element DayState/Stay. In general the State "StopSales" is considered as not available.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="Blacklisted" type="AvailabilityEmptyType">
@@ -7445,15 +7583,14 @@ Ist weder dieses Element noch das Element CheckIn angegeben, so gilt der im Defa
 					<xs:choice minOccurs="0">
 						<xs:element name="CheckOut" type="AvailabilityStateType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="det_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
-
+								<xs:documentation xml:lang="de" xml:id="de_424">Ist dieses Element in einer Lieferung enthalten, so definiert es, dass an diesem Termin die Abreise uneingeschränkt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl von Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
 Mit dem State-Attribut gibt man den generellen Status bzgl. der Anreise an.
-
 Ist weder dieses Element noch das Element NoCheckOut angegeben, so gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw. NoCheckOut.
-
-
 Grundsätzlich gelten die Stati "Open" und "Request" als verfügbar. Mit dem AvailabilityState-Filter kann diese Interpretation aber weiter eingeschränkt werden.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. The element cannot contain a value.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_424">If this element is contained in a data delivery, it indicates that this is a possible departure date. If this element contains a number, it expresses that the departure is possible for the maximum number of units respectively personen. If the number refers to the amount of persons is defined by the attribute Occupancy/Person/@MatchAvailability.
+The State-attribute serves to indicate the general state regarding the departure.
+If neither this element not the element NoCheckOut is indicated, the default defined in DefaultDayState regarding the CheckOut repectively the NoCheckOut is valid.
+In general the States "Open" and "Request" are considered as available.With the help of the AvailabilityState-Filter this interpretation however can be further restricted.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="NoCheckOut" type="AvailabilityEmptyType">
@@ -7646,6 +7783,7 @@ Folgende Verfügbarkeitsstati sind möglich:
 - Closed
 - StopSale
 - Blacklisted
+
 
 Fehlt das Attribut gilt der Default = "Open"</xs:documentation>
 					</xs:annotation>
@@ -9061,7 +9199,7 @@ The evaluation of the GenericTag condition takes place after the last step of th
 					<xs:documentation xml:lang="en" xml:id="en_5875">Type of insurance</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Description" type="xs:string" minOccurs="0">
+			<xs:element name="Description" type="LanguageTextType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_5876">Beschreibung der Versicherung</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5876">Description of insurance</xs:documentation>
