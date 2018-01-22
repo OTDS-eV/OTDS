@@ -2239,6 +2239,30 @@
 									>Offers that are sold as an add-on service in combination with
 									other travel services.</para></td>
 						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">AccommodationForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8615" xml:lang="de"
+									>Unterkünfte, die zur Paketierung mit Flügen genutzt werden
+									können.</para><para xml:id="en_8615" xml:lang="en">Accommodation
+									which can be used for packages in combination with
+									flights.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">ReturnFlightForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8616" xml:lang="de"
+									>ReturnFlights, die zur Paketierung mit Unterkünften genutzt
+									werden können.</para><para xml:id="en_8616" xml:lang="en"
+									>ReturnFlights which can be used for packages in combination
+									with accommodations.</para></td>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">OnewayFlightForMix</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_8617" xml:lang="de"
+									>OnewayFlights, die zur Paketierung mit Unterkünften genutzt
+									werden können.</para><para xml:id="en_8617" xml:lang="en"
+									>OnewayFlights which can be used for packages in combination
+									with accommodations.</para></td>
+						</tr>
 					</informaltable>
 					<para xml:id="de_8956" xml:lang="de">Der zweite Kernpunkt sind die sehr
 						flexiblen Regeln, mit denen die Kombinierbarkeit der Komponenten in
@@ -2261,73 +2285,6 @@
 						how these rules are applied can be found in the chapter regarding the <link
 							linkend="OtdsStrategyRules"> rule sets for the composition of products
 							or for the combination of flights</link>.</para>
-					<section xml:id="OtdsStrategyProductMixedProducts">
-						<title><phrase xml:id="de_2084" xml:lang="de">Definition von Produkten, die zusammen mit externen Komponenten (<code>ExrternalComponent</code>) zu einem Paket zusammengestellt werden sollen (V2.0)</phrase>
-							<phrase xml:id="en_2084" xml:lang="en">Definition of products, which are combined with external components (<code>ExrternalComponent</code>) to a packaged product (v2.0)</phrase></title>
-						<para xml:id="de_1572" xml:lang="de">Seit der Version 2.0 werden die Produktkomponenten, die
-							zusammen mit externen Komponenten zu einem Paket zusammengestellt werden
-							sollen, mit dem Produkttyp des angestrebten paketierten Produktes
-							gekennzeichnet. Darüber hinaus wird die extern benötigte Komponente
-							explizit als <code>ExternalComponent</code> mit entpsrechendem
-							Komponententyp (Role) angegeben.</para>
-						<para xml:id="en_1572" xml:lang="en">Since Version 2.0 the product components that together with external components
-							shall be combined into a package, are marked with the Product Type of the packaged product aimed at.
-							In addition the externally needed component is indicated explcitly as <code>ExternalComponent</code> with
-							the corresponding Component Type (Role).</para>
-						<para xml:id="de_1890" xml:lang="de">Im Folgenden ein Beispiel wie die Product-Definition von
-							gelieferten Hotelprodukten exemplarisch aussieht, die für die
-							Paketierung mit externen Flügen benutzt werden sollen.</para>
-						<para xml:id="en_1890" xml:lang="en">The example below shows, what the Product definition of delivered hotel products looks like
-							that are supposed to be used for packaging with external flights.</para>
-						<programlisting><![CDATA[<Product Key="AccomOnlyForMix" ProductType="FlightAccommodation">
-	<Components>
-		<ExternalComponent Role="Outbound" DayAllocationIndex="-1"/>
-		<Accommodation DayAllocationIndex="0"/>
-		<ExternalComponent Role="Inbound" DayAllocationIndex="1"/>
-	</Components>
-	<Filter Key="1">
-		<And>
-			<Tags Source="Accommodation" Class="MixOnly"/>
-			<MatchEqual>
-				<Element Source="Accommodation">CatchmentAirport</Element>
-				<Element Source="Outbound">ArrivalAirport</Element>
-				<Element Source="Inbound">DepartureAirport</Element>
-			</MatchEqual>
-		</And>
-	</Filter>
-</Product>]]></programlisting>
-					</section>
-					<section xml:id="OtdsStrategyProductProductsFlexibleGaps">
-						<title><phrase xml:id="de_2086" xml:lang="de">Definition von Produkten, die im Reiseverlauf eine bzgl. der Dauer flexible Lücke (VirtualComponent) besitzen (Beispiel: ReturnFlights) (V2.0)</phrase>
-							<phrase xml:id="en_2086" xml:lang="en">Definition of products, which contain inside their itinerary a flexible duration gap (VirtualComponent) (example: Returnflights)(v2.0)</phrase></title>
-						<para xml:id="de_1928" xml:lang="de">Seit der Version 2.0 müssen die Produkte, die in ihrem Reiseverlauf eine flexible Lücke bzgl. der Dauer enthalten in der Prodct-Definition eine VirtualComponent 
-							definieren, die diese Lücke repräsentiert. Derzeit kennen wir nur das ReturnFlight-Product, bei dem dies auftritt.  
-						</para>
-						<para xml:id="en_1928" xml:lang="en">Since Version 2.0, products that have a flexible gap in their itinary with regard to the duration in the Product-Definition 
-							have to define a VirtualComponent, that represents this gap. Currently we only know the ReturnFlight product, where this incident happens.  
-						</para>
-						<para xml:id="de_1972" xml:lang="de">Im Folgenden ein Beispiel wie die Definition eines ReturnFlight-Products ab der Version 2.0 aussehen kann.</para>
-						<para xml:id="en_1972" xml:lang="en">The example below shows how the definition of a ReturnFlight-Product from Version 2.0 on could appear.</para>
-						<programlisting><![CDATA[<Product Key="ReturnFlightKey" ProductType="ReturnFlightOnly">
-	<Components>
-		<CombiComponent Role="Outbound" DayAllocationIndex="-1">
-		  <OnewayFlight/>
-		</CombiComponent>		  
-		<VirtualComponent DayAllocationIndex="0"/>
-		<CombiComponent Role="Inbound" DayAllocationIndex="1">
-		  <OnewayFlight/>
-		</CombiComponent>	
-	</Components>
-</Product>]]></programlisting>
-						<para xml:id="de_9106" xml:lang="de">Es gibt mehrere Möglichkeiten ein ReturnFlightOnly-Produkt zu
-							definieren. Allen ist gemein, dass eine VirtualComponent enthalten ist,
-							welche die flexible Lücke zwischen Outbound und Inbound-Flug
-							repräsentiert. Man kann sich mit Filtern und Conditions nicht auf die
-							VirtualComponent beziehen.</para>
-						<para xml:id="en_9106" xml:lang="en">There are several possibilities to define a ReturnFlightOnly-product.
-							It is common to all, that a VirtualComponent is included, which represents the flexible gap between
-							Outbound and Inbound-flight. It is not possible to refer to the VirtualComponent with Filters and Conditions.</para>
-					</section>
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyKey">
@@ -14969,17 +14926,11 @@ usw.]]></programlisting>
 					<para xml:id="en_1499" xml:lang="en">In the period 01.03.2012 – 31.03.2012 all
 						days are available, on the 01.03.2012, however, no arrivals are possible and
 						on the 11.03.2012 neither arrivals nor departures are possible.</para>
-					<para xml:id="de_1500" xml:lang="de">Seit Version 2.0 gibt es mit der <code>AvailabilityState</code>-Condition eine Möglichkeit die Verfügbarkeit abhängig von Produkten weiter einzugrenzen. Unter dem Link <link
-						xlink:href="aaaaa"
-						>AvailabilityState-Condition</link>finden Sie weitergehende	Informationen dazu.</para>
-					<para xml:id="en_1500" xml:lang="en">Since version 2.0 there exists a new condition <code>AvailabilityState</code>, which provides the opportunity to limit the availability in dependance to the products.
-						The link <link
-						xlink:href="aaaaa"
-						>AvailabilityState condition</link> provides further information about this.</para>
-					<para xml:id="de_9107" xml:lang="de">In der <link
+					<para xml:id="de_1500" xml:lang="de">In der <link
 							xlink:href="../technisch/otds_technisch.html#AvailabilityType"
-							>Technischen Dokumentation für OTDS </link>finden Sie weitergehende allgemeine Informationen zur Verfügbarkeit.</para>
-					<para xml:id="en_9107" xml:lang="en">You can find further information abaout availability in general in the
+							>Technischen Dokumentation für OTDS </link>finden Sie weitergehende
+						Informationen.</para>
+					<para xml:id="en_1500" xml:lang="en">You can find further information in the
 							<link xlink:href="../technisch/otds_technisch.html#AvailabilityType"
 							>Technical documentation for OTDS</link>.</para>
 				</section>
@@ -31448,9 +31399,9 @@ usw.]]></programlisting>
 								<code>Occupancy</code> cannot be used.</para>
 
 						<section xml:id="OtdsProcessComponentAllocationTime">
-							<title><phrase xml:id="de_2975" xml:lang="de">Komponenten-Zeitallokation
-									(V2.0)</phrase><phrase xml:id="en_2975" xml:lang="en">Component
-									time allocation(v2.0)</phrase></title>
+							<title><phrase xml:id="de_2975" xml:lang="de"
+									>Komponenten-Zeitallokation</phrase><phrase xml:id="en_2975"
+									xml:lang="en">Component time allocation</phrase></title>
 
 							<para xml:id="de_2976" xml:lang="de">Die Zeitallokation der
 								Komponenteninstanzen in OTDS erfolgt grundsätzlich in der jeweils
@@ -39927,13 +39878,7 @@ usw.]]></programlisting>
 					<title><phrase xml:id="de_3836" xml:lang="de">Properties -
 							Accommodations</phrase><phrase xml:id="en_3836" xml:lang="en">Properties
 							- accommodation</phrase></title>
-					<section xml:id="PropertiesAccommodationsNew2.0">
-						<title><phrase xml:id="de_9103" xml:lang="de">Neue Accommodation-Properties in Version 2.0 (V2.0)</phrase>
-							<phrase xml:id="en_9103" xml:lang="en">New accommodation properties in version 2.0 (v2.0)</phrase></title>
-						<simplelist>
-							<member>Unitfacility = Budget</member>
-						</simplelist>
-					</section>
+
 					<informaltable border="0" style="border-collapse:  collapse;width:1008pt"
 						width="1344">
 						<col width="121px"/>
@@ -41627,12 +41572,6 @@ usw.]]></programlisting>
 											(V1.9.3)</para>
 										<para xml:id="en_5771" xml:lang="en">Kitchenette
 											(V1.9.3)</para>
-									</listitem>
-									<listitem>
-										<para xml:id="de_9104" xml:lang="de">Budget
-											(V2.0)</para>
-										<para xml:id="en_9104" xml:lang="en">Budget
-											(v2.0)</para>
 									</listitem>
 								</itemizedlist>
 							</td>
@@ -44435,13 +44374,7 @@ usw.]]></programlisting>
 				<section xml:id="AnhangPropertiesFlights">
 					<title><phrase xml:id="de_4513" xml:lang="de">Properties - Flüge</phrase><phrase
 							xml:id="en_4513" xml:lang="en">Properties - flights</phrase></title>
-					<section xml:id="PropertiesFlightsNew2.0">
-						<title><phrase xml:id="de_9105" xml:lang="de">Neue Flight-Properties in Version 2.0 (V2.0)</phrase>
-							<phrase xml:id="en_9105" xml:lang="en">New flight properties in version 2.0 (v2.0)</phrase></title>
-						<simplelist>
-							<member>FlightCabinClass</member>
-						</simplelist>
-					</section>
+
 					<informaltable border="0" style="border-collapse:  collapse;width:1008pt"
 						width="1344">
 						<col width="121.0px"/>
