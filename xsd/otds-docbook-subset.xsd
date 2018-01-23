@@ -3,6 +3,41 @@
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:complexType name="InfoWithLangType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="title" type="TitleWithLangType"/>
+				<xs:element ref="author"/>
+				<xs:element ref="copyright"/>
+				<xs:element name="keywordset" type="KeywordsetWithLangType"/>
+				<xs:element ref="pubdate"/>
+				<xs:element ref="publisher"/>
+			</xs:choice>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="TitleWithLangType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="xml:lang" use="optional" default="de">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements
+                angegeben.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="KeywordsetWithLangType">
+		<xs:sequence>
+			<xs:element ref="keyword" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional" default="de">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements
+	angegeben.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 	<xs:element name="title" type="xs:string"/>
 	<xs:element name="info">
 		<xs:complexType>
@@ -103,12 +138,12 @@
 	<xs:element name="mediaobject">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="info" type="InfoWithLangType" minOccurs="0"/>
 				<xs:choice maxOccurs="unbounded">
 					<xs:element ref="videoobject"/>
 					<xs:element ref="audioobject"/>
 					<xs:element ref="imageobject"/>
 				</xs:choice>
-				<xs:element ref="caption" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -153,20 +188,6 @@
 			<xs:attribute name="fileref"/>
 			<xs:attribute name="width"/>
 			<xs:attribute name="depth"/>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="caption">
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
-					<xs:attribute ref="xml:lang" use="optional" default="de">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements
-                angegeben.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-				</xs:extension>
-			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="orgname" type="xs:string"/>
