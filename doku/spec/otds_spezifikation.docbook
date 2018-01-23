@@ -1257,8 +1257,8 @@
 					</section>
 				</section>
 				<section xml:id="OtdsStrategyComponentFlights">
-					<title><phrase xml:id="de_667" xml:lang="de">Flights</phrase><phrase
-							xml:id="en_667" xml:lang="en">Flights</phrase></title>
+					<title><phrase xml:id="de_667" xml:lang="de">Flights (V2.0)</phrase><phrase
+							xml:id="en_667" xml:lang="en">Flights (v2.0)</phrase></title>
 					<figure>
 						<info>
 							<title><phrase xml:id="de_668" xml:lang="de">Überblick über die Struktur
@@ -1313,6 +1313,8 @@
 						ConsideredPriceItems and ApplyTos the PriceItems placed here are addressed
 						by the indication of Source= ReturnFlight, OnewayFlight, Outbound, Inbound,
 						as well as by accordingly defined #Names. </para>
+					<para xml:id="det_8950" xml:lang="de">Seit OTDS 2.0 sind die <code>PriceItems</code> unter den Elementen <code>OnewayFlights</code> und
+						<code>ReturnFlights</code> in das übergeordnete Element <code>Flights</code> verschoben worden.</para>
 					<section xml:id="OtdsStrategyComponentFlightsOneway">
 						<title><phrase xml:id="de_671" xml:lang="de">Oneway Flüge</phrase><phrase
 								xml:id="en_671" xml:lang="en">Oneway flights</phrase></title>
@@ -2921,12 +2923,9 @@
 								specifies the addressed position within the OTDS data
 								structure.</para>
 							<table frame="all">
-								<title><phrase xml:id="de_828" xml:lang="de">Werte und Definition
-										für <code>Source</code></phrase><phrase xml:id="en_828"
-										xml:lang="en">Values ​​and definitions for
-											<code>Source</code>
-									</phrase></title>
-								<tgroup cols="3" align="left" colsep="1" rowsep="1">
+								<title><phrase xml:id="de_828" xml:lang="de">Werte und Definition für Source</phrase><phrase xml:id="en_828"
+										xml:lang="en">Values ​​and definitions for Source</phrase></title>
+								<tgroup cols="2" align="left" colsep="1" rowsep="1">
 									<thead>
 										<row>
 											<entry><para><code>Source</code>-Wert bzw. Angabe ohne
@@ -3081,7 +3080,7 @@
 										folgende Source-Eigenschaften:</phrase><phrase
 										xml:id="en_6107" xml:lang="en">Currently we distinguish
 										between the following Source attributes:</phrase></title>
-								<tgroup cols="21" align="left" colsep="1" rowsep="1">
+								<tgroup cols="4" align="left" colsep="1" rowsep="1">
 									<thead>
 										<row>
 											<entry><para xml:id="de_8961" xml:lang="de"
@@ -8484,6 +8483,7 @@
 						responsibility to ensure that the use of the <code>GlobalValues</code> leads
 						to desired data processing with the specific flight that fits to the
 						CityPair booking code.</para>
+					<para xml:id="de_6146" xml:lang="de"><code>GlobalValue/FeatureContext</code> ersetzt damit das ehemealige Konstrukt <code>GenericTag/ExternalParameter/@Feature</code>.</para>
 					
 <programlisting><![CDATA[<Products>
 	<GlobalValues>
@@ -8608,6 +8608,7 @@
 					If the OTDS-delivery is processed in the context of a PackageMix-Reseller, the first GlobalValue with the parameter 
 					ResellerType="PackageMixReseller" is active. The second GlobalValue is treated as if not existent.</para>	
 				</section>
+				
 			</section>
 			<section xml:id="OtdsStrategyRules">
 				<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Bildung von Produkten
@@ -9155,116 +9156,8 @@
 							<code>GlobalValue/FeatureContext</code> ersetzt.</para>
 					<para xml:lang="en" xml:id="en_6144">This type of <code>GenericTag/ExternalParameter</code> has been replaced by the 
 						<code>GlobalValue/FeatureContext</code> in Version 2.0.</para>
-					<para xml:lang="de" xml:id="de_6145">Details zur Benutzung des <code>GlobalValue/FeatureContext</code> finden Sie im Kapitel
-						1.3.7.7.</para>
-					<para xml:lang="en" xml:id="en_6145">You may find details for using the <code>GlobalValue/FeatureContext</code> 
-						in Chapter 1.3.7.7.</para>
-					<para xml:lang="de" xml:id="de_5044">Durch das Element <code>GenericTag</code>
-						ist es möglich, von den OTDS-Daten unterstützte Produkt-Features in den
-						einzelnen Produkten zu kennzeichnen. Dadurch weiß das verarbeitende System,
-						dass die gelieferten OTDS-Daten das Feature unterstützen. </para>
-					<para xml:lang="en" xml:id="en_5044">With the element <code>GenericTag</code>,
-						it is possible to tag product features which are supported by OTDS data
-						within the individual products. In this way, the processing system knows
-						that the delivered OTDS data support the feature.</para>
-					<para xml:lang="de" xml:id="de_5045">Das Element <code>ExternalParameter</code>
-						innerhalb von <code>GenericTag</code> erlaubt, dass von der
-						OTDS-Verarbeitung ein Feature in die Datenverarbeitung integriert werden
-						kann. </para>
-					<para xml:lang="en" xml:id="en_5045">The element <code>ExternalParameter</code>
-						within <code>GenericTag</code> allows a feature from the OTDS processing to
-						be integrated in the data processing.</para>
-					<para xml:lang="de" xml:id="de_5046">OTDS 1.9 kennt aktuell folgende
-						Produkt-Features:</para>
-					<para xml:lang="en" xml:id="en_5046">OTDS 1.9 currently recognises the following
-						product features:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:lang="de" xml:id="de_5047">CityPairProduction</para>
-							<para xml:lang="en" xml:id="en_5047">CityPairProduction</para>
-						</listitem>
-						<listitem>
-							<para xml:lang="de" xml:id="de_5048">AlternativeFlightsProduction</para>
-							<para xml:lang="en" xml:id="en_5048">AlternativeFlightsProduction</para>
-						</listitem>
-					</itemizedlist>
-
-					<para xml:lang="de" xml:id="de_5049">Eine Production mit einem Produkt-Feature
-						macht nur dann Sinn, wenn das Feature auch unter
-							<code>Product/@Features</code> gesetzt ist. Denn nur dann ist vom
-						Datenlieferanten sichergestellt, dass entsprechende Bedingungen gesetzt
-						sind, die dazu führen, dass eine Verarbeitung ausschließlich mit dem
-						gewünschten Feature resultiert.</para>
-					<para xml:lang="en" xml:id="en_5049">A production with a product feature only
-						makes sense if the feature is also set under <code>Product/@Features</code>
-						. Only then is it ensured by the data supplier that the relevant conditions
-						are set to ensure that processing will exclusively occur with the desired
-						feature.</para>
-					<para xml:lang="de" xml:id="de_5050">Nachfolgend ein Beispiel für die Angabe der
-						unterstützten Features:</para>
-					<para xml:lang="en" xml:id="en_5050">Below is an example for the specification
-						of supported features:</para>
-					<programlisting><![CDATA[<Otds...>
-  ...
-  <Products>
-    <Product Key="Package1" ProductType="FlightAccommodation" ProductFeatures="CityPairProduction ...">
-      ...
-    </Product>
-  </Products>  
-  ...
-</Otds>]]></programlisting>
-					<para xml:lang="de" xml:id="de_5862">Der Value eines
-						GenericTag/ExternalParameter wird nur dann auf <code>true</code> gesetzt,
-						wenn das Feature des betrachteten Products auch das Feature
-						unterstützt.</para>
-					<para xml:lang="en" xml:id="en_5862">The Value of a GenericTag/ExternalParameter
-						only then is set as <code>true</code> if the feature of the product regarded
-						is supporting this specific feature.</para>
-					<para xml:lang="de" xml:id="de_5051">Falls eine OTDS-Verarbeitung z.B. mit dem
-						externen Parameter <code>CityPairProduction="true"</code> verarbeitet wird,
-						so bekommen alle Elemente <code>GenericTag</code> mit dem Element
-							<code>ExternalParameter/@Feature="CityPairProduction</code> den Wert
-							<code>true</code> und fließen somit in die Verarbeitung ein.</para>
-					<para xml:lang="en" xml:id="en_5051">If OTDS processing is carried out e.g. with
-						the external parameters <code>CityPairProduction="true"</code>, all
-							<code>GenericTag</code> elements with the element
-							<code>ExternalParameter/@Feature="CityPairProduction</code> are given
-						the value <code>true</code> and in this way are included in
-						processing.</para>
-					<para xml:lang="de" xml:id="de_5052">Hier ein Beispiel für die Angabe der
-						verwendeten externen Parameter:</para>
-					<para xml:lang="en" xml:id="en_5052">Here is an example of how to specify the
-						external parameters used:</para>
-					<programlisting><![CDATA[<Otds...>
-  ...
-  <Products>
-    <GenericTag Class="CityPairProduction">
-      <GenericTagFunction>
-        <ExternalParameter ProductFeature="CityPairProduction"/>
-      </GenericTagFunction>
-    </GenericTag>
-    ...
-  </Products>  
-  ...
-  </Otds>]]></programlisting>
-					<para xml:lang="de" xml:id="de_5053">Der Wert kann dann in den Filtern und
-						Conditions über die <code>GenericTag</code>-Condition abgeprüft werden und
-						damit die Verarbeitung entsprechend beeinflussen. </para>
-					<para xml:lang="en" xml:id="en_5053">The value can then be checked in the
-						filters and conditions via the <code>GenericTag</code> condition and thus
-						influence the processing accordingly.</para>
-					<para xml:lang="de" xml:id="de_5054">Eine <code>GenericTag</code>-Condition, die
-						auf ein <code>GenericTag</code> mit dem Wert <code>Undefined</code> trifft,
-						erhält selbst den Wert <code>Undefined</code>. </para>
-					<para xml:lang="en" xml:id="en_5054">A <code>GenericTag</code> condition, that
-						encounters a <code>GenericTag</code> with the value <code>Undefined</code> ,
-						will itself also receive the value "<code>Undefined</code> .</para>
-					<para xml:lang="de" xml:id="de_5055">Bitte beachten Sie dabei die Regeln
-						hinsichtlich der Auswertung von Bedingungen im Zusammenhang mit dem Wert
-							<code>Undefined</code>. </para>
-					<para xml:lang="en" xml:id="en_5055">Please take note of the rules regarding the
-						evaluation of conditions relating to the value <code>Undefined</code>
-						.</para>
+					<para xml:lang="de" xml:id="de_6145">Details zur Benutzung des <code>GlobalValue/FeatureContext</code> finden Sie im Kapitel <link linkend="OtdsStrategyGlobalValuesFeatureContext">GlobalValue/FeatureContext (CityPairProduction)</link></para>
+					<para xml:lang="en" xml:id="en_6145">Details about the usage of <code>GlobalValue/FeatureContext</code> are descibed in the chapter <link linkend="OtdsStrategyGlobalValuesFeatureContext">GlobalValue/FeatureContext (CityPairProduction)</link></para>
 				</section>
 				<section xml:id="OtdsStrategyRulesProductDefinedComponents">
 					<title><phrase xml:id="de_1160" xml:lang="de">Regeln zur Definition kombinierter
@@ -25583,14 +25476,14 @@ usw.]]></programlisting>
 							<term xml:id="en_2493" xml:lang="en"><emphasis>Valid
 								values</emphasis></term>
 							<listitem>
-								<para xml:id="de_2494" xml:lang="de"><simplelist type="inline">
-										<member><code>Accommodation</code></member>
-										<member><code>OnewayFlight</code></member>
-										<member><code>ReturnFlight</code></member>
-										<member><code>Addon</code></member>
-										<member><code>ThisComponent</code></member>
-									</simplelist></para>
-								<para xml:id="en_2494" xml:lang="en"/>
+								<itemizedlist>
+									<listitem><para><code>Accommodation</code></para></listitem>
+									<listitem><para><code>Flight</code>  (V2.0)</para></listitem>
+									<listitem><para><code>OnewayFlight</code></para></listitem>
+									<listitem><para><code>ReturnFlight</code></para></listitem>
+									<listitem><para><code>Addon</code></para></listitem>
+									<listitem><para><code>ThisComponent</code></para></listitem>
+								</itemizedlist>
 							</listitem>
 						</varlistentry>
 
@@ -25600,21 +25493,28 @@ usw.]]></programlisting>
 							<term xml:id="en_2495" xml:lang="en"><emphasis>Elements with a
 										<code>Component</code> attribute</emphasis></term>
 							<listitem>
-								<para xml:id="de_2496" xml:lang="de"><simplelist type="inline">
-										<member><code>PriceItem/Absolute/AppliedBy</code></member>
-										<member><code>PriceItem/Percent/ApplyTo</code></member>
-										<member><code>PriceItem/Percent/ApplyToAll</code></member>
-										<member><code>PriceItem/Percent/NotApplyTo</code></member>
-										<member><code>PriceItem/Combinatorics/CombinableWhen/CombinationCode</code></member>
-										<member><code>PriceItem/Combinatorics/CombinableWhen/CombinationIndexMax</code></member>
-										<member><code>PriceItem/Combinatorics/CombinableWhen/CombinationIndexMin</code></member>
-										<member><code>PriceItem/Combinatorics/ExcludePriceItemClasses/ExcludePriceItemClass</code></member>
-										<member><code>Condition/DayImpact/DayPriceIndex/ConsideredPriceItemClasses</code></member>
-										<member><code>Condition/DayImpact/DayPriceIndex/NotConsideredPriceItemClasses</code></member>
-										<member><code>NeighbourComponentCorrection/CheckInDateOffset</code></member>
-										<member><code>NeighbourComponentCorrection/CheckOutDateOffset</code></member>
-									</simplelist></para>
-								<para xml:id="en_2496" xml:lang="en"/>
+								<itemizedlist>
+									<listitem><para><code>PriceItem/Absolute/AppliedBy</code></para></listitem>
+									<listitem><para><code>PriceItem/Absolute/AppliedByPriceTags</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Absolute/AppliedByAll</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Absolute/NotAppliedBy</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Absolute/NotAppliedByPriceTags</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Absolute/NotAppliedByAll</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Percent/ApplyTo</code></para></listitem>
+									<listitem><para><code>PriceItem/Percent/ApplyToPriceTags</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Percent/ApplyToAll</code></para></listitem>
+									<listitem><para><code>PriceItem/Percent/NotApplyTo</code></para></listitem>
+									<listitem><para><code>PriceItem/Percent/NotApplyToPriceTags</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Percent/NotApplyToAll</code> (V2.0)</para></listitem>
+									<listitem><para><code>PriceItem/Combinatorics/CombinableWhen/CombinationCode</code></para></listitem>
+									<listitem><para><code>PriceItem/Combinatorics/CombinableWhen/CombinationIndexMax</code></para></listitem>
+									<listitem><para><code>PriceItem/Combinatorics/CombinableWhen/CombinationIndexMin</code></para></listitem>
+									<listitem><para><code>PriceItem/Combinatorics/ExcludePriceItemClasses/ExcludePriceItemClass</code></para></listitem>
+									<listitem><para><code>Condition/DayImpact/DayPriceIndex/ConsideredPriceItemClasses</code></para></listitem>
+									<listitem><para><code>Condition/DayImpact/DayPriceIndex/NotConsideredPriceItemClasses</code></para></listitem>
+									<listitem><para><code>NeighbourComponentCorrection/CheckInDateOffset</code></para></listitem>
+									<listitem><para><code>NeighbourComponentCorrection/CheckOutDateOffset</code></para></listitem>
+								</itemizedlist>
 							</listitem>
 						</varlistentry>
 					</variablelist>
@@ -26600,7 +26500,11 @@ usw.]]></programlisting>
 								.</para>
 						</listitem>
 					</itemizedlist>
-
+					<para xml:id="de_6134" xml:lang="de">Mehr Details zu den verschiedenen Auswertungszeitpunkten finden Sie im
+						Kapitel <link linkend="OtdsProcessDataProcessing">"Überblick der Auswertungszeitpunkte für Conditions und Filters."</link>
+					</para>
+					<para xml:id="en_6134" xml:lang="en">You will find more details about the different points of evaluation in chapter <link linkend="OtdsProcessDataProcessing">"Overview of points of condition and filter evaluation."</link>
+					</para>
 					<para xml:id="de_2595" xml:lang="de">Eine einzelne Teilbedingung wird
 						möglicherweise <code>Undefined</code> , wenn sie vor ihrem
 						Aktivierungszeitpunkt ausgewertet wird. Siehe <xref
@@ -30181,8 +30085,11 @@ usw.]]></programlisting>
 				</section>
 			</section>
 			<section xml:id="OtdsProcessDataProcessing">
-				<title><phrase xml:id="de_1272" xml:lang="de">Überblick</phrase><phrase
-						xml:id="en_1272" xml:lang="en">Overview</phrase></title>
+				<title><phrase xml:id="de_1272" xml:lang="de">Überblick der einzelnen Prozesschritte und auch
+						der damit verbundenen Auswertungszeitpunkte für Conditions und
+						Filters</phrase><phrase xml:id="en_1272" xml:lang="en">Overview of all
+						process steps and the their refering points of filter and condition
+						evaluation</phrase></title>
 				<para xml:id="de_1352" xml:lang="de"> Die Verarbeitung lässt sich in einzelne
 					voneinander getrennte aber bzgl. der Reihenfolge fest vorgegebene Teilprozesse
 					unterteilen.</para>
@@ -38075,12 +37982,12 @@ usw.]]></programlisting>
 					<para xml:id="de_6134" xml:lang="de">Mehr Details zur Undefined-Auswertung finden Sie im
 						Kapitel <link linkend="OtdsProcessConditionsThreeway">"Ausführungszeitpunkt
 							der Bedingungsauswertung und die dreiwertige Auswertungslogik
-							(true|false|undefined)"</link>
+							(true|false|undefined)"</link> und unter <link linkend="OtdsProcessDataProcessing">"Überblick der Auswertungszeitpunkte für Conditions und Filters."</link>
 					</para>
 					<para xml:id="en_6134" xml:lang="en">You will find more details about "undefined" evaluation
 						in chapter <link linkend="OtdsProcessConditionsThreeway">"Execution time of
 							condition evaluation and the triadic analysis logic
-							(true|false|undefined)"</link>
+							(true|false|undefined)"</link> and in chapter <link linkend="OtdsProcessDataProcessing">"Overview of points of condition and filter evaluation."</link>
 					</para>
 				</section>
 				<section xml:id="OtdsProcessPriceCalculationSumUpPriceNodeElements">
@@ -42821,7 +42728,7 @@ usw.]]></programlisting>
 						</listitem>
 					</itemizedlist>
 					<para xml:id="AnhangPropertiesUnits"/>
-					<bridgehead xml:id="de_5660" xml:lang="de">Unterbringungen></bridgehead>
+					<bridgehead xml:id="de_5660" xml:lang="de">Unterbringungen</bridgehead>
 					<bridgehead xml:id="en_5660" xml:lang="en">Units</bridgehead>
 					<para xml:id="de_4296" xml:lang="de">Für die Eingabe von Eigenschaften der Units
 						sind folgende Elemente zugelassen:</para>
