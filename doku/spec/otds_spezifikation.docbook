@@ -14366,8 +14366,8 @@ usw.]]></programlisting>
 					<programlisting><![CDATA[MatchAvailability="MatchCount"|"Ignore"      ]]></programlisting>
 				</section>
 				<section xml:id="OtdsStrategyAvailabilities">
-					<title><phrase xml:id="de_1457" xml:lang="de">Availabilities</phrase><phrase
-							xml:id="en_1457" xml:lang="en">Availabilities</phrase></title>
+					<title><phrase xml:id="de_1457" xml:lang="de">Availabilities(V2.0)</phrase><phrase
+							xml:id="en_1457" xml:lang="en">Availabilities(v2.0)</phrase></title>
 					<para xml:id="de_1458" xml:lang="de">Unter dem Zweig <emphasis role="italic"
 							>Availabilities</emphasis> werden die Verfügbarkeiten eines Objektes
 						definiert. Fehlt der Zweig, so wird damit keine Aussage zur Verfügbarkeit
@@ -14401,20 +14401,19 @@ usw.]]></programlisting>
 
 
 
-					<para xml:id="de_1462" xml:lang="de">Um einen Block von tageweisen
-						Verfügbarkeiten zu definieren, wird ein neues Element <emphasis
-							role="italic">Availability</emphasis> im Zweig <emphasis role="italic"
-							>Availabilities</emphasis> angelegt. Das Attribut <emphasis
-							role="italic">StartDate</emphasis> gibt dabei den ersten Tag, das
-						Attribut <emphasis role="italic">EndDate</emphasis> den letzten Tag des
-						Verfügbarkeitsblocks an. In dem Zweig <code>Condition</code> werden
+					<para xml:id="de_1462" xml:lang="de">Um einen Block von tageweisen Verfügbarkeiten zu
+						definieren, wird ein Element <emphasis role="italic">Availability</emphasis>
+						im Zweig <emphasis role="italic">Availabilities</emphasis> angelegt. Das
+						Attribut <emphasis role="italic">StartDate</emphasis> gibt dabei den ersten
+						Tag, das Attribut <emphasis role="italic">EndDate</emphasis> den letzten Tag
+						des Verfügbarkeitsblocks an. In dem Zweig <code>Condition</code> werden
 						Bedingungen für diesen Verfügbarkeitsblocks festgelegt. Nur wenn diese
 						Bedingungen erfüllt sind, kommt der Verfügbarkeitsblock zum Tragen.</para>
-					<para xml:id="en_1462" xml:lang="en">To define a block of availabilities based
-						on days, a new element <emphasis role="italic">Availability</emphasis> is
-						applied in the branch <emphasis role="italic">Availabilities</emphasis>. The
-						attribute <emphasis role="italic">StartDate</emphasis> here applies to the
-						first day of the availability block, the attribute <emphasis role="italic"
+					<para xml:id="en_1462" xml:lang="en">To define a block of availabilities based on days, an
+						element <emphasis role="italic">Availability</emphasis> is applied in the
+						branch <emphasis role="italic">Availabilities</emphasis>. The attribute
+							<emphasis role="italic">StartDate</emphasis> here applies to the first
+						day of the availability block, the attribute <emphasis role="italic"
 							>EndDate</emphasis> applies the last day of the availability block. In
 						the branch <code>Condition</code> the conditions for these availability
 						blocks are determined. Only when these conditions are met does the
@@ -14507,7 +14506,7 @@ usw.]]></programlisting>
 							<para xml:id="en_1472" xml:lang="en">This day is not available.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_1473" xml:lang="de">StopSales </para>
+							<para xml:id="de_1473" xml:lang="de">StopSales</para>
 							<para xml:id="en_1473" xml:lang="en">StopSales</para>
 							<para xml:id="de_1474" xml:lang="de">Dieser Termin wird zurzeit nicht
 								angeboten. </para>
@@ -14515,7 +14514,7 @@ usw.]]></programlisting>
 								offered.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_1475" xml:lang="de">Blacklisted </para>
+							<para xml:id="de_1475" xml:lang="de">Blacklisted</para>
 							<para xml:id="en_1475" xml:lang="en">Blacklisted</para>
 							<para xml:id="de_1476" xml:lang="de">Dieser Termin kann zurzeit nicht
 								angeboten werden, da er auf einer Blacklist steht. </para>
@@ -14525,10 +14524,12 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_8800" xml:lang="de">Stay</para>
 							<para xml:id="en_8800" xml:lang="en">Stay</para>
-							<para xml:id="de_8801" xml:lang="de">Ab Version 2.0 kann man auch ein
-								Element Stay angeben. Dieses Element definiert an diesem Termin
-								einen spezifischen Verfügbarkeitsstatus.</para>
-							<para xml:id="de_8802" xml:lang="de">Im Attribut @State können folgende
+							<para xml:id="det_8801" xml:lang="de">Ab <emphasis role="bold">Version 2.0</emphasis> kann man
+								auch ein Element Stay angeben, welches equivalent den
+								Verfügbarkeitstatus je nach Inhalt von @State equivalent zu den
+								zuvor genannten Elementen <code>Open</code>, <code>Request</code>, <code>Closed</code>, <code>StopSales</code>, <code>Blacklisted</code> 
+								für einen Termin einen spezifischen Verfügbarkeitsstatus definiert.</para>
+							<para xml:id="det_8802" xml:lang="de">Im Attribut @State können folgende
 								Verfügbarkeitsstati angegeben werden:</para>
 							<itemizedlist>
 								<listitem>
@@ -14583,17 +14584,19 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_1478" xml:lang="de">CheckIn</para>
 							<para xml:id="en_1478" xml:lang="en">CheckIn</para>
-							<para xml:id="de_1479" xml:lang="de">Ist dieses Element in einer
-								Lieferung enthalten, so definiert es, dass an diesem Termin die
-								Anreise uneingeschränkt möglich. Enthält dieses Element eine Zahl,
-								so drückt dies aus, dass die Anreise maximal für diese Anzahl von
-								Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl
-								der Personen geht, wird durch das Attribut
-								Occupancy/Person/@MatchAvailability festgelegt. Mit dem
-								State-Attribut gibt man den generellen Status bzgl. der Anreise an.
-								Ist weder dieses Element noch das Element NoCheckIn angegeben, so
-								gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw.
-								NoCheckIn.</para>
+							<para xml:id="det_1479" xml:lang="de">Ist dieses Element in einer Lieferung enthalten, so
+								definiert es, dass an diesem Termin die Anreise uneingeschränkt
+								möglich. Enthält dieses Element eine Zahl, so drückt dies aus, dass
+								die Anreise maximal für diese Anzahl von Units bzw. Personen möglich
+								ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch
+								das Attribut Occupancy/Person/@MatchAvailability festgelegt. Ist
+								weder dieses Element noch das Element NoCheckIn angegeben, so gilt
+								der im DefaultDayState festgelegte Default bzgl. CheckIn bzw.
+								NoCheckIn.  Neu in Version 2.0: Mit dem State-Attribut gibt man den
+								generellen Status bzgl. der Anreise an. Somit kann auch mit
+								CheckIn/@State="Closed" das gleiche ausgedrückt werden, wie mit dem
+								nächsten Element "NoCheckIn". Außerdem ist ab Version 2.0 im Element
+								CheckIn die Anzahl der freien CheckIns definierbar.  </para>
 							<para xml:id="en_1479" xml:lang="en">If this element is included in a delivery
 								it defines, that on this date the arrival is possible without restrictions.
 								If this element contains a number it expresses, that an arrival is possible 
@@ -14612,17 +14615,19 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_1482" xml:lang="de">CheckOut</para>
 							<para xml:id="en_1482" xml:lang="en">CheckOut</para>
-							<para xml:id="de_1483" xml:lang="de">Ist dieses Element in einer
-								Lieferung enthalten, so definiert es, dass an diesem Termin die
-								Abreise uneingeschränkt möglich ist. Enthält dieses Element eine
-								Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl
-								von Units bzw. Personen möglich ist. Ob es bei der Zahl um die
-								Anzahl der Personen geht, wird durch das Attribut
-								Occupancy/Person/@MatchAvailability festgelegt. Mit dem
-								State-Attribut gibt man den generellen Status bzgl. der Anreise an.
-								Ist weder dieses Element noch das Element NoCheckOut angegeben, so
-								gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw.
-								NoCheckOut.</para>
+							<para xml:id="det_1483" xml:lang="de">Ist dieses Element in einer Lieferung enthalten, so
+								definiert es, dass an diesem Termin die Abreise uneingeschränkt
+								möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus,
+								dass die Abreise für maximal diese Anzahl von Units bzw. Personen
+								möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht,
+								wird durch das Attribut Occupancy/Person/@MatchAvailability
+								festgelegt. Ist weder dieses Element noch das Element NoCheckOut
+								angegeben, so gilt der im DefaultDayState festgelegte Default bzgl.
+								CheckOut bzw. NoCheckOut. Neu in Version 2.0: Mit dem State-Attribut
+								gibt man den generellen Status bzgl. der Abreise an. Somit kann auch
+								mit CheckOut/@State="Closed" das gleiche ausgedrückt werden, wie mit
+								dem nächsten Element "NoCheckOut". Außerdem ist ab Version 2.0 im
+								Element CheckOut die Anzahl der freien CheckOuts definierbar.  </para>
 							<para xml:id="en_1483" xml:lang="en">If this element is included in a delivery
 							it defines, that on this date the arrival is possible without restrictions.
 							If this element contains a number it expresses, that the departure is possible 
@@ -14678,8 +14683,8 @@ usw.]]></programlisting>
 						element are taken as the default setting.</para>
 					<para xml:id="de_1491" xml:lang="de"> </para>
 					<para xml:id="en_1491" xml:lang="en"/>
-					<para xml:id="de_1492" xml:lang="de">Folgendes ist beid er Auswertung zu
-						beachten: beachten:</para>
+					<para xml:id="de_1492" xml:lang="de">Folgendes ist bei der Auswertung zu beachten:
+						beachten:</para>
 					<para xml:id="en_1492" xml:lang="en">The following should be considered during
 						the availability evaluation:</para>
 					<itemizedlist>
@@ -33439,9 +33444,9 @@ usw.]]></programlisting>
 					<task>
 						<title><phrase xml:id="de_3149" xml:lang="de"
 									><code>Komponentenverfügbarkeit</code> (
-									<replaceable>Instanz</replaceable> )</phrase><phrase
+									<replaceable>Instanz</replaceable> ) (V2.0)</phrase><phrase
 								xml:id="en_3149" xml:lang="en"><code>Component Availability</code> (
-									<replaceable>Instance</replaceable> )</phrase></title>
+									<replaceable>Instance</replaceable> )(v2.0)</phrase></title>
 
 						<tasksummary>
 							<para xml:id="de_3150" xml:lang="de">Analysiert die Verfügbarkeit einer
@@ -33491,12 +33496,12 @@ usw.]]></programlisting>
 										information in <code>DefaultDayState</code>.</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_8811" xml:lang="de">Ersetze alle Elemente
-											<code>Open</code>, <code>Request</code>,
-											<code>Closed</code>, <code>StopSales</code>,
-											<code>Blacklisted</code>, <code>NoCheckIn</code> und
-											<code>NoCheckOut</code> durch das äquivalente
-											<code>Stay</code>, <code>CheckIn</code>,
+									<para xml:id="de_8811" xml:lang="de"><emphasis role="bold">Neu in Version 2.0</emphasis>:
+										Ersetze alle Elemente <code>Open</code>,
+											<code>Request</code>, <code>Closed</code>,
+											<code>StopSales</code>, <code>Blacklisted</code>,
+											<code>NoCheckIn</code> und <code>NoCheckOut</code> durch
+										das äquivalente <code>Stay</code>, <code>CheckIn</code>,
 											<code>CheckOut</code>-Konstrukt gemäß der folgenden
 										Abbildung:</para>
 									<para xml:id="en_8811" xml:lang="en">Replace all elements <code>Open</code>,
