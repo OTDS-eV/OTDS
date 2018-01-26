@@ -4881,9 +4881,8 @@
 									>Technical documentation for OTDS</link> .</para>
 						</section>
 						<section xml:id="OtdsStrategyConditionDuration">
-							<title><phrase xml:id="de_883" xml:lang="de">Dauer
-									(Duration)</phrase><phrase xml:id="en_883" xml:lang="en"
-									>Duration (Duration)</phrase></title>
+							<title><phrase xml:id="de_883" xml:lang="de">Dauer (Duration) (V2.0)</phrase><phrase
+									xml:id="en_883" xml:lang="en">Duration (v2.0)</phrase></title>
 							<figure>
 								<title><phrase xml:id="de_884" xml:lang="de">Condition &gt;
 										Duration</phrase><phrase xml:id="en_884" xml:lang="en"
@@ -4933,17 +4932,18 @@
 								also individual durations. The duration can also be delivered in
 								different units (nights, hours, minutes). See the attribute
 								"DurationUnit".</para>
-							<para xml:id="de_5866" xml:lang="de">Möchte man von der
-								Standard-Interpretation (Anfang bis Ende der Source-Komponente)
-								abweichen, so kann über spezifische Angaben in den Elementen
-								"DurationStart" und "DurationEnd" der Start- und EndTermin der
-								Duration sehr spezifisch referenziert werden. Die Dauer ergibt sich
-								aus der Differenz der Termine von DurationEnd-DurationStart. Es
-								sollte dabei berücksichtigt werden, dass die Termine der jeweiligen
-								Komponenten immer bezogen auf die Lokalzeit der jeweiligen
-								Komponente sind. Fehlt das Element "DurationStart" oder
-								"DurationEnd", so ergibt sich der zu verwendende Default jeweils aus
-								den Defaults der nun beschrieben Attribute.</para>
+							<para xml:id="de_5866" xml:lang="de">Möchte man von der Standard-Interpretation (Anfang bis
+								Ende der Source-Komponente) abweichen, so kann seid <emphasis
+									role="bold">Version 2.0</emphasis> über spezifische Angaben in
+								den Elementen "DurationStart" und "DurationEnd" der Start- und
+								EndTermin der Duration sehr spezifisch referenziert werden. Die
+								Dauer ergibt sich aus der Differenz der Termine von
+								DurationEnd-DurationStart. Es sollte dabei berücksichtigt werden,
+								dass die Termine der jeweiligen Komponenten immer bezogen auf die
+								Lokalzeit der jeweiligen Komponente sind. Fehlt das Element
+								"DurationStart" oder "DurationEnd", so ergibt sich der zu
+								verwendende Default jeweils aus den Defaults der nun beschrieben
+								Attribute.</para>
 							<para xml:id="en_5866" xml:lang="en">In order to deviate from the standard interpretation
 								(beginning to the end of the Source component) the start and end
 								date of the duration can be very specifically referenced to via
@@ -5058,6 +5058,21 @@
 								hat.</para>
 							<para xml:id="en_890" xml:lang="en">This condition is valid if the
 								entire trip (Source=Product) consists of at least 7 days.</para>
+							<para xml:id="det_8979" xml:lang="de">Manche Veranstaltersysteme benutzen eine sehr system
+								spezifische Dauer, welche von der Standard-Definition einer
+								Reisedauer (Start/CheckIn in der Komponente/Reise bis Ende/CheckOut
+								der Komponente/Reise) abweicht. Ab <emphasis role="bold">Version
+									2.0</emphasis> kann diese Abweichung nun sehr spezifisch
+								definiert werden. Dazu kann nun der Startpunkt bzw. auch der
+								Endpunkt der Dauer genau auf den gewünschten Start- oder Endpunkte
+								einer spezifischen Komponenten festgelegt werden. Nachfolgend ein
+								verbeitetes Beispiel welches die Dauer vom Abflug des Hinfluges bis
+								zum <emphasis role="bold">Abflug</emphasis> des Rückfluges
+								definiert. </para>
+							<para xml:id="en_8979" xml:lang="en">Some tour operator systems prefer a different definition of 
+								the duration. In those systems the duration begins with the take-off of the outgoing flight and
+								terminates with the take-off of the return flight. The definition of choice may be defined in this
+								duration condition.</para>
 
 							<programlisting><![CDATA[<Condition>
  	<Duration Source="Product">
@@ -5066,15 +5081,14 @@
 		<Min>5</Min>
 	</Duration>
 </Condition>]]></programlisting>
-							<para xml:id="de_8979" xml:lang="de">Manche Veranstaltersysteme
-								bevorzugen eine etwas andere Definition der Reisedauer. Die Dauer in
-								diesen Systemen beginnt beim Abflug des Hinfluges und endet beim
-								Abflug des Rückfluges. Genau diese Definition der Dauer definiert
-								man mit dieser Duration-Bedingung.</para>
-							<para xml:id="en_8979" xml:lang="en">Some tour operator systems prefer a different definition of 
-								the duration. In those systems the duration begins with the take-off of the outgoing flight and
-								terminates with the take-off of the return flight. The definition of choice may be defined in this
-							    duration condition.</para>
+							<para xml:id="det_8979" xml:lang="de"><emphasis role="bold">Hinweis:</emphasis> In den
+								vorherigen Versionen 1.9.1 - 1.9.3 wurde ein "Hack" vereinbahrt,
+								dass mit der Source="ReturnFlight" genau die in diesem Beispiel
+								aufgezeigte Dauerdefinition explizit definiert werden konnte. Ab
+									<emphasis role="bold">Version 2.0</emphasis> verliert dieser
+								"Hack" seine Gültigkeit und es wird nun die Source="ReturnFlight"
+								wieder "normal" also als Dauer vom CheckIn des Hinfluges bis
+								CheckOut des Rückfluges interpretiert. </para>
 							<para xml:id="de_891" xml:lang="de">Weitere Informationen finden Sie in
 								der <link xlink:href="../technisch/otds_technisch.html#Duration"
 									>Technischen Dokumentation für OTDS </link>.</para>
@@ -5789,8 +5803,8 @@
 						</section>
 						<section xml:id="OtdsStrategyConditionCompare">
 							<title><phrase xml:id="de_8580" xml:lang="de"
-									>Compare-Bedingungen</phrase><phrase xml:id="en_8580"
-									xml:lang="en">Compare conditions</phrase></title>
+									>Compare-Bedingungen (V2.0)</phrase><phrase xml:id="en_8580"
+									xml:lang="en">Compare conditions (v2.0)</phrase></title>
 							<para xml:id="de_8584" xml:lang="de">Die Compare-Bedingung erlaubt es,
 								ConditionalTags, Tags, Keys und andere Werte bzgl. ihrer Wertigkeit
 								zu vergleichen.</para>
@@ -14435,8 +14449,8 @@ usw.]]></programlisting>
 					<programlisting><![CDATA[MatchAvailability="MatchCount"|"Ignore"      ]]></programlisting>
 				</section>
 				<section xml:id="OtdsStrategyAvailabilities">
-					<title><phrase xml:id="de_1457" xml:lang="de">Availabilities</phrase><phrase
-							xml:id="en_1457" xml:lang="en">Availabilities</phrase></title>
+					<title><phrase xml:id="de_1457" xml:lang="de">Availabilities(V2.0)</phrase><phrase
+							xml:id="en_1457" xml:lang="en">Availabilities(v2.0)</phrase></title>
 					<para xml:id="de_1458" xml:lang="de">Unter dem Zweig <emphasis role="italic"
 							>Availabilities</emphasis> werden die Verfügbarkeiten eines Objektes
 						definiert. Fehlt der Zweig, so wird damit keine Aussage zur Verfügbarkeit
@@ -14470,20 +14484,19 @@ usw.]]></programlisting>
 
 
 
-					<para xml:id="de_1462" xml:lang="de">Um einen Block von tageweisen
-						Verfügbarkeiten zu definieren, wird ein neues Element <emphasis
-							role="italic">Availability</emphasis> im Zweig <emphasis role="italic"
-							>Availabilities</emphasis> angelegt. Das Attribut <emphasis
-							role="italic">StartDate</emphasis> gibt dabei den ersten Tag, das
-						Attribut <emphasis role="italic">EndDate</emphasis> den letzten Tag des
-						Verfügbarkeitsblocks an. In dem Zweig <code>Condition</code> werden
+					<para xml:id="de_1462" xml:lang="de">Um einen Block von tageweisen Verfügbarkeiten zu
+						definieren, wird ein Element <emphasis role="italic">Availability</emphasis>
+						im Zweig <emphasis role="italic">Availabilities</emphasis> angelegt. Das
+						Attribut <emphasis role="italic">StartDate</emphasis> gibt dabei den ersten
+						Tag, das Attribut <emphasis role="italic">EndDate</emphasis> den letzten Tag
+						des Verfügbarkeitsblocks an. In dem Zweig <code>Condition</code> werden
 						Bedingungen für diesen Verfügbarkeitsblocks festgelegt. Nur wenn diese
 						Bedingungen erfüllt sind, kommt der Verfügbarkeitsblock zum Tragen.</para>
-					<para xml:id="en_1462" xml:lang="en">To define a block of availabilities based
-						on days, a new element <emphasis role="italic">Availability</emphasis> is
-						applied in the branch <emphasis role="italic">Availabilities</emphasis>. The
-						attribute <emphasis role="italic">StartDate</emphasis> here applies to the
-						first day of the availability block, the attribute <emphasis role="italic"
+					<para xml:id="en_1462" xml:lang="en">To define a block of availabilities based on days, an
+						element <emphasis role="italic">Availability</emphasis> is applied in the
+						branch <emphasis role="italic">Availabilities</emphasis>. The attribute
+							<emphasis role="italic">StartDate</emphasis> here applies to the first
+						day of the availability block, the attribute <emphasis role="italic"
 							>EndDate</emphasis> applies the last day of the availability block. In
 						the branch <code>Condition</code> the conditions for these availability
 						blocks are determined. Only when these conditions are met does the
@@ -14576,7 +14589,7 @@ usw.]]></programlisting>
 							<para xml:id="en_1472" xml:lang="en">This day is not available.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_1473" xml:lang="de">StopSales </para>
+							<para xml:id="de_1473" xml:lang="de">StopSales</para>
 							<para xml:id="en_1473" xml:lang="en">StopSales</para>
 							<para xml:id="de_1474" xml:lang="de">Dieser Termin wird zurzeit nicht
 								angeboten. </para>
@@ -14584,7 +14597,7 @@ usw.]]></programlisting>
 								offered.</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_1475" xml:lang="de">Blacklisted </para>
+							<para xml:id="de_1475" xml:lang="de">Blacklisted</para>
 							<para xml:id="en_1475" xml:lang="en">Blacklisted</para>
 							<para xml:id="de_1476" xml:lang="de">Dieser Termin kann zurzeit nicht
 								angeboten werden, da er auf einer Blacklist steht. </para>
@@ -14594,10 +14607,12 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_8800" xml:lang="de">Stay</para>
 							<para xml:id="en_8800" xml:lang="en">Stay</para>
-							<para xml:id="de_8801" xml:lang="de">Ab Version 2.0 kann man auch ein
-								Element Stay angeben. Dieses Element definiert an diesem Termin
-								einen spezifischen Verfügbarkeitsstatus.</para>
-							<para xml:id="de_8802" xml:lang="de">Im Attribut @State können folgende
+							<para xml:id="det_8801" xml:lang="de">Ab <emphasis role="bold">Version 2.0</emphasis> kann man
+								auch ein Element Stay angeben, welches equivalent den
+								Verfügbarkeitstatus je nach Inhalt von @State equivalent zu den
+								zuvor genannten Elementen <code>Open</code>, <code>Request</code>, <code>Closed</code>, <code>StopSales</code>, <code>Blacklisted</code> 
+								für einen Termin einen spezifischen Verfügbarkeitsstatus definiert.</para>
+							<para xml:id="det_8802" xml:lang="de">Im Attribut @State können folgende
 								Verfügbarkeitsstati angegeben werden:</para>
 							<itemizedlist>
 								<listitem>
@@ -14652,17 +14667,19 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_1478" xml:lang="de">CheckIn</para>
 							<para xml:id="en_1478" xml:lang="en">CheckIn</para>
-							<para xml:id="de_1479" xml:lang="de">Ist dieses Element in einer
-								Lieferung enthalten, so definiert es, dass an diesem Termin die
-								Anreise uneingeschränkt möglich. Enthält dieses Element eine Zahl,
-								so drückt dies aus, dass die Anreise maximal für diese Anzahl von
-								Units bzw. Personen möglich ist. Ob es bei der Zahl um die Anzahl
-								der Personen geht, wird durch das Attribut
-								Occupancy/Person/@MatchAvailability festgelegt. Mit dem
-								State-Attribut gibt man den generellen Status bzgl. der Anreise an.
-								Ist weder dieses Element noch das Element NoCheckIn angegeben, so
-								gilt der im DefaultDayState festgelegte Default bzgl. CheckIn bzw.
-								NoCheckIn.</para>
+							<para xml:id="det_1479" xml:lang="de">Ist dieses Element in einer Lieferung enthalten, so
+								definiert es, dass an diesem Termin die Anreise uneingeschränkt
+								möglich. Enthält dieses Element eine Zahl, so drückt dies aus, dass
+								die Anreise maximal für diese Anzahl von Units bzw. Personen möglich
+								ist. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch
+								das Attribut Occupancy/Person/@MatchAvailability festgelegt. Ist
+								weder dieses Element noch das Element NoCheckIn angegeben, so gilt
+								der im DefaultDayState festgelegte Default bzgl. CheckIn bzw.
+								NoCheckIn.  Neu in Version 2.0: Mit dem State-Attribut gibt man den
+								generellen Status bzgl. der Anreise an. Somit kann auch mit
+								CheckIn/@State="Closed" das gleiche ausgedrückt werden, wie mit dem
+								nächsten Element "NoCheckIn". Außerdem ist ab Version 2.0 im Element
+								CheckIn die Anzahl der freien CheckIns definierbar.  </para>
 							<para xml:id="en_1479" xml:lang="en">If this element is included in a delivery
 								it defines, that on this date the arrival is possible without restrictions.
 								If this element contains a number it expresses, that an arrival is possible 
@@ -14681,17 +14698,19 @@ usw.]]></programlisting>
 						<listitem>
 							<para xml:id="de_1482" xml:lang="de">CheckOut</para>
 							<para xml:id="en_1482" xml:lang="en">CheckOut</para>
-							<para xml:id="de_1483" xml:lang="de">Ist dieses Element in einer
-								Lieferung enthalten, so definiert es, dass an diesem Termin die
-								Abreise uneingeschränkt möglich ist. Enthält dieses Element eine
-								Zahl, so drückt dies aus, dass die Abreise für maximal diese Anzahl
-								von Units bzw. Personen möglich ist. Ob es bei der Zahl um die
-								Anzahl der Personen geht, wird durch das Attribut
-								Occupancy/Person/@MatchAvailability festgelegt. Mit dem
-								State-Attribut gibt man den generellen Status bzgl. der Anreise an.
-								Ist weder dieses Element noch das Element NoCheckOut angegeben, so
-								gilt der im DefaultDayState festgelegte Default bzgl. CheckOut bzw.
-								NoCheckOut.</para>
+							<para xml:id="det_1483" xml:lang="de">Ist dieses Element in einer Lieferung enthalten, so
+								definiert es, dass an diesem Termin die Abreise uneingeschränkt
+								möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus,
+								dass die Abreise für maximal diese Anzahl von Units bzw. Personen
+								möglich ist. Ob es bei der Zahl um die Anzahl der Personen geht,
+								wird durch das Attribut Occupancy/Person/@MatchAvailability
+								festgelegt. Ist weder dieses Element noch das Element NoCheckOut
+								angegeben, so gilt der im DefaultDayState festgelegte Default bzgl.
+								CheckOut bzw. NoCheckOut. Neu in Version 2.0: Mit dem State-Attribut
+								gibt man den generellen Status bzgl. der Abreise an. Somit kann auch
+								mit CheckOut/@State="Closed" das gleiche ausgedrückt werden, wie mit
+								dem nächsten Element "NoCheckOut". Außerdem ist ab Version 2.0 im
+								Element CheckOut die Anzahl der freien CheckOuts definierbar.  </para>
 							<para xml:id="en_1483" xml:lang="en">If this element is included in a delivery
 							it defines, that on this date the arrival is possible without restrictions.
 							If this element contains a number it expresses, that the departure is possible 
@@ -14747,8 +14766,8 @@ usw.]]></programlisting>
 						element are taken as the default setting.</para>
 					<para xml:id="de_1491" xml:lang="de"> </para>
 					<para xml:id="en_1491" xml:lang="en"/>
-					<para xml:id="de_1492" xml:lang="de">Folgendes ist beid er Auswertung zu
-						beachten: beachten:</para>
+					<para xml:id="de_1492" xml:lang="de">Folgendes ist bei der Auswertung zu beachten:
+						beachten:</para>
 					<para xml:id="en_1492" xml:lang="en">The following should be considered during
 						the availability evaluation:</para>
 					<itemizedlist>
@@ -23526,15 +23545,19 @@ usw.]]></programlisting>
 									this processing is iterated across all durations of the stated
 									interval (i.e. the processing of each duration is performed
 									individually).</para>
-								<para xml:id="de_5380" xml:lang="de">Im Falle der Dauerbedingung
-									gibt es derzeit einen Sonderfall, der daraus resultiert, dass
-									aus historischen Gründen einige Touristiker eine eigenartige
-									Definition der Dauer zu Grunde legen. Laut Definition ist dann
-									die Dauer durch den Abflug des Hinfluges und durch den Abflug
-									des Rückfluges begrenzt. Dieses lässt sich abweichend von der
-									eigentlichen Source-Definition mit der Source="ReturnFlight"
-									abbilden. Ab Version 2.0 wird es dafür eine ordentliche Lösung
-									geben.</para>
+								<para xml:id="det_5380" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit einen
+									Sonderfall, der daraus resultiert, dass aus historischen Gründen
+									einige Touristiker eine eigenartige Definition der Dauer zu
+									Grunde legen. Laut Definition ist dann die Dauer durch den
+									Abflug des Hinfluges und durch den Abflug des Rückfluges
+									begrenzt. Dieses ließ sich in den Versionen 1.9.1 -1.9.3
+									abweichend von der eigentlichen Source-Definition mit der
+									Source="ReturnFlight" abbilden. Ab <emphasis role="bold">Version
+										2.0</emphasis> kann man nun den Startpunkt der Duration und
+									den Endpunkt der Duration explizit mit den Elementen
+									DurationStart und DurationEnd explizit angeben. Die
+									Source="ReturnFlight" wird demnach ab <emphasis role="bold"
+										>Version 2.0</emphasis> wieder normal interpretiert.</para>
 								<para xml:id="en_5380" xml:lang="en">In the case of duration
 									condition there currently exists an exception, which results
 									from the historic fact, that some tourism professionals work
@@ -27689,8 +27712,8 @@ usw.]]></programlisting>
 				</section>
 				<section xml:id="OtdsProcessConditionsDuration">
 					<title><phrase xml:id="de_2714" xml:lang="de"><code>Duration</code>
-							Bedingung</phrase><phrase xml:id="en_2714" xml:lang="en"
-								><code>Duration</code> condition</phrase></title>
+							Bedingung (V2.0)</phrase><phrase xml:id="en_2714" xml:lang="en"
+								><code>Duration</code> condition (v2.0)</phrase></title>
 
 					<para xml:id="de_2715" xml:lang="de">Diese Bedingung überprüft die Dauer einer
 						Komponente.</para>
@@ -27799,13 +27822,19 @@ usw.]]></programlisting>
 							</listitem>
 						</varlistentry>
 					</variablelist>
-					<para xml:id="de_5657" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit
-						einen Sonderfall, der daraus resultiert, dass aus historischen Gründen
-						einige Touristiker eine eigenartige Definition der Dauer zu Grunde legen.
-						Laut Definition ist dann die Dauer durch den Abflug des Hinfluges und durch
-						den Abflug des Rückfluges begrenzt. Dieses lässt sich abweichend von der
-						eigentlichen Source-Definition mit der Source="ReturnFlight" abbilden. Ab
-						Version 2.0 wird es dafür eine ordentliche Lösung geben. </para>
+					<para xml:id="det_5657" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit einen
+						Sonderfall, der daraus resultiert, dass aus historischen Gründen
+						einige Touristiker eine eigenartige Definition der Dauer zu
+						Grunde legen. Laut Definition ist dann die Dauer durch den
+						Abflug des Hinfluges und durch den Abflug des Rückfluges
+						begrenzt. Dieses ließ sich in den Versionen 1.9.1 -1.9.3
+						abweichend von der eigentlichen Source-Definition mit der
+						Source="ReturnFlight" abbilden. Ab <emphasis role="bold">Version
+							2.0</emphasis> kann man nun den Starttermin der Duration und
+						den Endtermin der Duration explizit mit den Elementen
+						DurationStart und DurationEnd explizit angeben. Die
+						Source="ReturnFlight" wird demnach ab <emphasis role="bold"
+							>Version 2.0</emphasis> wieder normal interpretiert.</para>
 					<para xml:id="en_5657" xml:lang="en">In the case of the duration condition there
 						currently exists a special case resulting form the fact, that due to
 						historic reasons some people in the travel industry have a somewhat peculiar
@@ -28391,7 +28420,7 @@ usw.]]></programlisting>
 				</section>
 				<section xml:id="OtdsProcessConditionsCompare">
 					<title><phrase xml:id="de_8589" xml:lang="de"><code>Compare</code>
-							Bedingung</phrase><phrase xml:id="en_8589" xml:lang="en"><code>Compare</code> condition</phrase></title>
+							Bedingung (V2.0)</phrase><phrase xml:id="en_8589" xml:lang="en"><code>Compare</code> condition (v2.0)</phrase></title>
 					<para xml:id="de_8613" xml:lang="de">Die <code>Compare</code>-Bedingung ist der
 						zuvor beschriebenen <code>MatchEqual</code>-Bedingung sehr ähnlich, nur dass
 							<code>Compare</code> flexibler ist und zusätzlich einen
@@ -33510,9 +33539,9 @@ usw.]]></programlisting>
 					<task>
 						<title><phrase xml:id="de_3149" xml:lang="de"
 									><code>Komponentenverfügbarkeit</code> (
-									<replaceable>Instanz</replaceable> )</phrase><phrase
+									<replaceable>Instanz</replaceable> ) (V2.0)</phrase><phrase
 								xml:id="en_3149" xml:lang="en"><code>Component Availability</code> (
-									<replaceable>Instance</replaceable> )</phrase></title>
+									<replaceable>Instance</replaceable> )(v2.0)</phrase></title>
 
 						<tasksummary>
 							<para xml:id="de_3150" xml:lang="de">Analysiert die Verfügbarkeit einer
@@ -33562,12 +33591,12 @@ usw.]]></programlisting>
 										information in <code>DefaultDayState</code>.</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_8811" xml:lang="de">Ersetze alle Elemente
-											<code>Open</code>, <code>Request</code>,
-											<code>Closed</code>, <code>StopSales</code>,
-											<code>Blacklisted</code>, <code>NoCheckIn</code> und
-											<code>NoCheckOut</code> durch das äquivalente
-											<code>Stay</code>, <code>CheckIn</code>,
+									<para xml:id="de_8811" xml:lang="de"><emphasis role="bold">Neu in Version 2.0</emphasis>:
+										Ersetze alle Elemente <code>Open</code>,
+											<code>Request</code>, <code>Closed</code>,
+											<code>StopSales</code>, <code>Blacklisted</code>,
+											<code>NoCheckIn</code> und <code>NoCheckOut</code> durch
+										das äquivalente <code>Stay</code>, <code>CheckIn</code>,
 											<code>CheckOut</code>-Konstrukt gemäß der folgenden
 										Abbildung:</para>
 									<para xml:id="en_8811" xml:lang="en">Replace all elements <code>Open</code>,
@@ -39897,6 +39926,12 @@ usw.]]></programlisting>
 						<phrase xml:id="en_9103" xml:lang="en">New properties in version 2.0 (v2.0)</phrase>
 					</title>
 					<itemizedlist>
+						<listitem><para xml:id="de_9104" xml:lang="de">Neue Properties unter Product</para><para xml:id="en_9104" xml:lang="en">New properties in Accommodation</para>
+							<itemizedlist>
+								<listitem><para xml:id="de_9105" xml:lang="de">MarketingBrandName</para><para xml:id="en_9105" xml:lang="en">MarketingBrandName</para></listitem>
+								<listitem><para xml:id="de_9105" xml:lang="de">MarketingBrandCode</para><para xml:id="en_9105" xml:lang="en">MarketingBrandCode</para></listitem>
+							</itemizedlist>
+						</listitem>
 						<listitem><para xml:id="de_9104" xml:lang="de">Neue Properties unter Accommodation</para><para xml:id="en_9104" xml:lang="en">New properties in Accommodation</para>
 							<itemizedlist>
 								<listitem><para xml:id="de_9105" xml:lang="de">Wert "Budget" in Property "UnitFacilities"</para><para xml:id="en_9105" xml:lang="en">Value "Budget" in Property "UnitFacilities"</para></listitem>
@@ -39908,6 +39943,57 @@ usw.]]></programlisting>
 							</itemizedlist>
 						</listitem>
 					</itemizedlist>
+				</section>
+				<section xml:id="PropertiesProducts">
+					<title><phrase xml:id="de_3836" xml:lang="de">Properties - Brand</phrase><phrase
+							xml:id="en_3836" xml:lang="en">Properties - Brand</phrase></title>
+					<informaltable border="0" style="border-collapse:  collapse;width:1008pt"
+						width="1344">
+						<col width="121px"/>
+						<col width="144px"/>
+						<col width="265px"/>
+						<col width="270px"/>
+						<col width="426px"/>
+						<col width="212px"/>
+						<thead>
+							<tr>
+								<td rowspan="1" colspan="1"><para xml:id="de_5545" xml:lang="de"
+									>Komponente</para><para xml:id="en_5545" xml:lang="en"
+										>Component</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5546" xml:lang="de"
+									>PropertyAggregatingComponent</para><para xml:id="en_5546"
+										xml:lang="en">PropertyAggregatingComponent</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5547" xml:lang="de"
+									>PropertyIdentifier</para><para xml:id="en_5547"
+										xml:lang="en">PropertyIdentifier</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5548" xml:lang="de"
+									>Values</para><para xml:id="en_5548" xml:lang="en"
+										>Values</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5549" xml:lang="de"
+									>Bedeutung</para><para xml:id="en_5549" xml:lang="en"
+										>Meaning</para></td>
+								<td rowspan="1" colspan="1"><para xml:id="de_5550" xml:lang="de"
+									>Conditions</para><para xml:id="en_5550" xml:lang="en"
+										>Conditions</para></td>
+							</tr>
+						</thead>
+						<tr>
+							<td rowspan="1" colspan="1">Brand</td>
+							<td rowspan="1" colspan="1">Brand</td>
+							<td rowspan="1" colspan="1">MarketingBrandName</td>
+							<td rowspan="1" colspan="1">String</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_5551" xml:lang="de">Markenname des Veranstalter</para><para xml:id="en_5551" xml:lang="en">Brandname of tour operator</para></td>
+							<td rowspan="1" colspan="1"/>
+						</tr>
+						<tr>
+							<td rowspan="1" colspan="1">Brand</td>
+							<td rowspan="1" colspan="1">Brand</td>
+							<td rowspan="1" colspan="1">MarketingBrandCode</td>
+							<td rowspan="1" colspan="1">String</td>
+							<td rowspan="1" colspan="1"><para xml:id="de_5551" xml:lang="de">Der mit dem Markennamen verknüpfte Code des Veranstalters</para><para xml:id="en_5551" xml:lang="en">The code related to the brandname of tour operator</para></td>
+							<td rowspan="1" colspan="1"/>
+						</tr>
+					</informaltable>
 				</section>
 				<section xml:id="PropertiesAccommodations">
 					<title><phrase xml:id="de_3836" xml:lang="de">Properties -
@@ -45050,8 +45136,7 @@ usw.]]></programlisting>
 
 						<tr>
 							<td rowspan="1" colspan="1">In alle Komponenten möglich</td>
-							<td rowspan="1" colspan="1"><para xml:lang="de">Wird je nach Absprache
-									mit dem VEranstalter aggregiert</para></td>
+							<td rowspan="1" colspan="1"><para xml:lang="de">Wird je nach Absprache mit dem Veranstalter aggregiert</para></td>
 							<td rowspan="1" colspan="1">OtdsUnboundedProperties</td>
 							<td rowspan="1" colspan="1">
 								<para xml:id="de_4660" xml:lang="de">In OTDS nicht spezifizierte
