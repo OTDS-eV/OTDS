@@ -1313,8 +1313,10 @@
 						ConsideredPriceItems and ApplyTos the PriceItems placed here are addressed
 						by the indication of Source= ReturnFlight, OnewayFlight, Outbound, Inbound,
 						as well as by accordingly defined #Names. </para>
-					<para xml:id="det_8950" xml:lang="de">Seit OTDS 2.0 sind die <code>PriceItems</code> unter den Elementen <code>OnewayFlights</code> und
+					<para xml:id="de_9115" xml:lang="de">Seit OTDS 2.0 sind die <code>PriceItems</code> unter den Elementen <code>OnewayFlights</code> und
 						<code>ReturnFlights</code> in das übergeordnete Element <code>Flights</code> verschoben worden.</para>
+					<para xml:id="en_9115" xml:lang="en">With OTDS 2.0 the <code>PriceItems</code> under the elementen <code>OnewayFlights</code> and
+						<code>ReturnFlights</code> have been moved into the superior element <code>Flights</code>.</para>
 					<section xml:id="OtdsStrategyComponentFlightsOneway">
 						<title><phrase xml:id="de_671" xml:lang="de">Oneway Flüge</phrase><phrase
 								xml:id="en_671" xml:lang="en">Oneway flights</phrase></title>
@@ -8738,10 +8740,10 @@
 								define which external component is needed to complete the product (new in v2.0)</para>
 						</listitem>
 						<listitem>
-							<para xml:id="de_8574" xml:lang="de">Virtuelle Komponenten (<code>VirtualComponent</code>) um
+							<para xml:id="de_9110" xml:lang="de">Virtuelle Komponenten (<code>VirtualComponent</code>) um
 								zum Beispiel die Lücke zwischen der Outbound- und Inbound-Komponente
 								eines ReturnFlightOnly zu füllen (neu in V2.0) </para>
-							<para xml:id="en_8574" xml:lang="en">Virtual Components (<code>VirtualComponent</code>) to
+							<para xml:id="en_9110" xml:lang="en">Virtual Components (<code>VirtualComponent</code>) to
 								fill for example the gap inbetween the outbound and inbound flight
 								of a ReturnFlightOnly (new in v2.0)</para>
 						</listitem>
@@ -9027,12 +9029,16 @@
 						</listitem>
 					</itemizedlist>
 					
-					<bridgehead xml:id="de_1203" xml:lang="de">Neuerung in Version 2.0:</bridgehead>
-					<para xml:id="det_1159" xml:lang="de">Ein Sonderfall sind Mix-Produkte. Seit Version 2.0 sind
+					<bridgehead xml:id="de_9112" xml:lang="de">Neuerung in Version 2.0:</bridgehead>
+					<bridgehead xml:id="en_9112" xml:lang="en">Novelty in version 2.0:</bridgehead>
+					<para xml:id="de_9113" xml:lang="de">Ein Sonderfall sind Mix-Produkte. Seit Version 2.0 sind
 						Mix-Produkte Produkte, die noch zusätzliche externe Komponenten benötigen,
 						um das Produkt zu vervollständigen. In der Regel sind Mix-Produkte mit dem
 						ProductType="FlightAccommodation" ausgezeichnet und enthalten wenigstens
 						eine externe Komponente (Components/ExternalComponent).</para>
+					<para xml:id="en_9113" xml:lang="en">Mix-products are a special case: Since version 2.0 mix-products are products
+						that require additional external components in order to complete the product. In general mix-products are marked with the
+						ProductType="FlightAccommodation" and contain at least one external component (Components/ExternalComponent).</para>
 				</section>
 				<section xml:id="OtdsStrategyRulesTags">
 					<title><phrase xml:id="de_1143" xml:lang="de">Markierungen (Tags) in
@@ -9350,9 +9356,8 @@
 						mit mehr als 1000 Einzelbedingungen in den DefinedComponents entstehen,
 						dann ist das ein hinreichendes Indiz dafür, dass man besser
 						Komponentenhüllen verwendet.</para>
-					<para xml:id="de_6256" xml:lang="de">Die Hüllen enthalten, dann
-						Regelparameter und zusätzliche Informationen für die kombinierte
-						Komponente.</para>
+					<para xml:id="de_6256" xml:lang="de">Die Hüllen enthalten dann Regelparameter und zusätzliche
+						Informationen für die kombinierte Komponente.</para>
 					<para xml:id="de_6257" xml:lang="de">Es gibt <code>FlightWrapper</code>,
 							<code>AccommodationWrapper</code> und <code>AddonWrapper</code>
 						jeweils unterhalb des Elemente <code>Flights</code>,
@@ -9376,7 +9381,8 @@
 					</figure>
 
 					<para xml:id="de_6260" xml:lang="de">So könnte die Definition eines
-							<code>FlightWrapper</code> aussehen.</para>
+							<code>FlightWrapper</code> aussehen:</para>
+					<para xml:id="en_6260" xml:lang="en">The definition of a <code>FlightWrapper</code> could look like this:</para>
 					<programlisting><![CDATA[<Otds>
 ...
 <Flights UpdateMode="Merge">
@@ -9415,16 +9421,40 @@
 					<para xml:id="de_6261" xml:lang="de">Die Tags regeln durch direkten
 						Vergleich mit Komponenten-Tags, welche Flüge kombiniert werden
 						sollen.</para>
+					<para xml:id="en_6261" xml:lang="en">By direct comparison with 
+						component tags the tags regulate, which flights are supposed to be combined.</para>
 					<para xml:id="de_6262" xml:lang="de">Buchungsparameter, Filter, PriceItems
 						und Properties können für die Kombination spezifisch ergänzt
 						werden.</para>
+					<para xml:id="en_6262" xml:lang="en">Booking parameter, Filter, PriceItems,
+						and Properties can be added specifically for the combination.</para>
 					<para xml:id="de_6263" xml:lang="de">Die Wrapper können unter Components in
 						der Product-Definition oder in den DefinedComponents direkt oder über
 						die <code>Role</code> referenziert werden.</para>
-
+					<para xml:id="en_6263" xml:lang="en">The Wrapper can be referenced under Components in
+						the product definition or in the DefinedComponents directly or via the <code>Role</code>.</para>
+					<figure>
+						<info>
+							<title><phrase xml:id="de_9137" xml:lang="de">Wrapper in Products und DefinedComponents</phrase>
+								<phrase xml:id="en_9137" xml:lang="en">Wrapper in Products und DefinedComponents</phrase></title>
+						</info>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="figures/wrappers-component.png" format="PNG"
+									contentwidth="60%"/>
+							</imageobject>
+							<textobject>
+								<para xml:id="de_9138" xml:lang="de">Wrapper in Products und DefinedComponents</para>
+								<para xml:id="en_9138" xml:lang="en">Wrapper in Products und DefinedComponents</para>
+							</textobject>
+						</mediaobject>
+					</figure>
+					
 					<para xml:id="de_6264" xml:lang="de">So könnte eine
 						DefinedComponent-Definition mit einem <code>FlightWrapper</code>
 						aussehen:</para>
+					<para xml:id="en_6264" xml:lang="en">This is what a DefinedComponent-definition with a <code>FlightWrapper</code>
+						could look like:</para>
 					<programlisting><![CDATA[<DefineComponent Key="TwoLeg" Role="OnewayFlight">
 <Components>
 	<FlightWrapper Name="TwoLegFlightwrapper" DayAllocationIndex="1">
@@ -9446,11 +9476,13 @@
 </Filter>
 </DefineComponent>]]></programlisting>
 					<para xml:id="de_6265" xml:lang="de">Die Tags im entsprechenden
-						FlightWrapper regeln welche beiden Flüge kombiniert werden
+						FlightWrapper regeln, welche beiden Flüge kombiniert werden
 						sollen.</para>
-
+					<para xml:id="en_6265" xml:lang="en">The tags in the corresponding FlightWrapper regulate, which of the two
+						flights are supposed to be combined.</para>
 					<para xml:id="de_6266" xml:lang="de">So könnte eine Product-Definition mit
 						einem <code>AccommodationWrapper</code> aussehen:</para>
+					<para xml:id="en_6266" xml:lang="en">This is what a product-definition mit with an <code>AccommodationWrapper</code> could look like:</para>
 					<programlisting><![CDATA[<Product Key="RoundtripPackage3" ProductType="FlightAccommodation">
 <Components>
 	<AccommodationWrapper DayAllocationIndex="0">
@@ -9483,16 +9515,24 @@
 	</And>
 </Filter>
 </Product>]]></programlisting>
-					<para xml:id="de_6267" xml:lang="de">Die Tags im Accommodationwrapper regeln
+					<para xml:id="de_6267" xml:lang="de">Die Tags im Accommodationwrapper regeln,
 						welche 3 Accommodations als Paket angeboten werden sollen.</para>
+					<para xml:id="en_6267" xml:lang="en">The tags in the Accommodationwrapper regulate
+						which 3 Accommodations are supposed to offered as a package.</para>
 					<para xml:id="de_6268" xml:lang="de">Diese Product-Definition definiert alle
 						Kombinationen mit 3 Accommodations. Wenn man eine Kombination mit 4
-						Accommodations definieren möchte braucht man eine weitere
-						Product-Definition. Dies lässt sich um gehen, indem man die Wrapper
+						Accommodations definieren möchte, braucht man eine weitere
+						Product-Definition. Dies lässt sich umgehen, indem man die Wrapper
 						Definition in die <code>DefineComponent</code> verlagert.</para>
+					<para xml:id="en_6268" xml:lang="en">This product-definition defines all
+						combinations wtih 3 Accommodations. If a combination with 4 accommodations 
+						shall be defined, an additional product-definition is needed. This can be
+						avoided by shifting the Wrapper definition in the <code>DefineComponent</code>.</para>
 					<para xml:id="de_6269" xml:lang="de">Hier ein Beispiel für eine
 						entsprechende Product-Definition, die über die <code>Role</code> auf die
 						entsprechenden DefinedComponents verweist:</para>
+					<para xml:id="en_6269" xml:lang="en">Here is an example for a corresponding product-definition
+						that via the <code>Role</code> references to the corresponding DefinedComponents:</para>
 					<programlisting><![CDATA[<Product Key="RoundtripPackageGeneral" ProductType="FlightAccommodation">
 <Components>
 	<DefinedComponent Name="AccomPackageWrapper" UseRole="AccommodationWrapper" DayAllocationIndex="0"/>
@@ -9514,8 +9554,13 @@
 							<code>Source="AccommodationWrapper"</code> referenziert werden. Man
 						kann aber auch direkt die <code>Accommodations</code> in den Wrappern
 						referenzieren.</para>
+					<para xml:id="en_6270" xml:lang="en">The Wrapper can be referenced directly via the
+						<code>Source="AccommodationWrapper"</code>. It is also possible though to directly
+						reference the <code>Accommodations</code> in the Wrappers.</para>
 					<para xml:id="de_6271" xml:lang="de">Die Integration der Wrappers in den
 						Komponentenbaum folgt folgendem Schaubild:</para>
+					<para xml:id="en_6271" xml:lang="en">The integration of Wrappers in the component tree
+						follows this figure:</para>
 					<figure>
 						<info>
 							<title><phrase xml:id="de_6272" xml:lang="de">Komponentenbaum mit
@@ -9537,8 +9582,11 @@
 					</figure>
 					<para xml:id="de_6274" xml:lang="de">Die Lage der Outbound-Instance hängt
 						von der Definition der Datenlieferung ab.</para>
+					<para xml:id="en_6274" xml:lang="en">The placment of the Outbound-Instance depends on the 
+						definition of the data delivery.</para>
 					<para xml:id="de_6275" xml:lang="de">Die Wrapperkomponenten sind virtuelle
 						Komponenten und weder Zeit- noch Personen-allozierend.</para>
+					<para xml:id="en_6275" xml:lang="en">The Wrapper-components are virtual components and neither time- nor person-allocating.</para>
 
 				</section>
 				
@@ -9546,15 +9594,35 @@
 				<section xml:id="OtdsStrategyProductNeighbourComponentCorrection">
 					<title><phrase xml:id="de_8996" xml:lang="de">Verschiebung des CheckIn oder CheckOut von Nachbarkomponenten (NeighbourComponentCorrection)(V2.0)</phrase>
 						<phrase xml:id="en_8996" xml:lang="en">Shift of <code>CheckIn</code> or <code>CheckOut</code> of the neighbouring components (NeighbourComponentCorrection)(V2.0)</phrase></title>
-					<para  xml:id="de_8997" xml:lang="de">Bei Produkten mit mehreren Komponenten werden die CheckIn und CheckOut benachbarter Komponenten in der Regel lückenlos aneinandergefügt. 
-						Der CheckOut-Termin der vorherigen Komponente ist in der Regel identisch mit dem CheckIn der nachfolgenden Komponente. 
-						In besonderen Fällen ist es aber notwendig hier eine Lücke oder eine stärkere Überlappung zu definieren. Ein klassischer Fall ist, dass ein Hinflug ins Zielgebiet frühmorgens startet z.B. 01:00 Uhr früh 
-						und nach kurzer Flugdauer frühmorgens im Zielgebiet landet z.B. 2:30 Uhr. Standardmäßig würde die OTDS-Verarbeitung in diesem Fall den CheckIn im Hotel auf den Termin der Landung des Flugzeuges setzen.
-						Die Erwartungshaltung eines Pauschaltouristen wäre aber, dass er noch in der Nacht sein Zimmer beziehen kann, um ggf. direkt zu schlafen. Dazu müsste aber der CheckIn im Hotel schon am Tag vorher stattfinden.
-						Genau dieses Verhalten, kann der Datenlieferant mit der <code>NeighbourComponentCorrection</code> beeinflussen bzw. anpassen.
-						In diesem Fall würde der "virtuelle" CheckOut-Termin des Fluges, auf den sich der CheckIn des Hotels bezieht, künstlich um 1 Tag früher gelegt. Dadurch erfolgt der CheckIn im Hotel auch einen Tag früher.
-						Der "virtuelle" CheckOut-Termin des Fluges hat keine Auswirkungen auf Conditions, die sich auf den "echten" CheckOut-Termin des Fluges beziehen.
-						Hier ein Beispiel, wie eine solche <code>NeighbourComponentCorrection</code> aussieht:
+					<para xml:id="de_8997" xml:lang="de">Bei Produkten mit mehreren Komponenten werden die CheckIn
+					und CheckOut benachbarter Komponenten in der Regel lückenlos aneinandergefügt.
+					Der CheckOut-Termin der vorherigen Komponente ist in der Regel identisch mit dem
+					CheckIn der nachfolgenden Komponente. In besonderen Fällen ist es aber
+					notwendig, hier eine Lücke oder eine stärkere Überlappung zu definieren. Ein
+					klassischer Fall ist, dass ein Hinflug ins Zielgebiet frühmorgens startet z.B.
+					01:00 Uhr früh und nach kurzer Flugdauer frühmorgens im Zielgebiet landet z.B.
+					2:30 Uhr. Standardmäßig würde die OTDS-Verarbeitung in diesem Fall den CheckIn
+					im Hotel auf den Termin der Landung des Flugzeuges setzen. Die Erwartungshaltung
+					eines Pauschaltouristen wäre aber, dass er noch in der Nacht sein Zimmer
+					beziehen kann, um ggf. direkt zu schlafen. Dazu müsste aber der CheckIn im Hotel
+					schon am Tag vorher stattfinden. Genau dieses Verhalten kann der Datenlieferant
+					mit der <code>NeighbourComponentCorrection</code> beeinflussen bzw. anpassen. In
+					diesem Fall würde der "virtuelle" CheckOut-Termin des Fluges, auf den sich der
+					CheckIn des Hotels bezieht, künstlich um einen Tag früher gelegt. Dadurch
+					erfolgt der CheckIn im Hotel auch einen Tag früher. Der "virtuelle"
+					CheckOut-Termin des Fluges hat keine Auswirkungen auf Conditions, die sich auf
+					den "echten" CheckOut-Termin des Fluges beziehen. Hier ein Beispiel, wie eine
+					solche <code>NeighbourComponentCorrection</code> aussieht:</para>
+					<para xml:id="en_8997" xml:lang="en">For products with several components the CheckIn and CheckOut of neighbouring components in general are lined-up without gaps. 
+						The CheckOut-date of the prior componente generally equals the CheckIn of the following component. 
+						In special cases however it is necessary to define a gap or a greater overlapping. A typical case: an outbound flight takes off very early in the morning (e.g. 01:00 a.m.) 
+						and after a short flight lands in the destination airport that very morning (e.g. at 2:30 a.m.). By default the OTDS-processing in this case set the CheckIn into the hotel to the landing-time of the airplane.
+						The expectation of a traveller however would be, that he can check-in into his room in this very night to still get some sleep. To allow for this, the CheckIn in the hotel would have to happen the day before.
+						The data supplier can influence or adapted to this behaviour with the help of the <code>NeighbourComponentCorrection</code>.
+						In this case the "virtual" CheckOut-date of the flight, to which the CheckIn of the hotel refers to, would be "artificially" placed a day earlier. As a result the CheckIn in the hotel also takes place a day earlier.
+						The "virtual" CheckOut-date of the flight has no impact on conditions, that refer to the "real" CheckOut-date of the flight.
+						Here is an example what such a <code>NeighbourComponentCorrection</code> could look like:</para>
+			
 						<programlisting><![CDATA[<OnewayFlight>
 	...
 	<NeighbourComponentCorrection>
@@ -9579,8 +9647,8 @@
 						</figure>
 						<figure>
 							<info>
-								<title><phrase xml:id="de_9000" xml:lang="de">Mögliche Platzierungen der  <code>NeighbourComponentCorrection</code></phrase><phrase
-									xml:id="en_9000" xml:lang="en">Possible locations of the  <code>NeighbourComponentCorrection</code></phrase></title>
+								<title><phrase xml:id="de_9000" xml:lang="de">Mögliche Platzierungen der <code>NeighbourComponentCorrection</code></phrase><phrase
+									xml:id="en_9000" xml:lang="en">Possible locations of the <code>NeighbourComponentCorrection</code></phrase></title>
 							</info>
 							<mediaobject>
 								<imageobject>
@@ -9591,19 +9659,20 @@
 								</textobject>
 							</mediaobject>
 						</figure>
-					</para>
-					<para xml:id="de_9002" xml:lang="de">Ab Version 2.0 gibt es auch die Möglichkeit einer
+					<para xml:id="de_9002" xml:lang="de">Ab Version 2.0 gibt es auch die Möglichkeit, einer
 						<code>NeighbourComponentCorrection</code> eine Condition mitzugeben. Eine
 					Condition ist dann sinnvoll, wenn die Verschiebung nur unter bestimmten
 					Bedingungen erfolgen soll. Ggf. will ein Veranstalter bei Luxus-Unterkünften den
 					Reisenden den maximalen Komfort bieten und deshalb erheblich flexibler früh
 					einchecken bzw. spät auschecken. Hier ein Beispiel, wie eine solche
 						<code>NeighbourComponentCorrection</code> aussehen könnte:</para>
-					<para xml:id="en_9002" xml:lang="en">Since Version 2.0 it is possible to add a condition to a
-						<code>NeighbourComponentCorrection</code>. A condition makes sense, when the shift is supposed
-						to take place only under certain conditions. Maybe a tour operator wants to offer maximum comfort 
-						to his customers of luxury accommodations. The tour operator therefore allows to flexibly check in much earlier or  
-						to check out much later. Here is an example, how such a <code>NeighbourComponentCorrection</code> could look:</para>
+					<para xml:id="en_9002" xml:lang="en">Since version 2.0 it is possible to add a condition to a
+						<code>NeighbourComponentCorrection</code>. A condition makes sense, when the
+					shift is supposed to take place only under certain conditions. Maybe a tour
+					operator wants to offer maximum comfort to his customers of luxury
+					accommodations. The tour operator therefore allows to flexibly check in much
+					earlier or to check out much later. Here is an example, how such a
+						<code>NeighbourComponentCorrection</code> could look:</para>
 					
 					<programlisting><![CDATA[<OnewayFlight>
 	...
@@ -9869,7 +9938,8 @@
 							From Version 2.0 on it is now possible to impact the frame parameter indivdually with the help of the optional elements 
 							<code>GroupStartDate</code> and <code>GroupEndDate</code>. Hence in connection with the CityPair there is a way to steer that 
 							overnight flights may be treated like non overnight flights in regard to the CityPair.</para>
-						<para xml:id="det" xml:lang="de">Im folgenden ein Beispiel, wie die Definiton bezogen auf spezifische Flugtermine aussehen würde.</para>
+						<para xml:id="de_9111" xml:lang="de">Nachfolgend ein Beispiel, wie die Definiton bezogen auf spezifische Flugtermine aussehen würde.</para>
+						<para xml:id="en_9111" xml:lang="en">Below please find an example of how the definiton with regard to specific flight dates would be expressed.</para>
 						<programlisting language="xml"><![CDATA[<Otds...>
   ...
   <GenericTagFunction>
@@ -10004,8 +10074,8 @@
   ...
 </Otds>
 ]]>				</programlisting>
-					<para xml:id="de_1202" xml:lang="de"> Zur Interpretation der Source siehe
-						Erklärungen im letzten Kapitel.</para>
+					<para xml:id="de_1202" xml:lang="de">Zur Interpretation der Source siehe Erklärungen im letzten
+						Kapitel.</para>
 					<para xml:id="en_1202" xml:lang="en">For the interpretation of the Source, see
 						the explanations in the last Chapter.</para>
 
@@ -10169,79 +10239,79 @@
 								the following ascending list:</para>
 							<orderedlist>
 								<listitem>
-									<para xml:id="de_5081" xml:lang="de"> "leerer String" </para>
+									<para xml:id="de_5081" xml:lang="de">"leerer String" </para>
 									<para xml:id="en_5081" xml:lang="en">"empty string"</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5082" xml:lang="de"> - (Bindestrich)</para>
+									<para xml:id="de_5082" xml:lang="de">- (Bindestrich)</para>
 									<para xml:id="en_5082" xml:lang="en">- (hyphen)</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5083" xml:lang="de"> .</para>
+									<para xml:id="de_5083" xml:lang="de">.</para>
 									<para xml:id="en_5083" xml:lang="en">.</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5084" xml:lang="de"> 0</para>
+									<para xml:id="de_5084" xml:lang="de">0</para>
 									<para xml:id="en_5084" xml:lang="en">0</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5085" xml:lang="de"> 1</para>
+									<para xml:id="de_5085" xml:lang="de">1</para>
 									<para xml:id="en_5085" xml:lang="en">1</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5086" xml:lang="de"> 2</para>
+									<para xml:id="de_5086" xml:lang="de">2</para>
 									<para xml:id="en_5086" xml:lang="en">2</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5087" xml:lang="de"> 3</para>
+									<para xml:id="de_5087" xml:lang="de">3</para>
 									<para xml:id="en_5087" xml:lang="en">3</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5088" xml:lang="de"> usw.</para>
+									<para xml:id="de_5088" xml:lang="de">usw.</para>
 									<para xml:id="en_5088" xml:lang="en">etc.</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5089" xml:lang="de"> A</para>
+									<para xml:id="de_5089" xml:lang="de">A</para>
 									<para xml:id="en_5089" xml:lang="en">A</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5090" xml:lang="de"> B</para>
+									<para xml:id="de_5090" xml:lang="de">B</para>
 									<para xml:id="en_5090" xml:lang="en">B</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5091" xml:lang="de"> C</para>
+									<para xml:id="de_5091" xml:lang="de">C</para>
 									<para xml:id="en_5091" xml:lang="en">C</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5092" xml:lang="de"> usw.</para>
+									<para xml:id="de_5092" xml:lang="de">usw.</para>
 									<para xml:id="en_5092" xml:lang="en">etc.</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5093" xml:lang="de"> _ (Unterstrich)</para>
+									<para xml:id="de_5093" xml:lang="de">_ (Unterstrich)</para>
 									<para xml:id="en_5093" xml:lang="en">_ (underscore)</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5094" xml:lang="de"> a</para>
+									<para xml:id="de_5094" xml:lang="de">a</para>
 									<para xml:id="en_5094" xml:lang="en">a</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5095" xml:lang="de"> b</para>
+									<para xml:id="de_5095" xml:lang="de">b</para>
 									<para xml:id="en_5095" xml:lang="en">b</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5096" xml:lang="de"> c</para>
+									<para xml:id="de_5096" xml:lang="de">c</para>
 									<para xml:id="en_5096" xml:lang="en">c</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5097" xml:lang="de"> usw.</para>
+									<para xml:id="de_5097" xml:lang="de">usw.</para>
 									<para xml:id="en_5097" xml:lang="en">etc.</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5098" xml:lang="de"> | (Pipe)</para>
+									<para xml:id="de_5098" xml:lang="de">| (Pipe)</para>
 									<para xml:id="en_5098" xml:lang="en">| (pipe)</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_5099" xml:lang="de"> ~</para>
+									<para xml:id="de_5099" xml:lang="de">~</para>
 									<para xml:id="en_5099" xml:lang="en">~</para>
 								</listitem>
 							</orderedlist>
@@ -12805,12 +12875,11 @@ usw.]]></programlisting>
 							PriceTags oder auszuschließender PriceTags</bridgehead>
 						<bridgehead xml:lang="en" xml:id="en_5225">Definition of PriceTags to be
 							considered or PriceTags to be excluded.</bridgehead>
-						<para xml:id="de_5226" xml:lang="de">PriceTags sind neu in Version 1.9
-							eingeführte Markierungen (Tags) von einzelnen PriceItems direkt am
-							PriceItem-Knoten.</para>
-						<para xml:id="en_5226" xml:lang="en">PriceTags are the new tags (Tags) of
-							individual PriceItems, which have been added directly onto the PriceItem
-							node in version 1.9.</para>
+						<para xml:id="de_5226" xml:lang="de">PriceTags sind in Version 1.9 eingeführte Markierungen
+							(Tags) von einzelnen PriceItems direkt am PriceItem-Knoten.</para>
+						<para xml:id="en_5226" xml:lang="en">PriceTags are the tags (Tags) of individual PriceItems,
+							which have been added directly onto the PriceItem node in version
+							1.9.</para>
 						<para xml:id="de_5227" xml:lang="de">Mit Hilfe des Elementes
 								<code>ConsideredPriceTags</code> kann man einschränken, dass nur
 							PriceItems mit bestimmten PriceTags benutzt werden. Alternativ kann man
@@ -12866,13 +12935,13 @@ usw.]]></programlisting>
 							Source-Attributes</bridgehead>
 						<bridgehead xml:lang="en" xml:id="en_5228">The property "Hierarchy" of the
 							Source attribute</bridgehead>
-						<para xml:id="de_5229" xml:lang="de">In Version 1.9 wird das Attribute
-								<emphasis role="bold">Source</emphasis> um mehrere Eigenschaften
-							erweitert, so dass mit Source weitreichender Komponenten-Instanzen
-							adressiert werden können.</para>
-						<para xml:id="en_5229" xml:lang="en">In version 1.9, the attribute <emphasis
-								role="bold">Source</emphasis> is extended by several properties,
-							meaning that Source allows a wide range of component instances to be
+						<para xml:id="de_5229" xml:lang="de">In Version 1.9 wurde das Attribute <emphasis role="bold"
+								>Source</emphasis> um mehrere Eigenschaften erweitert, so dass mit
+							Source weitreichender Komponenten-Instanzen adressiert werden
+							können.</para>
+						<para xml:id="en_5229" xml:lang="en">In version 1.9, the attribute <emphasis role="bold"
+								>Source</emphasis> has been extended by several properties, meaning
+							that Source allows a wide range of component instances to be
 							addressed.</para>
 						<para xml:id="de_5230" xml:lang="de">In diesem Zusammenhang wird bei der
 							Rundung hauptsächlich die neue Eigenschaft <emphasis role="bold"
@@ -28544,7 +28613,9 @@ usw.]]></programlisting>
 					</para>
 				</section>
 				<section xml:id="OtdsProcessConditionsAvailabilityState">
-					<title><phrase xml:id="de_9011" xml:lang="de"><code>AvailabilityState</code> Bedingung (Version 2.0,V2.0)</phrase><phrase xml:id="en_9011" xml:lang="en"><code>GenericTag</code> condition (version 2.0,
+					<title><phrase xml:id="de_9011" xml:lang="de"><code>AvailabilityState</code> Bedingung (Version
+							2.0, V2.0)</phrase><phrase xml:id="en_9011" xml:lang="en"
+								><code>GenericTag</code> condition (version 2.0,
 						v2.0)</phrase></title>
 					<para xml:id="de_9012" xml:lang="de">Mit dieser Bedingung lässt sich die allgemeine Auswertung der
 						Availabilities weiter einschränken. Diese Bedingung ist erfüllt, wenn
@@ -39831,14 +39902,14 @@ usw.]]></programlisting>
 						<phrase xml:id="en_9103" xml:lang="en">New properties in version 2.0 (v2.0)</phrase>
 					</title>
 					<itemizedlist>
-						<listitem><para xml:id="det_9104" xml:lang="de">Neue Properties unter Accommodation</para>
+						<listitem><para xml:id="de_9104" xml:lang="de">Neue Properties unter Accommodation</para><para xml:id="en_9104" xml:lang="en">New properties in Accommodation</para>
 							<itemizedlist>
-								<listitem><para xml:id="det_9105" xml:lang="de">Wert "Budget" in Property "Unitfacilities"</para></listitem>
+								<listitem><para xml:id="de_9105" xml:lang="de">Wert "Budget" in Property "UnitFacilities"</para><para xml:id="en_9105" xml:lang="en">Value "Budget" in Property "UnitFacilities"</para></listitem>
 							</itemizedlist>
 						</listitem>
-						<listitem><para xml:id="det_9108" xml:lang="de">Neue Properties unter Flight</para>
+						<listitem><para xml:id="de_9114" xml:lang="de">Neue Properties unter Flight</para><para xml:id="en_9114" xml:lang="en">New properties in Flight</para>
 							<itemizedlist>
-								<listitem><para xml:id="det_9109" xml:lang="de">Property "FlightCabinClass" ersetzt "FlightBookingClassType" </para></listitem>
+								<listitem><para xml:id="de_9109" xml:lang="de">Property "FlightCabinClass" ersetzt "FlightBookingClassType"</para><para xml:id="en_9109" xml:lang="en">Property "FlightCabinClass" replaces "FlightBookingClassType" </para></listitem>
 							</itemizedlist>
 						</listitem>
 					</itemizedlist>
