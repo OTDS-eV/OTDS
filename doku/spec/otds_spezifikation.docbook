@@ -4881,9 +4881,8 @@
 									>Technical documentation for OTDS</link> .</para>
 						</section>
 						<section xml:id="OtdsStrategyConditionDuration">
-							<title><phrase xml:id="de_883" xml:lang="de">Dauer
-									(Duration)</phrase><phrase xml:id="en_883" xml:lang="en"
-									>Duration (Duration)</phrase></title>
+							<title><phrase xml:id="de_883" xml:lang="de">Dauer (Duration) (V2.0)</phrase><phrase
+									xml:id="en_883" xml:lang="en">Duration (v2.0)</phrase></title>
 							<figure>
 								<title><phrase xml:id="de_884" xml:lang="de">Condition &gt;
 										Duration</phrase><phrase xml:id="en_884" xml:lang="en"
@@ -4933,17 +4932,18 @@
 								also individual durations. The duration can also be delivered in
 								different units (nights, hours, minutes). See the attribute
 								"DurationUnit".</para>
-							<para xml:id="de_5866" xml:lang="de">Möchte man von der
-								Standard-Interpretation (Anfang bis Ende der Source-Komponente)
-								abweichen, so kann über spezifische Angaben in den Elementen
-								"DurationStart" und "DurationEnd" der Start- und EndTermin der
-								Duration sehr spezifisch referenziert werden. Die Dauer ergibt sich
-								aus der Differenz der Termine von DurationEnd-DurationStart. Es
-								sollte dabei berücksichtigt werden, dass die Termine der jeweiligen
-								Komponenten immer bezogen auf die Lokalzeit der jeweiligen
-								Komponente sind. Fehlt das Element "DurationStart" oder
-								"DurationEnd", so ergibt sich der zu verwendende Default jeweils aus
-								den Defaults der nun beschrieben Attribute.</para>
+							<para xml:id="de_5866" xml:lang="de">Möchte man von der Standard-Interpretation (Anfang bis
+								Ende der Source-Komponente) abweichen, so kann seid <emphasis
+									role="bold">Version 2.0</emphasis> über spezifische Angaben in
+								den Elementen "DurationStart" und "DurationEnd" der Start- und
+								EndTermin der Duration sehr spezifisch referenziert werden. Die
+								Dauer ergibt sich aus der Differenz der Termine von
+								DurationEnd-DurationStart. Es sollte dabei berücksichtigt werden,
+								dass die Termine der jeweiligen Komponenten immer bezogen auf die
+								Lokalzeit der jeweiligen Komponente sind. Fehlt das Element
+								"DurationStart" oder "DurationEnd", so ergibt sich der zu
+								verwendende Default jeweils aus den Defaults der nun beschrieben
+								Attribute.</para>
 							<para xml:id="en_5866" xml:lang="en">In order to deviate from the standard interpretation
 								(beginning to the end of the Source component) the start and end
 								date of the duration can be very specifically referenced to via
@@ -5058,6 +5058,21 @@
 								hat.</para>
 							<para xml:id="en_890" xml:lang="en">This condition is valid if the
 								entire trip (Source=Product) consists of at least 7 days.</para>
+							<para xml:id="det_8979" xml:lang="de">Manche Veranstaltersysteme benutzen eine sehr system
+								spezifische Dauer, welche von der Standard-Definition einer
+								Reisedauer (Start/CheckIn in der Komponente/Reise bis Ende/CheckOut
+								der Komponente/Reise) abweicht. Ab <emphasis role="bold">Version
+									2.0</emphasis> kann diese Abweichung nun sehr spezifisch
+								definiert werden. Dazu kann nun der Startpunkt bzw. auch der
+								Endpunkt der Dauer genau auf den gewünschten Start- oder Endpunkte
+								einer spezifischen Komponenten festgelegt werden. Nachfolgend ein
+								verbeitetes Beispiel welches die Dauer vom Abflug des Hinfluges bis
+								zum <emphasis role="bold">Abflug</emphasis> des Rückfluges
+								definiert. </para>
+							<para xml:id="en_8979" xml:lang="en">Some tour operator systems prefer a different definition of 
+								the duration. In those systems the duration begins with the take-off of the outgoing flight and
+								terminates with the take-off of the return flight. The definition of choice may be defined in this
+								duration condition.</para>
 
 							<programlisting><![CDATA[<Condition>
  	<Duration Source="Product">
@@ -5066,15 +5081,14 @@
 		<Min>5</Min>
 	</Duration>
 </Condition>]]></programlisting>
-							<para xml:id="de_8979" xml:lang="de">Manche Veranstaltersysteme
-								bevorzugen eine etwas andere Definition der Reisedauer. Die Dauer in
-								diesen Systemen beginnt beim Abflug des Hinfluges und endet beim
-								Abflug des Rückfluges. Genau diese Definition der Dauer definiert
-								man mit dieser Duration-Bedingung.</para>
-							<para xml:id="en_8979" xml:lang="en">Some tour operator systems prefer a different definition of 
-								the duration. In those systems the duration begins with the take-off of the outgoing flight and
-								terminates with the take-off of the return flight. The definition of choice may be defined in this
-							    duration condition.</para>
+							<para xml:id="det_8979" xml:lang="de"><emphasis role="bold">Hinweis:</emphasis> In den
+								vorherigen Versionen 1.9.1 - 1.9.3 wurde ein "Hack" vereinbahrt,
+								dass mit der Source="ReturnFlight" genau die in diesem Beispiel
+								aufgezeigte Dauerdefinition explizit definiert werden konnte. Ab
+									<emphasis role="bold">Version 2.0</emphasis> verliert dieser
+								"Hack" seine Gültigkeit und es wird nun die Source="ReturnFlight"
+								wieder "normal" also als Dauer vom CheckIn des Hinfluges bis
+								CheckOut des Rückfluges interpretiert. </para>
 							<para xml:id="de_891" xml:lang="de">Weitere Informationen finden Sie in
 								der <link xlink:href="../technisch/otds_technisch.html#Duration"
 									>Technischen Dokumentation für OTDS </link>.</para>
@@ -5789,8 +5803,8 @@
 						</section>
 						<section xml:id="OtdsStrategyConditionCompare">
 							<title><phrase xml:id="de_8580" xml:lang="de"
-									>Compare-Bedingungen</phrase><phrase xml:id="en_8580"
-									xml:lang="en">Compare conditions</phrase></title>
+									>Compare-Bedingungen (V2.0)</phrase><phrase xml:id="en_8580"
+									xml:lang="en">Compare conditions (v2.0)</phrase></title>
 							<para xml:id="de_8584" xml:lang="de">Die Compare-Bedingung erlaubt es,
 								ConditionalTags, Tags, Keys und andere Werte bzgl. ihrer Wertigkeit
 								zu vergleichen.</para>
@@ -23531,15 +23545,19 @@ usw.]]></programlisting>
 									this processing is iterated across all durations of the stated
 									interval (i.e. the processing of each duration is performed
 									individually).</para>
-								<para xml:id="de_5380" xml:lang="de">Im Falle der Dauerbedingung
-									gibt es derzeit einen Sonderfall, der daraus resultiert, dass
-									aus historischen Gründen einige Touristiker eine eigenartige
-									Definition der Dauer zu Grunde legen. Laut Definition ist dann
-									die Dauer durch den Abflug des Hinfluges und durch den Abflug
-									des Rückfluges begrenzt. Dieses lässt sich abweichend von der
-									eigentlichen Source-Definition mit der Source="ReturnFlight"
-									abbilden. Ab Version 2.0 wird es dafür eine ordentliche Lösung
-									geben.</para>
+								<para xml:id="det_5380" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit einen
+									Sonderfall, der daraus resultiert, dass aus historischen Gründen
+									einige Touristiker eine eigenartige Definition der Dauer zu
+									Grunde legen. Laut Definition ist dann die Dauer durch den
+									Abflug des Hinfluges und durch den Abflug des Rückfluges
+									begrenzt. Dieses ließ sich in den Versionen 1.9.1 -1.9.3
+									abweichend von der eigentlichen Source-Definition mit der
+									Source="ReturnFlight" abbilden. Ab <emphasis role="bold">Version
+										2.0</emphasis> kann man nun den Startpunkt der Duration und
+									den Endpunkt der Duration explizit mit den Elementen
+									DurationStart und DurationEnd explizit angeben. Die
+									Source="ReturnFlight" wird demnach ab <emphasis role="bold"
+										>Version 2.0</emphasis> wieder normal interpretiert.</para>
 								<para xml:id="en_5380" xml:lang="en">In the case of duration
 									condition there currently exists an exception, which results
 									from the historic fact, that some tourism professionals work
@@ -27694,8 +27712,8 @@ usw.]]></programlisting>
 				</section>
 				<section xml:id="OtdsProcessConditionsDuration">
 					<title><phrase xml:id="de_2714" xml:lang="de"><code>Duration</code>
-							Bedingung</phrase><phrase xml:id="en_2714" xml:lang="en"
-								><code>Duration</code> condition</phrase></title>
+							Bedingung (V2.0)</phrase><phrase xml:id="en_2714" xml:lang="en"
+								><code>Duration</code> condition (v2.0)</phrase></title>
 
 					<para xml:id="de_2715" xml:lang="de">Diese Bedingung überprüft die Dauer einer
 						Komponente.</para>
@@ -27804,13 +27822,19 @@ usw.]]></programlisting>
 							</listitem>
 						</varlistentry>
 					</variablelist>
-					<para xml:id="de_5657" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit
-						einen Sonderfall, der daraus resultiert, dass aus historischen Gründen
-						einige Touristiker eine eigenartige Definition der Dauer zu Grunde legen.
-						Laut Definition ist dann die Dauer durch den Abflug des Hinfluges und durch
-						den Abflug des Rückfluges begrenzt. Dieses lässt sich abweichend von der
-						eigentlichen Source-Definition mit der Source="ReturnFlight" abbilden. Ab
-						Version 2.0 wird es dafür eine ordentliche Lösung geben. </para>
+					<para xml:id="det_5657" xml:lang="de">Im Falle der Dauerbedingung gibt es derzeit einen
+						Sonderfall, der daraus resultiert, dass aus historischen Gründen
+						einige Touristiker eine eigenartige Definition der Dauer zu
+						Grunde legen. Laut Definition ist dann die Dauer durch den
+						Abflug des Hinfluges und durch den Abflug des Rückfluges
+						begrenzt. Dieses ließ sich in den Versionen 1.9.1 -1.9.3
+						abweichend von der eigentlichen Source-Definition mit der
+						Source="ReturnFlight" abbilden. Ab <emphasis role="bold">Version
+							2.0</emphasis> kann man nun den Starttermin der Duration und
+						den Endtermin der Duration explizit mit den Elementen
+						DurationStart und DurationEnd explizit angeben. Die
+						Source="ReturnFlight" wird demnach ab <emphasis role="bold"
+							>Version 2.0</emphasis> wieder normal interpretiert.</para>
 					<para xml:id="en_5657" xml:lang="en">In the case of the duration condition there
 						currently exists a special case resulting form the fact, that due to
 						historic reasons some people in the travel industry have a somewhat peculiar
@@ -28396,7 +28420,7 @@ usw.]]></programlisting>
 				</section>
 				<section xml:id="OtdsProcessConditionsCompare">
 					<title><phrase xml:id="de_8589" xml:lang="de"><code>Compare</code>
-							Bedingung</phrase><phrase xml:id="en_8589" xml:lang="en"><code>Compare</code> condition</phrase></title>
+							Bedingung (V2.0)</phrase><phrase xml:id="en_8589" xml:lang="en"><code>Compare</code> condition (v2.0)</phrase></title>
 					<para xml:id="de_8613" xml:lang="de">Die <code>Compare</code>-Bedingung ist der
 						zuvor beschriebenen <code>MatchEqual</code>-Bedingung sehr ähnlich, nur dass
 							<code>Compare</code> flexibler ist und zusätzlich einen
