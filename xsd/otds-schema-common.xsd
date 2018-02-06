@@ -1,4 +1,4 @@
-<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <!-- Test -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
@@ -2461,7 +2461,7 @@ DE Germany</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_205">The official name of the accommodation / hotel</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="AccommodationInfo" type="ContentInfoType" minOccurs="0"/>
+			<xs:element name="AccommodationInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="2.0"/>
 			<xs:group ref="AccommodationCategoryGroup" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_3268">Kategorie der Unterkunft (Offizielle und Veranstalterkategorie).</xs:documentation>
@@ -2922,7 +2922,7 @@ Selling via distributor "Schmetterling"</xs:documentation>
 					</xs:element>
 					<xs:element name="FeatureContext" type="FeatureContextEnum" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_8887">Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeautureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeatureContext kann zu einem anderen Ergebnis führen als ohne den FeatureContext.
+							<xs:documentation xml:lang="de" xml:id="de_8887">Mit diesem Parameterset kann man einen GlobalValue definieren, der nur dann aktiv wird, wenn dieses FeatureContext gewünscht ist. Die Verarbeitung mit einem spezifisches FeatureContext kann zu einem anderen Ergebnis führen als ohne den FeatureContext.
 Derzeit gibt es nur einen FeatureContext "City-Pair-Production".
 
 Mit diesem Feature erhalten Sie bei Flügen oder Pauschalangeboten genau einen Flug pro CityPair, Termin und Dauer, welcher mit einem spezifischen CityPairCode (z.B. DUSPMI) gebucht wird. Der Datenlieferant ist dafür verantwortlich, dass die Verwendung des GlobalValues zu der gewünschten Verarbeitung führt.</xs:documentation>
@@ -2933,7 +2933,6 @@ At present there is only one FeatureContext "City-Pair-Production". By this feat
 					<xs:element name="Reseller" type="ResellerType" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_8888">Dieses Element definiert den GlobalValue für einen bestimmten Reseller, der durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert wird.
-
 
 Wiederverkäufer sind den Distributoren sehr ähnlich. Im Unterschied zu den Distributoren bucht der Wiederverkäufer z.B. einen Flug auf seinen Namen beim Lieferanten und bieten dann diesen Flug dem Endkunden zu Kauf an. Der Vermittler hingegen vermittelt die Flugbuchung nur. Die Buchung selbst wird beim Vermittler vom Endkunden direkt beim Lieferanten durchgeführt. Mit dem Wiederverkäufer-Kontext kann also gesteuert werden, dass bestimmte Produkte ggf. nicht oder nur für Wiederverkäufer oder auch spezielle Wiederverkäufer zur Verfügung gestellt werden. Oder der Lieferant kann auch die Preiskalkulation diesbzgl. beeinflussen. Ein bestimmter Wiederverkäufer wird durch die Angabe der Kombination aus CRS-System, AgencyCode und BrandCode eindeutig identifiziert. Optional kann man aber auch die Gruppe der Wiederverkäufer an sich über den ResellerType addressieren.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_8888">This element defines the GlobalValue for a specific reseller, which is explicitly identified by the combined information of CRS-System, AgencyCode and BrandCode.</xs:documentation>
@@ -2988,11 +2987,13 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 	<xs:attributeGroup name="ComponentAttributeGroup">
 		<xs:attribute name="Component" type="ComponentAttributeType" use="optional">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_266">Dieses Attribut gibt den Type einer Komponente
-					an. Folgende Typen stehen zur Auswahl: -
-					Accommodation, - Flight, - Addon, - ThisComponent.
-					Mit der Source kann man die Addressierung noch feiner auflösen.
-					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component' der Wert 'ThisComponent' angenommen.
+				<xs:documentation xml:lang="de" xml:id="de_266">Dieses Attribut gibt den Type einer Komponente an. Folgende Typen stehen zur Auswahl: 
+- Accommodation 
+- Flight 
+- Addon
+- ThisComponent
+Mit der Source kann man die Addressierung noch feiner auflösen.
+Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component' der Wert 'ThisComponent' angenommen.
 					</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_266">This attribute specifies the type of a
 					component. In the case of a CombiComponent, type refers to the first
@@ -3006,7 +3007,7 @@ Only according to the rules can the "SourceAttributeType" enumerations for the g
 		<xs:attribute name="Source" type="SourceAttributeType" use="optional">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_8889">Mit der Source kann man die Adressierung noch feiner auflösen als mit dem Attribute 'Component'.
-					Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
+Wird gleichzeitig das Attribut 'Component' und das Attribut 'Source' angegeben, so wird nur die Source ausgewertet. Werden beide Attribute nicht angegeben, wird für das Attribut 'Component der Wert 'ThisComponent' angenommen.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_8889">With the Source the addressing can be dismantled even further than with the attribute 'Component'.
 					If both attributes 'Component' and 'Source' are indicated at the same time, only 'Source' will be evaluated. If none of the attributes are indicated, for tha attribut 'Component' the value 'ThisComponent' is presumed.</xs:documentation>
 			</xs:annotation>
@@ -6323,14 +6324,7 @@ Combinations within a layer are analysed independent of all other layers: Each l
 		<xs:sequence>
 			<xs:element name="CombinationLevel" type="xs:int" default="0" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_364">In jedem CombinationLayer enthält jedes
-						PriceItem einen CombinationLevel. Ein PriceItem wird grundsätzlich nur von
-						PriceItems mit kleinerem CombinationLevel (im selben CombinationLayer)
-						beeinflusst. Zwei PriceItems mit selben CombinationLevel beeinflussen sich
-						gegenseitig nicht. Der CombinationLevel gibt an, in welcher Reihenfolge die
-						PriceItems innerhalb einer Combinatorics-Ebene kombiniert werden. Die
-						Abarbeitung der Kombination erfolgt in aufsteigender Reihenfolge der
-						CombinationLevel.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_364">In jedem CombinationLayer enthält jedes PriceItem einen CombinationLevel. Ein PriceItem wird grundsätzlich nur von PriceItems mit kleinerem CombinationLevel (im selben CombinationLayer) beeinflusst. Zwei PriceItems mit selben CombinationLevel beeinflussen sich gegenseitig nicht. Der CombinationLevel gibt an, in welcher Reihenfolge die PriceItems innerhalb einer Combinatorics-Ebene kombiniert werden. Die Abarbeitung der Kombination erfolgt in aufsteigender Reihenfolge der CombinationLevel.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_364">Within every CombinationLayer, each PriceItem contains a CombinationLevel. A PriceItem is generally only influenced by PriceItems with a lower CombinationLevel (in the same CombinationLayer). Two PriceItems with the same CombinationLevel do not influence each other.
 The CombinationLevel indicates in which order the PriceItems are combined within a CombinationLayer. The processing of the combination occurs in ascending order of CombinationLevel.</xs:documentation>
 				</xs:annotation>
@@ -6378,31 +6372,15 @@ Combinability via CombinationCode is defined with a list of compatible or incomp
 			<xs:choice minOccurs="0">
 				<xs:element name="ExcludePriceItemClasses">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_369">In diesem Element können PriceItemClasses
-							angegeben werden, die bestimmte PriceItems während der
-							Kombinatorik-Verarbeitung aus der Preisberechnung
-							ausschließen.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_369">In diesem Element können PriceItemClasses angegeben werden, die bestimmte PriceItems während der Kombinatorik-Verarbeitung aus der Preisberechnung ausschließen.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_369">In this element, PriceItemClasses can be specified which exclude certain PriceItems from the price calculation during the processing of combinations.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="ExcludePriceItemClass" maxOccurs="unbounded">
 								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_370">In diesem Element können PriceItemClasses
-										angegeben werden, die bestimmte PriceItems während der
-										Kombinatorik-Verarbeitung aus der Preisberechnung
-										ausschließen. Dabei wird weder LayerLevel noch -Name noch
-										CombiLevel verglichen. Die zu deaktivierenden PriceItems
-										können sich dementsprechend auch außerhalb des aktuell
-										betrachteten Layers befinden. Dieses Element kann eine durch
-										Space getrennte Liste enthalten. Jedes Element der Liste
-										definiert eine zu deaktivierende PriceItemClass. Werden
-										mehrere Elemente "ExcludePriceItemClasses" an dieser Stelle
-										angegeben, so definieren diese weitere PriceItemClasses ggf.
-										in anderen Komponenten, die deaktiviert werden sollen. Per
-										Definition ist es nicht erlaubt, mehrere
-										"ExcludePriceItemClasses" mit demselben Attribute "Source"
-										zu verwenden.</xs:documentation>
+									<xs:documentation xml:lang="de" xml:id="de_370">In diesem Element können PriceItemClasses angegeben werden, die bestimmte PriceItems während der Kombinatorik-Verarbeitung aus der Preisberechnung ausschließen. Dabei wird weder LayerLevel noch -Name noch CombiLevel verglichen. Die zu deaktivierenden PriceItems können sich dementsprechend auch außerhalb des aktuell betrachteten Layers befinden. Dieses Element kann eine durch Space getrennte Liste enthalten. Jedes Element der Liste definiert eine zu deaktivierende PriceItemClass. Werden mehrere Elemente "ExcludePriceItemClasses" an dieser Stelle angegeben, so definieren diese weitere PriceItemClasses ggf. in anderen Komponenten, die deaktiviert werden sollen. Per
+Definition ist es nicht erlaubt, mehrere "ExcludePriceItemClasses" mit demselben Attribute "Source"	zu verwenden.</xs:documentation>
 									<xs:documentation xml:lang="en" xml:id="en_370">In this element, PriceItemClasses can be specified which exclude certain PriceItems from the price calculation during the processing of combinations. In this, neither LayerLevel nor LayerName or CombiLevel is compared. The PriceItems which are to be deactivated may therefore also be found outside the Layer currently being observed. This element may include a list separated by a space. Each element of the list defines a PriceItemClass which is to be deactivated. If several items specify "ExcludePriceItemClasses" in this section, these define additional PriceItemClasses to be deactivated, possibly in other components.
 By definition, it is not permitted to use several "ExcludePriceItemClasses" with the same attribute "Source".</xs:documentation>
 								</xs:annotation>
@@ -6424,14 +6402,8 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 				</xs:element>
 				<xs:element name="CombinableWhen" type="CombinableWhenType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_372">Mit CombinableWhen wird angegeben, mit welchen
-							PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht
-							angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen
-							PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes
-							PriceItem mit kleinerem Level dieses PriceItem ausschließt, da
-							Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine
-							Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht
-							kombinierbar mit") ausgedrückt werden.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_372">Mit CombinableWhen wird angegeben, mit welchen PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes PriceItem mit kleinerem Level dieses PriceItem ausschließt, da
+Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht kombinierbar mit") ausgedrückt werden.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_372">CombinableWhen indicates the PriceItems with which a PriceItem can be combined. If CombinableWhen is not specified, the PriceItem is (in itself) combinable with all other PriceItems (it is however possible for another PriceItem with a lower Level to exclude this PriceItem, as combinability is reflexive). Through CombinableWhen, it is possible to express both an included list ("combinable with") and an excluded list ("not combinable with").</xs:documentation>
 					</xs:annotation>
 				</xs:element>
@@ -6441,7 +6413,11 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 		<xs:attribute name="LayerLevel" type="xs:int" default="0"/>
 	</xs:complexType>
 	<xs:complexType name="CombinableWhenType">
-		<xs:group ref="CombinableWhenGroup"/>
+		<xs:group ref="CombinableWhenGroup">
+			<xs:annotation>
+				<xs:documentation>Mit CombinableWhen wird angegeben, mit welchen PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes PriceItem mit kleinerem Level dieses PriceItem ausschließt, da Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht kombinierbar mit") ausgedrückt werden.</xs:documentation>
+			</xs:annotation>
+		</xs:group>
 	</xs:complexType>
 	<xs:group name="CombinableWhenGroup">
 		<xs:annotation>
@@ -6458,17 +6434,29 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 			<xs:group ref="AtomicCombinableWhenGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
-					<xs:group ref="CombinableWhenGroup" minOccurs="1" maxOccurs="unbounded"/>
+					<xs:group ref="CombinableWhenGroup" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Mit CombinableWhen wird angegeben, mit welchen PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes PriceItem mit kleinerem Level dieses PriceItem ausschließt, da Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht kombinierbar mit") ausgedrückt werden.</xs:documentation>
+						</xs:annotation>
+					</xs:group>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
 				<xs:complexType>
-					<xs:group ref="CombinableWhenGroup" minOccurs="1" maxOccurs="unbounded"/>
+					<xs:group ref="CombinableWhenGroup" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Mit CombinableWhen wird angegeben, mit welchen PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes PriceItem mit kleinerem Level dieses PriceItem ausschließt, da Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht kombinierbar mit") ausgedrückt werden.</xs:documentation>
+						</xs:annotation>
+					</xs:group>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Not">
 				<xs:complexType>
-					<xs:group ref="CombinableWhenGroup"/>
+					<xs:group ref="CombinableWhenGroup">
+						<xs:annotation>
+							<xs:documentation>Mit CombinableWhen wird angegeben, mit welchen PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes PriceItem mit kleinerem Level dieses PriceItem ausschließt, da Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht kombinierbar mit") ausgedrückt werden.</xs:documentation>
+						</xs:annotation>
+					</xs:group>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Imply">
@@ -6476,12 +6464,20 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 					<xs:sequence>
 						<xs:element name="If">
 							<xs:complexType>
-								<xs:group ref="CombinableWhenGroup"/>
+								<xs:group ref="CombinableWhenGroup">
+									<xs:annotation>
+										<xs:documentation>Mit CombinableWhen wird angegeben, mit welchen PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes PriceItem mit kleinerem Level dieses PriceItem ausschließt, da Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht kombinierbar mit") ausgedrückt werden.</xs:documentation>
+									</xs:annotation>
+								</xs:group>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="Then">
 							<xs:complexType>
-								<xs:group ref="CombinableWhenGroup"/>
+								<xs:group ref="CombinableWhenGroup">
+									<xs:annotation>
+										<xs:documentation>Mit CombinableWhen wird angegeben, mit welchen PriceItems ein PriceItem kombinierbar ist. Wird CombinableWhen nicht angegeben, so ist dieses PriceItem (von sich aus) mit allen anderen PriceItems kombinierbar (es ist jedoch möglich, dass ein anderes PriceItem mit kleinerem Level dieses PriceItem ausschließt, da Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusivliste ("kombinierbar mit") als auch eine Exklusivliste ("nicht kombinierbar mit") ausgedrückt werden.</xs:documentation>
+									</xs:annotation>
+								</xs:group>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
@@ -6493,8 +6489,7 @@ By definition, it is not permitted to use several "ExcludePriceItemClasses" with
 		<xs:choice>
 			<xs:element name="CombinationCode">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_374">Diese Kombinationsbedingung bezieht sich auf
-						den CombinationCode eines PriceItems.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_374">Diese Kombinationsbedingung bezieht sich auf den CombinationCode eines PriceItems.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_374">This condition of combination refers to the CombinationCode of a PriceItem.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
@@ -7214,9 +7209,9 @@ Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der 
 			</xs:element>
 			<xs:element name="Element">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_406">Dieses Element adressiert einen bestimmten Knoten oder Parameter innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule	angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene	hinunter. 
-						Über das Attribut "Source" wird die Unterkomponente adressiert.
-						Der Body dieses Elements spezifiziert den SourceKnoten als nächsten	untergeordneten Knoten unterhalb der adressierten Unterkomponente.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_406">Dieses Element adressiert einen bestimmten Knoten oder Parameter innerhalb des Angebotskontextes. Der Angebotskontext besteht dabei aus allen möglichen Kombinationen der in der ProductRule	angegebenen Komponenten. Die Kombinatorik geht dabei bis auf die Terminebene hinunter. 
+Über das Attribut "Source" wird die Unterkomponente adressiert.
+Der Body dieses Elements spezifiziert den SourceKnoten als nächsten	untergeordneten Knoten unterhalb der adressierten Unterkomponente.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_406">This element addresses a specific node or parameter within
 						the offer context. The offer context consists of all possible combinations of the components specified in the ProductRule. The combinatorics go down to	the date level.
 						Via the attribute "Source" the subcomponent is addressed. The body of this element specifies the SourceNode as the next subordinate node below the addressed subcomponent.</xs:documentation>
@@ -7309,7 +7304,7 @@ The attributes "@Offset" and "@Length" define, which part of the ComponentCharac
 	<xs:complexType name="AvailabilitiesType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_407">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Im Zusammenspiel mit den Conditions und entsprechenden DefaultDayStates können sowohl tageweise Verfügbarkeiten als auch dauerbezogene Verfügbarkeiten geliefert werden. Generell erlaubt die Definition des DefaultDayStates sowohl eine Lieferung von nur positiven Verfügbarkeiten als auch nur negativen Verfügbarkeiten. 
-			Die Ebene Availabilities definiert, welche Art der Verfügbarkeits-Lieferung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Belegung stattfindet, so wird  je eingeschränkter Belegung ein eigener Availabilities-Zweig mit einer entsprechenden Belegungsbedingung unter "Conditions" angeben. Im Allgemeinen sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist. 
+Die Ebene Availabilities definiert, welche Art der Verfügbarkeits-Lieferung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Belegung stattfindet, so wird  je eingeschränkter Belegung ein eigener Availabilities-Zweig mit einer entsprechenden Belegungsbedingung unter "Conditions" angeben. Im Allgemeinen sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist. 
 Viele Beispiele unterschiedlicher Verfügbarkeitslieferungen finden Sie in der Thematischen Dokumentation unter "Availabilities".</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_407">Under this branch the availabilites of an object are defined. In combining them with Conditions and the corresponding DefaultDayStates not only availabilities on day-basis but also duration-related availabilities can be delivered. In general the definition of DefaultDayStates allows the delivery of only positive availabilities as well as of only negative availabilities.
 The level availabilities defines, which kind of availability delivery is at hand. If for instance a steering of availabilities takes place via the occupancy, for each restricted occupancy a separate availability branch with a corresponding occupancy condition will be indicated under "Conditions". In general the key of the availability node should correlate with this very condition in order to make the key always unambiguously reproducible for incremental updates.
@@ -7320,20 +7315,13 @@ There are numerous examples for different availability deliveries in the "Themat
 				<xs:sequence>
 					<xs:element name="Availability" type="AvailabilityType" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_408">Unter diesem Zweig wird jeweils ein Block von
-								tageweisen Verfügbarkeiten geliefert. Das Startdate definiert den ersten Tag des Blockes. In den Kindelementen "DayState" stellt
-								jeweils ein Attribut "Offset" einen relativen Bezug zum StartDate her und definiert so en jeweils betrachteten Tag. Es sollte darauf
-								geachtet werden, dass ein reproduzierbarer Key gewählt wird, so dass inkrementelle Lieferungen von einzelnen DayState-Elementen möglich
-								sind.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_408">Unter diesem Zweig wird jeweils ein Block von tageweisen Verfügbarkeiten geliefert. Das Startdate definiert den ersten Tag des Blockes. In den Kindelementen "DayState" stellt jeweils ein Attribut "Offset" einen relativen Bezug zum StartDate her und definiert so en jeweils betrachteten Tag. Es sollte darauf geachtet werden, dass ein reproduzierbarer Key gewählt wird, so dass inkrementelle Lieferungen von einzelnen DayState-Elementen möglich sind.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_408">Under this branch, a block with the availabilities for each day is delivered. The StartDate defines the first day of the block. In the "DayState" element each "Offset" attribute creates a relative reference to the StartDate and defines each day viewed in doing so. You should ensure that a reproducible Key is selected, so that incremental deliveries of individual DayState elements are possible.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Condition" type="ConditionSimpleNodeType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_409">In diesem Zweig wird definiert, welche
-								zusätzlichen Bedingungen für die unter Availability gelieferten Verfügbarkeiten gelten. Im Allgemeinen sollte der Key des
-								Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar
-								ist.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_409">In diesem Zweig wird definiert, welche zusätzlichen Bedingungen für die unter Availability gelieferten Verfügbarkeiten gelten. Im Allgemeinen sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_409">This branch defines which additional conditions apply to the availabilities listed under Availability. In general, the key for the Availabilities node should correlate exactly with this condition, so that the key is always unambiguously reproducible for incremental updates.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -7509,7 +7497,7 @@ Grundsätzlich gilt der Status "Blacklisted" als nicht verfügbar.</xs:documenta
 In general the State "Blacklisted" is reagarded as not available</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="Stay" type="AvailabilityStateType">
+						<xs:element name="Stay" type="AvailabilityStateType" internal:otdsversion="2.0">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_8959">Ist dieses Element in einer Lieferung enthalten, so definiert das Element an diesem Termin einen spezifischen Verfügbarkeitsstatus.
 Im Attribut @State können folgende Verfügbarkeitsstati angegeben werden: 
@@ -7677,7 +7665,7 @@ The determination, which availability stauses in which context lead to displayin
 A definition in this element is replaced by a simultaneous definition in the element DefaultDayState/Stay.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="Stay" type="AvailabilityStateType">
+						<xs:element name="Stay" type="AvailabilityStateType" internal:otdsversion="2.0">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_8937">Ist dieses Element in einer Lieferung enthalten, so definiert es bzgl. des DayState einen Default, falls in DayState keines der Elemente Stay, Open, Closed, Request, StopSale, Blacklisted explizit angegeben ist. Bzgl. dieses Defaults definiert das Element, dass an diesem Termin mindestens ein Aufenthalt möglich ist. Enthält dieses Element eine Zahl, so drückt dies aus, wieviele Units bzw. Personen noch bzgl. des Aufenthaltes möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht, wird durch das Attribut Occupancy/Person/@MatchAvailability festgelegt.
 Mit dem State-Attribut gibt man den generellen Status bzgl. des Aufenthaltes an.
@@ -7767,9 +7755,9 @@ If neither this element nor the element NoCheckOut indicated, <CheckOut State="O
 	<xs:complexType name="AvailabilityStateType">
 		<xs:simpleContent>
 			<xs:extension base="AvailabilityRequestType">
-				<xs:attribute name="State" type="AvailabilityStateEnum" default="Open">
+				<xs:attribute name="State" type="AvailabilityStateEnum" default="Open" internal:otdsversion="2.0">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8938">Dieses Attribut definiert welchen Verfügbarkeitsstatus ein Termin bzgl. der Anreise, Abreise oder des Aufenthaltes hat. 
+						<xs:documentation xml:lang="de" xml:id="de_8938">Dieses Attribut definiert, welchen Verfügbarkeitsstatus ein Termin bzgl. der Anreise, Abreise oder des Aufenthaltes hat. 
 
 Folgende Verfügbarkeitsstati sind möglich: 
 - Open
@@ -7777,7 +7765,6 @@ Folgende Verfügbarkeitsstati sind möglich:
 - Closed
 - StopSale
 - Blacklisted
-
 
 Fehlt das Attribut gilt der Default = "Open"</xs:documentation>
 					</xs:annotation>
@@ -8243,24 +8230,9 @@ The attribute "DurationUnit" defines, in which entity the duration is described.
 			</xs:element>
 			<xs:element name="Weekdays" type="WeekdayConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_459">Dieses Element definiert die Bedingung, ob ein
-						bestimmter Wochentag in der gerade betrachteten Reise enthalten ist. Die
-						Bedingung gilt als erfüllt, wenn einer der angegebenen Wochentage in der
-						betrachteten Reise enthalten ist. Dabei kann über das Attribut "DayType"
-						zusätzlich bestimmt werden, dass nur bestimmte Tage der Reise betrachtet
-						werden sollen (z.B. nur der Anreisetag oder nur Aufenthaltstage). Bitte
-						beachten: Im Gegensatz zu den anderen Conditions ist an dieser Stelle der
-						Defaultwert="CheckIn" gesetzt. Wird das Attribut "DayType" nicht angegeben,
-						so wird an dieser Stelle der Wert "CheckIn" benutzt. Das Element Weekdays
-						kann eine durch Space getrennte Liste von Wochentagen enthalten. 
+					<xs:documentation xml:lang="de" xml:id="de_459">Dieses Element definiert die Bedingung, ob ein bestimmter Wochentag in der gerade betrachteten Reise enthalten ist. Die Bedingung gilt als erfüllt, wenn einer der angegebenen Wochentage in der betrachteten Reise enthalten ist. Dabei kann über das Attribut "DayType" zusätzlich bestimmt werden, dass nur bestimmte Tage der Reise betrachtet werden sollen (z.B. nur der Anreisetag oder nur Aufenthaltstage). Bitte beachten: Im Gegensatz zu den anderen Conditions ist an dieser Stelle der Defaultwert="CheckIn" gesetzt. Wird das Attribut "DayType" nicht angegeben, so wird an dieser Stelle der Wert "CheckIn" benutzt. Das Element Weekdays kann eine durch Space getrennte Liste von Wochentagen enthalten. 
 Mögliche Werte sind "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", analog zu den englisch benamten Wochentagen. 
-Die Bedingung ist erfüllt, wenn einer der angegebenen Tage die Bedingung
-						erfüllt. Es handelt sich also um eine implizite "OR-Verknüpfung". Über das
-						Attribut "Source" wird die Quelle der betrachteten Reisetage bestimmt (z.B.
-						Termine im Hotel oder während des Fluges). Diese Bedingung überprüft
-						ausdrücklich nicht, ob bestimmte Tage einer Reise eine Wochentagsbedingung
-						erfüllen und deshalb ggf. Preise explizit für diese Tage gelten. Dies wird
-						nur durch die entsprechende DayImpact Bedingung erfüllt.</xs:documentation>
+Die Bedingung ist erfüllt, wenn einer der angegebenen Tage die Bedingung erfüllt. Es handelt sich also um eine implizite "OR-Verknüpfung". Über das Attribut "Source" wird die Quelle der betrachteten Reisetage bestimmt (z.B. Termine im Hotel oder während des Fluges). Diese Bedingung überprüft ausdrücklich nicht, ob bestimmte Tage einer Reise eine Wochentagsbedingung erfüllen und deshalb ggf. Preise explizit für diese Tage gelten. Dies wird nur durch die entsprechende DayImpact Bedingung erfüllt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_459">This element defines the condition as to whether the tour currently being viewed contains a certain weekday. The condition is considered to be fulfilled if the tour currently being viewed contains the weekday entered.
 The "DayType" attribute can also be used to determine that only certain days of the trip should be considered (e.g. only the arrival day or only the days of the stay).
 
@@ -8284,7 +8256,7 @@ This condition expressly does not examine whether specific persons fulfil condit
 			</xs:element>
 			<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_461">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des	Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird dabei durch Auswertung des Inhaltes der Attribute "Source" bestimmt. 
+					<xs:documentation xml:lang="de" xml:id="de_461">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird dabei durch Auswertung des Inhaltes der Attribute "Source" bestimmt. 
 Elternknoten sind diesbzgl. auch logische übergeordnete Knoten, die sich aus der Auswertung der Product- und CombinationRules ergeben. Durch Angabe der Attribute "Offset" und "Length" wird der Vergleich des Wertes des ConditionalTag-Elementes auf bestimmte Zeichen begrenzt. Zusätzlich kann auch noch das Attribut "Class" besetzt werden und muss in dem entsprechenden ConditionalTag-Element dann auch übereinstimmen, damit die Gesamtbedingung erfüllt ist. Damit die Bedingung erfüllt ist, reicht es, dass ein ConditionalTag am Zielknoten die Bedingung erfüllt. Falls jedoch die  Adressierung des Zielknotens nicht eindeutig ist, so muss jeder Zielknoten die Tag-Bedingung wenigstens einmal erfüllen, damit die Gesamtbedingung erfüllt ist. (Siehe auch Thematische Dokumentation Auswertung der ConditionalTags)</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_461">This element defines the condition of whether, at a specific node of the observed offer, the child element "ConditionalTag" has a specific TagValue. In addition, the conditions of the relevant ConditionalTag must be fulfilled. The element ConditionalTags may include a list of tags separated by a space. The condition is fulfilled if one of the tags matches the value of the target node (it can therefore be described as an implicit "OR-connective"). In this situation, the addressed node is defined through an evaluation of the contents of the attribute "Source".
 Parent nodes are in this sense also logical superordinate nodes which result from the evaluation of the ProductRules and CombinationRules. Through the provision of the attributes "Offset" and "Length", the comparison of the value of the ConditionalTag element is limited to certain characters. In addition, the attribute "Class" may also be occupied and must then also match in the corresponding ConditionalTag element, in order that the overall condition is fulfilled. In order for the condition to be fulfilled, it suffices for a ConditionalTag at the target node to fulfil the condition. If, however, the addressing of the destination node is not unambiguous, every destination node must fulfil the tag condition at least once, in order that the overall condition is fulfilled.</xs:documentation>
@@ -8588,11 +8560,7 @@ Die Bedingung ist erfüllt, wenn einer der
 		<xs:sequence>
 			<xs:element name="Impact">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_474">Alle Bedingungen innerhalb dieses Elementes
-						beziehen sich auf die einzelnen Tage der Reise und definieren eine
-						Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung
-						verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden
-						dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_474">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_474">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
 Prices that have a DayImpactCondition attached to them are only valid for certain days of the trip and are therefore only applied to the corresponding days.</xs:documentation>
 				</xs:annotation>
@@ -8805,7 +8773,7 @@ etc.
 Zum Beispiel die Bedingung, dass ein Preis gilt, wenn ein Freitag mit einer Saison A enthalten ist. Das ist erreichbar, indem man zwei ImpactBedingungen verundet und diese dann mit dem NonImpact-Wrapper umschließt.
 Der NonImpact-Wrapper kann auch dabei helfen, wenn man kombinierte CheckIn- und StaySeasons mit nur einem ConditionalTag ausdrücken will.
 Dabei kann mit den Elementen DayBase und PersonBase definiert werden, welche Kostenknoten überhaupt bei der Auswertung berücksichtigt werden.
-Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen müssen.</xs:documentation>
+Das Attribut "EvaluationMode" definiert, ob ein Kostenknoten die Bedingung erfüllen muss oder ob es alle erfüllen müssen.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_5867">The NonImpact Wrapper allows to express that a complex condition, which might also contain ImpactConditions after all will be interpreted as a NON-Impact. 
 						For example: a price is valid, if a Friday with a Season A is included. This can be realised by connecting two ImpactConditions with AND and enclosing those with the NonImpact-Wrapper.
 						The NonImpact-Wrapper can also help to express combined CheckIn- and StaySeasons with only one ConditionalTag.
@@ -9037,7 +9005,7 @@ Das Attribut "EvaluationMode" definiert ob ein Kostenknoten die Bedingung erfül
 		<xs:sequence>
 			<xs:element name="ProductPrice" type="ProductPriceConditionType" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_482">Einschränkung bzgl. des Preises des Gesamtangebots oder einzelner Personen. Für die Auswertung der ProductPrice	Condition ist es notwendig, dass die Komponente, welche die ProductPrice Condition enthält, zusammen mit einer ProductComponent in der	Produktdefintion definiert ist. Eine ProductPrice Condition bezieht sich immer auf den Gesamtpreis eines Produktes. Der Gesamtpreis kann aber je Teilnehmer durch das Attribut ConsiderationBase betrachtet werden.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_482">Einschränkung bzgl. des Preises des Gesamtangebots oder einzelner Personen. Für die Auswertung der ProductPrice Condition ist es notwendig, dass die Komponente, welche die ProductPrice Condition enthält, zusammen mit einer ProductComponent in der Produktdefintion definiert ist. Eine ProductPrice Condition bezieht sich immer auf den Gesamtpreis eines Produktes. Der Gesamtpreis kann aber je Teilnehmer durch das Attribut ConsiderationBase betrachtet werden.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_482">Limitation of the price of the total offer or for individual persons. For the evaluation of the ProductPrice Condition, it is necessary that the components which the ProductPrice Condition contains are defined together with a ProductComponent in the Productdefinition. A ProductPrice Condition always refers to the total price of a product. The total price can however be regarded per participant through the attribute ConsiderationBase.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
