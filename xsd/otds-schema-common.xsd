@@ -1247,18 +1247,20 @@ Das erste ChildElement (laut XML-Order) des Elementes "Average" gibt den geforde
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="GroupedByEqual" internal:otdsversion="1.9">
+						<xs:element name="GroupedByEqual" internal:otdsversion="1.9 2.0">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_487">Die Angaben in GroupedByEqual definieren, über welche Parameter die Angebote gruppiert werden. 
 Mit CandidateInstance-Elementen definiert man welche Unterkomponenten identisch sein müssen.		
-
 Mit Tag-Elementen definiert man, dass die Gruppe nur aus Offerkandidaten besteht, bei denen diese Tags identische Values besitzen.
-
-CheckIn und CheckOuttermine der referenzierten Unterkomponenten sind ohnehin immer identisch. Die häufigste Verwendung wird sein, dass eine Gruppierung der Returnflüge über Abflughafen, Zielflughafen, Termin und Dauer erfolgt.</xs:documentation>
+Der CheckIn- und CheckOuttermin der gruppierten Offerkandidaten muss auch übereinstimmen.
+Seid Version 2.0 können die betrachteten CheckIn- und CheckOuttermine der referenzierten Unterkomponenten explizit definiert werden. 
+Die häufigste Verwendung wird sein, dass eine Gruppierung der Returnflüge über Abflughafen, Zielflughafen, Termin und Dauer erfolgt.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_487">The entries in GroupedByEqual define by what parameters the offers should be grouped. By CandidateInstance elements you define, which subcomponents need to be identical. 
 								
 By Tag elements you define, that the group contains only from those offer candidates, which have the same tag value at the indicated tags. 
-								The most common use is that return flights are grouped by departure airport, destination airport, departure date and time, and duration.</xs:documentation>
+Also the CheckIn and CheckOut date of the grouped offer candidates need to be identical.
+Since version 2.0 it is possible to explicitly define which CheckIn- und CheckOut dates need to be considered. 
+The most common use is that return flights are grouped by departure airport, destination airport, departure date and time, and duration.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence maxOccurs="unbounded">
@@ -1632,7 +1634,7 @@ Die Definition der Ergebnismenge eines Elementes "ConsideredPriceItems" erfolgt 
 								hotel. </xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Condition" minOccurs="0">
+					<xs:element name="Condition" minOccurs="0" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="det" xml:id="de_358">In diesem Element werden die Regeln zur Verwendung der NeigbourComponentCorrection definiert. 
 Bedingungen mit ExecutionOrder="AfterCombinatorics" oder "Last" werden als undefined ausgewertet. Es findet keine erneute Auswertung zu einem späteren Zeitpunkt  statt. 
@@ -3755,16 +3757,16 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_258">Offset, relative to the departure date of the flight, used to describe the departure or arrival date of a node. The relative indication of dates allows flight groups to be described independently of concrete dates.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Time" type="FlightTimeType" minOccurs="0">
+			<xs:element name="Time" type="FlightTimeType" minOccurs="0" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_259">Abflug- oder Ankunftszeit eines Flugs. Diese Zeit wird immer in der Lokalzeit des geographischen Kontext angegeben. Im Falle der Abflugzeit ist der geographische Kontext der Abflughafen. Im Falle der Ankunftszeit ist der geographische Kontext der Zielflughafen. 
-Für die genauere Spezifizierung der Zeit im Kontext einer Zeitumstellung sollte zusätzlich das Attribut 'UTCOffsetOfTimeZone' angegeben werden.
+Für die genauere Spezifizierung der Zeit im Kontext einer Zeitumstellung sollte seit Version 2.0 zusätzlich das Attribut 'UTCOffsetOfTimeZone' angegeben werden.
 
 Es wird empfohlen den UTCOffsetOfTimeZone 2 Tage vor und nach einer Zeitumstellung generell anzugeben, da laut Verarbeitungsmodell die Berechnung von Zeitunterschieden den UTCOffsetOfTimeZone nur dann benutzt, wenn alle Zeitangaben einen UTCOffsetOfTimeZone gesetzt haben.
 
 Sobald eine Zeitangabe ohne UTCOffsetOfTimeZone angegeben ist, so werden alle UTCOffsetOfTimeZone bei der Berechnung ignoriert.
 </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_259">Departure or arrival time of a flight.This time always is indicated in the local time of the geographic context. In the case of the departure time the geographic context is the departure airport. In the case of the arrival time the geographic context is the arrival airport. For a more precise specification of the time in the context of a time shift the attribute 'UTCOffsetOfTimeZone' should also be indicated.
+					<xs:documentation xml:lang="en" xml:id="en_259">Departure or arrival time of a flight.This time always is indicated in the local time of the geographic context. In the case of the departure time the geographic context is the departure airport. In the case of the arrival time the geographic context is the arrival airport. For a more precise specification of the time in the context of a time shift the attribute 'UTCOffsetOfTimeZone' should since version 2.0 also be indicated.
 					It is recommended to generally indicate the 'UTCOffsetOfTimeZone' two days before and after a time shift, as according to the processing modell the calculation of time differences only uses the UTCOffsetOfTimeZone if all time indications carry the UTCOffsetOfTimeZone.
 					As soon as a time indication carries no UTCOffsetOfTimeZone, all UTCOffsetOfTimeZone will be ignored for the calculation.					
 					 </xs:documentation>
@@ -6691,7 +6693,7 @@ Das Element enthält einen oder mehrere Values eines
 						</xs:simpleContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="AppliedByAll" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="AppliedByAll" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 					<xs:annotation>
 						<xs:documentation xml:lang="det">
 Dieses Element definiert die Bedingung, dass das korrelierende Percent-PriceItem in einer der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein muss. 
@@ -6703,7 +6705,7 @@ Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribu
 						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="NotAppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
+				<xs:element name="NotAppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 					<xs:annotation>
 						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent/PriceTags) definiert sein darf.
 
@@ -6731,7 +6733,7 @@ Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich w
 						tags, that are defined at the node "PriceItem".</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="NotAppliedBy" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="NotAppliedBy" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 					<xs:annotation>
 						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass keines der hier angegeben Price-Classes am korrelierenden Percent-PriceItem (Percent/@Class) definiert sein darf.
 
@@ -6740,7 +6742,7 @@ Das Element enthält den Wert des Attributs "Class" des entsprechenden
 						angegeben werden. In dem Attribut "Component" kann man definieren, auf
 						welche Komponente sich das AppliedBy bezieht. 
 
-Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, weclhes die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
+Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, welches die Referenzierung von Komponenten noch weiter einschränken kann. Falls beide Attribute gefüllt sind, so müssen beide Attribute erfüllt sein. Fehlt sowohl die Angabe von @Component als auch die von @Source, so gilt als Default: Component="ThisComponent".</xs:documentation>
 						<xs:documentation xml:lang="en">The value is indicated which is stated in the PriceItem's attribute "Class". If there are several they can be specified in a list separated by Space.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
@@ -6751,7 +6753,7 @@ Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, we
 						</xs:simpleContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="NotAppliedByAll" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="NotAppliedByAll" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 					<xs:annotation>
 						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Percent-PriceItem in keiner der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein darf. 
 
@@ -7038,7 +7040,7 @@ Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribu
 						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="NotApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded">
+				<xs:element name="NotApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded" internal:otdsversion="2.0">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_9010">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein darf.
 
@@ -7084,7 +7086,7 @@ Im Zuge der Erweiterung von OTDS 1.9 ist das Attribut "Source" hinzugekommen, we
 						</xs:simpleContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="NotApplyToAll">
+				<xs:element name="NotApplyToAll" internal:otdsversion="2.0">
 					<xs:annotation>
 						<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, dass das korrelierende Absolue-PriceItem in keiner der durch @Source und @Component referenzierten Komponenten bzw. Unterkomponenten definiert sein darf. 
 
@@ -9019,7 +9021,7 @@ Das Attribut "EvaluationMode" definiert, ob ein Kostenknoten die Bedingung erfü
 	</xs:group>
 	<xs:group name="AtomicAvailabilityConditionGroup">
 		<xs:choice>
-			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="1.9">
+			<xs:element name="AvailabilityState" type="AvailabilityConditionType" internal:otdsversion="2.0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_3277">Mit dieser Bedingung lässt sich die allgemeine Auswertung der Availabilities weiter einschränken. Diese Bedingung ist erfüllt, wenn der AvailabilityStatus der durch @Component adressierten Hauptkomponentensinstanz nach der Auswertung der Availabilities einen der aufgeführten ValidState/@State als Komponentenstatus besitzt. 
 Bis zur Auswertung der Availabilities gilt diese Bedingung als undefined und wird dementsprechend erst nach der Auswertung der Availabilities explizit nach OTDS-Vorschrift ausgewertet. 
