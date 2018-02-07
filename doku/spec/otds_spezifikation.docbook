@@ -18971,8 +18971,56 @@ usw.]]></programlisting>
 				<section xml:id="OtdsExperiencesOverNightFlights">
 					<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
 							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
-					<para>ToDo: Praxiskapitel für Übernachtflüge mit CheckOutDateOffset und auch
-						NeighbourComponentCorrections ergänzen</para>
+					<para>Übernachtflüge, also Flüge, die am Kalendertag nach dem Abflug in der Destination landen, werden in OTDS damit gekennzeichnet, dass der CheckOutDateOffset=1, also der CheckOut-Termin beim Flug einen Tag nach dem des CheckIns liegt. (s.a. Kapitel 1.3.9.). 
+						Vom Reiseveranstalter bereits fest miteinander verbundene Hin- und Rückflüge werden als Returnflights ausgedrückt. Sind sowohl der Hin- als auch der Rückflug in einer solchen Konstellation Übernachtflüge, würde das wie folgt ausgedrückt:
+					</para>
+					<programlisting><![CDATA[<Flights>
+	<ReturnFlights>
+		<ReturnFlight Key="FRAFUE20130331K1">
+			<Outbound>
+				<Properties>
+					<PropertyGroup>
+						<FlightRoute>
+							<Departure>
+								<Airport>FRA</Airport>
+								<Time>23:20:00</Time>
+							</Departure>
+							<Arrival>
+								<Airport>FUE</Airport>
+								<Time>03:00:00</Time>
+							</Arrival>
+						</FlightRoute>
+					</PropertyGroup>
+				</Properties>
+					<DepartureAirport>FRA</DepartureAirport>
+					<ArrivalAirport>FUE</ArrivalAirport>
+					<CheckOutDateOffset>1</CheckOutDateOffset>
+			</Outbound>
+			<Inbound>
+				<Properties>
+					</PropertyGroup>
+						<FlightRoute>
+							<Departure>
+								<Airport>FUE</Airport>
+								<Time>22:10:00</Time>
+							</Departure>
+							<Arrival>
+								<Airport>FRA</Airport>
+								<Time>02:50:00</Time>
+							</Arrival>
+						</FlightRoute>
+					</PropertyGroup>
+				</Properties>
+					<DepartureAirport>FRA</DepartureAirport>
+					<ArrivalAirport>FUE</ArrivalAirport>
+					<CheckOutDateOffset>1</CheckOutDateOffset>
+			</Inbound>
+		</ReturnFlight>
+	</ReturnFlights>
+</Flights>]]></programlisting>
+				<bridgehead>NeigbourCorrectionComponent</bridgehead>
+					<para>Bei der DayAllocation (der Zuordnung der Termin zu den Reisekomponenten) darf in OTDS keine Lücke bestehen. Die Elemente CheckIn, Stay und CheckOut, die für Accommodations, Flüge und auch Addon-Leistungen angewendet werden können, müssen so auf die Tage verteilt sein, dass das CheckOut-Datum eines Hinfluges auch das CheckIn-Datum im Hotel ist. Umgekehrt muss das CheckOut-Datum eines Hotels identisch sein mit dem CheckIn-Datum des Rückfluges.</para> 	
+					<para>Im Falle von Übernachtflügen entsteht jedoch auf Veranstalterseite oft Bedarf nach flexiblen Strategien zur Zusteuerung von Hotels, wobei die NeighbourCorrectionComponent hilft. Reiseveranstalter möchten ihren Kunden beispielsweise mitunter ermöglichen, bei sehr frühen Ankunftszeiten (bspw. um 2:50 Uhr morgen) schon weit vor der üblichen CheckIn-Zeit ihr Zimmer zu beziehen, um noch etwas zu schlafen. Dann muss der Ankunftstermin des Fluges mit der NeighbourCorrectionComponent und dem Offset -1 virtuell nach vorn verschoben werden, damit das Hotel genau an diesen Flug CheckOut Termin anschließt :</para>
 				</section>
 			</section>
 			<section xml:id="OtdsProductsComponentsFlightsReturnFlight">
