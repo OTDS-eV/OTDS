@@ -5070,7 +5070,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 							<xs:documentation xml:lang="en" xml:id="en_291">This booking information is used to completely override the booking parameters of the individual components in a rule. In the context of flights, this is commonly used in defining flight envelopes that override the booking information of the individual flights involved.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Components" type="ComponentsType">
+					<xs:element name="Components" type="ComponentsType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_292">In diesem Zweig werden die  Komponenten definiert, die Bestandteil des Produktes sind.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_292">In this branch the components which are part of the product can be defined.</xs:documentation>
@@ -7163,14 +7163,17 @@ Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribu
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="ConditionalTag" type="ConditionalTagType" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="ProductsTagsType">
 		<xs:complexContent>
-			<xs:extension base="TagsType"/>
+			<xs:extension base="TagsType">
+				<xs:sequence>
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="TagType">
