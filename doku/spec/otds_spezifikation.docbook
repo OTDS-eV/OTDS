@@ -18967,7 +18967,21 @@ usw.]]></programlisting>
 							xlink:href="example/Flight Rules Example.xml">Example for the
 							combination of one-way flights (feeder, main flight)</link></para>
 				</section>
-
+				<section xml:id="OtdsExperiencesOverNightFlights">
+					<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
+						xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
+					<para></para>
+					<section xml:id="OtdsExperiencesOverNightFlights">
+						<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
+							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
+						<para></para>
+					</section>
+					<section xml:id="OtdsExperiencesOverNightFlights">
+						<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
+							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
+						<para></para>
+					</section>
+				</section>
 				<section xml:id="OtdsExperiencesOverNightFlights">
 					<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
 							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
@@ -18976,8 +18990,18 @@ usw.]]></programlisting>
 							Struktur dort: a) Überblick, b) Properties (mit Link auf die Tabelle im
 							Anhang und auf Kapitel 1.3.16.1.2.5, c) Übernachtflüge, d) Verschiebung
 							(NCC)</emphasis></para>
-					<para>Starten Flüge vor Mitternacht und landen erst am Folgetag (Ortszeit) in der Zieldestination, müssen sie in OTDS als sogenannte Übernachtflüge ausdrücklich gekennzeichnet werden, um zu gewährleisten, dass keine unerlaubten Lücken zwischen Flugende und Hotel-CheckIn entstehen. In der DayAllocation (der Zuordnung der Termin zu den Reisekomponenten) liegt im Falle eines Übernachtfluges das CheckOutDate des Fluges einen Tag später als dessen CheckInDate. Es gibt also einen Offset von einem Tag, der OTDS-konform wie folgt ausgedrückt wird:
-						CheckOutDateOffset=1</para>
+					<para>Starten Flüge vor Mitternacht und landen erst am Folgetag (Ortszeit) in der
+						Zieldestination, müssen sie in OTDS als sogenannte Übernachtflüge
+						ausdrücklich gekennzeichnet werden, um zu gewährleisten, dass keine
+						unerlaubten Lücken zwischen Flugende und Hotel-CheckIn entstehen. Bezüglich
+						der Zuordnung der Termine zu den Reisekomponenten liegt im Falle eines
+						Übernachtfluges das CheckOutDate des Fluges einen Tag später als dessen
+						CheckInDate. Um dies zu erreichen, muss man das CheckOutDateOffset=1 setzen.
+						Diese Angaben sind notwendig für die *Produktkomposition und
+						PReisberechnung. Dabei spielen die Properties gar keine Rolle. Hier ein
+						Beispiel (PROPERTIES RAUS) darunter Kapitel mit Die P. liefern lediglich
+						Auszeichnungsdaten des letztendlichen Produktes. Komplett wäreeine LIeferung
+						inklusive Prpoerties (IN XSD suchen wo Offet hinkokmmt)</para>
 					<programlisting><![CDATA[<OnewayFlight>
 	<OnewayFlight Key="FRAPMI20130331K1">
 		<Properties>
@@ -19003,10 +19027,8 @@ usw.]]></programlisting>
 					<para>Übernachtflüge, also Flüge, die am Kalendertag nach dem Abflug in der Destination landen,
 						werden in OTDS damit gekennzeichnet, dass der CheckOutDateOffset=1, also der
 						CheckOut-Termin beim Flug einen Tag nach dem des CheckIns liegt. (s.a.
-						Kapitel 1.3.9.). Vom Reiseveranstalter bereits fest miteinander verbundene
-						Hin- und Rückflüge werden als Returnflights ausgedrückt. Sind sowohl der
-						Hin- als auch der Rückflug in einer solchen Konstellation Übernachtflüge,
-						wird das wie folgt ausgedrückt: </para>
+						Kapitel 1.3.9.). GLEICHES BEISPIEL wie in Kap 1 mit Properties: 17 Uhr los,
+						10 Uhr Ankunft &lt;FRABKK (auch oben)</para>
 					<programlisting><![CDATA[<Flights>
 	<ReturnFlights>
 		<ReturnFlight Key="FRAFUE20130331K1">
@@ -19052,16 +19074,20 @@ usw.]]></programlisting>
 	</ReturnFlights>
 </Flights>]]></programlisting>
 				<bridgehead>NeigbourCorrectionComponent</bridgehead>
-					<para>Bei der DayAllocation (der Zuordnung der Termin zu den Reisekomponenten) darf in OTDS keine Lücke bestehen. Die Elemente CheckIn, Stay und CheckOut, die für Accommodations, Flüge und auch Addon-Leistungen angewendet werden können, müssen so auf die Tage verteilt sein, dass das CheckOut-Datum eines Hinfluges auch das CheckIn-Datum im Hotel ist. Umgekehrt muss das CheckOut-Datum eines Hotels identisch sein mit dem CheckIn-Datum des Rückfluges.</para> 	
-					<para>Im Falle von Übernachtflügen entsteht jedoch auf Veranstalterseite oft Bedarf nach
-						flexiblen Strategien zur Zusteuerung von Hotels, wobei die
-						NeighbourCorrectionComponent hilft. Reiseveranstalter möchten ihren Kunden
-						beispielsweise mitunter ermöglichen, bei sehr frühen Ankunftszeiten (bspw.
-						um 2:50 Uhr morgen) schon weit vor der üblichen CheckIn-Zeit ihr Zimmer zu
-						beziehen, um noch etwas zu schlafen. Dann muss der Ankunftstermin des Fluges
-						mit der NeighbourCorrectionComponent und dem Offset -1 virtuell nach vorn
-						verschoben werden, damit das Hotel genau an diesen Flug CheckOut Termin
-						anschließt:</para>
+					<para>Bei der DayAllocation (der Zuordnung der Termin zu den Reisekomponenten) darf in OTDS keine Lücke bestehen. Die Elemente CheckIn, Stay und CheckOut, die für Accommodations, Flüge und auch Addon-Leistungen angewendet werden können, müssen so auf die Tage verteilt sein, dass das CheckOut-Datum eines Hinfluges auch das CheckIn-Datum im Hotel ist. Umgekehrt muss das CheckOut-Datum eines Hotels identisch sein mit dem CheckIn-Datum des Rückfluges.</para>
+					<para>NAchbarkomponenten müssen sich lückenlos aneinanderreihen, sodass der CHO
+						der 1. Kompionente identisch ist mit de CKI der 2. (gliecher Termin)=
+						Standadrdfall</para> 	
+					<para>Gelegentlich existieren Szenarien, die von dieser Logik abweichen sollen. EIne solche
+						Abweichung kann man mit dem NCC abbilden. Reiseveranstalter möchten ihren
+						Kunden beispielsweise mitunter ermöglichen, bei sehr frühen Ankunftszeiten
+						(bspw. um 2:50 Uhr morgen) schon weit vor der üblichen CheckIn-Zeit ihr
+						Zimmer zu beziehen, um noch etwas zu schlafen. Dafür muss das Hotel aber
+						eine Nacht früher gebucht werden. Um das zu erreichen, muss der
+						Ankuftstermin des Fluges virtuell mit der NeighbourCorrectionComponent im
+						Zusammenspiel mit der Accomm. auf einen Tag früher *verschoben werden.
+						Dadurch, dass sich das Hotel lückenlos an den virtuellen CheckOut Termin des
+						Fluges anschließt, wird genau das erreicht...* </para>
 					<programlisting><![CDATA[<OnewayFlight>
 	<OnewayFlight Key="FRAPMI20130331K1">
 		<Properties>
@@ -19084,11 +19110,13 @@ usw.]]></programlisting>
 				<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
 			</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para>Bei in der Nacht startenden Abflügen aus der Urlaubsdestination möchten manche
-						Veranstalter vielleicht eine Reise anbieten, die es dem Kunden ermöglicht,
-						zumindest noch einen Teil des Abends/der Nacht vor dem Transfer in ihrem
-						Zimmer zu verbringen. Hier sieht das vereinfachte Beispiel, in dem die
-						NeighbourCorrectionComponent den Abflug virtuell für einen Tag später
+					<para>**Dieses Verhalten kann sogar noch in Kombination mit ÜF vorkommen: BEISPIEL DAZU. Es
+						gibt die Notwendigkeit für NCC noch auf dem Rückflug...</para>
+					<para>Bei in der Nacht startenden Abflügen aus der Urlaubsdestination möchten
+						manche Veranstalter vielleicht eine Reise anbieten, die es dem Kunden
+						ermöglicht, zumindest noch einen Teil des Abends/der Nacht vor dem Transfer
+						in ihrem Zimmer zu verbringen. Hier sieht das vereinfachte Beispiel, in dem
+						die NeighbourCorrectionComponent den Abflug virtuell für einen Tag später
 						definiert, wie folgt aus:</para>
 					<programlisting><![CDATA[<OnewayFlight>
 	<...>
