@@ -1664,6 +1664,64 @@
 								Flights</link>
 						</para>
 					</section>
+					<section xml:id="OtdsExperiencesOverNightFlights">
+						<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
+							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
+						<para></para>
+					</section>
+					<section xml:id="OtdsExperiencesOverNightFlights">
+						<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
+							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
+						<para></para>
+					</section>
+				</section>
+				<section xml:id="OtdsExperiencesOverNightFlights">
+					<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
+						xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
+					<para><emphasis role="italic">Gehört eigentlich ins Kapitel 1 (als Unterpunkte von 1.3.3.3.1
+						Onewayflight, aber ich weiß nicht, wie man mit Sections umgeht... (neue
+						Struktur dort: a) Überblick, b) Properties (mit Link auf die Tabelle im
+						Anhang und auf Kapitel 1.3.16.1.2.5, c) Übernachtflüge, d) Verschiebung
+						(NCC)</emphasis></para>
+					<para>Starten Flüge vor Mitternacht und landen erst am Folgetag (Ortszeit) in der
+						Zieldestination, müssen sie in OTDS als sogenannte Übernachtflüge
+						ausdrücklich gekennzeichnet werden, um bei der Verarbeitung kenntlich zu
+						machen, dass es sich um einen Übernachtflug handelt. Bezüglich der Zuordnung
+						der Termine zu den Reisekomponenten liegt im Falle eines Übernachtfluges das
+						CheckOutDate des Fluges einen Tag später als dessen CheckInDate. Hierfür
+						wird das CheckOutDateOffset eingesetzt und führt den Wert =1. Diese Angaben
+						sind notwendig für die Produkterstellung und Preisberechnung. Dabei spielen
+						die Properties keine Rolle. Hier ein Beispiel: </para>
+					<programlisting><![CDATA[<OnewayFlight>
+	<OnewayFlight Key="FRAPMI20130331K1">
+			<DepartureAirport>FRA</DepartureAirport>
+			<ArrivalAirport>FUE</ArrivalAirport>
+			<CheckOutDateOffset>1</CheckOutDateOffset>
+</OnewayFlight>]]></programlisting>
+					<para>Die Properties liefern lediglich Auszeichnungsdaten des letztendlichen Produktes.
+						Komplett wäre eine Lieferung inklusive Properties wie in folgendem
+						Beispiel:</para>
+					<programlisting><![CDATA[<OnewayFlight>
+	<OnewayFlight Key="FRAPMI20130331K1">
+		<Properties>
+			<PropertyGroup>
+				<FlightRoute>
+					<Departure>
+						<Airport>FRA</Airport>
+						<Time>23:20:00</Time>
+					</Departure>
+					<Arrival>
+						<Airport>FUE</Airport>
+						<DateOffset>1</DateOffset>
+						<Time>03:50:00</Time>
+					</Arrival>
+				</FlightRoute>
+			</PropertyGroup>
+		</Properties>
+			<DepartureAirport>FRA</DepartureAirport>
+			<ArrivalAirport>FUE</ArrivalAirport>
+			<CheckOutDateOffset>1</CheckOutDateOffset>
+</OnewayFlight>]]></programlisting>
 				</section>
 				<section xml:id="OtdsStrategyComponentAddons">
 					<title><phrase xml:id="de_709" xml:lang="de">Addons</phrase><phrase
@@ -14422,12 +14480,12 @@ usw.]]></programlisting>
 						day for all units as "available" and on the SellingUnit level the same day
 						is defined as "not available", then the definition of "not available" for
 						the relevant SellingUnit is prioritised.</para>
-					<para xml:id="de_5365" xml:lang="de">Mit Hilfe des Attributes <emphasis
-							role="italic">"MatchAvailability"</emphasis> (definiert in der Occupancy
-						am Person-Knoten) wird ausgedrückt, ob sich die Availaibility auf eine
-						Anzahl Personen bezieht (MatchCount) oder eben nicht (Ignore). Klassisch ist
-						es so, dass es sich im Flug-Bereich die Availability immer auf die Anzahl
-						der Personen bezieht, in den anderen Availabilities (Accommodation, Addon)
+					<para xml:id="de_5365" xml:lang="de">Mit Hilfe des Attributes <emphasis role="italic"
+							>"MatchAvailability"</emphasis> (definiert in der Occupancy am
+						Person-Knoten) wird ausgedrückt, ob sich die Availability auf eine Anzahl
+						Personen bezieht (MatchCount) oder eben nicht (Ignore). Klassisch ist es so,
+						dass es sich im Flug-Bereich die Availability immer auf die Anzahl der
+						Personen bezieht, in den anderen Availabilities (Accommodation, Addon)
 						hingegen nicht. Bis Version 1.9 war das implizit, in den höheren Versionen
 						ist es explizit durch das Attribut <emphasis role="italic"
 							>"MatchAvailability".</emphasis>MatchAvailability bestimmt zudem, ob es
@@ -14435,7 +14493,7 @@ usw.]]></programlisting>
 						Availability/DayState/Open angegebenen Zahl gibt. </para>
 					<para xml:id="en_5365" xml:lang="en">The attribute <emphasis role="italic"
 							>"MatchAvailability"</emphasis> (defined at the person-node in the
-						Occupancy) expresses, if the availibility refers to a number of persons
+						Occupancy) expresses, if the availability refers to a number of persons
 						(MatchCount) or not (Ignore). In general the availability within the
 						flight-context always refers to the number of persons; within the other
 						availabilities (accommodation, addon) in contrary it does not. Until version
@@ -14663,10 +14721,10 @@ usw.]]></programlisting>
 								Enthält das Stay-Element eine Zahl, so drückt dies aus, wieviele
 								Units bzw. Personen noch bzgl. des Aufenthalt-Verfügbarkeits-Status
 								möglich sind. Ob es bei der Zahl um die Anzahl der Personen geht,
-								wird durch das Attribut Occupancy/Person/@MatchAvailability
-								festgelegt. Mit dem State-Attribut gibt man den generellen Status
-								bzgl. des Aufenthaltes an. Die Definition des Stay-Elementes ersetzt
-								eine gleichzeitge Definition der Elemente <code>Open</code>,
+								wird durch das Attribut /Person/@MatchAvailability festgelegt. Mit
+								dem State-Attribut gibt man den generellen Status bzgl. des
+								Aufenthaltes an. Die Definition des Stay-Elementes ersetzt eine
+								gleichzeitge Definition der Elemente <code>Open</code>,
 									<code>Closed</code>, <code>Request</code>,
 									<code>StopSales</code>, <code>Blacklisted</code>. </para>
 							<para xml:id="en_8803" xml:lang="en">The detemination, which availability states in which
@@ -18970,60 +19028,6 @@ usw.]]></programlisting>
 				<section xml:id="OtdsExperiencesOverNightFlights">
 					<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
 						xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
-					<para></para>
-					<section xml:id="OtdsExperiencesOverNightFlights">
-						<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
-							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
-						<para></para>
-					</section>
-					<section xml:id="OtdsExperiencesOverNightFlights">
-						<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
-							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
-						<para></para>
-					</section>
-				</section>
-				<section xml:id="OtdsExperiencesOverNightFlights">
-					<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
-							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
-					<para><emphasis role="italic">Gehört eigentlich ins Kapitel 1 (als Unterpunkte von 1.3.3.3.1
-							Onewayflight, aber ich weiß nicht, wie man mit Sections umgeht... (neue
-							Struktur dort: a) Überblick, b) Properties (mit Link auf die Tabelle im
-							Anhang und auf Kapitel 1.3.16.1.2.5, c) Übernachtflüge, d) Verschiebung
-							(NCC)</emphasis></para>
-					<para>Starten Flüge vor Mitternacht und landen erst am Folgetag (Ortszeit) in der
-						Zieldestination, müssen sie in OTDS als sogenannte Übernachtflüge
-						ausdrücklich gekennzeichnet werden, um zu gewährleisten, dass keine
-						unerlaubten Lücken zwischen Flugende und Hotel-CheckIn entstehen. Bezüglich
-						der Zuordnung der Termine zu den Reisekomponenten liegt im Falle eines
-						Übernachtfluges das CheckOutDate des Fluges einen Tag später als dessen
-						CheckInDate. Um dies zu erreichen, muss man das CheckOutDateOffset=1 setzen.
-						Diese Angaben sind notwendig für die *Produktkomposition und
-						PReisberechnung. Dabei spielen die Properties gar keine Rolle. Hier ein
-						Beispiel (PROPERTIES RAUS) darunter Kapitel mit Die P. liefern lediglich
-						Auszeichnungsdaten des letztendlichen Produktes. Komplett wäreeine LIeferung
-						inklusive Prpoerties (IN XSD suchen wo Offet hinkokmmt)</para>
-					<programlisting><![CDATA[<OnewayFlight>
-	<OnewayFlight Key="FRAPMI20130331K1">
-		<Properties>
-			<PropertyGroup>
-				<FlightRoute>
-					<Departure>
-						<Airport>FRA</Airport>
-						<Time>23:20:00</Time>
-					</Departure>
-					<Arrival>
-						<Airport>FUE</Airport>
-						<Time>03:50:00</Time>
-					</Arrival>
-				</FlightRoute>
-			</PropertyGroup>
-		</Properties>
-			<DepartureAirport>FRA</DepartureAirport>
-			<ArrivalAirport>FUE</ArrivalAirport>
-			<CheckOutDateOffset>1</CheckOutDateOffset>
-</OnewayFlight>]]></programlisting>
-					<para><emphasis role="italic">Ab hier fängt das eigentliche Kapitel 2.3.2.2 an...</emphasis></para>
-					<bridgehead>Übernachtflüge</bridgehead>
 					<para>Übernachtflüge, also Flüge, die am Kalendertag nach dem Abflug in der Destination landen,
 						werden in OTDS damit gekennzeichnet, dass der CheckOutDateOffset=1, also der
 						CheckOut-Termin beim Flug einen Tag nach dem des CheckIns liegt. (s.a.
