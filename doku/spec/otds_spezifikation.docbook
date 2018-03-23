@@ -1626,27 +1626,29 @@
 </OnewayFlight>]]></programlisting>
 						<para>Die Properties liefern lediglich Auszeichnungsdaten des letztendlichen Produktes.
 							Komplett wäre eine Lieferung inklusive Properties wie in folgendem Beispiel:</para>
-						<programlisting><![CDATA[<OnewayFlight>
-	<OnewayFlight Key="FRAFUE20180331K1">
-		<Properties>
-			<PropertyGroup>
-				<FlightRoute>
-					<Departure>
-						<Airport>FRA</Airport>
-						<Time>20:20:00</Time>
-					</Departure>
-					<Arrival>
-						<Airport>FUE</Airport>
-						<DateOffset>1</DateOffset>
-						<Time>3:10:00</Time>
-					</Arrival>
-				</FlightRoute>
-			</PropertyGroup>
-		</Properties>
-			<DepartureAirport>FRA</DepartureAirport>
-			<ArrivalAirport>FUE</ArrivalAirport>
-			<CheckOutDateOffset>1</CheckOutDateOffset>
-</OnewayFlight>]]></programlisting>
+						<programlisting><![CDATA[<Flights>
+	<OnewayFlights>
+		<OnewayFlight Key="FRABKK20180217K1">
+			<Properties>
+				<PropertyGroup>
+					<FlightRoute>
+						<Departure>
+							<Airport>FRA</Airport>
+							<Time>17:00:00</Time>
+						</Departure>
+						<Arrival>
+							<Airport>BKK</Airport>
+							<Time>10:10:00</Time>
+						</Arrival>
+					</FlightRoute>
+				</PropertyGroup>
+			</Properties>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>BKK</ArrivalAirport>
+				<CheckOutDateOffset>1</CheckOutDateOffset>
+		</OnewayFlight>
+	</OnewayFlights>
+</Flights>]]></programlisting>
 						
 					</section>
 					<section xml:id="OtdsStrategyComponentFlightsReturn">
@@ -19484,78 +19486,100 @@ usw.]]></programlisting>
 							combination of one-way flights (feeder, main flight)</link></para>
 				</section>
 				<section xml:id="OtdsExperiencesOverNightFlights">
-					<title><phrase xml:id="de_8564" xml:lang="de">Übernachtflüge</phrase><phrase
-							xml:id="en_8564" xml:lang="en">Overnight Flights</phrase></title>
-					<para>Übernachtflüge, also Flüge, die am Kalendertag nach dem Abflug in der
-						Destination landen, werden in OTDS damit gekennzeichnet, dass der
-						CheckOutDateOffset=1, also der CheckOut-Termin beim Flug einen Tag nach dem
-						des CheckIns liegt. (s.a. Kapitel 1.3.9.). GLEICHES BEISPIEL wie in Kap 1
-						mit Properties: 17 Uhr los, 10 Uhr Ankunft &lt;FRABKK (auch oben)</para>
+					<title><phrase xml:id="de_xxxx" xml:lang="de">Übernachtflüge</phrase><phrase
+							xml:id="en_xxxx" xml:lang="en">Overnight Flights</phrase></title>
+					<para>Übernachtflüge, also Flüge, die am Kalendertag nach dem Abflug in der Destination landen,
+						werden in OTDS damit gekennzeichnet, dass der CheckOutDateOffset=1, also der
+						CheckOut-Termin beim Flug einen Tag nach dem des CheckIns liegt. <link
+							linkend="OtdsStrategyProductNeighbourComponentCorrection">(s.a. Kapitel
+							1.3.9, Verschiebung des CheckIn oder CheckOut von
+							Nachbarkomponenten)</link>.</para>
 					<programlisting><![CDATA[<Flights>
-	<ReturnFlights>
-		<ReturnFlight Key="FRAFUE20130331K1">
-			<Outbound>
-				<Properties>
-					<PropertyGroup>
-						<FlightRoute>
-							<Departure>
-								<Airport>FRA</Airport>
-								<Time>23:20:00</Time>
-							</Departure>
-							<Arrival>
-								<Airport>FUE</Airport>
-								<Time>03:00:00</Time>
-							</Arrival>
-						</FlightRoute>
-					</PropertyGroup>
-				</Properties>
-					<DepartureAirport>FRA</DepartureAirport>
-					<ArrivalAirport>FUE</ArrivalAirport>
-					<CheckOutDateOffset>1</CheckOutDateOffset>
-			</Outbound>
-			<Inbound>
-				<Properties>
-					</PropertyGroup>
-						<FlightRoute>
-							<Departure>
-								<Airport>FUE</Airport>
-								<Time>22:10:00</Time>
-							</Departure>
-							<Arrival>
-								<Airport>FRA</Airport>
-								<Time>02:50:00</Time>
-							</Arrival>
-						</FlightRoute>
-					</PropertyGroup>
-				</Properties>
-					<DepartureAirport>FRA</DepartureAirport>
-					<ArrivalAirport>FUE</ArrivalAirport>
-					<CheckOutDateOffset>1</CheckOutDateOffset>
-			</Inbound>
-		</ReturnFlight>
-	</ReturnFlights>
+	<OnewayFlights>
+		<OnewayFlight Key="FRABKK20180217K1">
+			<Properties>
+				<PropertyGroup>
+					<FlightRoute>
+						<Departure>
+							<Airport>FRA</Airport>
+							<Time>17:00:00</Time>
+						</Departure>
+						<Arrival>
+							<Airport>BKK</Airport>
+							<Time>10:10:00</Time>
+						</Arrival>
+					</FlightRoute>
+				</PropertyGroup>
+			</Properties>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>BKK</ArrivalAirport>
+				<CheckOutDateOffset>1</CheckOutDateOffset>
+		</OnewayFlight>
+	</OnewayFlights>
 </Flights>]]></programlisting>
-					<bridgehead>NeigbourCorrectionComponent</bridgehead>
-					<para>Bei der DayAllocation (der Zuordnung der Termin zu den Reisekomponenten)
-						darf in OTDS keine Lücke bestehen. Die Elemente CheckIn, Stay und CheckOut,
+					<bridgehead>NeighbourCorrectionComponent</bridgehead>
+					<para xml:id="de_xxxx" xml:lang="de">Bei der DayAllocation (der Zuordnung der Termine zu den Reisekomponenten)
+						darf in OTDS bei Nachbarkomponenten keine Lücke bestehen. Die Elemente CheckIn, Stay und CheckOut,
 						die für Accommodations, Flüge und auch Addon-Leistungen angewendet werden
-						können, müssen so auf die Tage verteilt sein, dass das CheckOut-Datum eines
+						können, müssen so auf die Tage verteilt sein, dass im Standardfall der
+						CheckOut-Termin der ersten Komponente identisch ist mit dem CheckIn-Termin
+						der zweiten. Für die Nachbarkomponenten Flug und Hotel bedeutet dies beispielsweise, dass das CheckOut-Datum eines
 						Hinfluges auch das CheckIn-Datum im Hotel ist. Umgekehrt muss das
 						CheckOut-Datum eines Hotels identisch sein mit dem CheckIn-Datum des
 						Rückfluges.</para>
-					<para>NAchbarkomponenten müssen sich lückenlos aneinanderreihen, sodass der CHO
-						der 1. Kompionente identisch ist mit de CKI der 2. (gliecher Termin)=
-						Standadrdfall</para>
-					<para>Gelegentlich existieren Szenarien, die von dieser Logik abweichen sollen.
-						EIne solche Abweichung kann man mit dem NCC abbilden. Reiseveranstalter
-						möchten ihren Kunden beispielsweise mitunter ermöglichen, bei sehr frühen
-						Ankunftszeiten (bspw. um 2:50 Uhr morgen) schon weit vor der üblichen
-						CheckIn-Zeit ihr Zimmer zu beziehen, um noch etwas zu schlafen. Dafür muss
-						das Hotel aber eine Nacht früher gebucht werden. Um das zu erreichen, muss
-						der Ankuftstermin des Fluges virtuell mit der NeighbourCorrectionComponent
-						im Zusammenspiel mit der Accomm. auf einen Tag früher *verschoben werden.
-						Dadurch, dass sich das Hotel lückenlos an den virtuellen CheckOut Termin des
-						Fluges anschließt, wird genau das erreicht...* </para>
+					<para xml:id="en_xxxx" xml:lang="en">Within the DayAllocation (the allocation of dates to the travel components)
+						there maynot be a gap between neighbouring components in OTDS. The elements CheckIn, Stay, and CheckOut, that are applied for accommodations, flights, and also addon-services,
+						have to be allocated to the days in such a manner, in the standard case the
+						CheckOut-Date of the first component is identical with mit dem CheckIn-date
+						of the second. Fort he neighbouring component flight and hotel that means for instance, that the CheckOut-Date of an outgoing flight has to equal the CheckIn-Date for the hotel. 
+						In reverse the CheckOut-Date of a hotel must be identical with the CheckIn-Date of the return flight.</para>
+					<para xml:id="de_xxxx" xml:lang="de">Gelegentlich existieren Szenarien, die von dieser Logik abweichen sollen. Eine solche
+						Abweichung kann man mit dem NeighbourCorrectionComponent abbilden.
+						Reiseveranstalter möchten ihren Kunden beispielsweise mitunter ermöglichen,
+						bei sehr frühen Ankunftszeiten (bspw. um 2:50 Uhr morgens) ihr Zimmer schon
+						weit vor der üblichen CheckIn-Zeit zu beziehen, um noch etwas zu schlafen.
+						Dafür muss das Hotel aber eine Nacht früher gebucht werden. Um das zu
+						erreichen, muss der Ankunftstermin des Fluges virtuell mit der
+						NeighbourCorrectionComponent im Zusammenspiel mit der Accommodation auf
+						einen Tag früher verschoben werden und sich so lückenlos an den virtuellen
+						CheckOut Termin des Fluges anschließen. Dazu folgendes Beispiel:</para>
+					<para xml:id="en_xxxx" xml:lang="en">Sometimes certain scenarios shall deviate from this logic. Such a deviation
+						can be realized with the NeighbourCorrectionComponent.
+						In cases flight arrivals are scheduled very early in the destination (e.g. at 2:50 a.m.), tour operators might want to offer their customers to check into their room before the regular check-in time in order to get some more sleep. um noch etwas zu schlafen.
+						Hence the hotel must be booked for the night before. To accomplish that, the arrival date of the flight has to be moved virtually to the day before wit
+						with the help of the NeighbourCorrectionComponent in interaction with the accommodation. As a result it should be seamlessly attached to the virtual
+						CheckOut-date of the flight. Here is an example:</para>
+					<programlisting><![CDATA[<OnewayFlight>
+	<OnewayFlight Key="FRAPMI20130331K1">
+		<Properties>
+			<PropertyGroup>
+				<FlightRoute>
+					<Departure>
+						<Airport>FRA</Airport>
+						<Time>00:40:00</Time>
+					</Departure>
+					<Arrival>
+						<Airport>PMI</Airport>
+						<Time>02:50:00</Time>
+					</Arrival>
+				</FlightRoute>
+			</PropertyGroup>
+		</Properties>
+			<DepartureAirport>FRA</DepartureAirport>
+			<ArrivalAirport>PMI</ArrivalAirport>
+			<NeighbourComponentCorrection>
+				<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+			</NeighbourComponentCorrection>
+</OnewayFlight>]]></programlisting>
+					<para xml:id="de_xxxx" xml:lang="de">Die NeighbourCorrectionComponent kann auch für den Rückflug Anwendung finden: Wenn
+						beispielsweise der Rückflug erst sehr spät startet und dem Reisenden
+						ermöglicht werden soll, sich nach der regulären Checkout-Zeit noch im Zimmer
+						zurückzuziehen, muss das Hotel quasi länger gebucht werden. Dazu wird der Abflugtermin des Fluges mit einem CheckInDateOffset =1 virtuell auf einen Tag später verschoben. Hierzu das
+						entsprechende Beispiel:</para>
+					<para xml:id="en_xxxx" xml:lang="en">The NeighbourCorrectionComponent can also be applied to the return flight: if for example a returnflight
+						departs quite late and the traveller shall have the opportunity to use his room after the regular check-out time of the hotel,
+						the hotel-room has to be booked for a longer period of time. To realize that, the departure date of the flight is virtually postponed to the following day with a CheckInDateOffset =1. 
+						Here is an example for that case:</para>
 					<programlisting><![CDATA[<OnewayFlight>
 	<OnewayFlight Key="FRAPMI20130331K1">
 		<Properties>
@@ -19575,12 +19599,12 @@ usw.]]></programlisting>
 			<DepartureAirport>FRA</DepartureAirport>
 			<ArrivalAirport>PMI</ArrivalAirport>
 			<NeighbourComponentCorrection>
-				<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
+				<CheckInDateOffset Component="Accommodation">1</CheckInDateOffset>
 			</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para>**Dieses Verhalten kann sogar noch in Kombination mit ÜF vorkommen:
-						BEISPIEL DAZU. Es gibt die Notwendigkeit für NCC noch auf dem
-						Rückflug...</para>
+					
+					<para>Dieses Konstrukt kann auch in Kombination mit Übernachtflügen vorkommen: </para>
+					<para>BEISPIEL DAZU. </para>
 					<para>Bei in der Nacht startenden Abflügen aus der Urlaubsdestination möchten
 						manche Veranstalter vielleicht eine Reise anbieten, die es dem Kunden
 						ermöglicht, zumindest noch einen Teil des Abends/der Nacht vor dem Transfer
