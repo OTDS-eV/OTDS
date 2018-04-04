@@ -1631,25 +1631,23 @@
 								CheckOutDate des Fluges einen Tag später als dessen CheckInDate.
 								Hierfür wird das CheckOutDateOffset eingesetzt und führt
 								normalerweise den Wert =1 (Theoretisch können Flüge auch den Wert 2
-								haben: Sie landen dann 2 Tage später am Zielort. In der Praxis
-								dürfte dies jedoch selten auftreten.). Diese Angaben sind unbedingt
-								notwendig für die korrekte Produkterstellung und Preisberechnung.
-								Für das Suchen der Eigenschaft "Kein Übernachtflug" ist die
-								Definition des Arrival/DateOffset in den Properties zuständig. Hier
-								ein Beispiel:</para>
+								haben: Sie landen dann 2 Tage später am Zielort.). Diese Angaben
+								sind unbedingt notwendig für die korrekte Produkterstellung und
+								Preisberechnung. Für das Suchen der Eigenschaft "Kein Übernachtflug"
+								ist die Definition des Arrival/DateOffset in den Properties
+								zuständig. Hier ein Beispiel:</para>
 							<para xml:id="en_9224" xml:lang="en">If flights take off before midnight
 								and land in the destination on the following day, they have to be
-								marked in OTDS as so called Overnight flights in order to mark them
+								marked in OTDS as so called Overnight Flights in order to mark them
 								as such for the data processing. With regard to the allocation of
-								dates to the travel components in the case of an Overnight flight
+								dates to the travel components in the case of an Overnight Flight
 								the CheckOutDate of the flight is a day later than its CheckInDate.
 								For this the CheckOutDateOffset is used and normally carries the
-								value =1 (In theory flights also can carry the value =2, if they
-								land in the destination two days after take-off. Practically this
-								will happen quite seldom.) These indications are crucial for a
-								precise product composition and price calculation. For searching the
-								characteristic "No Overnight flight", the definition of the
-								Arrival/DateOffset in the Properties is relevant. Here is an
+								value =1 (In theory flights also can have the value =2, if they land
+								in the destination two days after take-off.) These indications are
+								crucial for a precise product composition and price calculation. For
+								searching the characteristic "No Overnight Flight", the definition
+								of the Arrival/DateOffset in the Properties is relevant. Here is an
 								example:</para>
 							<para xml:id="de_9225" xml:lang="de">Die Properties liefern lediglich
 								Auszeichnungsdaten des letztendlichen Produktes. Komplett wäre eine
@@ -1676,10 +1674,10 @@
 					</FlightRoute>
 				</PropertyGroup>
 			</Properties>
-			<DepartureAirport>FRA</DepartureAirport>
-			<ArrivalAirport>BKK</ArrivalAirport>
-			<CheckOutDateOffset>1</CheckOutDateOffset>
-			<Availabilities>...</Availabilities>
+				<DepartureAirport>FRA</DepartureAirport>
+				<ArrivalAirport>BKK</ArrivalAirport>
+				<CheckOutDateOffset>1</CheckOutDateOffset>
+				<Availabilities>...</Availabilities>
 		</OnewayFlight>
 	</OnewayFlights>
 </Flights>]]></programlisting>
@@ -19596,22 +19594,29 @@ usw.]]></programlisting>
 							xml:id="en_9536" xml:lang="en">Overnight Flights</phrase></title>
 					<para xml:id="de_9537" xml:lang="de">Übernachtflüge (per Definition Flüge, die
 						am Kalendertag nach dem Abflug in der Destination landen), werden in OTDS
-						durch den CheckOutDateOffset=1 gekennzeichnet. Er sagt aus, dass der
-						CheckOut-Termin des Fluges einen Tag nach dem des CheckIns liegt. Der
-						CheckOut-Termin errechnet sich also aus dem CheckIn plus dem
-							Offset-Wert.<link linkend="OtdsStrategyComponentFlightsOvernight">(s.a.
-							Kapitel 1.3.3.3.1.7 Übernachtflüge und CheckOutDateOffset)</link></para>
-					<para xml:id="en_9537" xml:lang="en">Overnight flights (per definition flights
-						that land a day later in the destination than departed) are being marked in
-						OTDS with the CheckOutDateOffset=1. This expresses, that the CheckOut-date
-						of the flight is a day later than the CheckIn-date. The CheckOut-Termin thus
-						is determined by the CheckIn plus Offset.<link
+						für die Verarbeitung in der Regel durch den CheckOutDateOffset=1
+						gekennzeichnet. In den Properties erfolgt die Kennzeichnung eines
+						Übernachtflugs mit dem DateOffset=1. Beide sagen aus, dass der
+						CheckOut-Termin des Fluges einen Tag nach dem des CheckIns liegt. Bei
+						längeren Flugstrecken, die sich über mehrere Tage erstrecken, kann der Wert
+						auch bei 2 (oder höher) liegen (s. Beispiel unten). Der CheckOut-Termin
+						errechnet sich also aus dem CheckIn plus dem Offset-Wert.<link
+							linkend="OtdsStrategyComponentFlightsOvernight">(s.a. Kapitel
+							1.3.3.3.1.7 Übernachtflüge und CheckOutDateOffset)</link></para>
+					<para xml:id="en_9537" xml:lang="en">Overnight Flights (per definition flights
+						that land a day later in the destination than departed) for the processing
+						are being marked in OTDS generally with the CheckOutDateOffset=1. Within the
+						properties an Overnight Flight is market with the DateOffset=1. Both Offsets
+						express, that the CheckOut-date of the flight is a day later than the
+						CheckIn-date. For longer flights stretching over several days the value can
+						be 2 or even more (see example below). The CheckOut-date thus is determined
+						by the CheckIn plus Offset.<link
 							linkend="OtdsStrategyComponentFlightsOvernight">(pls. also refer to
 							Chapter 1.3.3.3.1.7 Overnight Flights and
 						CheckOutDateOffset)</link>.</para>
 					<programlisting><![CDATA[<Flights>
 	<OnewayFlights>
-		<OnewayFlight Key="FRABKK20180217K1">
+		<OnewayFlight Key="FRABKK20180217">
 			<Properties>
 				<PropertyGroup>
 					<FlightRoute>
@@ -19640,19 +19645,31 @@ usw.]]></programlisting>
 			</Properties>
 				<DepartureAirport>FRA</DepartureAirport>
 				<ArrivalAirport>BKK</ArrivalAirport>
-				<CheckOutDateOffset>1</CheckOutDateOffset>
+				<CheckOutDateOffset>2</CheckOutDateOffset>
 		</OnewayFlight>
 	</OnewayFlights>
 </Flights>]]></programlisting>
 
 					<para xml:id="de_9248" xml:lang="de">Das Beispiel oben beschreibt den Flug von
-						Frankfurt nach Bangkok über Dubai. Beide Teilstrecken sind dabei
-						Übernachtflüge, wie das DateOffset zeigt. Der zweite Flug (DXB-BKK) hat den DateOffset =2, da sich der
-						Offset immer auf CheckIn-Termin des Oneway Flights bezieht.</para>
+						Frankfurt nach Bangkok über Dubai, der am 17.02.2018 um 17:00 Uhr startet.
+						Beide Teilstrecken sind dabei Übernachtflüge, wie das DateOffset zeigt. Der
+						zweite Flug (DXB-BKK) hat den DateOffset =2, da sich der Offset immer auf
+						CheckIn-Termin des Oneway Flights bezieht. Die Zieldestination wird also am
+						19.02. erreicht - zwei Tage nach Abflug. Das DateOffset in den Properties
+						ist dabei maßgeblich für die Indizierung als Suchkriterium, also des
+						Kriteriums "Übernachtflug" als Filter für die Suche. Das CheckOutDateOffset
+						hingegen ist relevant für die Angebotsgenerierung und die Preisberechnung
+						bei der Verarbeitung der Daten. </para>
 					<para xml:id="en_9248" xml:lang="en">The example above describes the flight from
-						Frankfurt to Bangkok via Dubai. Both legs are overnight flights as indicated by the DateOffset.
-						The second flight (DXB-BKK) has the DateOffset =2, because the
-						Offset always refers to the CheckIn-date of the oneway flight.</para>
+						Frankfurt to Bangkok via Dubai, starting on 17.02.2018 at 17:00 h. Both legs
+						are overnight flights as indicated by the DateOffset. The second flight
+						(DXB-BKK) has the DateOffset =2, because the Offset always refers to the
+						CheckIn-date of the oneway flight. The final destination is reached on
+						19.02. - two days after departure. The DateOffset in the properties is
+						relevant for the indication as a search criteria, here: the criteria
+						"overnight flight" as a filter for the search. Whereas the
+						CheckOutDateOffset is relevant for the offer generation and price
+						calculation resulting from the data processing.</para>
 				</section>
 				<section xml:id="OtdsExperiencesNeighbourCorrectionComponent">
 					<title><phrase xml:id="de_9538" xml:lang="de"
@@ -19771,33 +19788,35 @@ usw.]]></programlisting>
 						27.3.2018, doch startet der Flug so spät (22:40h), dass er erst am Folgetag
 						auf Fuerteventura landet. Entsprechend kennzeichnet das DateOffset diesen
 						Flug als Übernachtflug. Der Veranstalter verlegt wie im obigen Beispiel aus
-						strategischen Gründen mit dem CheckOutDateOffset =-1 im NCC bezogen auf die
-						Komponente Accommodation den virtuelle CheckOutDateOffset des Fluges um
-						einen Tag vor, also auf den 26.3.. An diesen Termin schließt sich der
-						CheckIn des Hotels nahtlos an, findet also auch am 26.3. statt und
+						strategischen Gründen mit dem CheckOutDateOffset =-1 im <code>NCC</code>
+						bezogen auf die Komponente Accommodation den virtuelle CheckOutDateOffset
+						des Fluges um einen Tag vor, also auf den 26.3.. An diesen Termin schließt
+						sich der CheckIn des Hotels nahtlos an, findet also auch am 26.3. statt und
 						ermöglicht dem Kunden den frühen Bezug seines Zimmers.</para>
 					<para xml:id="en_9243" xml:lang="en">Here the CheckIn of the flight takes place
 						on 27.3.2018, but the flight takes off so late (22:40h) that it lands in
 						Fuerteventura on the following day. The DateOffset correspondigly marks this
 						flight as an overnight flight. Due to strategic reasons the tour operator
 						just as in the previous example pre-schedules the virtual CheckOutDateOffset
-						of the flight a day earlier by defining a CheckOutDateOffset =-1 imn NCC
-						with regard to the component Accommodation, hence to the 26.3.. The
-						CheckIn-date of the Hotel connects seamlessly to this date, thus also taking
-						place on 26.3., so that the customer can use his room a day earlier.</para>
-					<para xml:id="de_9244" xml:lang="de">Die <code>NeighbourCorrectionComponent</code> kann auch für den Rückflug
-						Anwendung finden: Bei in der Nacht startenden Abflügen aus der
-						Urlaubsdestination möchten manche Veranstalter vielleicht eine Reise
-						anbieten, die es dem Kunden ermöglicht, zumindest noch einen Teil des
+						of the flight a day earlier by defining a CheckOutDateOffset =-1 in
+							<code>NCC</code> with regard to the component Accommodation, hence to
+						the 26.3.. The CheckIn-date of the Hotel connects seamlessly to this date,
+						thus also taking place on 26.3., so that the customer can use his room a day
+						earlier.</para>
+					<para xml:id="de_9244" xml:lang="de">Die
+							<code>NeighbourCorrectionComponent</code> kann auch für den Rückflug
+						Anwendung finden: Bei spät Abends oder in der Nacht startenden Abflügen aus
+						der Urlaubsdestination möchten manche Veranstalter vielleicht als Mehrwert
+						eine Reise anbieten, die es dem Kunden ermöglicht, noch einen Teil des
 						Abends/der Nacht vor dem Transfer in ihrem Zimmer zu verbringen. Hier sieht
-						das vereinfachte Beispiel, in dem die NeighbourCorrectionComponent den
-						Abflug mit einem CheckInDateOffset =1 virtuell für einen Tag später
-						definiert, wie folgt aus: </para>
-					<para xml:id="en_9244" xml:lang="en">The <code>NeighbourCorrectionComponent</code> can also
-						be applied to the return flight: if for example a returnflight departs quite
-						late and the traveller shall have the opportunity to use his room after the
-						regular check-out time of the hotel, the hotel-room has to be booked for a
-						longer period of time. To realize that, the departure date of the flight is
+						das Beispiel, in dem die <code>NCC</code> den Abflug mit einem
+						CheckInDateOffset =1 virtuell für einen Tag später definiert, wie folgt aus: </para>
+					<para xml:id="en_9244" xml:lang="en">The
+							<code>NeighbourCorrectionComponent</code> can also be applied to the
+						return flight: if for example a returnflight departs quite late and the
+						traveller shall have the opportunity to use his room after the regular
+						check-out time of the hotel, the hotel-room has to be booked for a longer
+						period of time. To realize that, the departure date of the flight is
 						virtually postponed to the following day with a CheckInDateOffset =1. Here
 						is an example for that case:</para>
 					<programlisting><![CDATA[<OnewayFlight>
@@ -19811,6 +19830,7 @@ usw.]]></programlisting>
 					</Departure>
 					<Arrival>
 						<Airport>FRA</Airport>
+						<DateOffset>1</DateOffset>
 						<Time>02:40:00</Time>
 					</Arrival>
 				</FlightRoute>
@@ -19822,46 +19842,88 @@ usw.]]></programlisting>
 				<CheckInDateOffset Component="Accommodation">1</CheckInDateOffset>
 			</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9245" xml:lang="de">XXX WORDING WIE OBEN Das Beispiel drückt die
-						Situation aus, dass beispielsweise der Flug spät am Abend um 22:00 Uhr
-						startet. Berechnet man den Transfer und die Flughafenformalitäten mit ein,
-						wird der Gast vielleicht um 19 Uhr das Hotel verlassen. Wenn der reguläre
-						Hotel-Checkout um 11 Uhr erfolgen muss, wird normalerweise keine weitere
-						Nacht im Zimmer gebucht sein. Wenn diese zusätzliche Zeit jedoch ermöglicht
-						werden soll, muss der Abflug virtuell für einen Tag später definiert werden,
-						indem das CheckInDateOffset=1 gesetzt wird. </para>
-					<para xml:id="en_9245" xml:lang="en">ENGLISCH! Das Beispiel drückt die Situation
-						aus, dass beispielsweise der Flug spät am Abend um 22:00 Uhr startet.
-						Berechnet man den Transfer und die Flughafenformalitäten mit ein, wird der
-						Gast vielleicht um 19 Uhr das Hotel verlassen. Wenn der reguläre
-						Hotel-Checkout um 11 Uhr erfolgen muss, wird normalerweise keine weitere
-						Nacht im Zimmer gebucht sein. Wenn diese zusätzliche Zeit jedoch ermöglicht
-						werden soll, muss der Abflug virtuell für einen Tag später definiert werden,
-						indem das CheckInDateOffset=1 gesetzt wird. In der Praxis wird eine solche
-						Situation jedoch häufiger mit einem Übernachtflug eintreten; das
-						entsprechende Beispiel hierzu folgt weiter unten.</para>
-					<para xml:id="de_9246" xml:lang="de">Genau umgekehrt verhält es sich bei nachts startenden Abflügen aus der
-						Urlaubsdestination (bspw. um 0:30 Uhr). Ohne eine Steuerung mithilfe der
-						NeighbourCorrectionComponent würde der Kunde die Übernachtung (des
-						Vortages?) voll bezahlen müssen. Aufgrund von zeitaufwändigen Transfers und
-						Wartezeiten am Flughafen kann es ein sinnvolles/attraktives Angebot ergeben,
-						keine Übernachtung am Vortag des Rückfluges einzubauen. Der Reisende würde
-						dann nach dem Hotel-Checkout den Tag und den Abend bis zum Transfer ohne
-						Zimmer verbringen und entsprechende Übernachtungskosten für eine (ohnehin
-						sehr kurze) Nacht sparen. In diesem Falle muss die
-						NeighbourComponentCorrection den CheckIn des Fluges virtuell einen Tag
-						vorverlegen, damit der Aufenthalt im Hotel früher enden kann, ohne dass sich
-						Lücken in der DayAllocation ergeben: </para>
-					<para xml:id="en_9246" xml:lang="en">ENGLISCH</para>
-					<para>KOMPLETTES BEISPIEL!!</para>
-					<programlisting><![CDATA[<OnewayFlight Key>
-	<...>
-		<NeighbourComponentCorrection>
-			<CheckInDateOffset Component="Accommodation">-1</CheckInDateOffset>
-		</NeighbourComponentCorrection>
+					<para xml:id="de_9245" xml:lang="de">Im Beispiel oben startet der Rückflug am
+						7.3.18 von Fuerteventura mit 22:00 Uhr recht spät am Abend; die Ankunft in
+						Frankurt erfolgt erst am nächsten Kalendertag frühmorgens um 2:40 Uhr.
+						Entsprechend kennzeichnet das DateOffset diesen Flug für die Suche als
+						Übernachtflug. Für die Belegung des Hotels zeigt der CheckInDateOffset=1
+						bezogen auf die Accomodation an, dass der Flug virtuell um einen Tag, also
+						auf den 8.3. verschoben wird und damit das Hotelzimmer für einen Abend/Nacht
+						länger durch den Reisenden genutzt werden kann.</para>
+					<para xml:id="en_9245" xml:lang="en">In the example above the inbound flight
+						departs on 7.3.18 form Fuerteventura quite late in the evening (22:00h). The
+						arrival in Frankfurt is scheduled for the early morning of the following day
+						(2:40h). The DateOffset correspondingly marks this flight for the search as
+						an Overnight Flight. For the occupancy of the hotel the CheckInDateOffset=1
+						with regard to the Accomodation indicates, that the flight is shifted
+						virtually to one day later, thus to 8.3.. As a result the hotelroom can be
+						used for another evening/night by the traveller.</para>
+					<para xml:id="de_9246" xml:lang="de">Genau umgekehrt verhält es sich bei früh
+						morgens startenden Abflügen aus der Urlaubsdestination (bspw. um 0:30 Uhr).
+						Ohne eine Steuerung mithilfe der <code>NeighbourCorrectionComponent</code>
+						würde der Kunde die Übernachtung in der Nacht vor dem Abflug voll bezahlen
+						müssen. Aufgrund von zeitaufwändigen Transfers und Wartezeiten am Flughafen
+						kann es ein sinnvolles/attraktives Angebot ergeben, keine Übernachtung am
+						Vortag des Rückfluges einzubauen. Der Reisende würde dann nach dem
+						Hotel-Checkout den Tag und den Abend bis zum Transfer ohne Zimmer verbringen
+						und entsprechende Übernachtungskosten für eine (ohnehin sehr kurze) Nacht
+						sparen. Um dies umzusetzen, muss die <code>NCC</code> den CheckIn des Fluges
+						virtuell einen Tag vorverlegen, damit der Aufenthalt im Hotel früher enden
+						kann, ohne dass sich Lücken in der DayAllocation ergeben: </para>
+					<para xml:id="en_9246" xml:lang="en">The opposite applies for flights departing very early in
+						the morning from the destination (e.g. at 0:30h). Without a steering with
+						the help of the <code>NeighbourCorrectionComponent</code> the customer would
+						have to pay the staynight for the night before departure. Due to long
+						transfer times and waiting hours at the airport it can make a
+						reasonable/attractive offer to leave out the last night in the hotel right
+						before the plane departs. The customer would then spend the time after the
+						hotel checkout without a room on the hotel grounds and save the costs for
+						this anyhow short night. To realize this, the <code>NCC</code> must advance
+						the CheckIn of the flight virtually one day, so that the stay in the hotel
+						may end earlier without producing gaps in the DayAllocation.</para>
+					<programlisting><![CDATA[<OnewayFlight>
+	<OnewayFlight Key="FUEFRA20180307">
+		<Properties>
+			<PropertyGroup>
+				<FlightRoute>
+					<Departure>
+						<Airport>FUE</Airport>
+						<Time>00:30:00</Time>
+					</Departure>
+					<Arrival>
+						<Airport>FRA</Airport>
+						<Time>03:50:00</Time>
+					</Arrival>
+				</FlightRoute>
+			</PropertyGroup>
+		</Properties>
+			<DepartureAirport>FUE</DepartureAirport>
+			<ArrivalAirport>FRA</ArrivalAirport>
+			<NeighbourComponentCorrection>
+				<CheckInDateOffset Component="Accommodation">-1</CheckInDateOffset>
+			</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9247" xml:lang="de">ERKLÄRUNG </para>
-					<para xml:id="en_9247" xml:lang="en">ERKLÄRUNG ENGLISCH</para>
+					<para xml:id="de_9247" xml:lang="de">Im Beispiel startet der Rückflug am 7.3.18 von
+						Fuerteventura nach Frankfurt um kurz nach Mitternacht (0:30 Uhr). Ohne den
+						Einsatz der <code>NCC</code> würde daher das Hotel auch für die Nacht des
+						6.3. auf den 7.3. gebucht werden. Durch die virtuelle Vorverlegung des
+						CheckIns des Fluges mithilfe der <code>NCC</code> (CheckInDateOffset mit
+						Bezug auf die Accommodation =-1) wird diese Nacht nicht mehr gebucht. Die
+						Gesamtkosten für den Kunden, der vielleicht ohnehin aufgrund von langen
+						Transferzeiten und Wartezeiten am Flughafen bspw. um 20:00 Uhr abreisen
+						müsste, sinken. Wenn das Hotel ihm zudem ermöglich, die Zeit nach dem
+						Checkout anderweitig auf dem Hotelgelände zu verbringen, kann das für ihn
+						ein sehr attraktives Angebot sein.</para>
+					<para xml:id="en_9247" xml:lang="en">In the example above the return flight starts on 7.3.18
+						from Fuerteventura to Frankfurt shortly after midnight (0:30h). Without the
+						use of  <code>NCC</code> the hotel would thus also be booked for the night
+						of the 6th to the 7th of March. By virtually advancing the CheckIn of the
+						flight with the help of the <code>NCC</code> (CheckInDateOffset with regard
+						to the Accommodation =-1), this night is not booked. The total costs for the
+						customer, that might have to depart from the hotel e.g. at 20:00h due to a
+						long tranfer and waiting times at the airport, are reduced. If the hotel in
+						addition allows him to spend the time after the checkout comfortably on the
+						hotel grounds, this can represent an attractive offer for him.   </para>
 				</section>
 			</section>
 			<section xml:id="OtdsProductsComponentsFlightsReturnFlight">
@@ -19874,8 +19936,6 @@ usw.]]></programlisting>
 						Rückflüge</para>
 					<para xml:id="en_1941" xml:lang="en">Definition of all delivered outbound and
 						inbound flights</para>
-					<para xml:id="de_1942" xml:lang="de"> </para>
-					<para xml:id="en_1942" xml:lang="en"/>
 					<figure>
 						<title><phrase xml:id="de_1943" xml:lang="de">ReturnFlight</phrase><phrase
 								xml:id="en_1943" xml:lang="en">ReturnFlight</phrase></title>
