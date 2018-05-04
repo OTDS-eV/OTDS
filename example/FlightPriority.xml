@@ -1,203 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
 	<Products UpdateMode="New">
-	<GlobalValues>
-		<GlobalValue Key="CityPairProduction">
-			<ParameterSet Key="CityPairProduction">
-				<FeatureContext>CityPairProduction</FeatureContext>
-			</ParameterSet>
-		</GlobalValue>
-	</GlobalValues>
+		<Tags UpdateMode="New">
+			<!-- Hier sind beispielhaft verschiedene Möglichkeiten für sinnvolle Gruppierungen bzgl. der Flugpriorisierung aufgeführt. In der praxis werden in der Regel nicht mehrere Gruppierungen nebeneinander stehen.-->
+			<GenericTag Class="ReturnFlightGroupPrice" TagValueType="String">
+				<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und nach Preis aufsteigend sortiert. -->
+				<SortedCandidateGroup>
+					<GroupedByEqual>
+						<CandidateInstance Source="descendants:Accommodation"/>
+						<Tag Source="Outbound" Class="DepartureAirport"/>
+						<Tag Source="Outbound" Class="ArrivalAirport"/>
+					</GroupedByEqual>
+					<Value>
+						<Position>
+							<Sequence>
+								<Sort Order="Ascending">
+									<Sum>
+										<Price>
+											<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+										</Price>
+									</Sum>
+									<!-- in Version 1.0 konnte man mit der Source nur genau eine Component bzw. SubComponent referenzieren. Im Zuge der Referenzierung von Preisen wird das Source-Konstrukt um die "Hierarchy" erweitert, so dass auch Descendants und Ancestors eines Knoten mit einbezogen werden können. Eine genaue Beschreibung dazu finden Sie in der Doku wenn Sie nach dem Begriff Source-Range suchen. 
+					-->
+								</Sort>
+							</Sequence>
+						</Position>
+					</Value>
+				</SortedCandidateGroup>
+			</GenericTag>
+			<GenericTag Class="StringIndexWithPADDING">
+				<!-- Dieses GenericTag definiert einen Priorisierung nach einer Zeichenkette, die durch Paading auf eine Länge gebracht wird. -->
+				<SortedCandidateGroup>
+					<GroupedByEqual>
+						<CandidateInstance Source="descendants:Accommodation"/>
+						<Tag Source="Outbound" Class="DepartureAirport"/>
+						<Tag Source="Outbound" Class="ArrivalAirport"/>
+					</GroupedByEqual>
+					<Value>
+						<Position>
+							<Sequence>
+								<Sort Order="Ascending">
+									<Concatenate Padding="_" PadLength="25">
+										<Tag Source="ReturnFlight" Class="FlightStringIndex" TagValueType="String" Padding=" " PadLength="8"/>
+									</Concatenate>
+								</Sort>
+							</Sequence>
+						</Position>
+					</Value>
+				</SortedCandidateGroup>
+			</GenericTag>
+			<GenericTag Class="ReturnFlightGroupOutInIndex">
+				<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem numerischen Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach numerischen InboundIndex sortiert. -->
+				<SortedCandidateGroup>
+					<GroupedByEqual>
+						<CandidateInstance Source="descendants:Accommodation"/>
+						<Tag Source="Outbound" Class="DepartureAirport"/>
+						<Tag Source="Outbound" Class="ArrivalAirport"/>
+					</GroupedByEqual>
+					<Value>
+						<Position>
+							<Sequence>
+								<Sort Order="Ascending">
+									<Sum>
+										<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Sum>
+								</Sort>
+								<Sort Order="Ascending">
+									<Sum>
+										<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Sum>
+								</Sort>
+							</Sequence>
+						</Position>
+					</Value>
+				</SortedCandidateGroup>
+			</GenericTag>
+			<GenericTag Class="ReturnFlightGroupOutIndexPrice">
+				<!-- Diese GroupDefinition definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
+				<SortedCandidateGroup>
+					<GroupedByEqual>
+						<CandidateInstance Source="descendants:Accommodation"/>
+						<Tag Source="Outbound" Class="DepartureAirport"/>
+						<Tag Source="Outbound" Class="ArrivalAirport"/>
+					</GroupedByEqual>
+					<Value>
+						<Position>
+							<Sequence>
+								<Sort Order="Ascending">
+									<Sum>
+										<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Sum>
+								</Sort>
+								<Sort Order="Ascending">
+									<Sum>
+										<Price>
+											<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+										</Price>
+									</Sum>
+								</Sort>
+							</Sequence>
+						</Position>
+					</Value>
+				</SortedCandidateGroup>
+			</GenericTag>
+			<GenericTag Class="ReturnFlightGroupOutInNumTextIndex">
+				<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
+				<SortedCandidateGroup>
+					<GroupedByEqual>
+						<CandidateInstance Source="descendants:Accommodation"/>
+						<Tag Source="Outbound" Class="DepartureAirport"/>
+						<Tag Source="Outbound" Class="ArrivalAirport"/>
+					</GroupedByEqual>
+					<Value>
+						<Position>
+							<Sequence>
+								<Sort Order="Ascending">
+									<Sum>
+										<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Sum>
+								</Sort>
+								<Sort Order="Ascending">
+									<Concatenate>
+										<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
+									</Concatenate>
+								</Sort>
+								<Sort Order="Ascending">
+									<Sum>
+										<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Sum>
+								</Sort>
+								<Sort Order="Ascending">
+									<Concatenate>
+										<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
+									</Concatenate>
+								</Sort>
+							</Sequence>
+						</Position>
+					</Value>
+				</SortedCandidateGroup>
+			</GenericTag>
+			<GenericTag Class="ExampleCombinedIndicesPrices">
+				<!-- Diese GroupDefinition entspricht keiner realen Priorisierung, sondern soll lediglich aufzeigen welche Möglichkeiten es in OTDS gibt, Tags und Preise miteinander zu kombinieren um damit eine Sortierung zu definieren.-->
+				<SortedCandidateGroup>
+					<GroupedByEqual>
+						<CandidateInstance Source="descendants:Accommodation"/>
+						<Tag Source="Outbound" Class="DepartureAirport"/>
+						<Tag Source="Outbound" Class="ArrivalAirport"/>
+					</GroupedByEqual>
+					<Value>
+						<Position>
+							<Sequence>
+								<Sort Order="Ascending">
+									<Sum>
+										<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+										<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Sum>
+								</Sort>
+								<Sort Order="Ascending">
+									<Average>
+										<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+										<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Average>
+								</Sort>
+								<Sort Order="Ascending">
+									<Sum>
+										<Price>
+											<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+										</Price>
+										<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Sum>
+								</Sort>
+								<Sort Order="Ascending">
+									<Average>
+										<Price>
+											<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
+										</Price>
+										<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
+									</Average>
+								</Sort>
+								<Sort Order="Ascending">
+									<Concatenate>
+										<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
+										<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
+									</Concatenate>
+								</Sort>
+							</Sequence>
+						</Position>
+					</Value>
+				</SortedCandidateGroup>
+			</GenericTag>
+		</Tags>
+		<GlobalValues>
+			<GlobalValue Key="CityPairProduction">
+				<ParameterSet Key="CityPairProduction">
+					<FeatureContext>CityPairProduction</FeatureContext>
+				</ParameterSet>
+			</GlobalValue>
+		</GlobalValues>
 		<Product Key="Package" ProductType="FlightAccommodation" UpdateMode="New">
 			<Tags UpdateMode="New">
 				<Tag Class="Product" TagValueType="String">Pauschal</Tag>
-				<!-- Hier sind beispielhaft verschiedene Möglichkeiten für sinnvolle Gruppierungen bzgl. der Flugpriorisierung aufgeführt. In der praxis werden in der Regel nicht mehrere Gruppierungen nebeneinander stehen.-->
-				<GenericTag Class="ReturnFlightGroupPrice" TagValueType="String">
-					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und nach Preis aufsteigend sortiert. -->
-					<SortedCandidateGroup>
-						<GroupedByEqual>
-							<CandidateInstance Source="descendants:Accommodation"/>
-							<Tag Source="Outbound" Class="DepartureAirport"/>
-							<Tag Source="Outbound" Class="ArrivalAirport"/>
-						</GroupedByEqual>
-						<Value>
-							<Position>
-								<Sequence>
-									<Sort Order="Ascending">
-										<Sum>
-											<Price>
-												<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
-											</Price>
-										</Sum>
-										<!-- in Version 1.0 konnte man mit der Source nur genau eine Component bzw. SubComponent referenzieren. Im Zuge der Referenzierung von Preisen wird das Source-Konstrukt um die "Hierarchy" erweitert, so dass auch Descendants und Ancestors eines Knoten mit einbezogen werden können. Eine genaue Beschreibung dazu finden Sie in der Doku wenn Sie nach dem Begriff Source-Range suchen. 
-					-->
-									</Sort>
-								</Sequence>
-							</Position>
-						</Value>
-					</SortedCandidateGroup>
-				</GenericTag>
-				<GenericTag Class="StringIndexWithPADDING">
-					<!-- Dieses GenericTag definiert einen Priorisierung nach einer Zeichenkette, die durch Paading auf eine Länge gebracht wird. -->
-					<SortedCandidateGroup>
-						<GroupedByEqual>
-							<CandidateInstance Source="descendants:Accommodation"/>
-							<Tag Source="Outbound" Class="DepartureAirport"/>
-							<Tag Source="Outbound" Class="ArrivalAirport"/>
-						</GroupedByEqual>
-						<Value>
-							<Position>
-								<Sequence>
-									<Sort Order="Ascending">
-										<Concatenate Padding="_" PadLength="25">
-											<Tag Source="ReturnFlight" Class="FlightStringIndex" TagValueType="String" Padding=" " PadLength="8"/>
-										</Concatenate>
-									</Sort>
-								</Sequence>
-							</Position>
-						</Value>
-					</SortedCandidateGroup>
-				</GenericTag>
-				<GenericTag Class="ReturnFlightGroupOutInIndex">
-					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem numerischen Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach numerischen InboundIndex sortiert. -->
-					<SortedCandidateGroup>
-						<GroupedByEqual>
-							<CandidateInstance Source="descendants:Accommodation"/>
-							<Tag Source="Outbound" Class="DepartureAirport"/>
-							<Tag Source="Outbound" Class="ArrivalAirport"/>
-						</GroupedByEqual>
-						<Value>
-							<Position>
-								<Sequence>
-									<Sort Order="Ascending">
-										<Sum>
-											<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Sum>
-									</Sort>
-									<Sort Order="Ascending">
-										<Sum>
-											<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Sum>
-									</Sort>
-								</Sequence>
-							</Position>
-						</Value>
-					</SortedCandidateGroup>
-				</GenericTag>
-				<GenericTag Class="ReturnFlightGroupOutIndexPrice">
-					<!-- Diese GroupDefinition definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
-					<SortedCandidateGroup>
-						<GroupedByEqual>
-							<CandidateInstance Source="descendants:Accommodation"/>
-							<Tag Source="Outbound" Class="DepartureAirport"/>
-							<Tag Source="Outbound" Class="ArrivalAirport"/>
-						</GroupedByEqual>
-						<Value>
-							<Position>
-								<Sequence>
-									<Sort Order="Ascending">
-										<Sum>
-											<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Sum>
-									</Sort>
-									<Sort Order="Ascending">
-										<Sum>
-											<Price>
-												<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
-											</Price>
-										</Sum>
-									</Sort>
-								</Sequence>
-							</Position>
-						</Value>
-					</SortedCandidateGroup>
-				</GenericTag>
-				<GenericTag Class="ReturnFlightGroupOutInNumTextIndex">
-					<!-- Dieses GenericTag definiert eine Gruppierung auf ReturnFlight-Ebene, welche die Returnflüge gruppiert und zuerst nach einem Index an jedem Outbound aufsteigend sortiert und bei gleichem OutboundIndex danach nach dem Preis des Returnfluges sortiert. -->
-					<SortedCandidateGroup>
-						<GroupedByEqual>
-							<CandidateInstance Source="descendants:Accommodation"/>
-							<Tag Source="Outbound" Class="DepartureAirport"/>
-							<Tag Source="Outbound" Class="ArrivalAirport"/>
-						</GroupedByEqual>
-						<Value>
-							<Position>
-								<Sequence>
-									<Sort Order="Ascending">
-										<Sum>
-											<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Sum>
-									</Sort>
-									<Sort Order="Ascending">
-										<Concatenate>
-											<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
-										</Concatenate>
-									</Sort>
-									<Sort Order="Ascending">
-										<Sum>
-											<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Sum>
-									</Sort>
-									<Sort Order="Ascending">
-										<Concatenate>
-											<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
-										</Concatenate>
-									</Sort>
-								</Sequence>
-							</Position>
-						</Value>
-					</SortedCandidateGroup>
-				</GenericTag>
-				<GenericTag Class="ExampleCombinedIndicesPrices">
-					<!-- Diese GroupDefinition entspricht keiner realen Priorisierung, sondern soll lediglich aufzeigen welche Möglichkeiten es in OTDS gibt, Tags und Preise miteinander zu kombinieren um damit eine Sortierung zu definieren.-->
-					<SortedCandidateGroup>
-						<GroupedByEqual>
-							<CandidateInstance Source="descendants:Accommodation"/>
-							<Tag Source="Outbound" Class="DepartureAirport"/>
-							<Tag Source="Outbound" Class="ArrivalAirport"/>
-						</GroupedByEqual>
-						<Value>
-							<Position>
-								<Sequence>
-									<Sort Order="Ascending">
-										<Sum>
-											<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-											<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Sum>
-									</Sort>
-									<Sort Order="Ascending">
-										<Average>
-											<Tag Source="Outbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-											<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Average>
-									</Sort>
-									<Sort Order="Ascending">
-										<Sum>
-											<Price>
-												<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
-											</Price>
-											<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Sum>
-									</Sort>
-									<Sort Order="Ascending">
-										<Average>
-											<Price>
-												<ConsideredPriceItems Source="Hierarchy.descendants:ReturnFlight"/>
-											</Price>
-											<Tag Source="Inbound" Class="FlightGroupIndex" TagValueType="Numeric"/>
-										</Average>
-									</Sort>
-									<Sort Order="Ascending">
-										<Concatenate>
-											<Tag Source="Outbound" Class="FlightCode" TagValueType="String"/>
-											<Tag Source="Inbound" Class="FlightCode" TagValueType="String"/>
-										</Concatenate>
-									</Sort>
-								</Sequence>
-							</Position>
-						</Value>
-					</SortedCandidateGroup>
-				</GenericTag>
 			</Tags>
 			<Booking>
 				<BookingGroup Area="GlobalArea">
