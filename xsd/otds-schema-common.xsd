@@ -1,4 +1,4 @@
-<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- Mit XMLSpy v2018 sp1 (x64) (http://www.altova.com) von Stephan Nicklaus (Traveltainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <!-- Test -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
@@ -168,18 +168,15 @@ If the "Name" is unspecified, the following default values will be used dependin
 	<xs:attributeGroup name="ProductComponentBaseGroup">
 		<xs:attribute name="DayAllocationIndex" type="xs:int">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_55">Dieses Attribut bestimmt die Platzierung der
-					Komponente im Reiseverlauf. Es werden der Komponente also bestimmte Tage der
-					Reise zugewiesen. Das Attribut ist in der Regel nicht besetzt. Es werden
-					folgende Defaultwerte in Abhängigkeit des Komponenten-Kontexts vereinbart: -
-					Befinden wir uns im Kontext einer Accommodation-Komponente so ist der
-					Default="0" - Für die reine ReturnFlight-Komponente ist die Verwendung von
-					DayAllocationIndex nicht erlaubt, sondern wird separat in Inbound und Outbound
-					gesetzt - Im Kontext einer OutboundComponente ist der Default="-2" - Im Kontext
-					einer InboundComponente ist der Default="2" - Im Kontext einer Addon-Komponente
-					ist der Default="0" - Im Kontext einer Combi-Komponente ist der Default="0" - Im
-					Kontext einer Outbound-Combi-Komponente ist der Default="-2" - Im Kontext einer
-					Inbound-Combi-Komponente ist der Default="2" </xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_55">Dieses Attribut bestimmt die Platzierung der Komponente im Reiseverlauf. Es werden der Komponente also bestimmte Tage der Reise zugewiesen. Das Attribut ist in der Regel nicht besetzt. Es werden folgende Defaultwerte in Abhängigkeit des Komponenten-Kontexts vereinbart: 
+- Befinden wir uns im Kontext einer Accommodation-Komponente so ist der Default="0" 
+- Für die reine ReturnFlight-Komponente ist die Verwendung von DayAllocationIndex nicht erlaubt, sondern wird separat in Inbound und Outbound gesetzt 
+- Im Kontext einer OutboundComponente ist der Default="-2" 
+- Im Kontext einer InboundComponente ist der Default="2" 
+- Im Kontext einer Addon-Komponente ist der Default="0" 
+- Im Kontext einer Combi-Komponente ist der Default="0" 
+- Im Kontext einer Outbound-Combi-Komponente ist der Default="-2" 
+- Im Kontext einer Inbound-Combi-Komponente ist der Default="2" </xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_55">This attribute specifies the positioning of the itinerary's components. Specific days of travel are assigned to the components. This attribute is not usually specified. The following default values ​​are used depending on the component context:
 - In the context of an accommodation component, the default = "0"
 
@@ -292,11 +289,7 @@ The default is 0.</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="BookingWithoutNodeType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_59">In diesem Element werden alle Values
-				zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry
-				andere Namespaces ergänzt werden, so dass spezifisch für verschiedene
-				Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben
-				werden können.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_59">In diesem Element werden alle Values uusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so dass spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_59">In this element, all values ​​required for booking are combined. Later other Namespaces can be added to the BookingEntry, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
 		</xs:annotation>
 		<xs:group ref="BookingWithoutNodeGroup"/>
@@ -320,13 +313,17 @@ The default is 0.</xs:documentation>
 				<xs:complexType>
 					<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_60">In diesem Attribut wird eine Referenz auf den
-								Context der DayAllocation definiert. Zulässige Werte sind: -
-								ThisComponent - Product - Accommodation - ReturnFlight -
-								OnewayFlight - Outbound - Inbound - Addon Default ist
-								"ThisComponent". Es sind aber theoretisch auch Namensreferenzen
-								erlaubt. Siehe dazu auch in der Thematischen Dokumentation die
-								Kapitel zum Source-Attribut. (Todo: Verlinkung) </xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_60">In diesem Attribut wird eine Referenz auf den Context der DayAllocation definiert. Zulässige Werte sind: 
+- ThisComponent 
+- Product 
+- Accommodation 
+- ReturnFlight 
+- OnewayFlight 
+- Outbound 
+- Inbound 
+- Addon 
+
+Default ist "ThisComponent". Es sind aber theoretisch auch Namensreferenzen erlaubt. Siehe dazu auch in der Thematischen Dokumentation die Kapitel zum Source-Attribut. (Todo: Verlinkung) </xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_60">In this attribute a reference to the context of the DayAllocation will be defined.
 Permitted values are:
 - ThisComponent
@@ -344,9 +341,9 @@ Theoretically, however, name references are also allowed. For further informatio
 					</xs:attribute>
 					<xs:attribute name="DayType" type="DayTypeEnum" use="required">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_61">Dieses Attribut definiert, welches Datum in
-								das Buchungsfeld übernommen werden soll. Mögliche Werte sind: -
-								CheckIn - CheckOut</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_61">Dieses Attribut definiert, welches Datum in das Buchungsfeld übernommen werden soll. Mögliche Werte sind: 
+- CheckIn 
+- CheckOut</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_61">This attribute defines which date should be entered in the booking field.
 Possible values are:
 - CheckIn
@@ -355,11 +352,7 @@ Possible values are:
 					</xs:attribute>
 					<xs:attribute name="DateFormat" type="DateFormatEnum" default="[D01][M01][Y01]">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_62">Dieses Attribut definiert, in welcher Form das
-								Datum in dem Feld angegeben wird. Dieses Template folgt den Regeln
-								des picture Argumentes der xslt:format-date Funktion aus dem XSLT
-								2.0 Standard. Die Argumente language und country werden auf den Wert
-								des Market Elementes der OTDS Lieferung gesetzt.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_62">Dieses Attribut definiert, in welcher Form das Datum in dem Feld angegeben wird. Dieses Template folgt den Regeln des picture Argumentes der xslt:format-date Funktion aus dem XSLT 2.0 Standard. Die Argumente language und country werden auf den Wert des Market Elementes der OTDS Lieferung gesetzt.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_62">This attribute defines in what form the date should be entered in the field. This template follows the rules of the picture argument of the xslt:format-date function from the XSLT 2.0 Standard. The arguments language and country are set to the values of the Market element of the OTDS delivery.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
@@ -369,12 +362,16 @@ Possible values are:
 				<xs:complexType>
 					<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_63">In diesem Attribut wird eine Referenz auf den
-								Context der DayAllocation definiert. Zulässige Werte sind: - Product
-								- Accommodation - ReturnFlight - OnewayFlight - Outbound - Inbound -
-								Addon Default ist "ThisComponent". Es sind aber theoretisch auch
-								Namensreferenzen erlaubt. Siehe dazu auch in der Thematischen
-								Dokumentation die Kapitel zum Source-Attribut. (Todo: Verlinkung) </xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_63">In diesem Attribut wird eine Referenz auf den Context der DayAllocation definiert. Zulässige Werte sind: 
+- Product
+- Accommodation 
+- ReturnFlight 
+- OnewayFlight 
+- Outbound 
+- Inbound 
+- Addon 
+
+Default ist "ThisComponent". Es sind aber theoretisch auch Namensreferenzen erlaubt. Siehe dazu auch in der Thematischen Dokumentation die Kapitel zum Source-Attribut. (Todo: Verlinkung) </xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_63">A reference to the context of the DayAllocation will be defined in this attribute.
 Permitted values are:
 - Product
@@ -396,11 +393,12 @@ For further information, see the Source Attribute chapter of the Thematic Docume
 				<xs:complexType>
 					<xs:attribute name="AgeType" type="AgeTypeEnum" default="TravelAge">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_64">Dieses Attribut definiert, in welcher Art die
-								Altersangabe übergeben werden soll. Folgende Werte sind zulässig: -
-								DateOfBirth - TravelAge - BookingAge Ages werden als Integer in
-								Jahren angegeben. Das Format der Datumsangabe wird im Attribut
-								"DateFormat" definiert. </xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_64">Dieses Attribut definiert, in welcher Art die Altersangabe übergeben werden soll. Folgende Werte sind zulässig: 
+- DateOfBirth 
+- TravelAge 
+- BookingAge 
+
+Ages werden als Integer in Jahren angegeben. Das Format der Datumsangabe wird im Attribut "DateFormat" definiert. </xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_64">This attribute defines which type of age entry should be given.
 The following values are permitted:
 - DateOfBirth
@@ -412,11 +410,7 @@ Ages are to be entered as integers in years. The format of the date entry is def
 					</xs:attribute>
 					<xs:attribute name="DateFormat" type="DateFormatEnum" default="[D01][M01][Y01]">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_65">Dieses Attribut definiert, in welcher Form das
-								Datum in dem Feld angegeben wird. Dieses Template folgt den Regeln
-								des picture Argumentes der xslt:format-date Funktion aus dem XSLT
-								2.0 Standard. Die Argumente language und country werden auf den Wert
-								des Market Elementes der OTDS Lieferung gesetzt.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_65">Dieses Attribut definiert, in welcher Form das Datum in dem Feld angegeben wird. Dieses Template folgt den Regeln des picture Argumentes der xslt:format-date Funktion aus dem XSLT 2.0 Standard. Die Argumente language und country werden auf den Wert des Market Elementes der OTDS Lieferung gesetzt.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_65">This attribute defines in what form the date should be entered in the field. This template follows the rules of the picture argument of the xslt:format-date function from the XSLT 2.0 Standard. The arguments language and country are set to the values of the Market element of the OTDS delivery.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
@@ -443,27 +437,17 @@ Ages are to be entered as integers in years. The format of the date entry is def
 		</xs:attribute>
 		<xs:attribute name="Field" type="FieldEnum" use="required">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_69">Dieses Attribut definiert, welches Feld des
-					BuchungsContextes angesprochen wird. Mögliche Werte sind: - Title (dieses Field
-					definiert die Anreden, klassisch in Deutschland: D, H, K, B) - Brand (dieses
-					Field definiert die Brandcodes) - TravelType (dieses Field definiert die
-					Reiseart) - RequestCode (dieses Field definiert die Anforderung. Klassisch "F"
-					für Flug, "H" für Hotel, "FW" für Ferienwohnungen, etc.) - ServiceCode (dieses
-					Field definiert den Leistungscode oder Buchungscode des Hotels, des Fluges oder
-					der Zusatzleistung) - ServiceFeatureCode (dieses Field definiert den Code für
-					die nächste Unterteilung der Leistung. Bei Hotels ist es das Zimmer, bei Flügen
-					die Buchungsklasse und bei Addons der Service) - BoardCode (dieses Field
-					definiert den Code für die Verpflegung. Bei Zusatzleistungen wird dieses Field
-					manchmal zur weiteren Unterteilung von Services benutzt) - Assignment (dieses
-					Field definiert die Belegung einer Komponente. Teilweise wird dieses Field auch
-					für Platzierung von Kinderbetten-Codierungen benutzt) - DateStart (dieses Field
-					definiert den Starttermin der einzelnen Komponenten im Buchungskontext. Die
-					Zuweisung erfolgt in der Regel über das Child-Element Date) - DateEnd (dieses
-					Field definiert den Endtermin der einzelnen Komponenten im Buchungskontext. Die
-					Zuweisung erfolgt in der Regel über das Child-Element Date oder Duration) - Age
-					(dieses Field definiert das Alter der einzelnen Mitreisenden im Buchungskontext.
-					Die Zuweisung erfolgt in der Regel über das Child-Element
-					PersonAge)</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_69">Dieses Attribut definiert, welches Feld des BuchungsContextes angesprochen wird. Mögliche Werte sind: 
+- Title (dieses Feld definiert die Anreden, klassisch in Deutschland: D, H, K, B) 
+- Brand (dieses Feld definiert die Brandcodes) 
+- TravelType (dieses Feld definiert die Reiseart) 
+- RequestCode (dieses Feld definiert die Anforderung. Klassisch "F" für Flug, "H" für Hotel, "FW" für Ferienwohnungen, etc.) 
+- ServiceCode (dieses Feld definiert den Leistungscode oder Buchungscode des Hotels, des Fluges oder der Zusatzleistung) - ServiceFeatureCode (dieses Feld definiert den Code für die nächste Unterteilung der Leistung. Bei Hotels ist es das Zimmer, bei Flügen die Buchungsklasse und bei Addons der Service) 
+- BoardCode (dieses Feld definiert den Code für die Verpflegung. Bei Zusatzleistungen wird dieses Feld manchmal zur weiteren Unterteilung von Services benutzt) 
+- Assignment (dieses Feld definiert die Belegung einer Komponente. Teilweise wird dieses Feld auch für Platzierung von Kinderbetten-Codierungen benutzt) 
+- DateStart (dieses Feld definiert den Starttermin der einzelnen Komponenten im Buchungskontext. Die Zuweisung erfolgt in der Regel über das Child-Element Date) 
+- DateEnd (dieses Feld definiert den Endtermin der einzelnen Komponenten im Buchungskontext. Die Zuweisung erfolgt in der Regel über das Child-Element Date oder Duration) 
+- Age (dieses Feld definiert das Alter der einzelnen Mitreisenden im Buchungskontext. Die Zuweisung erfolgt in der Regel über das Child-Element PersonAge)</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_69">This attribute defines which field of the BookingContext is being referred to. Possible values are:
 
 - Title
@@ -502,49 +486,33 @@ This field defines the age of each of the travellers in the booking context. Thi
 		</xs:attribute>
 		<xs:attribute name="Index" type="xs:int" default="0">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_70">Dieses Attribut definiert, an welcher Position
-					der BookingParameter mit einem anderen BookingParameter zusammengefügt wird. Der
-					Wert kann positive und negative Werte annehmen. Default ist
-					0.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_70">Dieses Attribut definiert, an welcher Position der BookingParameter mit einem anderen BookingParameter zusammengefügt wird. Der Wert kann positive und negative Werte annehmen. Default ist 0.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_70">This attribute defines at what position a booking parameter is added another booking parameter.
-The value can be positive or negative.
-The default is 0.</xs:documentation>
+The value can be positive or negative. The default is 0.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="LeftSeparator" type="xs:string" default="">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_71">LeftSeparator - Ist der Parameter nicht der erste
-					Parameter, wird dieser Separator direkt vor dem Parameter
-					eingefügt.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_71">LeftSeparator - Ist der Parameter nicht der erste Parameter, wird dieser Separator direkt vor dem Parameter eingefügt.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_71">LeftSeparator - If the parameter is not the first, this separator will be inserted directly in front of it.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="RightSeparator" type="xs:string" default="">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_72">RightSeparator - Ist der Parameter nicht der
-					letzte Parameter, wird dieser Separator direkt nach dem Parameter
-					eingefügt</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_72">RightSeparator - Ist der Parameter nicht der letzte Parameter, wird dieser Separator direkt nach dem Parameter eingefügt</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_72">RightSeparator - If the parameter is not the last, this separator will be inserted directly behind it.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="PadLength" type="xs:unsignedInt" default="0">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_73">PadLength - Gibt an, dass der Parameter mittels
-					eines Füllzeichens auf eine feste Länge gebracht werden soll. Ist der Parameter
-					schon länger als PadLength, wird kein Padding vorgenommen. Vorgabe ist
-					0.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_73">PadLength - Gibt an, dass der Parameter mittels eines Füllzeichens auf eine feste Länge gebracht werden soll. Ist der Parameter schon länger als PadLength, wird kein Padding vorgenommen. Vorgabe ist 0.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_73">PadLength - specifies the parameter should be strecthed to a certain length using fill character. If the parameter is already longer than PadLength, no padding is required. The default is 0.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="PadOrientation" type="PadOrientationEnum" default="Right">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_74">PadOrientation - Legt fest, auf welcher Seite des
-					Parameters das Füllzeichen eingefügt wird. Vorgabe ist Right. Left - fügt das
-					Padding links ein; Right - fügt das Padding rechts ein.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_74">PadOrientation - specifies on which side of the
-					parameter the fill character is inserted. The default is Right. Left - padding
-					will be inserted to the left; Right - padding will be inserted to the
-					right.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_74">PadOrientation - Legt fest, auf welcher Seite des Parameters das Füllzeichen eingefügt wird. Vorgabe ist Right. Left - fügt das Padding links ein; Right - fügt das Padding rechts ein.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_74">PadOrientation - specifies on which side of the parameter the fill character is inserted. The default is Right. Left - padding will be inserted to the left; Right - padding will be inserted to the right.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Padding" type="xs:string" default=" ">
@@ -555,13 +523,13 @@ The default is 0.</xs:documentation>
 		</xs:attribute>
 		<xs:attribute name="PadCondition" type="PadConditionEnum" default="Always">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_76"> PadCondition - Legt zusätzliche Bedingungen
-					fest, wann das Padding zu erfolgen hat. Möglich sind folgende Werte: Always -
-					Das Padding wird immer eingefügt. NotFirst - Das Padding wird eingefügt, wenn
-					der Parameter nicht der erste Parameter ist. NotLast - Das Padding wird
-					eingefügt, wenn der Parameter nicht der letzte Parameter ist. NotAtEnds - Das
-					Padding wird eingefügt, wenn der Parameter weder der erste noch der letzte
-					Parameter ist. Default= Always </xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_76"> PadCondition - Legt zusätzliche Bedingungen fest, wann das Padding zu erfolgen hat. Möglich sind folgende Werte: 
+- Always: Das Padding wird immer eingefügt. 
+- NotFirst: Das Padding wird eingefügt, wenn der Parameter nicht der erste Parameter ist. 
+- NotLast: Das Padding wird eingefügt, wenn der Parameter nicht der letzte Parameter ist. 
+- NotAtEnds: Das Padding wird eingefügt, wenn der Parameter weder der erste noch der letzte Parameter ist. 
+
+Default= Always </xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_76">PadCondition - specifies additional conditions when padding is to be used. Possible values ​​are as follows:
 
 Always - padding is always inserted
@@ -579,24 +547,14 @@ Default = Always</xs:documentation>
 	<xs:complexType name="BookingReplaceType">
 		<xs:attribute name="Source" type="BookingReplaceSourceAttributeType" use="required">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_77">Dieses Attribut addressiert eine
-					KomponentInstanz. Klassisch entspricht eine Leistungszeile einer
-					KomponentInstanz. Die Adressierung erfolgt analog zum Attribut "Source" in den
-					Conditions. Default ist "ThisComponent". In "BookingReplace" ist zusätzlich die
-					Verwendung von "*" (Stern) erlaubt. Der Stern steht für beliebige Werte. Mit
-					Hilfe von "*" (Stern) matcht man jeden beliebigen Wert der "Source" von
-					BookingElementen. </xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_77">Dieses Attribut addressiert eine KomponentInstanz. Klassisch entspricht eine Leistungszeile einer KomponentInstanz. Die Adressierung erfolgt analog zum Attribut "Source" in den Conditions. Default ist "ThisComponent". In "BookingReplace" ist zusätzlich die Verwendung von "*" (Stern) erlaubt. Der Stern steht für beliebige Werte. Mit Hilfe von "*" (Stern) matcht man jeden beliebigen Wert der "Source" von BookingElementen. </xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_77">This attribute addresses a single component instance. Typically this conforms to a service line in a component instance. Addressing is the same as for the "Source" attribute in the conditions. Default is "ThisComponent".
 In "BookingReplace" the additional use of "*" (asterisk) is allowed. The asterisk stands for any value. Using the "*" (asterisk) any value can be matched with the "Source" attribute in the booking elements.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Class" type="xs:string" default="*">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_78">Dieses Attribut identifiziert innerhalb einer
-					Group unterschiedliche Leistungszeilen. Zum Beispiel, wenn eine Komponente zwei
-					Leistungszeilen erzeugt. Der Wert "*" (Stern) steht für beliebige Werte. Mit
-					Hilfe von "*" (Stern) matcht man jeden beliebigen Wert der "Class" von
-					BookingElementen.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_78">Dieses Attribut identifiziert innerhalb einer Group unterschiedliche Leistungszeilen. Zum Beispiel, wenn eine Komponente zwei Leistungszeilen erzeugt. Der Wert "*" (Stern) steht für beliebige Werte. Mit Hilfe von "*" (Stern) matcht man jeden beliebigen Wert der "Class" von BookingElementen.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_78">This attribute identifies different service lines within a group. For example, if a component produces 2 service lines. The value "*" (asterisk) stands for any value​​. Using the "*" (asterisk) matches any value to the "Class" of booking elements.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -619,10 +577,7 @@ BookingReplace is preferably used in the definition of "flight cases".</xs:docum
 			</xs:element>
 			<xs:element name="BookingParameter" type="BookingParameterType" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_81">Mit diesem Element können Buchungsparameter und
-						deren Platzierung innerhalb eines Buchungskontexts definiert werden. Die Art
-						der Verwendung des Parameters wird dabei über verschiedene Attribute
-						festgelegt.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_81">Mit diesem Element können Buchungsparameter und deren Platzierung innerhalb eines Buchungskontexts definiert werden. Die Art der Verwendung des Parameters wird dabei über verschiedene Attribute festgelegt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_81">With this element booking parameters and their placement within a booking context are defined. The nature of the use of this parameter is set using various attributes.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -632,42 +587,26 @@ BookingReplace is preferably used in the definition of "flight cases".</xs:docum
 		<xs:attribute name="Priority" type="xs:int" default="0"/>
 		<xs:attribute name="Area" type="AreaEnum" use="required">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_83">Dieses Attribut definiert, welchen Bereich der
-					Buchung der Parameter zugeordnet wird. Folgende Werte sind möglich: - GlobalArea
-					(für Globale Werte wie Brand und TravelType) - ServiceArea (für Werte der
-					Leistungszeilen, also für Flüge, Accommodations und Addons) - PersonArea (für
-					Werte des Personenblockes)</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_83">This attribute defines to which part of the booking the parameter is assigned.
-The following values are permitted:
-
-- GlobalArea
-For global values such as Brand and TravelType
-
-- ServiceArea
-For values of the service lines
-for flights, accommodation and add-ons.
-
-- PersonArea
-For values of the persons block.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_83">Dieses Attribut definiert, welchen Bereich der Buchung der Parameter zugeordnet wird. Folgende Werte sind möglich: 
+- GlobalArea (für Globale Werte wie Brand und TravelType) 
+- ServiceArea (für Werte der Leistungszeilen, also für Flüge, Accommodations und Addons)
+- PersonArea (für Werte des Personenblockes)</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_83">This attribute defines to which part of the booking the parameter is assigned. The following values are permitted:
+- GlobalArea (For global values such as Brand and TravelType)
+- ServiceArea (For values of the service lines for flights, accommodation and add-ons)
+- PersonArea (For values of the persons block.)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine
-					Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang
-					alle Leistungszeilen einer Komponente. Die Adressierung der Komponenteninstanz
-					erfolgt analog zum Attribut "Source" in den Conditions. Default ist
-					"ThisComponent". Globale Parameter werden als eigenständige Buchungszeile an die
-					Komponente 'Product' gehängt.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang alle Leistungszeilen einer Komponente. Die Adressierung der Komponenteninstanz erfolgt analog zum Attribut "Source" in den Conditions. Default ist "ThisComponent". Globale Parameter werden als eigenständige Buchungszeile an die Komponente 'Product' gehängt.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_84">This attribute addresses a single component instance. A component instance contained in this context refers to all the service lines of a component. The addressing of the component instance is the same as for the "Source"attribute in the conditions.
 Default is "ThisComponent". Global parameters are treated as separate booking factors attached to the 'Product' component.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Class" type="xs:string" default="Default">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_85">Dieses Attribut identifiziert innerhalb einer
-					Komponenteninstanz unterschiedliche Leistungszeilen. Zum Beispiel wenn eine
-					Komponente zwei Leistungszeilen erzeugt.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_85">Dieses Attribut identifiziert innerhalb einer Komponenteninstanz unterschiedliche Leistungszeilen. Zum Beispiel wenn eine Komponente zwei Leistungszeilen erzeugt.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_85">This attribute identifies different service lines within a component instance. For example, if a component produces 2 service lines</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -2947,40 +2886,29 @@ Wiederverkäufer sind den Distributoren sehr ähnlich. Im Unterschied zu den Dis
 	<xs:attributeGroup name="TagAttributeGroup">
 		<xs:attribute name="Class" type="TokenType" use="required">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_402">Mit diesem Attribut kann man das Tag weiter
-					spezifizieren, auf dessen Knoten sich der Inhalt bezieht.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_402">With this attribute, it is possible to further
-					specify the tag, to whose node the content refers to.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_402">Mit diesem Attribut kann man das Tag weiter spezifizieren, auf dessen Knoten sich der Inhalt bezieht.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_402">With this attribute, it is possible to further specify the tag, to whose node the content refers to.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="TagValueType" type="TagValueTypeEnum" default="String">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_403">Dieses Attribut gibt an, von welchem Typ der
-					Value des Tags ist. Es gibt drei unterschiedliche Typen: - String, - Numeric, -
-					Price. Der Typ gibt an, in welcher Form Conditions mit dem Tag gebildet werden
-					können und wie diese zu interpretieren sind. Ist kein TagType gesetzt, dann
-					nimmt der TagType den Defaultwert = "String" an. </xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_403">This attribute indicates which type the Value of
-					the tag is. There are three different types: - String, - Numeric, - Price. The
-					type indicates in what form Conditions can be constructed with the tag and how
-					these are to be interpreted. If no TagType is specified, the TagType takes the
-					default value = "String".</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_403">Dieses Attribut gibt an, von welchem Typ der Value des Tags ist. Es gibt drei unterschiedliche Typen: 
+- String, 
+- Numeric, 
+- Price. 
+Der Typ gibt an, in welcher Form Conditions mit dem Tag gebildet werden können und wie diese zu interpretieren sind. Ist kein TagType gesetzt, dann nimmt der TagType den Defaultwert = "String" an. </xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_403">This attribute indicates which type the Value of the tag is. There are three different types: 
+- String, 
+- Numeric, 
+- Price. 
+The type indicates in what form Conditions can be constructed with the tag and how these are to be interpreted. If no TagType is specified, the TagType takes the default value = "String".</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
 	<xs:attributeGroup name="SourceAttributeGroup">
 		<xs:attribute name="Source" type="SourceAttributeType" use="required">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_215">Dieses Attribut dient der Identifizierung einer
-					Unterkomponente bzw. eines Zielknotens im OTDS-XML-Baum bezogen auf das aktuell
-					betrachtete Angebot. Die Adressierung der Unterkomponenten findet über eine
-					festgelegte Struktur von in sich verschachtelten Unterkomponenten statt. Die
-					Verschachtelung wird über eine definierte Punktnotation dargestellt und muss den
-					im "SourceAttributeType" aufgeführten Enumerations folgen. Nur innerhalb der
-					Rules kann ggf. von den im "SourceAttributeType" aufgeführten Enums der
-					allgemeine Komponentenname durch den in den Rules spezifisch genannten
-					Komponentennamen ersetzt werden. Wobei die entsprechenden Unterkomponenten
-					wieder unbedingt der Punktnotation folgen müssen.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_215">Dieses Attribut dient der Identifizierung einer Unterkomponente bzw. eines Zielknotens im OTDS-XML-Baum bezogen auf das aktuell betrachtete Angebot. Die Adressierung der Unterkomponenten findet über eine festgelegte Struktur von in sich verschachtelten Unterkomponenten statt. Die Verschachtelung wird über eine definierte Punktnotation dargestellt und muss den im "SourceAttributeType" aufgeführten Enumerations folgen. Nur innerhalb der Rules kann ggf. von den im "SourceAttributeType" aufgeführten Enums der allgemeine Komponentenname durch den in den Rules spezifisch genannten	Komponentennamen ersetzt werden. Wobei die entsprechenden Unterkomponenten wieder unbedingt der Punktnotation folgen müssen.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_215">This attribute serves to identify a sub-component and a target node in the OTDS XML tree based on the currently observed offer. The addressing of subcomponents takes place through a fixed structure containing these encapsulated subcomponents. The encapsulation is represented by a defined dot notation and must follow the enumerations under "SourceAttributeType".
 Only according to the rules can the "SourceAttributeType" enumerations for the general component names be replaced by specific component names mentioned in the rules. Whereby the respective subcomponents again must follow the dot notation.</xs:documentation>
 			</xs:annotation>
@@ -3341,69 +3269,41 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="SimpleUpdateNodeType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_228">Der SimpleUpdateNodeType kennzeichnet alle
-				Knoten, die updatebar sind, deren Kindelemente aber nur alle zusammen upgedatet
-				werden können. Jeder Knoten, der diesen Type oder einer Ableitung von diesem Type
-				entspricht, besitzt diese Eigenschaft. Entscheidend dafür ist das integrierte
-				Attribut "UpdateMode", welches im SimpleUpdateNodeType die Werte "New" oder "Delete"
-				annehmen kann.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_228">Der SimpleUpdateNodeType kennzeichnet alle Knoten, die updatebar sind, deren Kindelemente aber nur alle zusammen upgedatet werden können. Jeder Knoten, der diesen Type oder einer Ableitung von diesem Type entspricht, besitzt diese Eigenschaft. Entscheidend dafür ist das integrierte Attribut "UpdateMode", welches im SimpleUpdateNodeType die Werte "New" oder "Delete" annehmen kann.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_228">The SimpleUpdateNodeType identifies all nodes that can be updated, thus child elements can be included in the update. Each node that corresponds to this type, or to a derivation of this type, possesses this property. The decisive factor is the built-in attribute "UpdateMode" which can take the values "New" or "Delete" ​​in SimpleUpdateNodeType.</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="UpdateMode" type="SimpleUpdateModeEnum" default="New">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_229">Dieses Attribut definiert, wie bei
-					Update-Datenlieferungen mit dem über Key eindeutig benannten Knoten und seinen
-					Kindelementen verfahren werden soll. Die möglichen Werte haben folgende
-					Bedeutung: - New: Der gesamte Knoten inkl. aller Kindelemente wird durch die
-					Datenlieferung ersetzt. Falls ein Element nicht existiert, wird es erzeugt. Dies
-					ist der Default-Wert! - Delete: Der aktuelle Knoten und alle Kindelemente werden
-					gelöscht. </xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_229">This attribute defines how to deal with update
-					data deliveries with nodes and their child elements that were uniquely named via
-					Key. The possible values are as follows: - New: The entire node, including all
-					child elements, will be replaced by the update. If an element does not exist, it
-					is created. This is the default value. - Delete: The current node and all child
-					elements are deleted.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_229">Dieses Attribut definiert, wie bei Update-Datenlieferungen mit dem über Key eindeutig benannten Knoten und seinen Kindelementen verfahren werden soll. Die möglichen Werte haben folgende Bedeutung: 
+- New: Der gesamte Knoten inkl. aller Kindelemente wird durch die Datenlieferung ersetzt. Falls ein Element nicht existiert, wird es erzeugt. Dies ist der Default-Wert! 
+- Delete: Der aktuelle Knoten und alle Kindelemente werden gelöscht. </xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_229">This attribute defines how to deal with update data deliveries with nodes and their child elements that were uniquely named via Key. The possible values are as follows: 
+- New: The entire node, including all child elements, will be replaced by the update. If an element does not exist, it is created. This is the default value. 
+- Delete: The current node and all child elements are deleted.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="CompositeUpdateNodeType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_230">Der CompositeUpdateNodeType kennzeichnet alle
-				Knoten, die updatebar sind und deren Kindelemente auch einzeln upgedated werden
-				können. Jeder Knoten, der diesen Type oder einer Ableitung von diesem Type
-				entspricht, besitzt diese Eigenschaft. Entscheidend dafür ist das integrierte
-				Attribut "UpdateMode", welches im SimpleUpdateNodeType die Werte "New", "Merge" oder
-				"Delete" annehmen kann.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_230">Der CompositeUpdateNodeType kennzeichnet alle Knoten, die updatebar sind und deren Kindelemente auch einzeln upgedated werden können. Jeder Knoten, der diesen Type oder einer Ableitung von diesem Type entspricht, besitzt diese Eigenschaft. Entscheidend dafür ist das integrierte Attribut "UpdateMode", welches im SimpleUpdateNodeType die Werte "New", "Merge" oder "Delete" annehmen kann.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_230">The CompositeUpdateNodeType identifies all nodes that can be updated and their child elements that can be updated individually. Each node of this type or derivative of this type has this property. The decisive factor is the built-in attribute "UpdateMode" which can take the values "New", "Merge" or "Delete" ​​in SimpleUpdateNodeType.</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="UpdateMode" type="CompositeUpdateModeEnum" default="New">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_231">Dieses Attribut definiert, wie bei
-					Update-Datenlieferungen mit dem über Key eindeutig benannten Knoten und seinen
-					Kindelementen verfahren werden soll. Die möglichen Werte haben folgende
-					Bedeutung: - New: Der gesamte Knoten inkl. aller Kindelemente wird durch die
-					Datenlieferung ersetzt. Falls ein Element nicht existiert, wird es erzeugt. Dies
-					ist der Default-Wert! - Merge: Es werden nur die gelieferten Kindelemente
-					aktualisiert, alle anderen Kindelemente bleiben unberührt. - Delete: Der
-					aktuelle Knoten und alle Kindelemente werden gelöscht. </xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_231">This attribute defines how update data
-					deliveries with nodes and their child elements that were uniquely named via Key
-					should behave. The possible values are as follows: - New: The entire node,
-					including all child elements, will be replaced by the update. If an element does
-					not exist, it is created. This is the default value. - Merge: Only the specified
-					child elements are updated, all other child elements are unaffected. - Delete:
-					The current node and all child elements are deleted.</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_231">Dieses Attribut definiert, wie bei Update-Datenlieferungen mit dem über Key eindeutig benannten Knoten und seinen Kindelementen verfahren werden soll. Die möglichen Werte haben folgende Bedeutung: 
+- New: Der gesamte Knoten inkl. aller Kindelemente wird durch die Datenlieferung ersetzt. Falls ein Element nicht existiert, wird es erzeugt. Dies ist der Default-Wert! 
+- Merge: Es werden nur die gelieferten Kindelemente aktualisiert, alle anderen Kindelemente bleiben unberührt. 
+- Delete: Der aktuelle Knoten und alle Kindelemente werden gelöscht. </xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_231">This attribute defines how update data deliveries with nodes and their child elements that were uniquely named via Key should behave. The possible values are as follows: 
+- New: The entire node, including all child elements, will be replaced by the update. If an element does not exist, it is created. This is the default value.
+- Merge: Only the specified child elements are updated, all other child elements are unaffected. 
+- Delete: The current node and all child elements are deleted.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="MultipleCompositeUpdateNodeType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_232">Dieser Type definiert CompositeUpdateNodes, die
-				multiple auftreten können. Zur eindeutigen Adressierung brauchen diese Knoten einen
-				bzgl. des übergeordneten Knotens eindeutigen Schlüssel, welcher im Attribute "Key"
-				hinterlegt werden kann. Es handelt sich um eine Ableitung des
-				CompositeUpdateNodeTypes.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_232">Dieser Type definiert CompositeUpdateNodes, die multiple auftreten können. Zur eindeutigen Adressierung brauchen diese Knoten einen bzgl. des übergeordneten Knotens eindeutigen Schlüssel, welcher im Attribute "Key" hinterlegt werden kann. Es handelt sich um eine Ableitung des CompositeUpdateNodeTypes.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_232">This type defines CompositeUpdateNodes that can occur multiple times. To give each node a unique address, it require a unique key referring to the parent node, which can be stored in the attribute "Key". It is a derivative of the CompositeUpdateNodeTypes.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
@@ -3419,13 +3319,8 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="MultipleCompositeUpdateNodeWithTagsType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_234">Dieser Type definiert CompositeUpdateNodes, die
-				multiple auftreten können und an denen auch noch Tags platziert werden können. Es
-				handelt sich um eine Ableitung des
-				MultipleCompositeUpdateNodeTypes.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_234">This type defines CompositeUpdateNodes, which can
-				occur in multiples and also accept tags. It is a derivative of the
-				MultipleCompositeUpdateNodeTypes.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_234">Dieser Type definiert CompositeUpdateNodes, die multiple auftreten können und an denen auch noch Tags platziert werden können. Es handelt sich um eine Ableitung des MultipleCompositeUpdateNodeTypes.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_234">This type defines CompositeUpdateNodes, which can occur in multiples and also accept tags. It is a derivative of the MultipleCompositeUpdateNodeTypes.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
@@ -3446,11 +3341,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="MultipleSimpleUpdateNodeType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_235">Dieser Type definiert SimpleUpdateNodes, die
-				multiple auftreten können. Zur eindeutigen Adressierung brauchen diese Knoten einen
-				bzgl. des übergeordneten Knotens eindeutigen Schlüssel, welcher im Attribute "Key"
-				hinterlegt werden kann. Es handelt sich um eine Ableitung des
-				SimpleUpdateNodeTypes.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_235">Dieser Type definiert SimpleUpdateNodes, die multiple auftreten können. Zur eindeutigen Adressierung brauchen diese Knoten einen bzgl. des übergeordneten Knotens eindeutigen Schlüssel, welcher im Attribute "Key" hinterlegt werden kann. Es handelt sich um eine Ableitung des SimpleUpdateNodeTypes.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_235">This type defines SimpleUpdateNodes, which can occur multiple times. To give each node a unique address, it require a unique key referring to the parent node, which can be stored in the attribute "Key". It is a derivative of SimpleUpdateNodeTypes.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
@@ -3466,11 +3357,7 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 	</xs:complexType>
 	<xs:complexType name="OptionalMultipleSimpleUpdateNodeType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_2">Dieser Type definiert SimpleUpdateNodes, die
-				multiple auftreten können. Zur eindeutigen Adressierung brauchen diese Knoten einen
-				bzgl. des übergeordneten Knoten eindeutigen Schlüssel, welcher im Attribute "Key"
-				hinterlegt werden kann. Es handelt sich um eine Ableitung des
-				SimpleUpdateNodeTypes.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_2">Dieser Type definiert SimpleUpdateNodes, die multiple auftreten können. Zur eindeutigen Adressierung brauchen diese Knoten einen bzgl. des übergeordneten Knoten eindeutigen Schlüssel, welcher im Attribute "Key" hinterlegt werden kann. Es handelt sich um eine Ableitung des SimpleUpdateNodeTypes.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_2">This type defines SimpleUpdateNodes, which can occur multiple times. To give each node a unique address, it require a unique key referring to the parent node, which can be stored in the attribute "Key". It is a derivative of SimpleUpdateNodeTypes.</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
@@ -3937,7 +3824,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
 				<xs:sequence>
-					<xs:element name="Booking" type="BookingType">
+					<xs:element name="Booking" type="BookingType" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_538">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_538">In this element, all values ​​required for booking are combined. Other namespaces can be added to the BookingEntry later, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
@@ -5093,11 +4980,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 				<xs:sequence>
 					<xs:element name="Booking" type="BookingType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_296">Diese Buchungsinformationen werden benutzt,
-								um in einer Rule die Buchungsparameter der Einzelkomponenten
-								komplett zu überschreiben. Im Flugbereich wird dies häufig bei der
-								Definition von Flughülsen verwendet, die die Buchungsinformationen
-								der beteiligten Einzelflüge überschreiben.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_296">Diese Buchungsinformationen werden benutzt, um in einer Rule die Buchungsparameter der Einzelkomponenten komplett zu überschreiben. Im Flugbereich wird dies häufig bei der Definition von Flughülsen verwendet, die die Buchungsinformationen der beteiligten Einzelflüge überschreiben.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_296">This booking information is used to completely override the booking parameters of the individual components in a rule. In the context of flights, this is commonly used in defining flight envelopes that override the booking information of the individual flights involved.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -5192,17 +5075,14 @@ The value "External" is also allowed and this indicates that the choice of the s
 	</xs:complexType>
 	<xs:complexType name="BaseDateConditionType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_305">Einschränkungen auf ein
-				Datumsintervall.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_305">Einschränkungen auf ein Datumsintervall.</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_305">Restrictions on a date range.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
 			<xs:sequence>
 				<xs:element name="Min" type="xs:date" minOccurs="1" maxOccurs="1">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_306">Dieses Element definiert das kleinste Datum,
-							also die Untergrenze einer Terminspanne. Beispiel: 2012-01-01  definiert
-							alle Termine größer gleich 01.01.2012.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_306">Dieses Element definiert das kleinste Datum, also die Untergrenze einer Terminspanne. Beispiel: 2012-01-01  definiert alle Termine größer gleich 01.01.2012.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_306">This element defines the earliest date, i.e.
 							the lower limit of a range of dates. Example: 2012-01-01 defines all
 							dates equal to or later than 01.01.2012.</xs:documentation>
@@ -5210,9 +5090,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 				</xs:element>
 				<xs:element name="Max" type="xs:date" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_307">Dieses Element definiert das größte Datum,
-							also die Obergrenze einer Terminspanne. Beispiel: 2012-01-30 definiert
-							alle Termine kleiner gleich 30.01.2012.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_307">Dieses Element definiert das größte Datum, also die Obergrenze einer Terminspanne. Beispiel: 2012-01-30 definiert alle Termine kleiner gleich 30.01.2012.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_307">This element defines the latest date and thus
 							defines the upper limit of a date range. Example: 2012-01-30  defines
 							all dates equal to or earlier than 30.01.2012.</xs:documentation>
@@ -5222,9 +5100,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 			<xs:sequence>
 				<xs:element name="Max" type="xs:date" minOccurs="1" maxOccurs="1">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_4959">Dieses Element definiert das größte Datum,
-							also die Obergrenze einer Terminspanne. Beispiel: 2016-01-30 definiert
-							alle Termine kleiner gleich 30.01.2016.</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_4959">Dieses Element definiert das größte Datum, also die Obergrenze einer Terminspanne. Beispiel: 2016-01-30 definiert alle Termine kleiner gleich 30.01.2016.</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_4959">This element defines the largest date, 
 							thus the upper limit of a period of time. For example: 2016-01-30 defines
 							all dates smaller than or equal to 30.01.2016.</xs:documentation>
@@ -5233,11 +5109,7 @@ The value "External" is also allowed and this indicates that the choice of the s
 			</xs:sequence>
 			<xs:element name="Dates" type="DateListType" minOccurs="1">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_308">In diesem Element kann eine Liste von Terminen
-						angegeben werden. Wenn der betrachtete Termin mit einem der Termine aus der
-						Liste übereinstimmt, ist die Datumsbedingung erfüllt. Die Termine in der
-						Liste sind durch "Space", also "Leerzeichen" getrennt. Beispiel: 2012-01-01
-						2012-01-16 2012-02-28</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_308">In diesem Element kann eine Liste von Terminen angegeben werden. Wenn der betrachtete Termin mit einem der Termine aus der Liste übereinstimmt, ist die Datumsbedingung erfüllt. Die Termine in der Liste sind durch "Space", also "Leerzeichen" getrennt. Beispiel: 2012-01-01 2012-01-16 2012-02-28</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_308">In this element a list of dates can be specified. When the subject date matches one of the dates from the list, the date condition is met. The dates in the list are separated by spaces.
 
 Example: 2012-01-01 2012-01-16 2012-02-28</xs:documentation>
@@ -7163,14 +7035,17 @@ Falls sowohl @Component als auch @Source gefüllt sind, so müssen beide Attribu
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="ConditionalTag" type="ConditionalTagType" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="ProductsTagsType">
 		<xs:complexContent>
-			<xs:extension base="TagsType"/>
+			<xs:extension base="TagsType">
+				<xs:sequence>
+					<xs:element name="GenericTag" type="GenericTagType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="TagType">
@@ -7852,7 +7727,6 @@ Possible values are:
 			<xs:element name="Counts" type="IntegerListType">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_439">Es kann eine Liste von mehreren gültigen Anzahlen angegeben werden. Die einzelnen Zahlen müssen durch Space voneinander separiert sein.
-
 Counts="1 4 -3 -1" bestimmt die älteste Person, die viertälteste Person, die drittjüngste Person sowie die jüngste Person.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_439">A list of indexes of participants can be specified. The individual indices must be separated from each other by a space.
 
@@ -7900,8 +7774,7 @@ The result of this filter is to sort participants in descending order by age and
 				<xs:sequence minOccurs="0">
 					<xs:element name="Until" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer bestimmten Person. Until=x definiert die X ältesten Personen. 
-									Until=-x definiert alle Personen dem Alter nach absteigend bis zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten Personen, die über From=-x definiert werden. </xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_528">Definition aller Personen bis zu einer bestimmten Person. Until=x definiert die X ältesten Personen. Until=-x definiert alle Personen dem Alter nach absteigend bis zur X-jüngsten Person. NICHT zu verwechseln mit den X-jüngsten Personen, die über From=-x definiert werden. </xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_528">Definition of all persons up to a certain person.
 
 Until=x defines the X oldest persons.
@@ -7911,8 +7784,7 @@ Until=-x defines all persons in ascending order by age up to the X-youngest pers
 					</xs:element>
 					<xs:element name="From" type="NonZeroIntegerType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer bestimmten Person. Standardverwendung ist hier From=-x. From=-x
-									definiert die X jüngsten Personen. From=x definiert alle Personen dem Alter nach absteigend ab der X-ältesten Person (inklusive der Xten Person).</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_529">Definition aller Personen ab einer bestimmten Person. Standardverwendung ist hier From=-x. From=-x definiert die X jüngsten Personen. From=x definiert alle Personen dem Alter nach absteigend ab der X-ältesten Person (inklusive der Xten Person).</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_529">Definition of all persons from a certain person. 
 							The standard usage for this is
 From=-x. From=-x defines the X youngest persons.
@@ -7923,8 +7795,7 @@ From=x defines all persons in ascending order by age from the X-oldest person (i
 				</xs:sequence>
 				<xs:element name="Indices" type="NonZeroIntegerListType">
 					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch
-							Space voneinander separiert sein. Indices="1 4 -3 -1" definiert die älteste Person, die 4.-älteste Person, die 3.-jüngste Person und die jüngste Person</xs:documentation>
+						<xs:documentation xml:lang="de" xml:id="de_530">Es kann eine Liste an Indizes von Reiseteilnehmern angegeben werden. Die einzelnen Indizes müssen durch Space voneinander separiert sein. Indices="1 4 -3 -1" definiert die älteste Person, die 4.-älteste Person, die 3.-jüngste Person und die jüngste Person</xs:documentation>
 						<xs:documentation xml:lang="en" xml:id="en_530">A list of indexes of participants can be specified. The individual indices must be separated from each other by a space.
 
 Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd youngest person and the youngest person.</xs:documentation>
@@ -7933,8 +7804,7 @@ Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd yo
 			</xs:choice>
 			<xs:element name="PersonFilter" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen 			der Reise betrachtet, die nach Alter absteigend sortiert vorliegen. Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden.
-						Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren. Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert; auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices".</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen. Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren. Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert; auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices".</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_440">This element filters the participants in the tour to which the PersonIndex should apply. By default, all participants in the tour are sorted in descending order according to age.
 Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. An application of this would be, for example, to address only full-paying adults or children.
 The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices".</xs:documentation>
@@ -7949,8 +7819,7 @@ The result of this filter is to sort participants in descending order by age and
 						</xs:element>
 						<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_507">Schränkt den Personenkreis ein, in dem ein ConditionalTag überprüft wird. Dadurch kann nach bestimmten Personentypen gefiltert werden, wie beispielsweise Vollzahler, welche durch ConditionalTags markiert sind. 
-								Es ist nur sinnvoll, sich an dieser Stelle auf ConditionalTags zu beziehen, die keinen DayImpact-Anteil haben.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_507">Schränkt den Personenkreis ein, in dem ein ConditionalTag überprüft wird. Dadurch kann nach bestimmten Personentypen gefiltert werden, wie beispielsweise Vollzahler, welche durch ConditionalTags markiert sind. Es ist nur sinnvoll, sich an dieser Stelle auf ConditionalTags zu beziehen, die keinen DayImpact-Anteil haben.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_507">By using a ConditionalTag, the number of people can be limited. This can be filtered according to specific types of people, such as full-paying guests, which are defined by ConditionalTags.
 At this point it makes sense to refer only to ConditionalTags which have no DayImpact share.</xs:documentation>
 							</xs:annotation>
@@ -8188,18 +8057,7 @@ The default is "Stay".</xs:documentation>
 		<xs:choice>
 			<xs:element name="Date" type="DateConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_456">Dieses Element definiert die Bedingung, ob
-						bestimmte Termine in der gerade betrachteten Reise enthalten sind. Es kann
-						ein Datumsintervall angegeben werden oder eine Liste von Einzelterminen. Die
-						Bedingung gilt als erfüllt, wenn ein Termin entsprechend der Bedingungen
-						enthalten ist. Über das Attribut "DayType" kann zusätzlich bestimmt werden,
-						dass nur bestimmte Tage der Reise betrachtet werden sollen (z.B. nur der
-						Anreisetag oder nur Aufenthaltstage). Über das Attribut "Source" wird die
-						Quelle der betrachteten Reisetermine bestimmt (z.B. Termine im Hotel oder
-						während des Fluges). Diese Bedingung überprüft ausdrücklich nicht, ob
-						bestimmte Tage einer Reise eine Terminbedingung erfüllen und deshalb Preise
-						explizit für diese Tage gelten. Dies wird nur durch die DayImpact Bedingung
-						erfüllt.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_456">Dieses Element definiert die Bedingung, ob bestimmte Termine in der gerade betrachteten Reise enthalten sind. Es kann ein Datumsintervall angegeben werden oder eine Liste von Einzelterminen. Die Bedingung gilt als erfüllt, wenn ein Termin entsprechend der Bedingungen enthalten ist. Über das Attribut "DayType" kann zusätzlich bestimmt werden, dass nur bestimmte Tage der Reise betrachtet werden sollen (z.B. nur der Anreisetag oder nur Aufenthaltstage). Über das Attribut "Source" wird die Quelle der betrachteten Reisetermine bestimmt (z.B. Termine im Hotel oder während des Fluges). Diese Bedingung überprüft ausdrücklich nicht, ob bestimmte Tage einer Reise eine Terminbedingung erfüllen und deshalb Preise explizit für diese Tage gelten. Dies wird nur durch die DayImpact Bedingung erfüllt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_456">This element defines the condition, as to whether certain dates are included in the trip currently being dealt with. You can either enter a range of dates or a list of individual dates. The condition is considered to be met if the date is one specified in the condition.
 The "DayType" attribute can also be used to define that only certain days of the trip should be considered (e.g. only the arrival day or only the days of the stay).
 The "Source" attribute can be used to define the source of the travel dates being viewed (e.g. dates in the hotel or during the flight).
@@ -8232,7 +8090,8 @@ The attribute "DurationUnit" defines, in which entity the duration is described.
 			</xs:element>
 			<xs:element name="Weekdays" type="WeekdayConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_459">Dieses Element definiert die Bedingung, ob ein bestimmter Wochentag in der gerade betrachteten Reise enthalten ist. Die Bedingung gilt als erfüllt, wenn einer der angegebenen Wochentage in der betrachteten Reise enthalten ist. Dabei kann über das Attribut "DayType" zusätzlich bestimmt werden, dass nur bestimmte Tage der Reise betrachtet werden sollen (z.B. nur der Anreisetag oder nur Aufenthaltstage). Bitte beachten: Im Gegensatz zu den anderen Conditions ist an dieser Stelle der Defaultwert="CheckIn" gesetzt. Wird das Attribut "DayType" nicht angegeben, so wird an dieser Stelle der Wert "CheckIn" benutzt. Das Element Weekdays kann eine durch Space getrennte Liste von Wochentagen enthalten. 
+					<xs:documentation xml:lang="de" xml:id="de_459">Dieses Element definiert die Bedingung, ob ein bestimmter Wochentag in der gerade betrachteten Reise enthalten ist. Die Bedingung gilt als erfüllt, wenn einer der angegebenen Wochentage in der betrachteten Reise enthalten ist. Dabei kann über das Attribut "DayType"
+zusätzlich bestimmt werden, dass nur bestimmte Tage der Reise betrachtet werden sollen (z.B. nur der Anreisetag oder nur Aufenthaltstage). Bitte beachten: Im Gegensatz zu den anderen Conditions ist an dieser Stelle der Defaultwert="CheckIn" gesetzt. Wird das Attribut "DayType" nicht angegeben, so wird an dieser Stelle der Wert "CheckIn" benutzt. Das Element Weekdays kann eine durch Space getrennte Liste von Wochentagen enthalten. 
 Mögliche Werte sind "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", analog zu den englisch benamten Wochentagen. 
 Die Bedingung ist erfüllt, wenn einer der angegebenen Tage die Bedingung erfüllt. Es handelt sich also um eine implizite "OR-Verknüpfung". Über das Attribut "Source" wird die Quelle der betrachteten Reisetage bestimmt (z.B. Termine im Hotel oder während des Fluges). Diese Bedingung überprüft ausdrücklich nicht, ob bestimmte Tage einer Reise eine Wochentagsbedingung erfüllen und deshalb ggf. Preise explizit für diese Tage gelten. Dies wird nur durch die entsprechende DayImpact Bedingung erfüllt.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_459">This element defines the condition as to whether the tour currently being viewed contains a certain weekday. The condition is considered to be fulfilled if the tour currently being viewed contains the weekday entered.
@@ -8325,28 +8184,13 @@ Prices, which are linked to a PersonImpactCondition, are valid only for persons 
 					<xs:choice>
 						<xs:element name="PersonAge" type="AgeConditionType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_466">Dieses Element definiert die Bedingung an das Alter von einzelnen Personen, für die etwas gültig wird. Es 								kann ein Mindestalter und ein maximales Alter angegeben werden. Ebenso kann ein Intervall für das Geburtsdatum angegeben werden.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_466">Dieses Element definiert die Bedingung an das Alter von einzelnen Personen, für die etwas gültig wird. Es kann ein Mindestalter und ein maximales Alter angegeben werden. Ebenso kann ein Intervall für das Geburtsdatum angegeben werden.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_466">This element defines the condition specifying the age of individuals for whom something is valid. A minimum or a maximum age can be specified. Similarly, an interval can be specified by date of birth.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="PersonIndex" type="PersonIndexConditionType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_467">Dieses Element definiert die Bedingung an
-									eine bestimmte Position einer Person in einer nach Alter
-									absteigend sortierten Rangfolge der Reiseteilnehmer. Die
-									betrachteten Personen können zusätzlich eingeschränkt werden.
-									Positive Indizes beziehen sich auf die ältesten Reiseteilnehmer,
-									negative Indizes in einer dem Alter nach absteigend sortierte
-									Liste, also auf die jüngsten Reiseteilnehmer. Der Index "1"
-									bezieht sich also auf den ältesten, der Index "-1" auf den
-									jüngsten Reiseteilnehmer. Um Teilgruppen aus dem Personenkreis
-									zu adressieren, ergeben sich vier typische Fälle: 1. Die
-									ältesten x Personen: Until=x 2. Die jüngsten x Personen: From=-x
-									Außerdem sind auch Kombinationen von "Until" und "From" und die
-									Definition einer Liste von Indizes, also ein Muster, möglich.
-									Über die integrierte PersonFilter kann die betrachtete
-									Personengruppe zusätzlich eingeschränkt
-									werden.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_467">Dieses Element definiert die Bedingung an eine bestimmte Position einer Person in einer nach Alter absteigend sortierten Rangfolge der Reiseteilnehmer. Die betrachteten Personen können zusätzlich eingeschränkt werden. Positive Indizes beziehen sich auf die ältesten Reiseteilnehmer, negative Indizes in einer dem Alter nach absteigend sortierte Liste, also auf die jüngsten Reiseteilnehmer. Der Index "1" bezieht sich also auf den ältesten, der Index "-1" auf den jüngsten Reiseteilnehmer. Um Teilgruppen aus dem Personenkreis zu adressieren, ergeben sich vier typische Fälle: 1. Die ältesten x Personen: Until=x 2. Die jüngsten x Personen: From=-x Außerdem sind auch Kombinationen von "Until" und "From" und die Definition einer Liste von Indizes, also ein Muster, möglich. Über die integrierte PersonFilter kann die betrachtete Personengruppe zusätzlich eingeschränkt werden.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_467">This element defines the conditions affecting a participant at a particular location, ranking participants in descending order according to age.
 Further restrictions can be placed upon the persons under consideration.
 
@@ -8363,11 +8207,7 @@ Using the integrated PersonFilter the group of persons can be further filtered.<
 						</xs:element>
 						<xs:element name="PersonGenders" type="PersonGendersConditionType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_468">Dieses Element definiert eine Bedingung an
-									das Geschlecht. Mögliche Werte sind: - Male - Female -
-									Undefined. Es ist möglich, eine durch Space getrennte Liste von
-									Werten anzugeben. Die Liste definiert ein implizites "Oder"
-									zwischen den Elementen.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_468">Dieses Element definiert eine Bedingung an das Geschlecht. Mögliche Werte sind: - Male - Female -Undefined. Es ist möglich, eine durch Space getrennte Liste von Werten anzugeben. Die Liste definiert ein implizites "Oder" zwischen den Elementen.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_468">This element defines a condition based on the sex of the participant. Possible values are:
 - Male
 - Female
@@ -8379,14 +8219,7 @@ It is possible to provide a list of values separated by spaces. The list defines
 						<xs:element name="ProductPrice" type="ProductPriceConditionType" internal:otdsversion="1.9"/>
 						<xs:element name="GroupedPerson" type="EmptyElementType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_5864">Dieses Element wird nur für GenericAbsolutes benutzt und hat
-									in anderem Kontext keine Auswirkung. Das Element hängt direkt
-									zusammen mit dem Element GroupAbsolutePriceItemsBy/Person und
-									definiert, dass die GenericValues separat auf die Kostenknoten
-									der separat betrachteten Personen aufgeteilt werden. Ist das
-									Element Person innerhalb von GroupAbsolutePriceItemsBy nicht
-									gesetzt, so hat GroupedPerson keine
-									Auswirkung.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_5864">Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem Kontext keine Auswirkung. Das Element hängt direkt zusammen mit dem Element GroupAbsolutePriceItemsBy/Person und definiert, dass die GenericValues separat auf die Kostenknoten der separat betrachteten Personen aufgeteilt werden. Ist das Element Person innerhalb von GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedPerson keine Auswirkung.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_5864">This element is used only for GenericAbsolutes and has no
 									effect in a different context. The element is directly related
 									to the element GroupAbsolutePriceItemsBy / person and defined
@@ -8562,7 +8395,8 @@ Die Bedingung ist erfüllt, wenn einer der
 		<xs:sequence>
 			<xs:element name="Impact">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_474">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_474">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine
+Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_474">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
 Prices that have a DayImpactCondition attached to them are only valid for certain days of the trip and are therefore only applied to the corresponding days.</xs:documentation>
 				</xs:annotation>
@@ -8570,30 +8404,7 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 					<xs:choice>
 						<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_475">Dieses Element definiert die Bedingung, ob
-									an einem bestimmten Knoten des betrachteten Angebotes das
-									Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value
-									enthalten ist. Zusätzlich müssen noch die Bedingungen des
-									entsprechenden ConditionalTags erfüllt sein. Das Element
-									ConditionalTags kann eine durch Space getrennte Liste von Tags
-									enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit
-									dem Wert des Zielknotens übereinstimmt (es handelt sich also um
-									eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird
-									dabei durch Auswertung des Inhaltes der Attribute "Source" und
-									"Location" bestimmt. Elternknoten sind diesbzgl. auch logische
-									übergeordnete Knoten, die sich aus der Auswertung der Product-
-									und CombinationRules ergeben. Durch Angabe der Attribute
-									"Offset" und "Length" wird der Vergleich des Wertes des
-									ConditionalTag-Elementes auf bestimmte Zeichen begrenzt.
-									Zusätzlich kann auch noch das Attribut "Class" besetzt werden
-									und muss in dem entsprechenden ConditionalTag-Element dann auch
-									übereinstimmen, damit die Gesamtbedingung erfüllt ist. Damit die
-									Bedingung erfüllt ist, reicht es, dass ein ConditionalTag am
-									Zielknoten die Bedingung erfüllt. Falls jedoch die Adressierung
-									des Zielknotens nicht eindeutig ist, so muss jeder Zielknoten
-									die Tag-Bedingung wenigstens einmal erfüllen, damit die
-									Gesamtbedingung erfüllt ist. (@ToDo: Siehe auch Thematische
-									Dokumentation Auswertung der ConditionalTags)</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_475">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird dabei durch Auswertung des Inhaltes der Attribute "Source" und "Location" bestimmt. Elternknoten sind diesbzgl. auch logische übergeordnete Knoten, die sich aus der Auswertung der Product- und CombinationRules ergeben. Durch Angabe der Attribute "Offset" und "Length" wird der Vergleich des Wertes des ConditionalTag-Elementes auf bestimmte Zeichen begrenzt. Zusätzlich kann auch noch das Attribut "Class" besetzt werden und muss in dem entsprechenden ConditionalTag-Element dann auch übereinstimmen, damit die Gesamtbedingung erfüllt ist. Damit die Bedingung erfüllt ist, reicht es, dass ein ConditionalTag am Zielknoten die Bedingung erfüllt. Falls jedoch die Adressierung des Zielknotens nicht eindeutig ist, so muss jeder Zielknoten die Tag-Bedingung wenigstens einmal erfüllen, damit die Gesamtbedingung erfüllt ist. (@ToDo: Siehe auch Thematische Dokumentation Auswertung der ConditionalTags)</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_475">This element defines the condition of
 									whether, at a specific node of the observed offer, the child
 									element "ConditionalTag" is included with a specific Tag-Value.
@@ -8621,14 +8432,7 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 						</xs:element>
 						<xs:element name="GroupedAbsolute" type="EmptyElementType">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_5866">Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem
-									Kontext keine Auswirkung. Das Element hängt direkt zusammen mit
-									dem Element GroupAbsolutePriceItemsBy/AbsolutePriceItem und
-									definiert, dass die GenericValues separat auf die Kostenknoten
-									der separat betrachteten PriceItemGruppen aufgeteilt werden. Ist
-									das Element AbsolutePriceItem innerhalb von
-									GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedAbsolute
-									keine Auswirkung.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_5866">Dieses Element wird nur für GenericAbsolutes benutzt und hat in anderem Kontext keine Auswirkung. Das Element hängt direkt zusammen mit dem Element GroupAbsolutePriceItemsBy/AbsolutePriceItem und definiert, dass die GenericValues separat auf die Kostenknoten der separat betrachteten PriceItemGruppen aufgeteilt werden. Ist das Element AbsolutePriceItem innerhalb von GroupAbsolutePriceItemsBy nicht gesetzt, so hat GroupedAbsolute keine Auswirkung.</xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_5866">This element is used only for GenericAbsolutes and has no
 									effect in a different context. The element is directly related
 									to the element GroupAbsolutePriceItemsBy/AbsolutePriceItem and
