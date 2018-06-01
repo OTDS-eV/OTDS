@@ -8,11 +8,7 @@
 			<xs:extension base="CompositeUpdateNodeType">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_487">Reisekomponente für Flüge (Flights).
-						Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen
-						(ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so
-						kann dies regelbasiert mit den ReturnFlightRules gemacht werden. In der
-						OTDS-Struktur sind auch erweiterte Flugangebote (CombiRules) möglich, die
-						aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können. </xs:documentation>
+Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen (ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so kann dies regelbasiert mit den ReturnFlightRules gemacht werden. In der OTDS-Struktur sind auch erweiterte Flugangebote (CombiRules) möglich, die aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_487">Travel components for flights (Flights).
 Flight offers consist of one-way (OnewayFlight) and return (ReturnFlight) flights. If further flights are to be added to a single flight, this can be done based on the ReturnFlightRules.
 In the OTDS structure, extended flight offers (CombiRules) are also available, which can consist of several one-way or return flights.</xs:documentation>
@@ -50,11 +46,7 @@ In addition, within the context of ConsideredPriceItems and ApplyTos, the PriceI
 			<xs:extension base="CompositeUpdateNodeType">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_488">Reisekomponente für Flüge (Flights).
-						Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen
-						(ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so
-						kann dies regelbasiert mit den ReturnFlightRules gemacht werden. In der
-						OTDS-Struktur sind auch erweiterte Flugangebote (CombiRules) möglich, die
-						aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können. </xs:documentation>
+Flugangebote bestehen aus Einzel- (OnewayFlight) und Hin- und Rückflügen (ReturnFlight). Sollen aus Einzelflügen wieder Flugreisen erzeugt werden, so kann dies regelbasiert mit den ReturnFlightRules gemacht werden. In der OTDS-Struktur sind auch erweiterte Flugangebote (CombiRules) möglich, die aus mehreren Einzel- bzw. Hin- und Rückflügen bestehen können. </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_488">Travel components for flights (Flights).
 Flight offers consist of one-way (OnewayFlight) and return (ReturnFlight) flights. If further flights are to be added to a single flight, this can be done based on the ReturnFlightRules.
 In the OTDS structure, extended flight offers (CombiRules) are also available, which can consist of several one-way or return flights.</xs:documentation>
@@ -146,19 +138,28 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 					<xs:group ref="FlightBaseDetailsGroup"/>
 					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="det" xml:id="de_499">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann
- definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt. Seit Version 2.0 ist es nun möglich, dass man einer NeighbourComponentCorrection eine Condition mitgibt. Anwendungsfall, ist wenn eine Verschiebung durch einen  späten Flug bei bestimmten Hotels nicht gewünscht ist. 
+							<xs:documentation xml:lang="det" xml:id="de_499">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt. Seit Version 2.0 ist es nun möglich, dass man einer NeighbourComponentCorrection eine Condition mitgibt. Anwendungsfall, ist wenn eine Verschiebung durch einen  späten Flug bei bestimmten Hotels nicht gewünscht ist. 
+							
 Bzgl. der Impact-Bedingungen erfolgt die Auswertung der  Condition analog zu den Filtern durch Anwendung eines umhüllenden "NonImpact" auch wenn dieser nicht explizit angegeben ist.
 Falls nach der Auswertung der Condition identische "NeighbourComponentCorrection/CheckInDateOffset/@Component" bzw. "NeighbourComponentCorrection/CheckOutDateOffset/@Component" vorhanden sind, so wird jeweils das in XML-Order erste davon benutzt.
-5.Die Auswertung der NeighbourComponentCorrections erfolgt durch Iteration aller möglicher Condition-Varianten . 
-Die Conditions in den NeighbourComponentCorrections (im folgenden NCC genannt) können Termin-Bedingungen enthalten, die wiederum durch die NCC beeinflusst werden, was einen Zirkelbezug bedeuten würde.
 
-Dieser Zirkelbezug wird durch folgende Vorgehensweise vermieden:
+Die Auswertung der NeighbourComponentCorrections erfolgt durch Iteration aller möglicher Condition-Varianten. 
+Die Conditions in den NeighbourComponentCorrections (im folgenden NCC genannt) können Termin-Bedingungen enthalten, die wiederum durch die NCC beeinflusst werden, was einen Zirkelbezug bedeuten würde. Dieser Zirkelbezug wird durch folgende Vorgehensweise vermieden:
+
 Sind NCC mit Condition vorhanden, so wird formal jede mögliche Variante von NCC-Kombinationen (incl. alle Conditions sind False, also keine NCC mit Conditions) angewendet.
 Für jede der so erhaltenen Angebotskandidaten wird geprüft, ob die zugrunde liegenden Anahmen bzgl. der NCC-Conditions erfüllt ist.
 Wird mindestens eine Annahme nicht erfüllt, so wird der Angebots-Kandidat verworfen. 
 Diese Art der Verarbeitung definiert auch das Verhalten bei terminabhängigen Conditions korrekt. Im Normalfall (also keine terminabhängigen Conditions) kann praktisch die Auswertung auch direkt vorgenommen werden.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_499">Text ist identisch zu den anderen NeighbourComponentCorrections unter SellingAccom und Addon</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_499">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of flight implications. This concerns flights arriving very early or leaving very late on any particular day. In this branch one can specify that CheckIn should be brought forward or the CheckOut put back for a day. Since Version 2.0 it is possible to add a NeighbourComponentCorrection to a condition. This might for example be necessary, when a change caused by a late flight is not desired for specific hotels.
+							
+Regarding the impact conditions the evaluation of the condition takes place analoguous to the filters by applying a wrapping "NonImpact", even if it is not indicated explicitly. If after the evaluation of the condition the identical  "NeighbourComponentCorrection/CheckInDateOffset/@Component" repectively the "NeighbourComponentCorrection/CheckOutDateOffset/@Component" exists, then the first one in the xml-order is used.
+The evaluation of the NeighbourComponentCorrections takes place by iterating all condition variants possible. 
+
+The conditions in the NeighbourComponentCorrections (hereafter called NCC) may contain date-conditions, which are in turn influenced by the NCC, which would lead to a circular reference. This circular reference is avoided by the following approach:
+In the case that NCC with conditions exist, formally each possible variant of NCC combination is applied (including all conditions are False, hence no NCC with conditions).
+For each of the offer candidates resulting by this, it is evaluated, if the underlying assumptions regarding the NCC conditions are fulfilled.
+If at least one assumption is not fulfilled, the offer candidate is dismissed.
+This approach for processing also defines the behaviour for date-dependent conditions correctly. Normally (hence no date-dependent conditions) the evaluation can be carried out directly.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="BookingClass" type="BookingClassType" maxOccurs="unbounded">
@@ -173,45 +174,49 @@ Diese Art der Verarbeitung definiert auch das Verhalten bei terminabhängigen Co
 	</xs:complexType>
 	<xs:group name="FlightBaseDetailsGroup">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_501">Beschreibt die Basisdetails eines Fluges sowohl
-				für Oneway als auch für Inbound und Outbound.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_501">Describes the basic details of a flight for both
-				one-way, as well as inbound and outbound.</xs:documentation>
+			<xs:documentation xml:lang="de" xml:id="de_501">Beschreibt die Basisdetails eines Fluges sowohl für Oneway als auch für Inbound und Outbound.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_501">Describes the basic details of a flight for both one-way, as well as inbound and outbound.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Properties" type="PropertiesType" minOccurs="0"/>
 			<xs:element name="DepartureAirport" type="SimpleNodeIataAirportCodeType">
 				<xs:annotation>
-					<xs:documentation>Angaben erfolgen als (IATA Airport-Code bzw. IATA MAA-Code). 
+					<xs:documentation xml:lang="de" xml:id="de_9267">Angaben erfolgen als (IATA Airport-Code bzw. IATA MAA-Code). 
+Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen berücksichtigt. 
 
-Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen 
-berücksichtigt. 
+Um die Definition der Airport-Codes seitens IATA zu überprüfen, nutzen Sie bitte den Link: http://www.iata.org/publications/Pages/code-search.aspx
 
-Um die Definition der Airport-Codes seitens IATA zu überprüfen, nutzen Sie bitte den Link:  
-http://www.iata.org/publications/Pages/code-search.aspx
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der IATA-Airport-Codes finden Sie unter: https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
 
-Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der IATA-Airport-Codes finden Sie unter: 
-https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
-
-Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: 
-http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9267">Information is given as (IATA airport code or IATA MAA Code). 
+Special case: if the code identifies both, a real airport and a group of airports (MAA - Metropolitan Airport Code), only the real airport is considered.
+For information about the IATA airport code definition see: http://www.iata.org/publications/Pages/code-search.aspx
+					    
+You will find a list of the concrete airport codes that is not garanteed to be complete or correct here: https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+					    
+You will find a list of the MAA-Codes  that is not garanteed to be complete or correct here: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes
+</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="ArrivalAirport" type="SimpleNodeIataAirportCodeType">
 				<xs:annotation>
-					<xs:documentation>Angaben erfolgen als (IATA Airport-Code bzw. IATA MAA-Code). 
+					<xs:documentation xml:lang="de" xml:id="de_9268">Angaben erfolgen als (IATA Airport-Code bzw. IATA MAA-Code). 
+Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen berücksichtigt. 
 
-Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen 
-berücksichtigt. 
+Um die Definition der Airport-Codes seitens IATA zu überprüfen, nutzen Sie bitte den Link: http://www.iata.org/publications/Pages/code-search.aspx
 
-Um die Definition der Airport-Codes seitens IATA zu überprüfen, nutzen Sie bitte den Link:  
-http://www.iata.org/publications/Pages/code-search.aspx
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der IATA-Airport-Codes finden Sie unter: https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
 
-Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der IATA-Airport-Codes finden Sie unter: 
-https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
-
-Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: 
-http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
+Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9268">Information is given as (IATA airport code or IATA MAA Code). 
+Special case: if the code identifies both, a real airport and a group of airports (MAA - Metropolitan Airport Code), only the real airport is considered.
+For information about the IATA airport code definition see: http://www.iata.org/publications/Pages/code-search.aspx
+					    
+You will find a list of the concrete airport codes that is not garanteed to be complete or correct here: https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
+					    
+You will find a list of the MAA-Codes  that is not garanteed to be complete or correct here: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes
+</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="CheckOutDateOffset" type="CheckOutDateOffsetType" default="0" minOccurs="0">
@@ -228,15 +233,21 @@ http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 			</xs:element>
 			<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_9">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
+					<xs:documentation xml:lang="de" xml:id="de_9">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
+Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
 
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
+
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken, obwohl eine Übernachtung an dem Termin nicht mehr möglich ist.
+
 Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher Definition von Availabilties zusammengefasst werden, können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen Sie nach "Availability".</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_9">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
+					<xs:documentation xml:lang="en" xml:id="en_9">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. 
+The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
 
 Please note: the last possible CheckOut date always has to be included in the Availability.
-At the end of the season and also for overnight flights this leads to the general necessity of explicitly adding this last CheckOut date in the Availability including the possibility to check out on this date although an overnight stay is not possible on this date.
+
+At the end of the season and also for overnight flights this leads to the general necessity to explicitly add this last CheckOut date in the Availability including the possibility to check out on this date, although an overnight stay is not possible on this date.
+
 Availabilities can be defined on many different layers. How these levels can be merged in case of a multiple definition of Availabilities is explained in the OTDS documentation. Please take advantage of the search by searching for “Availability”.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -253,14 +264,7 @@ Availabilities can be defined on many different layers. How these levels can be 
 					<xs:group ref="FlightBaseDetailsGroup"/>
 					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_505">In diesem Zweig können außergewöhnliche
-								Auswirkungen auf den CheckIn und CheckOut der angrenzenden
-								Komponenten definiert werden. Aktuell kennen wir nur Fälle bei
-								Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen
-								oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann
-								definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf.
-								einen Tag später erfolgt. Wie gesagt ist für Accommodation zur Zeit
-								kein Fallbeispiel bekannt.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_505">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt. Wie gesagt ist für Accommodation zur Zeit kein Fallbeispiel bekannt.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_505">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of cases involving flights.
 This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
 As previously stated there is currently no case example for Accommodation.</xs:documentation>
@@ -281,14 +285,7 @@ As previously stated there is currently no case example for Accommodation.</xs:d
 					<xs:group ref="FlightBaseDetailsGroup"/>
 					<xs:element name="NeighbourComponentCorrection" type="NeighbourComponentCorrectionType" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_507">In diesem Zweig können außergewöhnliche
-								Auswirkungen auf den CheckIn und CheckOut der angrenzenden
-								Komponenten definiert werden. Aktuell kennen wir nur Fälle bei
-								Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen
-								oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann
-								definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf.
-								einen Tag später erfolgt. Wie gesagt ist für Accommodation zur Zeit
-								kein Fallbeispiel bekannt.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_507">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. In diesem Zweig kann man dann definieren, dass der CheckIn vorgezogen wird oder der CheckOut ggf. einen Tag später erfolgt. Wie gesagt ist für Accommodation zur Zeit kein Fallbeispiel bekannt.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_507">In this branch the exceptional effects on the CheckIn and CheckOut of adjacent components can be defined. We are currently only aware of cases involving flights.
 This concerns flights arriving very early or very late on any particular day. In this branch one can specify that CheckIn should be brought forward the CheckOut put back.
 As previously stated there is currently no other known factor that would influence the Accommodation dates.</xs:documentation>
@@ -309,20 +306,16 @@ As previously stated there is currently no other known factor that would influen
 					<xs:element name="Outbound" type="OutboundFlightType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_509">Beschreibt die Primäreigenschaften des ausgehenden Flugs.
-
 Kann weiterhin detailliert den ausgehenden Flug beschreiben. Dieser kann flach oder segmentweise definiert werden.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_509">Describes the primary features of the outbound flight.
-
 Describes the outbound flight in greater detail. Defines the flight as flat or segmented.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Inbound" type="InboundFlightType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_510">Beschreibt die Primäreigenschaften des eingehenden Flugs.
-
 Kann weiterhin detailliert den eingehenden Flug beschreiben. Dieser kann flach oder segmentweise definiert werden.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_510">Describes the primary characteristics of the inbound flight.
-
 Describes the inbound flight in greater detail. Defines the flight as flat or segmented.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -334,23 +327,29 @@ Describes the inbound flight in greater detail. Defines the flight as flat or se
 					</xs:element>
 					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_512">Preisberechnung der
-								Flugangebote.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_512">Calculation of prices for flight
-								offers.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_512">Preisberechnung der Flugangebote.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_512">Calculation of prices for flight offers.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_8941">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
+							<xs:documentation xml:lang="de" xml:id="de_8941">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
+
+Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
+
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
+
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken, obwohl eine Übernachtung an dem Termin nicht mehr möglich ist.
+
 Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher definition von Availabilties zusammengefasst werden können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen nach "Availability".</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_8941">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration condition under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
+							<xs:documentation xml:lang="en" xml:id="en_8941">Under this branch the availability of the object is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. 
+
+The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration condition under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
 
 Please note: the last possible CheckOut date always has to be included in the Availability.
 
 At the end of the season and also for overnight flights this leads to the general necessity of explicitly adding this last CheckOut date in the Availability including the possibility to check out on this date although an overnight stay is not possible on this date.
+
 Availabilities can be defined on many different layers. How these levels can be merged in case of a multiple definition of Availabilities is explained in the OTDS documentation. Please take advantage of the search by searching for “Availability”.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
