@@ -21439,6 +21439,15 @@ usw.]]></programlisting>
 					which must be evaluated in relation to the product. In this way for example, a
 					hotel component can be explicitly excluded from being used as a Hotel-Only
 					product, or specific rooms can be reserved for Hotel-Only products.</para>
+				<programlisting><![CDATA[<!-- Nur Unterkünfte über "Tag" gefiltert  -->
+	<Product Key="AccomOnly" ProductType="AccommodationOnly">
+		<Components>
+			<Accommodation/>
+		</Components>
+		<Filter Key="1">
+			<Tags Source="Accommodation" Class="PackageOnly"/>
+		</Filter>
+	</Product>]]></programlisting>
 				<para xml:id="de_2107" xml:lang="de"> </para>
 				<para xml:id="en_2107" xml:lang="en"/>
 			</section>
@@ -21456,22 +21465,17 @@ usw.]]></programlisting>
 					composed from Oneway flights with the help of rules. Those rules are defined in
 					a DefineComponent. When ReturnFlights are composed via rules, the product
 					definition follows in this basic structure: </para>
-				<programlisting><![CDATA[				<Product Key="Pauschal" ProductType="FlightAccommodation">
-					<Tags>
-						<Tag Class="Product">Pauschal</Tag>
-					</Tags>
+				<programlisting><![CDATA[<!-- Nur ReturnFlight über "Tag" gefiltert  -->
+				<Product Key="ReturnFlight" ProductType="ReturnFlightOnly">
 					<Components>
-						<Accommodation/>
-						<DefinedComponent UseRole="ReturnFlight"/>
+						<ReturnFlight>
+							<Outbound DayAllocationIndex="-1"/>
+							<Inbound DayAllocationIndex="1"/>
+						</ReturnFlight>
+						<VirtualComponent DayAllocationIndex="0"/>
 					</Components>
-					<Filter Key="Default">
-						<And>
-							<MatchEqual>
-								<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
-								<Element Source="Accommodation">CatchmentAirport</Element>
-							</MatchEqual>
-							...
-						</And>
+					<Filter Key="1">
+						<Tags Source="ReturnFlight" Class="PackageOnly"/>
 					</Filter>
 				</Product>]]></programlisting>
 				<para xml:id="de_8577" xml:lang="de"> Das Tag ("Product")=Pauschal kann in Filtern
@@ -21483,19 +21487,19 @@ usw.]]></programlisting>
 					passen müssen. Ein Beispiel für eine passende DefineComponent finden Sie im
 					Kapitel <link linkend="DefinedComponentsReturnFlight">Zusammenstellung von
 						Returnflights aus Einzelflügen </link>) </para>
-				<para xml:id="en_8577" xml:lang="en"> The tag ("Product")=Package can be used in
-					filters and Conditions in order to influence on the processing in the context of
-					the package product. The element <code>Components/DefinedComponent</code> refers
-					with the role indicated to all <code>DefineComponents</code> with a
+				<para xml:id="en_8577" xml:lang="en">The tag ("Product")=Package can be used in filters and
+					Conditions in order to influence on the processing in the context of the package
+					product. The element <code>Components/DefinedComponent</code> refers with the
+					role indicated to all <code>DefineComponents</code> with a
 					corresponding/matching role. The filter solely expresses, that the airports of
 					the ReturnFlight has to match the hotel. You may find an example for a matching
 					DefineComponent in Chapter <link linkend="DefinedComponentsReturnFlight"
 						>Composition of Returnflights from Oneway flights</link>) </para>
-				<para xml:id="de_2110" xml:lang="de">Eine andere seltenere Methode ist die, dass
-					ReturnFlights bereits fertig zusammengestellt unter
-						<code>Otds/Flights/ReturnFlights</code> geliefert werden. In diesem Falle
-					folgt die Product-Definition in der folgenden Struktur. Mit analogen
-					Erklärungen: nur dass mit <code>Components/ReturnFlight</code> auf die unter
+				<para xml:id="de_2110" xml:lang="de">Eine andere, seltenere Methode ist die, dass ReturnFlights
+					bereits fertig zusammengestellt unter <code>Otds/Flights/ReturnFlights</code>
+					geliefert werden. In diesem Falle folgt die Product-Definition in der folgenden
+					Struktur. Mit analogen Erklärungen: nur dass mit
+						<code>Components/ReturnFlight</code> auf die unter
 						<code>Otds/Flights/ReturnFlights</code> gelieferten ReturnFlights verwiesen
 					wird.</para>
 				<para xml:id="en_2110" xml:lang="en">Another, rarer method implies a completly
@@ -21504,26 +21508,6 @@ usw.]]></programlisting>
 					follows the structure below. Explained analogically: there is reference to the
 					ReturnFlights delivered under <code>Components/ReturnFlight</code>
 					<code>Otds/Flights/ReturnFlights</code>.</para>
-				<programlisting><![CDATA[				<Product Key="Pauschal" ProductType="FlightAccommodation">
-					<Tags>
-						<Tag Class="Product">Pauschal</Tag>
-					</Tags>
-					<Components>
-						<Accommodation/>
-						<ReturnFlight/>
-					</Components>
-					<Filter Key="Default">
-						<And>
-							<MatchEqual>
-								<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
-								<Element Source="Accommodation">CatchmentAirport</Element>
-							</MatchEqual>
-							...
-						</And>
-					</Filter>
-				</Product>]]></programlisting>
-
-
 			</section>
 			<section>
 				<title><phrase xml:id="de_2111" xml:lang="de">Beispiele für
@@ -21537,6 +21521,18 @@ usw.]]></programlisting>
 					one-way flights.</para>
 				<para xml:id="de_2113" xml:lang="de"> </para>
 				<para xml:id="en_2113" xml:lang="en"/>
+				<programlisting><![CDATA[<!-- Nur OnewayFlight, der nur ein Hauptflug sein kann, also kein Zubringerflug  -->
+				<Products>
+					<Product Key="OnewayFlightOnly_Standard" ProductType="OnewayFlightOnly">
+						<Components>
+							<OnewayFlight/>
+						</Components>
+						<Filter Key="1">
+							<Not>
+								<Tags Source="OnewayFlight" Class="Zubringer_Only"/>
+							</Not>
+						</Filter>
+					</Product>]]></programlisting>
 			</section>
 			<section>
 				<title><phrase xml:id="de_2114" xml:lang="de">Beispiele für
@@ -21548,8 +21544,45 @@ usw.]]></programlisting>
 				<para xml:id="en_2115" xml:lang="en">Package offers often contain flight plus
 					accommodation. This product makes use of the flight components, with the normal
 					and extended return flights and accommodation which are defined there.</para>
-				<para xml:id="de_2116" xml:lang="de"> </para>
-				<para xml:id="en_2116" xml:lang="en"/>
+				<programlisting><![CDATA[	<Product Key="Pauschal" ProductType="FlightAccommodation">
+		<Tags>
+			<Tag Class="Product">Pauschal</Tag>
+		</Tags>
+		<Components>
+			<Accommodation/>
+			<DefinedComponent UseRole="ReturnFlight"/>
+		</Components>
+		<Filter Key="Default">
+			<And>
+				<MatchEqual>
+					<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+				</MatchEqual>
+				...
+			</And>
+		</Filter>
+	</Product>]]></programlisting>
+				<programlisting><![CDATA[	<Product Key="Pauschal" ProductType="FlightAccommodation">
+		<Tags>
+			<Tag Class="Product">Pauschal</Tag>
+		</Tags>
+		<Components>
+			<Accommodation/>
+			<ReturnFlight/>
+		</Components>
+		<Filter Key="Default">
+			<And>
+				<MatchEqual>
+					<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+				</MatchEqual>
+				...
+			</And>
+		</Filter>
+	</Product>]]></programlisting>
+				<para xml:id="de_2116" xml:lang="de">Weitere Beispiele für Pauschal-Produktregeln sind in der Beispiel-Datei <link xlink:href="example/ProductRulesExamples.xml">ProductRulesExamples.xml</link>
+					aufgeführt.</para>
+				<para xml:id="en_2116" xml:lang="en">More examples for package product rules may be found in the example-file <link xlink:href="example/ProductRulesExamples.xml">ProductRulesExamples.xml</link>.</para>
 			</section>
 			<section>
 				<title><phrase xml:id="de_2117" xml:lang="de">Beispiel für Regeln von optionalen

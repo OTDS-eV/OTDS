@@ -10,6 +10,30 @@
 				<Tags Source="Accommodation" Class="PackageOnly"/>
 			</Filter>
 		</Product>
+		<!-- Nur ReturnFlight über "Tag" gefiltert  -->
+		<Product Key="ReturnFlight" ProductType="ReturnFlightOnly">
+			<Components>
+				<ReturnFlight>
+					<Outbound DayAllocationIndex="-1"/>
+					<Inbound DayAllocationIndex="1"/>
+				</ReturnFlight>
+				<VirtualComponent DayAllocationIndex="0"/>
+			</Components>
+			<Filter Key="1">
+				<Tags Source="ReturnFlight" Class="PackageOnly"/>
+			</Filter>
+		</Product>
+		<!-- Nur OnewayFlight, der nur ein Hauptflug sein kann, also kein Zubringerflug  -->
+		<Product Key="OnewayFlightOnly_Standard" ProductType="OnewayFlightOnly">
+			<Components>
+				<OnewayFlight/>
+			</Components>
+			<Filter Key="1">
+				<Not>
+					<Tags Source="OnewayFlight" Class="Zubringer_Only"/>
+				</Not>
+			</Filter>
+		</Product>
 		<!-- Einfache Kombination aller passenden Flüge mit entsprechenden Unterkünften  -->
 		<Product Key="Package1" ProductType="FlightAccommodation">
 			<Components>
@@ -343,6 +367,7 @@
 			</SellingAccom>
 			<CatchmentAirports>PMI</CatchmentAirports>
 		</Accommodation>
+		<!-- Die Accommodation PMI02 würde in dieser Form nicht als HotelOnly aufgebaut werden, da das Tag "AccomOnly" fehlt. -->
 		<Accommodation Key="PMI02">
 			<Tags>
 				<Tag Class="Combi">FK</Tag>
