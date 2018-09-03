@@ -1,4 +1,4 @@
-<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <!-- Test -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
@@ -2440,42 +2440,75 @@ Default = "All"</xs:documentation>
 	</xs:group>
 	<xs:group name="AllocationBaseGroup">
 		<xs:sequence>
-			<xs:element name="DayBase">
-				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_383">Basisdauer der Reise. Wird "x" angegeben, wird immer die vorhandene Dauer zugrunde gelegt. Der "Value" wird durch die Anzahl der Tage geteilt und gleichmässig auf jeden Tag verteilt. Wird "1" angegeben, wird das PriceItem pro Tag angewendet. Bei einer Zahl größer als 1 wird diese Dauer mit der tatsächlichen Dauer verrechnet. "7" bedeutet also, das PriceItem ist wöchentlich: Der "Value" wird durch 7 geteilt und auf jeden Tag angewendet. </xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_383">Basic duration of the trip. If "x" is specified, the existing duration is taken as the basis. The "value" is divided by the number of days and allocated equally to each day. If "1" is specified, the PriceItem per day is applied. For a number greater than one, this duration is allocated the actual duration. "7" therefore means that the PriceItem is weekly: The "value" is divided by 7 and applied to each day.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="PriceImpactBaseValueType">
-							<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
-								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_384">Dieses Attribut definiert aufgrund der Komponente, welchen Tagen der Absolutpreis zugewiesen wird. Mögliche Werte sind: - ThisComponent - Accommodation - ReturnFlight - Outbound - Inbound - OnewayFlight - Addon - Product. Mit "Product" definiert man die Tage der Gesamtreise. Default ist "ThisComponent".</xs:documentation>
-									<xs:documentation xml:lang="en" xml:id="en_384">Based on the component, this attribute
+			<xs:choice>
+				<xs:element name="DayBase">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_383">Mit DayBase wird bestimmt wie der Absolut/Value auf die Tage verteilt wird.
+
+In der Regel geht es hier um  DayBase="1" also Preis pro Tag oder DayBase="x" also  Preis für die komplette Reisedauer (Standard = Übernachtungen).
+
+Mit @Source und @IntervalType kann vom Standard abweichen und so den den Absolut/Value auf bestimmte Tage der Reise verteilen. 
+
+Mit DayBase="1|2|...|x" kann man zusätzlich bestimmen, dass der Absolut/Value vor der Verteilung noch durch den Value von DayBase geteilt wird.
+
+Wird  DayBase="x" angegeben, wird die Anzahl der durch @Source und @IntervalType als kontextabhängiger Teiler festgelegt. 
+In der Regel definiert dann "x" die Dauer der Reise.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_383">Basic duration of the trip. If "x" is specified, the existing duration is taken as the basis. The "value" is divided by the number of days and allocated equally to each day. If "1" is specified, the PriceItem per day is applied. For a number greater than one, this duration is allocated the actual duration. "7" therefore means that the PriceItem is weekly: The "value" is divided by 7 and applied to each day.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="PriceImpactBaseValueType">
+								<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
+									<xs:annotation>
+										<xs:documentation xml:lang="de" xml:id="de_384">Dieses Attribut definiert aufgrund der Komponente, welchen Tagen der Absolutpreis zugewiesen wird. Mögliche Werte sind: - ThisComponent - Accommodation - ReturnFlight - Outbound - Inbound - OnewayFlight - Addon - Product. Mit "Product" definiert man die Tage der Gesamtreise. Default ist "ThisComponent".</xs:documentation>
+										<xs:documentation xml:lang="en" xml:id="en_384">Based on the component, this attribute
 										defines the days to which the absolute price is allocated.
 										Possible values are: - ThisComponent - Accommodation -
 										ReturnFlight - Outbound - Inbound - OnewayFlight - Addon -
 										Product "Product" defines the days of the total trip.
 										"ThisComponent" is the default setting.</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-							<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay">
-								<xs:annotation>
-									<xs:documentation xml:lang="de" xml:id="de_385">Dieses Attribut definiert aufgrund des DayTypes, welchen Tagen genau der Absolutpreis zugewiesen wird. Mögliche Werte: 
+									</xs:annotation>
+								</xs:attribute>
+								<xs:attribute name="IntervalType" type="IntervalTypeEnum" default="Stay">
+									<xs:annotation>
+										<xs:documentation xml:lang="de" xml:id="de_385">Dieses Attribut definiert aufgrund des DayTypes, welchen Tagen genau der Absolutpreis zugewiesen wird. Mögliche Werte: 
 - Stay: Alle "Stay"-Tage. 
 - CheckInOut: Das Intervall von CheckIn bis CheckOut inklusive CheckIn und CheckOut. 
 Default ist "Stay".</xs:documentation>
-									<xs:documentation xml:lang="en" xml:id="en_385">Based on the DayType, this attribute defines the exact days to which the absolute price is allocated. Potential values: 
+										<xs:documentation xml:lang="en" xml:id="en_385">Based on the DayType, this attribute defines the exact days to which the absolute price is allocated. Potential values: 
 - Stay: All "Stay" days. 
 - CheckInOut: The interval from CheckIn to CheckOut including CheckIn and CheckOut. 
 "Stay" is the default.</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="PersonBase" type="PriceImpactBaseValueType"/>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FilteredDayBase" type="DayFilterConditionType">
+					<xs:annotation>
+						<xs:documentation>Mit FilteredDayBase kann der angebebene absolute Value nun flexibler als mit DayBase auf bestimmte Tage der Reise verteilt werden. Der Value wird dabei nur auf die unter FilteredDayBase definierten Tage verteilt.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:choice>
+				<xs:element name="PersonBase" type="PriceImpactBaseValueType">
+					<xs:annotation>
+						<xs:documentation>Mit PersonBase wird bestimmt wie der Absolut/Value auf die Personen verteilt wird.
+
+In der Regel geht es hier um  PersonBase="1" also Preis pro Person oder PersonBase="x" Preis für die komplette Belegung.
+
+Formal wird mit PersonBase="1|2|...|x"  bestimmt, dass der Absolut/Value vor der Verteilung noch durch den Value von PersonBase geteilt wird.
+
+Wird  PersonBase="x" angegeben, wird die Anzahl Reisenden als kontextabhängiger Teiler festgelegt. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="FilteredPersonBase" type="PersonFilterConditionType">
+					<xs:annotation>
+						<xs:documentation>Mit FilteredPersonBase kann der angebebene absolute Value nun flexibler als mit PersonBase auf bestimmte Personen der Reise verteilt werden. Der Value wird dabei nur auf die unter FilteredPersonBase definierten Personen verteilt. Zum Beispiel kann man so nun Preise nur auf Erwachsene und Kinder verteilen und Babies ausschließen.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 	</xs:group>
 	<xs:group name="AllocationBaseConditionGroup">
@@ -8164,6 +8197,11 @@ Das Attribut "EvaluationMode" definiert, ob ein Kostenknoten die Bedingung erfü
 					<xs:group ref="PersonFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
+			<xs:element name="Not">
+				<xs:complexType>
+					<xs:group ref="PersonFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
 		</xs:choice>
 	</xs:group>
 	<xs:group name="DayFilterConditionGroup">
@@ -8176,6 +8214,11 @@ Das Attribut "EvaluationMode" definiert, ob ein Kostenknoten die Bedingung erfü
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
+				<xs:complexType>
+					<xs:group ref="DayFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Not">
 				<xs:complexType>
 					<xs:group ref="DayFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
