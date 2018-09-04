@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
-<xs:schema xmlns="http://otds-group.org/otds/booking/tsx" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:otds="http://otds-group.org/otds" xmlns:tsx="http://otds-group.org/otds/booking/tsx" targetNamespace="http://otds-group.org/otds/booking/tsx" elementFormDefault="qualified">
+<xs:schema xmlns="http://otds-group.org/otds/booking/tsx" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:otds="http://otds-group.org/otds" xmlns:tsx="http://www.tui.com/otds/booking/tsx" targetNamespace="http://www.tui.com/otds/booking/tsx" elementFormDefault="qualified">
 	<xs:import namespace="http://otds-group.org/otds" schemaLocation="otds-schema-common.xsd"/>
 	<xs:element name="Fab" substitutionGroup="otds:AbstractBookingTree">
 		<!-- BookingTreeParameterValueType  BookingTreeParameterDateType BookingTreeParameterDurationType  BookingTreeParameterPersonAgeType  BookingTreeSingleNodeType BookingTreeMultipleNodeType-->
 		<xs:complexType>
 			<xs:complexContent>
-				<xs:extension base="otds:BookingTreeRootNodeType">
+				<xs:extension base="otds:BookingTreeSingleNodeType">
 					<xs:sequence>
 						<xs:element name="TOMA-Veranstalter" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 						<xs:element name="TOMA-Reiseart" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
@@ -15,14 +15,8 @@
 								<xs:complexContent>
 									<xs:extension base="otds:BookingTreeMultipleServiceNodeType">
 										<xs:sequence>
-											<xs:element name="Attributes" minOccurs="0">
-												<xs:complexType>
-													<xs:sequence>
-														<xs:element name="ServiceType" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-														<xs:element name="External" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-													</xs:sequence>
-												</xs:complexType>
-											</xs:element>
+											<xs:element name="ServiceType" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
+											<xs:element name="External" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="StartDate" type="otds:BookingTreeReferenceDateType" minOccurs="0"/>
 											<xs:element name="InvState" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="Dep" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
@@ -35,7 +29,6 @@
 											<xs:element name="ArrTime" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="ArrTimeDev" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="Equipment" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-											<xs:element name="Persons" type="otds:BookingTreeReferencePersonType" minOccurs="0"/>
 											<xs:choice minOccurs="0">
 												<xs:element name="RouteCode" type="otds:BookingTreeParameterValueType"/>
 												<xs:element name="Leg" maxOccurs="unbounded">
@@ -62,8 +55,6 @@
 												</xs:element>
 											</xs:choice>
 										</xs:sequence>
-										<xs:attribute name="ServiceType"/>
-										<xs:attribute name="External"/>
 									</xs:extension>
 								</xs:complexContent>
 							</xs:complexType>
@@ -73,25 +64,16 @@
 								<xs:complexContent>
 									<xs:extension base="otds:BookingTreeMultipleServiceNodeType">
 										<xs:sequence>
-											<xs:element name="Attributes" minOccurs="0">
-												<xs:complexType>
-													<xs:sequence>
-														<xs:element name="ServiceType" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-														<xs:element name="External" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-													</xs:sequence>
-												</xs:complexType>
-											</xs:element>
+											<xs:element name="ServiceType" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
+											<xs:element name="External" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="StartDate" type="otds:BookingTreeReferenceDateType" minOccurs="0"/>
-											<xs:element name="Duration" type="otds:BookingTreeReferenceDateDifferenceType" minOccurs="0"/>
+											<xs:element name="EndDate" type="otds:BookingTreeReferenceDateType" minOccurs="0"/>
 											<xs:element name="Destination" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="Norm" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-											<xs:element name="Persons" type="otds:BookingTreeReferencePersonType" minOccurs="0"/>
 											<xs:element name="Product" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="Room" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 											<xs:element name="Meal" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 										</xs:sequence>
-										<xs:attribute name="ServiceType"/>
-										<xs:attribute name="External"/>
 									</xs:extension>
 								</xs:complexContent>
 							</xs:complexType>
@@ -99,14 +81,11 @@
 						<xs:element name="Fap" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:complexContent>
-									<xs:extension base="otds:BookingTreeMultipleServiceNodeType">
+									<xs:extension base="otds:BookingTreeMultiplePersonNodeType">
 										<xs:sequence>
 											<xs:element name="PersonType" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-											<xs:element name="Name" type="otds:BookingTreeReferenceCustomerNameType" minOccurs="0"/>
-											<xs:element name="FirstName" type="otds:BookingTreeReferenceCustomerNameType" minOccurs="0"/>
-											<xs:element name="Age" type="otds:BookingTreeReferenceAgeType" minOccurs="0"/>
+											<xs:element name="PersonBirthDate" type="otds:BookingTreeReferencePersonBirthDateType" minOccurs="0"/>
 										</xs:sequence>
-										<xs:attribute name="ID"/>
 									</xs:extension>
 								</xs:complexContent>
 							</xs:complexType>
@@ -128,7 +107,6 @@
 			<xs:element name="FlightNr" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 			<xs:element name="DepTime" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 			<xs:element name="ArrTime" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
-			<xs:element name="ArrTimeDev" type="otds:BookingTreeReferenceDateDifferenceType" minOccurs="0"/>
 			<xs:element name="Equipment" type="otds:BookingTreeParameterValueType" minOccurs="0"/>
 		</xs:sequence>
 	</xs:group>

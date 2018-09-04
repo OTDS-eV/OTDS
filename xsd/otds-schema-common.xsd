@@ -250,7 +250,7 @@ The default is 0.</xs:documentation>
 	<xs:group name="BookingWithoutNodeGroup">
 		<xs:sequence>
 			<xs:element name="BookingGroup" type="BookingGroupType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9"/>
-			<xs:element ref="AbstractBookingTree" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="BookingTree" type="BookingTreeType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0.1"/>
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="BookingType">
@@ -572,7 +572,7 @@ Default = Always</xs:documentation>
 		<xs:sequence>
 			<xs:element name="Date">
 				<xs:complexType>
-					<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
+					<xs:attribute name="Source" type="SourceAttributeType" use="required">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_9310">In diesem Attribut wird eine Referenz auf den
 								Context der DayAllocation definiert. Zulässige Werte sind: -
@@ -607,99 +607,23 @@ Possible values are:
 - CheckOut</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
-					<xs:attribute name="DateFormat" type="DateFormatEnum" default="[D01][M01][Y01]">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_9312">Dieses Attribut definiert, in welcher Form das
-								Datum in dem Feld angegeben wird. Dieses Template folgt den Regeln
-								des picture Argumentes der xslt:format-date Funktion aus dem XSLT
-								2.0 Standard. Die Argumente language und country werden auf den Wert
-								des Market Elementes der OTDS Lieferung gesetzt.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_9312">This attribute defines in what form the date should be entered in the field. This template follows the rules of the picture argument of the xslt:format-date function from the XSLT 2.0 Standard. The arguments language and country are set to the values of the Market element of the OTDS delivery.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
 					<xs:attribute name="Offset" type="xs:int" default="0"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeReferenceDateDifferenceType">
-		<xs:sequence>
-			<!-- aaaa -->
-			<xs:element name="StartDate" type="DurationStartType" minOccurs="0" internal:otdsversion="2.0">
-				<xs:annotation>
-					<xs:documentation>Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Die Dauer ergibt sich aus der Differenz der Termine von DurationEnd-DurationStart.
-
-Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
-
-Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Element definierten/beschribenen Defaults der Attribute.
-</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="EndDate" type="DurationEndType" minOccurs="0" internal:otdsversion="2.0">
-				<xs:annotation>
-					<xs:documentation>Über die Attribute in DurationStart und DurationEnd werden Termine referenziert. Die Dauer ergibt sich aus der Differenz der Termine von DurationEnd-DurationStart.
-
-Es sollte dabei berücksichtigt werden, dass die Termine der jeweiligen Komponenten immer bezogen auf die Lokalzeit der jeweiligen Komponente sind.
-
-Fehlt das Element "DurationStart" oder "DurationEnd", so ergibt sich der zu verwendende Default jeweils aus den im Element definierten/beschribenen Defaults der Attribute.
-</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="BookingTreeReferenceAgeType">
-		<xs:sequence>
-			<xs:element name="PersonAge">
-				<xs:complexType>
-					<xs:attribute name="AgeType" type="AgeTypeEnum" default="TravelAge">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_9313">Dieses Attribut definiert, in welcher Art die
-								Altersangabe übergeben werden soll. Folgende Werte sind zulässig: -
-								DateOfBirth - TravelAge - BookingAge Ages werden als Integer in
-								Jahren angegeben. Das Format der Datumsangabe wird im Attribut
-								"DateFormat" definiert. </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_9313">This attribute defines which type of age entry should be given.
-The following values are permitted:
-- DateOfBirth
-- TravelAge
-- BookingAge
-
-Ages are to be entered as integers in years. The format of the date entry is defined in the "DateFormat" attribute.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="DateFormat" type="DateFormatEnum" default="[D01][M01][Y01]">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_9314">Dieses Attribut definiert, in welcher Form das
-								Datum in dem Feld angegeben wird. Dieses Template folgt den Regeln
-								des picture Argumentes der xslt:format-date Funktion aus dem XSLT
-								2.0 Standard. Die Argumente language und country werden auf den Wert
-								des Market Elementes der OTDS Lieferung gesetzt.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_9314">This attribute defines in what form the date should be entered in the field. This template follows the rules of the picture argument of the xslt:format-date function from the XSLT 2.0 Standard. The arguments language and country are set to the values of the Market element of the OTDS delivery.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
+	<xs:complexType name="BookingTreeReferencePersonBirthDateType"/>
 	<xs:complexType name="BookingTreeSingleNodeType">
 		<xs:attribute name="Erase" use="optional"/>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeReferencePersonType"/>
-	<xs:complexType name="BookingTreeReferenceCustomerNameType"/>
 	<xs:complexType name="BookingTreeMultiplePersonNodeType">
 		<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum"/>
 		<xs:attribute name="Erase" use="optional"/>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeRootNodeType">
-		<xs:sequence>
-			<xs:element name="Condition" type="ConditionType" minOccurs="0"/>
-		</xs:sequence>
-		<xs:attribute name="Erase" use="optional"/>
-	</xs:complexType>
 	<xs:complexType name="BookingTreeMultipleServiceNodeType">
 		<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum"/>
-		<xs:attribute name="Priority" type="xs:int" default="0"/>
-		<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
+		<xs:attribute name="Index" type="xs:int" default="0"/>
+		<xs:attribute name="Source" type="SourceAttributeType" use="required">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine
 					Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang
@@ -720,7 +644,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Erase" use="optional"/>
-	</xs:complexType>	
+	</xs:complexType>
 	<xs:complexType name="BookingReplaceType">
 		<xs:attribute name="Source" type="BookingReplaceSourceAttributeType" use="required">
 			<xs:annotation>
@@ -787,6 +711,13 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 				<xs:documentation xml:lang="en" xml:id="en_9316">This attribute identifies different service lines within a component instance. For example, if a component produces 2 service lines</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BookingTreeType">
+		<xs:sequence>
+			<xs:element ref="AbstractBookingTree" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Condition" type="ConditionType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Priority" type="xs:int" default="0"/>
 	</xs:complexType>
 	<xs:element name="BookingEntry" type="BookingEntryType" abstract="true">
 		<xs:annotation>
@@ -4454,6 +4385,11 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="DateOfBirth"/>
 			<xs:enumeration value="TravelAge"/>
 			<xs:enumeration value="BookingAge"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEraseEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductTypeEnum">

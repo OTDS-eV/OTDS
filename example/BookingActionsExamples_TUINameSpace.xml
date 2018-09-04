@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds 
-	xmlns="http://otds-group.org/otds" 
-	xmlns:merlin="http://otds-group.org/otds/booking/merlin" 
-	xmlns:toma="http://otds-group.org/otds/booking/toma" 
-	xmlns:tsx="http://otds-group.org/otds/booking/tsx" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	Version="2.0" 
-	xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd  http://otds-group.org/otds/booking/merlin ../xsd/otds-booking-merlin.xsd http://otds-group.org/otds/booking/toma ../xsd/otds-booking-toma.xsd  http://otds-group.org/otds/booking/tsx ../xsd/otds-booking-TUI-Smart-XML.xsd" >
+<Otds xmlns="http://otds-group.org/otds" xmlns:merlin="http://otds-group.org/otds/booking/merlin" xmlns:toma="http://otds-group.org/otds/booking/toma" xmlns:tsx="http://www.tui.com/otds/booking/tsx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd  http://otds-group.org/otds/booking/merlin ../xsd/otds-booking-merlin.xsd http://otds-group.org/otds/booking/toma ../xsd/otds-booking-toma.xsd  http://www.tui.com/otds/booking/tsx ../xsd/otds-booking-TUI-Smart-XML.xsd">
 	<Products>
 		<Product Key="FlightAccommodation" ProductType="FlightAccommodation">
 			<Components>
@@ -50,10 +43,59 @@
 				</ConditionalTag>
 			</Tags>
 			<Booking>
-				<tsx:Fab>
-					<tsx:TOMA-Veranstalter><Value>TUID</Value></tsx:TOMA-Veranstalter>
-				</tsx:Fab>
-				<tsx:Fab>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:TOMA-Veranstalter>
+							<Value>TUID</Value>
+						</tsx:TOMA-Veranstalter>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fap EvaluationBase="Person">
+							<tsx:PersonBirthDate/>
+						</tsx:Fap>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fat Source="global:Outbound">
+							<tsx:ServiceType>
+								<Value>T</Value>
+							</tsx:ServiceType>
+							<tsx:StartDate>
+								<Date DayType="CheckIn" Source="global:Outbound"/>
+							</tsx:StartDate>
+						</tsx:Fat>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fat Source="global:Inbound">
+							<tsx:ServiceType>
+								<Value>T</Value>
+							</tsx:ServiceType>
+							<tsx:StartDate>
+								<Date DayType="CheckIn" Source="global:Inbound"/>
+							</tsx:StartDate>
+						</tsx:Fat>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fah Source="global:Accommodation">
+							<tsx:ServiceType>
+								<Value>H</Value>
+							</tsx:ServiceType>
+							<tsx:StartDate>
+								<Date DayType="CheckIn" Source="global:Accommodation"/>
+							</tsx:StartDate>
+							<tsx:EndDate>
+								<Date DayType="CheckOut" Source="global:Accommodation"/>
+							</tsx:EndDate>
+						</tsx:Fah>
+					</tsx:Fab>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap>
+							<tsx:PersonType>
+								<Value>Herr</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
 					<Condition>
 						<And>
 							<Impact>
@@ -64,11 +106,15 @@
 							</PersonImpact>
 						</And>
 					</Condition>
-					<tsx:Fap>
-						<tsx:PersonType><Value>Herr</Value></tsx:PersonType>
-					</tsx:Fap>
-				</tsx:Fab>
-				<tsx:Fab>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap>
+							<tsx:PersonType>
+								<Value>Frau</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
 					<Condition>
 						<And>
 							<Impact>
@@ -79,81 +125,35 @@
 							</PersonImpact>
 						</And>
 					</Condition>
-					<tsx:Fap>
-						<tsx:PersonType><Value>Frau</Value></tsx:PersonType>
-					</tsx:Fap>
-				</tsx:Fab>
-				<tsx:Fab>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap>
+							<tsx:PersonType>
+								<Value>Kind</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
 					<Condition>
 						<Impact>
 							<ConditionalTags Source="Brand" Class="PersonBookingType">Child</ConditionalTags>
 						</Impact>
 					</Condition>
-					<tsx:Fap>
-						<tsx:PersonType><Value>Kind</Value></tsx:PersonType>
-					</tsx:Fap>
-				</tsx:Fab>
-				<tsx:Fab>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap>
+							<tsx:PersonType>
+								<Value>Baby</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
 					<Condition>
 						<Impact>
 							<ConditionalTags Source="Brand" Class="PersonBookingType">Baby</ConditionalTags>
 						</Impact>
 					</Condition>
-					<tsx:Fap>
-						<tsx:PersonType><Value>Baby</Value></tsx:PersonType>
-					</tsx:Fap>
-				</tsx:Fab>
-				<tsx:Fab>
-					<tsx:Fap EvaluationBase="Person">
-						<tsx:Age>
-							<PersonAge AgeType="TravelAge"/>
-						</tsx:Age>
-					</tsx:Fap>
-				</tsx:Fab>
-				<tsx:Fab>
-					<tsx:Fat Source="global:Outbound">
-						<tsx:Attributes>
-							<tsx:ServiceType>
-								<Value>T</Value>
-							</tsx:ServiceType>
-						</tsx:Attributes>
-						<tsx:StartDate>
-							<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Source="global:Outbound"/>
-						</tsx:StartDate>
-					</tsx:Fat>
-				</tsx:Fab>
-				<tsx:Fab>
-					<tsx:Fat Source="global:Inbound">
-						<tsx:Attributes>
-							<tsx:ServiceType>
-								<Value>T</Value>
-							</tsx:ServiceType>
-						</tsx:Attributes>
-						<tsx:StartDate>
-							<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Source="global:Inbound"/>
-						</tsx:StartDate>
-					</tsx:Fat>
-				</tsx:Fab>
-				<tsx:Fab>
-					<tsx:Fah Source="global:Accommodation">
-						<tsx:Attributes>
-							<tsx:ServiceType>
-								<Value>H</Value>
-							</tsx:ServiceType>
-						</tsx:Attributes>
-						<tsx:StartDate>
-							<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Source="global:Accommodation"/>
-						</tsx:StartDate>
-						<tsx:Duration>
-							<StartDate DayReference="CheckIn" Source="global:Accommodation"/>
-							<EndDate DayReference="CheckOut" Source="global:Accommodation"/>
-						</tsx:Duration>
-					</tsx:Fah>
-				</tsx:Fab>
-					<!--M.E. schlechtere Alternative für die Lieferung eines Attributes -->
-				<tsx:Fab>
-						<tsx:Fah Source="global:Accommodation" ServiceType="H"/>
-					</tsx:Fab>
+				</BookingTree>
 			</Booking>
 		</Brand>
 	</Brands>
@@ -194,27 +194,39 @@
 					</ConditionalTag>
 				</Tags>
 				<Booking>
-					<tsx:Fab>
-						<tsx:TOMA-Reiseart><Value>LAEN</Value></tsx:TOMA-Reiseart>
-					</tsx:Fab>
-					<tsx:Fab>
-						<tsx:Fah Source="Accommodation">
-							<tsx:Product><Value>11010</Value></tsx:Product>
-						</tsx:Fah>
-					</tsx:Fab>
-					<tsx:Fab>
-						<tsx:Fah Source="Accommodation">
-							<tsx:Destination><Value>LPA</Value></tsx:Destination>
-						</tsx:Fah>
-					</tsx:Fab>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:TOMA-Reiseart>
+								<Value>LAEN</Value>
+							</tsx:TOMA-Reiseart>
+						</tsx:Fab>
+						<tsx:Fab>
+							<tsx:Fah Source="Accommodation">
+								<tsx:Product>
+									<Value>11010</Value>
+								</tsx:Product>
+							</tsx:Fah>
+						</tsx:Fab>
+						<tsx:Fab>
+							<tsx:Fah Source="Accommodation">
+								<tsx:Destination>
+									<Value>LPA</Value>
+								</tsx:Destination>
+							</tsx:Fah>
+						</tsx:Fab>
+					</BookingTree>
 				</Booking>
 				<Board Key="U">
 					<Booking>
-						<tsx:Fab>
-							<tsx:Fah Source="Accommodation">
-								<tsx:Meal><Value>U</Value></tsx:Meal>
-							</tsx:Fah>
-						</tsx:Fab>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fah Source="Accommodation">
+									<tsx:Meal>
+										<Value>U</Value>
+									</tsx:Meal>
+								</tsx:Fah>
+							</tsx:Fab>
+						</BookingTree>
 					</Booking>
 					<Properties Key="1">
 						<PropertyGroup>
@@ -231,11 +243,15 @@
 					</Properties>
 					<SellingUnit Key="STX1">
 						<Booking>
-							<tsx:Fab>
-								<tsx:Fah Source="Accommodation">
-									<tsx:Room><Value>U</Value></tsx:Room>
-								</tsx:Fah>
-							</tsx:Fab>
+							<BookingTree>
+								<tsx:Fab>
+									<tsx:Fah Source="Accommodation">
+										<tsx:Room>
+											<Value>U</Value>
+										</tsx:Room>
+									</tsx:Fah>
+								</tsx:Fab>
+							</BookingTree>
 						</Booking>
 						<Properties Key="1">
 							<PropertyGroup>
@@ -273,18 +289,24 @@
 			<!-- TUI interner Hinflug-->
 			<OnewayFlight Key="HAJLPAA17RN23032017">
 				<Booking>
-					<tsx:Fab>
-						<tsx:Fat >
-							<tsx:Attributes>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat Source="ThisComponent">
 								<tsx:ServiceType>
 									<Value>T</Value>
 								</tsx:ServiceType>
-							</tsx:Attributes>
-							<tsx:Dep><Value>HAJ</Value></tsx:Dep>
-							<tsx:Arr><Value>LPA</Value></tsx:Arr>
-							<tsx:RouteCode><Value>HAJLPAA17RN</Value></tsx:RouteCode>
-						</tsx:Fat>
-					</tsx:Fab>
+								<tsx:Dep>
+									<Value>HAJ</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>LPA</Value>
+								</tsx:Arr>
+								<tsx:RouteCode>
+									<Value>HAJLPAA17RN</Value>
+								</tsx:RouteCode>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
 				</Booking>
 				<DepartureAirport>HAJ</DepartureAirport>
 				<ArrivalAirport>LPA</ArrivalAirport>
@@ -333,28 +355,38 @@
 			<!-- TUI interner Rückflug-->
 			<OnewayFlight Key="LPAHAJA17RN30032017">
 				<Booking>
-					<tsx:Fab>
-						<tsx:Fat >
-							<tsx:Attributes>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat  Source="ThisComponent">
 								<tsx:ServiceType>
 									<Value>T</Value>
 								</tsx:ServiceType>
-							</tsx:Attributes>
-							<tsx:Dep><Value>LPA</Value></tsx:Dep>
-							<tsx:Arr><Value>HAJ</Value></tsx:Arr>
-							<tsx:RouteCode><Value>LPAHAJA17RN</Value></tsx:RouteCode>
-						</tsx:Fat>
-					</tsx:Fab>
+								<tsx:Dep>
+									<Value>LPA</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>HAJ</Value>
+								</tsx:Arr>
+								<tsx:RouteCode>
+									<Value>LPAHAJA17RN</Value>
+								</tsx:RouteCode>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
 				</Booking>
 				<DepartureAirport>LPA</DepartureAirport>
 				<ArrivalAirport>HAJ</ArrivalAirport>
 				<BookingClass Key="Y">
 					<Booking>
-						<tsx:Fab>
-							<tsx:Fat>	
-								<tsx:Class><Value>Y</Value></tsx:Class>
-							</tsx:Fat>
-						</tsx:Fab>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fat  Source="ThisComponent">
+									<tsx:Class>
+										<Value>Y</Value>
+									</tsx:Class>
+								</tsx:Fat>
+							</tsx:Fab>
+						</BookingTree>
 					</Booking>
 					<Occupancy Key="1">
 						<Person>
@@ -378,77 +410,145 @@
 			<!-- TUI externer Hinflug bestehend aus mehreren Legs-->
 			<OnewayFlight Key="HAJLPAA17RN23032017">
 				<Booking>
-					<tsx:Fab>
-						<tsx:Fat Source="OnewayFlight">
-							<tsx:Attributes>
-								<tsx:ServiceType><Value>T</Value></tsx:ServiceType>
-								<tsx:External><Value>Y</Value></tsx:External>
-							</tsx:Attributes>
-							<tsx:StartDate>
-								<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]"/>
-							</tsx:StartDate>
-							<tsx:InvState><Value>EXTERNAL</Value></tsx:InvState>
-							<tsx:Dep><Value>HAJ</Value></tsx:Dep>
-							<tsx:Arr><Value>LPA</Value></tsx:Arr>
-							<tsx:Carrier><Value>BA</Value></tsx:Carrier>
-							<tsx:FlightNr><Value>0109</Value></tsx:FlightNr>
-							<tsx:DepTime><Value>1935</Value></tsx:DepTime>
-							<tsx:ArrTime><Value>0725</Value></tsx:ArrTime>
-							<tsx:ArrTimeDev><Value>+1</Value></tsx:ArrTimeDev>
-							<tsx:Equipment><Value>319</Value></tsx:Equipment>
-							<tsx:Leg Class="FirstLeg">
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat Source="OnewayFlight">
+								<tsx:ServiceType>
+									<Value>T</Value>
+								</tsx:ServiceType>
+								<tsx:External>
+									<Value>Y</Value>
+								</tsx:External>
 								<tsx:StartDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]"/>
+									<Date DayType="CheckIn" Source="OnewayFlight" />
 								</tsx:StartDate>
-								<tsx:ArrivalDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Offset="0"/>
-								</tsx:ArrivalDate>
-								<tsx:Dep><Value>HAJ</Value></tsx:Dep>
-								<tsx:Arr><Value>FRA</Value></tsx:Arr>
-								<tsx:Carrier><Value>BA</Value></tsx:Carrier>
-								<tsx:FlightNr><Value>0719</Value></tsx:FlightNr>
-								<tsx:DepTime><Value>1935</Value></tsx:DepTime>
-								<tsx:ArrTime><Value>2025</Value></tsx:ArrTime>
-								<tsx:ArrTimeDev><Value>+0</Value></tsx:ArrTimeDev>
-								<tsx:Equipment><Value>319</Value></tsx:Equipment>
-							</tsx:Leg>
-							<tsx:Leg Class="SecondLeg">
-								<tsx:StartDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Offset="0"/>
-								</tsx:StartDate>
-								<tsx:ArrivalDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Offset="1"/>
-								</tsx:ArrivalDate>
-								<tsx:Dep><Value>FRA</Value></tsx:Dep>
-								<tsx:Arr><Value>LPA</Value></tsx:Arr>
-								<tsx:Carrier><Value>BA</Value></tsx:Carrier>
-								<tsx:FlightNr><Value>0109</Value></tsx:FlightNr>
-								<tsx:DepTime><Value>2125</Value></tsx:DepTime>
-								<tsx:ArrTime><Value>0725</Value></tsx:ArrTime>
-								<tsx:ArrTimeDev><Value>+1</Value></tsx:ArrTimeDev>
-								<tsx:Equipment><Value>777</Value></tsx:Equipment>
-							</tsx:Leg>
-						</tsx:Fat>
-					</tsx:Fab>
+								<tsx:InvState>
+									<Value>EXTERNAL</Value>
+								</tsx:InvState>
+								<tsx:Dep>
+									<Value>HAJ</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>LPA</Value>
+								</tsx:Arr>
+								<tsx:Carrier>
+									<Value>BA</Value>
+								</tsx:Carrier>
+								<tsx:FlightNr>
+									<Value>0109</Value>
+								</tsx:FlightNr>
+								<tsx:DepTime>
+									<Value>1935</Value>
+								</tsx:DepTime>
+								<tsx:ArrTime>
+									<Value>0725</Value>
+								</tsx:ArrTime>
+								<tsx:ArrTimeDev>
+									<Value>+1</Value>
+								</tsx:ArrTimeDev>
+								<tsx:Equipment>
+									<Value>319</Value>
+								</tsx:Equipment>
+								<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"  Source="ThisComponent"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn" Offset="0"   Source="ThisComponent"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>HAJ</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>FRA</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0719</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>1935</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>2025</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+0</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>319</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+								<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="1"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>FRA</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>LPA</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0109</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>2125</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>0725</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+1</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>777</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
 				</Booking>
 				<DepartureAirport>HAJ</DepartureAirport>
 				<ArrivalAirport>LPA</ArrivalAirport>
 				<BookingClass Key="Y">
 					<Booking>
-						<tsx:Fab>
-							<tsx:Fat Source="OnewayFlight">
-								<tsx:Class><Value>Y</Value></tsx:Class>
-								<tsx:ClassDesc><Value>Economy Class</Value></tsx:ClassDesc>
-								<tsx:Leg Class="FirstLeg">
-									<tsx:Class><Value>Y</Value></tsx:Class>
-									<tsx:BookingClass><Value>5</Value></tsx:BookingClass>
-								</tsx:Leg>
-								<tsx:Leg Class="SecondLeg">
-									<tsx:Class><Value>Y</Value></tsx:Class>
-									<tsx:BookingClass><Value>O</Value></tsx:BookingClass>
-								</tsx:Leg>
-							</tsx:Fat>
-						</tsx:Fab>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fat Source="OnewayFlight">
+									<tsx:Class>
+										<Value>Y</Value>
+									</tsx:Class>
+									<tsx:ClassDesc>
+										<Value>Economy Class</Value>
+									</tsx:ClassDesc>
+									<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>5</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+									<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>O</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+								</tsx:Fat>
+							</tsx:Fab>
+						</BookingTree>
 					</Booking>
 					<Occupancy Key="1">
 						<Person>
@@ -494,77 +594,145 @@
 			<!-- TUI externer Rückflug-->
 			<OnewayFlight Key="LPAHAJA17RN30032017">
 				<Booking>
-					<tsx:Fab>
-						<tsx:Fat Source="OnewayFlight">
-							<tsx:Attributes>
-								<tsx:ServiceType><Value>T</Value></tsx:ServiceType>
-								<tsx:External><Value>Y</Value></tsx:External>
-							</tsx:Attributes>
-							<tsx:StartDate>
-								<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]"/>
-							</tsx:StartDate>
-							<tsx:InvState><Value>EXTERNAL</Value></tsx:InvState>
-							<tsx:Dep><Value>LPA</Value></tsx:Dep>
-							<tsx:Arr><Value>HAJ</Value></tsx:Arr>
-							<tsx:Carrier><Value>BA</Value></tsx:Carrier>
-							<tsx:FlightNr><Value>0110</Value></tsx:FlightNr>
-							<tsx:DepTime><Value>1740</Value></tsx:DepTime>
-							<tsx:ArrTime><Value>0325</Value></tsx:ArrTime>
-							<tsx:ArrTimeDev><Value>+1</Value></tsx:ArrTimeDev>
-							<tsx:Equipment><Value>319</Value></tsx:Equipment>
-							<tsx:Leg Class="FirstLeg">
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat Source="OnewayFlight">
+								<tsx:ServiceType>
+									<Value>T</Value>
+								</tsx:ServiceType>
+								<tsx:External>
+									<Value>Y</Value>
+								</tsx:External>
 								<tsx:StartDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]"/>
+									<Date DayType="CheckIn"   Source="ThisComponent"/>
 								</tsx:StartDate>
-								<tsx:ArrivalDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Offset="0"/>
-								</tsx:ArrivalDate>
-								<tsx:Dep><Value>LPA</Value></tsx:Dep>
-								<tsx:Arr><Value>BRU</Value></tsx:Arr>
-								<tsx:Carrier><Value>BA</Value></tsx:Carrier>
-								<tsx:FlightNr><Value>0719</Value></tsx:FlightNr>
-								<tsx:DepTime><Value>1740</Value></tsx:DepTime>
-								<tsx:ArrTime><Value>0025</Value></tsx:ArrTime>
-								<tsx:ArrTimeDev><Value>+1</Value></tsx:ArrTimeDev>
-								<tsx:Equipment><Value>319</Value></tsx:Equipment>
-							</tsx:Leg>
-							<tsx:Leg Class="SecondLeg">
-								<tsx:StartDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Offset="0"/>
-								</tsx:StartDate>
-								<tsx:ArrivalDate>
-									<Date DayType="CheckIn" DateFormat="[D01][M01][Y0001]" Offset="1"/>
-								</tsx:ArrivalDate>
-								<tsx:Dep><Value>BRU</Value></tsx:Dep>
-								<tsx:Arr><Value>HAJ</Value></tsx:Arr>
-								<tsx:Carrier><Value>BA</Value></tsx:Carrier>
-								<tsx:FlightNr><Value>0109</Value></tsx:FlightNr>
-								<tsx:DepTime><Value>0125</Value></tsx:DepTime>
-								<tsx:ArrTime><Value>0325</Value></tsx:ArrTime>
-								<tsx:ArrTimeDev><Value>+1</Value></tsx:ArrTimeDev>
-								<tsx:Equipment><Value>777</Value></tsx:Equipment>
-							</tsx:Leg>
-						</tsx:Fat>
-					</tsx:Fab>
+								<tsx:InvState>
+									<Value>EXTERNAL</Value>
+								</tsx:InvState>
+								<tsx:Dep>
+									<Value>LPA</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>HAJ</Value>
+								</tsx:Arr>
+								<tsx:Carrier>
+									<Value>BA</Value>
+								</tsx:Carrier>
+								<tsx:FlightNr>
+									<Value>0110</Value>
+								</tsx:FlightNr>
+								<tsx:DepTime>
+									<Value>1740</Value>
+								</tsx:DepTime>
+								<tsx:ArrTime>
+									<Value>0325</Value>
+								</tsx:ArrTime>
+								<tsx:ArrTimeDev>
+									<Value>+1</Value>
+								</tsx:ArrTimeDev>
+								<tsx:Equipment>
+									<Value>319</Value>
+								</tsx:Equipment>
+								<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"   Source="ThisComponent"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>LPA</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>BRU</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0719</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>1740</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>0025</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+1</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>319</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+								<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="1"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>BRU</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>HAJ</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0109</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>0125</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>0325</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+1</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>777</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
 				</Booking>
 				<DepartureAirport>LPA</DepartureAirport>
 				<ArrivalAirport>HAJ</ArrivalAirport>
 				<BookingClass Key="Y">
 					<Booking>
-						<tsx:Fab>
-							<tsx:Fat Source="OnewayFlight">
-								<tsx:Class><Value>Y</Value></tsx:Class>
-								<tsx:ClassDesc><Value>Economy Class</Value></tsx:ClassDesc>
-								<tsx:Leg Class="FirstLeg">
-									<tsx:Class><Value>Y</Value></tsx:Class>
-									<tsx:BookingClass><Value>5</Value></tsx:BookingClass>
-								</tsx:Leg>
-								<tsx:Leg Class="SecondLeg">
-									<tsx:Class><Value>Y</Value></tsx:Class>
-									<tsx:BookingClass><Value>O</Value></tsx:BookingClass>
-								</tsx:Leg>
-							</tsx:Fat>
-						</tsx:Fab>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fat Source="OnewayFlight">
+									<tsx:Class>
+										<Value>Y</Value>
+									</tsx:Class>
+									<tsx:ClassDesc>
+										<Value>Economy Class</Value>
+									</tsx:ClassDesc>
+									<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>5</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+									<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>O</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+								</tsx:Fat>
+							</tsx:Fab>
+						</BookingTree>
 					</Booking>
 					<Occupancy Key="1">
 						<Person>
