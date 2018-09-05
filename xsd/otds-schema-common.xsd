@@ -1,4 +1,4 @@
-<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
 <!-- Test -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
@@ -3089,7 +3089,7 @@ optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -3098,7 +3098,7 @@ optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -6638,7 +6638,7 @@ If both @Source and @Component are given, both attributes have to be fulfilled. 
 	<!-- product specific Types -->
 	<xs:complexType name="TagsType">
 		<xs:complexContent>
-			<xs:extension base="SimpleUpdateNodeType">
+			<xs:extension base="OptionalMultipleSimpleUpdateNodeType">
 				<xs:sequence>
 					<xs:element name="Tag" type="TagType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
