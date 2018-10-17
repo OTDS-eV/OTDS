@@ -470,7 +470,7 @@ Default = Always</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeParameterValueType">
+	<xs:complexType name="BookingTreeParameterTextType">
 		<xs:choice minOccurs="0">
 			<xs:element name="Value" type="xs:string"/>
 			<xs:element name="Tag" type="EmptyTagConditionType">
@@ -568,7 +568,7 @@ Default = Always</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeReferenceDateType">
+	<xs:complexType name="BookingTreeParameterDateReferenceType">
 		<xs:sequence>
 			<xs:element name="Date">
 				<xs:complexType>
@@ -612,17 +612,18 @@ Possible values are:
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeReferencePersonBirthDateType"/>
+	<xs:complexType name="BookingTreeParameterBirthdateReferenceType"/>
+	<xs:complexType name="BookingTreeParameterAgeReferenceType"/>
 	<xs:complexType name="BookingTreeSingleNodeType">
-		<xs:attribute name="Erase" use="optional"/>
+		<xs:attribute name="Erase" use="optional" type="EmptyElementType"/>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeMultiplePersonNodeType">
+	<xs:complexType name="BookingTreeMultipleNodeType">
 		<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum"/>
-		<xs:attribute name="Erase" use="optional"/>
-	</xs:complexType>
-	<xs:complexType name="BookingTreeMultipleServiceNodeType">
-		<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum"/>
-		<xs:attribute name="Index" type="xs:int" default="0"/>
+		<xs:attribute name="Index" type="xs:int" default="0">
+			<xs:annotation>
+				<xs:documentation>Das Attribut @Index definiert in welcher Reihenfolge die multiplen Zweige nach der Aggregation in der Ergebnis-Baumstruktur abgebildet werden sollen. Kleinere Werte in der XML-Order zuerst. Der Default Index = "0" bedeutet, dass die Reihenfolge beliebig ist. Der Index ist Teil der Aggregation. Unterschiedliche Werte von Index führen damit automatisch zu neuen Zweigen in der Baumstruktur, auch wenn die Angaben in Source und Class identisch sind.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="Source" type="SourceAttributeType" use="required">
 			<xs:annotation>
 				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine
