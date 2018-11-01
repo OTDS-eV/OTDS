@@ -19485,40 +19485,76 @@ usw.]]></programlisting>
 							</caption>
 						</mediaobject>
 					</figure>
-					<para xml:id="de_1936" xml:lang="de">Das folgende Beispiel zeigt einen Oneway
-						Flug (Frankfurt - Fuerteventura) ohne detailierte Segmentinformationen sowie
-						ohne Preise und Verfügbarkeiten.</para>
-					<para xml:id="en_1936" xml:lang="en">The following example shows a one-way
-						flight (Frankfurt - Fuerteventura) without the detailed segment information
-						and also without prices and availabilities.</para>
-					<programlisting><![CDATA[<OnewayFlight UpdateMode="New" Key="FRAFUE">
-	<Booking UpdateMode="New">
-		<BookingGroup Priority="0" Area="ServiceArea" Source="ThisComponent" Class="Default">
-			<BookingParameter Field="ServiceCode" PadLength="0" Index="0" PadCondition="Always" PadOrientation="Right" Padding=" " Name="Default">
-				<Value>FRA FUE</Value>
+					<para xml:id="de_1936" xml:lang="de">Das folgende Beispiel zeigt einen Standard-Oneway Flug
+						(Frankfurt - Fuerteventura) mit Segmentinformationen, Preisen und
+						Verfügbarkeiten.</para>
+					<para xml:id="en_1936" xml:lang="en">The following example shows a one-way flight (Frankfurt -
+						Fuerteventura) with detailed segment information, prices and
+						availabilities.</para>
+					<programlisting><![CDATA[<OnewayFlight Key="FRAFUE">
+	<Booking>
+		<BookingGroup Area="ServiceArea">
+			<BookingParameter Field="ServiceCode">
+				<Value>FRAFUEK1</Value>
 			</BookingParameter>
 		</BookingGroup>
 	</Booking>
-	<DepartureAirport UpdateMode="New">FRA</DepartureAirport>
-	<ArrivalAirport UpdateMode="New">FUE</ArrivalAirport>
-	<BookingClass Key="FRAFUE" UpdateMode="New">
-		<Booking UpdateMode="New">
-			<BookingGroup Priority="0" Area="ServiceArea" Source="ThisComponent" Class="Default">
-				<BookingParameter Field="ServiceFeatureCode" PadLength="0" Index="0" PadCondition="Always" PadOrientation="Right" Padding=" " Name="Default">
-					<Value>Y</Value>
-				</BookingParameter>
-			</BookingGroup>
-		</Booking>
-	</BookingClass>
-</OnewayFlight>]]></programlisting>
-					<para xml:id="de_1937" xml:lang="de">Das folgende Beispiel zeigt einen Oneway
-						Flug (Frankfurt - Funchal) mit Segmentinformationen, Preisen und
-						Verfügbarkeiten. Das Beispiel beschreibt einen Flug für den Zeitraum vom
-						01.05.2012 - 30.05.2012 mit dem Verkehrstag "Dienstag". </para>
-					<para xml:id="en_1937" xml:lang="en">The following example shows a one-way
-						flight (Frankfurt - Funchal) with segment information, prices and
-						availabilities. The example describes a flight within the time period from
-						01.05.2012 - 30.05.2012 with the day of travel "Tuesday".</para>
+		<Properties Key="1">
+			<PropertyGroup>
+				<FlightRoutes>
+					<FlightRoute>
+						<Departure>
+							<Airport>FRA</Airport>
+							<Time>12:20:00</Time>
+						</Departure>
+						<Arrival>
+							<Airport>FUE</Airport>
+							<Time>16:20:00</Time>
+						</Arrival>
+					</FlightRoute>
+				</FlightRoutes>
+			</PropertyGroup>
+		</Properties>
+		<DepartureAirport>FRA</DepartureAirport>
+		<ArrivalAirport>FUE</ArrivalAirport>
+		<CheckOutDateOffset>0</CheckOutDateOffset>
+		<BookingClass Key="Y">
+			<Booking>
+				<BookingGroup Area="ServiceArea">
+					<BookingParameter Field="ServiceFeatureCode">
+						<Value>Y</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+			<Occupancy Key="1">
+				<Person>
+					<MinCount>1</MinCount>
+				</Person>
+			</Occupancy>
+			<Availabilities Key="1">
+				<Availability Key="2018-03-31" StartDate="2018-03-31" EndDate="2018-03-31">
+					<DefaultDayState>
+						<Open>4</Open>
+					</DefaultDayState>
+				</Availability>
+			</Availabilities>
+			<PriceItems Key="1">
+				<PriceItem Class="Base">
+					<Absolute>
+						<Value>332</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+				</PriceItem>
+			</PriceItems>
+		</BookingClass>
+	</OnewayFlight>]]></programlisting>
+					<para xml:id="de_1937" xml:lang="de">Das folgende Beispiel zeigt einen Standard-Oneway Flug
+						(Frankfurt - Fuerteventura) mit Segmentinformationen, Preisen und
+						Verfügbarkeiten.</para>
+					<para xml:id="en_1937" xml:lang="en">The following example shows a standard one-way
+						flight (Frankfurt - Fuerteventura) with segment information, prices and
+						availabilities.</para>
 					<programlisting><![CDATA[<OnewayFlight Key="FRAFNC">
     <Booking>
         <BookingGroup Area="ServiceArea">
