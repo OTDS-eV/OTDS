@@ -12117,16 +12117,20 @@ usw.]]></programlisting>
 									<para xml:id="en_1292" xml:lang="en">Amount</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_1293" xml:lang="de">Auf wie viele Tage bezieht
-										sich das PriceItem (<code>DayBase</code>)</para>
-									<para xml:id="en_1293" xml:lang="en">How many days is the
-										PriceItem referring to (<code>DayBase</code> )</para>
+									<para xml:id="de_1293" xml:lang="det">Auf welche Tage wird das PriceItem
+											verteilt(<code>DayBase</code>,
+											<code>FilteredDayBase</code> (V2.1))</para>
+									<para xml:id="en_1293" xml:lang="en">How many days is the PriceItem referring to
+											(<code>DayBase</code>, <code>FilteredDayBase</code>
+										(V2.1) )</para>
 								</listitem>
 								<listitem>
-									<para xml:id="de_1294" xml:lang="de">Auf wie viele Personen
-										bezieht sich das PriceItem (<code>PersonBase</code>)</para>
-									<para xml:id="en_1294" xml:lang="en">How many persons is the
-										PriceItem referring to (<code>PersonBase</code> )</para>
+									<para xml:id="de_1294" xml:lang="det">Auf welche Personen wird das PriceItem
+											verteilt(<code>PersonBase</code>,
+											<code>FilteredPersonBase</code> (V2.1))</para>
+									<para xml:id="en_1294" xml:lang="en">How many persons is the PriceItem referring to
+											(<code>PersonBase</code>,
+											<code>FilteredPersonBase</code> (V2.1) )</para>
 								</listitem>
 							</itemizedlist>
 						</listitem>
@@ -12206,13 +12210,6 @@ usw.]]></programlisting>
 									<para xml:id="en_1304" xml:lang="en">Dependence and conditions
 										concerning price components and their
 										compatibilities.</para>
-								</listitem>
-								<listitem>
-									<para xml:id="de_1305" xml:lang="de">Bedingungen, unter denen
-										das PriceItem gültig ist: <code>Condition</code></para>
-									<para xml:id="en_1305" xml:lang="en">Conditions, under which the
-										PriceItem is valid: <code>Condition</code>
-									</para>
 								</listitem>
 								<listitem>
 									<para xml:id="de_1306" xml:lang="de">Abbildung von
@@ -12300,8 +12297,8 @@ usw.]]></programlisting>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemAbsolute">
 					<title><phrase xml:id="de_1313" xml:lang="de">PriceItems mit absoluten Preisen
-							(Absolute)</phrase><phrase xml:id="en_1313" xml:lang="en">PriceItems
-							with absolute prices (Absolute)</phrase></title>
+							(Absolute)(V2.1)</phrase><phrase xml:id="en_1313" xml:lang="en"
+							>PriceItems with absolute prices (Absolute)(V2.1)</phrase></title>
 					<para xml:id="de_1314" xml:lang="de">Bei vielen Zu- oder Abschlägen handelt es
 						sich um Absolutbeträge. Die als Absolutwerte gelieferten Zu- oder Abschläge
 						werden nach den mitgelieferten Regeln mit den entsprechenden
@@ -12320,7 +12317,8 @@ usw.]]></programlisting>
 						base has to be defined, i.e. how the given price is spread over individual
 						days (<code>DayBase</code>) and individual persons
 						(<code>PersonBase</code>).</para>
-
+					<para xml:lang="det">Ab der Version 2.1 ist es auch möglich mit <code>FilteredDayBase</code> und <code>FilteredPersonbase</code> die absoluten Preisbestandteile auf spezifische Tage bzw. Personen zu verteilen.</para>
+					<para xml:lang="det"></para>
 					<bridgehead xml:id="de_1316" xml:lang="de">DayBase</bridgehead>
 					<bridgehead xml:id="en_1316" xml:lang="en">DayBase</bridgehead>
 					<para xml:id="de_1317" xml:lang="de">In <code>DayBase</code> wird definiert, wie
@@ -12589,6 +12587,44 @@ usw.]]></programlisting>
 							</tbody>
 						</tgroup>
 					</table>
+					
+					<bridgehead  xml:lang="det">FilteredDayBase (V2.1)</bridgehead>
+					<figure>
+						<info>
+							<title><phrase xml:lang="det">FilteredDayBase</phrase></title>
+						</info>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="figures/FilteredDayBase.png" format="PNG"
+									contentwidth="80%"/>
+							</imageobject>
+							<textobject>
+								<para xml:lang="det">FilteredDayBase</para>
+								<para xml:lang="en">FilteredDayBase</para>
+							</textobject>
+						</mediaobject>
+					</figure>
+					<para xml:lang="det">Durch FilteredDayBase wird eine Bedingung definiert, auf welche Tage der Preis verteilt wird. FilteredDayBase legt damit fest, durch welchen "Teiler" (Anzahl der Tage auf die verteilt wird) der Price-Value geteilt wird und dass der Preis bei der Berechnung auch nur auf diese Tage verteilt wird.</para>
+					<para xml:lang="det">Beachte: die <code>PriceItem/Condition</code> kann mit Impact-Bedingungen die Tage, die den Preisbestanteil zugeordnet bekommen, weiter einschränken. Der "Teiler" wird aber dadurch nicht beeinflusst.</para>
+					<bridgehead xml:lang="det">FilteredPersonBase (V2.1)</bridgehead>
+					<figure>
+						<info>
+							<title><phrase xml:lang="det">FilteredPersonBase</phrase></title>
+						</info>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="figures/FilteredPersonBase.png" format="PNG"
+									contentwidth="80%"/>
+							</imageobject>
+							<textobject>
+								<para xml:lang="det">FilteredPersonBase</para>
+								<para xml:lang="en">FilteredPersonBase</para>
+							</textobject>
+						</mediaobject>
+					</figure>
+					<para xml:lang="det">Durch FilteredPersonBase wird eine Bedingung definiert, auf welche Personen der Preis verteilt wird. FilteredPersonBase legt damit fest, durch welchen "Teiler" (Anzahl der Personen auf die verteilt wird) der Price-Value geteilt wird und dass der Preis bei der Berechnung auch nur auf diese Personen verteilt wird.</para>
+					<para xml:lang="det">Beachte: die <code>PriceItem/Condition</code> kann mit Impact-Bedingungen die Personen, die den Preisbestanteil bekommen, weiter einschränken. Der "Teiler" wird aber dadurch nicht beeinflusst.</para>
+
 					<para xml:id="de_1346" xml:lang="de">Die detaillierte Beschreibung der Elemente
 						ist in der <link xlink:href="../technisch/otds_technisch.html#PriceItem"
 							>Technischen Dokumentation für OTDS</link> enthalten.</para>
@@ -12668,6 +12704,21 @@ usw.]]></programlisting>
   </Absolute>
 </PriceItem>]]></programlisting>
 					</para>
+					<para xml:lang="det"><emphasis role="bold">Beispiel
+					5</emphasis>: Dies ist ein Betrag von 300, der nur auf Personen verteilt wird, die keine Babies sind
+						<programlisting><![CDATA[<PriceItem Class="UnitPrice">
+  <Absolute>
+    <Value>300</Value>
+    <DayBase>X</DayBase>
+    <FilteredPersonBase>
+      <PersonImpact>
+        <PersonAge Source="Product">
+          <Min>2</Min
+        </PersonAge>
+      </PersonImpact>
+    </FilteredPersonBase>
+  </Absolute>
+</PriceItem>]]></programlisting></para>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemPercent">
 					<title><phrase xml:id="de_1354" xml:lang="de">PriceItems mit prozentualen Auf-
@@ -35417,14 +35468,13 @@ usw.]]></programlisting>
 									können.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_3191" xml:lang="de">Absolute PriceItems werden den
-									Werten in DayBase und PersonBase entsprechend im Wert anteilig
-									den relevanten Day/Person-Knoten zugewiesen. Es sind nun alle
-									gültigen PriceItems auf die Day/Person-Knoten verteilt.</para>
+								<para xml:id="de_3191" xml:lang="det">Absolute PriceItems werden den Werten in <code>DayBase</code>, <code>PersonBase</code>, <code>FilteredDayBase</code> and <code>FilteredPersonBase</code>
+									 entsprechend im Wert anteilig den relevanten
+									Day/Person-Knoten zugewiesen. Es sind nun alle gültigen
+									PriceItems auf die Day/Person-Knoten verteilt.</para>
 								<para xml:id="en_3191" xml:lang="en">Absolute PriceItems are
 									proportionately allocated to the relevant day/person node with
-									values that correspond to those stated in DayBase and
-									PersonBase. Now all valid PriceItems are distributed across the
+									values that correspond to those stated in <code>DayBase</code>, <code>PersonBase</code>, <code>FilteredDayBase</code> and <code>FilteredPersonBase</code>. Now all valid PriceItems are distributed across the
 									day/person nodes.</para>
 							</listitem>
 							<listitem>
@@ -35841,9 +35891,9 @@ usw.]]></programlisting>
 									definiert ist (und alle Stay Tage dieser Komponente). Es ist
 									aber auch möglich, explizit eine andere Komponente anzugeben.
 									Diese Angabe erfolgt bei absoluten PriceItems durch die
-									Attribute <code>Source</code> und <code>IntervalType</code> des
-									Elements <code>Absolute/DayBase</code> (Siehe <xref
-										linkend="OtdsProcessIntervalType"/>). </para>
+									Attribute <code>Source</code> und <code>IntervalType</code> (Siehe <xref
+										linkend="OtdsProcessIntervalType"/>) des
+									Elements <code>Absolute/DayBase</code> und die Angabe im Element <code>Absolute/PersonBase</code>.</para>
 								<para xml:id="en_3229" xml:lang="en">It is determined which
 									component and which days the PriceItem refers to. The default is
 									the component in which the PriceItem is defined (and all Stay
@@ -35851,8 +35901,9 @@ usw.]]></programlisting>
 									a different component. For absolute PriceItems this is to be
 									entered using the <code>Source</code> and
 										<code>IntervalType</code> attributes of the
-										<code>Absolute/DayBase</code> elements (see <xref
+									<code>Absolute/DayBase</code> elements and the value of element <code>Absolute/PersonBase</code>(see <xref
 										linkend="OtdsProcessIntervalType"/>).</para>
+								<para xml:lang="det">Seit Version 2.1 ist es auch möglich die Verteilung des Absolutbetrages mit den Elementen <code>Absolute/FilteredPersonBase</code> und <code>Absolute/FilteredDayBase</code> spezifisch auf einzelene Personen und Tage zu verteilen.</para>
 								<para xml:id="de_3230" xml:lang="de">Bei relativen PriceItems gibt
 									es an dieser Stelle keine Einschränkung auf eine bestimmte
 									Komponente oder bestimmte Tage.</para>
@@ -35971,6 +36022,10 @@ usw.]]></programlisting>
 											holiday being considered in each case. Therefore, X
 											denotes that the price is equally apportioned over the
 											entire duration.</para>
+										<para xml:lang="det">Seit der Version 2.1 kann alternativ zu <code>DayBase</code> auch <code>FilteredDayBase</code> angegegeben werden. <code>FilteredDayBase</code> definiert eine Impact-Bedingung die aus der Menge der Reisetage eine Teilmenge definiert, auf die der Absolutbetrag gleichmäßig verteilt wird.</para>
+										<para xml:lang="det"><code>FilteredDayBase</code> benutzt dazu die aus den Conditions bekannten Konstrukte <code>DayImpact/Date</code>, <code>DayImpact/DayIndex</code>, <code>DayImpact/Weekdays</code>, <code>Impact/ConditionalTags</code> und auch eine Verknüpfung derseleben mit <code>And</code>, <code>Or</code> und/oder <code>Not</code>.</para>
+										<para xml:lang="det">Die grundsätzliche Vorgehensweise der Bestimmung der Menge der gültigen Tage folgt der Beschreibung unter Conditions. Falls die ConditionalTags auch einen PersonImpact-Anteil besitzen, so definiert @EvaluationMode, ob ein Tag nur gültig ist, wenn alle Personen ("All") oder mindestens eine Person ("Any") an dem Tag valide sind.</para>
+										<para xml:lang="det"></para>
 										<para xml:id="de_3240" xml:lang="de">Die Angabe
 												<code>PersonBase</code> bestimmt, auf wie viele
 											Personen sich der Preis bezieht. Ist
@@ -35986,13 +36041,15 @@ usw.]]></programlisting>
 												<code>PersonBase=x</code> is specified, then a price
 											for all persons is given and the price is divided among
 											all of the travelling persons.</para>
+										<para xml:lang="det">Seit der Version 2.1 kann alternativ zu <code>PersonBase</code> auch <code>FilteredPersonBase</code> angegegeben werden. <code>FilteredPersonBase</code> definiert eine Impact-Bedingung die aus der Menge der Reiseteilnehmer eine Teilmenge definiert, auf die der Absolutbetrag gleichmäßig verteilt wird.</para>
+										<para xml:lang="det"><code>FilteredPersonBase</code> benutzt dazu die aus den Conditions bekannten Konstrukte <code>PersonImpact/PersonAge</code>, <code>PersonImpact/PersonIndex</code>, <code>PersonImpact/PersonGenders</code>, <code>Impact/ConditionalTags</code> und auch eine Verknüpfung derseleben mit <code>And</code>, <code>Or</code> und/oder <code>Not</code>.</para>
+										<para xml:lang="det">Die grundsätzliche Vorgehensweise der Bestimmung der Menge der gültigen Personen folgt der Beschreibung unter Conditions. Falls die ConditionalTags auch einen DayImpact-Anteil besitzen, so definiert @EvaluationMode, ob eine Person nur gültig ist, wenn alle Tage ("All") oder mindestens ein Tag ("Any") für diese Person valide sind.</para>
 										<para xml:id="de_3241" xml:lang="de">Durch Auswertung von
-												<code>DayBase</code> und <code>PersonBase</code> ist
+											<code>DayBase</code> und <code>PersonBase</code> bzw. <code>FilteredDayBase</code> und <code>FilteredPersonBase</code> ist
 											der anteilige absolute Preis pro Kostenknoten
 											definiert.</para>
 										<para xml:id="en_3241" xml:lang="en">By evaluating
-												<code>DayBase</code> and <code>PersonBase</code> .
-											the proportionate absolute price per cost node is
+											<code>DayBase</code> and <code>PersonBase</code> and <code>FilteredDayBase</code> and <code>FilteredPersonBase</code>  the proportionate absolute price per cost node is
 											defined.</para>
 									</listitem>
 									<listitem>
