@@ -10008,7 +10008,7 @@
 						wrappers.</para>
 					<para xml:id="de_6256" xml:lang="de">Die Hüllen enthalten dann Regelparameter
 						und zusätzliche Informationen für die kombinierte Komponente.</para>
-					<para xml:id="ene_6256" xml:lang="en">The wrapper then contain rule parameters
+					<para xml:id="en_6256" xml:lang="en">The wrapper then contain rule parameters
 						and additional information for the combined component.</para>
 					<para xml:id="de_6257" xml:lang="de">Es gibt <code>FlightWrapper</code>,
 							<code>AccommodationWrapper</code> und <code>AddonWrapper</code> jeweils
@@ -19549,17 +19549,13 @@ usw.]]></programlisting>
 			</PriceItems>
 		</BookingClass>
 	</OnewayFlight>]]></programlisting>
-					<para xml:id="de_1937" xml:lang="de">Das folgende Beispiel zeigt einen Standard-Oneway Flug
-						(Frankfurt - Fuerteventura) mit Segmentinformationen, Preisen und
-						Verfügbarkeiten.</para>
-					<para xml:id="en_1937" xml:lang="en">The following example shows a standard one-way
-						flight (Frankfurt - Fuerteventura) with segment information, prices and
-						availabilities.</para>
-					<programlisting><![CDATA[<OnewayFlight Key="FRAFNC">
+					<para xml:id="de_1937" xml:lang="de">Das folgende Beispiel zeigt die Definition einer Flugkette (Frankfurt - Fuerteventura immer Dienstags) mit Segmentinformationen, Preisen und Verfügbarkeiten</para>
+					<para xml:id="en_1937" xml:lang="en">The following example shows the definition of a chain of flights (Frankfurt - Fuerteventura, each Tuesday) with segment informations, prices and availabilities.</para>
+					<programlisting><![CDATA[<OnewayFlight Key="FRAFNCK1">
     <Booking>
         <BookingGroup Area="ServiceArea">
             <BookingParameter Field="ServiceCode">
-                <Value>FRAFNC</Value>
+                <Value>FRAFNCK1</Value>
             </BookingParameter>
         </BookingGroup>
     </Booking>
@@ -19577,12 +19573,10 @@ usw.]]></programlisting>
             <FlightRoute>
                 <Departure>
                     <Airport>FRA</Airport>
-                    <DateOffset>0</DateOffset>
                     <Time>09:20:00</Time>
                 </Departure>
                 <Arrival>
                     <Airport>FNC</Airport>
-                    <DateOffset>0</DateOffset>
                     <Time>12:30:00</Time>
                 </Arrival>
                 <Operating>
@@ -19596,10 +19590,10 @@ usw.]]></programlisting>
     </Properties>
     <DepartureAirport>FRA</DepartureAirport>
     <ArrivalAirport>FNC</ArrivalAirport>
-    <BookingClass Key="FRAFNC_Booking">
+    <BookingClass Key="FRAFNCK1_Booking">
         <Booking UpdateMode="New">
-            <BookingGroup Priority="0" Area="ServiceArea" Source="ThisComponent" Class="Default">
-                <BookingParameter Field="ServiceFeatureCode" PadLength="0" Index="0" PadCondition="Always" PadOrientation="Right" Padding=" " Name="Default">
+            <BookingGroup Area="ServiceArea">
+                <BookingParameter Field="ServiceFeatureCode">
                     <Value>Y</Value>
                 </BookingParameter>
             </BookingGroup>
@@ -19609,29 +19603,29 @@ usw.]]></programlisting>
                 <FlightCabinClass>Economy</FlightCabinClass>
             </PropertyGroup>
         </Properties>
-        <Availabilities Key="FRAFNC_Availabilities">
+        <Availabilities Key="FRAFNCK1_Availabilities">
             <Availability StartDate="2012-05-01" EndDate="2012-05-30" Key="Availability_FRAFNC">
                 <DefaultDayState>
                     <Open/>
                 </DefaultDayState>
-                <DayState Offset="0" Key="Availability_FRAFNC_0">
+                <DayState Offset="0" Key="Availability_FRAFNCK1_0">
                     <Open>4</Open>
                 </DayState>
-                <DayState Offset="7" Key="Availability_FRAFNC_7">
+                <DayState Offset="7" Key="Availability_FRAFNCK1_7">
                     <Closed/>
                 </DayState>
-                <DayState Offset="14" Key="Availability_FRAFNC_14">
+                <DayState Offset="14" Key="Availability_FRAFNCK1_14">
                     <Open>4</Open>
                 </DayState>
-                <DayState Offset="21" Key="Availability_FRAFNC_21">
+                <DayState Offset="21" Key="Availability_FRAFNCK1_21">
                     <Open>8</Open>
                 </DayState>
-                <DayState Offset="28" Key="Availability_FRAFNC_28">
+                <DayState Offset="28" Key="Availability_FRAFNCK1_28">
                     <Closed/>
                 </DayState>
             </Availability>
         </Availabilities>
-        <PriceItems Key="FRAFNC_PriceItems">
+        <PriceItems Key="FRAFNCK1_PriceItems">
             <PriceItem Class="Kerosinzuschlag">
                 <Absolute>
                     <Value>20</Value>
