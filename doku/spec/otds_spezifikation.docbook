@@ -11793,46 +11793,13 @@ usw.]]></programlisting>
 					which refers to days and persons. Only then is the ConditionalTag valid for
 					individual days and/or persons of the trip. The ConditionalTags therefore mark
 					individual days or persons. This is their fundamental difference to tags.</para>
-				<para xml:id="de_1261" xml:lang="de">Die Definition der ConditionalTags darf auch
-					wieder Bedingungen anderer ConditionalTags enthalten. Um dabei Endlosschleifen
-					zu vermeiden, gilt folgende Definition: </para>
-				<para xml:id="en_1261" xml:lang="en">The definition of the ConditionalTag can also
-					contain conditions of other ConditionalTags. To avoid infinite loops, the
-					following definition applies:</para>
-				<para xml:id="de_1262" xml:lang="de">Bezieht sich die Condition eines
-					ConditionalTags erneut auf ein anderes ConditionalTag, so muss die Definition
-					dieses ConditionalTags in der XML-Document-Order nachfolgend sein. Ein Bezug auf
-					ConditionalTags auf zuvor (bzgl. der XML-Document-Order) definierte
-					ConditionalTags ist generell als "False" zu bewerten. </para>
-				<para xml:id="en_1262" xml:lang="en">If the condition of a ConditionalTag refers to
-					another ConditionalTag, then the definition of this latter ConditionalTag should
-					follow in the XML Document Order. A reference of a ConditionalTagige to
-					previously defined (with reference to the XML Document Order) ConditionalTags is
-					generally to be valued as "False".</para>
-				<para xml:id="de_1263" xml:lang="de">Hier einige Beispiele für die DokumentOrder: </para>
-				<para xml:id="en_1263" xml:lang="en">Here are some examples of the
-					DocumentOrder:</para>
-				<itemizedlist>
-					<listitem>
-						<para xml:id="de_1264" xml:lang="de">Order im gesamten OTDS-Baum: Zuerst
-							GlobalValues, dann Product, Brand, Accommodation, Flight, Addon </para>
-						<para xml:id="en_1264" xml:lang="en">Order in the complete OTDS tree: First
-							GlobalValues, then Product, Brand, Accommodation, Flight, Addon</para>
-					</listitem>
-					<listitem>
-						<para xml:id="de_1265" xml:lang="de">Order innerhalb der Accommodation:
-							Zuerst Accommodation, dann SellingAccom, Board, Unit, SellingUnit</para>
-						<para xml:id="en_1265" xml:lang="en">Order within the Accommodation: First
-							Accommodation, then SellingAccom, Board, Unit, SellingUnit</para>
-					</listitem>
-					<listitem>
-						<para xml:id="de_1266" xml:lang="de">Order an einem Knoten gemäß Platzierung
-							im XML</para>
-						<para xml:id="en_1266" xml:lang="en">Order on a node as per placement in the
-							XML</para>
-					</listitem>
-				</itemizedlist>
-
+				<para xml:id="de_1261" xml:lang="det">Die Definition der ConditionalTags darf auch wieder
+					Bedingungen anderer ConditionalTags enthalten. Dabei können theoretisch
+					Endlosschleifen (Zirkulärbezüge) auftreten. In OTDS sind diese Zirkulärbezüge
+					explizit verboten und führen zu einem undefinierten Ergebnis. Es liegt beim
+					Verarbeiter der Daten, wie er in diesem Fall verfährt. Der Lieferant der
+					OTDS-Daten sollte auf den Zirkulärbezug hingewiesen werden, so dass dieser
+					Fehler kurzfristig vom Lieferanten behoben wird. </para>
 				<para xml:id="de_1267" xml:lang="de">Ein typisches Beispiel für den praktischen
 					Einsatz von ConditionalTags ist die Definition von Saisons. Jede Saison (A,B,C)
 					wird durch spezielle Markierung von bestimmten Tagen dargestellt. Dies lässt
@@ -28057,25 +28024,6 @@ usw.]]></programlisting>
 						eine <xref linkend="OtdsProcessConditionsTags"/> ausgewertet.</para>
 					<para xml:id="en_2610" xml:lang="en">The list of tags generated is now evaluated
 						as a <xref linkend="OtdsProcessConditionsTags"/>.</para>
-
-					<para xml:id="de_2611" xml:lang="de">Eine spezielle Regel dient der Vermeidung
-						von zirkulären Bezügen unter <code>ConditionalTag</code> Definitionen: Wird
-						im Rahmen der Auswertung der <code>Condition</code> eines
-							<code>ConditionalTag</code> eine weitere <code>ConditionalTags</code>
-						Bedingung ausgewertet, so werden bei dieser rekursiven Auswertung nur solche
-							<code>ConditionalTag</code> Definitionen berücksichtigt, welche in
-							<emphasis>document-order</emphasis>
-						<emphasis>vor</emphasis> der aktuell ausgewerteten Bedingung (also auch dem
-						entsprechenden <code>ConditionalTag</code>) notiert sind.</para>
-					<para xml:id="en_2611" xml:lang="en">A special rule is used to avoid circular
-						references under the <code>ConditionalTag</code> definitions: If during the
-						evaluation of the <code>Condition</code> of a <code>ConditionalTag</code> an
-						additional <code>ConditionalTags</code> condition is evaluated, then with
-						this recursive evaluation only such <code>ConditionalTag</code> definitions
-						are considered, which are noted in <emphasis>document order</emphasis>
-						<emphasis>before</emphasis> the currently evaluated condition (i.e. also the
-						corresponding <code>ConditionalTag</code>).</para>
-
 					<para xml:id="de_2612" xml:lang="de">Die <code>ConditionalTags</code> Bedingung
 						kann sowohl in <code>Impact</code> als auch direkt notiert werden.</para>
 					<para xml:id="en_2612" xml:lang="en">The <code>ConditionalTags</code> condition
