@@ -16803,8 +16803,8 @@ usw.]]></programlisting>
 			</section>
 			<section xml:id="OtdsStrategyProperties">
 				<title><phrase xml:id="de_1609" xml:lang="de">Stammdaten und Eigenschaften von
-						Komponenten (Properties)</phrase><phrase xml:id="en_1609" xml:lang="en"
-						>Master data and properties of components (Properties)</phrase></title>
+						Komponenten (Properties)(V2.1)</phrase><phrase xml:id="en_1609" xml:lang="en"
+							>Master data and properties of components (Properties)(V2.1)</phrase></title>
 				<para xml:id="de_1610" xml:lang="de">Properties bezeichnen Stammdaten, Eigenschaften
 					und Merkmale einer Komponente und werden entsprechend kontextbezogen angewendet.
 					Bei allen Einzelbereichen wie Unterkunft, Appartment/Zimmer, Verpflegung oder
@@ -16829,8 +16829,10 @@ usw.]]></programlisting>
 					features a Key attribute which must be placed. Through this extension, partial
 					data deliveries are made significantly easier, as several Properties elements
 					can be delivered independently of each other.</para>
-				<para xml:id="de_1612" xml:lang="de">Die folgenden Schaubilder zeigen die Positionen der
-					Properties in der OTDS-Struktur:</para>
+				<para xml:lang="det">Mit der Version 2.0 wurde die Mehrsprachigkeit für einige Properties durch das Attribut @xml:lang ergänzt. @xml:lang wirkt als zusätzlichen Gruppierungsparameter bei der Zusammenfassung von Properties. Am Ende der Propertyverarbeitung liegen alle mehrsprachigen Properties je gelieferter Ausprägung bzgl. @xml:lang vor.</para>
+				<para xml:lang="det">Mit der Version 2.1 wurde für einige Properties das Attribut @Class ergänzt. @Class wirkt als zusätzlichen Gruppierungsparameter bei der Zusammenfassung von Properties.</para>
+				<para xml:lang="det">Der Hintergrund dieser Ergänzung ist, dass bestimmte einzelne Bestandteile bestimmter Properties aus verschiedenen Komponenten oder auch mehreren Dateien der OTDS-Lieferungen zusammengeführt werden müssen. Das wird nun ab Version 2.1 mit der Einführung von @Class in einzelnen Properties ermöglicht.</para>
+				<para xml:id="de_1612" xml:lang="de">Die folgenden Schaubilder zeigen die Positionen der Properties in der OTDS-Struktur:</para>
 				<para xml:id="en_1612" xml:lang="en">The diagrams below illustrate the positioning of properties
 					in the OTDS structure:</para>
 				<para xml:id="de_1613" xml:lang="de"> </para>
@@ -16894,18 +16896,17 @@ usw.]]></programlisting>
 					systems.</para>
 				<section>
 					<title><phrase xml:id="de_1618" xml:lang="de">Allgemeines zur Verwendung der
-							Properties</phrase><phrase xml:id="en_1618" xml:lang="en">General
-							information on the use of properties</phrase></title>
+						Properties (V2.1)</phrase><phrase xml:id="en_1618" xml:lang="en">General
+							information on the use of properties (V2.1)</phrase></title>
 					<section>
 						<title><phrase xml:id="de_1619" xml:lang="de">Überblick</phrase><phrase
 								xml:id="en_1619" xml:lang="en">Overview</phrase></title>
-						<para xml:id="de_1620" xml:lang="de">In den Properties-Knoten werden die
-							Eigenschaften der (Unter-)Komponenten festgelegt. Dies umfasst zum
-							Beispiel den Ort einer Unterkunft, besondere Themen eines Hotels (z.B.
-							Wellness, Familie) oder besondere Bestimmungen für das Gepäck bei
-							Flügen. </para>
-						<para xml:id="en_1620" xml:lang="en">The properties of the (sub)components
-							are specified in the properties nodes. This includes, for example, the
+						<para xml:id="de_1620" xml:lang="de">In den Properties-Knoten werden die Eigenschaften der
+							Komponenten und Unterkomponenten festgelegt. Dies umfasst zum Beispiel
+							den Ort einer Unterkunft, besondere Themen eines Hotels (z.B. Wellness,
+							Familie) oder besondere Bestimmungen für das Gepäck bei Flügen. </para>
+						<para xml:id="en_1620" xml:lang="en">The properties of the components and subcomponents are
+							specified in the properties nodes. This includes, for example, the
 							location of an accommodation, certain hotel themes (e.g. spa, family) or
 							particular luggage policies for flights.</para>
 						<para xml:id="de_1621" xml:lang="de">Alle Properties sind in einer Gruppe
@@ -16954,7 +16955,10 @@ usw.]]></programlisting>
 						<para xml:id="de_5808" xml:lang="de">Danach werden für jede
 							Komponenteninstanz die zugeordneten Properties zusammengefasst.</para>
 						<para xml:id="en_5808" xml:lang="en">After that for each component instance
-							the assigned properties are combined.</para>
+						the assigned properties are combined.</para>
+						<para xml:lang="det">Mit der Version 2.1 wurde für einige Properties das Attribut @Class ergänzt. @Class wirkt als zusätzlichen Gruppierungsparameter bei der Zusammenfassung von Properties.</para>
+						<para xml:lang="det">Der Hintergrund dieser Ergänzung ist, dass bestimmte einzelne Bestandteile bestimmter Properties aus verschiedenen Komponenten oder auch mehreren Dateien der OTDS-Lieferungen zusammengeführt werden müssen. Das wird nun ab Version 2.1 mit der Einführung von @Class in einzelnen Properties ermöglicht.</para>
+						
 						<para xml:id="de_5809" xml:lang="de">Die Zusammenfassung erfolgt für jede
 							dieser Komponenteninstanzen nach folgenden Regeln:</para>
 						<para xml:id="en_5809" xml:lang="en">The following rules of combination are
@@ -16962,9 +16966,9 @@ usw.]]></programlisting>
 						<itemizedlist>
 							<listitem>
 								<para xml:id="de_5810" xml:lang="de">Es werden immer nur die
-									Elemente mit identischem "PropertyIdentifier" zusammengefasst. </para>
+									Elemente mit identischem "PropertyIdentifier" und identischem Wert in @Class und in @xml:lang zusammengefasst. </para>
 								<para xml:id="en_5810" xml:lang="en">Always only those elements with
-									identical "PropertyIdentifier" are being combined. </para>
+									identical "PropertyIdentifier" and identical value in @Class and @xml:lang are being combined. </para>
 							</listitem>
 							<listitem>
 								<para xml:id="de_5811" xml:lang="de">Properties mit höherer
@@ -16988,23 +16992,26 @@ usw.]]></programlisting>
 									explicitly, that also those are being replaced
 									"completely".</para>
 							</listitem>
+							<listitem>
+								<para xml:lang="det">Seid Version 2.1 werden nun in einem weiteren Schritt alle Properties mit identischem "PropertyIdentifier" und unterschiedlichem Wert in @Class zusammengeführt, in dem die Bestandteile der Property vereint und nicht überschrieben werden.</para>
+							</listitem>
 						</itemizedlist>
-						<para xml:id="de_5814" xml:lang="de">Einen Sonderfall stellt die
-							Konstellation dar, wenn PropertyAggregatingComponent="Flight".
-							Existieren Outbound- bzw. Inbound-Instanzen, so erfolgt die Aggregation
-							bezogen auf Outbound und Inbound. Andernfalls erfolgt die Aggregation
-							auf den OnewayFlight-Instanzen.</para>
+						<para xml:id="de_5814" xml:lang="de">Einen Sonderfall stellt die Konstellation dar, wenn die
+							PropertyAggregatingComponent="Flight" ist. Existieren Outbound- bzw.
+							Inbound-Instanzen, so erfolgt die Aggregation bezogen auf Outbound und
+							Inbound. Andernfalls erfolgt die Aggregation auf den
+							OnewayFlight-Instanzen.</para>
 						<para xml:id="en_5814" xml:lang="en">When
 							PropertyAggregatingComponent="Flight", this constellation poses an
 							special case. If Outbound- and/or Inbound-instances exist, the
 							aggregation takes place relating to Outbound and Inbound. In all other
 							cases the aggregation takes place on the OnewayFlight-instances.</para>
 						<para xml:id="de_5815" xml:lang="de">Eine vollständige Liste der Properties,
-							PropertyIdentifier und PropertyAggregatingComponents finden Sie im
+							PropertyIdentifier und PropertyAggregatingComponents (inklusive einem Verweis auf das neue Attributs @Class) finden Sie im
 							Anhang <link linkend="AnhangPropertiesAccommodations">"Properties -
 								Eigenschaften und Ausstattungen"</link></para>
 						<para xml:id="en_5815" xml:lang="en">You may find a complete list of
-							Properties, PropertyIdentifier and PropertyAggregatingComponents in the
+							Properties, PropertyIdentifier and PropertyAggregatingComponents (including a note to the new attribute @Class) in the
 							Annex <link linkend="AnhangPropertiesAccommodations">"Properties -
 								characteristics and facilities"</link></para>
 						<para xml:id="de_5871" xml:lang="de">Eine detailliertere Beschreibung der
@@ -46688,9 +46695,9 @@ usw.]]></programlisting>
 				<section xml:id="AnhangPropertiesProduct">
 					<title><phrase xml:id="de_4551" xml:lang="de">Properties - GeneralIncluded,
 							MandatoryServicesPaidAtLocation (zuvor: GeneralExcluded,
-							V1.9)</phrase><phrase xml:id="en_4551" xml:lang="en">Properties -
+							V1.9)(V2.1)</phrase><phrase xml:id="en_4551" xml:lang="en">Properties -
 							GeneralIncluded, MandatoryServicesPaidAtLocation (previously:
-							GeneralExcluded, v1.9)</phrase></title>
+							GeneralExcluded, V1.9)(V2.1)</phrase></title>
 
 					<informaltable border="0" style="border-collapse:  collapse;width:1008pt"
 						width="1344">
@@ -46723,7 +46730,7 @@ usw.]]></programlisting>
 						<tr>
 							<td rowspan="1" colspan="1"><para xml:id="de_9345" xml:lang="de">In allen Komponenten möglich</para><para xml:id="en_9345" xml:lang="en">Possible in all components</para></td>
 							<td rowspan="1" colspan="1"><para xml:lang="de">Product</para></td>
-							<td rowspan="1" colspan="1">GeneralIncludedService/@xml:lang</td>
+							<td rowspan="1" colspan="1">GeneralIncludedService/@xml:lang + @Class (V2.1)</td>
 							<td rowspan="1" colspan="1">
 								<itemizedlist>
 									<listitem>
@@ -46824,8 +46831,8 @@ usw.]]></programlisting>
 						<tr>
 							<td rowspan="1" colspan="1"><para xml:id="de_9346" xml:lang="de">In allen Komponenten möglich</para><para xml:id="en_9346" xml:lang="en">Possible in all components</para></td>
 							<td rowspan="1" colspan="1"><para xml:lang="de">Product</para></td>
-							<td rowspan="1" colspan="1"><para xml:id="de_9347" xml:lang="de">MandatoryServicesPaidAtLocation/@xml:lang (V1.9.1) (vorher: GeneralExcludedService, v1.9)</para>
-								<para xml:id="en_9347" xml:lang="en">MandatoryServicesPaidAtLocation/@xml:lang (V1.9.1) (previously: GeneralExcludedService, v1.9)</para></td>
+							<td rowspan="1" colspan="1"><para xml:id="de_9347" xml:lang="de">MandatoryServicesPaidAtLocation/@xml:lang(V1.9.1) + @Class (V2.1) (vorheriger Name: GeneralExcludedService, v1.9)</para>
+								<para xml:id="en_9347" xml:lang="en">MandatoryServicesPaidAtLocation/@xml:lang (V1.9.1) + @Class (V2.1) (previously named: GeneralExcludedService, v1.9)</para></td>
 							<td rowspan="1" colspan="1">
 								<itemizedlist>
 									<listitem>
