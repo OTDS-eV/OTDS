@@ -3038,6 +3038,39 @@ optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
 			</xs:simpleType>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="PositiveNonZeroIntegerListType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9474">Eine Liste von Integerzahlen größer als Null, durch Space getrennt.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9474">A list of integers greater than zero separated by space.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:list>
+					<xs:simpleType>
+						<xs:restriction base="PositiveNonZeroIntegerType"/>
+					</xs:simpleType>
+				</xs:list>
+			</xs:simpleType>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PositiveNonZeroIntegerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9475">Eine poitive Integerzahl ohne Null.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9475">An integer greater than zero.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:union>
+					<xs:simpleType>
+						<xs:restriction base="xs:int">
+							<xs:minExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:union>
+			</xs:simpleType>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="ProductFeaturesAttributeListType">
 		<xs:list itemType="ProductFeatureAttributeEnum"/>
 	</xs:simpleType>
@@ -7365,13 +7398,13 @@ Possible values are:
 		<xs:choice>
 			<xs:sequence maxOccurs="2">
 				<xs:choice>
-					<xs:element name="Min" type="xs:int">
+					<xs:element name="Min" type="PositiveNonZeroIntegerType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_437">In diesem Element kann eine minimale Anzahl definiert werden</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_437">In this element a minimum number can be defined.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="Max" type="xs:int">
+					<xs:element name="Max" type="PositiveNonZeroIntegerType">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_438">In diesem Element kann eine maximale Anzahl definiert werden</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_438">In this element a maximum number can be defined.</xs:documentation>
@@ -7379,13 +7412,12 @@ Possible values are:
 					</xs:element>
 				</xs:choice>
 			</xs:sequence>
-			<xs:element name="Counts" type="IntegerListType">
+			<xs:element name="Counts" type="PositiveNonZeroIntegerListType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_439">Es kann eine Liste von mehreren gültigen Anzahlen angegeben werden. Die einzelnen Zahlen müssen durch Space voneinander separiert sein.
-Counts="1 4 -3 -1" bestimmt die älteste Person, die viertälteste Person, die drittjüngste Person sowie die jüngste Person.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_439">A list of several valid counts can be specified. The individual indices must be separated from each other by a space.
-
-Counts="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd youngest person and the youngest person.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_439">Es kann eine Liste von mehreren gültigen Anzahlen (größer Null) angegeben werden. Die einzelnen Zahlen müssen durch Space voneinander separiert sein.
+Counts="1 2 4" bedeutet, Anzahl 1 oder 2 oder 4 ist erlaubt.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_439">A list of several valid numbers (greater than zero) can be specified. The individual numbers must be separated by space.
+Counts="1 2 4" means number 1 or 2 or 4 is allowed.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
