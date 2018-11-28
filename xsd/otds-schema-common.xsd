@@ -2695,7 +2695,7 @@ Default ist "Stay".</xs:documentation>
 						</xs:simpleContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="FilteredDayBase" type="DayFilterConditionType">
+				<xs:element name="FilteredDayBase" type="DayFilterDayBaseType">
 					<xs:annotation>
 						<xs:documentation>Mit FilteredDayBase kann der angebebene absolute Value nun flexibler als mit DayBase auf bestimmte Tage der Reise verteilt werden. Der Value wird dabei nur auf die unter FilteredDayBase definierten Tage verteilt.</xs:documentation>
 					</xs:annotation>
@@ -2713,7 +2713,7 @@ Formal wird mit PersonBase="1|2|...|x"  bestimmt, dass der Absolut/Value vor der
 Wird  PersonBase="x" angegeben, wird die Anzahl Reisenden als kontextabhängiger Teiler festgelegt. </xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="FilteredPersonBase" type="PersonFilterConditionType">
+				<xs:element name="FilteredPersonBase" type="PersonFilterPersonBaseType">
 					<xs:annotation>
 						<xs:documentation>Mit FilteredPersonBase kann der angebebene absolute Value nun flexibler als mit PersonBase auf bestimmte Personen der Reise verteilt werden. Der Value wird dabei nur auf die unter FilteredPersonBase definierten Personen verteilt. Zum Beispiel kann man so nun Preise nur auf Erwachsene und Kinder verteilen und Babies ausschließen.</xs:documentation>
 					</xs:annotation>
@@ -2721,6 +2721,246 @@ Wird  PersonBase="x" angegeben, wird die Anzahl Reisenden als kontextabhängiger
 			</xs:choice>
 		</xs:sequence>
 	</xs:group>
+	
+	
+	
+	
+	
+	<xs:group name="PersonFilterPersonBaseGroup">
+		<xs:choice>
+			<xs:element name="PersonImpact">
+				<xs:annotation>
+					<xs:documentation xml:lang="den">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Reiseteilnehmer und definieren eine Gültigkeit für jeden dieser Teilnehmer. Preise, die mit einer PersonImpactBedingung verknüpft sind, sind nur für bestimmte Personen gültig und werden dementsprechend nur bestimmten Personen zugewiesen. </xs:documentation>
+					<xs:documentation xml:lang="en">All conditions within this element relate to the individual tour participants and define validity criteria for each of them.
+Prices, which are linked to a PersonImpactCondition, are valid only for persons matching specific criteria and are assigned accordingly.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="PersonAge" type="AgeConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="den">Dieses Element definiert die Bedingung an das Alter von einzelnen Personen, für die etwas gültig wird. Es kann ein Mindestalter und ein maximales Alter angegeben werden. Ebenso kann ein Intervall für das Geburtsdatum angegeben werden.</xs:documentation>
+								<xs:documentation xml:lang="en">This element defines the condition specifying the age of individuals for whom something is valid. A minimum or a maximum age can be specified. Similarly, an interval can be specified by date of birth.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PersonIndex" type="PersonIndexConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="den">Dieses Element definiert die Bedingung an eine bestimmte Position einer Person in einer nach Alter absteigend sortierten Rangfolge der Reiseteilnehmer. Die betrachteten Personen können zusätzlich eingeschränkt werden. Positive Indizes beziehen sich auf die ältesten Reiseteilnehmer, negative Indizes in einer dem Alter nach absteigend sortierte Liste, also auf die jüngsten Reiseteilnehmer. Der Index "1" bezieht sich also auf den ältesten, der Index "-1" auf den jüngsten Reiseteilnehmer. Um Teilgruppen aus dem Personenkreis zu adressieren, ergeben sich vier typische Fälle: 1. Die ältesten x Personen: Until=x 2. Die jüngsten x Personen: From=-x Außerdem sind auch Kombinationen von "Until" und "From" und die Definition einer Liste von Indizes, also ein Muster, möglich. Über die integrierte PersonFilter kann die betrachtete Personengruppe zusätzlich eingeschränkt werden.</xs:documentation>
+								<xs:documentation xml:lang="en">This element defines the conditions affecting a participant at a particular location, ranking participants in descending order according to age.
+Further restrictions can be placed upon the persons under consideration.
+
+Positive indices refer to the oldest passengers, negative indices are sorted in descending order according to age and refer to the youngest participants. Thus index "1" refers to the oldest participant and index "-1" to the youngest participant.
+To address sub-groups within the group of participants, there are four typical cases:
+
+1. The x oldest persons: Until=x
+2. The x youngest persons: From=-x
+
+Additionally combinations of "Until" and "From" and the definition of a list of indices are also possible.
+
+Using the integrated PersonFilter the group of persons can be further filtered.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PersonGenders" type="PersonGendersConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="den">Dieses Element definiert eine Bedingung an das Geschlecht. Mögliche Werte sind: - Male - Female -Undefined. Es ist möglich, eine durch Space getrennte Liste von Werten anzugeben. Die Liste definiert ein implizites "Oder" zwischen den Elementen.</xs:documentation>
+								<xs:documentation xml:lang="en">This element defines a condition based on the sex of the participant. Possible values are:
+- Male
+- Female
+- Undefined
+
+It is possible to provide a list of values separated by spaces. The list defines an implicit "or" between the elements.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Impact">
+				<xs:annotation>
+					<xs:documentation xml:lang="den">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine
+Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
+					<xs:documentation xml:lang="en">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
+Prices that have a DayImpactCondition attached to them are only valid for certain days of the trip and are therefore only applied to the corresponding days.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="den">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird dabei durch Auswertung des Inhaltes der Attribute "Source" und "Location" bestimmt. Elternknoten sind diesbzgl. auch logische übergeordnete Knoten, die sich aus der Auswertung der Product- und CombinationRules ergeben. Durch Angabe der Attribute "Offset" und "Length" wird der Vergleich des Wertes des ConditionalTag-Elementes auf bestimmte Zeichen begrenzt. Zusätzlich kann auch noch das Attribut "Class" besetzt werden und muss in dem entsprechenden ConditionalTag-Element dann auch übereinstimmen, damit die Gesamtbedingung erfüllt ist. Damit die Bedingung erfüllt ist, reicht es, dass ein ConditionalTag am Zielknoten die Bedingung erfüllt. Falls jedoch die Adressierung des Zielknotens nicht eindeutig ist, so muss jeder Zielknoten die Tag-Bedingung wenigstens einmal erfüllen, damit die Gesamtbedingung erfüllt ist. (@ToDo: Siehe auch Thematische Dokumentation Auswertung der ConditionalTags)</xs:documentation>
+								<xs:documentation xml:lang="en">This element defines the condition of
+									whether, at a specific node of the observed offer, the child
+									element "ConditionalTag" is included with a specific Tag-Value.
+									In addition, the conditions of the relevant ConditionalTag must
+									be fulfilled. The element ConditionalTags may include a list of
+									tags separated by a space. The condition is fulfilled if one of
+									the tags matches the value of the target node (it can therefore
+									be described as an implicit "OR-connective"). In this situation,
+									the addressed node is defined through an evaluation of the
+									contents of the attributes "Source" and "Location". Parent nodes
+									are in this sense also logically superordinate nodes which
+									result from the evaluation of the ProductRules and
+									CombinationRules. Through the provision of the attributes
+									"Offset" and "Length", the comparison of the value of the
+									ConditionalTag element is limited to certain characters. In
+									addition, the attribute "Class" may also be occupied and must
+									then also match in the corresponding ConditionalTag element, in
+									order that the overall condition is fulfilled. In order for the
+									condition to be fulfilled, it suffices for a ConditionalTag at
+									the target node to fulfil the condition. If, however, the
+									addressing of the destination node is not unambiguous, every
+									destination node must fulfil the tag condition at least once, in
+									order that the overall condition is fulfilled. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="And">
+				<xs:complexType>
+					<xs:group ref="PersonFilterPersonBaseGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Or">
+				<xs:complexType>
+					<xs:group ref="PersonFilterPersonBaseGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Not">
+				<xs:complexType>
+					<xs:group ref="PersonFilterPersonBaseGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="DayFilterDayBaseGroup">
+		<xs:choice>
+			<xs:element name="DayImpact">
+				<xs:annotation>
+					<xs:documentation xml:lang="det">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
+					<xs:documentation xml:lang="en">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
+Prices which are linked to a DayImpactCondition are valid only for certain days of the trip and will be assigned to days accordingly.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="Date" type="DateConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="det">Einschränkung bzgl. des Datums einzelner Reisetage. Die Bedingung gilt für die Reisetage als erfüllt, die die entsprechenden Terminbedingungen (größer=Min  und  kleiner= Max  und passt zum Attribute "DayType")  erfüllen.</xs:documentation>
+								<xs:documentation xml:lang="en">Limitations with respect to the dates of specific travel days. The condition is fulfilled for travel days that meet the applicable date conditions (greater=Min and lower=Max and fits the "DayType" attribute).</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DayIndex" type="DayIndexConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="det">Einschränkung auf bestimmte Tage des Reiseverlaufs. Dieses Element definiert eine Gültigkeit für bestimmte Tage eines Reiseverlaufs. Alle betrachteten Tage werden nach Reiseverlauf sortiert und bekommen dann jeweils einen von 1 aufsteigenden Index. Im Gegenzug werden alle Tage entgegen des Reiseverlaufs sortiert und bekommen einen zweiten Index von 1 aufsteigend, aber mit negativem Vorzeichen. Die Bedingung selbst gibt eine Liste von Indizes bzw. einen Wert "Until" (bis zu) und/oder einen Wert "From" (ab) an, über die die gültigen Tage definiert sind. Über das Attribute "Repeat" können weitere Einstellungen für sich wiederholende Muster von Tagen definiert werden. Positive Indizes adressieren die Tage in zeitlich aufsteigender Reihenfolge. Negative Indizes adressieren die Tage in zeitlich absteigender Form, also zum Beispiel die letzten 3 Tage der Reise.  		Um bestimmte Zeiträume zu adressieren, ergeben sich vier typische Fälle: 1. Die ersten x Tage: Until=x 2. Die letzten x Tage: From=-x 3. Alle Tage nach dem Xten Tag: From=X 4. Alle Tage vor dem x-letzten Tag: Until=-x Außerdem sind dazu noch Kombinationen von "From" und "Until" möglich und die Angabe einer Liste von Indizes. Dazu mehr bei der Beschreibung zum Element "Indices".</xs:documentation>
+								<xs:documentation xml:lang="en">Restrictions on certain days of the itinerary
+
+This element defines a validity for certain days of the itinerary. All days are sorted according to the itinerary and placed in an index starting from 1. All days are again sorted chronologically according to the itinerary and get a second index starting from 1 in ascending order but with a negative sign.
+
+The condition itself is a list of indices or a value "Until" and/or "From", which is used to define the days for which it are valid.
+The "Repeat" attribute is used to define further settings for repeating patterns of days. Positive indices address the days according to chronological order by date. Negative indices address the days in reverse order, for instance the last 3 days of the trip.
+To address certain periods, there are four typical cases:
+
+1. The first x days: Until=x
+2. The last x days: From=-x
+3. All days after day X: From=X
+4. All days prior to day X: Until=-x
+
+Additionally, combinations of "From" and "Until" can be used as definitions in a list of indices. More details can be found in the description of the "Indices" element.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Weekdays" type="WeekdayConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="det">Einschränkung bzgl. des Wochentages einzelner Tage Dieses Element definiert die Bedingung, ob einzelne Tage der gerade betrachteten Reise eine Bedingung bzgl. der Wochentage erfüllen. Die Bedingung ist für jeden Tag erfüllt der einem der angegeben Wochentage entspricht. Dabei kann über das Attribut "DayType" zusätzlich bestimmt werden, dass nur bestimmte Tage der Reise betrachtet werden sollen (z.B.: nur der Anreisetag oder nur Aufenthaltstage). Bitte beachten: Im Gegensatz zu den anderen Conditions ist an dieser Stelle der Defaultwert="CheckIn" gesetzt. Wird das Attribut "DayType" nicht angegeben ,so wird an dieser Stelle der Wert "CheckIn" benutzt.
+									Das Element Weekdays kann eine durch Space getrennte Liste von Wochentagen enthalten. Mögliche Werte sind "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", analog zu den englisch benamten Wochentagen. 
+Die Bedingung ist erfüllt, wenn einer der angegebenen Tage die Bedingung erfüllt. Es handelt sich also um eine implizite "OR-Verknüpfung". Über das Attribut "Source" wird die Quelle der betrachteten Reisetage bestimmt (z.B. Termine im Hotel oder während des Fluges). Diese Bedingung überprüft, ob bestimmte Tage einer Reise eine Wochentagsbedingung erfüllen und deshalb ggf. Preise explizit für diese Tage gelten. Die entsprechende Interpretation der Weekday-Condition ohne 	Impact-Anteil ist dementsprechend abweichend - bitte beachten. </xs:documentation>
+								<xs:documentation xml:lang="en">Restrictions on specific weekdays of
+									individual days This element defines the condition whether or
+									not individual days of the currently viewed tour meet the
+									weekday restriction condition. The condition is met for all days
+									that correspond to the weekdays entered. The "DayType" attribute
+									can also be used to determine that only certain days of the tour
+									should be considered (e.g. only the arrival day or only the days
+									of the stay). Please note: In contrast to other conditions, here
+									the default value is set to ="CheckIn". If nothing is entered as
+									the "DayType" attribute, the value "CheckIn" will be used here.
+									The Weekdays element can contain a list of weekdays separated by
+									a space. Possible vaules are "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", and "Sun". The condition is fulfilled if one of the days entered
+									fulfils the condition. It therefore concerns an implicit "OR
+									connective". The "Source" attribute is used to determine the
+									source of the travel days currently being viewed (e.g. dates in
+									the hotel or during the flight). This condition checks whether
+									certain days of a tour meet a weekday condition, and therefore
+									also whether prices explicitly apply for these days. The
+									corresponding interpretation of the Weekday Condition without
+									Impact part changes accordingly - please
+									note.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Impact">
+				<xs:annotation>
+					<xs:documentation xml:lang="det">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine
+Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
+					<xs:documentation xml:lang="en">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
+Prices that have a DayImpactCondition attached to them are only valid for certain days of the trip and are therefore only applied to the corresponding days.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
+							<xs:annotation>
+								<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird dabei durch Auswertung des Inhaltes der Attribute "Source" und "Location" bestimmt. Elternknoten sind diesbzgl. auch logische übergeordnete Knoten, die sich aus der Auswertung der Product- und CombinationRules ergeben. Durch Angabe der Attribute "Offset" und "Length" wird der Vergleich des Wertes des ConditionalTag-Elementes auf bestimmte Zeichen begrenzt. Zusätzlich kann auch noch das Attribut "Class" besetzt werden und muss in dem entsprechenden ConditionalTag-Element dann auch übereinstimmen, damit die Gesamtbedingung erfüllt ist. Damit die Bedingung erfüllt ist, reicht es, dass ein ConditionalTag am Zielknoten die Bedingung erfüllt. Falls jedoch die Adressierung des Zielknotens nicht eindeutig ist, so muss jeder Zielknoten die Tag-Bedingung wenigstens einmal erfüllen, damit die Gesamtbedingung erfüllt ist. (@ToDo: Siehe auch Thematische Dokumentation Auswertung der ConditionalTags)</xs:documentation>
+								<xs:documentation xml:lang="en">This element defines the condition of
+									whether, at a specific node of the observed offer, the child
+									element "ConditionalTag" is included with a specific Tag-Value.
+									In addition, the conditions of the relevant ConditionalTag must
+									be fulfilled. The element ConditionalTags may include a list of
+									tags separated by a space. The condition is fulfilled if one of
+									the tags matches the value of the target node (it can therefore
+									be described as an implicit "OR-connective"). In this situation,
+									the addressed node is defined through an evaluation of the
+									contents of the attributes "Source" and "Location". Parent nodes
+									are in this sense also logically superordinate nodes which
+									result from the evaluation of the ProductRules and
+									CombinationRules. Through the provision of the attributes
+									"Offset" and "Length", the comparison of the value of the
+									ConditionalTag element is limited to certain characters. In
+									addition, the attribute "Class" may also be occupied and must
+									then also match in the corresponding ConditionalTag element, in
+									order that the overall condition is fulfilled. In order for the
+									condition to be fulfilled, it suffices for a ConditionalTag at
+									the target node to fulfil the condition. If, however, the
+									addressing of the destination node is not unambiguous, every
+									destination node must fulfil the tag condition at least once, in
+									order that the overall condition is fulfilled. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="And">
+				<xs:complexType>
+					<xs:group ref="DayFilterDayBaseGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Or">
+				<xs:complexType>
+					<xs:group ref="DayFilterDayBaseGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Not">
+				<xs:complexType>
+					<xs:group ref="DayFilterDayBaseGroup" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:complexType name="DayFilterDayBaseType">
+		<xs:group ref="DayFilterDayBaseGroup"/>
+	</xs:complexType>
+	<xs:complexType name="PersonFilterPersonBaseType">
+		<xs:group ref="PersonFilterPersonBaseGroup"/>
+	</xs:complexType>
+	
+	
 	<xs:group name="AllocationBaseConditionGroup">
 		<xs:sequence>
 			<xs:element name="DayBase" minOccurs="0">
@@ -8420,104 +8660,19 @@ Das Attribut "EvaluationMode" definiert, ob ein Kostenknoten die Bedingung erfü
 			</xs:element>
 		</xs:choice>
 	</xs:group>
+	<xs:complexType name="ConditionType">
+		<xs:group ref="ConditionGroup"/>
+	</xs:complexType>
 	<xs:group name="PersonFilterConditionGroup">
 		<xs:choice>
-			<xs:element name="PersonImpact">
-				<xs:annotation>
-					<xs:documentation xml:lang="den">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Reiseteilnehmer und definieren eine Gültigkeit für jeden dieser Teilnehmer. Preise, die mit einer PersonImpactBedingung verknüpft sind, sind nur für bestimmte Personen gültig und werden dementsprechend nur bestimmten Personen zugewiesen. </xs:documentation>
-					<xs:documentation xml:lang="en">All conditions within this element relate to the individual tour participants and define validity criteria for each of them.
-Prices, which are linked to a PersonImpactCondition, are valid only for persons matching specific criteria and are assigned accordingly.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:choice>
-						<xs:element name="PersonAge" type="AgeConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="den">Dieses Element definiert die Bedingung an das Alter von einzelnen Personen, für die etwas gültig wird. Es kann ein Mindestalter und ein maximales Alter angegeben werden. Ebenso kann ein Intervall für das Geburtsdatum angegeben werden.</xs:documentation>
-								<xs:documentation xml:lang="en">This element defines the condition specifying the age of individuals for whom something is valid. A minimum or a maximum age can be specified. Similarly, an interval can be specified by date of birth.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="PersonIndex" type="PersonIndexConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="den">Dieses Element definiert die Bedingung an eine bestimmte Position einer Person in einer nach Alter absteigend sortierten Rangfolge der Reiseteilnehmer. Die betrachteten Personen können zusätzlich eingeschränkt werden. Positive Indizes beziehen sich auf die ältesten Reiseteilnehmer, negative Indizes in einer dem Alter nach absteigend sortierte Liste, also auf die jüngsten Reiseteilnehmer. Der Index "1" bezieht sich also auf den ältesten, der Index "-1" auf den jüngsten Reiseteilnehmer. Um Teilgruppen aus dem Personenkreis zu adressieren, ergeben sich vier typische Fälle: 1. Die ältesten x Personen: Until=x 2. Die jüngsten x Personen: From=-x Außerdem sind auch Kombinationen von "Until" und "From" und die Definition einer Liste von Indizes, also ein Muster, möglich. Über die integrierte PersonFilter kann die betrachtete Personengruppe zusätzlich eingeschränkt werden.</xs:documentation>
-								<xs:documentation xml:lang="en">This element defines the conditions affecting a participant at a particular location, ranking participants in descending order according to age.
-Further restrictions can be placed upon the persons under consideration.
-
-Positive indices refer to the oldest passengers, negative indices are sorted in descending order according to age and refer to the youngest participants. Thus index "1" refers to the oldest participant and index "-1" to the youngest participant.
-To address sub-groups within the group of participants, there are four typical cases:
-
-1. The x oldest persons: Until=x
-2. The x youngest persons: From=-x
-
-Additionally combinations of "Until" and "From" and the definition of a list of indices are also possible.
-
-Using the integrated PersonFilter the group of persons can be further filtered.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="PersonGenders" type="PersonGendersConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="den">Dieses Element definiert eine Bedingung an das Geschlecht. Mögliche Werte sind: - Male - Female -Undefined. Es ist möglich, eine durch Space getrennte Liste von Werten anzugeben. Die Liste definiert ein implizites "Oder" zwischen den Elementen.</xs:documentation>
-								<xs:documentation xml:lang="en">This element defines a condition based on the sex of the participant. Possible values are:
-- Male
-- Female
-- Undefined
-
-It is possible to provide a list of values separated by spaces. The list defines an implicit "or" between the elements.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:choice>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Impact">
-				<xs:annotation>
-					<xs:documentation xml:lang="den">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine
-Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
-					<xs:documentation xml:lang="en">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
-Prices that have a DayImpactCondition attached to them are only valid for certain days of the trip and are therefore only applied to the corresponding days.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:choice>
-						<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="den">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird dabei durch Auswertung des Inhaltes der Attribute "Source" und "Location" bestimmt. Elternknoten sind diesbzgl. auch logische übergeordnete Knoten, die sich aus der Auswertung der Product- und CombinationRules ergeben. Durch Angabe der Attribute "Offset" und "Length" wird der Vergleich des Wertes des ConditionalTag-Elementes auf bestimmte Zeichen begrenzt. Zusätzlich kann auch noch das Attribut "Class" besetzt werden und muss in dem entsprechenden ConditionalTag-Element dann auch übereinstimmen, damit die Gesamtbedingung erfüllt ist. Damit die Bedingung erfüllt ist, reicht es, dass ein ConditionalTag am Zielknoten die Bedingung erfüllt. Falls jedoch die Adressierung des Zielknotens nicht eindeutig ist, so muss jeder Zielknoten die Tag-Bedingung wenigstens einmal erfüllen, damit die Gesamtbedingung erfüllt ist. (@ToDo: Siehe auch Thematische Dokumentation Auswertung der ConditionalTags)</xs:documentation>
-								<xs:documentation xml:lang="en">This element defines the condition of
-									whether, at a specific node of the observed offer, the child
-									element "ConditionalTag" is included with a specific Tag-Value.
-									In addition, the conditions of the relevant ConditionalTag must
-									be fulfilled. The element ConditionalTags may include a list of
-									tags separated by a space. The condition is fulfilled if one of
-									the tags matches the value of the target node (it can therefore
-									be described as an implicit "OR-connective"). In this situation,
-									the addressed node is defined through an evaluation of the
-									contents of the attributes "Source" and "Location". Parent nodes
-									are in this sense also logically superordinate nodes which
-									result from the evaluation of the ProductRules and
-									CombinationRules. Through the provision of the attributes
-									"Offset" and "Length", the comparison of the value of the
-									ConditionalTag element is limited to certain characters. In
-									addition, the attribute "Class" may also be occupied and must
-									then also match in the corresponding ConditionalTag element, in
-									order that the overall condition is fulfilled. In order for the
-									condition to be fulfilled, it suffices for a ConditionalTag at
-									the target node to fulfil the condition. If, however, the
-									addressing of the destination node is not unambiguous, every
-									destination node must fulfil the tag condition at least once, in
-									order that the overall condition is fulfilled. </xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:choice>
-				</xs:complexType>
-			</xs:element>
+			<xs:group ref="AtomicPersonImpactConditionGroup"/>
+			<xs:group ref="AtomicImpactConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
 					<xs:group ref="PersonFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Or">
-				<xs:complexType>
-					<xs:group ref="PersonFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Not">
 				<xs:complexType>
 					<xs:group ref="PersonFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
@@ -8526,110 +8681,8 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 	</xs:group>
 	<xs:group name="DayFilterConditionGroup">
 		<xs:choice>
-			<xs:element name="DayImpact">
-				<xs:annotation>
-					<xs:documentation xml:lang="det">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
-					<xs:documentation xml:lang="en">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
-Prices which are linked to a DayImpactCondition are valid only for certain days of the trip and will be assigned to days accordingly.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:choice>
-						<xs:element name="Date" type="DateConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="det">Einschränkung bzgl. des Datums einzelner Reisetage. Die Bedingung gilt für die Reisetage als erfüllt, die die entsprechenden Terminbedingungen (größer=Min  und  kleiner= Max  und passt zum Attribute "DayType")  erfüllen.</xs:documentation>
-								<xs:documentation xml:lang="en">Limitations with respect to the dates of specific travel days. The condition is fulfilled for travel days that meet the applicable date conditions (greater=Min and lower=Max and fits the "DayType" attribute).</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="DayIndex" type="DayIndexConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="det">Einschränkung auf bestimmte Tage des Reiseverlaufs. Dieses Element definiert eine Gültigkeit für bestimmte Tage eines Reiseverlaufs. Alle betrachteten Tage werden nach Reiseverlauf sortiert und bekommen dann jeweils einen von 1 aufsteigenden Index. Im Gegenzug werden alle Tage entgegen des Reiseverlaufs sortiert und bekommen einen zweiten Index von 1 aufsteigend, aber mit negativem Vorzeichen. Die Bedingung selbst gibt eine Liste von Indizes bzw. einen Wert "Until" (bis zu) und/oder einen Wert "From" (ab) an, über die die gültigen Tage definiert sind. Über das Attribute "Repeat" können weitere Einstellungen für sich wiederholende Muster von Tagen definiert werden. Positive Indizes adressieren die Tage in zeitlich aufsteigender Reihenfolge. Negative Indizes adressieren die Tage in zeitlich absteigender Form, also zum Beispiel die letzten 3 Tage der Reise.  		Um bestimmte Zeiträume zu adressieren, ergeben sich vier typische Fälle: 1. Die ersten x Tage: Until=x 2. Die letzten x Tage: From=-x 3. Alle Tage nach dem Xten Tag: From=X 4. Alle Tage vor dem x-letzten Tag: Until=-x Außerdem sind dazu noch Kombinationen von "From" und "Until" möglich und die Angabe einer Liste von Indizes. Dazu mehr bei der Beschreibung zum Element "Indices".</xs:documentation>
-								<xs:documentation xml:lang="en">Restrictions on certain days of the itinerary
-
-This element defines a validity for certain days of the itinerary. All days are sorted according to the itinerary and placed in an index starting from 1. All days are again sorted chronologically according to the itinerary and get a second index starting from 1 in ascending order but with a negative sign.
-
-The condition itself is a list of indices or a value "Until" and/or "From", which is used to define the days for which it are valid.
-The "Repeat" attribute is used to define further settings for repeating patterns of days. Positive indices address the days according to chronological order by date. Negative indices address the days in reverse order, for instance the last 3 days of the trip.
-To address certain periods, there are four typical cases:
-
-1. The first x days: Until=x
-2. The last x days: From=-x
-3. All days after day X: From=X
-4. All days prior to day X: Until=-x
-
-Additionally, combinations of "From" and "Until" can be used as definitions in a list of indices. More details can be found in the description of the "Indices" element.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-						<xs:element name="Weekdays" type="WeekdayConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="det">Einschränkung bzgl. des Wochentages einzelner Tage Dieses Element definiert die Bedingung, ob einzelne Tage der gerade betrachteten Reise eine Bedingung bzgl. der Wochentage erfüllen. Die Bedingung ist für jeden Tag erfüllt der einem der angegeben Wochentage entspricht. Dabei kann über das Attribut "DayType" zusätzlich bestimmt werden, dass nur bestimmte Tage der Reise betrachtet werden sollen (z.B.: nur der Anreisetag oder nur Aufenthaltstage). Bitte beachten: Im Gegensatz zu den anderen Conditions ist an dieser Stelle der Defaultwert="CheckIn" gesetzt. Wird das Attribut "DayType" nicht angegeben ,so wird an dieser Stelle der Wert "CheckIn" benutzt.
-									Das Element Weekdays kann eine durch Space getrennte Liste von Wochentagen enthalten. Mögliche Werte sind "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", analog zu den englisch benamten Wochentagen. 
-Die Bedingung ist erfüllt, wenn einer der angegebenen Tage die Bedingung erfüllt. Es handelt sich also um eine implizite "OR-Verknüpfung". Über das Attribut "Source" wird die Quelle der betrachteten Reisetage bestimmt (z.B. Termine im Hotel oder während des Fluges). Diese Bedingung überprüft, ob bestimmte Tage einer Reise eine Wochentagsbedingung erfüllen und deshalb ggf. Preise explizit für diese Tage gelten. Die entsprechende Interpretation der Weekday-Condition ohne 	Impact-Anteil ist dementsprechend abweichend - bitte beachten. </xs:documentation>
-								<xs:documentation xml:lang="en">Restrictions on specific weekdays of
-									individual days This element defines the condition whether or
-									not individual days of the currently viewed tour meet the
-									weekday restriction condition. The condition is met for all days
-									that correspond to the weekdays entered. The "DayType" attribute
-									can also be used to determine that only certain days of the tour
-									should be considered (e.g. only the arrival day or only the days
-									of the stay). Please note: In contrast to other conditions, here
-									the default value is set to ="CheckIn". If nothing is entered as
-									the "DayType" attribute, the value "CheckIn" will be used here.
-									The Weekdays element can contain a list of weekdays separated by
-									a space. Possible vaules are "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", and "Sun". The condition is fulfilled if one of the days entered
-									fulfils the condition. It therefore concerns an implicit "OR
-									connective". The "Source" attribute is used to determine the
-									source of the travel days currently being viewed (e.g. dates in
-									the hotel or during the flight). This condition checks whether
-									certain days of a tour meet a weekday condition, and therefore
-									also whether prices explicitly apply for these days. The
-									corresponding interpretation of the Weekday Condition without
-									Impact part changes accordingly - please
-									note.</xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:choice>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="Impact">
-				<xs:annotation>
-					<xs:documentation xml:lang="det">Alle Bedingungen innerhalb dieses Elementes beziehen sich auf die einzelnen Tage der Reise und definieren eine
-Gültigkeit für jeden dieser Tage. Preise, die mit einer DayImpactBedingung verknüpft sind, sind nur für bestimmte Tage der Reise gültig und werden dementsprechend nur bestimmten Tagen zugewiesen. </xs:documentation>
-					<xs:documentation xml:lang="en">All conditions within this element relate to each day of the trip and define validity criteria for each of these days.
-Prices that have a DayImpactCondition attached to them are only valid for certain days of the trip and are therefore only applied to the corresponding days.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:choice>
-						<xs:element name="ConditionalTags" type="ConditionalTagConditionType">
-							<xs:annotation>
-								<xs:documentation xml:lang="det">Dieses Element definiert die Bedingung, ob an einem bestimmten Knoten des betrachteten Angebotes das Kind-Element "ConditionalTag" mit einem bestimmten Tag-Value enthalten ist. Zusätzlich müssen noch die Bedingungen des entsprechenden ConditionalTags erfüllt sein. Das Element ConditionalTags kann eine durch Space getrennte Liste von Tags enthalten. Die Bedingung ist erfüllt, wenn einer der Tags mit dem Wert des Zielknotens übereinstimmt (es handelt sich also um eine implizite "OR-Verknüpfung"). Der adressierte Knoten wird dabei durch Auswertung des Inhaltes der Attribute "Source" und "Location" bestimmt. Elternknoten sind diesbzgl. auch logische übergeordnete Knoten, die sich aus der Auswertung der Product- und CombinationRules ergeben. Durch Angabe der Attribute "Offset" und "Length" wird der Vergleich des Wertes des ConditionalTag-Elementes auf bestimmte Zeichen begrenzt. Zusätzlich kann auch noch das Attribut "Class" besetzt werden und muss in dem entsprechenden ConditionalTag-Element dann auch übereinstimmen, damit die Gesamtbedingung erfüllt ist. Damit die Bedingung erfüllt ist, reicht es, dass ein ConditionalTag am Zielknoten die Bedingung erfüllt. Falls jedoch die Adressierung des Zielknotens nicht eindeutig ist, so muss jeder Zielknoten die Tag-Bedingung wenigstens einmal erfüllen, damit die Gesamtbedingung erfüllt ist. (@ToDo: Siehe auch Thematische Dokumentation Auswertung der ConditionalTags)</xs:documentation>
-								<xs:documentation xml:lang="en">This element defines the condition of
-									whether, at a specific node of the observed offer, the child
-									element "ConditionalTag" is included with a specific Tag-Value.
-									In addition, the conditions of the relevant ConditionalTag must
-									be fulfilled. The element ConditionalTags may include a list of
-									tags separated by a space. The condition is fulfilled if one of
-									the tags matches the value of the target node (it can therefore
-									be described as an implicit "OR-connective"). In this situation,
-									the addressed node is defined through an evaluation of the
-									contents of the attributes "Source" and "Location". Parent nodes
-									are in this sense also logically superordinate nodes which
-									result from the evaluation of the ProductRules and
-									CombinationRules. Through the provision of the attributes
-									"Offset" and "Length", the comparison of the value of the
-									ConditionalTag element is limited to certain characters. In
-									addition, the attribute "Class" may also be occupied and must
-									then also match in the corresponding ConditionalTag element, in
-									order that the overall condition is fulfilled. In order for the
-									condition to be fulfilled, it suffices for a ConditionalTag at
-									the target node to fulfil the condition. If, however, the
-									addressing of the destination node is not unambiguous, every
-									destination node must fulfil the tag condition at least once, in
-									order that the overall condition is fulfilled. </xs:documentation>
-							</xs:annotation>
-						</xs:element>
-					</xs:choice>
-				</xs:complexType>
-			</xs:element>
+			<xs:group ref="AtomicDayImpactConditionGroup"/>
+			<xs:group ref="AtomicImpactConditionGroup"/>
 			<xs:element name="And">
 				<xs:complexType>
 					<xs:group ref="DayFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
@@ -8640,16 +8693,8 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 					<xs:group ref="DayFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="Not">
-				<xs:complexType>
-					<xs:group ref="DayFilterConditionGroup" minOccurs="1" maxOccurs="unbounded"/>
-				</xs:complexType>
-			</xs:element>
 		</xs:choice>
 	</xs:group>
-	<xs:complexType name="ConditionType">
-		<xs:group ref="ConditionGroup"/>
-	</xs:complexType>
 	<xs:complexType name="DayFilterConditionType">
 		<xs:group ref="DayFilterConditionGroup"/>
 	</xs:complexType>
@@ -8835,7 +8880,7 @@ Prices that have a DayImpactCondition attached to them are only valid for certai
 		<xs:choice>
 			<xs:element name="DayCount" type="DayCountConditionType" internal:otdsversion="1.9">
 				<xs:annotation>
-					<xs:documentation  xml:lang="det">Die Verwendung von "DayCount" erlaubt eine vereinfachte Zählung von Tagen. Es kann eine minimale, maximale oder eine oder mehrere exakte Anzahlen als Bedingung angegeben werden. Optional kann über einen "DayFilter" definiert werden, welche Tage bzw. Personen betrachtet werden sollen. Dieser Filter erlaubt auch Verknüpfungen über AND und OR.</xs:documentation>
+					<xs:documentation xml:lang="det">Die Verwendung von "DayCount" erlaubt eine vereinfachte Zählung von Tagen. Es kann eine minimale, maximale oder eine oder mehrere exakte Anzahlen als Bedingung angegeben werden. Optional kann über einen "DayFilter" definiert werden, welche Tage bzw. Personen betrachtet werden sollen. Dieser Filter erlaubt auch Verknüpfungen über AND und OR.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="PersonCount" type="PersonCountConditionType" internal:otdsversion="1.9">
