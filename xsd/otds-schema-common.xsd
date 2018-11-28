@@ -1,6 +1,5 @@
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) by Sebastian Oremek (TravelTainment GmbH) -->
-<!-- Test -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<!-- Import xml: namespace -->
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
@@ -250,6 +249,7 @@ The default is 0.</xs:documentation>
 	<xs:group name="BookingWithoutNodeGroup">
 		<xs:sequence>
 			<xs:element name="BookingGroup" type="BookingGroupType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9"/>
+			<xs:element name="BookingTree" type="BookingTreeType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0.1"/>
 		</xs:sequence>
 	</xs:group>
 	<xs:complexType name="BookingType">
@@ -469,6 +469,189 @@ Default = Always</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
+	<xs:complexType name="BookingTreeParameterTextType">
+		<xs:choice minOccurs="0">
+			<xs:element name="Value" type="xs:string"/>
+			<xs:element name="Tag" type="EmptyTagConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9300">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als Booking-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9300">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as Booking Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConditionalTag" type="EmptyTagConditionType">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9301">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als Booking-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9301">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as Booking Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="Name" type="NameType" default="Default">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9302">Dieses Attribut definiert zusammen mit dem Attribut "Area" und dem Attribut "Field" die Eindeutigkeit eines BookingParameters während der finalen Verarbeitung.  </xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9302">Along with the "Area" and "Field" attributes, this attribute defines the uniqueness of a BookingParameter during the final processing.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Index" type="xs:int" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9303">Dieses Attribut definiert, an welcher Position
+					der BookingParameter mit einem anderen BookingParameter zusammengefügt wird. Der
+					Wert kann positive und negative Werte annehmen. Default ist
+					0.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9303">This attribute defines at what position a booking parameter is added another booking parameter.
+The value can be positive or negative.
+The default is 0.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="LeftSeparator" type="xs:string" default="">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9304">LeftSeparator - Ist der Parameter nicht der erste
+					Parameter, wird dieser Separator direkt vor dem Parameter
+					eingefügt.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9304">LeftSeparator - If the parameter is not the first, this separator will be inserted directly in front of it.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="RightSeparator" type="xs:string" default="">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9305">RightSeparator - Ist der Parameter nicht der
+					letzte Parameter, wird dieser Separator direkt nach dem Parameter
+					eingefügt</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9305">RightSeparator - If the parameter is not the last, this separator will be inserted directly behind it.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="PadLength" type="xs:unsignedInt" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9306">PadLength - Gibt an, dass der Parameter mittels
+					eines Füllzeichens auf eine feste Länge gebracht werden soll. Ist der Parameter
+					schon länger als PadLength, wird kein Padding vorgenommen. Vorgabe ist
+					0.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9306">PadLength - specifies the parameter should be strecthed to a certain length using fill character. If the parameter is already longer than PadLength, no padding is required. The default is 0.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="PadOrientation" type="PadOrientationEnum" default="Right">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9307">PadOrientation - Legt fest, auf welcher Seite des
+					Parameters das Füllzeichen eingefügt wird. Vorgabe ist Right. Left - fügt das
+					Padding links ein; Right - fügt das Padding rechts ein.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9307">PadOrientation - specifies on which side of the
+					parameter the fill character is inserted. The default is Right. Left - padding
+					will be inserted to the left; Right - padding will be inserted to the
+					right.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Padding" type="xs:string" default=" ">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9308">Padding - Legt das Zeichen fest, mit welchem der Parameter aufgefüllt wird. Vorgabe ist das Leerzeichen.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9308">Padding - determines the character with which the parameter is filled up. The default is a space.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="PadCondition" type="PadConditionEnum" default="Always">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_9309"> PadCondition - Legt zusätzliche Bedingungen
+					fest, wann das Padding zu erfolgen hat. Möglich sind folgende Werte: Always -
+					Das Padding wird immer eingefügt. NotFirst - Das Padding wird eingefügt, wenn
+					der Parameter nicht der erste Parameter ist. NotLast - Das Padding wird
+					eingefügt, wenn der Parameter nicht der letzte Parameter ist. NotAtEnds - Das
+					Padding wird eingefügt, wenn der Parameter weder der erste noch der letzte
+					Parameter ist. Default= Always </xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9309">PadCondition - specifies additional conditions when padding is to be used. Possible values ​​are as follows:
+
+Always - padding is always inserted
+
+NotFirst - padding is inserted, if the parameter is not the first parameter.
+
+NotLast - padding is inserted, if the parameter is not the last parameter.
+
+NotAtEnds - padding is inserted, if the parameter is neither the first nor the last parameter.
+
+Default = Always</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BookingTreeParameterDateReferenceType">
+		<xs:sequence>
+			<xs:element name="Date">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="EmptyElementType">
+							<xs:attribute name="Source" type="SourceAttributeType" use="required">
+								<xs:annotation>
+									<xs:documentation xml:lang="de" xml:id="de_9310">In diesem Attribut wird eine Referenz auf den
+										Context der DayAllocation definiert. Zulässige Werte sind: -
+										ThisComponent - Product - Accommodation - ReturnFlight -
+										OnewayFlight - Outbound - Inbound - Addon Default ist
+										"ThisComponent". Es sind aber theoretisch auch Namensreferenzen
+										erlaubt. Siehe dazu auch in der Thematischen Dokumentation die
+										Kapitel zum Source-Attribut. (Todo: Verlinkung) </xs:documentation>
+									<xs:documentation xml:lang="en" xml:id="en_9310">In this attribute a reference to the context of the DayAllocation will be defined.
+Permitted values are:
+- ThisComponent
+- Product
+- Accommodation
+- ReturnFlight
+- OnewayFlight
+- Outbound
+- Inbound
+- Addon
+
+Default is "ThisComponent".
+Theoretically, however, name references are also allowed. For further information, see the Source Attribute chapter of the Thematic Documentation. (Todo: link)</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="DayType" type="DayTypeEnum" use="required">
+								<xs:annotation>
+									<xs:documentation xml:lang="de" xml:id="de_9311">Dieses Attribut definiert, welches Datum in
+								das Buchungsfeld übernommen werden soll. Mögliche Werte sind: -
+								CheckIn - CheckOut</xs:documentation>
+									<xs:documentation xml:lang="en" xml:id="en_9311">This attribute defines which date should be entered in the booking field.
+Possible values are:
+- CheckIn
+- CheckOut</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="Offset" type="xs:int" default="0"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="BookingTreeParameterBirthdateReferenceType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BookingTreeSingleNodeType">
+		<xs:attribute name="Erase" type="EmptyElementType" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="BookingTreeMultipleNodeType">
+		<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum"/>
+		<xs:attribute name="ResultOrder" type="xs:int" default="0">
+			<xs:annotation>
+				<xs:documentation>Das Attribut @ResultOrder definiert in welcher Reihenfolge die multiplen Zweige nach der Aggregation in der Ergebnis-Baumstruktur abgebildet werden sollen. Kleinere Werte von @ResultOrder werden in der baumartigen Ergebnisstruktur  zuerst aufgeführt. Der Default @ResultOrder = "0" bedeutet, dass die Reihenfolge beliebig ist. Unterschiedliche Werte von @ResultOrder führen zu neuen Zweigen in der Baumstruktur.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Source" type="SourceAttributeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine
+					Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang
+					alle Leistungszeilen einer Komponente. Die Adressierung der Komponenteninstanz
+					erfolgt analog zum Attribut "Source" in den Conditions. Default ist
+					"ThisComponent". Globale Parameter werden als eigenständige Buchungszeile an die
+					Komponente 'Product' gehängt.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_84">This attribute addresses a single component instance. A component instance contained in this context refers to all the service lines of a component. The addressing of the component instance is the same as for the "Source"attribute in the conditions.
+Default is "ThisComponent". Global parameters are treated as separate booking factors attached to the 'Product' component.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Class" type="xs:string" default="Default">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_85">Dieses Attribut identifiziert innerhalb einer
+					Komponenteninstanz unterschiedliche Leistungszeilen. Zum Beispiel wenn eine
+					Komponente zwei Leistungszeilen erzeugt.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_85">This attribute identifies different service lines within a component instance. For example, if a component produces 2 service lines</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Erase" use="optional"/>
+	</xs:complexType>
 	<xs:complexType name="BookingReplaceType">
 		<xs:attribute name="Source" type="BookingReplaceSourceAttributeType" use="required">
 			<xs:annotation>
@@ -524,18 +707,36 @@ BookingReplace is preferably used in the definition of "flight cases".</xs:docum
 		</xs:attribute>
 		<xs:attribute name="Source" type="SourceAttributeType" default="ThisComponent">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang alle Leistungszeilen einer Komponente. Die Adressierung der Komponenteninstanz erfolgt analog zum Attribut "Source" in den Conditions. Default ist "ThisComponent". Globale Parameter werden als eigenständige Buchungszeile an die Komponente 'Product' gehängt.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_84">This attribute addresses a single component instance. A component instance contained in this context refers to all the service lines of a component. The addressing of the component instance is the same as for the "Source"attribute in the conditions.
+				<xs:documentation xml:lang="de" xml:id="de_9315">Dieses Attribut adressiert eine Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang alle Leistungszeilen einer Komponente. Die Adressierung der Komponenteninstanz erfolgt analog zum Attribut "Source" in den Conditions. Default ist "ThisComponent". Globale Parameter werden als eigenständige Buchungszeile an die Komponente 'Product' gehängt.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9315">This attribute addresses a single component instance. A component instance contained in this context refers to all the service lines of a component. The addressing of the component instance is the same as for the "Source"attribute in the conditions.
 Default is "ThisComponent". Global parameters are treated as separate booking factors attached to the 'Product' component.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Class" type="xs:string" default="Default">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_85">Dieses Attribut identifiziert innerhalb einer Komponenteninstanz unterschiedliche Leistungszeilen. Zum Beispiel wenn eine Komponente zwei Leistungszeilen erzeugt.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_85">This attribute identifies different service lines within a component instance. For example, if a component produces 2 service lines</xs:documentation>
+				<xs:documentation xml:lang="de" xml:id="de_9316">Dieses Attribut identifiziert innerhalb einer Komponenteninstanz unterschiedliche Leistungszeilen. Zum Beispiel wenn eine Komponente zwei Leistungszeilen erzeugt.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_9316">This attribute identifies different service lines within a component instance. For example, if a component produces 2 service lines</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
+		
+	<xs:element name="AbstractBookingTree" abstract="true"/>
+	<xs:complexType name="BookingTreeType">
+		<xs:sequence>
+			<xs:element ref="AbstractBookingTree" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Condition" type="ConditionType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Priority" type="xs:int" default="0"/>
+	</xs:complexType>
+ <!-- 
+	<xs:complexType name="BookingTreeType">
+		<xs:sequence>
+			<xs:element name="AbstractBookingTree" minOccurs="0" maxOccurs="unbounded"  abstract="true"/>
+			<xs:element name="Condition" type="ConditionType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Priority" type="xs:int" default="0"/>
+	</xs:complexType>
+-->
 	<xs:element name="BookingEntry" type="BookingEntryType" abstract="true">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_86">Das BookingEntry ist die Integrationsmarke für Namespaces verschiedener Reservierungssysteme. Es ist denkbar, dass an dieser Stelle später komplexe Strukturen zum Befüllen von Reservierungssystemen platziert werden können.</xs:documentation>
@@ -4237,6 +4438,7 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="[D01][M01][Y01]"/>
 			<xs:enumeration value="[D01][M01]"/>
 			<xs:enumeration value="[Y0001]-[M01]-[D01]"/>
+			<xs:enumeration value="[D01][M01][Y0001]"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AgeTypeEnum">
@@ -4244,6 +4446,11 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="DateOfBirth"/>
 			<xs:enumeration value="TravelAge"/>
 			<xs:enumeration value="BookingAge"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEraseEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ProductTypeEnum">

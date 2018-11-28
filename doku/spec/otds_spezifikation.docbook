@@ -699,7 +699,30 @@
 							</tbody>
 						</tgroup>
 					</informaltable>
-
+					<para xml:lang="det">Jede Komponente/Unterkomponente enthält in der Regel wiederkehrende Konstrukte wie Tags, Booking, Properties, Filter, PriceItems und Availabilities.</para>
+					<para xml:lang="det">Jedes dieser Konstrukte wird in späteren Kapiteln detaillierter beschrieben:</para>
+					<para>
+						<itemizedlist>
+							<listitem>
+								<para><link linkend="OtdsStrategyTag">"Tags"</link></para>
+							</listitem>
+							<listitem>
+								<para><link linkend="OtdsStrategyBooking">"Booking"</link></para>
+							</listitem>
+							<listitem>
+								<para><link linkend="OtdsStrategyProperties">"Properties"</link></para>
+							</listitem>
+							<listitem>
+								<para><link linkend="OtdsStrategyCondition">"Filter"</link></para>
+							</listitem>
+							<listitem>
+								<para><link linkend="OtdsStrategyPriceItem">"PriceItems"</link></para>
+							</listitem>
+							<listitem>
+								<para><link linkend="OtdsStrategyAvailability">"Availabilities"</link></para>
+							</listitem>
+						</itemizedlist>
+					</para>
 				</section>
 				<section xml:id="OtdsStrategyComponentAccommodations">
 					<title><phrase xml:id="de_616" xml:lang="de">Accommodations</phrase><phrase
@@ -2753,8 +2776,8 @@
 			</section>
 			<section xml:id="OtdsStrategyTag">
 				<title><phrase xml:id="de_782" xml:lang="de">Kennzeichnung von Datenknoten
-						(Tag)</phrase><phrase xml:id="en_782" xml:lang="en">Identification of data
-						nodes (tag)</phrase></title>
+						(Tags)</phrase><phrase xml:id="en_782" xml:lang="en">Identification of data
+						nodes (Tags)</phrase></title>
 				<para xml:id="de_783" xml:lang="de">Die Tags sind so unscheinbar aber auch so
 					mächtig, dass ihnen ein eigenes Kapitel in OTDS gewidmet ist. Tags sind freie
 					sehr präzise Markierungen an den logischen Datenknoten. Der Begriff "Tag"
@@ -17590,504 +17613,27 @@ usw.]]></programlisting>
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyBooking">
-				<title><phrase xml:id="de_1665" xml:lang="de">Buchungsparameter der Komponenten
-						(BookingGroup)</phrase><phrase xml:id="en_1665" xml:lang="en">Booking
-						parameters of the components (BookingGroup)</phrase></title>
-				<para xml:id="de_1666" xml:lang="de">In den Booking-Elementen in den verschiedenen
-					Zweigen werden alle für eine Buchung notwendigen Parameter hinterlegt. Die
-					Spezifikation der Buchungsparameter erfolgt analaog zum Füllen einer Art
-					Buchungsmaske. Trotz dieser Analogie sind die Buchungsparameter keinesfalls auf
-					spezifische Buchungssysteme wie TOMA oder Merlin begrenzt. Heutige
-					Buchungsmasken teilen sich in 3 verschiedene Bereiche auf, die durch die
-					verschiedenen Werte des Attributes BookingGroup/@Area repräsentiert werden. </para>
-				<para xml:id="en_1666" xml:lang="en">In the various branches of the Booking
-					elements, all of the parameters necessary for booking can be found. The
-					specification of the booking parameters occurs in a manner analogous to the
-					filling in of a kind of booking mask. Despite this analogy, the booking
-					parameters are in no way restricted to specific booking systems such as TOMA or
-					Merlin. Modern booking masks can be divided into 3 different areas, which are
-					represented by the various values of the attribute BookingGroup/@Area.</para>
-				<para xml:id="de_1667" xml:lang="de">Mögliche Werte für Area sind:</para>
-				<para xml:id="en_1667" xml:lang="en">Possible values for Area are:</para>
-				<itemizedlist>
-					<listitem>
-						<para xml:id="de_1668" xml:lang="de">GlobalArea (Für globale Werte wie Brand
-							und TravelType)</para>
-						<para xml:id="en_1668" xml:lang="en">GlobalArea (For global values such as
-							Brand and TravelType)</para>
-					</listitem>
-					<listitem>
-						<para xml:id="de_1669" xml:lang="de">ServiceArea (Für alle Werte in
-							Leistungszeilen)</para>
-						<para xml:id="en_1669" xml:lang="en">ServiceArea (For all values in service
-							lines)</para>
-					</listitem>
-					<listitem>
-						<para xml:id="de_1670" xml:lang="de">PersonArea (Für Werte die im Bereich
-							der Reiseteilnehmer platziert werden)</para>
-						<para xml:id="en_1670" xml:lang="en">PersonArea (For values that are placed
-							in the area of the travel participants)</para>
-					</listitem>
-				</itemizedlist>
-				<section xml:id="OtdsStrategyBookingValue">
-					<title><phrase xml:id="de_1671" xml:lang="de">Konstante Buchungsparameter
-							(BookingParameter/Value)</phrase><phrase xml:id="en_1671" xml:lang="en"
-							>Constant booking parameters (BookingParameter/Value)</phrase></title>
-					<para xml:id="de_1672" xml:lang="de">In einer Buchungsmaske gibt es bezogen auf
-						das Angebot konstante Parameter, wie Veranstaltercode, Hotelcode und
-						Zimmercode sowie flexible Parameter wie der Reisetermin, die Dauer oder die
-						Alter der mitreisenden Personen.</para>
-					<para xml:id="en_1672" xml:lang="en">In a booking mask there are parameters
-						which are constant with regard to the offer, such as operator code, hotel
-						code and room code, as well as parameters which are flexible, such as travel
-						dates, the duration or the age of the travelling persons.</para>
-
-					<para xml:id="de_1673" xml:lang="de">In OTDS werden die einzelenen
-						Buchungsparameter als BookingParameter definiert und strukturiert an die
-						Buchungssysteme übergeben. Jeder einzelne Parameter wird genau einer
-						Leistungszeile und einem Feld in dieser Leistungszeile zugewiesen. Die
-						Definition der Felder erfolgt über das Attribut "Field" und kann folgende
-						Werte enthalten:</para>
-					<para xml:id="en_1673" xml:lang="en">In OTDS the individual booking parameters
-						are defined as BookingParameters and transferred to the booking system in a
-						structured form. Each individual parameter is allocated precisely one
-						service line and a field in that service line. The definition of the fields
-						occurs via the "Field" attribute and may contain the following
-						values:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_1674" xml:lang="de">Title (Personenanrede)</para>
-							<para xml:id="en_1674" xml:lang="en">Title (form of address)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1675" xml:lang="de">Age (Alter einer Person)</para>
-							<para xml:id="en_1675" xml:lang="en">Age (age of a person)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1676" xml:lang="de">BrandCode (Marke)</para>
-							<para xml:id="en_1676" xml:lang="en">BrandCode (brand)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1677" xml:lang="de">TravelType (Reiseart)</para>
-							<para xml:id="en_1677" xml:lang="en">TravelType (type of travel)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1678" xml:lang="de">RequestCode (Anforderungscode der
-								Leistung)</para>
-							<para xml:id="en_1678" xml:lang="en">RequestCode (request code of the
-								service)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1679" xml:lang="de">ServiceCode (Buchungscode der
-								Leistung)</para>
-							<para xml:id="en_1679" xml:lang="en">ServiceCode (booking code of the
-								service)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1680" xml:lang="de">ServiceFeatureCode (Zimmercode,
-								Flugklasse, ...)</para>
-							<para xml:id="en_1680" xml:lang="en">ServiceFeatureCode (room code,
-								flight class...)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1681" xml:lang="de">BoardCode (Verpflegungscode)</para>
-							<para xml:id="en_1681" xml:lang="en">BoardCode (board code)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1682" xml:lang="de">Assignment (Zuordnung)</para>
-							<para xml:id="en_1682" xml:lang="en">Assignment (assignment)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1683" xml:lang="de">DateStart (Startdatum)</para>
-							<para xml:id="en_1683" xml:lang="en">DateStart (start date)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1684" xml:lang="de">DateEnd (Enddatum)</para>
-							<para xml:id="en_1684" xml:lang="en">DateEnd (end date)</para>
-						</listitem>
-					</itemizedlist>
-
-					<figure>
-						<title><phrase xml:id="de_1686" xml:lang="de">Übersicht der "Field"-Values
-								anhand der Analogie zur Buchungsmaske</phrase><phrase
-								xml:id="en_1686" xml:lang="en">Overview of the "Field" values using
-								the analogy of the booking mask</phrase></title>
-						<mediaobject>
-							<imageobject>
-								<imagedata fileref="figures/bookingmaskfieldexplanation.png"
-									format="PNG" contentwidth="90%"/>
-							</imageobject>
-							<textobject>
-								<para xml:id="de_1687" xml:lang="de">Übersicht aller
-									Field-Values</para>
-								<para xml:id="en_1687" xml:lang="en">Overview of all Field
-									values</para>
-							</textobject>
-							<caption>
-								<para xml:id="de_1688" xml:lang="de"> </para><para xml:id="en_1688"
-									xml:lang="en"/>
-							</caption>
-						</mediaobject>
-					</figure>
-
-					<para xml:id="de_1689" xml:lang="de">Jedes Buchungsparameter wird in OTDS im
-						Element "BookingGroup/BookinParameter/Value" hinterlegt. Jeder BookingGroup
-						und damit auch allen darin enthaltenen BookingParametern wird genau eine
-						Leistungszeile zugewiesen. Die Zuweisung der Buchungszeile erfolgt in erster
-						Linie über das Attribut "Source", welches eine Komponente einer bestimmten
-						Buchungszeile zuordnet. Das Verwendung des Attributes "Source" erfolgt hier
-						analog zur Verwendung von "Source" in den Conditions und Filtern.
-						Entscheidend ist, dass alle BookingParameter einer Buchungszeile in ihrer
-						BookingGroup im Attribut "Source" den gleichen Value enthalten. (Details
-						darüber, welche Angaben für Source erlaubt sind, finden Sie im Kapitel <link
-							linkend="OtdsStrategyConditionAttributeSourceTableOfValues">Zuordnung
-							einer Source ...</link> ). </para>
-					<para xml:id="en_1689" xml:lang="en">Every BookingParameter in OTDS is stored in
-						the "BookingGroup/BookingParameter/Value" element. Every BookingGroup and
-						therefore all BookingParameters contained within it is specifically
-						allocated a service line. The allocation of a booking line mainly occurs via
-						the "Source" attribute, which allocates a component to a specific booking
-						line. The use of the "Source" attribute here occurs in the same way as the
-						use of "Source" in the Conditions and Filters. It is decisive that all
-						BookingParameters in a booking line have the same value in their
-						BookingGroup in the "Source" attribute. (Details of which entries are
-						allowed for Source can be found in the chapter <link
-							linkend="OtdsStrategyConditionAttributeSourceTableOfValues">Allocation
-							of a Source ...</link> ).</para>
-					<para xml:id="de_1690" xml:lang="de">Im folgenden ein Beispiel, wie die oben
-						abgebildete Buchungsmaske in OTDS definiert wird:</para>
-					<para xml:id="en_1690" xml:lang="en">The following is an example of how the
-						above pictured booking page is defined in OTDS:</para>
-					<programlisting><![CDATA[
-<Otds ...>
-	...
-	<Brands>
-		<BookingGroup Area="GlobalArea">
-			...
-			<BookingParameter Field="BrandCode">
-				<Value>FTI</Value>
-			</BookingParameter>
-		</BookingGroup>
-	</Brands>
-	...
-	<Accommodation>
-		...
-		<SellingAccom>
-			...
-			<Booking>
-				<BookingGroup Area="ServiceArea" Source="SellingAccom">
-					<BookingParameter Field="ServiceCode">
-						<Value>PMI007</Value>
-					</BookingParameter>
-					<BookingParameter Field="RequestCode">
-						<Value>H</Value>
-					</BookingParameter>
-				</BookingGroup>
-			</Booking>
-			<Board Key="F">
-				<Booking>
-					<BookingGroup Area="ServiceArea" Source="SellingAccom">
-						<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
-							<!-- In diesem Fall wird der Boardcode an den Zimmercode angefügt, wie es in aktuellen Buchungssystemen üblich ist.
-								Die Angabe des Namens ist Voraussetzung dafür, dass ein "Field" nicht überschrieben wird, sondern die Inhalte zusamengesetzt werden.
-								 Der Index definiert dabei die Reihenfolge der Zusammensetzung. Der Zimmercode hat keinen Index (also Default=o). Somit wird der BoardCode an den Zimmercode angefügt.
-								Siehe auch dazu: weiter unten die Definition des Zimmercodes unter SellingUnit.
-								-->
-							<!-- English remark: In this case the board code is being attached to the room code as common in recent booking systems. Indicating the name is a prerequisite for not overwriting a "field".  
-								The content parts will rather be combined. The index in this context defines the order of combination. The room code as no index (thus Default=o), so that the board code is being attached
-								to the room code. Please also refer to the definition of the room code in "SellingUnit" below.
-								-->
-							<Value>F</Value>
-						</BookingParameter>
-					</BookingGroup>
-				</Booking>
-				...
-			</Board>
-			...
-			<Unit Key="A12">
-				...
-				<SellingUnit Key="A12_F">
-						<Booking>
-							<BookingGroup Area="ServiceArea" Source="SellingAccom">
-								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
-									<!-- Das Attribut "PadLength" ist ein Hinweis daruf, dass in diesem Feld Parameter zusammengesetzt werden. Der Zimmercode wird dabei auf eine Zeichenlänge von 3 Stellen gebracht, in dem Spaces am Ende eingefügt werden.
-										 Die Art des Paddings kann spezifisch definiert werden. Bitte dazu die Beschreibung der anderen Attribute in der technischen Doku anschauen.
-										 -->
-									<!-- English remark: The attribute "PadLength" indicates that in this field parameters are being combined. The room code is being limited to 3 digits with spaces at the end.  
-										The kind of padding can be defined specifically. Please also refer to the descriptiono of the other attributes within the Technical Specification.
-										-->
-									<Value>A12</Value>
-								</BookingParameter>
-							</BookingGroup>
-						</Booking>
-						...
-				</SellingUnit>
-				...
-			</Unit>
-			...
-		<SellingAccom>
-		...
-	</Accommodation>
-	...
-	<OnewayFlights>
-		<!-- Der ReturnFlight wird hier aus 2 OnewayFlights zusammengesetzt, was in dem Beispiel nicht weiter ausgeführt wird -->
-		<!-- English remark: Thereturn flight is being set up from two OnewayFlights, which is not being elaborated on in the example -->
-		<OnewayFlight Key="DUSPMI">
-			<Booking>
-				<BookingGroup Area="ServiceArea" Source="OnewayFlight">
-					<BookingParameter Field="RequestCode">
-						<Value>F</Value>
-					</BookingParameter>
-					<BookingParameter Field="ServiceCode">
-						<Value>DUS PMI</Value>
-					</BookingParameter>
-				</BookingGroup>
-			</Booking>
-			...
-		
-			<BookingClass Key="Y">
-				<Booking>
-					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
-						<BookingParameter Field="ServiceFeatureCode">
-							<Value>Y</Value>
-						</BookingParameter>
-					</BookingGroup>
-				</Booking>
-				...
-			</BookingClass>
-			...
-		</OnewayFlight>
-		...
-		<OnewayFlight Key="PMIDUS">
-			<Booking>
-				<BookingGroup Area="ServiceArea" Source="OnewayFlight">
-					<BookingParameter Field="RequestCode">
-						<Value>F</Value>
-					</BookingParameter>
-					<BookingParameter Field="ServiceCode">
-						<Value>PMI DUS</Value>
-					</BookingParameter>
-				</BookingGroup>
-			</Booking>
-			...
-			<BookingClass Key="Y">
-				<Booking>
-					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
-						<BookingParameter Field="ServiceFeatureCode">
-							<Value>Y</Value>
-						</BookingParameter>
-					</BookingGroup>
-				</Booking>
-				...
-			</BookingClass>
-			...
-		</OnewayFlight>
-		...
-	</OnewayFlights>
-	...
-</<Otds>]]></programlisting>
-					<para xml:id="de_1691" xml:lang="de">Sollte eine Komponente mehrere
-						Buchungszeilen zum Buchen benötigen, so kann man die einzelnen
-						Buchungszeilen innerhalb einer Komponente über das Attribut
-						"BookingGroup/@Class" adressieren. In diesem Falle landen alle
-						Buchungsparameter mit gleicher "Source" und gleicher "Class" in derselben
-						Buchungszeile. Ist das Attribut "Class" nicht besetzt, so erhält es per
-						Default den Wert "Default". </para>
-					<para xml:id="en_1691" xml:lang="en">Should a component require several lines
-						for the booking, you can address the individual booking lines within a
-						component through the attribute "BookingGroup/@Class". In this case all
-						booking parameters with the same "Source" and the same "Class" appear in the
-						same booking line. If the attribute "Class" is not occupied it automatically
-						receives the value "Default".</para>
-					<para xml:id="de_1692" xml:lang="de">Hier ein Beispiel für einen gelieferten
-						Returnflug, der zwei Buchungszeilen definiert.</para>
-					<para xml:id="en_1692" xml:lang="en">Here is an example of a delivered return
-						flight which has been defined in 2 booking lines.</para>
-					<para xml:id="de_1693" xml:lang="de"><programlisting><![CDATA[
-<Otds ...>
-	...
-	<ReturnFlights>
-		<!-- Hier ein Beispiel für einen ReturnFlight, der 2 Buchungszeilen für diese Komponente benötigt. Das Beispiel beschränkt sich rein auf die Buchungsparameter.-->
-		<ReturnFlight Key="DUSPMIDUS">
-			<Booking>
-				<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
-					<BookingParameter Field="RequestCode">
-						<Value>F</Value>
-					</BookingParameter>
-					<BookingParameter Field="ServiceCode">
-						<Value>DUS PMI</Value>
-					</BookingParameter>
-				</BookingGroup>
-				<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
-					<BookingParameter Field="RequestCode">
-						<Value>F</Value>
-					</BookingParameter>
-					<BookingParameter Field="ServiceCode">
-						<Value>PMI DUS</Value>
-					</BookingParameter>
-				</BookingGroup>
-			</Booking>
-			<Outbound>
-				<DepartureAirport>DUS</DepartureAirport>
-				<ArrivalAirport>PMI</ArrivalAirport>
-			</Outbound>
-			<Inbound>
-				<DepartureAirport>PMI</DepartureAirport>
-				<ArrivalAirport>DUS</ArrivalAirport>
-			</Inbound>
-			<BookingClass Key="YX">
-				<Booking>
-					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
-						<BookingParameter Field="ServiceFeatureCode">
-							<Value>Y</Value>
-						</BookingParameter>
-					</BookingGroup>
-					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
-						<BookingParameter Field="ServiceFeatureCode">
-							<Value>X</Value>
-						</BookingParameter>
-					</BookingGroup>
-				</Booking>
-			</BookingClass>
-		</ReturnFlight>
-	</ReturnFlights>
-	...
-</Otds>	
-	]]></programlisting>
-					</para>
-					<para xml:id="en_1693" xml:lang="en">
-						<programlisting>
-							<![CDATA[
-<Otds ...>
-	...
-	<ReturnFlights>
-		<!-- Hier ein Beispiel für einen ReturnFlight, der 2 Buchungszeilen für diese Komponente benötigt. Das Beispiel beschränkt sich rein auf die Buchungsparameter.-->
-		<ReturnFlight Key="DUSPMIDUS">
-			<Booking>
-				<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
-					<BookingParameter Field="RequestCode">
-						<Value>F</Value>
-					</BookingParameter>
-					<BookingParameter Field="ServiceCode">
-						<Value>DUS PMI</Value>
-					</BookingParameter>
-				</BookingGroup>
-				<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
-					<BookingParameter Field="RequestCode">
-						<Value>F</Value>
-					</BookingParameter>
-					<BookingParameter Field="ServiceCode">
-						<Value>PMI DUS</Value>
-					</BookingParameter>
-				</BookingGroup>
-			</Booking>
-			<Outbound>
-				<DepartureAirport>DUS</DepartureAirport>
-				<ArrivalAirport>PMI</ArrivalAirport>
-			</Outbound>
-			<Inbound>
-				<DepartureAirport>PMI</DepartureAirport>
-				<ArrivalAirport>DUS</ArrivalAirport>
-			</Inbound>
-			<BookingClass Key="YX">
-				<Booking>
-					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
-						<BookingParameter Field="ServiceFeatureCode">
-							<Value>Y</Value>
-						</BookingParameter>
-					</BookingGroup>
-					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
-						<BookingParameter Field="ServiceFeatureCode">
-							<Value>X</Value>
-						</BookingParameter>
-					</BookingGroup>
-				</Booking>
-			</BookingClass>
-		</ReturnFlight>
-	</ReturnFlights>
-	...
-</Otds>	
-	]]></programlisting>
-					</para>
-					<para xml:id="de_1694" xml:lang="de">Wie die Termine und Altersangaben in die
-						Buchungsmaske übermittelt werden, sehen Sie im nächsten Kapitel.</para>
-					<para xml:id="en_1694" xml:lang="en">How the dates and age details are sent in
-						the booking mask can be seen in the next chapter.</para>
-				</section>
-				<section xml:id="OtdsStrategyBookingDateDurationAge">
-					<title><phrase xml:id="de_1695" xml:lang="de">Flexible Buchungsparameter der
-							Komponenten (BookingGroup)</phrase><phrase xml:id="en_1695"
-							xml:lang="en">Flexible component booking parameters
-							(BookingGroup)</phrase></title>
-					<para xml:id="de_1696" xml:lang="de">Eine vollständige tabellarische Aufstellung
-						der Elemente findet sich im Anhang unter Tabellen/Properties. </para>
-					<para xml:id="en_1696" xml:lang="en">A complete table with a breakdown of the
-						elements can be found in the annex under Tables/Properties.</para>
-
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_1698" xml:lang="de">Entweder eine Konstante. Diese wird
-								mittels "Value" angegeben</para>
-							<para xml:id="en_1698" xml:lang="en">Either a constant. This is entered
-								using "Value"</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1699" xml:lang="de">Oder eine Referenz auf einen
-								Buchungsparameter. Erlaubt sind: </para>
-							<para xml:id="en_1699" xml:lang="en">Or a reference to a booking
-								parameter. Permitted are:</para>
-
-							<itemizedlist>
-								<listitem>
-									<para xml:id="de_1700" xml:lang="de">Date mit DayType = CheckIn
-										oder CheckOut</para>
-									<para xml:id="en_1700" xml:lang="en">Date with DayType = CheckIn
-										or CheckOut</para>
-								</listitem>
-								<listitem>
-									<para xml:id="de_1701" xml:lang="de">Duration</para>
-									<para xml:id="en_1701" xml:lang="en">Duration</para>
-								</listitem>
-								<listitem>
-									<para xml:id="de_1702" xml:lang="de">PersonAge mit einem
-										zusätzlichen AgeType = BookingAge, TravelAge,
-										DateOfBirth</para>
-									<para xml:id="en_1702" xml:lang="en">PersonAge with an
-										additional AgeType = BookingAge, TravelAge,
-										DateOfBirth</para>
-								</listitem>
-							</itemizedlist>
-						</listitem>
-					</itemizedlist>
-
-				</section>
-				<section xml:id="OtdsStrategyBookingNamespaces">
-					<title><phrase xml:id="de_1703" xml:lang="de">Unterschiedliche Buchungsparameter
-							in unterschiedlichen Buchungssystemen
-							(BookingNamespaces)</phrase><phrase xml:id="en_1703" xml:lang="en"
-							>Different booking parameters in different booking systems
-							(BookingNamespaces)</phrase></title>
-					<para xml:id="de_1704" xml:lang="de">Durch die Verwendung der für jedes
-						Reservierungssystem eigenen Namespaces können später für jedes
-						Reservierungssystem spezifische Parameter hinterlegt werden. Die genaue
-						Beschreibung der Parameter finden Sie in den <link
-							xlink:href="../technisch/otds_technisch.html#Booking">Technischen
-							Dokumentation für OTDS </link> jeweils bei dem entsprechenden Element.
-						Eine Übersicht über alle vorkommenden Booking-Elemente finden Sie in der
+				<title><phrase xml:id="de_1665" xml:lang="de">Buchungsparameter eines Angebots (Booking)</phrase><phrase xml:id="en_1665" xml:lang="en">Booking
+				parameters of an offer (Booking)</phrase></title>
+				<section xml:id="OtdsStrategyBookingOverview">
+					<title><phrase xml:lang="det">Überblick</phrase><phrase xml:lang="en">Overview</phrase></title>
+					
+					<para xml:lang="det">In den Booking-Elementen in den verschiedenen
+						Zweigen werden alle für eine Buchung notwendigen Angaben definiert. Zu den für eine Buchung notwendigen Angaben gehören zum Beispiel:
+						Hotelcode, ZimmerCode, Verpflegungscode, Flugcode aber auch Angaben zum Startdatum der Unterkunft oder des Hin- und Rückfluges.</para>
+					<para xml:lang="det">
+						Eine Übersicht an welcher Stelle Booking-Elemente definiert werden können, finden Sie in der
 						folgenden Abbildung:</para>
-					<para xml:id="en_1704" xml:lang="en">Through the use of individual namespaces
-						for each reservation system, specific parameters can later be assigned for
-						each reservation system. The exact description of the parameters can be
-						found at <link xlink:href="../technisch/otds_technisch.html#Booking"
-							>Technical documentation for OTDS</link> under the corresponding
-						element. An overview of all existing booking elements can be seen in the
-						following diagram:</para>
+					<para xml:lang="en">
+						An overview of all locations of booking elements can be seen in the
+						following diagram:
+					</para>
 					<para xml:id="de_1705" xml:lang="de"> </para>
 					<para xml:id="en_1705" xml:lang="en"/>
-
+					
 					<figure>
 						<title><phrase xml:id="de_1707" xml:lang="de">Übersicht über Vorkommen alle
-								Booking-Elemente (außer PriceItem)</phrase><phrase xml:id="en_1707"
+							Booking-Elemente (außer PriceItem)</phrase><phrase xml:id="en_1707"
 								xml:lang="en">Overview of all existing booking elements (except
 								PriceItem)</phrase></title>
 						<mediaobject>
@@ -18107,19 +17653,61 @@ usw.]]></programlisting>
 							</caption>
 						</mediaobject>
 					</figure>
-
-					<para xml:id="de_1710" xml:lang="de">Booking-Elemente können auf
-						unterschiedlichen Ebenen in OTDS definiert werden.</para>
-					<para xml:id="en_1710" xml:lang="en">Booking elements can be defined on
-						different levels in OTDS.</para>
-					<para xml:id="de_1711" xml:lang="de">Die Elemente werden nach ihrem Priority
-						Attribut sortiert.</para>
-					<para xml:id="en_1711" xml:lang="en">The elements are sorted according to their
-						priority attribute.</para>
-
+					<para xml:id="de_1721" xml:lang="det"> Eine Liste aller möglichen Platzierungen von Booking-Elemente finden Sie auch im Anhang unter 
+						<link linkend="AppendixTablesBooking">Vorkommen von Booking Elementen auf
+							unterschiedlichen Ebenen</link></para>
+					<para xml:id="en_1721" xml:lang="en">
+						<link linkend="AppendixTablesBooking">Instances of booking elements on
+							different levels</link>
+					</para>
+					<para xml:lang="det">OTDS unterscheidet grundsätzlich zwischen 2 Arten wie die Angaben definiert werden können:</para>
+					
+					<para xml:lang="det">
+						<itemizedlist>
+							<listitem>
+								<para xml:lang="det">"Konkrete Angaben" deren Value konkret angegeben werden.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">"Angabe von Referenzen" deren Value durch eine Referenz auf das betrachtete Angebot festgelegt wird.</para>
+							</listitem>
+						</itemizedlist>
+					</para>
+					<para xml:lang="det">Konkrete Angaben werden immer über das Element BookingParameter/Value definiert.</para>
+					<para xml:lang="det">Für die referenzierten Angaben gibt es:</para>
+					<itemizedlist>
+						<listitem>
+							<para xml:lang="det"><code>BookingParameter/Date</code> um eine Referenz zu einem Termin z.B. Start des Hin-oder Rückfluges oder Start/Ende des Hotelaufenthaltes zu definieren.</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det"><code>BookingParameter/Duration</code> um eine Referenz zu einer spezifischen Dauer z.B. Dauer des Aufenthaltes oder Dauer der Reise zu definieren.</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det"><code>BookingParameter/PersonAge</code> um eine Referenz zu der Altersangabe einer Person zu definieren.</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det"><code>BookingParameter/Tag</code> um eine Referenz zu einem Value eines Tags zu definieren.</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det"><code>BookingParameter/ConditionalTag</code> um eine Referenz zu einem Value eines ConditionalTags zu definieren.</para>
+						</listitem>
+					</itemizedlist>
+					<para xml:lang="det">Neben diesen Angaben zu den Werten der Buchungsparametern, gibt es auch noch Steuerungsparameter, die die Verwendung der Werte definieren.</para>
+					<para xml:lang="det">Die Steuerungsparameter definieren, wofür die Wertangabe verwendet wird.
+						Sie legen zum Beispiel fest, ob es sich um einen Brandcode oder um einen
+						Hotelcode handelt.</para>
+					<para xml:lang="det">Die Steuerungsparameter definieren aber auch, ob mehrere Wertangaben ggf.
+						zusammengefasst werden sollen und wie diese Zusammenfassung tatsächlich
+						umgesetzt werden soll.</para>
+					<para xml:lang="det">Die Steuerungsparameter sind die Attribute von
+							<code>BookingGroup/@...</code> und
+							<code>BookingGroup/BookingParameter/@...</code>.</para>
+					<para xml:lang="det">Als letztes gibt es auch mit dem Element  <code>BookingGroup/BookingReplace</code> die Möglichkeit eine Gruppe von Buchungsparametern durch andere Parameter zu ersetzen. Damit können auch ganze Gruppen von Buchungsparameter komplett gelöscht werden.</para>
+					<para xml:lang="det">Jede BookingGroup ist darüber hinaus auch noch mit einer optionalen <code>BookingGroup/Condition</code> versehen, die die Gültigkeit des BookingParameters einschränken kann.</para>
+					
+					<para xml:lang="det">Hier eine Übersicht der Struktur des Booking-Elementes:</para>
 					<figure>
 						<title><phrase xml:id="de_1713" xml:lang="de"
-								>Booking-Details</phrase><phrase xml:id="en_1713" xml:lang="en"
+							>Booking-Details</phrase><phrase xml:id="en_1713" xml:lang="en"
 								>Booking details</phrase></title>
 						<mediaobject>
 							<imageobject>
@@ -18136,55 +17724,887 @@ usw.]]></programlisting>
 							</caption>
 						</mediaobject>
 					</figure>
+					
+					<para xml:lang="det">Die Verarbeitung der Buchungsparameter folgt dem folgenden groben Ablauf, wobei die Einhaltung der Reihenfolge für die richtige Interpretation entscheidend ist:</para>
+					<itemizedlist>
+						<listitem>
+							<para xml:lang="det">Einsammeln aller <code>BookingGroup/*</code> in den Komponenten und Unterkomponentenzweigen des betrachteten Angebotes inkl. aller dazugehörigen Attribute für die Verwendung</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Ersetzen von @Source durch eine Liste der konkreten Komponenten-Instanzen</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Bildung der Komponenten-Instanz-Gruppen auf Basis der Komponent-Instanzlisten</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Expansion auf den definierten Day/Person Kontext definiert durch @EvaluationBase</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Anwendung der Condition in den BookingGroups</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">BookingReplace anwenden</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Gruppierung der Buchungsparameter nach identischer Instanzenlisten-Gruppen, @Class-Werten, @Area-Werten, EvaluationBase Indices @Field-Werten</para>
+						</listitem>
+						
+						<listitem>
+							<para xml:lang="det">Sortierung der Buchungsparameter in den Buchungsparametergruppen zuerst nach @Priority aufsteigend und dann nach XML-Order</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Aggregation der Buchungsparametergruppen so dass je Gruppe nur noch ein Buchungsparameter-Value übrig bleibt.</para>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">Übertragung der Buchungsparameter-Values auf die entsprechende Buchungsschnittstellen unter Verwendung  der Instanzenlisten-Gruppen, @Class-Werten, @Area-Werten, EvaluationBase Indices @Field-Werten  .</para>
+						</listitem>
+					</itemizedlist>
+				</section>
+				<section xml:id="OtdsStrategyBookingProcessSteps">
+					<title><phrase xml:lang="det">Die Verarbeitungsschritte der Buchungsparameter</phrase><phrase xml:lang="en">The process steps of booking parameters</phrase></title>
+					<bridgehead xml:lang="det">Einsammeln aller Buchungsparameter</bridgehead>
+					<para xml:lang="det">Aus allen Zweigen (Brand, Products, Product, SellingAccom, Unit, Board,
+						SellingUnit, OnewayFlight, BookingClass, etc.) des betrachteten Angebotes werden
+						alle Booking/BookingGroup-Elemente inkl. der enthaltenen Strukturen in der Menge
+						"BookingCollection" eingesammelt. 
+					</para>
 
-					<para xml:id="de_1716" xml:lang="de"> Beispiel für die Verwendung des Elements
-						Booking auf unterschiedlichen Ebenen:</para>
-					<para xml:id="en_1716" xml:lang="en">Example for the use of the booking element
-						on different levels:</para>
-
-					<figure>
-						<title><phrase xml:id="de_1718" xml:lang="de">Booking -
-								Beispiel</phrase><phrase xml:id="en_1718" xml:lang="en">Booking -
-								example</phrase></title>
-						<mediaobject>
-							<imageobject>
-								<imagedata fileref="figures/booking_example_xml.png" format="PNG"
-									width="70%"/>
-							</imageobject>
-							<textobject>
-								<para xml:id="de_1719" xml:lang="de">Booking - Beispiel </para>
-								<para xml:id="en_1719" xml:lang="en">Booking - example</para>
-							</textobject>
-							<caption>
-								<para xml:id="de_1720" xml:lang="de"> </para><para xml:id="en_1720"
-									xml:lang="en"/>
-							</caption>
-						</mediaobject>
-					</figure>
-
-					<para xml:id="de_1721" xml:lang="de">
-						<link linkend="AppendixTablesBooking">Vorkommen von Booking Elementen auf
-							unterschiedlichen Ebenen</link>
-					</para>
-					<para xml:id="en_1721" xml:lang="en">
-						<link linkend="AppendixTablesBooking">Instances of booking elements on
-							different levels</link>
-					</para>
-					<para xml:id="de_1722" xml:lang="de">
-						<link linkend="OtdsProcessBooking">Verarbeiten der BookingParameter</link>
-					</para>
-					<para xml:id="en_1722" xml:lang="en">
-						<link linkend="OtdsProcessBooking">Processing of the BookingParameter</link>
-					</para>
+					<bridgehead xml:lang="det">Ersetzen @Source durch die Instanzen der Komponenten und Unterkomponenten</bridgehead>
+					
+						<para xml:lang="det">In diesem Schritt wird nun in den BookingGroups @Source durch die Liste konkreter Komponenten-Instanzen des betrachteten Angebotes aufgelöst.</para>
+						<para xml:lang="det">Das betrachtet Angebot wurd auf Basis einer spezifischen Product-Definition erstellt. 
+							Aus dieser spezifischen Product-Definition kann man die konkreten Komponenten-Instanzen des betrachteten Angebotes ableiten.</para>
+						<para xml:lang="det">Details dazu finden Sie im Kapitel <link linkend="OtdsStrategyConditionBasicsSource">Auswertung der konkreten Komponenten-Instanzen aus der Product-Definition</link>.</para>
+						<para xml:lang="det">Mit dem Wert von @Source werden nun eine oder mehrere dieser konkreten Komponenten-Instanzen referenziert und die Liste dieser Komponenten-Instanzen den folgenden Schritten verwendet.</para>
+					<bridgehead xml:lang="det">Bildung der Komponenten-Instanzgruppen auf Basis der zuvor abgeleiteten Komponent-Instanzlisten</bridgehead>
+						<para xml:lang="det">Für die weitere Verarbeitung ist nun erforderlich Komponenten-Instanzgruppen zu bilden.</para>
+						<para xml:lang="det">In den ersten OTDS-Versionen wurden nur relle Komponenten-Instanzen im Modell verwendet und virtuelle Komponent-Instanzen wurden automatisch auf die rellen Komponenten-Instanzen abgebildet.</para>
+						<para xml:lang="det">Damit die Aggregation der Buchungsparameter funktioniert musste folgende in der Tat etwas komplexe Vorgehensweise für die Gruppierung hinsichtlich der Komponenten-Instanzlisten definiert werden.</para>
+						<para xml:lang="det">Dies ist der Tatsache geschuldet, dass wir nicht schon in den ersten Versionen die komplexere Source aus den Versionen 1.9 ermöglicht hatten.</para>
+						<para xml:lang="det">Es werden nun Komponenten-Instanzgruppen für alle BookingGroups mit identischen @Area-Werten gebildet.</para>
+						<para xml:lang="det">Es werden nun Komponenten-Instanzgruppe bekommt einen Gruppierungs-Identifier welcher aus einer Liste von Komponenten-Instanzen besteht.</para>
+						<para xml:lang="det">Für jede betrachtete BookingGroup wird nun eine neue Komponenten-Instanzgruppe gebildet, wenn kein einziges Element der Komponenten-Instanzliste der BookingGroup in dem Gruppierungs-Identifier einer bestehnden Komponenten-Instanzgruppe existiert.</para>
+						<para xml:lang="det">Wenn ein Element der Komponenten-Instanzliste der betrachteten BookingGroup in dem  Gruppierungs-Identifier von mehreren Komponenten-Instanzgruppen existiert, müssen diese Komponenten-Instanzgruppen zusammengfasst werden.</para>
+						<para xml:lang="det">Wenn auf diese Weise nun alle disjunkten Komponenten-Instanzgruppen gebildet sind, bekommt jede BookingGroup einen Komponenten-Instanzgruppen-Index der entsprechenen Komponenten-Instanzgruppe zugeordnet. Dieser Index spielt dann in den folgenden Schritten eine Rolle.</para>
+				
+					<bridgehead xml:lang="det">Expansion auf den definierten Day/Person Kontext definiert durch @EvaluationBase</bridgehead>
+						<para xml:lang="det">Jede BookingGroup kann auch ein Attribute @EvaluationBase enthalten. Die Angabe einer EvaluationBase bedeutet, dass die Auswertung der Buchungsparameter nicht einmalig erfolgt sondern mehrmalig in unterschiedlichen Kontexten.</para>
+						<para xml:lang="det">@EvaluationBase="Person" bedeutet zum Beispiel, dass die BookingGroup im Kontext jedes Reisenden einmal ausgewertet wird. Die BookingGroup wird also praktisch für jeden Reisenden dupliziert und bekommt zusätzlich einen entsprechenden PersonIndex.</para>
+						<para xml:lang="det">Analog würde bei @EvaluationBase="Day" die BookingGroup im Kontext jedes Tages der Reise einmal ausgewertet werden und würde je Reisetag dupliziert und bekäme zusätzlich einen entsprechenden DayIndex.</para>
+						<para xml:lang="det">Abschließend würde bei @EvaluationBase="Day/Person" die BookingGroup im Kontext jedes Tages und jeder Person der Reise einmal ausgewertet werden und würde je Reisetag und je Person (X-Produkt der beiden) dupliziert und bekäme zusätzlich einen entsprechenden DayIndex und einen entsprechenden PersonIndex.</para>
+						<para xml:lang="det">Im deutschen Markt ist uns eine Verwendung von  @EvaluationBase="Day" oder "Day/Person" derzeit nicht bekannt.</para>
+						<para xml:lang="det">Die Verwendung von @EvaluationBase="Person" ist aber notwendig, um die einzelnen Personenzeilen eine Anfrage auszuprägen.</para>
+						<para xml:lang="det">Der Anschaulichkeit halber könnte @EvaluationBase="Day" dann notwendig werden, wenn mann in einer Anfrage einen String wie "OOOOXXXOO" realisieren möchte, mit dem definiert werden soll, dass am 5.-7. Tag eine bestimmte Leistung inkludiert werden soll.</para>
+						<para xml:lang="det">Bei Day/Person  ginge es dann um eine entsprechende Art Matrix aus Tagen und Personen, die gefüllt und übermittelt werden soll.</para>				
+					<bridgehead xml:lang="det">Anwendung der Condition in den BookingGroups</bridgehead>
+						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition ohne Context enthält keine Impact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any".</para>
+						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Person") enthält keine DayImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "PersonBase" ohne Attribute definiert ist. Die PersonImpact-Auswertung erfolgt dann jeweils im entsprechenden Person-Index-Kontext der durch die EvaluationBase="Person" ergänzt wird.</para>
+						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Day") enthält keine PersonImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "DayBase" ohne Attribute definiert ist. Die DayImpact-Auswertung erfolgt dann jeweils im entsprechenden Day-Index-Kontext der durch die EvaluationBase="Day" ergänzt wird.</para>
+						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Day/Person-Context (also Evaluationbase="Day/Person") wird jeweils im entsprechenden Day-Index- und PErsonIindex-Kontext ausgewertet der durch die EvaluationBase="Day" ergänzt wird.</para>
+						<para xml:lang="det">Somit ergibt sich bei der Auswertung immer entweder, dass die Bedingung erfüllt ist, was bedeuet, dass die BookingGroup bestehen bleibt, oder nicht erfüllt ist, was bedeuet, dass die BookingGroup entfernt wird.</para>	
+						<para xml:lang="det">Falls die Condition innerhalb einer BookingGroup nicht erfüllt ist, wird die komplette BookingGroup aus der Menge "BookingCollection" entfernt.</para>
+				
+					<para xml:lang="det">Ausgangspunkt für die Folgeschritte ist die Menge "BookingCollection" einer Menge aller <code>BookingGroup/BookingParameter/*</code> und <code>BookingGroup/BookingReplace</code> der verbleibeneden gültigen BookingGroups mit folgenden Attributen und Indices:</para>
+					<itemizedlist>
+						<listitem>
+							<para xml:lang="det">alle <code>BookingGroup/BookingParameter/*</code></para>
+							<itemizedlist>
+								<para xml:lang="det">mit folgenden Attribute für die Verwendung bzw. Gruppierung:</para>
+								<listitem>
+									<para xml:lang="det">Komponenten-Instanzgruppen-Index inkl. Verweis auf den entsprechenden Gruppierungs-Identifier der einer Liste von Komponenten-Instanzen entspricht.</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">Liste der Komponenten-Instanzen abgeleitet aus BookingGroup@Source</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">Spezifischer Person-Index und/oder spezifischer DayIndex oder "OhneIndex" je nach Angabe in BookingGroup/@EvaluationBase</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup@Area</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup@Class</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@Field</para>
+								</listitem>
+							</itemizedlist>
+							<itemizedlist>
+								<para xml:lang="det">mit folgenden Attribute für die Aggregation der gruppierten BookingParameter-Values:</para>
+								<listitem>
+									<para xml:lang="det">BookingGroup@Priority</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@Name</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@Index</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@LeftSeparator</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@RightSeparator</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@PadLength</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@PadOrientation</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@Padding</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@PadCondition</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingParameter/@PadOrientation</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">XML-Order (Location) im zusammengeführten OTDS.xml</para>
+								</listitem>
+							</itemizedlist>
+							<itemizedlist>
+								<para xml:lang="det">mit dem BookingParameter-Value:</para>
+								<listitem>
+									<para xml:lang="det">als konkreter Value BookingGroup/BookingParameter/Value</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">als Referenz auf einen Value mit</para>
+									<itemizedlist>
+										<listitem>
+											<para xml:lang="det">BookingGroup/BookingParameter/Date</para>
+										</listitem>
+										<listitem>
+											<para xml:lang="det">BookingGroup/BookingParameter/Duration</para>
+										</listitem>
+										<listitem>
+											<para xml:lang="det">BookingGroup/BookingParameter/PersonAge</para>
+										</listitem>
+										<listitem>
+											<para xml:lang="det">BookingGroup/BookingParameter/Tag</para>
+										</listitem>
+										<listitem>
+											<para xml:lang="det">BookingGroup/BookingParameter/ConditionalTag</para>
+										</listitem>
+									</itemizedlist>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+						<listitem>
+							<para xml:lang="det">alle <code>BookingGroup/BookingReplace</code></para>
+							<itemizedlist>
+								<para xml:lang="det">mit folgenden Attribute für die Gruppierung:</para>
+								<listitem>
+									<para xml:lang="det">BookingGroup@Area</para>
+								</listitem>
+							</itemizedlist>
+							<itemizedlist>
+								<para xml:lang="det">mit folgenden Attributen für die Entfernung bestimmter BookingGroups:</para>
+								<listitem>
+									<para xml:lang="det">Liste der Komponenten-Instanzen abgeleitet aus BookingGroup@Source</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup@Class</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">Liste der Komponenten-Instanzen abgeleitet aus BookingGroup/BookingReplace/@Source + "*" für alle</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">BookingGroup/BookingReplace/@Class + "*" für alle</para>
+								</listitem>
+								
+							</itemizedlist>
+							<itemizedlist>
+								<para xml:lang="det">mit folgenden Attribute für die Sortierung:</para>
+								<listitem>
+									<para xml:lang="det">BookingGroup@Priority</para>
+								</listitem>
+								<listitem>
+									<para xml:lang="det">XML-Order (Location) im OTDS.xml</para>
+								</listitem>
+							</itemizedlist>
+							<para xml:lang="det">Beachte: BookingGroup@Source, BookingGroup/@Class und BookingGroup@/EvaluationBase werden nicht für das BookingPlace-Element übnernommen. </para>
+						</listitem>
+					</itemizedlist>
+				
+					<bridgehead xml:lang="det">BookingReplace anwenden</bridgehead>
+						<para xml:lang="det">Die Anwendung aller BookingReplace-Elemente erfolgt in 3 Schritten</para>
+						<itemizedlist>
+							<listitem>
+								<bridgehead xml:lang="det">Gruppierung der Buchungsparameter- und BookingReplace-Elmente nach identischen @Area-Werten</bridgehead>
+							</listitem>
+							<listitem>
+								<bridgehead xml:lang="det">Innerhalb der Gruppen Sortierung der Buchungsparameter in den Buchungsparametergruppen zuerst nach @Priority aufsteigend und dann nach XML-Order</bridgehead>
+							</listitem>
+							<listitem>
+								<bridgehead xml:lang="det">Ausgehend von einem BookingReplace, löschen aller BookingParameter
+									die bzgl. BookingReplace/@Source und BookingReplace/@Class matchen und in der Sortierung vor dem
+									BookingReplace einsortiert wurden.</bridgehead>
+								<para xml:lang="det">Bzgl. der Wirkung eines BookingReplace werden die Attribute BookingGroup/@Source, @Class und @EvaluationBase der BookingGroup nicht benutzt. Die Wirkung wird ausschließlich durch die Attribute BookingReplace/@Source und BookingReplace/@Class bestimmt.</para>
+								<para xml:lang="det">BookingReplace/@Source wird in eine Liste von Komponenten-Instanzen überführt. Falls BookingReplace/@Source="*" enthält die Liste alle Komponenten-Instanzen.</para>
+								<para xml:lang="det">Ein BookingParameter matched auf ein BookingReplace wenn alle 4 folgenden Bedingungen erfüllt sind:</para>
+							</listitem>
+							<listitem>
+								<orderedlist>
+									<listitem>
+										<para xml:lang="det">Wenigstens eine der Komponenten-Instanzen  des BookingReplace (abgeleitet aus BookingReplace/Source) ist in dem Gruppierungs-Identifier der dem BookingParameter zugeordneten Komponenten-Instanzgruppe enthalten.</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingReplace/@Class = "*" oder BookingReplace/@Class entspricht der @Class welches dem BookingParameter aus dessen BookingGroup zugeordnet ist.</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">Das dem BookingParameter und dem BookingReplace zugeordnete BookingGroup/@Area ist identisch.</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">In einer sortierten Liste zuerst aufsteigend nach BookingGroup/@Priority dann nach XML-Document-Order sortiert, ist der BookingParameter vor dem BookingReplace plaziert.</para>
+									</listitem>
+								</orderedlist>
+							</listitem>
+						</itemizedlist>
+				
+					<bridgehead xml:lang="det">Gruppierung der Buchungsparameter nach identischen @Area-Werten, identischer Komponenten-Instanzgruppe, identischen @Class-Werten, @Field-Werten und EvaluationBase-Indices</bridgehead>
+						<para xml:lang="det">Die nach dem Auswerten aller BookingReplace verbleibenden BookingParameter werden nun gruppiert um nachfolgend innerhalb der Gruppe zu einem Value aggregiert zu werden.</para>
+						<para xml:lang="det">Gruppierung der Buchungsparameter nach identischen @Area-Werten, identischer Komponenten-Instanzgruppe, identischen @Class-Werten, identischen @Field-Werten und identischen EvaluationBase-Indices</para>	
+						<para xml:lang="det">Beachte: EvaluationBase-Indices ist der aus @Evaluationbase abgeleitete identischer Person-Index, identischer DayIndex, identische Kombination aus Person-Index + DayIndex und "OhneEvaluationBaseIndex".</para>
+				
+					<bridgehead xml:lang="det">Sortierung der Buchungsparameter in den Buchungsparametergruppen zuerst nach @Priority aufsteigend und dann nach XML-Order</bridgehead>
+						<para xml:lang="det">Die zuvor gebildeten Gruppen mit Buchungsparametern mit identischen
+							@Area-Werten, identischer Komponenten-Instanzgruppe, identischen @Class-Werten,
+							identischen @Field-Werten und identischen EvaluationBase-Indices werden nun
+							zuerst aufsteigend nach @Priorität und bei gleicher @Priorität nach XML-Order
+							sortiert.</para>
+					<bridgehead xml:lang="det">Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value</bridgehead>
+						<para xml:lang="det">Die Elemente <code>BookingParameter/Date, /Duration, /PersonAge, /Tag, /ConditionalTag</code> enthalten die Definition einer Referenz zu dem Wert der für diesen Buchungsparameter verwendet werden soll.</para>
+						<para xml:lang="det">In diesem Schritt werden die Referenzen durch die konkreten Values ersetzt.</para>
+						<itemizedlist>
+							<listitem>
+								<bridgehead xml:lang="det">BookingParameter/Date</bridgehead>
+									<para xml:lang="det">Mit diesem Element können Terminangaben referenziert werden und gleichzeit die Formatierung der Terminausgabe festgelegt werden</para>
+									<para xml:lang="det">Die Referenz wird festgelegt durch die Attribute Date/@Source und Date/@DayType (Checkin oder CheckOut).</para>
+									<para xml:lang="det">Durch Auswertung der Angaben in @Source erhalten wir eine oder mehrere Komponenten-Instanzen. Falls es mehrere Komponenteninstanzen sind, so werden die Instanzen aufgrund von DayType-abhängigen Defaults genauer eingeschränkt.</para>
+									<para xml:lang="det">Analog zur Auswertung von @Source in Filtern und Bedingungen kommt dann hier implizit eine DayAllocation ins Spiel.</para>
+									<para xml:lang="det">Falls DayType="CheckIn ist der implizite Value von DayAllocation="First", falls nach Auswertung von DayAllocation="First" immer noch mehrere KomponentenInstanzen existieren, so wird von diesen Komponenteninstanzen der früheste Termin als Value genommen.</para>
+									<para xml:lang="det">Falls DayType="CheckOut ist der implizite Value von DayAllocation="Last", falls nach Auswertung von DayAllocation="Last" immer noch mehrere KomponentenInstanzen existieren, so wird von diesen Komponenteninstanzen der späteste Termin als Value genommen.</para>
+									<para xml:lang="det">Der so erhaltene Termin wird nun gemäß des unter DateFormat angegeben Datumsformates umgesetzt und existiert nun so als String-Value.</para>
+							</listitem>
+							<listitem>
+								<bridgehead xml:lang="det">BookingParameter/Duration</bridgehead>
+									<para xml:lang="det">Mit diesem Element kann ein Dauervalue referenziert werden.</para>
+									<para xml:lang="det">Die Referenz wird festgelegt durch das Attribute Duration/@Source und errechnet sich aus dem Unterschied zwischen dem CheckOut-Termin und dem CHeckIn-Termin der durch @Source referenzierten Komponenten-Instanz.</para>
+									<para xml:lang="det">Falls die Auswertung von @Source zu mehreren Komponenteninstanzen führt, so werden die Instanzen jeweils bei der Betrachung des CheckIn bzw. des CheckOut ähnlich wie beim Termin genauer eingeschränkt.</para>
+									<para xml:lang="det">Implizit kommt dann auch hier eine DayAllocation ins Spiel.</para>
+									<para xml:lang="det">Falls DayType="CheckIn ist der implizite Value von DayAllocation="First", falls nach Auswertung von DayAllocation="First" immer noch mehrere KomponentenInstanzen existieren, so wird von diesen Komponenteninstanzen der früheste Termin als Value genommen.</para>
+									<para xml:lang="det">Falls DayType="CheckOut ist der implizite Value von DayAllocation="Last", falls nach Auswertung von DayAllocation="Last" immer noch mehrere KomponentenInstanzen existieren, so wird von diesen Komponenteninstanzen der späteste Termin als Value genommen.</para>
+									<para xml:lang="det">Die so erhaltenen beiden Termine ergeben nun durch ihre Differenz die entsprechenden Dauer-Value.</para>
+							</listitem>
+							<listitem>
+								<bridgehead xml:lang="det">BookingParameter/PersonAge</bridgehead>
+									<para xml:lang="det">Mit diesem Element kann ein Angebe des Alters einer Person referenziert und gleichzeit die Formatierung der Angabe festgelegt werden.</para>
+									<para xml:lang="det">Die Referenz wird festgelegt durch die Attribute PersonAge/@AgeType (TravelAge|DateOfBirth|BookingAge).</para>
+									<para xml:lang="det">Implizit werden bzgl. TravelAge das Alter zum Zeitpunkt des CheckIn der Reise angenommen.</para>
+									<para xml:lang="det">Im Falle von @AgeType="DateOfBirth" wird mit dem Attribut @DateFormat die Formatierung des BirthDate in das definierte Ausgabeformat des Values definiert.</para>
+							</listitem>
+							<listitem>
+								<bridgehead xml:lang="det">BookingParameter/Tag</bridgehead>
+									<para xml:lang="det">Mit diesem Element kann ein Tag-Value, an einem beliebigen Angebotsinstanzknoten als Buchungsparameter-Value referenziert werden.</para>
+									<para xml:lang="det">Die Referenz wird festgelegt durch die Attribute Tag/@Source, Tag/@DayAllocation, Tag/@Class.</para>
+									<para xml:lang="det">Durch Auswertung der Angaben in @Source und @DayAllocation erhalten wir eine oder mehrere Komponenten-Instanzen. Falls es mehrere Komponenteninstanzen sind, die jeweils unter Berücksichtung des @Class zu einem Tag-Value führen, so überschreiben die in XML-Oder nachfolgenden Values die vorherigen Values.</para>
+									<para xml:lang="det">Der so erhaltene Wert eines Tags wird nun vor der Übernahme als BookingParameter-Value gemäß den Angaben in @Offset und @Length beschnitten.</para>
+									<para xml:lang="det">Falls BookingParameter/Tag@TagValueType nicht mit dem Wert Tag@TagValueType in der Tag-Definition übereinstimmt, so wird der BookingParameter-Value="".</para>
+							</listitem>
+							<listitem>
+								<bridgehead xml:lang="det">BookingParameter/ConditionalTag</bridgehead>
+									<para xml:lang="det">Die Auswertung erfolgt analog zu der von <code>BookingParameter/Tag</code>. Zum Zeitpunkt der Auswertung der Buchungsparameter sind die ConditionalTags ja bereits bzgl. ihrer Gültigkeit ausgewertet. 
+									Da ein Conditionaltag, aber ggf. auch nur für einen spezifischen Personen/-Tagskontext gültig ist, muss muss die Gültigkeit mit dem jeweilig für den Buchungsparameter festgelegten  EvaluationBase-Kontext abgeglichen werden.</para>
+									<para xml:lang="det">Ein ConditionalTag-Value wird nur übernommen, wenn der definierte Buchungsparameter-Kontext in dem Personen/-Tagskontext des ConditionalTags enthalten ist.</para>
+							</listitem>
+						</itemizedlist>
+				
+					<bridgehead xml:lang="det">Aggregation der Buchungsparametergruppen so dass je Gruppe nur noch ein konkreter Value übrig bleibt</bridgehead>
+						<para xml:lang="det">Als Ausgangspunkt haben wir: </para>
+						<itemizedlist>
+							<listitem>
+								<para xml:lang="det">mehrere gruppierte Mengen von Buchungsparameter-Values</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Jede Gruppe identifiziert sich durch eine eindeutige Kombination aus @Area, Komponenten-Instanzgruppe, @Class, @Field, EvaluationBase-Index</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Innerhalb der Gruppe wurden die Buchungsparameter-Values nach @Priority aufsteigend und dann nach XML-Order sortiert</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Zu jedem Buchungsparameter-Value (Im folgenden der Einfachheit B-Value genannt) gibt es die folgenden Attribute, die die Aggregation der B-Values innerhalb der Gruppe festlegen.</para>
+							</listitem>
+							<listitem>
+								<itemizedlist>
+									
+									<listitem>
+										<para xml:lang="det">BookingParameter/@PadLength</para>
+										<para xml:lang="det">Falls @PadLength größer als die Länge des B-Values ist, wird der B-Value durch den Paddingprozess so erweitert, dass die Länge des B-Values identisch ist mit dem Wert von PadLegnth. Default=0</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingParameter/@Padding</para>
+										<para xml:lang="det">@Padding definiert die Zeichenkette, welche im Rahmen des Padding-Prozess ergänzt wird. Falls die Länge von @Padding größer ist, als die Anzahl der fehlenden Zeichen, um PadLength zu erreichen, wird @Padding am Ende abgeschnittem so, dass die Länge von B-Value nach Konkatenierung von @Padding  = @Padlength ist.   Default = " ".</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingParameter/@PadOrientation</para>
+										<para xml:lang="det">@PadOrientation definiert, ob @Padding am links ("Left") oder rechts ("Right") an den B-Values angefügt wird. Default = "Right" </para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingParameter/@PadCondition</para>
+										<para xml:lang="det">@PadCondition - Legt zusätzliche Bedingungen fest, wann das Padding zu erfolgen hat. Möglich sind folgende Werte: </para>
+										<itemizedlist>
+											
+											<listitem>
+												<para xml:lang="det">Always: Das Padding wird immer eingefügt. </para>
+											</listitem>
+											<listitem>
+												<para xml:lang="det">NotFirst: Das Padding wird eingefügt, wenn der Parameter nicht der erste Parameter ist.  </para>
+											</listitem>
+											<listitem>
+												<para xml:lang="det">NotLast: Das Padding wird eingefügt, wenn der Parameter nicht der letzte Parameter ist.</para>
+											</listitem>
+											<listitem>
+												<para xml:lang="det">Das Padding wird eingefügt, wenn der Parameter weder der erste noch der letzte Parameter ist. </para>
+											</listitem>
+										</itemizedlist>
+										<para xml:lang="det">Default = Always </para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingParameter/@Name</para>
+										<para xml:lang="det">Falls der Wert von @Name zweier Attribute identisch ist, so überschreiben sich die B-Values.</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingParameter/@Index</para>
+										<para xml:lang="det">Wenn B-Values konkateniert werden, so werden die B-Values in der durch @Index angegebenen Reihenfolge konkateniert. Bei identischem Index erfolgt die Konkatenierung nach XML-Order.</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingParameter/@LeftSeparator</para>
+										<para xml:lang="det">Ist der Value bezogen auf die Konkatenierung nicht der erste Value, wird die durch @LeftSeparator definierte Zeichenkette direkt vor dem Value eingefügt.</para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">BookingParameter/@RightSeparator</para>
+										<para xml:lang="det">Ist der Value bezogen auf die Konkatenierung nicht der letzte Value, wird die durch @RightSeparator definierte Zeichenkette nach dem Value eingefügt.</para>
+									</listitem>
+								</itemizedlist>
+							</listitem>
+						</itemizedlist>
+						<para xml:lang="det">Die Aggregation erfolgt in folgenden Schritten:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:lang="det">Je Gruppe werden die B-Values mit identischen Namen durch bezogen auf die Sortierreihenfolge (Priority + XML-Order9 nachfolgende B-Values inkl. aller Attribute vollständig ersetzt.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Sortierung der verbleibenden B-Values der Gruppe nach @Index und XML-Order.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Ergänzung des B-Values durch den Padding-Prozess unter berücksichtigung der Padding-Attribute inkl. der Bedingung für den letzten und ersten B-Value.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Konkatenierung der B-Values unter Ergänzung der Zeichenketten aus @LeftSeperator und @RightSeparator.</para>
+							</listitem>
+						</itemizedlist>
+					<bridgehead xml:lang="det">Übertragung der Buchungsparameter-Values auf die entsprechende Buchungsschnittstellen unter Verwendung  der Instanzenlisten-Gruppen, @Class-Werten, @Area-Werten, EvaluationBase Indices und @Field-Werten</bridgehead>
+						<para xml:lang="det">Jeder Kombination aus einer Instanzenlisten-Gruppe einem @Class-Wert aus einem @Area-Wert einem EvaluationBase-Kombi-Index (Kombi aus Personen-Index + Tages-Index) und dem @Field-Wert ist genau eine Position in einer Schnittstelle zugeordnet.</para>
+						<para xml:lang="det">Die Schnittstelle kann dabei eine baumartige Datenstruktur sein, aber auch eine grafische Buchungsmaske.</para>
+						<para xml:lang="det">Die derzeitigen Werte für @Area, @Field sind ausgelegt für die in Deuschland bekannte Stadisschnittstelle bzw. für mit Stadis befüllbare grafische Buchungsinterfaces.</para>
+						<para xml:lang="det">Das folgende Beispiel zeigt die baumartige Struktur, wie sie aus diesen Buchungsparametern entstehen könnte:</para>
+					<programlisting><![CDATA[<BookingData>
+	<GlobalArea>
+		<GlobalRow Class="Default" ComponentIstanceGroup="Product" EvaluationBaseIndices="P-None D-None">
+			<BrandCode>TOC</BrandCode>
+			<TravelType>SPORT</TravelType>
+		</GlobalRow>
+	</GlobalArea>
+	<ServiceArea>
+		<ServiceRow Class="Outbound" ComponentIstanceGroup="ReturnFlight" EvaluationBaseIndices="P-None D-None">
+			<RequestCode>F</RequestCode>
+			<ServiceCode>DUSPMI4F</ServiceCode>
+			<ServiceFeatureCode>Y</ServiceFeatureCode>
+			<DateStart>201018</DateStart>
+			<DateEnd>211018</DateEnd>
+		</ServiceRow>
+		<ServiceRow Class="Outbound" ComponentIstanceGroup="ReturnFlight" EvaluationBaseIndices="P-None D-None">
+			<RequestCode>F</RequestCode>
+			<ServiceCode>PMIDUS4D</ServiceCode>
+			<ServiceFeatureCode>Y</ServiceFeatureCode>
+			<DateStart>271018</DateStart>
+			<DateEnd>271018</DateEnd>
+		</ServiceRow>
+		<ServiceRow Class="Default" ComponentIstanceGroup="Accommodation" EvaluationBaseIndices="P-None D-None">
+			<RequestCode>H</RequestCode>
+			<ServiceCode>PMI512</ServiceCode>
+			<ServiceFeatureCode>DZ A</ServiceFeatureCode>
+			<DateStart>211018</DateStart>
+			<DateEnd>271018</DateEnd>
+		</ServiceRow>
+	</ServiceArea>
+	<PersonArea>
+		<PersonRow ComponentIstanceGroup="Product" Class="Default" EvaluationBaseIndices="P1 D-None">
+			<Title>H</Title>
+			<Age>32</Age>
+		</PersonRow>
+		<PersonRow ComponentIstanceGroup="Product" Class="Default" EvaluationBaseIndices="P2 D-None">
+			<Title>D</Title>
+			<Age>28</Age>
+		</PersonRow>
+		<PersonRow ComponentIstanceGroup="Product" Class="Default" EvaluationBaseIndices="P3 D-None">
+			<Title>K</Title>
+			<Age>6</Age>
+		</PersonRow>
+	</PersonArea>
+</BookingData>
+]]></programlisting>
+					<para xml:lang="det">Die Elemente innerhalb der Global-, Sercvice- und PersonRows entsprechen jeweils den Field-Werten. Die Attribute entsprechen den Gruppierungswerten und die Werte in den Filedelmenten entsprechen den BookingParameterwerten.</para> 
+					<para xml:lang="det">Am Anschaulichsten lässt sich die Zuordnung am Beispiel der Zuordnung zu einer grafischen Buchungsmaske analog zu TOMA, SabreMerlin etc. aufzeigen.</para>
+					<para xml:lang="det">Mit der Einführung des BookingTree-Elementes unter Benutzung eines eigenen NameSpaces können aber beliebige Buchungsinterfaces mit OTDS bedient werden. Details zu BookingTree finden Sie im Kapitel <link linkend="OtdsStrategyBookingNamespaces">Ansteuerung beliebiger Buchungsinterfaces mit Hilfe von BookingTree und eigenem BookingNameSpaces</link>.</para>
+				</section>
+				<section xml:id="OtdsStrategyBookingParameterRelationship">
+					<title><phrase xml:lang="det">Analogien der Buchungsparameter zu den bekannten Buchungsschnittstellen</phrase></title>
+					<section xml:id="OtdsStrategyBookingArea">
+						<title><phrase xml:lang="det">BookingArea (BookingGroup/@Area)</phrase><phrase xml:lang="en"
+							>BookingArea (BookingGroup/@Area)</phrase></title>
+						<para xml:id="de_1666" xml:lang="de">In den Booking-Elementen in den verschiedenen
+							Zweigen werden alle für eine Buchung notwendigen Parameter hinterlegt. Die
+							Spezifikation der Buchungsparameter erfolgt analaog zum Füllen einer Art
+							Buchungsmaske. Trotz dieser Analogie sind die Buchungsparameter keinesfalls auf
+							spezifische Buchungssysteme wie TOMA oder Merlin begrenzt. Die gängigen Buchungsmasken des deutschen Marktes teilen sich in 3 verschiedene Bereiche auf, die durch die
+							verschiedenen Werte des Attributes BookingGroup/@Area repräsentiert werden. </para>
+						<para xml:id="en_1666" xml:lang="en">In the various branches of the Booking
+							elements, all of the parameters necessary for booking can be found. The
+							specification of the booking parameters occurs in a manner analogous to the
+							filling in of a kind of booking mask. Despite this analogy, the booking
+							parameters are in no way restricted to specific booking systems such as TOMA or
+							Merlin. Generally the booking masks of the German market can be divided into 3 different areas, which are
+							represented by the various values of the attribute BookingGroup/@Area.</para>
+						<para xml:id="de_1667" xml:lang="de">Mögliche Werte für Area sind:</para>
+						<para xml:id="en_1667" xml:lang="en">Possible values for Area are:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:id="de_1668" xml:lang="de">GlobalArea (Für globale Werte wie Brand
+									und TravelType)</para>
+								<para xml:id="en_1668" xml:lang="en">GlobalArea (For global values such as
+									Brand and TravelType)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1669" xml:lang="de">ServiceArea (Für alle Werte in
+									Leistungszeilen)</para>
+								<para xml:id="en_1669" xml:lang="en">ServiceArea (For all values in service
+									lines)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1670" xml:lang="de">PersonArea (Für Werte die im Bereich
+									der Reiseteilnehmer platziert werden)</para>
+								<para xml:id="en_1670" xml:lang="en">PersonArea (For values that are placed
+									in the area of the travel participants)</para>
+							</listitem>
+						</itemizedlist>
+					</section>
+					<section xml:id="OtdsStrategyBookingValue">
+						<title><phrase xml:id="de_1671" xml:lang="de">Buchungsparameter
+								(BookingParameter/Value)</phrase><phrase xml:id="en_1671" xml:lang="en"
+								>Booking parameters (BookingParameter/Value)</phrase></title>
+						<para xml:id="de_1672" xml:lang="de">In einer Buchungsmaske gibt es bezogen auf
+							das Angebot konstante Parameter, wie Veranstaltercode, Hotelcode und
+							Zimmercode sowie flexible Parameter wie der Reisetermin, die Dauer oder die
+							Alter der mitreisenden Personen.</para>
+						<para xml:id="en_1672" xml:lang="en">In a booking mask there are parameters
+							which are constant with regard to the offer, such as operator code, hotel
+							code and room code, as well as parameters which are flexible, such as travel
+							dates, the duration or the age of the travelling persons.</para>
+	
+						<para xml:id="de_1673" xml:lang="de">In OTDS werden die einzelenen
+							Buchungsparameter als BookingParameter definiert und strukturiert an die
+							Buchungssysteme übergeben. Jeder einzelne Parameter wird genau einer
+							Leistungszeile und einem Feld in dieser Leistungszeile zugewiesen. Die
+							Definition der Felder erfolgt über das Attribut "Field" und kann folgende
+							Werte enthalten:</para>
+						<para xml:id="en_1673" xml:lang="en">In OTDS the individual booking parameters
+							are defined as BookingParameters and transferred to the booking system in a
+							structured form. Each individual parameter is allocated precisely one
+							service line and a field in that service line. The definition of the fields
+							occurs via the "Field" attribute and may contain the following
+							values:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:id="de_1674" xml:lang="de">Title (Personenanrede)</para>
+								<para xml:id="en_1674" xml:lang="en">Title (form of address)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1675" xml:lang="de">Age (Alter einer Person)</para>
+								<para xml:id="en_1675" xml:lang="en">Age (age of a person)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1676" xml:lang="de">BrandCode (Marke)</para>
+								<para xml:id="en_1676" xml:lang="en">BrandCode (brand)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1677" xml:lang="de">TravelType (Reiseart)</para>
+								<para xml:id="en_1677" xml:lang="en">TravelType (type of travel)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1678" xml:lang="de">RequestCode (Anforderungscode der
+									Leistung)</para>
+								<para xml:id="en_1678" xml:lang="en">RequestCode (request code of the
+									service)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1679" xml:lang="de">ServiceCode (Buchungscode der
+									Leistung)</para>
+								<para xml:id="en_1679" xml:lang="en">ServiceCode (booking code of the
+									service)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1680" xml:lang="de">ServiceFeatureCode (Zimmercode,
+									Flugklasse, ...)</para>
+								<para xml:id="en_1680" xml:lang="en">ServiceFeatureCode (room code,
+									flight class...)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1681" xml:lang="de">BoardCode (Verpflegungscode)</para>
+								<para xml:id="en_1681" xml:lang="en">BoardCode (board code)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1682" xml:lang="de">Assignment (Zuordnung)</para>
+								<para xml:id="en_1682" xml:lang="en">Assignment (assignment)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1683" xml:lang="de">DateStart (Startdatum)</para>
+								<para xml:id="en_1683" xml:lang="en">DateStart (start date)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_1684" xml:lang="de">DateEnd (Enddatum)</para>
+								<para xml:id="en_1684" xml:lang="en">DateEnd (end date)</para>
+							</listitem>
+						</itemizedlist>
+	
+						<figure>
+							<title><phrase xml:id="de_1686" xml:lang="de">Übersicht der "Field"-Values
+									anhand der Analogie zur Buchungsmaske</phrase><phrase
+									xml:id="en_1686" xml:lang="en">Overview of the "Field" values using
+									the analogy of the booking mask</phrase></title>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/bookingmaskfieldexplanation.png"
+										format="PNG" contentwidth="90%"/>
+								</imageobject>
+								<textobject>
+									<para xml:id="de_1687" xml:lang="de">Übersicht aller
+										Field-Values</para>
+									<para xml:id="en_1687" xml:lang="en">Overview of all Field
+										values</para>
+								</textobject>
+								<caption>
+									<para xml:id="de_1688" xml:lang="de"> </para><para xml:id="en_1688"
+										xml:lang="en"/>
+								</caption>
+							</mediaobject>
+						</figure>
+	
+						<para xml:id="de_1689" xml:lang="det">Die Zuordnung der einzelnen Parameter zu den Buchungszeilen entspricht der Gruppierung nach den Attributen aaaa</para>
+						<para xml:lang="det">Die Zuordnung der einzelnen Parameter zu den Personen-Zeilen entspricht der Gruppierung nach den EvaluationBase-PersonIndices.</para>
+						<para xml:lang="det">Im Kapitel 2 unter <link linkend="OtdsCodeOfPractiseBooking">Praxisbeispiele der Buchungsparameter</link>finden Sie dazu ein Praxisbeispiel, welches die Überführung der BookingParameter in die oben abgebildete Buchungsmaske näher ausführt.</para>
+				</section>
+			</section>
+				<section xml:id="OtdsStrategyBookingNamespaces">
+					<title><phrase xml:id="de_1703" xml:lang="de">Buchungsparameter für andere Buchungssysteme
+						(BookingTree, BookingNamespaces)</phrase><phrase xml:id="en_1703" xml:lang="en">Booking paramater for other booking systems (BookingTree, BookingNamespaces)</phrase></title>
+					<section xml:id="OtdsStrategyBookingNamespacesOverview">
+						<title><phrase  xml:lang="det">Überblick</phrase><phrase xml:lang="en">Overview</phrase></title>
+						<para xml:id="de_1704" xml:lang="det">Mit dem unter <code>Booking</code> zu definierenden Buchungsparametern werden Buchungsparameter für Buchungssysteme, die dem Stadisformat folgenden, bereitgestellt.</para> 
+						<para xml:lang="det">Um andere Buchungssysteme zu unterstützen können diese Buchungssysteme in OTDS eigene BookingNamespaces definieren, mit deren Hilfe über OTDS auch Buchungsparameter für diese speziellen Buchungssysteme bereitgestellt werden können.</para> 
+						<para xml:lang="det">Die Buchungssysteme sind für die Pflege und Weiterentwicklung und Versionierung der spezischen NameSpace-XSDs zuständig.</para>
+						<para xml:lang="det">Eine neue NameSpace-XSD kann nur im Rahmen einer neuen OTDS-Version (auch BugFix-Version) integriert werden.</para>
+						<para xml:lang="det">Eine neue NameSpace-XSD erfordert die Freigabe durch den technischen Ausschuss des OTDS-Vereins.</para>
+						<para xml:lang="det">Mit der Freigabe durch den OTDS-Verein geht keine Überprüfung der inhaltlichen Strukturen der Namespace-XSD einher. Das Buchunssystem ist voll und ganz selbst für die korrekte Definition der Namespace-XSD verantwortlich.</para>
+						<para xml:lang="det">Die Buchungsparameter für einen spezifischen Booking-Namespace werden innerhalb des Booking-Elementes im Element <code>BookingTree</code> zusätzlich oder anstatt der Angaben unter <code>BookingGroup</code> geliefert.</para>
+						<figure>
+							<title><phrase xml:lang="det">Lage des BookingTree-Elementes</phrase></title>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/bookingtree-element.png"
+										format="PNG" contentwidth="40%"/>
+								</imageobject>
+								<textobject>
+									<para xml:lang="det">Lage des BookingTree-Elementes</para>
+								</textobject>
+							</mediaobject>
+						</figure>
+						<para xml:lang="det">Die Booking-namespace-xsd müssen einer bestimmten Form entsprechen.</para>
+						<orderedlist>
+							<listitem>
+								<para xml:lang="det">Jeder multiple Konten muss vom OTDS-Type <code>BookingTreeMultipleNodeType</code> abgeleitet sein und darf keine eigenen Attribute ausprägen</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Jeder single Konten, der kein Blattknoten ist muss vom OTDS-Type
+										<code>BookingTreeSingleNodeType</code> abgeleitet sein und
+									darf keine eigenen Attribute ausprägen</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Jeder Blattknoten muss "single" sein und einem der folgenden OTDS-Typen entsprechen:</para>
+								<itemizedlist>
+									<listitem>
+										<para xml:lang="det">OTDS-Type <code>BookingTreeParameterTextType</code></para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">OTDS-Type <code>BookingTreeParameterDateReferenceType</code></para>
+									</listitem>
+									<listitem>
+										<para xml:lang="det">OTDS-Type <code>BookingTreeParameterBirthdateReferenceType</code></para>
+									</listitem>
+								</itemizedlist>
+							</listitem>
+						</orderedlist>
+						<para xml:lang="det">Im Groben erfolgt die Verarbeitung der BookingTree-Buchungsparameter ähnlich wie die der "normalen" Buchungsparameter unter BookingGroup.</para>
+						<para xml:lang="det">Hauptunterschiede sind:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:lang="det">Die Gruppierung durch BookingGroup/@Area, BookingGroup/@Source,
+									BookingGroup/@Class,  BookingGroup/@EvaluationBase werden
+									ersetzt durch einen im Folgenden genannten PathIdentifier, der
+									sich aus der Kette der Pfadknoten inkl. der Werte ihrer
+									Attribute @Source, @Class und @EvaluationBase
+									zusammensetzt.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Jede durch @Source referenzierte Komponentinstanz erzeugt in der
+									baumartige Ergebnisstruktur einen eigenen Zweig. Dadurch ist man
+									gezwungen die Soucre genauer bzgl. der Source-Eigenschaften zu
+									bestimmen, wenn nur ein Zweig erzeugt werden soll. Diese
+									Vorgehensweise findet an jedem einzelnen Pfadknoten statt. </para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Die Werte in BookingParameter/@Field werden ersetzt durch den Namen des Blattknoten</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Mit dem Attribut @ResultOrder definiert man die Reihenfolge der
+									multiplen Zweige in der baumartigen Ergebnisstruktur</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det"><code>BookingGroup/Duration</code> wird in BookingTree durch 2
+									Blattknoten des Type <code>BookingTreeParameterDateReferenceType</code>	abgebildet.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Mit dem Attribut <code>@Erase</code> an den einzelnen Pfadknoten können alle BookingTree-Parameter mit identischem Teilpfad gelöscht werden.</para>
+							</listitem>
+						</itemizedlist>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeSingleNodeType">
+						<title><phrase  xml:lang="det">Der <code>BookingTreeSingleNodeType</code></phrase></title>
+						<para xml:lang="det">BookingTreeSingleNodeType wird für jeden Single-Konten innerhalb der BookingTree-Struktur benutzt, der kein Blattknoten ist.</para>
+						<figure>
+							<title><phrase xml:lang="det">Übersicht des <code>BookingTreeSingleNodeType</code></phrase></title>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/BookingTreeSingleNodeType.png"
+										format="PNG" contentwidth="30%"/>
+								</imageobject>
+								<textobject>
+									<para xml:lang="det">Übersicht des <code>BookingTreeSingleNodeType</code></para>
+								</textobject>
+								<caption>
+									<para xml:lang="de"> </para><para xml:lang="en"></para>
+								</caption>
+							</mediaobject>
+						</figure>
+						<para xml:lang="det">Die SingleNodes besitzen nur das optionale Attribut <code>@Erase</code>.
+							Wenn dieses Attribut gesetzt ist, werden alle BookingTree-Blattknoten,
+							deren PathIdentifier bis zu diesem Knoten identisch sind, vor der
+							Ergänzung des eigenen Blattknotens entfernt. </para>
+						<para xml:lang="det">Gelöscht werden nur die Zweige. die einen kleineren Wert in
+							BookingTree/@Prioritiy besitzen oder die bei gleichem Wert in
+							BookingTree/@Prioritiy in der XML-DocumenOrder vor diesem
+							BookingTree-Element platziert sind.</para>
+						<para>Dieser Knoten ist Teil des PathIdentifiers, der für die Gruppierung
+							der BookingTree-Elemente benutzt wird.</para>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeMultipleNodeType">
+						<title><phrase  xml:lang="det">Der <code>BookingTreeMultipleNodeType</code></phrase></title>
+						<para xml:lang="det">BookingTreeMultipleNodeType wird für jeden multiplen Konten innerhalb der BookingTree-Struktur benutzt.</para>
+						<figure>
+							<title><phrase xml:lang="det">Übersicht des <code>BookingTreeMultipleNodeType</code></phrase></title>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/BookingTreeMultipleNodeType.png"
+										format="PNG" contentwidth="40%"/>
+								</imageobject>
+								<textobject>
+									<para xml:lang="det">Übersicht des <code>BookingTreeMultipleNodeType</code></para>
+								</textobject>
+								<caption>
+									<para xml:lang="de"> </para><para xml:lang="en"/>
+								</caption>
+							</mediaobject>
+						</figure>
+						<para xml:lang="det">Dieser Knoten ist inkl. der Attribute @EvaluationBase, @ResultOrder,
+							@Source und @Class Teil des PathIdentifiers, der für die Gruppierung der
+							BookingTree-Elemente benutzt wird.</para>
+						<para>Falls die Auflösung von @Source in entsprechende Komponenten-Instanzen
+							zu einem mehrdeutigen Ergebnis führt, so wird das BookingTree-Element
+							für jede Komponenten-Instanz dupliziert. </para>
+						<para>Bei Angabe von @Erase erfolgt ein Löschen andere BookingTree-Elemente
+							analog wie zuvor beim <code>BookingTreeSingleNodeType</code>
+							beschrieben bzgl. jedes der ggf. aufgrund von @Source erzeugten
+							Duplikate.</para>
+						<para>@ResultOrder wird beim Zusammenstellen der finalen baumartigen
+							Ergebnisstruktur für die Definition der Reihenfolge paralleler Zweige
+							genutzt. Bei identischer @ResultOrder ist die Reihenfolge der Zweige in
+							der baumartigen Ergebnisstruktur beliebig. </para>
+						<para> </para>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeParameterTextType">
+						<title><phrase  xml:lang="det">Der <code>BookingTreeParameterTextType</code></phrase></title>
+						<para xml:lang="det">BookingTreeParameterTextType wird für jeden Blattknoten benutzt, der einen konkreten Value definiert.</para>
+						<figure>
+							<title><phrase xml:lang="det">Übersicht des <code>BookingTreeParameterTextType</code></phrase></title>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/BookingTreeParameterTextType.png"
+										format="PNG" contentwidth="50%"/>
+								</imageobject>
+								<textobject>
+									<para xml:lang="det">Übersicht des <code>BookingTreeParameterTextType</code></para>
+								</textobject>
+								<caption>
+									<para xml:lang="de"> </para><para xml:lang="en"/>
+								</caption>
+							</mediaobject>
+						</figure>
+						<para xml:lang="det">Die Namen der Blattknoten sind beliebig. Bzgl. der Aggegation der
+							BookingTree-Elemente sind die Namen vergleichbar mit den Werten von
+							BookingGroup/BookingParameter/@Field. Die Attribute des
+								<code>BookingTreeParameterTextType</code> dienen der Aggregation der
+							Values der Blattknoten mit identischem Namen und identischem
+							PathIdentifier. Die Aggregation erfolgt analog zur Aggregation der
+							BookingParameter-Values aus <code>BookingGroup</code> .</para>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeDateReferenceType">
+						<title><phrase  xml:lang="det">Der <code>BookingTreeParameterDateReferenceType</code></phrase></title>
+						<para xml:lang="det">BookingTreeParameterDateReferenceType wird für jeden Blattknoten benutzt, der eine Referenz auf eine Terminangabe definiert.</para>
+						<figure>
+							<title><phrase xml:lang="det">Übersicht des <code>BookingTreeParameterDateReferenceType</code></phrase></title>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/BookingTreeParameterDateReferenceType.png"
+										format="PNG" contentwidth="50%"/>
+								</imageobject>
+								<textobject>
+									<para xml:lang="det">Übersicht des <code>BookingTreeParameterDateReferenceType</code></para>
+								</textobject>
+								<caption>
+									<para xml:lang="de"> </para><para xml:lang="en"/>
+								</caption>
+							</mediaobject>
+						</figure>
+						<para xml:lang="det">Die Referenzierung eines Termins erfolgt analog zu der Referenzierung
+							unter Benutzung von <code>BookingGroup/BookingParameter/Date</code> der
+							Wert des Elementes selbst bleibt leer.</para>
+						<para>Die Definition einer Dauerangabe wird im BookingTree durch die
+							Definition zweier Terminreferenzen vorgenommen. Die Definition wie
+							daraus die eine Dauer abgeleitet werden soll, obliegt der Definition der
+							Verarbeitung der Ergebnisstruktur, welche durch den Owner des Namespaces
+							festgelegt werden muss. </para>
+						<para>Zusätzlich kann mit @Offset ein Offset festgelegt werden, der dann zu
+							dem referenzierten Termin addiert werden muss um den in der
+							Ergebnisstruktur zu verwendenen Termin zu erhalten.</para>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeBirthdateReferenceType">
+						<title><phrase  xml:lang="det">Der <code>BookingTreeParameterBirthdateReferenceType</code></phrase></title>
+						<para xml:lang="det">BookingTreeParameterBirthdateReferenceType wird für jeden Blattknoten
+							benutzt, der eine Referenz auf den Geburtstag eines Reisenden
+							definiert.</para>
+						<figure>
+							<title><phrase xml:lang="det">Übersicht des <code>BookingTreeParameterBirthdateReferenceType</code></phrase></title>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="figures/BookingTreeParameterBirthdateReferenceType.png"
+										format="PNG" contentwidth="60%"/>
+								</imageobject>
+								<textobject>
+									<para xml:lang="det">Übersicht des <code>BookingTreeParameterBirthdateReferenceType</code></para>
+								</textobject>
+								<caption>
+									<para xml:lang="de"> </para><para xml:lang="en"/>
+								</caption>
+							</mediaobject>
+						</figure>
+						<para>Normalerweise enthält einer der Pfadknoten dieses BookingTree-Elementes
+							das Attribut @EvaluationBase="PersonBase".</para>
+						<para xml:lang="det">Die Definition wie aus dem Geburtstag die Angaben für die Buchungssysteme
+							abgeleitet werden sollen, obliegt der Definition der Verarbeitung der
+							Ergebnisstruktur, welche durch den Owner des Namespaces festgelegt
+							werden muss. </para>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeProcessing">
+						<title><phrase  xml:lang="det">Verarbeitungsschritte der BookingTree-Buchungsparameter</phrase></title>
+						<para xml:lang="det">Die Verarbeitung der BookingTree-Elemente zur Bildung der baumartigen
+							Ergebnisstruktur folgt dem folgenden groben Ablauf, wobei die Einhaltung
+							der Reihenfolge für die richtige Interpretation entscheidend ist:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:lang="det">Einsammeln aller <code>BookingTree/.../Blattknoten</code> in den
+									Komponenten und Unterkomponentenzweigen des betrachteten
+									Angebotes inkl. inklusive der Pfadknoten und aller darin
+									enthaltenen Attribute </para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Auflösung von @Source in konkrete Komponenten-Instanzen und
+									Expansion/Duplizierung der Blattknoten, bis jedem Blattknoten
+									nur noch genau eine Komponenten-Instanz zugeordnet ist.</para>
+							</listitem>
+							
+							<listitem>
+								<para xml:lang="det">Expansio/Duplizierung der einzelnen Blattknoten basierend auf dem Wert
+									@EvaluationBase der einzelenen Pfadknoten, so dass jedem
+									Blattknoten ein definierter Day/Person Kontext zugeordnet ist.
+									Das Weglassen von @EvaluationBase ist ein eigener
+									Day/Person-Kontext, nämlich "kein Day/Person-Kontext".</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Anwendung der Condition in den BookingTree-Elementen</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">@Erase anwenden und damit elminieren einzelner
+									BookingTree-Elemente</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Gruppierung der BookingTree-Elemente nach identischem PfadIdentifier
+									(Folge von Pfadknoten mit den spezifischen Komponenten-Instanz-,
+									@Class-, EvaluationBase Indices- und @Field-Werten</para>
+							</listitem>
+							
+							<listitem>
+								<para xml:lang="det">Sortierung der Buchungsparameter in den Buchungsparametergruppen zuerst
+									nach BookingTree/@Priority aufsteigend und dann nach
+									XML-Order</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Aggregation der Buchungsparametergruppen so dass je Gruppe nur noch ein Buchungsparameter-Value übrig bleibt.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Bildung der baumartigen Ergebnisstruktur auf Basis des
+									Pfadidentifiers.</para>
+							</listitem>
+						</itemizedlist>
+						<para xml:lang="det">Im Kapitel 2 unter <link linkend="OtdsCodeOfPractiseBookingExampleBookingNamespaceStadis">Beispiel für die Verarbeitung von BookingTree-Buchungsparametern mit einem vereinfachten Stadis-Namespace</link> finden Sie ein Beispiel, wie mit einem rudimentären Stadis-Namespace die BookingTree-Buchungsparameter verarbeitet werden.</para>
+					</section>
 				</section>
 			</section>
 			<section xml:id="OtdsStrategyNamespace">
 				<title><phrase xml:id="de_1723" xml:lang="de">Erweiterungen durch
-						Namespaces</phrase><phrase xml:id="en_1723" xml:lang="en">Extensions with
+					Namespaces</phrase><phrase xml:id="en_1723" xml:lang="en">Extensions with
 						namespaces</phrase></title>
 				<section xml:id="OtdsStrategyNamespaceBooking">
 					<title><phrase xml:id="de_1724" xml:lang="de">Booking Namespace</phrase><phrase
-							xml:id="en_1724" xml:lang="en">Booking namespace</phrase></title>
+						xml:id="en_1724" xml:lang="en">Booking namespace</phrase></title>
 					<para xml:id="de_1725" xml:lang="de">In jedem Booking-Zweig ist für die
 						verschiedenen Reservierungssysteme ein eigener Namespace vorgesehen, durch
 						den die Produkte zu 100% auf das Reservierungssystem zugeschnitten werden
@@ -18200,7 +18620,7 @@ usw.]]></programlisting>
 				</section>
 				<section xml:id="OtdsStrategyNamespaceProperties">
 					<title><phrase xml:id="de_1727" xml:lang="de">Properties
-							Namespace</phrase><phrase xml:id="en_1727" xml:lang="en">Properties
+						Namespace</phrase><phrase xml:id="en_1727" xml:lang="en">Properties
 							namespace</phrase></title>
 					<para xml:id="de_1728" xml:lang="de">In jedem Properties-Zweig ist die
 						Möglichkeit vorgesehen, eigene Namespaces zu integrieren. Die Namespaces
@@ -18218,6 +18638,9 @@ usw.]]></programlisting>
 			</section>
 		</section>
 	</section>
+	<section xml:id="OtdsCodeOfPractise">
+		<title><phrase xml:lang="det">OTDS Praxisbeispiele</phrase><phrase xml:lang="en">OTDS practical examples</phrase></title>
+			
 	<section xml:id="OtdsProductsComponents">
 		<title><phrase xml:id="de_1730" xml:lang="de">Reisekomponenten und Produkte in der
 				Praxis</phrase><phrase xml:id="en_1730" xml:lang="en">Travel components and products
@@ -19390,123 +19813,7 @@ usw.]]></programlisting>
 						are provider-specific details such as stating the sales season, the type of
 						holiday or the operator's catalogue.</para>
 				</section>
-				<section xml:id="OtdsProductsComponentsAccommodationBookingSellingAccom">
-					<title><phrase xml:id="de_1906" xml:lang="de">Buchungsparameter auf
-							Unterkunftsebene</phrase><phrase xml:id="en_1906" xml:lang="en">Booking
-							parameters for the accommodation level</phrase></title>
-					<para xml:id="de_1907" xml:lang="de">Im Knoten SellingAccom befindet sich das
-						Booking Element, in dem die Buchungsdaten geliefert werden, welche sich auf
-						die gesamte Unterbringung beziehen. In diesem Knoten werden die schon oben
-						beschriebenen notwendigen Angaben gemacht.</para>
-					<para xml:id="en_1907" xml:lang="en">The node SellingAccom contains the booking
-						element, in which the booking data referring to the entire accommodation is
-						delivered. In this node the above-mentioned necessary details are
-						made.</para>
-					<table frame="all">
-						<title><phrase xml:id="de_1908" xml:lang="de">Notwendige
-								Buchungsparameter</phrase><phrase xml:id="en_1908" xml:lang="en"
-								>Necessary booking parameters</phrase></title>
-						<tgroup cols="3">
-							<thead>
-								<row>
-									<entry><para xml:id="de_5606" xml:lang="de"
-											>Buchungsparameter</para><para xml:id="en_5606"
-											xml:lang="en">Booking parameter</para></entry>
-									<entry><para xml:id="de_5607" xml:lang="de">BookingGroup
-											Area</para><para xml:id="en_5607" xml:lang="en"
-											>BookingGroup Area</para></entry>
-									<entry><para xml:id="de_5608" xml:lang="de">BookingParameter
-											Field</para><para xml:id="en_5608" xml:lang="en"
-											>BookingParameter Field</para></entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry><para xml:id="de_5609" xml:lang="de">Code der
-											Marke</para><para xml:id="en_5609" xml:lang="en"
-											>BrandCode</para></entry>
-									<entry><para xml:id="de_5610" xml:lang="de"
-											>GlobalArea</para><para xml:id="en_5610" xml:lang="en"
-											>GlobalArea</para></entry>
-									<entry><para xml:id="de_5611" xml:lang="de">Brand</para><para
-											xml:id="en_5611" xml:lang="en">Brand</para></entry>
-								</row>
-								<row>
-									<entry><para xml:id="de_5612" xml:lang="de">Buchungscode der
-											Leistung</para><para xml:id="en_5612" xml:lang="en"
-											>BookingCode of the service</para></entry>
-									<entry><para xml:id="de_5613" xml:lang="de"
-											>ServiceArea</para><para xml:id="en_5613" xml:lang="en"
-											>ServiceArea</para></entry>
-									<entry><para xml:id="de_5614" xml:lang="de"
-											>ServiceCode</para><para xml:id="en_5614" xml:lang="en"
-											>ServiceCode</para></entry>
-								</row>
-								<row>
-									<entry><para xml:id="de_5615" xml:lang="de">Anforderungscode der
-											Leistung</para><para xml:id="en_5615" xml:lang="en"
-											>RequestCode of the service</para></entry>
-									<entry><para xml:id="de_5616" xml:lang="de"
-											>ServiceArea</para><para xml:id="en_5616" xml:lang="en"
-											>ServiceArea</para></entry>
-									<entry><para xml:id="de_5617" xml:lang="de"
-											>RequestCode</para><para xml:id="en_5617" xml:lang="en"
-											>RequestCode</para></entry>
-								</row>
-								<row>
-									<entry><para xml:id="de_5618" xml:lang="de">Startdatum der
-											Leistung</para><para xml:id="en_5618" xml:lang="en"
-											>Startdate of the service</para></entry>
-									<entry><para xml:id="de_5619" xml:lang="de"
-											>ServiceArea</para><para xml:id="en_5619" xml:lang="en"
-											>ServiceArea</para></entry>
-									<entry><para xml:id="de_5620" xml:lang="de"
-											>DateStart</para><para xml:id="en_5620" xml:lang="en"
-											>DateStart</para></entry>
-								</row>
-								<row>
-									<entry><para xml:id="de_5621" xml:lang="de">Enddatum der
-											Leistung</para><para xml:id="en_5621" xml:lang="en"
-											>Enddate of the service</para></entry>
-									<entry><para xml:id="de_5622" xml:lang="de"
-											>ServiceArea</para><para xml:id="en_5622" xml:lang="en"
-											>ServiceArea</para></entry>
-									<entry><para xml:id="de_5623" xml:lang="de">DateEnd</para><para
-											xml:id="en_5623" xml:lang="en">DateEnd</para></entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-					<table frame="all">
-						<title><phrase xml:id="de_1909" xml:lang="de">Optionale
-								Buchungsparameter</phrase><phrase xml:id="en_1909" xml:lang="en"
-								>Optional booking parameters</phrase></title>
-						<tgroup cols="3">
-							<thead>
-								<row>
-									<entry><para xml:id="de_5624" xml:lang="de"
-											>Buchungsparameter</para><para xml:id="en_5624"
-											xml:lang="en">Booking parameter</para></entry>
-									<entry><para xml:id="de_5625" xml:lang="de">BookingGroup
-											Area</para><para xml:id="en_5625" xml:lang="en"
-											>BookingGroup Area</para></entry>
-									<entry><para xml:id="de_5626" xml:lang="de">BookingParameter
-											Field</para><para xml:id="en_5626" xml:lang="en"
-											>BookingParameter Field</para></entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry><para xml:id="de_5627" xml:lang="de">Reiseart</para><para
-											xml:id="en_5627" xml:lang="en">Type of
-										holiday</para></entry>
-									<entry>GlobalArea</entry>
-									<entry>TravelType</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-				</section>
+				
 				<section xml:id="OtdsProductsComponentsAccommodationBookingSellingUnit">
 					<title><phrase xml:id="de_1910" xml:lang="de">Buchungsparameter auf
 							Unit-/Zimmerebene</phrase><phrase xml:id="en_1910" xml:lang="en">Booking
@@ -22533,6 +22840,301 @@ usw.]]></programlisting>
 </PriceItem> ]]></programlisting>
 			</section>
 		</section>
+	</section>
+	<section xml:id="OtdsCodeOfPractiseBooking">
+			<title><phrase xml:id="de_1906" xml:lang="de">Praxisbeispiele der Buchungsparameter</phrase><phrase xml:id="en_1906" xml:lang="en">Practical examples of booking parameters</phrase></title>
+		<section xml:id="OtdsCodeOfPractiseBookingGeneralExample">
+			<title><phrase xml:lang="det">Allgemeines Beispiel für die Verarbeitung der Buchungsparameter in Analogie zu einer toma-ähnlichen Buchungsmaske</phrase></title>
+			
+			<para xml:lang="det">Im folgenden .</para>
+				<figure>
+					<title><phrase xml:lang="det">Übersicht der "Field"-Values
+						anhand der Analogie zur Buchungsmaske</phrase><phrase
+							xml:lang="en">Overview of the "Field" values using
+							the analogy of the booking mask</phrase></title>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/bookingmaskfieldexplanation.png"
+								format="PNG" contentwidth="90%"/>
+						</imageobject>
+						<textobject>
+							<para xml:lang="de">Übersicht aller
+								Field-Values</para>
+							<para xml:lang="en">Overview of all Field
+								values</para>
+						</textobject>
+						<caption>
+							<para xml:lang="de"> </para><para xml:lang="en"/>
+						</caption>
+					</mediaobject>
+				</figure>
+				<para xml:id="de_1690" xml:lang="de">Im folgenden ein Beispiel, wie die oben
+					abgebildete Buchungsmaske in OTDS definiert wird:</para>
+				<para xml:id="en_1690" xml:lang="en">The following is an example of how the
+					above pictured booking page is defined in OTDS:</para>
+				<programlisting><![CDATA[
+	<Otds ...>
+		...
+		<Brands>
+			<BookingGroup Area="GlobalArea">
+				...
+				<BookingParameter Field="BrandCode">
+					<Value>FTI</Value>
+				</BookingParameter>
+			</BookingGroup>
+		</Brands>
+		...
+		<Accommodation>
+			...
+			<SellingAccom>
+				...
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="SellingAccom">
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI007</Value>
+						</BookingParameter>
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="F">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="SellingAccom">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<!-- In diesem Fall wird der Boardcode an den Zimmercode angefügt, wie es in aktuellen Buchungssystemen üblich ist.
+									Die Angabe des Namens ist Voraussetzung dafür, dass ein "Field" nicht überschrieben wird, sondern die Inhalte zusamengesetzt werden.
+									 Der Index definiert dabei die Reihenfolge der Zusammensetzung. Der Zimmercode hat keinen Index (also Default=o). Somit wird der BoardCode an den Zimmercode angefügt.
+									Siehe auch dazu: weiter unten die Definition des Zimmercodes unter SellingUnit.
+									-->
+								<!-- English remark: In this case the board code is being attached to the room code as common in recent booking systems. Indicating the name is a prerequisite for not overwriting a "field".  
+									The content parts will rather be combined. The index in this context defines the order of combination. The room code as no index (thus Default=o), so that the board code is being attached
+									to the room code. Please also refer to the definition of the room code in "SellingUnit" below.
+									-->
+								<Value>F</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					...
+				</Board>
+				...
+				<Unit Key="A12">
+					...
+					<SellingUnit Key="A12_F">
+							<Booking>
+								<BookingGroup Area="ServiceArea" Source="SellingAccom">
+									<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+										<!-- Das Attribut "PadLength" ist ein Hinweis daruf, dass in diesem Feld Parameter zusammengesetzt werden. Der Zimmercode wird dabei auf eine Zeichenlänge von 3 Stellen gebracht, in dem Spaces am Ende eingefügt werden.
+											 Die Art des Paddings kann spezifisch definiert werden. Bitte dazu die Beschreibung der anderen Attribute in der technischen Doku anschauen.
+											 -->
+										<!-- English remark: The attribute "PadLength" indicates that in this field parameters are being combined. The room code is being limited to 3 digits with spaces at the end.  
+											The kind of padding can be defined specifically. Please also refer to the descriptiono of the other attributes within the Technical Specification.
+											-->
+										<Value>A12</Value>
+									</BookingParameter>
+								</BookingGroup>
+							</Booking>
+							...
+					</SellingUnit>
+					...
+				</Unit>
+				...
+			<SellingAccom>
+			...
+		</Accommodation>
+		...
+		<OnewayFlights>
+			<!-- Der ReturnFlight wird hier aus 2 OnewayFlights zusammengesetzt, was in dem Beispiel nicht weiter ausgeführt wird -->
+			<!-- English remark: Thereturn flight is being set up from two OnewayFlights, which is not being elaborated on in the example -->
+			<OnewayFlight Key="DUSPMI">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>DUS PMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				...
+			
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					...
+				</BookingClass>
+				...
+			</OnewayFlight>
+			...
+			<OnewayFlight Key="PMIDUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				...
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="OnewayFlight">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					...
+				</BookingClass>
+				...
+			</OnewayFlight>
+			...
+		</OnewayFlights>
+		...
+	</<Otds>]]></programlisting>
+				<para xml:lang="det">TODO für Steffi ;-) aaaaa : Ergänzung der globalen Buchunsgparameter und Darstellung der einzelenen Schritte der Buchungsparameterverarbeitung anhand dieses konkreten Beispiels.</para>
+			</section>
+		<section xml:id="OtdsCodeOfPractiseBookingExampleMultipleBookingRows">
+			<title><phrase xml:lang="det">Praxisbeispiel, wie mehrere Buchungszeilen gefüllt werden</phrase></title>
+			
+				<para xml:id="de_1691" xml:lang="de">Sollte eine Komponente mehrere
+					Buchungszeilen zum Buchen benötigen, so kann man die einzelnen
+					Buchungszeilen innerhalb einer Komponente über das Attribut
+					"BookingGroup/@Class" adressieren. In diesem Falle landen alle
+					Buchungsparameter mit gleicher "Source" und gleicher "Class" in derselben
+					Buchungszeile. Ist das Attribut "Class" nicht besetzt, so erhält es per
+					Default den Wert "Default". </para>
+				<para xml:id="en_1691" xml:lang="en">Should a component require several lines
+					for the booking, you can address the individual booking lines within a
+					component through the attribute "BookingGroup/@Class". In this case all
+					booking parameters with the same "Source" and the same "Class" appear in the
+					same booking line. If the attribute "Class" is not occupied it automatically
+					receives the value "Default".</para>
+				<para xml:id="de_1692" xml:lang="de">Hier ein Beispiel für einen gelieferten
+					Returnflug, der zwei Buchungszeilen definiert.</para>
+				<para xml:id="en_1692" xml:lang="en">Here is an example of a delivered return
+					flight which has been defined in 2 booking lines.</para>
+				<para xml:id="de_1693" xml:lang="de"><programlisting><![CDATA[
+	<Otds ...>
+		...
+		<ReturnFlights>
+			<!-- Hier ein Beispiel für einen ReturnFlight, der 2 Buchungszeilen für diese Komponente benötigt. Das Beispiel beschränkt sich rein auf die Buchungsparameter.-->
+			<ReturnFlight Key="DUSPMIDUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>DUS PMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Outbound>
+					<DepartureAirport>DUS</DepartureAirport>
+					<ArrivalAirport>PMI</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<DepartureAirport>PMI</DepartureAirport>
+					<ArrivalAirport>DUS</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="YX">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+						<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>X</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+				</BookingClass>
+			</ReturnFlight>
+		</ReturnFlights>
+		...
+	</Otds>	
+		]]></programlisting>
+				</para>
+				<para xml:id="en_1693" xml:lang="en">
+					<programlisting>
+								<![CDATA[
+	<Otds ...>
+		...
+		<ReturnFlights>
+			<!-- Hier ein Beispiel für einen ReturnFlight, der 2 Buchungszeilen für diese Komponente benötigt. Das Beispiel beschränkt sich rein auf die Buchungsparameter.-->
+			<ReturnFlight Key="DUSPMIDUS">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>DUS PMI</Value>
+						</BookingParameter>
+					</BookingGroup>
+					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
+						<BookingParameter Field="RequestCode">
+							<Value>F</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>PMI DUS</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Outbound>
+					<DepartureAirport>DUS</DepartureAirport>
+					<ArrivalAirport>PMI</ArrivalAirport>
+				</Outbound>
+				<Inbound>
+					<DepartureAirport>PMI</DepartureAirport>
+					<ArrivalAirport>DUS</ArrivalAirport>
+				</Inbound>
+				<BookingClass Key="YX">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>Y</Value>
+							</BookingParameter>
+						</BookingGroup>
+						<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Inbound">
+							<BookingParameter Field="ServiceFeatureCode">
+								<Value>X</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+				</BookingClass>
+			</ReturnFlight>
+		</ReturnFlights>
+		...
+	</Otds>	
+		]]></programlisting>
+				</para>
+			</section>
+		
+		<section xml:id="OtdsCodeOfPractiseBookingExampleBookingNamespaceStadis">
+			<title><phrase xml:lang="det">Beispiel der Definition und Lieferung eines BookingTree-NameSpace für die Nutzung in Stadis und andere Systeme</phrase></title>
+			<para xml:lang="de">aaaaa</para>
+		</section>
+	</section>
 	</section>
 	<section xml:id="OtdsProcess">
 		<title><phrase xml:id="de_2129" xml:lang="de">Das theoretische
@@ -40489,22 +41091,6 @@ usw.]]></programlisting>
 										instance, exactly one group can be created per
 											<code>Area</code> , <code>Class</code> and instance
 										index.</para>
-								</listitem>
-								<listitem>
-									<para xml:id="de_3737" xml:lang="de">Da Gruppenreferenzen wegen
-										der Nicht-Eindeutigkeit der <code>Source</code> Angabe im
-										Allgemeinen nicht eindeutig sind, kann eine
-											<code>BookingGroup</code> sich auf mehrere gleichartige
-										Gruppen beziehen. Es können also in Ausnamefällen von einer
-											<code>BookingGroup</code> Werte in mehreren Gruppen
-										parallel gesetzt werden.</para>
-									<para xml:id="en_3737" xml:lang="en">As group references are
-										generally not unique due to the non-uniqueness of the
-											<code>Source</code> entry, a <code>BookingGroup</code>
-										can refer to several groups of the same type. In exceptional
-										cases, values from one <code>BookingGroup</code> can be
-										placed parallel to one another in several different
-										groups.</para>
 								</listitem>
 								<listitem>
 									<para xml:id="de_3738" xml:lang="de">Innerhalb einer Komponente
