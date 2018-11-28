@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:merlin="http://otds-group.org/otds/booking/merlin" xmlns:toma="http://otds-group.org/otds/booking/toma" xmlns:tsx="http://www.tui.com/otds/booking/tsx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd  http://otds-group.org/otds/booking/merlin ../xsd/otds-booking-merlin.xsd http://otds-group.org/otds/booking/toma ../xsd/otds-booking-toma.xsd  http://www.tui.com/otds/booking/tsx ../xsd/otds-booking-TUI-Smart-XML.xsd">
+	<Products>
+		<Product Key="FlightAccommodation" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation/>
+				<DefinedComponent UseRole="ReturnFlight"/>
+			</Components>
+			<Filter Key="1">
+				<MatchEqual>
+					<Element Source="Accommodation">CatchmentAirport</Element>
+					<Element Source="Outbound">ArrivalAirport</Element>
+				</MatchEqual>
+			</Filter>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TUID">
+			<Tags>
+				<ConditionalTag>
+					<Tag Class="PersonBookingType">Adult</Tag>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Adult</ConditionalTags>
+						</Impact>
+					</Condition>
+				</ConditionalTag>
+				<ConditionalTag>
+					<Tag Class="PersonBookingType">Child</Tag>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Child</ConditionalTags>
+						</Impact>
+					</Condition>
+				</ConditionalTag>
+				<ConditionalTag>
+					<Tag Class="PersonBookingType">Baby</Tag>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="global:SellingAccom" Class="PersonType">Baby</ConditionalTags>
+						</Impact>
+					</Condition>
+				</ConditionalTag>
+			</Tags>
+			<Booking>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:TOMA-Veranstalter>
+							<Value>TUID</Value>
+						</tsx:TOMA-Veranstalter>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fap Source="Product" EvaluationBase="Person">
+							<tsx:PersonBirthDate/>
+						</tsx:Fap>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fat Source="global:Outbound">
+							<tsx:ServiceType>
+								<Value>T</Value>
+							</tsx:ServiceType>
+							<tsx:StartDate>
+								<Date DayType="CheckIn" Source="global:Outbound"/>
+							</tsx:StartDate>
+						</tsx:Fat>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fat Source="global:Inbound">
+							<tsx:ServiceType>
+								<Value>T</Value>
+							</tsx:ServiceType>
+							<tsx:StartDate>
+								<Date DayType="CheckIn" Source="global:Inbound"/>
+							</tsx:StartDate>
+						</tsx:Fat>
+					</tsx:Fab>
+					<tsx:Fab>
+						<tsx:Fah Source="global:Accommodation">
+							<tsx:ServiceType>
+								<Value>H</Value>
+							</tsx:ServiceType>
+							<tsx:StartDate>
+								<Date DayType="CheckIn" Source="global:Accommodation"/>
+							</tsx:StartDate>
+							<tsx:EndDate>
+								<Date DayType="CheckOut" Source="global:Accommodation"/>
+							</tsx:EndDate>
+						</tsx:Fah>
+					</tsx:Fab>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap  Source="Product" EvaluationBase="Person">
+							<tsx:PersonType>
+								<Value>Herr</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Male Undefined</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap  Source="Product" EvaluationBase="Person">
+							<tsx:PersonType>
+								<Value>Frau</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
+					<Condition>
+						<And>
+							<Impact>
+								<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
+							</Impact>
+							<PersonImpact>
+								<PersonGenders Source="Product">Female</PersonGenders>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap Source="Product" EvaluationBase="Person">
+							<tsx:PersonType>
+								<Value>Kind</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="Brand" Class="PersonBookingType">Child</ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingTree>
+				<BookingTree>
+					<tsx:Fab>
+						<tsx:Fap Source="Product" EvaluationBase="Person">
+							<tsx:PersonType>
+								<Value>Baby</Value>
+							</tsx:PersonType>
+						</tsx:Fap>
+					</tsx:Fab>
+					<Condition>
+						<Impact>
+							<ConditionalTags Source="Brand" Class="PersonBookingType">Baby</ConditionalTags>
+						</Impact>
+					</Condition>
+				</BookingTree>
+			</Booking>
+		</Brand>
+	</Brands>
+	<Accommodations>
+		<Accommodation Key="LPA11010">
+			<SellingAccom Key="LPA11010">
+				<Tags>
+					<ConditionalTag>
+						<Tag Class="PersonType">Adult</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>16</Min>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Child</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Min>2</Min>
+									<Max>15</Max>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+					<ConditionalTag>
+						<Tag Class="PersonType">Baby</Tag>
+						<Condition>
+							<PersonImpact>
+								<PersonAge Source="Product">
+									<Max>2</Max>
+								</PersonAge>
+							</PersonImpact>
+						</Condition>
+					</ConditionalTag>
+				</Tags>
+				<Booking>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:TOMA-Reiseart>
+								<Value>LAEN</Value>
+							</tsx:TOMA-Reiseart>
+						</tsx:Fab>
+						<tsx:Fab>
+							<tsx:Fah Source="Accommodation">
+								<tsx:Product>
+									<Value>11010</Value>
+								</tsx:Product>
+							</tsx:Fah>
+						</tsx:Fab>
+						<tsx:Fab>
+							<tsx:Fah Source="Accommodation">
+								<tsx:Destination>
+									<Value>LPA</Value>
+								</tsx:Destination>
+							</tsx:Fah>
+						</tsx:Fab>
+					</BookingTree>
+				</Booking>
+				<Board Key="U">
+					<Booking>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fah Source="Accommodation">
+									<tsx:Meal>
+										<Value>U</Value>
+									</tsx:Meal>
+								</tsx:Fah>
+							</tsx:Fab>
+						</BookingTree>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardName>Ohne Verpflegung</BoardName>
+							<BoardType>None</BoardType>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Unit Key="STX1">
+					<Properties Key="1">
+						<PropertyGroup>
+							<UnitType>Studio</UnitType>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="STX1">
+						<Booking>
+							<BookingTree>
+								<tsx:Fab>
+									<tsx:Fah Source="Accommodation">
+										<tsx:Room>
+											<Value>U</Value>
+										</tsx:Room>
+									</tsx:Fah>
+								</tsx:Fab>
+							</BookingTree>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>APP. 1 SCHLAFZ. 2 ERW.</UnitName>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="1">
+							<Person>
+								<Count>2</Count>
+							</Person>
+							<Person>
+								<MinAge>2</MinAge>
+								<MaxAge>12</MaxAge>
+								<MinCount>0</MinCount>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+						<Availabilities Key="A12_F">
+							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
+								<DefaultDayState>
+									<Open/>
+									<CheckIn/>
+									<CheckOut/>
+								</DefaultDayState>
+							</Availability>
+						</Availabilities>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>PMI</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+	<Flights>
+		<OnewayFlights>
+			<!-- TUI interner Hinflug-->
+			<OnewayFlight Key="HAJLPAA17RN23032017">
+				<Booking>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat Source="ThisComponent">
+								<tsx:ServiceType>
+									<Value>T</Value>
+								</tsx:ServiceType>
+								<tsx:Dep>
+									<Value>HAJ</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>LPA</Value>
+								</tsx:Arr>
+								<tsx:RouteCode>
+									<Value>HAJLPAA17RN</Value>
+								</tsx:RouteCode>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
+				</Booking>
+				<DepartureAirport>HAJ</DepartureAirport>
+				<ArrivalAirport>LPA</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2017-03-23" StartDate="2017-03-23" EndDate="2017-03-23">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed Fri</Weekdays>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>50</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-04-11</Min>
+										<Max>2012-05-11</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-06-08</Min>
+										<Max>2012-06-29</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-05-18 2012-05-23 2012-05-30 2012-06-01</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<!-- TUI interner Rückflug-->
+			<OnewayFlight Key="LPAHAJA17RN30032017">
+				<Booking>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat  Source="ThisComponent">
+								<tsx:ServiceType>
+									<Value>T</Value>
+								</tsx:ServiceType>
+								<tsx:Dep>
+									<Value>LPA</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>HAJ</Value>
+								</tsx:Arr>
+								<tsx:RouteCode>
+									<Value>LPAHAJA17RN</Value>
+								</tsx:RouteCode>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
+				</Booking>
+				<DepartureAirport>LPA</DepartureAirport>
+				<ArrivalAirport>HAJ</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fat  Source="ThisComponent">
+									<tsx:Class>
+										<Value>Y</Value>
+									</tsx:Class>
+								</tsx:Fat>
+							</tsx:Fab>
+						</BookingTree>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2017-03-30" StartDate="2017-03-30" EndDate="2017-03-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Thu Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+			<!-- TUI externer Hinflug bestehend aus mehreren Legs-->
+			<OnewayFlight Key="HAJLPAA17RN23032017">
+				<Booking>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat Source="OnewayFlight">
+								<tsx:ServiceType>
+									<Value>T</Value>
+								</tsx:ServiceType>
+								<tsx:External>
+									<Value>Y</Value>
+								</tsx:External>
+								<tsx:StartDate>
+									<Date DayType="CheckIn" Source="OnewayFlight" />
+								</tsx:StartDate>
+								<tsx:InvState>
+									<Value>EXTERNAL</Value>
+								</tsx:InvState>
+								<tsx:Dep>
+									<Value>HAJ</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>LPA</Value>
+								</tsx:Arr>
+								<tsx:Carrier>
+									<Value>BA</Value>
+								</tsx:Carrier>
+								<tsx:FlightNr>
+									<Value>0109</Value>
+								</tsx:FlightNr>
+								<tsx:DepTime>
+									<Value>1935</Value>
+								</tsx:DepTime>
+								<tsx:ArrTime>
+									<Value>0725</Value>
+								</tsx:ArrTime>
+								<tsx:ArrTimeDev>
+									<Value>+1</Value>
+								</tsx:ArrTimeDev>
+								<tsx:Equipment>
+									<Value>319</Value>
+								</tsx:Equipment>
+								<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"  Source="ThisComponent"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn" Offset="0"   Source="ThisComponent"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>HAJ</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>FRA</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0719</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>1935</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>2025</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+0</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>319</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+								<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="1"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>FRA</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>LPA</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0109</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>2125</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>0725</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+1</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>777</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
+				</Booking>
+				<DepartureAirport>HAJ</DepartureAirport>
+				<ArrivalAirport>LPA</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fat Source="OnewayFlight">
+									<tsx:Class>
+										<Value>Y</Value>
+									</tsx:Class>
+									<tsx:ClassDesc>
+										<Value>Economy Class</Value>
+									</tsx:ClassDesc>
+									<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>5</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+									<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>O</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+								</tsx:Fat>
+							</tsx:Fab>
+						</BookingTree>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2017-03-23" StartDate="2017-03-23" EndDate="2017-03-23">
+							<DefaultDayState>
+								<Open/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Wed Fri</Weekdays>
+						</Condition>
+					</Availabilities>
+					<PriceItems Key="1">
+						<PriceItem Class="Abflugzuschlag">
+							<Absolute>
+								<Value>50</Value>
+								<DayBase>x</DayBase>
+								<PersonBase>1</PersonBase>
+							</Absolute>
+							<Condition>
+								<Or>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-04-11</Min>
+										<Max>2012-05-11</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Min>2012-06-08</Min>
+										<Max>2012-06-29</Max>
+									</Date>
+									<Date Source="OnewayFlight" DayType="CheckIn">
+										<Dates>2012-05-18 2012-05-23 2012-05-30 2012-06-01</Dates>
+									</Date>
+								</Or>
+							</Condition>
+						</PriceItem>
+					</PriceItems>
+				</BookingClass>
+			</OnewayFlight>
+			<!-- TUI externer Rückflug-->
+			<OnewayFlight Key="LPAHAJA17RN30032017">
+				<Booking>
+					<BookingTree>
+						<tsx:Fab>
+							<tsx:Fat Source="OnewayFlight">
+								<tsx:ServiceType>
+									<Value>T</Value>
+								</tsx:ServiceType>
+								<tsx:External>
+									<Value>Y</Value>
+								</tsx:External>
+								<tsx:StartDate>
+									<Date DayType="CheckIn"   Source="ThisComponent"/>
+								</tsx:StartDate>
+								<tsx:InvState>
+									<Value>EXTERNAL</Value>
+								</tsx:InvState>
+								<tsx:Dep>
+									<Value>LPA</Value>
+								</tsx:Dep>
+								<tsx:Arr>
+									<Value>HAJ</Value>
+								</tsx:Arr>
+								<tsx:Carrier>
+									<Value>BA</Value>
+								</tsx:Carrier>
+								<tsx:FlightNr>
+									<Value>0110</Value>
+								</tsx:FlightNr>
+								<tsx:DepTime>
+									<Value>1740</Value>
+								</tsx:DepTime>
+								<tsx:ArrTime>
+									<Value>0325</Value>
+								</tsx:ArrTime>
+								<tsx:ArrTimeDev>
+									<Value>+1</Value>
+								</tsx:ArrTimeDev>
+								<tsx:Equipment>
+									<Value>319</Value>
+								</tsx:Equipment>
+								<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"   Source="ThisComponent"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>LPA</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>BRU</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0719</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>1740</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>0025</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+1</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>319</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+								<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+									<tsx:StartDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
+									</tsx:StartDate>
+									<tsx:ArrivalDate>
+										<Date DayType="CheckIn"   Source="ThisComponent" Offset="1"/>
+									</tsx:ArrivalDate>
+									<tsx:Dep>
+										<Value>BRU</Value>
+									</tsx:Dep>
+									<tsx:Arr>
+										<Value>HAJ</Value>
+									</tsx:Arr>
+									<tsx:Carrier>
+										<Value>BA</Value>
+									</tsx:Carrier>
+									<tsx:FlightNr>
+										<Value>0109</Value>
+									</tsx:FlightNr>
+									<tsx:DepTime>
+										<Value>0125</Value>
+									</tsx:DepTime>
+									<tsx:ArrTime>
+										<Value>0325</Value>
+									</tsx:ArrTime>
+									<tsx:ArrTimeDev>
+										<Value>+1</Value>
+									</tsx:ArrTimeDev>
+									<tsx:Equipment>
+										<Value>777</Value>
+									</tsx:Equipment>
+								</tsx:Leg>
+							</tsx:Fat>
+						</tsx:Fab>
+					</BookingTree>
+				</Booking>
+				<DepartureAirport>LPA</DepartureAirport>
+				<ArrivalAirport>HAJ</ArrivalAirport>
+				<BookingClass Key="Y">
+					<Booking>
+						<BookingTree>
+							<tsx:Fab>
+								<tsx:Fat Source="OnewayFlight">
+									<tsx:Class>
+										<Value>Y</Value>
+									</tsx:Class>
+									<tsx:ClassDesc>
+										<Value>Economy Class</Value>
+									</tsx:ClassDesc>
+									<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>5</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+									<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+										<tsx:Class>
+											<Value>Y</Value>
+										</tsx:Class>
+										<tsx:BookingClass>
+											<Value>O</Value>
+										</tsx:BookingClass>
+									</tsx:Leg>
+								</tsx:Fat>
+							</tsx:Fab>
+						</BookingTree>
+					</Booking>
+					<Occupancy Key="1">
+						<Person>
+							<MinCount>1</MinCount>
+						</Person>
+					</Occupancy>
+					<Availabilities Key="1">
+						<Availability Key="2017-03-30" StartDate="2017-03-30" EndDate="2017-03-30">
+							<DefaultDayState>
+								<Open/>
+								<CheckIn/>
+								<CheckOut/>
+							</DefaultDayState>
+						</Availability>
+						<Condition>
+							<Weekdays Source="OnewayFlight" DayType="CheckIn">Thu Sun</Weekdays>
+						</Condition>
+					</Availabilities>
+				</BookingClass>
+			</OnewayFlight>
+		</OnewayFlights>
+	</Flights>
+	<DefinedComponents>
+		<DefineComponent Key="HR" Role="ReturnFlight">
+			<Booking>
+				<!-- Definition einer Flughülle, die die Buchungsparameter aller beteiligten Einzelflüge ersetzt und danach neu definiert-->
+				<!-- zunächst alle möglicherweise durch Flüge angelegte Buchungszeilen löschen -->
+				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
+					<BookingReplace Source="OnewayFlight" Class="*"/>
+					<BookingReplace Source="ReturnFlight" Class="*"/>
+					<BookingReplace Source="BookingClass" Class="*"/>
+					<!-- neue generisch Buchungszeile (Flughülle) -->
+					<BookingParameter Field="RequestCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>F</Value>
+					</BookingParameter>
+					<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>Y</Value>
+					</BookingParameter>
+					<BookingParameter Field="DateStart" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date Source="Outbound" DayType="CheckIn"/>
+					</BookingParameter>
+					<BookingParameter Field="DateEnd" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Date Source="Inbound" DayType="CheckIn"/>
+					</BookingParameter>
+				</BookingGroup>
+				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
+					<!-- Eine von den Flughäfen abhängiger ServiceCode der Flughülle -->
+					<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
+						<Value>DUSPMI</Value>
+					</BookingParameter>
+					<Condition>
+						<And>
+							<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
+							<Airports Source="Outbound" AirportType="Arrival">PMI</Airports>
+						</And>
+					</Condition>
+				</BookingGroup>
+			</Booking>
+			<Components>
+				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
+					<OnewayFlight Name="OutFlight"/>
+				</CombiComponent>
+				<CombiComponent Role="Inbound" DayAllocationIndex="1">
+					<OnewayFlight Name="InFlight"/>
+				</CombiComponent>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Outbound">DepartureAirport</Element>
+						<Element Source="Inbound">ArrivalAirport</Element>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Inbound">DepartureAirport</Element>
+						<Element Source="Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</DefineComponent>
+	</DefinedComponents>
+</Otds>
