@@ -1652,7 +1652,7 @@ Tags are pairs of values that can be indicated at defined node points. In doing 
 	</xs:complexType>
 	<xs:complexType name="NeighbourComponentCorrectionType">
 		<xs:complexContent>
-			<xs:extension base="SimpleUpdateNodeType">
+			<xs:extension base="OptionalMultipleSimpleUpdateNodeType">
 				<xs:sequence>
 					<xs:element name="CheckInDateOffset" type="CheckInOutOffsetType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
@@ -3333,7 +3333,7 @@ optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -3342,7 +3342,7 @@ optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="Tags" type="TagsType" minOccurs="0" internal:otdsversion="2.0"/>
+					<xs:element name="Tags" type="TagsType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -6888,7 +6888,7 @@ If both @Source and @Component are given, both attributes have to be fulfilled. 
 	<!-- product specific Types -->
 	<xs:complexType name="TagsType">
 		<xs:complexContent>
-			<xs:extension base="SimpleUpdateNodeType">
+			<xs:extension base="OptionalMultipleSimpleUpdateNodeType">
 				<xs:sequence>
 					<xs:element name="Tag" type="TagType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
