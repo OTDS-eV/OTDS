@@ -6108,11 +6108,11 @@
 						<para xml:lang="en" xml:id="en_5008">The following example shows a condition
 							which checks whether the number of persons which have the
 							ConditionalTag=Adult is equal to 2.</para>
-						<programlisting><![CDATA[<PersonCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+						<programlisting><![CDATA[<PersonCount Source="Product">
   <Counts>2</Counts>
   <PersonFilter>
     <Impact ImpactExecutionOrder="BeforeCombinatorics">
-      <ConditionalTags Source="SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Adult</ConditionalTags>
+      <ConditionalTags Source="SellingAccom" Class="PersonType">Adult</ConditionalTags>
     </Impact>
   </PersonFilter>
 </PersonCount>]]></programlisting>
@@ -6122,32 +6122,27 @@
 						<para xml:lang="en" xml:id="en_5009">The next example shows a condition
 							which checks whether the number of days which fall on a Friday and
 							Saturday is at least 3.</para>
-						<programlisting><![CDATA[<DayCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+						<programlisting><![CDATA[<DayCount Source="Product">
   <Min>3</Min>
   <DayFilter>
-    <DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+    <DayImpact>
       <Weekdays Source="Product" DayType="Stay">Fri Sat</Weekdays>
     </DayImpact>
   </DayFilter>
 </DayCount>]]></programlisting>
-						<para xml:lang="de" xml:id="de_5349">Mit Hilfe des „DayFilter“ innerhalb von
-							„DayCount“ kann eine betrachtete Datumsrange eingeschränkt werden. Die
-							Einschränkung kann durch eine Beschränkung der Wochentage, aber auch
-							durch den Bezug auf ein ConditionalTag vorgenommen werden, welches
-							bestimmte Tage markiert. Die angegebenen Indizes beziehen sich dann
-							immer nur auf diese betrachtete Tage. Die Einschränkung über "DayFilter"
-							ist bspw. hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage
-							innerhalb einer bestimmten Datumsrange preisreduziert werden sollen.
-							("DayFilter" kann auch bei "DayIndex" und "DayPriceIndex" eingesetzt
-							werden.)</para>
-						<para xml:lang="en" xml:id="en_5349">With the aid of the „DayFilter“ within
-							„DayCount“ a regarded range of days can be restricted. The restriction
-							can be achieved by limiting certain days of the week, but also through a
-							reference to a ConditionalTag, which marks specific days. The indices
-							given then always relate to these days regarded. The restriction with
-							the aid of "DayFilter" can i.e. be helpful, when in the context of a
-							duration discount specific days within a date range shall be reduced in
-							price. ("DayFilter" can also be used in "DayIndex" and
+						<para xml:lang="de" xml:id="de_5349">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann
+							eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung
+							kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug
+							auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage
+							markiert. Die gezählten Tage beziehen sich dann immer nur auf die durch
+							DayFilter eingeschränkten Tage. ("DayFilter" kann auch bei "DayIndex"
+							und "DayPriceIndex" eingesetzt werden.)</para>
+						<para xml:lang="en" xml:id="en_5349">With the aid of the „DayFilter“ within „DayCount“ a
+							regarded range of days can be restricted. The restriction can be
+							achieved by limiting certain days of the week, but also through a
+							reference to a ConditionalTag, which marks specific days. The counted
+							days then always relate to the remaining days after the "DayFilter" was
+							evaluated. ("DayFilter" can also be used in "DayIndex" and
 							"DayPriceIndex".)</para>
 					</section>
 					<section xml:id="OtdsStrategyConditionTypeRule">
