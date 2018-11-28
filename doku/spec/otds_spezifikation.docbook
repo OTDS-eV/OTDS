@@ -6112,30 +6112,30 @@
 								PersonCount-Bedingungen (V1.9)</phrase><phrase xml:lang="en"
 								xml:id="en_5006">DayCount and PersonCount conditions (v1.9)</phrase>
 						</title>
-						<para xml:lang="de" xml:id="de_5007">Die Verwendung von "DayCount" bzw.
-							"PersonCount" erlaubt eine vereinfachte Zählung von Tagen bzw. Personen.
-							Innerhalb dieser Elemente kann entschieden werden, welche Grenzen
-							abgeprüft werden sollen. Optional kann über einen Filter ("PersonFilter"
-							bzw. "DayFilter") definiert werden, welche Tage bzw. Personen betrachtet
-							werden sollen. Dieser Filter erlaubt auch Verknüpfungen über &lt;AND&gt;
-							und &lt;OR&gt;.</para>
-						<para xml:lang="en" xml:id="en_5007">The use of "DayCount" or "PersonCount"
-							allows a simplified count of days or persons. Within these elements, it
-							can be decided which parameters are to be checked. There is the option
-							of defining which days or persons should be taken into account via a
-							filter ("PersonFilter" or "DayFilter"). This filter also allows
-							&lt;AND&gt; and &lt;OR&gt; connections.</para>
+						<para xml:lang="de" xml:id="de_5007">Die Verwendung von "DayCount" bzw. "PersonCount" erlaubt
+							eine vereinfachte Zählung von Tagen bzw. Personen. Innerhalb dieser
+							Elemente kann eine minimale, maximale oder eine oder mehrere exakte
+							Anzahlen als Bedingung angegeben werden. Optional kann über einen Filter
+							("PersonFilter" bzw. "DayFilter") definiert werden, welche Tage bzw.
+							Personen betrachtet werden sollen. Dieser Filter erlaubt auch
+							Verknüpfungen über &lt;AND&gt; und &lt;OR&gt;.</para>
+						<para xml:lang="en" xml:id="en_5007">The use of "DayCount" or "PersonCount" allows a
+							simplified count of days or persons. Within these elements a minimum,
+							maximum or one or more exact amount of days or persons can be defined.
+							There is the option of defining which days or persons should be taken
+							into account via a filter ("PersonFilter" or "DayFilter"). This filter
+							also allows &lt;AND&gt; and &lt;OR&gt; connections.</para>
 						<para xml:lang="de" xml:id="de_5008">Das folgende Beispiel zeigt eine
 							Bedingung, die prüft, ob die Anzahl der Personen, die das
 							ConditionalTag=Adult haben, gleich 2 ist.</para>
 						<para xml:lang="en" xml:id="en_5008">The following example shows a condition
 							which checks whether the number of persons which have the
 							ConditionalTag=Adult is equal to 2.</para>
-						<programlisting><![CDATA[<PersonCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+						<programlisting><![CDATA[<PersonCount Source="Product">
   <Counts>2</Counts>
   <PersonFilter>
     <Impact ImpactExecutionOrder="BeforeCombinatorics">
-      <ConditionalTags Source="SellingAccom" Class="PersonType" DayAllocation="All" EvaluationMode="Any">Adult</ConditionalTags>
+      <ConditionalTags Source="SellingAccom" Class="PersonType">Adult</ConditionalTags>
     </Impact>
   </PersonFilter>
 </PersonCount>]]></programlisting>
@@ -6145,32 +6145,27 @@
 						<para xml:lang="en" xml:id="en_5009">The next example shows a condition
 							which checks whether the number of days which fall on a Friday and
 							Saturday is at least 3.</para>
-						<programlisting><![CDATA[<DayCount Source="Product" DayAllocation="All" EvaluationMode="Any">
+						<programlisting><![CDATA[<DayCount Source="Product">
   <Min>3</Min>
   <DayFilter>
-    <DayImpact ImpactExecutionOrder="BeforeCombinatorics">
+    <DayImpact>
       <Weekdays Source="Product" DayType="Stay">Fri Sat</Weekdays>
     </DayImpact>
   </DayFilter>
 </DayCount>]]></programlisting>
-						<para xml:lang="de" xml:id="de_5349">Mit Hilfe des „DayFilter“ innerhalb von
-							„DayCount“ kann eine betrachtete Datumsrange eingeschränkt werden. Die
-							Einschränkung kann durch eine Beschränkung der Wochentage, aber auch
-							durch den Bezug auf ein ConditionalTag vorgenommen werden, welches
-							bestimmte Tage markiert. Die angegebenen Indizes beziehen sich dann
-							immer nur auf diese betrachtete Tage. Die Einschränkung über "DayFilter"
-							ist bspw. hilfreich, wenn im Rahmen einer Dauerreduktion bestimmte Tage
-							innerhalb einer bestimmten Datumsrange preisreduziert werden sollen.
-							("DayFilter" kann auch bei "DayIndex" und "DayPriceIndex" eingesetzt
-							werden.)</para>
-						<para xml:lang="en" xml:id="en_5349">With the aid of the „DayFilter“ within
-							„DayCount“ a regarded range of days can be restricted. The restriction
-							can be achieved by limiting certain days of the week, but also through a
-							reference to a ConditionalTag, which marks specific days. The indices
-							given then always relate to these days regarded. The restriction with
-							the aid of "DayFilter" can i.e. be helpful, when in the context of a
-							duration discount specific days within a date range shall be reduced in
-							price. ("DayFilter" can also be used in "DayIndex" and
+						<para xml:lang="de" xml:id="de_5349">Mit Hilfe des „DayFilter“ innerhalb von „DayCount“ kann
+							eine betrachtete Datumsrange eingeschränkt werden. Die Einschränkung
+							kann durch eine Beschränkung der Wochentage, aber auch durch den Bezug
+							auf ein ConditionalTag vorgenommen werden, welches bestimmte Tage
+							markiert. Die gezählten Tage beziehen sich dann immer nur auf die durch
+							DayFilter eingeschränkten Tage. ("DayFilter" kann auch bei "DayIndex"
+							und "DayPriceIndex" eingesetzt werden.)</para>
+						<para xml:lang="en" xml:id="en_5349">With the aid of the „DayFilter“ within „DayCount“ a
+							regarded range of days can be restricted. The restriction can be
+							achieved by limiting certain days of the week, but also through a
+							reference to a ConditionalTag, which marks specific days. The counted
+							days then always relate to the remaining days after the "DayFilter" was
+							evaluated. ("DayFilter" can also be used in "DayIndex" and
 							"DayPriceIndex".)</para>
 					</section>
 					<section xml:id="OtdsStrategyConditionTypeRule">
@@ -12314,8 +12309,8 @@ usw.]]></programlisting>
 						base has to be defined, i.e. how the given price is spread over individual
 						days (<code>DayBase</code>) and individual persons
 						(<code>PersonBase</code>).</para>
-					<para xml:id="de_9405" xml:lang="de">Ab der Version 2.1 ist es auch möglich, mit <code>FilteredDayBase</code> und <code>FilteredPersonbase</code> die absoluten Preisbestandteile auf spezifische Tage bzw. Personen zu verteilen. </para>
-					<para xml:id="en_9405" xml:lang="en">From version 2.1 it is also possible to distribute the absolute price components to specific days or persons with <code>FilteredDayBase</code> and <code>FilteredPersonbase</code>. </para>
+					<para xml:id="de_9405" xml:lang="de">Ab der Version 2.1 ist es auch möglich mit <code>FilteredDayBase</code> und <code>FilteredPersonbase</code> die absoluten Preisbestandteile auf spezifische Tage bzw. Personen zu verteilen.</para>
+					<para xml:id="en_9405" xml:lang="en">From version 2.1 it is also possible to distribute the absolute price components to specific days or persons with <code>FilteredDayBase</code> and <code>FilteredPersonbase</code>.</para>
 					<bridgehead xml:id="de_1316" xml:lang="de">DayBase</bridgehead>
 					<bridgehead xml:id="en_1316" xml:lang="en">DayBase</bridgehead>
 					<para xml:id="de_1317" xml:lang="de">In <code>DayBase</code> wird definiert, wie
@@ -36183,8 +36178,8 @@ usw.]]></programlisting>
 											all of the travelling persons.</para>
 										<para xml:id="de_9427" xml:lang="de">Seit der Version 2.1 kann alternativ zu <code>PersonBase</code> auch <code>FilteredPersonBase</code> angegeben werden. <code>FilteredPersonBase</code> definiert eine Impact-Bedingung, die aus der Menge der Reiseteilnehmer eine Teilmenge definiert, auf die der Absolutbetrag gleichmäßig verteilt wird.</para>
 										<para xml:id="en_9427" xml:lang="en">Since version 2.1 you can use <code>PersonBase</code> as an alternative to <code>FilteredPersonBase</code>. <code>FilteredPersonBase</code> defines an impact condition that defines a subset of the group of travellers to which the absolute amount is distributed evenly.</para>
-										<para xml:id="de_9428" xml:lang="de"><code>FilteredPersonBase</code> benutzt dazu die aus den Conditions bekannten Konstrukte <code>PersonImpact/PersonAge</code>, <code>PersonImpact/PersonIndex</code>, <code>PersonImpact/PersonGenders</code>, <code>Impact/ConditionalTags</code> und auch eine Verknüpfung derselben mit <code>And</code>, <code>Or</code> und/oder <code>Not</code>.</para>
-										<para xml:id="en_9428" xml:lang="en"><code> FilteredPersonBase </code> uses the constructs known from the conditions <code> PersonImpact/PersonAge </code>, <code> PersonImpact/PersonIndex </code>, <code> PersonImpact/PersonGenders</code>, <code>Impact/ConditionalTags</code> and also a catenation of it via <code>And</code>, <code>Or</code> and/or <code>Not</code>.</para>
+										<para xml:lang="den"><code>FilteredPersonBase</code> benutzt dazu die aus den Conditions bekannten Konstrukte <code>PersonImpact/PersonAge</code>, <code>PersonImpact/PersonIndex</code>, <code>PersonImpact/PersonGenders</code>, <code>Impact/ConditionalTags</code> und auch eine Verknüpfung derselben mit <code>And</code>, <code>Or</code> und/oder <code>Not</code>.</para>
+										<para xml:lang="en"><code>FilteredPersonBase</code> uses the constructs known from the conditions <code> PersonImpact/PersonAge </code>, <code> PersonImpact/PersonIndex </code>, <code> PersonImpact/PersonGenders</code>, <code>Impact/ConditionalTags</code> and also a catenation of it via <code>And</code>, <code>Or</code> and/or <code>Not</code>.</para>
 										<para xml:id="de_9429" xml:lang="de">Die grundsätzliche Vorgehensweise der Bestimmung der Menge der gültigen Personen folgt der Beschreibung unter Conditions. Falls die ConditionalTags auch einen DayImpact-Anteil besitzen, so definiert @EvaluationMode, ob eine Person nur gültig ist, wenn alle Tage ("All") oder mindestens ein Tag ("Any") für diese Person valide sind.</para>
 										<para xml:id="en_9429" xml:lang="en">The basic procedure for determining the number of valid persons follows the description under Conditions. If the ConditionalTags also have a DayImpact portion, @EvaluationMode defines whether a person is only valid if all days ("All") or at least one day ("Any") are valid for this person.</para>
 										<para xml:id="de_3241" xml:lang="de">Durch Auswertung von
