@@ -17799,11 +17799,11 @@ usw.]]></programlisting>
 						enthalten. Die Angabe einer EvaluationBase bedeutet, dass die Auswertung der
 						Buchungsparameter nicht einmalig erfolgt sondern mehrmalig in
 						unterschiedlichen Kontexten.</para>
-					<para xml:id="en_9548" xml:lang="en">Each BookingGroup can also contain an @EvaluationBase
+						<para xml:id="en_9548" xml:lang="en">Each BookingGroup can also contain an @EvaluationBase
 						attribute. Specifying an EvaluationBase means that the booking parameters
 						are not evaluated once but several times in different contexts.</para>
 						<para xml:id="de_9564" xml:lang="de">@EvaluationBase="Person" bedeutet zum Beispiel, dass die BookingGroup im Kontext jedes Reisenden einmal ausgewertet wird. Die BookingGroup wird also praktisch für jeden Reisenden dupliziert und bekommt zusätzlich einen entsprechenden PersonIndex.</para>
-					<para xml:id="en_9564" xml:lang="en">@EvaluationBase="Person" means, for example, that the
+						<para xml:id="en_9564" xml:lang="en">@EvaluationBase="Person" means, for example, that the
 						BookingGroup is evaluated once in the context of each traveller. The
 						BookingGroup is therefore practically duplicated for every traveller and
 						additionally receives a corresponding PersonIndex.</para>
@@ -17811,7 +17811,7 @@ usw.]]></programlisting>
 						im Kontext jedes Tages der Reise einmal ausgewertet werden. Sie würde dann
 						je Reisetag dupliziert und bekäme zusätzlich einen entsprechenden
 						DayIndex.</para>
-					<para xml:id="en_9550" xml:lang="en">Similarly, with @EvaluationBase="Day" the BookingGroup
+						<para xml:id="en_9550" xml:lang="en">Similarly, with @EvaluationBase="Day" the BookingGroup
 						would be evaluated once in the context of each day of the trip. It would
 						then be duplicated for each day of the trip and would also receive a
 						corresponding DayIndex.</para>
@@ -17820,38 +17820,100 @@ usw.]]></programlisting>
 						ausgewertet werden. Sie würde je Reisetag und je Person (X-Produkt der
 						beiden) dupliziert und bekäme zusätzlich einen entsprechenden DayIndex und
 						einen entsprechenden PersonIndex.</para>
-					<para xml:id="en_9551" xml:lang="en">Finally, with @EvaluationBase="Day/Person" the
+						<para xml:id="en_9551" xml:lang="en">Finally, with @EvaluationBase="Day/Person" the
 						BookingGroup would be evaluated once in the context of each day and each
 						person of the trip. It would be duplicated per travel day and per person (X
 						product of the two) and would additionally receive a corresponding DayIndex
 						and a corresponding PersonIndex.</para>
 						<para xml:id="de_9552" xml:lang="de">Im deutschen Markt ist uns eine Verwendung von  @EvaluationBase="Day" oder "Day/Person" derzeit nicht bekannt.</para>
-					<para xml:id="en_9552" xml:lang="en">In the German market we are currently not aware of any use
+						<para xml:id="en_9552" xml:lang="en">In the German market we are currently not aware of any use
 						of @EvaluationBase="Day" or "Day/Person".</para>
 						<para xml:id="de_9553" xml:lang="de">Die Verwendung von @EvaluationBase="Person" ist aber
 						notwendig, um die einzelnen Personenzeilen einer Anfrage auszuprägen.</para>
-					<para xml:id="en_9553" xml:lang="en">However, the use of @EvaluationBase="Person" is necessary
+						<para xml:id="en_9553" xml:lang="en">However, the use of @EvaluationBase="Person" is necessary
 						in order to define the individual rows of persons in a request..</para>
 						<para xml:id="de_9554" xml:lang="de">Der Anschaulichkeit halber könnte @EvaluationBase="Day"
 						dann notwendig werden, wenn man in einer Anfrage einen String wie
 						"OOOOXXXOO" realisieren möchte, mit dem definiert werden soll, dass am 5.-7.
 						Tag eine bestimmte Leistung inkludiert werden soll.</para>
-					<para xml:id="en_9554" xml:lang="en">For the sake of clarity, @EvaluationBase="Day" might
+						<para xml:id="en_9554" xml:lang="en">For the sake of clarity, @EvaluationBase="Day" might
 						become necessary if you want to realize a string like "OOOOXXXOO" in a
 						request, with which you want to define that a certain service should be
 						included on the 5th - 7th day.</para>
 						<para xml:id="de_9555" xml:lang="de">Bei Day/Person  ginge es dann um eine entsprechende Art Matrix aus Tagen und Personen, die gefüllt und übermittelt werden soll.</para>
-					<para xml:id="en_9555" xml:lang="en">Day/Person would then be about a corresponding kind of
+						<para xml:id="en_9555" xml:lang="en">Day/Person would then be about a corresponding kind of
 						matrix of days and persons to be filled and transmitted.</para>
 					<bridgehead xml:id="de_9556" xml:lang="de">Anwendung der Condition in den BookingGroups</bridgehead>
-						<para xml:id="de_9557" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition ohne Context enthält keine Impact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any".</para>
-						<para xml:id="de_9558" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Person") enthält keine DayImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "PersonBase" ohne Attribute definiert ist. Die PersonImpact-Auswertung erfolgt dann jeweils im entsprechenden Person-Index-Kontext der durch die EvaluationBase="Person" ergänzt wird.</para>
-						<para xml:id="de_9559" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Day") enthält keine PersonImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "DayBase" ohne Attribute definiert ist. Die DayImpact-Auswertung erfolgt dann jeweils im entsprechenden Day-Index-Kontext der durch die EvaluationBase="Day" ergänzt wird.</para>
-						<para xml:id="de_9560" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Day/Person-Context (also Evaluationbase="Day/Person") wird jeweils im entsprechenden Day-Index- und PErsonIindex-Kontext ausgewertet der durch die EvaluationBase="Day" ergänzt wird.</para>
-						<para xml:id="de_9561" xml:lang="de">Somit ergibt sich bei der Auswertung immer entweder, dass die Bedingung erfüllt ist, was bedeuet, dass die BookingGroup bestehen bleibt, oder nicht erfüllt ist, was bedeuet, dass die BookingGroup entfernt wird.</para>	
+					<bridgehead xml:id="en_9556" xml:lang="en">Using the Condition in the
+						BookingGroups</bridgehead>
+						<para xml:id="de_9557" xml:lang="de">Das Ergebnis einer Auswertung einer
+						BookingGroup-Condition ohne Context enthält keine Impact-Anteile. Im Detail
+						bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird,
+						als wenn die Condition von einem NonImpact-Wrapper mit EvaluationMode="Any"
+						eingeschlossen ist.</para>
+					<para xml:id="en_9557" xml:lang="en">The result of an evaluation of a BookingGroup condition
+						without context does not contain any impact elements. In detail, this means
+						that a BookingGroup condition is implicitly evaluated as if the condition
+						was enclosed by a NonImpact Wrapper with EvaluationMode="Any".</para>	
+						<para xml:id="de_9558" xml:lang="de">Das Ergebnis einer Auswertung einer
+						BookingGroup-Condition mit einem Person-Context (also
+						Evaluationbase="Person") enthält keine DayImpact-Anteile. Im Detail bedeutet
+						es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn
+						ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element
+						"PersonBase" ohne Attribute definiert ist. Die PersonImpact-Auswertung
+						erfolgt dann jeweils im entsprechenden Person-Index-Kontext, der durch die
+						EvaluationBase="Person" ergänzt wird.</para>
+					<para xml:id="en_9558" xml:lang="en">The result of an evaluation of a BookingGroup condition
+						with a person context (Evaluationbase="Person") contains no DayImpact parts.
+						In detail it means that a BookingGroup condition is implicitly evaluated as
+						if a NonImpact Wrapper with the EvaluationMode="Any" and only the element
+						"PersonBase" is defined without attributes. The PersonImpact evaluation then
+						takes place in the corresponding Person Index context which is supplemented
+						by the EvaluationBase="Person".</para>
+						<para xml:id="de_9559" xml:lang="de">Das Ergebnis einer Auswertung einer
+						BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Day")
+						enthält keine PersonImpact-Anteile. Im Detail bedeutet es, dass eine
+						BookingGroup-Condition implizit so ausgewertet wird, als wenn ein
+						NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "DayBase"
+						ohne Attribute definiert ist. Die DayImpact-Auswertung erfolgt dann jeweils
+						im entsprechenden Day-Index-Kontext, der durch die EvaluationBase="Day"
+						ergänzt wird.</para>
+					<para xml:id="en_9559" xml:lang="en">The result of an evaluation of a BookingGroup condition
+						with a person context (Evaluationbase="Day") contains no PersonImpact
+						shares. In detail it means that a BookingGroup condition is implicitly
+						evaluated as if a NonImpact Wrapper with EvaluationMode="Any" and only the
+						element "DayBase" is defined without attributes. The DayImpact evaluation
+						then takes place in the corresponding Day Index context which is
+						supplemented by the EvaluationBase="Day".</para>
+						<para xml:id="de_9560" xml:lang="de">Das Ergebnis einer Auswertung einer
+						BookingGroup-Condition mit einem Day/Person-Context (also
+						Evaluationbase="Day/Person") wird jeweils im entsprechenden Day-Index- und
+						Person-Index-Kontext ausgewertet, der durch die EvaluationBase="Day" ergänzt
+						wird.</para>
+					<para xml:id="den_9560" xml:lang="en">The result of an evaluation of a BookingGroup condition
+						with a Day/Person context (i.e. Evaluationbase="Day/Person") is evaluated in
+						the corresponding Day-Index and Person-Index context which is supplemented
+						by the EvaluationBase="Day".</para>
+						<para xml:id="de_9561" xml:lang="de">Somit ergibt sich bei der Auswertung immer entweder, dass
+						die Bedingung erfüllt ist, was bedeuet, dass die BookingGroup bestehen
+						bleibt, oder nicht erfüllt ist, was bedeutet, dass die BookingGroup entfernt
+						wird.</para>	
+					<para xml:id="en_9561" xml:lang="en">This means that the evaluation always results in either
+						the condition being fulfilled, which means that the BookingGroup remains, or
+						it is not fulfilled, which means that the BookingGroup is removed.</para>	
 						<para xml:id="de_9562" xml:lang="de">Falls die Condition innerhalb einer BookingGroup nicht erfüllt ist, wird die komplette BookingGroup aus der Menge "BookingCollection" entfernt.</para>
-				
-						<para xml:id="de_9563" xml:lang="de">Ausgangspunkt für die Folgeschritte ist die Menge "BookingCollection" einer Menge aller <code>BookingGroup/BookingParameter/*</code> und <code>BookingGroup/BookingReplace</code> der verbleibeneden gültigen BookingGroups mit folgenden Attributen und Indices:</para>
+					<para xml:id="en_9562" xml:lang="en">If the condition within a BookingGroup is not fulfilled,
+						the complete BookingGroup is removed from the "BookingCollection"
+						set.</para>
+						<para xml:id="de_9563" xml:lang="de">Ausgangspunkt für die Folgeschritte ist die Menge
+						"BookingCollection", einer Menge aller
+							<code>BookingGroup/BookingParameter/*</code> und
+							<code>BookingGroup/BookingReplace</code> der verbleibenden gültigen
+						BookingGroups mit folgenden Attributen und Indices:</para>
+					<para xml:id="den_9563" xml:lang="en">The starting point for the subsequent steps is the set
+						"BookingCollection", a set of all BookingGroup/BookingParameters/* and
+						BookingGroup/BookingReplace of the remaining valid BookingGroups with the
+						following attributes and indices:</para>
 					<itemizedlist>
 						<listitem>
 							<para xml:lang="det">alle <code>BookingGroup/BookingParameter/*</code></para>
@@ -18160,7 +18222,7 @@ usw.]]></programlisting>
 						<para xml:lang="det">Das folgende Beispiel zeigt die baumartige Struktur, wie sie aus diesen Buchungsparametern entstehen könnte:</para>
 					<programlisting><![CDATA[<BookingData>
 	<GlobalArea>
-		<GlobalRow Class="Default" ComponentIstanceGroup="Product" EvaluationBaseIndices="P-None D-None">
+		<GlobalRow Class="Default" ComponentInstanceGroup="Product" EvaluationBaseIndices="P-None D-None">
 			<BrandCode>TOC</BrandCode>
 			<TravelType>SPORT</TravelType>
 		</GlobalRow>
@@ -18180,7 +18242,7 @@ usw.]]></programlisting>
 			<DateStart>271018</DateStart>
 			<DateEnd>271018</DateEnd>
 		</ServiceRow>
-		<ServiceRow Class="Default" ComponentIstanceGroup="Accommodation" EvaluationBaseIndices="P-None D-None">
+		<ServiceRow Class="Default" ComponentInstanceGroup="Accommodation" EvaluationBaseIndices="P-None D-None">
 			<RequestCode>H</RequestCode>
 			<ServiceCode>PMI512</ServiceCode>
 			<ServiceFeatureCode>DZ A</ServiceFeatureCode>
@@ -18189,15 +18251,15 @@ usw.]]></programlisting>
 		</ServiceRow>
 	</ServiceArea>
 	<PersonArea>
-		<PersonRow ComponentIstanceGroup="Product" Class="Default" EvaluationBaseIndices="P1 D-None">
+		<PersonRow ComponentInstanceGroup="Product" Class="Default" EvaluationBaseIndices="P1 D-None">
 			<Title>H</Title>
 			<Age>32</Age>
 		</PersonRow>
-		<PersonRow ComponentIstanceGroup="Product" Class="Default" EvaluationBaseIndices="P2 D-None">
+		<PersonRow ComponentInstanceGroup="Product" Class="Default" EvaluationBaseIndices="P2 D-None">
 			<Title>D</Title>
 			<Age>28</Age>
 		</PersonRow>
-		<PersonRow ComponentIstanceGroup="Product" Class="Default" EvaluationBaseIndices="P3 D-None">
+		<PersonRow ComponentInstanceGroup="Product" Class="Default" EvaluationBaseIndices="P3 D-None">
 			<Title>K</Title>
 			<Age>6</Age>
 		</PersonRow>
