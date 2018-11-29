@@ -12,7 +12,7 @@
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_2">Reisekomponente für Unterbringungen
 Dieser Zweig enthält alle relevanten Daten (Stammdaten, Preise, Verfügbarkeiten) für Unterbringungen wie Hotels, Ferienwohnungen und Ferienhäusern. 
-Jede Reisekomponente kann unter Produkte (Products) alleine oder mit anderen Komponenten zu verkausfertigen Angeboten zusammengefasst werden.</xs:documentation>
+Jede Reisekomponente kann unter Produkte (Products) alleine oder mit anderen Komponenten zu verkaufsfertigen Angeboten zusammengefasst werden.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_2">Travel component for accommodation
 This branch contains all of the relevant information (master data, prices, availability) for accommodation options, such as hotels, holiday apartments and holiday homes.
 All travel components can be pooled under Products either on their own or with other components as ready-for-sale product offers.</xs:documentation>
@@ -85,21 +85,15 @@ including price and availability amongst other factors.</xs:documentation>
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_8">Alle Flughäfen, die im Einzugsgebiet der Accommodation liegen.
 Angaben erfolgen als (IATA Airport-Code bzw. IATA MAA-Code). Es ist in Form einer XML-List auch die Angabe mehrerer Flughäfen durch Space getrennt möglich.
-
 Spezialfall: wenn der Code sowohl einen konkreten Flughafen als auch eine Flughafengruppe (MAA - Metropolitan Airport Code) identifiziert, wird nur der konkrete Flughafen berücksichtigt. 
-
 Um die Definition der Airport-Codes seitens IATA zu überprüfen, nutzen Sie bitte den Link: http://www.iata.org/publications/Pages/code-search.aspx
-
 Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der IATA-Airport-Codes finden Sie unter: https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
-
 Eine nicht zwingend vollständige und nicht zwingend korrekte Liste der MAA-Codes finden Sie unter: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_8">All airports situated in the catchment area of the accommodation.
 Information is given as (IATA airport code or IATA MAA Code). It is also possible, in the form of an XML list, to specify several airports using a space between each.
 Special case: if the code identifies both, a real airport and a group of airports (MAA - Metropolitan Airport Code), only the real airport is considered.
 For information about the IATA airport code definition see: http://www.iata.org/publications/Pages/code-search.aspx
-					    
 You will find a list of the concrete airport codes that is not garanteed to be complete or correct here: https://de.wikipedia.org/wiki/Liste_der_IATA-Flughafen-Codes
-					    
 You will find a list of the MAA-Codes  that is not garanteed to be complete or correct here: http://wikitravel.org/en/Metropolitan_Area_Airport_Codes
 </xs:documentation>
 						</xs:annotation>
@@ -113,18 +107,12 @@ You will find a list of the MAA-Codes  that is not garanteed to be complete or c
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_9">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.
-							
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
-
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken, obwohl eine Übernachtung an dem Termin nicht mehr möglich ist.
-
 Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher Definition von Availabilities zusammengefasst werden, können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen nach "Availability".</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_9">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
-							
 Please note: the last possible CheckOut-date must also always be included in the Availability. 
-
 At the end of the season and also for overnight flights this leads to the general necessity to explicitly add this last CheckOut date in the Availability including the possibility to check out on this date.
-
 Availabilities may be defined on various different layers. How those layers can be merged in the case of multiple definition of availabilites is covered in the OTDS documentation. Please use the search mode and inquire for "Availability".</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -132,18 +120,6 @@ Availabilities may be defined on various different layers. How those layers can 
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:element name="SellingAccom" type="SellingAccomType" internal:otdsversion="1.9">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_10">Verkaufsrelevante Daten der Unterbringung:
-enthält u.a. Preise und Verfügbarkeiten.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_10">Data relevant to the sale of accommodation:
-including price and availability amongst other factors.</xs:documentation>
-		</xs:annotation>
-		<xs:unique name="UniqueUnit">
-			<xs:selector xpath="./Unit"/>
-			<xs:field xpath="@Key"/>
-		</xs:unique>
-	</xs:element>
 	<xs:complexType name="SellingAccomType">
 		<xs:complexContent>
 			<xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
@@ -216,19 +192,13 @@ This approach for processing also defines the behaviour for date-dependent condi
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_8845">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
 Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.
-  
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
-
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken, obwohl eine Übernachtung an dem Termin nicht mehr möglich ist.
-
 Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher Definition von Availabilties zusammengefasst werden können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen nach "Availability".</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_8845">Under this branch the availability of an accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. 
 The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
-							
 Please note: the last possible CheckOut-date must also always be included in the Availability. 
-
 At the end of the season and also for overnight flights this leads to the general necessity to explicitly add this last CheckOut date in the Availability including the possibility to check out on this date.
-
 Availabilities may be defined on various different layers. How those layers can be merged in the case of multiple definition of availabilites is covered in the OTDS documentation. Please use the search mode and inquire "Availability".</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -305,7 +275,7 @@ Availabilities may be defined on various different layers. How those layers can 
 					</xs:element>
 					<xs:element name="SellingUnit" type="SellingUnitType" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_24">Verkaufsdaten auf Zimmerebene
+							<xs:documentation xml:lang="de" xml:id="de_24">Verkaufsdaten auf Zimmerebene 
 Buchungsdaten, Belegung, Verfügbarkeiten, Preisbestandteile</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_24">Price data at the room level
 Booking data, occupancy, availability, price components</xs:documentation>
@@ -314,30 +284,21 @@ Booking data, occupancy, availability, price components</xs:documentation>
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_8846">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
-
 Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.
-
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
-
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken, obwohl eine Übernachtung an dem Termin nicht mehr möglich ist.
 Availabilities können auf vielen unterschiedlichen Ebenen definiert werden. Wie diese Ebenen bei mehrfacher definition von Availabilties zusammengefasst werden können Sie in der OTDS-Dokumentation nachlesen. Benutzen Sie dort die Suchfunktion und suchen nach "Availability".</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_8846">Under this branch the availability of the accommodation is defined. If this branch is omitted, all dates and durations will be considered unavailable unless they are already defined elsewhere as available. 
-							
 The "Availabilities" layer defines which kind of availability management is possible. For example, if availabilities are managed according to duration, each restricted duration will have its own Availabilities branch with corresponding permanent duration restriction under "Conditions". As a rule, the key to the Availabilities node correlates exactly with this condition, so that the key for incremental updates is always clearly reproducible.
-
 Please note: the last possible CheckOut-date must also always be included in the Availability. 
-
 At the end of the season and also for overnight flights this leads to the necessity to explicitly add a possibility to check out on this date to this last CheckOut date in the Availability, although an overnight stay is no longer possible on this date.
 Availabilities may be defined on various different layers. How those layers can be merged in the case of multiple definition of availabilites is covered in the OTDS documentation. Please use the search mode and inquire "Availability".</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element maxOccurs="unbounded" minOccurs="0" name="PriceItems" type="PriceItemsType">
+					<xs:element name="PriceItems" type="PriceItemsType" minOccurs="0" maxOccurs="unbounded"  internal:otdsversion="2.1">
 						<xs:annotation>
-							<xs:documentation xml:lang="de">Preisberechnung auf Unit-Ebene
-
-</xs:documentation>
-							<xs:documentation xml:lang="en">Calculating the price at unit level
-</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_9430">Preisberechnung auf Unit-Ebene</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_9430">Calculating the price at unit level</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -390,18 +351,12 @@ Exclude allows for restricted occupancy criteria.</xs:documentation>
 					<xs:element name="Availabilities" type="AvailabilitiesType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_8842">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
-
 Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
-
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
-
 Dies hat am Ende der Saison und auch bei Übernachtflügen zur Folge, dass dieser letzte CheckOut-Termin in der Availability in der Regel explizit ergänzt werden muss mit der Möglichkeit an diesem Termin auszuchecken.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_8842">Under this branch the availabilities of an object are being defined. If this branch is missing, all dates and durations count as not available, unless they have been defined as available somewhere else. 
-							
 The level "Availabilities" defines, which kind of availability steering is in effect. If for example the steering of the availabities takes place via the duration, for each restricted duration there will be a particular availability branch with the corresponding duration condition under "Conditions". As a rule the key of the availability node should correlate with exactly this condition, so that the key for incremental updates at all times is reproducable nonambiguously.  
-
 Please note: The latest possible CheckOut-date must be included in the Availability.
-
 At the end of a season and also for overnight flights this brings about, that this latest CheckOut-date generally needs to be added explicitly in the Availability including the possibility to check out on this very date.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
