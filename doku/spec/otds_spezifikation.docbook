@@ -1431,24 +1431,24 @@
 								overnight flight. You may find more information on this subject
 								below: <link linkend="OtdsStrategyComponentFlightsOvernight"
 									>Overnight Flights and CheckOutDateOffset</link></para>
-							<para xml:id="de_5863" xml:lang="de">Normalerweise schließt sich der
-								CheckIn einer Nachbarkomponente bzgl. der DayAllocation immer an den
-								CheckOut der vorherigen Komponente an. Falls eine touristische
-								Notwendigkeit erfordert, dass von dieser Regel abgewichen wird, dann
-								kann man dies mit der "NeighbourComponentCorrection" steuern. Mehr
-								Informationen hierzu im Kapitel <link
+							<para xml:id="de_5863" xml:lang="de">Normalerweise schließt sich der CheckIn einer
+								Nachbarkomponente bzgl. der DayAllocation immer an den CheckOut der
+								vorherigen Komponente an. Falls eine touristische Notwendigkeit
+								erfordert, dass von dieser Regel abgewichen wird, dann kann man dies
+								mit der "NeighbourComponentCorrection" steuern. Mehr Informationen
+								hierzu im Kapitel <link
 									linkend="OtdsStrategyComponentNeigbourComponentCorrection"
-									>Verschiebung von benachbarten Komponenten
+									>Definition einer Lücke zwischen benachbarten Komponenten
 									(NeigbourComponentCorrection)</link></para>
-							<para xml:id="en_5863" xml:lang="en">Normally the CheckIn of a
-								neighbouring component with regard to the DayAlloaction always
-								follows the CheckOut of the previous component. If a touristic
-								necessity calls for a deviation from this rule, it can be managed
-								with the help of the "NeighbourComponentCorrection". You may find
-								further information below: <link
-									linkend="OtdsStrategyComponentNeigbourComponentCorrection">Shift
-									of neighbouring components
-								(NeigbourComponentCorrection)</link></para>
+							<para xml:id="en_5863" xml:lang="en">Normally the CheckIn of a neighbouring component with
+								regard to the DayAlloaction always follows the CheckOut of the
+								previous component. If a touristic necessity calls for a deviation
+								from this rule, it can be managed with the help of the
+								"NeighbourComponentCorrection". You may find further information
+								below: <link
+									linkend="OtdsStrategyComponentNeigbourComponentCorrection"
+									>Defining a gap inbetween neighbouring components
+									(NeigbourComponentCorrection)</link></para>
 							<para xml:id="de_679" xml:lang="de">Über die Properties innerhalb dieses
 								Knotens besteht die Möglichkeit, die Route genauer zu beschreiben.
 								Mehr dazu im übernächsten Kapitel "FlightRoute".</para>
@@ -1768,14 +1768,12 @@
 								into their room much earlier than the normal check-in time would
 								allow for in order to get some more sleep. To do so, the CheckIn in
 								the hotel would have to take place the day before.</para>
-							<para xml:id="de_9529" xml:lang="de">Genau diesen Umstand kann der
+							<para xml:id="de_9529" xml:lang="det">Genau diesen Umstand kann der
 								Datenlieferant mit der <code>NeighbourComponentCorrection</code>
-								beeinflussen bzw. anpassen. In diesem Fall würde der "virtuelle"
-								CheckOut-Termin des Fluges, auf den sich der CheckIn des Hotels
-								bezieht, künstlich um einen Tag früher gelegt. Dadurch erfolgt der
-								CheckIn im Hotel auch einen Tag früher. Der "virtuelle"
-								CheckOut-Termin des Fluges hat keine Auswirkungen auf Conditions,
-								die sich auf den "echten" CheckOut-Termin des Fluges beziehen. Hier
+								beeinflussen bzw. anpassen. Mit der <code>NeighbourComponentCorrection</code> definiert man eigentlich immer eine Lücke zwischen benachbarten Komponenten. In diesem Fall würde mit Hilfe der <code>NeighbourComponentCorrection</code>
+								eine Überlappung von einem Tag (als eine negative Lücke!) zwischem dem CheckOut-Termin des Fluges und dem CheckIn des Hotels
+								definiert. Dadurch erfolgt der
+								CheckIn im Hotel einen Tag früher. Hier
 								ein Beispiel, wie eine solche
 									<code>NeighbourComponentCorrection</code> aussieht:</para>
 							<para xml:id="en_9529" xml:lang="en">This very situation can be
@@ -1851,25 +1849,25 @@
 								find examples for this in Chapter 2, <link
 									linkend="OtdsExperiencesNeighbourCorrectionComponent"
 									>NeighbourCorrectionComponent</link></para>
-							<para xml:id="de_9002" xml:lang="de">Ab <emphasis role="bold">Version
-									2.0</emphasis> gibt es auch die Möglichkeit, einer
+							<para xml:id="de_9002" xml:lang="de">Ab <emphasis role="bold">Version 2.0</emphasis> gibt es
+								auch die Möglichkeit, einer
 									<code>NeighbourComponentCorrection</code> eine Condition
-								mitzugeben. Eine Condition ist dann sinnvoll, wenn die Verschiebung
-								nur unter bestimmten Bedingungen erfolgen soll. Ggf. will ein
-								Veranstalter bei Luxus-Unterkünften den Reisenden den maximalen
-								Komfort bieten und deshalb erheblich flexibler früh einchecken bzw.
-								spät auschecken. Hier ein Beispiel, wie eine solche
-									<code>NeighbourComponentCorrection</code> aussehen
+								mitzugeben. Eine Condition ist dann sinnvoll, wenn die Definition
+								der Lücke zwischen 2 Komponenten nur unter bestimmten Bedingungen
+								erfolgen soll. Ggf. will ein Veranstalter bei Luxus-Unterkünften den
+								Reisenden den maximalen Komfort bieten und deshalb erheblich
+								flexibler früh einchecken bzw. spät auschecken. Hier ein Beispiel,
+								wie eine solche <code>NeighbourComponentCorrection</code> aussehen
 								könnte:</para>
-							<para xml:id="en_9002" xml:lang="en">Since <emphasis role="bold">version
-									2.0</emphasis> it is possible to add a condition to a
+							<para xml:id="en_9002" xml:lang="en">Since <emphasis role="bold">version 2.0</emphasis> it is
+								possible to add a condition to a
 									<code>NeighbourComponentCorrection</code>. A condition makes
-								sense, when the shift is supposed to take place only under certain
-								conditions. Maybe a tour operator wants to offer maximum comfort to
-								his customers of luxury accommodations. The tour operator therefore
-								allows to flexibly check in much earlier or to check out much later.
-								Here is an example, how such a
-									<code>NeighbourComponentCorrection</code> could look:</para>
+								sense, when the definition of a gap inbetween 2 components is
+								supposed to take place only under certain conditions. Maybe a tour
+								operator wants to offer maximum comfort to his customers of luxury
+								accommodations. The tour operator therefore allows to flexibly check
+								in much earlier or to check out much later. Here is an example, how
+								such a <code>NeighbourComponentCorrection</code> could look:</para>
 							<programlisting><![CDATA[<OnewayFlight>
 	...
 	<NeighbourComponentCorrection>
@@ -5112,33 +5110,6 @@
 								>Regelwerke (Rules)</link> )</para>
 						<para xml:id="en_859" xml:lang="en">(See <link linkend="OtdsStrategyRules"
 								>Rule sets (Rules)</link> )</para>
-						<section xml:id="OtdsStrategyConditionVirtualRealCheckInCheckOuts">
-							<title><phrase xml:id="de_9250" xml:lang="de">Virtuelle und reale CheckIns und
-									CheckOuts</phrase><phrase xml:id="en_9250" xml:lang="en">Virtual
-									and real CheckIns- and CheckOuts</phrase></title>
-							<para xml:id="de_9251" xml:lang="de">Mit Hilfe der <code>NeighbourComponentCorrection</code>
-								können CheckIns und CheckOuts virtuell verschoben werden. Alle
-								Conditions beziehen sich über die Source auf eine spezifische
-								Komponente. Bezüglich dieser Komponente werden immer nur die realen
-								CheckIns und CheckOuts betrachtet, nie die virtuellen. Das bezieht
-								sich sowohl auf die Termine als auch auf die Date Conditions.
-								Beispiel: Auch wenn wie unter den Beispielen in <link
-									linkend="OtdsExperiencesNeighbourCorrectionComponent"> Kapitel
-									2.3.2.3</link>aufgeführt der CheckOut des Fluges virtuell um
-								einen Tag vorverlegt wird, so würden die Bedingungen sich immer auf
-								den wirklichen CheckOut beziehen.</para>
-							<para xml:id="en_9251" xml:lang="en">With the help of
-									<code>NeighbourComponentCorrection</code> CheckIns and CheckOuts
-								may be shifted virtually. All Conditions via Source refer to a
-								specific component. With regard to this componente always only the
-								real CheckIns and CheckOuts are considered, never the virtual ones.
-								This is true not only for the dates but also for the Date
-								Conditions. For example: Even if the CheckOut of a flight is
-								virtually advanced for one day as described in one of the examples
-								in <link linkend="OtdsExperiencesNeighbourCorrectionComponent"
-									>Chapter 2.3.2.3</link>, the conditions would still refer to the
-								real CheckOut.</para>
-						</section>
 					</section>
 				</section>
 				<section xml:id="OtdsStrategyConditionTypes">
@@ -15098,20 +15069,6 @@ usw.]]></programlisting>
 						details regarding OvernightFlights in the Chapter <link
 							linkend="OtdsStrategyComponentFlightsOvernight"
 						>OvernightFlights</link>.</para>
-					<para xml:id="de_9254" xml:lang="de">Beim Einsatz von
-							<code>NeighbourCorrectionComponent</code> zum Verschieben von CheckIn
-						bzw. CheckOut-Termin beziehen sich alle Availabilities immer auf die reellen
-						CheckIn- bzw. CheckOut-Termine, nicht auf die virtuellen Termine. Mehr
-						Informationen zur <code>NeighbourCorrectionComponent</code> in <link
-							linkend="OtdsExperiencesNeighbourCorrectionComponent">Kapitel
-							2.3.2.3</link>.</para>
-					<para xml:id="en_9254" xml:lang="en">When using
-							<code>NeighbourCorrectionComponent</code> to shift CheckIn and/or
-						CheckOut-dates all Availabilities always refer to the real CheckIn- and/or
-						CheckOut-dates, never to the virtual dates. More information on the
-							<code>NeighbourCorrectionComponent</code> can be found in <link
-							linkend="OtdsExperiencesNeighbourCorrectionComponent">Chapter
-							2.3.2.3</link>.</para>
 					<para xml:id="de_5365" xml:lang="de">Mit Hilfe des Attributes <emphasis
 							role="italic">"MatchAvailability"</emphasis> (definiert in der Occupancy
 						am Person-Knoten) wird ausgedrückt, ob sich die Availability auf eine Anzahl
@@ -15721,24 +15678,6 @@ usw.]]></programlisting>
 						an example in Chapter 1:<link
 							xlink:href="OtdsStrategyComponentFlightsOvernight">OvernightFlights and
 							CheckOutDateOffset</link></para>
-					<bridgehead xml:id="de_92576" xml:lang="de">Virtuelle CheckIns und
-						CheckOuts</bridgehead>
-					<bridgehead xml:id="en_9257" xml:lang="en">Virtual CheckIns and
-						CheckOuts</bridgehead>
-					<para xml:id="de_9258" xml:lang="de">Ebenso hat der Einsatz der
-							<code>NeighbourCorrectionComponent</code> Einfluss auf die Availability.
-						Mit der <code>NCC</code> werden CheckIns bzw. CheckOuts virtuell verschoben,
-						um strategische Produktausgestaltungen hinsichtlich des An- bzw.
-						Abreisetermins zu ermöglichen. Beim Einsatz der <code>NCC</code> beziehen
-						sich die Availabilities immer nur auf die Tage zwischen den reellen CheckIns
-						und CheckOuts.</para>
-					<para xml:id="en_9258" xml:lang="en">Also the use of the
-							<code>NeighbourCorrectionComponent</code> has an impact on the
-						Availability. By the help of the <code>NCC</code> CheckIns respectively
-						CheckOuts are being shifted virtually in order to allow for strategical
-						product design with regard to arrival and/or departure dates. When using
-							<code>NCC</code> the Availabilities always refer to the days between the
-						real CheckIns and CheckOuts.</para>
 					<para xml:id="de_1500" xml:lang="de">In der <link
 							xlink:href="../technisch/otds_technisch.html#AvailabilityType"
 							>Technischen Dokumentation für OTDS </link> finden Sie weitergehende
@@ -20417,36 +20356,42 @@ usw.]]></programlisting>
 					<title><phrase xml:id="de_9538" xml:lang="de"
 							>NeighbourCorrectionComponent</phrase><phrase xml:id="en_9538"
 							xml:lang="en">NeighbourCorrectionComponent</phrase></title>
-					<para xml:id="de_9539" xml:lang="de">Bei der DayAllocation (der Zuordnung der
-						Termine zu den Reisekomponenten) darf in OTDS bei Nachbarkomponenten keine
-						Lücke bestehen. Normalerweise schließt sich der CheckIn einer
-						Nachbarkomponente bzgl. der DayAllocation immer nahtlos an den CheckOut der
-						vorherigen Komponente an. Der CheckOut-Termin der vorherigen Komponente ist
-						also in der Regel identisch mit dem CheckIn der nachfolgenden Komponente.
-						Für die Nachbarkomponenten Flug und Hotel bedeutet dies beispielsweise, dass
-						das CheckOut-Datum eines Hinfluges auch das CheckIn-Datum im Hotel ist.
-						Umgekehrt muss das CheckOut-Datum eines Hotels identisch sein mit dem
-						CheckIn-Datum des Rückfluges, um OTDS-regelkonform zu sein. </para>
-					<para xml:id="en_9539" xml:lang="en">Within the DayAllocation (the allocation of
-						dates to the travel components) there maynot be a gap between neighbouring
-						components in OTDS. Normally the CheckIn of a neighbouring component with
-						regard to the DayAllocation always equals the CheckOut-date of the previous
-						component. For the neighbouring components Flight and Hotel that means for
-						instance, that the CheckOut-Date of an outgoing flight has to equal the
-						CheckIn-Date for the hotel. In reverse the CheckOut-Date of a hotel must be
-						identical with the CheckIn-Date of the return flight.</para>
-					<para xml:id="de_9540" xml:lang="de">Auf Veranstalterseite entsteht häufig
-						Bedarf nach flexiblen Strategien zur Zusteuerung von Hotels zu Flügen, die
-						von der Standard-Logik abweichen sollen. Eine solche Abweichung kann man mit
-						dem <code>NeighbourCorrectionComponent</code> (im Folgenden: NCC) abbilden.
-						Reiseveranstalter möchten ihren Kunden beispielsweise mitunter ermöglichen,
-						bei sehr frühen Ankunftszeiten ihr Zimmer schon weit vor der üblichen
-						CheckIn-Zeit zu beziehen, um noch etwas zu schlafen. Dafür muss das Hotel
-						aber eine Nacht früher gebucht werden. Um das zu erreichen, muss der
-						Ankunftstermin des Fluges virtuell mit der <code>NCC</code> im Zusammenspiel
-						mit der Accommodation und dem Offset -1 auf einen Tag früher verschoben
-						werden, um sich so lückenlos an den virtuellen CheckOut Termin des Fluges
-						anzuschließen. Dazu folgendes Beispiel:</para>
+					<para xml:id="de_9539" xml:lang="de">Bei der DayAllocation (der Zuordnung der Termine zu den
+							Reisekomponenten) darf in OTDS im Grunde bei Nachbarkomponenten keine
+							Lücke bestehen. Normalerweise schließt sich der CheckIn einer
+							Nachbarkomponente bzgl. der DayAllocation immer nahtlos an den CheckOut
+							der vorherigen Komponente an. Der CheckOut-Termin der vorherigen
+							Komponente ist also in der Regel identisch mit dem CheckIn der
+							nachfolgenden Komponente. Für die Nachbarkomponenten Flug und Hotel
+							bedeutet dies beispielsweise, dass das CheckOut-Datum eines Hinfluges
+							auch das CheckIn-Datum im Hotel ist. Umgekehrt muss das CheckOut-Datum
+							eines Hotels identisch sein mit dem CheckIn-Datum des Rückfluges, um
+							OTDS-regelkonform zu sein. </para>
+					<para xml:id="en_9539" xml:lang="en">Within the DayAllocation (the allocation of dates to the
+							travel components) generally there maynot be a gap between neighbouring
+							components in OTDS. Normally the CheckIn of a neighbouring component
+							with regard to the DayAllocation always equals the CheckOut-date of the
+							previous component. For the neighbouring components Flight and Hotel
+							that means for instance, that the CheckOut-Date of an outgoing flight
+							has to equal the CheckIn-Date for the hotel. In reverse the
+							CheckOut-Date of a hotel must be identical with the CheckIn-Date of the
+							return flight.</para>
+					<para xml:id="de_9540" xml:lang="det">Auf Veranstalterseite entsteht häufig Bedarf nach
+							flexiblen Strategien zur Zusteuerung von Hotels zu Flügen, die von der
+							Standard-Logik abweichen sollen. Eine solche Abweichung kann man mit dem
+								<code>NeighbourCorrectionComponent</code> (im Folgenden: NCC)
+							abbilden. Reiseveranstalter möchten ihren Kunden beispielsweise mitunter
+							ermöglichen, bei sehr frühen Ankunftszeiten ihr Zimmer schon weit vor
+							der üblichen CheckIn-Zeit zu beziehen, um noch etwas zu schlafen. Dafür
+							muss das Hotel aber eine Nacht früher gebucht werden. Mit dem NCC kann
+							man eine Lücke zwischen benachbarten Componenten definieren. Um das
+							vorher beschriebene Verhalten zu erreichen, muss zwischen dem
+							Ankunftstermin des Fluges und dem CheckIn-Termin des Hotels nun eine
+							Überlappung von einem Tag definiert werden. Also definiert man einen
+								<code>NCC</code>, welcher im Zusammenspiel mit der Accommodation
+							eine "negative Lücke" also einen <code>NCC = -1</code> definiert. Damit
+							findet der CheckIn im Hotel einen Tag früher statt. Dazu folgendes
+							Beispiel:</para>
 					<para xml:id="en_9540" xml:lang="en">Tour operators often want to apply flexible
 						strategies for assigning hotels to flights that deviate from the
 						standard-logic. Such a deviation can be realized with the
@@ -20481,15 +20426,16 @@ usw.]]></programlisting>
 			<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
 		</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9241" xml:lang="de">Im obigen Beispiel ist der CheckIn des
-						Fluges der 31.03.2018. Der CheckOut des Fluges ist auch der 31.03. Mit dem
-						CheckOutDateOffset im <code>NCC</code> bezogen auf die Komponente
-						Accommodation wird ein virtueller CheckOut des Fluges erzeugt, der um einen
-						Tag reduziert ist, also auf den 30.03.. An diesen Termin schließt sich der
-						CheckIn des Hotels nahtlos an und findet damit auch am 30.3. statt, so dass
-						der Kunde bereits einen Tag früher im Hotel einchecken kann. Für potenzielle
-						andere (nicht Accommodation-) Komponenten existiert der virtuelle CheckOut
-						des Fluges nicht. </para>
+					<para xml:id="de_9241" xml:lang="det">Im obigen Beispiel ist der CheckIn des Fluges der
+							31.03.2018. Der CheckOut des Fluges ist auch der 31.03. Mit dem
+							CheckOutDateOffset im <code>NCC</code> bezogen auf die Komponente
+							Accommodation wird nun eine "negative Lücke" also eine Überlappung
+							zwischen dem CheckOut des Fluges und dem CheckIn des Hotels erzeugt. An
+							diese "negative Lücke" schließt sich der CheckIn des Hotels nahtlos an
+							und findet damit am 30.3. statt, so dass der Kunde bereits einen Tag
+							früher im Hotel eincheckt, damit er das Hotelzimmer schon früh am Morgen
+							nutzen kann. Für potenzielle andere (nicht Accommodation-) Komponenten
+							existiert der virtuelle CheckOut des Fluges nicht. </para>
 					<para xml:id="en_9241" xml:lang="en">In the example above the CheckIn of the
 						flight takes place on 31.3.2018. Due to the short flying time the CheckOut
 						also takes place on 31.3. With the CheckOutDateOffset in the
@@ -20528,15 +20474,15 @@ usw.]]></programlisting>
 			<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
 		</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9243" xml:lang="de">Hier ist der CheckIn-Termin des Fluges der
-						27.3.2018, doch startet der Flug so spät (22:40h), dass er erst am Folgetag
-						auf Fuerteventura landet. Entsprechend kennzeichnet das DateOffset diesen
-						Flug als Übernachtflug. Der Veranstalter verlegt wie im obigen Beispiel aus
-						strategischen Gründen mit dem CheckOutDateOffset =-1 im <code>NCC</code>
-						bezogen auf die Komponente Accommodation den virtuellen CheckOut des Fluges
-						um einen Tag vor, also auf den 26.3.. An diesen Termin schließt sich der
-						CheckIn des Hotels nahtlos an, findet also auch am 26.3. statt und
-						ermöglicht dem Kunden den frühen Bezug seines Zimmers.</para>
+					<para xml:id="de_9243" xml:lang="det">Hier ist der CheckIn-Termin des Fluges der 27.3.2018, doch
+							startet der Flug so spät (22:40h), dass er erst am Folgetag auf
+							Fuerteventura landet. Entsprechend kennzeichnet das DateOffset diesen
+							Flug als Übernachtflug. Der Veranstalter definiert wie im obigen
+							Beispiel mit dem CheckOutDateOffset =-1 im <code>NCC</code> bezogen auf
+							die Komponente Accommodation eine 1-tägige Überlappung des CheckOut des
+							Fluges mit dem CheckIn des Hotels, so dass der CheckIn des Hotels am
+							26.3. erfolgt, so dass dem Kunden der frühe Bezug seines Zimmers
+							ermöglicht wird.</para>
 					<para xml:id="en_9243" xml:lang="en">Here the CheckIn of the flight takes place
 						on 27.3.2018, but the flight takes off so late (22:40h) that it lands in
 						Fuerteventura on the following day. The DateOffset correspondigly marks this
@@ -20547,14 +20493,16 @@ usw.]]></programlisting>
 						the 26.3.. The CheckIn-date of the Hotel connects seamlessly to this date,
 						thus also taking place on 26.3., so that the customer can use his room a day
 						earlier.</para>
-					<para xml:id="de_9244" xml:lang="de">Die
-							<code>NeighbourCorrectionComponent</code> kann auch für den Rückflug
-						Anwendung finden: Bei spät abends oder in der Nacht startenden Abflügen aus
-						der Urlaubsdestination möchten manche Veranstalter vielleicht als Mehrwert
-						eine Reise anbieten, die es dem Kunden ermöglicht, noch einen Teil des
-						Abends/der Nacht vor dem Transfer in ihrem Zimmer zu verbringen. Hier sieht
-						das Beispiel, in dem die <code>NCC</code> den Abflug mit einem
-						CheckInDateOffset =1 virtuell für einen Tag später definiert, wie folgt aus: </para>
+					<para xml:id="de_9244" xml:lang="det">Die <code>NeighbourCorrectionComponent</code> kann auch
+							für den Rückflug Anwendung finden: Bei spät abends oder in der Nacht
+							startenden Abflügen aus der Urlaubsdestination möchten manche
+							Veranstalter vielleicht als Mehrwert eine Reise anbieten, die es dem
+							Kunden ermöglicht, noch einen Teil des Abends/der Nacht vor dem Transfer
+							in ihrem Zimmer zu verbringen. Wie auch zuvor wird hier wieder durch den
+								<code>NCC</code> eine Überlappung also eine negative Lücke
+							definiert. Diesmal aber zwischen dem CheckIn des Rückfluges und dem
+							CheckOut der Unterkunft also ein <code>CheckInDateOffset = -1</code>.
+							Das Beispiel dazu sieht wie folgt aus: </para>
 					<para xml:id="en_9244" xml:lang="en">The
 							<code>NeighbourCorrectionComponent</code> can also be applied to the
 						return flight: if for example a returnflight departs quite late and the
@@ -20583,37 +20531,42 @@ usw.]]></programlisting>
 		<DepartureAirport>FUE</DepartureAirport>
 		<ArrivalAirport>FRA</ArrivalAirport>
 		<NeighbourComponentCorrection>
-			<CheckInDateOffset Component="Accommodation">1</CheckInDateOffset>
+			<CheckInDateOffset Component="Accommodation">-1</CheckInDateOffset>
 		</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9245" xml:lang="de">Im Beispiel oben startet der Rückflug am
-						7.3.18 von Fuerteventura mit 22:00 Uhr recht spät am Abend; die Ankunft in
-						Frankfurt erfolgt erst am nächsten Kalendertag frühmorgens um 2:40 Uhr.
-						Entsprechend kennzeichnet das DateOffset diesen Flug für die Suche als
-						Übernachtflug. Für die Belegung des Hotels zeigt der CheckInDateOffset=1
-						bezogen auf die Accomodation an, dass der CheckIn des Fluges virtuell um
-						einen Tag, also auf den 8.3. verschoben wird und damit das Hotelzimmer für
-						einen Abend/Nacht länger durch den Reisenden genutzt werden kann.</para>
-					<para xml:id="en_9245" xml:lang="en">In the example above the inbound flight
-						departs on 7.3.18 form Fuerteventura quite late in the evening (22:00h). The
-						arrival in Frankfurt is scheduled for the early morning of the following day
-						(2:40h). The DateOffset correspondingly marks this flight for the search as
-						an Overnight Flight. For the occupancy of the hotel the CheckInDateOffset=1
-						with regard to the Accomodation indicates, that the CheckIn of the flight is
-						shifted virtually to one day later, thus to 8.3.. As a result the hotelroom
-						can be used for another evening/night by the traveller.</para>
-					<para xml:id="de_9246" xml:lang="de">Genau umgekehrt verhält es sich bei früh
-						morgens startenden Abflügen aus der Urlaubsdestination (bspw. um 0:30 Uhr).
-						Ohne eine Steuerung mithilfe der <code>NeighbourCorrectionComponent</code>
-						würde der Kunde die Übernachtung in der Nacht vor dem Abflug voll bezahlen
-						müssen. Aufgrund von zeitaufwändigen Transfers und Wartezeiten am Flughafen
-						kann es ein sinnvolles/attraktives Angebot ergeben, keine Übernachtung am
-						Vortag des Rückfluges einzubauen. Der Reisende würde dann nach dem
-						Hotel-Checkout den Tag und den Abend bis zum Transfer ohne Zimmer verbringen
-						und entsprechende Übernachtungskosten für eine (ohnehin sehr kurze) Nacht
-						sparen. Um dies umzusetzen, muss die <code>NCC</code> den CheckIn des Fluges
-						virtuell einen Tag vorverlegen, damit der Aufenthalt im Hotel früher enden
-						kann, ohne dass sich Lücken in der DayAllocation ergeben: </para>
+					<para xml:id="de_9245" xml:lang="det">Im Beispiel oben startet der Rückflug am 7.3.18 von
+							Fuerteventura mit 22:00 Uhr recht spät am Abend; die Ankunft in
+							Frankfurt erfolgt erst am nächsten Kalendertag frühmorgens um 2:40 Uhr.
+							Entsprechend kennzeichnet das DateOffset diesen Flug für die Suche als
+							Übernachtflug. Damit das Hotelzimmer bis zum Beispiel 21 Uhr durch den
+							Reisenden genutzt werden kann, müsste der CheckOut im Hotel einen Tag
+							später erfolgen. Um das zu erreichen definietr man zwischen dem Rückflug
+							und dem CheckOut aus der Unterkunft mit Hilfe des <code>NCC</code> eine
+							Überlappung ("negative Lücke") von einem Tag. Der CheckIn in den
+							Rückflug erfolgt am 07.03. der CheckOut in der Unterkunft wird aber auf
+							den 08.03. terminiert. </para>
+					<para xml:id="en_9245" xml:lang="en">In the example above the inbound flight departs on 7.3.18
+							form Fuerteventura quite late in the evening (22:00h). The arrival in
+							Frankfurt is scheduled for the early morning of the following day
+							(2:40h). The DateOffset correspondingly marks this flight for the search
+							as an Overnight Flight. For the occupancy of the hotel the
+							CheckInDateOffset=-1 with regard to the Accomodation indicates, that the
+							CheckIn of the flight is shifted virtually to one day later, thus to
+							8.3.. As a result the hotelroom can be used for another evening/night by
+							the traveller.</para>
+					<para xml:id="de_9246" xml:lang="det">Genau umgekehrt verhält es sich bei früh morgens
+							startenden Abflügen aus der Urlaubsdestination (bspw. um 0:30 Uhr). Ohne
+							eine Steuerung mithilfe der <code>NeighbourCorrectionComponent</code>
+							würde der Kunde die Übernachtung in der Nacht vor dem Abflug voll
+							bezahlen müssen. Aufgrund von zeitaufwändigen Transfers und Wartezeiten
+							am Flughafen kann es ein sinnvolles/attraktives Angebot ergeben, keine
+							Übernachtung am Vortag des Rückfluges einzubauen. Der Reisende würde
+							dann nach dem Hotel-Checkout den Tag und den Abend bis zum Transfer ohne
+							Zimmer verbringen und entsprechende Übernachtungskosten für eine
+							(ohnehin sehr kurze) Nacht sparen. Um dies umzusetzen, muss die
+								<code>NCC</code> eine Lücke zwischen dem CheckIn des Fluges und dem
+							CheckOut in der Unterkunft definieren. Ein Beispiel dafür finden Sie
+							hier: </para>
 					<para xml:id="en_9246" xml:lang="en">The opposite applies for flights departing
 						very early in the morning from the destination (e.g. at 0:30h). Without a
 						steering with the help of the <code>NeighbourCorrectionComponent</code> the
@@ -20644,20 +20597,21 @@ usw.]]></programlisting>
 		<DepartureAirport>FUE</DepartureAirport>
 		<ArrivalAirport>FRA</ArrivalAirport>
 		<NeighbourComponentCorrection>
-			<CheckInDateOffset Component="Accommodation">-1</CheckInDateOffset>
+			<CheckInDateOffset Component="Accommodation">1</CheckInDateOffset>
 		</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9247" xml:lang="de">Im Beispiel startet der Rückflug am 7.3.18
-						von Fuerteventura nach Frankfurt um kurz nach Mitternacht (0:30 Uhr). Ohne
-						den Einsatz der <code>NCC</code> würde daher das Hotel auch für die Nacht
-						des 6.3. auf den 7.3. gebucht werden. Durch die virtuelle Vorverlegung des
-						CheckIns des Fluges mithilfe der <code>NCC</code> (CheckInDateOffset mit
-						Bezug auf die Accommodation =-1) wird diese Nacht nicht mehr gebucht. Die
-						Gesamtkosten für den Kunden, der vielleicht ohnehin aufgrund von langen
-						Transferzeiten und Wartezeiten am Flughafen bspw. um 20:00 Uhr abreisen
-						müsste, sinken. Wenn das Hotel ihm zudem ermöglich, die Zeit nach dem
-						Checkout anderweitig auf dem Hotelgelände zu verbringen, kann das für ihn
-						ein sehr attraktives Angebot sein.</para>
+					<para xml:id="de_9247" xml:lang="det">Im Beispiel startet der Rückflug am 7.3.18 von
+							Fuerteventura nach Frankfurt um kurz nach Mitternacht (0:30 Uhr). Ohne
+							den Einsatz der <code>NCC</code> würde daher das Hotel auch für die
+							Nacht des 6.3. auf den 7.3. gebucht werden. Durch die Definition einer
+							Lücke von 1 Tag zischen dem CheckIn des Rückfluges mithilfe der
+								<code>NCC</code> (CheckInDateOffset mit Bezug auf die Accommodation
+							=1) wird diese Nacht nicht mehr gebucht. Die Gesamtkosten für den
+							Kunden, der vielleicht ohnehin aufgrund von langen Transferzeiten und
+							Wartezeiten am Flughafen bspw. um 20:00 Uhr abreisen müsste, sinken.
+							Wenn das Hotel ihm zudem ermöglich, die Zeit nach dem Checkout
+							anderweitig auf dem Hotelgelände zu verbringen, kann das für ihn ein
+							sehr attraktives Angebot sein.</para>
 					<para xml:id="en_9247" xml:lang="en">In the example above the return flight
 						starts on 7.3.18 from Fuerteventura to Frankfurt shortly after midnight
 						(0:30h). Without the use of <code>NCC</code> the hotel would thus also be
@@ -20669,16 +20623,6 @@ usw.]]></programlisting>
 						are reduced. If the hotel in addition allows him to spend the time after the
 						checkout comfortably on the hotel grounds, this can represent an attractive
 						offer for him.</para>
-					<para xml:id="de_9252" xml:lang="de">Wichtig: Beim Einsatz der
-							<code>NeighbourCorrectionComponent</code>, deren Ziel es ja ist,
-						CheckIn- bzw. CheckOut-Termine zu verschieben und damit virtuelle CheckIn
-						bzw. CheckOut-Termine zu kreieren, beziehen sich alle Conditions immer auf
-						die reellen CheckIn- bzw. CheckOut-Termine, nicht auf die virtuellen!</para>
-					<para xml:id="en_9252" xml:lang="en">Note: When using the
-							<code>NeighbourCorrectionComponent</code>, whose objective it is to
-						shift CheckIn- and/or CheckOut-dates, thus creating virtual CheckIns and/or
-						CheckOut-dates, all Conditions always refer to the real CheckIn- and/or
-						CheckOut-dates, never to the virtual ones!</para>
 				</section>
 			</section>
 			<section xml:id="OtdsProductsComponentsFlightsReturnFlight">

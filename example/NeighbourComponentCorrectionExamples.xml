@@ -101,7 +101,7 @@
 				<DepartureAirport>DUS</DepartureAirport>
 				<ArrivalAirport>PMI</ArrivalAirport>
 				<NeighbourComponentCorrection>
-				<!-- Der CheckIn einer nachfolgenden Komponente Accommodation wird um einen Tag vorverlegt, da der virtuelle Termin des CheckOut dieses Fluges um einen Tag vorverlegt wird. Dieser virtuelle CheckOut-Termin des Fluges hat keine Auswirkungen auf den CheckOut des Fluges bzw. auf Conditions, die sich auf den CheckOut des Fluges beziehen. -->
+				<!-- Diese NeighbourComponentCorrection definiert eine Überlappung von einem Tag ("negative Lücke") zwischen dem CheckOut dieses Fluges und dem CheckIn einer benachbarten Accommodation-Komponente. Der CheckIn der Accommodation-Komponente wird dadurch einen Tag früher stattfinden.  -->
 					<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
 				</NeighbourComponentCorrection>
 				<BookingClass Key="Y"/>
@@ -110,7 +110,7 @@
 				<DepartureAirport>DUS</DepartureAirport>
 				<ArrivalAirport>PMI</ArrivalAirport>
 				<NeighbourComponentCorrection>
-				<!-- Das könnte zum Beispiel ein Flug sein, der um & Uhr morgens landet. Der CheckIn einer nachfolgenden Komponente Accommodation wird um einen Tag vorverlegt, da der virtuelle Termin des CheckOut dieses Fluges um einen Tag vorverlegt wird. Die Verschiebung findet nur statt, wenn die Accommodation das entsprechende <Tag Class="LuxusCheckInCheckOut">True</Tag>  enthält. -->
+				<!-- Diese NeighbourComponentCorrection definiert eine Überlappung von einem Tag ("negative Lücke") zwischen dem CheckOut dieses Fluges und dem CheckIn einer benachbarten Accommodation-Komponente. Der CheckIn der Accommodation-Komponente wird dadurch einen Tag früher stattfinden. Die NeighbourComponentCorrection kommt nur zur Anwendung, wenn die Accommodation das entsprechende <Tag Class="LuxusCheckInCheckOut">True</Tag>  enthält. -->
 					<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
 					<Condition>
 						<Tags Source="Accommodation" Class="LuxusCheckInCheckOut">True</Tags>
