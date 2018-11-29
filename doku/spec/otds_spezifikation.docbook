@@ -17776,54 +17776,82 @@ usw.]]></programlisting>
 						<para xml:id="de_9547" xml:lang="de">Dies ist der Tatsache geschuldet, dass wir nicht schon in den ersten Versionen die komplexere Source aus den Versionen 1.9 ermöglicht hatten.</para>
 						<para xml:id="en_9547" xml:lang="en">This is due to the fact that we hadn't already made the more complex source from versions 1.9 possible in the first versions.</para>
 						<para xml:id="de_9541" xml:lang="de">Es werden nun Komponenten-Instanzgruppen für alle BookingGroups mit identischen @Area-Werten gebildet.</para>
-					<para xml:id="en_9541" xml:lang="en">Component instance groups are now formed for all
-						BookingGroups with identical @Area values.</para>
-						<para xml:id="de_9542" xml:lang="de">Jede Komponenten-Instanzgruppe bekommt einen
-						Gruppierungs-Identifier, welcher aus einer Liste von Komponenten-Instanzen
+						<para xml:id="en_9541" xml:lang="en">Component instance groups are now formed for all BookingGroups with identical @Area values.</para>
+						<para xml:id="de_9542" xml:lang="de">Jede Komponenten-Instanzgruppe bekommt einen Gruppierungs-Identifier, welcher aus einer Liste von Komponenten-Instanzen
 						besteht.</para>
-					<para xml:id="en_9542" xml:lang="en">Each component instance group is assigned a grouping
-						identifier, which consists of a list of component instances.</para>
+						<para xml:id="en_9542" xml:lang="en">Each component instance group is assigned a grouping identifier, which consists of a list of component instances.</para>
 						<para xml:id="de_9543" xml:lang="de">Für jede betrachtete BookingGroup wird nun eine neue Komponenten-Instanzgruppe gebildet, wenn kein einziges Element der Komponenten-Instanzliste der BookingGroup in dem Gruppierungs-Identifier einer bestehnden Komponenten-Instanzgruppe existiert.</para>
-					<para xml:id="en_9543" xml:lang="en">A new component instance group is now created for each
-						considered BookingGroup if not a single element of the BookingGroup's
-						component instance list exists in the grouping identifier of an existing
-						component instance group.</para>
-						<para xml:id="de_9544" xml:lang="de">Wenn ein Element der Komponenten-Instanzliste der
-						betrachteten BookingGroup in dem Gruppierungs-Identifier von mehreren
-						Komponenten-Instanzgruppen existiert, müssen diese
-						Komponenten-Instanzgruppen zusammengefasst werden.</para>
-					<para xml:id="en_9544" xml:lang="en">If an element of the component instance list of the
-						considered BookingGroup exists in the grouping identifier of multiple
-						component instance groups, these component instance groups must be
-						combined.</para>
-						<para xml:id="de_9545" xml:lang="de">Wenn auf diese Weise nun alle disjunkten
-						Komponenten-Instanzgruppen gebildet sind, bekommt jede BookingGroup einen
-						Komponenten-Instanzgruppen-Index der entsprechenden
-						Komponenten-Instanzgruppe zugeordnet. Dieser Index spielt dann in den
-						folgenden Schritten eine Rolle.</para>
-					<para xml:id="en_9545" xml:lang="en">When all disjunctive component instance groups are formed
-						in this way, each BookingGroup is assigned a component instance group index
-						of the corresponding component instance group. This index then plays a role
+						<para xml:id="en_9543" xml:lang="en">A new component instance group is now created for each considered BookingGroup if not a single element of the BookingGroup's
+						component instance list exists in the grouping identifier of an existing component instance group.</para>
+						<para xml:id="de_9544" xml:lang="de">Wenn ein Element der Komponenten-Instanzliste der betrachteten BookingGroup in dem Gruppierungs-Identifier von mehreren
+						Komponenten-Instanzgruppen existiert, müssen diese Komponenten-Instanzgruppen zusammengefasst werden.</para>
+						<para xml:id="en_9544" xml:lang="en">If an element of the component instance list of the considered BookingGroup exists in the grouping identifier of multiple
+						component instance groups, these component instance groups must be combined.</para>
+						<para xml:id="de_9545" xml:lang="de">Wenn auf diese Weise nun alle disjunkten Komponenten-Instanzgruppen gebildet sind, bekommt jede BookingGroup einen
+						Komponenten-Instanzgruppen-Index der entsprechenden Komponenten-Instanzgruppe zugeordnet. Dieser Index spielt dann in den folgenden Schritten eine Rolle.</para>
+						<para xml:id="en_9545" xml:lang="en">When all disjunctive component instance groups are formed in this way, each BookingGroup is assigned a component instance group index of the corresponding component instance group. This index then plays a role
 						in the following steps.</para>
 				
 					<bridgehead xml:id="de_9546" xml:lang="de">Expansion auf den definierten Day/Person Kontext definiert durch @EvaluationBase</bridgehead>
-						<para xml:lang="det">Jede BookingGroup kann auch ein Attribute @EvaluationBase enthalten. Die Angabe einer EvaluationBase bedeutet, dass die Auswertung der Buchungsparameter nicht einmalig erfolgt sondern mehrmalig in unterschiedlichen Kontexten.</para>
-						<para xml:lang="det">@EvaluationBase="Person" bedeutet zum Beispiel, dass die BookingGroup im Kontext jedes Reisenden einmal ausgewertet wird. Die BookingGroup wird also praktisch für jeden Reisenden dupliziert und bekommt zusätzlich einen entsprechenden PersonIndex.</para>
-						<para xml:lang="det">Analog würde bei @EvaluationBase="Day" die BookingGroup im Kontext jedes Tages der Reise einmal ausgewertet werden und würde je Reisetag dupliziert und bekäme zusätzlich einen entsprechenden DayIndex.</para>
-						<para xml:lang="det">Abschließend würde bei @EvaluationBase="Day/Person" die BookingGroup im Kontext jedes Tages und jeder Person der Reise einmal ausgewertet werden und würde je Reisetag und je Person (X-Produkt der beiden) dupliziert und bekäme zusätzlich einen entsprechenden DayIndex und einen entsprechenden PersonIndex.</para>
-						<para xml:lang="det">Im deutschen Markt ist uns eine Verwendung von  @EvaluationBase="Day" oder "Day/Person" derzeit nicht bekannt.</para>
-						<para xml:lang="det">Die Verwendung von @EvaluationBase="Person" ist aber notwendig, um die einzelnen Personenzeilen eine Anfrage auszuprägen.</para>
-						<para xml:lang="det">Der Anschaulichkeit halber könnte @EvaluationBase="Day" dann notwendig werden, wenn mann in einer Anfrage einen String wie "OOOOXXXOO" realisieren möchte, mit dem definiert werden soll, dass am 5.-7. Tag eine bestimmte Leistung inkludiert werden soll.</para>
-						<para xml:lang="det">Bei Day/Person  ginge es dann um eine entsprechende Art Matrix aus Tagen und Personen, die gefüllt und übermittelt werden soll.</para>				
-					<bridgehead xml:lang="det">Anwendung der Condition in den BookingGroups</bridgehead>
-						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition ohne Context enthält keine Impact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any".</para>
-						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Person") enthält keine DayImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "PersonBase" ohne Attribute definiert ist. Die PersonImpact-Auswertung erfolgt dann jeweils im entsprechenden Person-Index-Kontext der durch die EvaluationBase="Person" ergänzt wird.</para>
-						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Day") enthält keine PersonImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "DayBase" ohne Attribute definiert ist. Die DayImpact-Auswertung erfolgt dann jeweils im entsprechenden Day-Index-Kontext der durch die EvaluationBase="Day" ergänzt wird.</para>
-						<para xml:lang="det">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Day/Person-Context (also Evaluationbase="Day/Person") wird jeweils im entsprechenden Day-Index- und PErsonIindex-Kontext ausgewertet der durch die EvaluationBase="Day" ergänzt wird.</para>
-						<para xml:lang="det">Somit ergibt sich bei der Auswertung immer entweder, dass die Bedingung erfüllt ist, was bedeuet, dass die BookingGroup bestehen bleibt, oder nicht erfüllt ist, was bedeuet, dass die BookingGroup entfernt wird.</para>	
-						<para xml:lang="det">Falls die Condition innerhalb einer BookingGroup nicht erfüllt ist, wird die komplette BookingGroup aus der Menge "BookingCollection" entfernt.</para>
+					<bridgehead xml:id="en_9546" xml:lang="en">Expansion to the defined day/person context defined
+						by @EvaluationBase</bridgehead>
+						<para xml:id="de_9548" xml:lang="de">Jede BookingGroup kann auch ein Attribut @EvaluationBase
+						enthalten. Die Angabe einer EvaluationBase bedeutet, dass die Auswertung der
+						Buchungsparameter nicht einmalig erfolgt sondern mehrmalig in
+						unterschiedlichen Kontexten.</para>
+					<para xml:id="en_9548" xml:lang="en">Each BookingGroup can also contain an @EvaluationBase
+						attribute. Specifying an EvaluationBase means that the booking parameters
+						are not evaluated once but several times in different contexts.</para>
+						<para xml:id="de_9564" xml:lang="de">@EvaluationBase="Person" bedeutet zum Beispiel, dass die BookingGroup im Kontext jedes Reisenden einmal ausgewertet wird. Die BookingGroup wird also praktisch für jeden Reisenden dupliziert und bekommt zusätzlich einen entsprechenden PersonIndex.</para>
+					<para xml:id="en_9564" xml:lang="en">@EvaluationBase="Person" means, for example, that the
+						BookingGroup is evaluated once in the context of each traveller. The
+						BookingGroup is therefore practically duplicated for every traveller and
+						additionally receives a corresponding PersonIndex.</para>
+						<para xml:id="de_9550" xml:lang="de">Analog würde bei @EvaluationBase="Day" die BookingGroup
+						im Kontext jedes Tages der Reise einmal ausgewertet werden. Sie würde dann
+						je Reisetag dupliziert und bekäme zusätzlich einen entsprechenden
+						DayIndex.</para>
+					<para xml:id="en_9550" xml:lang="en">Similarly, with @EvaluationBase="Day" the BookingGroup
+						would be evaluated once in the context of each day of the trip. It would
+						then be duplicated for each day of the trip and would also receive a
+						corresponding DayIndex.</para>
+						<para xml:id="de_9551" xml:lang="de">Abschließend würde bei @EvaluationBase="Day/Person" die
+						BookingGroup im Kontext jedes Tages und jeder Person der Reise einmal
+						ausgewertet werden. Sie würde je Reisetag und je Person (X-Produkt der
+						beiden) dupliziert und bekäme zusätzlich einen entsprechenden DayIndex und
+						einen entsprechenden PersonIndex.</para>
+					<para xml:id="en_9551" xml:lang="en">Finally, with @EvaluationBase="Day/Person" the
+						BookingGroup would be evaluated once in the context of each day and each
+						person of the trip. It would be duplicated per travel day and per person (X
+						product of the two) and would additionally receive a corresponding DayIndex
+						and a corresponding PersonIndex.</para>
+						<para xml:id="de_9552" xml:lang="de">Im deutschen Markt ist uns eine Verwendung von  @EvaluationBase="Day" oder "Day/Person" derzeit nicht bekannt.</para>
+					<para xml:id="en_9552" xml:lang="en">In the German market we are currently not aware of any use
+						of @EvaluationBase="Day" or "Day/Person".</para>
+						<para xml:id="de_9553" xml:lang="de">Die Verwendung von @EvaluationBase="Person" ist aber
+						notwendig, um die einzelnen Personenzeilen einer Anfrage auszuprägen.</para>
+					<para xml:id="en_9553" xml:lang="en">However, the use of @EvaluationBase="Person" is necessary
+						in order to define the individual rows of persons in a request..</para>
+						<para xml:id="de_9554" xml:lang="de">Der Anschaulichkeit halber könnte @EvaluationBase="Day"
+						dann notwendig werden, wenn man in einer Anfrage einen String wie
+						"OOOOXXXOO" realisieren möchte, mit dem definiert werden soll, dass am 5.-7.
+						Tag eine bestimmte Leistung inkludiert werden soll.</para>
+					<para xml:id="en_9554" xml:lang="en">For the sake of clarity, @EvaluationBase="Day" might
+						become necessary if you want to realize a string like "OOOOXXXOO" in a
+						request, with which you want to define that a certain service should be
+						included on the 5th - 7th day.</para>
+						<para xml:id="de_9555" xml:lang="de">Bei Day/Person  ginge es dann um eine entsprechende Art Matrix aus Tagen und Personen, die gefüllt und übermittelt werden soll.</para>
+					<para xml:id="en_9555" xml:lang="en">Day/Person would then be about a corresponding kind of
+						matrix of days and persons to be filled and transmitted.</para>
+					<bridgehead xml:id="de_9556" xml:lang="de">Anwendung der Condition in den BookingGroups</bridgehead>
+						<para xml:id="de_9557" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition ohne Context enthält keine Impact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any".</para>
+						<para xml:id="de_9558" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Person") enthält keine DayImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "PersonBase" ohne Attribute definiert ist. Die PersonImpact-Auswertung erfolgt dann jeweils im entsprechenden Person-Index-Kontext der durch die EvaluationBase="Person" ergänzt wird.</para>
+						<para xml:id="de_9559" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Person-Context (also Evaluationbase="Day") enthält keine PersonImpact-Anteile. Im Detail bedeutet es, dass eine BookingGroup-Condition implizit so ausgewertet wird, als wenn ein NonImpact-Wrapper mit EvaluationMode="Any" und nur dem Element "DayBase" ohne Attribute definiert ist. Die DayImpact-Auswertung erfolgt dann jeweils im entsprechenden Day-Index-Kontext der durch die EvaluationBase="Day" ergänzt wird.</para>
+						<para xml:id="de_9560" xml:lang="de">Das Ergebnis einer Auswertung einer BookingGroup-Condition mit einem Day/Person-Context (also Evaluationbase="Day/Person") wird jeweils im entsprechenden Day-Index- und PErsonIindex-Kontext ausgewertet der durch die EvaluationBase="Day" ergänzt wird.</para>
+						<para xml:id="de_9561" xml:lang="de">Somit ergibt sich bei der Auswertung immer entweder, dass die Bedingung erfüllt ist, was bedeuet, dass die BookingGroup bestehen bleibt, oder nicht erfüllt ist, was bedeuet, dass die BookingGroup entfernt wird.</para>	
+						<para xml:id="de_9562" xml:lang="de">Falls die Condition innerhalb einer BookingGroup nicht erfüllt ist, wird die komplette BookingGroup aus der Menge "BookingCollection" entfernt.</para>
 				
-					<para xml:lang="det">Ausgangspunkt für die Folgeschritte ist die Menge "BookingCollection" einer Menge aller <code>BookingGroup/BookingParameter/*</code> und <code>BookingGroup/BookingReplace</code> der verbleibeneden gültigen BookingGroups mit folgenden Attributen und Indices:</para>
+						<para xml:id="de_9563" xml:lang="de">Ausgangspunkt für die Folgeschritte ist die Menge "BookingCollection" einer Menge aller <code>BookingGroup/BookingParameter/*</code> und <code>BookingGroup/BookingReplace</code> der verbleibeneden gültigen BookingGroups mit folgenden Attributen und Indices:</para>
 					<itemizedlist>
 						<listitem>
 							<para xml:lang="det">alle <code>BookingGroup/BookingParameter/*</code></para>
