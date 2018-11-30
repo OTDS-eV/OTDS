@@ -568,6 +568,9 @@ Default = Always</xs:documentation>
 	<xs:complexType name="BookingTreeParameterDateReferenceType">
 		<xs:sequence>
 			<xs:element name="Date">
+				<xs:annotation>
+					<xs:documentation xml:lang="det">Die durch Date referenzierten Terminwerte für die BookingTree Values sind im Ausgabeformat im erweiterten Date-Isofomat "YYYY-MM-DD anzugeben.</xs:documentation>
+				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="EmptyElementType">
@@ -613,11 +616,20 @@ Possible values are:
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="BookingTreeParameterBirthdateReferenceType">
-		<xs:restriction base="xs:string">
-			<xs:maxLength value="0"/>
-		</xs:restriction>
-	</xs:simpleType>
+	<xs:complexType name="BookingTreeParameterBirthDateReferenceType">
+		<xs:sequence>
+			<xs:element name="BirthDate">
+				<xs:annotation>
+					<xs:documentation xml:lang="det">Die durch BirthDate referenzierten Geburtsags-Terminwerte für die BookingTree Values sind im Ausgabeformat im erweiterten Date-Isofomat "YYYY-MM-DD anzugeben. Bei der Berechnung eines Gerburtstages aus einer Altersangabe ist der Geburtsgtagstermin so zu wählen, dass das Alter der Person zum Reisebeginn erreicht ist.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="EmptyElementType"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="BookingTreeSingleNodeType">
 		<xs:attribute name="Erase" type="EmptyElementType" use="optional"/>
 	</xs:complexType>
