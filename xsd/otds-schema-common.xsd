@@ -474,29 +474,27 @@ Default = Always</xs:documentation>
 			<xs:element name="Value" type="xs:string"/>
 			<xs:element name="Tag" type="EmptyTagConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_9300">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als Booking-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_9300">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as Booking Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_9300">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als BookingTree-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9300">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as BookingTree Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="ConditionalTag" type="EmptyTagConditionType">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_9301">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als Booking-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_9301">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as Booking Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_9301">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als BookingTree-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9301">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as BookingTree Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>
 		<xs:attribute name="Name" type="NameType" default="Default">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_9302">Dieses Attribut definiert zusammen mit dem Attribut "Area" und dem Attribut "Field" die Eindeutigkeit eines BookingParameters während der finalen Verarbeitung.  </xs:documentation>
+				<xs:documentation xml:lang="det" xml:id="de_9302">Wenn der Inhalt dieses Attributs identisch ist, wie der eines sonst identischen BookingTree-Blattknotens, so überschreiben sich die Values der beiden Blattknoten. Unterscheiden sich die beiden Blattknoten nur im Value dieses Attributes so werden die Values aggregiert. Die Art der Aggregation bestimmen die Angaben in den anderen Attribute der Blattknoten.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_9302">Along with the "Area" and "Field" attributes, this attribute defines the uniqueness of a BookingParameter during the final processing.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Index" type="xs:int" default="0">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_9303">Dieses Attribut definiert, an welcher Position
-					der BookingParameter mit einem anderen BookingParameter zusammengefügt wird. Der
-					Wert kann positive und negative Werte annehmen. Default ist
-					0.</xs:documentation>
+				<xs:documentation xml:lang="det" xml:id="de_9303">Dieses Attribut definiert, im Falle einer Aggregation mehrere BookingTree-Blattknoten, an welcher Reihenfolge die
+					Values Blattknoten aggregiert werden. Die Aggregation erfolgt aufsteigend nach @Index und bei gleichem Index nach OTDS-Document-Order. Default ist Index="0".</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_9303">This attribute defines at what position a booking parameter is added another booking parameter.
 The value can be positive or negative.
 The default is 0.</xs:documentation>
@@ -719,7 +717,6 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-		
 	<xs:element name="AbstractBookingTree" abstract="true"/>
 	<xs:complexType name="BookingTreeType">
 		<xs:sequence>
@@ -728,7 +725,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 		</xs:sequence>
 		<xs:attribute name="Priority" type="xs:int" default="0"/>
 	</xs:complexType>
- <!-- 
+	<!-- 
 	<xs:complexType name="BookingTreeType">
 		<xs:sequence>
 			<xs:element name="AbstractBookingTree" minOccurs="0" maxOccurs="unbounded"  abstract="true"/>
