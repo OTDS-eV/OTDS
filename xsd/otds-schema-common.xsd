@@ -472,17 +472,31 @@ Default = Always</xs:documentation>
 	<xs:complexType name="BookingTreeParameterTextType">
 		<xs:choice minOccurs="0">
 			<xs:element name="Value" type="xs:string"/>
-			<xs:element name="Tag" type="EmptyTagConditionType">
+			<xs:element name="Tag">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_9300">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als BookingTree-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_9300">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as BookingTree Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="EmptyTagConditionType">
+							<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
 			</xs:element>
-			<xs:element name="ConditionalTag" type="EmptyTagConditionType">
+			<xs:element name="ConditionalTag">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_9301">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als BookingTree-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_9301">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as BookingTree Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="EmptyTagConditionType">
+							<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
 			</xs:element>
 		</xs:choice>
 		<xs:attribute name="Name" type="NameType" default="Default">
@@ -610,6 +624,7 @@ Possible values are:
 								</xs:annotation>
 							</xs:attribute>
 							<xs:attribute name="Offset" type="xs:int" default="0"/>
+							<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
 						</xs:extension>
 					</xs:simpleContent>
 				</xs:complexType>
@@ -661,6 +676,7 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Erase" use="optional"/>
+		<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
 	</xs:complexType>
 	<xs:complexType name="BookingReplaceType">
 		<xs:attribute name="Source" type="BookingReplaceSourceAttributeType" use="required">
@@ -3743,6 +3759,12 @@ A not necessarily complete nor necessarily correct list of codes and airlines ca
 	<xs:simpleType name="IncludeAttributeEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="AppliedChildren"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SourceEvaluationContextEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IterationInstance"/>
+			<xs:enumeration value="LocationOfDefinition"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShortServiceAnnotationType">
