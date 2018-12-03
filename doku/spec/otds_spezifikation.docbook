@@ -18335,7 +18335,7 @@ usw.]]></programlisting>
 								</textobject>
 							</mediaobject>
 						</figure>
-						<para xml:lang="det">Die Booking-namespace-xsd müssen einer bestimmten Form entsprechen.</para>
+						<para xml:lang="det">Die Booking-namespace-xsd muss einer bestimmten Form entsprechen.</para>
 						<orderedlist>
 							<listitem>
 								<para xml:lang="det">Jeder multiple Konten muss vom OTDS-Type <code>BookingTreeMultipleNodeType</code> abgeleitet sein und darf keine eigenen Attribute ausprägen</para>
@@ -18383,7 +18383,11 @@ usw.]]></programlisting>
 							</listitem>
 							<listitem>
 								<para xml:lang="det">Mit dem Attribut @ResultOrder definiert man die Reihenfolge der
-									multiplen Zweige in der baumartigen Ergebnisstruktur</para>
+									multiplen Zweige in der baumartigen Ergebnisstruktur. Die
+									Ergebnisstruktur wird nach @ResultOrder aufsteigend und bei
+									gleichem @ResultOrder nach dem Minimum der DayAllocation der
+									durch Source definierten Komponenteninstanz und falls dieses
+									auch gleich ist, dann nach der XML-DocumentOrder sortiert.   </para>
 							</listitem>
 							<listitem>
 								<para xml:lang="det"><code>BookingGroup/Duration</code> wird in BookingTree durch 2
@@ -18444,17 +18448,21 @@ usw.]]></programlisting>
 						<para xml:lang="det">Dieser Knoten ist inkl. der Attribute @EvaluationBase, @ResultOrder,
 							@Source und @Class Teil des PathIdentifiers, der für die Gruppierung der
 							BookingTree-Elemente benutzt wird.</para>
-						<para>Falls die Auflösung von @Source in entsprechende Komponenten-Instanzen
-							zu einem mehrdeutigen Ergebnis führt, so wird das BookingTree-Element
-							für jede Komponenten-Instanz dupliziert. </para>
+						<para>Falls die Auswertung von @Source in entsprechende Komponenten-Instanzen zu einem
+							mehrdeutigen Ergebnis führt, so wird das BookingTree-Element für jede
+							Komponenten-Instanz dupliziert. Falls  @SourceEvaluationContext =
+							"IterationInstance" so weicht die Source-Auswertung von der klassischen
+							Sourceauswertung etwas ab. Lesen Sie dazu auch etwas später das Kapitel
+							<link linkend="aaaa">"Auswertung der Source im Kontext der KomponentenInstanz-Iteration"</link>.</para>
 						<para>Bei Angabe von @Erase erfolgt ein Löschen andere BookingTree-Elemente
 							analog wie zuvor beim <code>BookingTreeSingleNodeType</code>
 							beschrieben bzgl. jedes der ggf. aufgrund von @Source erzeugten
 							Duplikate.</para>
-						<para>@ResultOrder wird beim Zusammenstellen der finalen baumartigen
-							Ergebnisstruktur für die Definition der Reihenfolge paralleler Zweige
-							genutzt. Bei identischer @ResultOrder ist die Reihenfolge der Zweige in
-							der baumartigen Ergebnisstruktur beliebig. </para>
+						<para>Mit dem Attribut @ResultOrder definiert man die Reihenfolge der multiplen Zweige in der
+							baumartigen Ergebnisstruktur. Die Ergebnisstruktur wird nach
+							@ResultOrder aufsteigend und bei gleichem @ResultOrder nach dem Minimum
+							der DayAllocation der durch Source definierten Komponenteninstanz und
+							falls dieses auch gleich ist, dann nach der XML-DocumentOrder sortiert. </para>
 						<para> </para>
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeParameterTextType">
@@ -18465,7 +18473,7 @@ usw.]]></programlisting>
 							<mediaobject>
 								<imageobject>
 									<imagedata fileref="figures/BookingTreeParameterTextType.png"
-										format="PNG" contentwidth="50%"/>
+										format="PNG" contentwidth="60%"/>
 								</imageobject>
 								<textobject>
 									<para xml:lang="det">Übersicht des <code>BookingTreeParameterTextType</code></para>
@@ -18481,7 +18489,12 @@ usw.]]></programlisting>
 								<code>BookingTreeParameterTextType</code> dienen der Aggregation der
 							Values der Blattknoten mit identischem Namen und identischem
 							PathIdentifier. Die Aggregation erfolgt analog zur Aggregation der
-							BookingParameter-Values aus <code>BookingGroup</code> .</para>
+							BookingParameter-Values aus <code>BookingGroup</code> . Falls
+							@SourceEvaluationContext = "IterationInstance" so weicht die
+							Source-Auswertung von Tag/@Source und ConditionalTag/@Source.von der
+							klassischen Sourceauswertung ab. Lesen Sie dazu auch etwas später das
+							Kapitel &lt;link linkend="aaaa">"Auswertung der Source im Kontext der
+							KomponentenInstanz-Iteration"&lt;/link>. </para>
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeDateReferenceType">
 						<title><phrase  xml:lang="det">Der <code>BookingTreeParameterDateReferenceType</code></phrase></title>
@@ -18503,13 +18516,17 @@ usw.]]></programlisting>
 						</figure>
 						<para xml:lang="det">Die Referenzierung eines Termins erfolgt analog zu der Referenzierung
 							unter Benutzung von <code>BookingGroup/BookingParameter/Date</code> der
-							Wert des Elementes selbst bleibt leer.</para>
-						<para>Die Definition einer Dauerangabe wird im BookingTree durch die
+							Wert des Elementes selbst bleibt leer.Falls @SourceEvaluationContext =
+							"IterationInstance" so weicht die Source-Auswertung von der klassischen
+							Sourceauswertung ab. Lesen Sie dazu auch etwas später das Kapitel
+							&lt;link linkend="aaaa">"Auswertung der Source im Kontext der
+							KomponentenInstanz-Iteration"&lt;/link>.</para>
+						<para xml:lang="det">Die Definition einer Dauerangabe wird im BookingTree durch die
 							Definition zweier Terminreferenzen vorgenommen. Die Definition wie
 							daraus die eine Dauer abgeleitet werden soll, obliegt der Definition der
 							Verarbeitung der Ergebnisstruktur, welche durch den Owner des Namespaces
 							festgelegt werden muss. </para>
-						<para>Zusätzlich kann mit @Offset ein Offset festgelegt werden, der dann zu
+						<para xml:lang="det">Zusätzlich kann mit @Offset ein Offset festgelegt werden, der dann zu
 							dem referenzierten Termin addiert werden muss um den in der
 							Ergebnisstruktur zu verwendenen Termin zu erhalten.</para>
 					</section>
@@ -18533,7 +18550,7 @@ usw.]]></programlisting>
 								</caption>
 							</mediaobject>
 						</figure>
-						<para>Normalerweise enthält einer der Pfadknoten dieses BookingTree-Elementes
+						<para xml:lang="det">Normalerweise enthält einer der Pfadknoten dieses BookingTree-Elementes
 							das Attribut @EvaluationBase="PersonBase".</para>
 						<para xml:lang="det">Die Definition wie aus dem Geburtstag die Angaben für die Buchungssysteme
 							abgeleitet werden sollen, obliegt der Definition der Verarbeitung der
@@ -18555,7 +18572,12 @@ usw.]]></programlisting>
 							<listitem>
 								<para xml:lang="det">Auflösung von @Source in konkrete Komponenten-Instanzen und
 									Expansion/Duplizierung der Blattknoten, bis jedem Blattknoten
-									nur noch genau eine Komponenten-Instanz zugeordnet ist.</para>
+									nur noch genau eine Komponenten-Instanz zugeordnet ist. Dabei
+									muss die Anwendung des durch @SourceEvaluationContext
+									festgelegten Kontextes berücksichtigt werden. LEsen Sie dazu
+									auch das nachfolgende Kapitel &lt;link
+									linkend="aaaa">"Auswertung der Source im Kontext der
+									KomponentenInstanz-Iteration"&lt;/link>. </para>
 							</listitem>
 							
 							<listitem>
@@ -18566,7 +18588,10 @@ usw.]]></programlisting>
 									Day/Person-Kontext, nämlich "kein Day/Person-Kontext".</para>
 							</listitem>
 							<listitem>
-								<para xml:lang="det">Anwendung der Condition in den BookingTree-Elementen</para>
+								<para xml:lang="det">Anwendung der Condition in den BookingTree-Elementen. Die Condition
+									wird jeweils im Komponenten-Instance- und EvaluationBase-Kontext
+									jedes Blattknoten ausgewertet und damit bestimmt, ob der
+									Blattknoten valide ist.  </para>
 							</listitem>
 							<listitem>
 								<para xml:lang="det">@Erase anwenden und damit elminieren einzelner
@@ -18590,11 +18615,19 @@ usw.]]></programlisting>
 								<para xml:lang="det">Aggregation der Buchungsparametergruppen so dass je Gruppe nur noch ein Buchungsparameter-Value übrig bleibt.</para>
 							</listitem>
 							<listitem>
-								<para xml:lang="det">Bildung der baumartigen Ergebnisstruktur auf Basis des
-									Pfadidentifiers.</para>
+								<para xml:lang="det">Bildung der baumartigen Ergebnisstruktur auf Basis des Pfadidentifiers
+									und der Angaben in @ResultOrder.</para>
 							</listitem>
 						</itemizedlist>
 						<para xml:lang="det">Im Kapitel 2 unter <link linkend="OtdsCodeOfPractiseBookingExampleBookingNamespaceStadis">Beispiel für die Verarbeitung von BookingTree-Buchungsparametern mit einem vereinfachten Stadis-Namespace</link> finden Sie ein Beispiel, wie mit einem rudimentären Stadis-Namespace die BookingTree-Buchungsparameter verarbeitet werden.</para>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeSourceEvaluation">
+						<title><phrase  xml:lang="det">Auflösung von @Source in konkrete Komponenten-Instanzen</phrase></title>
+						<para xml:lang="det"></para>
+					</section>
+					<section xml:id="OtdsStrategyBookingBookingTreeSourceEvaluationContext">
+						<title><phrase  xml:lang="det">Anwendung des SourceEvaluationContext="IterationInstance" bei der Sourceauswertung in BookingTree</phrase></title>
+						<para xml:lang="det"></para>
 					</section>
 				</section>
 			</section>
