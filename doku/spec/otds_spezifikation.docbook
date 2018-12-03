@@ -18428,42 +18428,59 @@ usw.]]></programlisting>
 							der BookingTree-Elemente benutzt wird.</para>
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeMultipleNodeType">
-						<title><phrase  xml:lang="det">Der <code>BookingTreeMultipleNodeType</code></phrase></title>
-						<para xml:lang="det">BookingTreeMultipleNodeType wird für jeden multiplen Konten innerhalb der BookingTree-Struktur benutzt.</para>
+						<title><phrase xml:lang="det">Die <code>BookingTreeMultipleNodeTypes</code></phrase></title>
+						<para xml:lang="det">Jeder multiple Konten innerhalb der BookingTree-Struktur muss einen der
+						nachfolgenden OTDS-Typen benutzen:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:lang="det"><code>BookingTreeMultipleInstanceNodeType</code> für multiple Knoten, deren Unterscheidung durch Komponenten-Instanzen festgelegt sind.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det"><code>BookingTreeMultiplePersonNodeType</code> für multiple Knoten, deren Unterscheidung durch die Reisenden festgelegt sind.</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det"><code>BookingTreeMultipleDayNodeType</code>  für multiple Knoten, deren Unterscheidung durch die spezifische Tage der Reise festgelegt sind.</para>
+							</listitem>
+						</itemizedlist>
+						<para xml:lang="det">Die 3 Typen unterscheiden sich nur durch das Attribut @EvaluationBase,
+							welches mandatory ist und je Type nur einen Wert "Instance|Person|Day"
+							erlaubt.</para>
 						<figure>
-							<title><phrase xml:lang="det">Übersicht des <code>BookingTreeMultipleNodeType</code></phrase></title>
+							<title><phrase xml:lang="det">Übersicht des
+									<code>BookingTreeMultipleInstanceNodeType</code></phrase></title>
 							<mediaobject>
 								<imageobject>
 									<imagedata fileref="figures/BookingTreeMultipleNodeType.png"
 										format="PNG" contentwidth="40%"/>
 								</imageobject>
 								<textobject>
-									<para xml:lang="det">Übersicht des <code>BookingTreeMultipleNodeType</code></para>
+									<para xml:lang="det">Übersicht des <code>BookingTreeMultipleInstanceNodeType</code></para>
 								</textobject>
 								<caption>
 									<para xml:lang="de"> </para><para xml:lang="en"/>
 								</caption>
 							</mediaobject>
 						</figure>
-						<para xml:lang="det">Dieser Knoten ist inkl. der Attribute @EvaluationBase, @ResultOrder,
+						<para xml:lang="det">Dieser Knoten ist inkl. der Attribute @ResultOrder,
 							@Source und @Class Teil des PathIdentifiers, der für die Gruppierung der
 							BookingTree-Elemente benutzt wird.</para>
-						<para>Falls die Auswertung von @Source in entsprechende Komponenten-Instanzen zu einem
+						<para  xml:lang="det">Falls die Auswertung von @Source in entsprechende Komponenten-Instanzen zu einem
 							mehrdeutigen Ergebnis führt, so wird das BookingTree-Element für jede
 							Komponenten-Instanz dupliziert. Falls  @SourceEvaluationContext =
 							"IterationInstance" so weicht die Source-Auswertung von der klassischen
 							Sourceauswertung etwas ab. Lesen Sie dazu auch etwas später das Kapitel
-							<link linkend="aaaa">"Auswertung der Source im Kontext der KomponentenInstanz-Iteration"</link>.</para>
-						<para>Bei Angabe von @Erase erfolgt ein Löschen andere BookingTree-Elemente
+							<link linkend="OtdsStrategyBookingBookingTreeSourceEvaluationContext">"Auswertung der Source im Kontext der KomponentenInstanz-Iteration"</link>.</para>
+						<para xml:lang="det">Bei Angabe von @Erase erfolgt ein Löschen andere BookingTree-Elemente
 							analog wie zuvor beim <code>BookingTreeSingleNodeType</code>
 							beschrieben bzgl. jedes der ggf. aufgrund von @Source erzeugten
 							Duplikate.</para>
-						<para>Mit dem Attribut @ResultOrder definiert man die Reihenfolge der multiplen Zweige in der
+						<para xml:lang="det">Mit dem Attribut @ResultOrder definiert man die Reihenfolge der multiplen Zweige in der
 							baumartigen Ergebnisstruktur. Die Ergebnisstruktur wird nach
 							@ResultOrder aufsteigend und bei gleichem @ResultOrder nach dem Minimum
 							der DayAllocation der durch Source definierten Komponenteninstanz und
 							falls dieses auch gleich ist, dann nach der XML-DocumentOrder sortiert. </para>
-						<para> </para>
+						<para xml:lang="det">Das Attribut @EvaluationBase legt fest, ob der Knoten über die Instanzen, die Personen oder über Tage expandiert/dupliziert wird.</para>
+						<para xml:lang="det">Die zu einem multiplen Knoten zugehörige Condition wird immer im Kontext der beim Knoten angegebenen @EvaluationBase ausgewertet.</para>
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeParameterTextType">
 						<title><phrase  xml:lang="det">Der <code>BookingTreeParameterTextType</code></phrase></title>
@@ -18570,28 +18587,30 @@ usw.]]></programlisting>
 									enthaltenen Attribute </para>
 							</listitem>
 							<listitem>
-								<para xml:lang="det">Auflösung von @Source in konkrete Komponenten-Instanzen und
-									Expansion/Duplizierung der Blattknoten, bis jedem Blattknoten
-									nur noch genau eine Komponenten-Instanz zugeordnet ist. Dabei
-									muss die Anwendung des durch @SourceEvaluationContext
-									festgelegten Kontextes berücksichtigt werden. LEsen Sie dazu
-									auch das nachfolgende Kapitel &lt;link
-									linkend="aaaa">"Auswertung der Source im Kontext der
-									KomponentenInstanz-Iteration"&lt;/link>. </para>
-							</listitem>
-							
-							<listitem>
 								<para xml:lang="det">Expansio/Duplizierung der einzelnen Blattknoten basierend auf dem Wert
 									@EvaluationBase der einzelenen Pfadknoten, so dass jedem
-									Blattknoten ein definierter Day/Person Kontext zugeordnet ist.
+									Blattknoten ein definierter Day/Person/Instance Kontext zugeordnet ist.
 									Das Weglassen von @EvaluationBase ist ein eigener
 									Day/Person-Kontext, nämlich "kein Day/Person-Kontext".</para>
 							</listitem>
 							<listitem>
-								<para xml:lang="det">Anwendung der Condition in den BookingTree-Elementen. Die Condition
-									wird jeweils im Komponenten-Instance- und EvaluationBase-Kontext
-									jedes Blattknoten ausgewertet und damit bestimmt, ob der
-									Blattknoten valide ist.  </para>
+								<para xml:lang="det">Auflösung von @Source in konkrete Komponenten-Instanzen und ggf. 
+									Expansion/Duplizierung der Pfade und Blattknoten, bis jedem Blattknoten
+									nur noch genau eine Komponenten-Instanz zugeordnet ist. Dabei
+									muss die Anwendung des durch @SourceEvaluationContext
+									festgelegten Kontextes berücksichtigt werden. Lesen Sie dazu
+									auch das nachfolgende Kapitel <link	linkend="OtdsStrategyBookingBookingTreeSourceEvaluationContext">"Auswertung der Source im Kontext der
+									KomponentenInstanz-Iteration"</link>. 
+									Beachte: Eine Expansion über die Instanzen finden nur für @EvaluationBase="Instance" statt. Für @EvaluationBase="Day|Person" wird über alle Personen/Tage iteriert, die wenigstens einer der durch Source addressierten Komponenteninstanzen zugeordnet sind.  
+								</para>
+							</listitem>
+							<listitem>
+								<para xml:lang="det">Anwendung der verschiedenen Conditions innerhalb der
+									BookingTree-Strukturen. Die Condition wird jeweils im
+									EvaluationBase-Kontext des Parentknoten ausgewertet und damit
+									bestimmt, ob der Knoten valide ist. Im Falle eines invaliden
+									Knotens werden alle dem invaliden Knoten nachfolgende Knoten und
+									Blätter nicht weiter betrachtet.  </para>
 							</listitem>
 							<listitem>
 								<para xml:lang="det">@Erase anwenden und damit elminieren einzelner
@@ -18622,8 +18641,235 @@ usw.]]></programlisting>
 						<para xml:lang="det">Im Kapitel 2 unter <link linkend="OtdsCodeOfPractiseBookingExampleBookingNamespaceStadis">Beispiel für die Verarbeitung von BookingTree-Buchungsparametern mit einem vereinfachten Stadis-Namespace</link> finden Sie ein Beispiel, wie mit einem rudimentären Stadis-Namespace die BookingTree-Buchungsparameter verarbeitet werden.</para>
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeSourceEvaluation">
-						<title><phrase  xml:lang="det">Auflösung von @Source in konkrete Komponenten-Instanzen</phrase></title>
-						<para xml:lang="det"></para>
+						<title><phrase  xml:lang="det">Auswertung und Effekt der Auswertung von @Source und @EvaluationBase</phrase></title>
+						<para xml:lang="det">Mit @Source wird eine Menge von Komponenten-Instanzen referenziert. Die
+							Vorgehensweise wie aus einer @Source-Angabe eine Menge von
+							Komponenten-Instanzen abgeleitet werden, finden Sie im Kapitel <link
+								linkend="aaaa">"Auswertung von @Source"</link>. Falls
+							@EvaluationBase="Day|Person" ist, wird aus der Menge der durch @Source
+							definierten Komponenteninstanzen eine Menge von Tagen bzw. Personen
+							zusammengetragen, die in wenigestens einer der referenzierten
+							Komponenten-Instanzen vorkommen. Falls @EvaluationBase="Instance" ist,
+							bleibt es bei der Menge der durch @Source definierten
+							Komponenteninstanzen über die die Knoten und deren Kindknoten bis zu den
+							Blättern dupliziert werden. Diese Vorgehensweise der Duplizierung findet
+							in jedem multiplen Knoten mit einer entsprechenden Source statt. Im
+							Folgenden ein Beispiel, welches die Duplizierung auf Basis der
+							Source-Instanzen verdeutlichen soll. </para>
+						<para xml:lang="det">Folgendes vereinfacht dargestelltes Pauschalprodukt liegt laut OTDS zu
+							Grunde:</para>
+						<programlisting><![CDATA[<Product ProductType="FlightAccommodation">
+	<Components>
+		<Accommodation/>
+		<DefinedComponent UseRole="ReturnFlight"/>
+	</Components>
+	...
+</Product>
+...
+<DefineComponent Role="ReturnFlight">
+	<Components>
+		<CombiComponent Role="Outound">
+			<OnewayFlight Name="OutBound1"/>
+			<OnewayFlight Name="OutBound2"/>
+		</CombiComponent>
+		<CombiComponent Role="Inbound">
+			<OnewayFlight Name="InBound1"/>
+			<OnewayFlight Name="InBound2"/>
+		</CombiComponent>
+	</Components>
+	...
+</DefineComponent>]]></programlisting>
+						<para xml:lang="det">Aus diesen Daten ergibt sich folgender Komponenten-Instanz-Baum eines hieraus produzierten Pauschalangebotes:</para>
+						<programlisting><![CDATA[<Product ComponentType="real">
+	<Accommodation ComponentType="real">
+		...
+	</Accommodation>
+	<ReturnFlight ComponentType="real">
+		<Outbound  ComponentType="virtual">
+			<OnewayFlight Name="OutBound1"  ComponentType="real"/>
+			<OnewayFlight Name="OutBound2"  ComponentType="real"/>
+		</Outbound>
+		<Inbound  ComponentType="virtual">
+			<OnewayFlight Name="InBound1"  ComponentType="real"/>
+			<OnewayFlight Name="InBound2"  ComponentType="real"/>
+		</Inbound>
+	</ReturnFlight>
+	</Product>]]></programlisting>
+					<para xml:lang="det">Der Einfachheit halber sind hier die Datails innerhalb von Accommodation
+							weggelassen und auch die BookingClass-Instanz innerhalb der
+							OnewayFlights nicht aufgeführt worden.</para>
+					<para xml:lang="det">Das Buchungssystem gibt nun vor, dass das Angebot ähnlich verschachtelt an das Buchungssystem übergeben werden soll.</para>
+					<para xml:lang="det">Beispielhaft könnte eine Übergabe folgendermaßen aussehen:</para>
+					<programlisting><![CDATA[<Booking>
+	<Hotel>
+		...
+	</Hotel>
+	<Flug>
+		<Hin>
+			<Leg>...</Leg>
+			<Leg>...</Leg>
+		</Hin>
+		<Rueck>
+			<Leg>...</Leg>
+			<Leg>...</Leg>
+		</Rueck>
+	</Flug>
+	</Booking>]]></programlisting>
+						<para xml:lang="det">Um für folgende Struktur jeweils Starttermin und Endtermin der Einzelflüge mit dem BookingTree zu definieren, müsste folgendes global zum Beispiel in "Brand" geliefert werden</para>
+						<programlisting><![CDATA[<BookingTree>
+	<Booking>
+		<Hotel Source="global:Accommodation">
+			...
+		</Hotel>
+		<Flug>
+			<Hin>
+				<Leg Source="global:Outbound" EvaluationBase="Instance">
+					<DateStart>...</DateStart>
+					<DateEnd>...</DateEnd>
+				</Leg>
+			</Hin>
+			<Rueck>
+				<Leg Source="global:Inbound" EvaluationBase="Instance">
+					<DateStart>...</DateStart>
+					<DateEnd>...</DateEnd>
+				</Leg>
+			</Rueck>
+		</Flug>
+	</Booking>
+	</BookingTree>]]></programlisting>
+					<para xml:lang="det">Die Verarbeitung würde jeden Blattknoten separat betrachten. Hier einmal zeilenweise beispielhaft für die Blattknoten "DateStart" und "DateEnd" angedeutet:</para>
+						<programlisting><![CDATA[
+<Booking><Flug><Hin><Leg Source="global:Outbound" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Hin><Leg Source="global:Outbound" EvaluationBase="Instance"><DateEnd>...</DateEnd>
+<Booking><Flug><Rueck><Leg Source="global:Inbound" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Hin><Leg Source="global:Inbound" EvaluationBase="Instance"><DateEnd>...</DateEnd>]]></programlisting>
+						<para xml:lang="det">Die Auswertung der Source="global:Outbound" ergibt laut OTDS Instanzbaum
+							2 Komponenten-Instanzen: "OutBound1" und "OutBound2", da der Verweis per
+							default ComponentType="firstrealdescendants" als Wert hat und damit nur
+							realle Komponenten als Ergebnismenge herauskommen können, werden z.B.
+							aus der virtuellen Instanz "Outbound" die beiden rellen Instanzen
+							"OutBound1" und "OutBound2". </para>
+						<para xml:lang="det">In der Folge wird jeder Blattknoten über die Menge der durch @Source referenzierten Instanzen expandiert. Nach der Sourceauswertung entstehen damit folgende Blattknoten:</para>
+						<programlisting><![CDATA[
+<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><DateEnd>...</DateEnd>
+<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><DateEnd>...</DateEnd>
+<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Hin><Leg Instance="InBound1" EvaluationBase="Instance"><DateEnd>...</DateEnd>
+<Booking><Flug><Hin><Leg Instance="InBound1" EvaluationBase="Instance"><DateEnd>...</DateEnd>]]></programlisting>
+						<para xml:lang="det">Die Auswertung der <code>DateStart</code> und <code>DateEnd</code> greifen wir im nächsten Kapitel auf.</para>
+						<para xml:lang="det">Würde man anstatt <code>global:</code> in der Source <code>global+ComponentType.all:</code> angeben, so würde damit direkt die Inastanzen "Outbound" unf "Inbound" referenziert. Das Ergebnis der Expansion wäre dann:</para>
+						<programlisting><![CDATA[
+<Booking><Flug><Hin><Leg Instance="Outbound" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Hin><Leg Instance="Outbound" EvaluationBase="Instance"><DateEnd>...</DateEnd>
+<Booking><Flug><Rueck><Leg Instance="Inbound" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Hin><Leg Instance="Inbound" EvaluationBase="Instance"><DateEnd>...</DateEnd>]]></programlisting>
+						<para xml:lang="det">Die Expansion wird für jede Source-Angabe im Pfad bis zum Blattknoten
+							durchgeführt. So kann es bei verschachtelten Pfaden mit mehreren Knoten
+							mit mehreren Source-Angaben, durchaus zu einer umfangreichen Expansion
+							kommen.</para>
+						<para xml:lang="det">Hier mal ein rein theoretisches Beispiel bezogen auf den obige OTDS-Instanzenbaum:</para>
+						<programlisting><![CDATA[<BookingTree>
+	<Booking>
+		<Flug Source="global:Outbound" EvaluationBase="Instance">
+			<Leg Source="global:Outbound" EvaluationBase="Instance">
+					<DateStart>...</DateStart>
+			<Leg>
+		</Flug>
+	</Booking>
+</BookingTree>]]></programlisting>
+						<para xml:lang="det">Daraus entsteht folgender Blattknoten:</para>
+						<programlisting><![CDATA[
+<Booking><Flug Source="global:Outbound" EvaluationBase="Instance"><Leg Source="global:Outbound" EvaluationBase="Instance"><DateStart>...</DateStart>
+]]></programlisting>
+						<para xml:lang="det">Dieser wird aber nun über 2 Knoten (Flug und Leg) expandiert und es entsteht:</para>
+						<programlisting><![CDATA[
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><DateStart>...</DateStart>
+]]></programlisting>
+						<para xml:lang="det">Diese Expansion über die Instanzen wird nur durchgeführt, wenn in dem entsprechenden Knoten das Attribut <code>@EvaluationBase="Instance"</code> angegeben ist.</para>
+						<para xml:lang="det">Bei <code>@EvaluationBase="Person"</code> wird die Menge der Instanzen in einen Menge von Personen überführt, wobei jede Person dieser Menge mindestens einer Intanz zugeordnet ist. Danach findet eine Expansion über die Personen statt. Klassiker ist hier die Angabe der Personenalter.</para>
+						<programlisting><![CDATA[<BookingTree>
+	<Booking>
+		<Hotel Source="global:Accommodation">
+			...
+		</Hotel>
+		<Flug>
+			...
+		</Flug>
+		<Reisende Source="Product" EvaluationBase="Person">
+			<Alter>
+				<BirthDate/>
+			</Alter>
+		</Reisende>
+	</Booking>
+	</BookingTree>]]></programlisting>
+						<para xml:lang="det">Daraus entsteht für <code>BirthDate</code> folgender Blattknoten:</para>
+						<programlisting><![CDATA[
+<Booking><Reisende Source="Product" EvaluationBase="Person"><BirthDate/>
+]]></programlisting>
+						<para xml:lang="det">Dieser wird aber nun über die Anzahl der Personen expandiert. Für eine Reise mit 4 Personen werden daraus dann folgende 4 Blattknoten:</para>
+						<programlisting><![CDATA[
+<Booking><Reisende PersinIndex="1"><BirthDate/>
+<Booking><Reisende PersinIndex="2"><BirthDate/>
+<Booking><Reisende PersinIndex="3"><BirthDate/>
+<Booking><Reisende PersinIndex="4"><BirthDate/>
+]]></programlisting>
+						<para xml:lang="det">Folgende Struktur kombiniert die beiden Expansionen:</para>
+						<programlisting><![CDATA[<BookingTree>
+	<Booking>
+		<Hotel Source="global:Accommodation">
+			...
+		</Hotel>
+		<Flug>
+			<Reisende Source="Product" EvaluationBase="Person">
+				<Alter>
+					<BirthDate/>
+				</Alter>
+			</Reisende>
+		</Flug>
+	</Booking>
+	</BookingTree>]]></programlisting>
+						<para xml:lang="det">Das Ergebnis der Expansion folgt dem gleichen Schema der Expansion über jeden Knoten und ist nun schon recht umfangreich:</para>
+						<programlisting><![CDATA[
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
+<Booking><Flug Instance="InBound1" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
+<Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
+]]></programlisting>
+						<para xml:lang="det">Die Expansion bei <code>@EvaluationBase="Day"</code> erfolgt analog. Es wird die Menge der Instanzen in einen Menge von Tagen überführt, wobei jeder Tag dieser Menge mindestens einer Intanz zugeordnet ist. Danach findet eine Expansion über die Tage statt. Hier könnte man sich vorstellen, dass in einem Addon String mit "X"en für jeden Tag an dem das Addon gebucht wurde übermittelt werden soll.(Das ist rein theoretisch. Das ist kein Praxisbeispiel)</para>
+						<programlisting><![CDATA[<BookingTree>
+	<Booking>
+		<Addon Source="global:Product">
+			<BookedAddon EvaluationBase="Day" Source="global:Product">
+				<Marker>X</Marker>
+			</BookedAddon>
+		</Addon>
+		...
+	</Booking>
+	</BookingTree>]]></programlisting>
+						<para xml:lang="det">Für eine 3-tägige Reise würde die Blattexpansion dann etwa so aussehen:</para>
+						<programlisting><![CDATA[
+<Booking><Addon Instance="Product"><BookedAddon DayIndex="1"><Marker>X</Marker>
+<Booking><Addon Instance="Product"><BookedAddon DayIndex="2"><Marker>X</Marker>
+<Booking><Addon Instance="Product"><BookedAddon DayIndex="3"><Marker>X</Marker>
+]]></programlisting>
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeSourceEvaluationContext">
 						<title><phrase  xml:lang="det">Anwendung des SourceEvaluationContext="IterationInstance" bei der Sourceauswertung in BookingTree</phrase></title>

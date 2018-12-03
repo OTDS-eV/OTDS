@@ -57,27 +57,27 @@
 						</tsx:Fap>
 					</tsx:Fab>
 					<tsx:Fab>
-						<tsx:Fat Source="global:Outbound">
+						<tsx:Fat Source="global+ComponentType.all:Outbound" EvaluationBase="Instance">
 							<tsx:ServiceType>
 								<Value>T</Value>
 							</tsx:ServiceType>
 							<tsx:StartDate>
-								<Date DayType="CheckIn" Source="global:Outbound"/>
+								<Date DayType="CheckIn" Source="global+ComponentType.all:Outbound"/>
 							</tsx:StartDate>
 						</tsx:Fat>
 					</tsx:Fab>
 					<tsx:Fab>
-						<tsx:Fat Source="global:Inbound">
+						<tsx:Fat Source="global+ComponentType.all:Inbound" EvaluationBase="Instance">
 							<tsx:ServiceType>
 								<Value>T</Value>
 							</tsx:ServiceType>
 							<tsx:StartDate>
-								<Date DayType="CheckIn" Source="global:Inbound"/>
+								<Date DayType="CheckIn" Source="global+ComponentType.all:Inbound"/>
 							</tsx:StartDate>
 						</tsx:Fat>
 					</tsx:Fab>
 					<tsx:Fab>
-						<tsx:Fah Source="global:Accommodation">
+						<tsx:Fah Source="global:Accommodation"  EvaluationBase="Instance">
 							<tsx:ServiceType>
 								<Value>H</Value>
 							</tsx:ServiceType>
@@ -93,68 +93,68 @@
 				<BookingTree>
 					<tsx:Fab>
 						<tsx:Fap  Source="Product" EvaluationBase="Person">
+							<Condition>
+								<And>
+									<Impact>
+										<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
+									</Impact>
+									<PersonImpact>
+										<PersonGenders Source="Product">Male Undefined</PersonGenders>
+									</PersonImpact>
+								</And>
+							</Condition>
 							<tsx:PersonType>
 								<Value>Herr</Value>
 							</tsx:PersonType>
 						</tsx:Fap>
 					</tsx:Fab>
-					<Condition>
-						<And>
-							<Impact>
-								<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
-							</Impact>
-							<PersonImpact>
-								<PersonGenders Source="Product">Male Undefined</PersonGenders>
-							</PersonImpact>
-						</And>
-					</Condition>
 				</BookingTree>
 				<BookingTree>
 					<tsx:Fab>
 						<tsx:Fap  Source="Product" EvaluationBase="Person">
+							<Condition>
+								<And>
+									<Impact>
+										<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
+									</Impact>
+									<PersonImpact>
+										<PersonGenders Source="Product">Female</PersonGenders>
+									</PersonImpact>
+								</And>
+							</Condition>
 							<tsx:PersonType>
 								<Value>Frau</Value>
 							</tsx:PersonType>
 						</tsx:Fap>
 					</tsx:Fab>
-					<Condition>
-						<And>
-							<Impact>
-								<ConditionalTags Source="Brand" Class="PersonBookingType">Adult</ConditionalTags>
-							</Impact>
-							<PersonImpact>
-								<PersonGenders Source="Product">Female</PersonGenders>
-							</PersonImpact>
-						</And>
-					</Condition>
 				</BookingTree>
 				<BookingTree>
 					<tsx:Fab>
 						<tsx:Fap Source="Product" EvaluationBase="Person">
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Brand" Class="PersonBookingType">Child</ConditionalTags>
+								</Impact>
+							</Condition>
 							<tsx:PersonType>
 								<Value>Kind</Value>
 							</tsx:PersonType>
 						</tsx:Fap>
 					</tsx:Fab>
-					<Condition>
-						<Impact>
-							<ConditionalTags Source="Brand" Class="PersonBookingType">Child</ConditionalTags>
-						</Impact>
-					</Condition>
 				</BookingTree>
 				<BookingTree>
 					<tsx:Fab>
 						<tsx:Fap Source="Product" EvaluationBase="Person">
+							<Condition>
+								<Impact>
+									<ConditionalTags Source="Brand" Class="PersonBookingType">Baby</ConditionalTags>
+								</Impact>
+							</Condition>
 							<tsx:PersonType>
 								<Value>Baby</Value>
 							</tsx:PersonType>
 						</tsx:Fap>
 					</tsx:Fab>
-					<Condition>
-						<Impact>
-							<ConditionalTags Source="Brand" Class="PersonBookingType">Baby</ConditionalTags>
-						</Impact>
-					</Condition>
 				</BookingTree>
 			</Booking>
 		</Brand>
@@ -203,14 +203,14 @@
 							</tsx:TOMA-Reiseart>
 						</tsx:Fab>
 						<tsx:Fab>
-							<tsx:Fah Source="Accommodation">
+							<tsx:Fah Source="Accommodation" EvaluationBase="Instance">
 								<tsx:Product>
 									<Value>11010</Value>
 								</tsx:Product>
 							</tsx:Fah>
 						</tsx:Fab>
 						<tsx:Fab>
-							<tsx:Fah Source="Accommodation">
+							<tsx:Fah Source="Accommodation" EvaluationBase="Instance">
 								<tsx:Destination>
 									<Value>LPA</Value>
 								</tsx:Destination>
@@ -222,7 +222,7 @@
 					<Booking>
 						<BookingTree>
 							<tsx:Fab>
-								<tsx:Fah Source="Accommodation">
+								<tsx:Fah Source="Accommodation"  EvaluationBase="Instance">
 									<tsx:Meal>
 										<Value>U</Value>
 									</tsx:Meal>
@@ -247,7 +247,7 @@
 						<Booking>
 							<BookingTree>
 								<tsx:Fab>
-									<tsx:Fah Source="Accommodation">
+									<tsx:Fah Source="Accommodation"  EvaluationBase="Instance">
 										<tsx:Room>
 											<Value>U</Value>
 										</tsx:Room>
@@ -293,7 +293,7 @@
 				<Booking>
 					<BookingTree>
 						<tsx:Fab>
-							<tsx:Fat Source="ThisComponent">
+							<tsx:Fat Source="ThisComponent"  EvaluationBase="Instance">
 								<tsx:ServiceType>
 									<Value>T</Value>
 								</tsx:ServiceType>
@@ -359,7 +359,7 @@
 				<Booking>
 					<BookingTree>
 						<tsx:Fab>
-							<tsx:Fat  Source="ThisComponent">
+							<tsx:Fat  Source="ThisComponent"  EvaluationBase="Instance">
 								<tsx:ServiceType>
 									<Value>T</Value>
 								</tsx:ServiceType>
@@ -382,7 +382,7 @@
 					<Booking>
 						<BookingTree>
 							<tsx:Fab>
-								<tsx:Fat  Source="ThisComponent">
+								<tsx:Fat  Source="ThisComponent"  EvaluationBase="Instance">
 									<tsx:Class>
 										<Value>Y</Value>
 									</tsx:Class>
@@ -414,7 +414,7 @@
 				<Booking>
 					<BookingTree>
 						<tsx:Fab>
-							<tsx:Fat Source="OnewayFlight">
+							<tsx:Fat Source="OnewayFlight"  EvaluationBase="Instance">
 								<tsx:ServiceType>
 									<Value>T</Value>
 								</tsx:ServiceType>
@@ -451,7 +451,7 @@
 								<tsx:Equipment>
 									<Value>319</Value>
 								</tsx:Equipment>
-								<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+								<tsx:Leg Class="FirstLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 									<tsx:StartDate>
 										<Date DayType="CheckIn"  Source="ThisComponent"/>
 									</tsx:StartDate>
@@ -483,7 +483,7 @@
 										<Value>319</Value>
 									</tsx:Equipment>
 								</tsx:Leg>
-								<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+								<tsx:Leg Class="SecondLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 									<tsx:StartDate>
 										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
 									</tsx:StartDate>
@@ -525,14 +525,14 @@
 					<Booking>
 						<BookingTree>
 							<tsx:Fab>
-								<tsx:Fat Source="OnewayFlight">
+								<tsx:Fat Source="OnewayFlight"  EvaluationBase="Instance">
 									<tsx:Class>
 										<Value>Y</Value>
 									</tsx:Class>
 									<tsx:ClassDesc>
 										<Value>Economy Class</Value>
 									</tsx:ClassDesc>
-									<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+									<tsx:Leg Class="FirstLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 										<tsx:Class>
 											<Value>Y</Value>
 										</tsx:Class>
@@ -540,7 +540,7 @@
 											<Value>5</Value>
 										</tsx:BookingClass>
 									</tsx:Leg>
-									<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+									<tsx:Leg Class="SecondLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 										<tsx:Class>
 											<Value>Y</Value>
 										</tsx:Class>
@@ -598,7 +598,7 @@
 				<Booking>
 					<BookingTree>
 						<tsx:Fab>
-							<tsx:Fat Source="OnewayFlight">
+							<tsx:Fat Source="OnewayFlight"  EvaluationBase="Instance">
 								<tsx:ServiceType>
 									<Value>T</Value>
 								</tsx:ServiceType>
@@ -635,7 +635,7 @@
 								<tsx:Equipment>
 									<Value>319</Value>
 								</tsx:Equipment>
-								<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+								<tsx:Leg Class="FirstLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 									<tsx:StartDate>
 										<Date DayType="CheckIn"   Source="ThisComponent"/>
 									</tsx:StartDate>
@@ -667,7 +667,7 @@
 										<Value>319</Value>
 									</tsx:Equipment>
 								</tsx:Leg>
-								<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+								<tsx:Leg Class="SecondLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 									<tsx:StartDate>
 										<Date DayType="CheckIn"   Source="ThisComponent" Offset="0"/>
 									</tsx:StartDate>
@@ -709,14 +709,14 @@
 					<Booking>
 						<BookingTree>
 							<tsx:Fab>
-								<tsx:Fat Source="OnewayFlight">
+								<tsx:Fat Source="OnewayFlight"  EvaluationBase="Instance">
 									<tsx:Class>
 										<Value>Y</Value>
 									</tsx:Class>
 									<tsx:ClassDesc>
 										<Value>Economy Class</Value>
 									</tsx:ClassDesc>
-									<tsx:Leg Class="FirstLeg"  Source="ThisComponent">
+									<tsx:Leg Class="FirstLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 										<tsx:Class>
 											<Value>Y</Value>
 										</tsx:Class>
@@ -724,7 +724,7 @@
 											<Value>5</Value>
 										</tsx:BookingClass>
 									</tsx:Leg>
-									<tsx:Leg Class="SecondLeg"  Source="ThisComponent">
+									<tsx:Leg Class="SecondLeg"  Source="ThisComponent"  EvaluationBase="Instance">
 										<tsx:Class>
 											<Value>Y</Value>
 										</tsx:Class>

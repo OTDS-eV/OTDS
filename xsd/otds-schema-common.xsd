@@ -648,35 +648,26 @@ Possible values are:
 	<xs:complexType name="BookingTreeSingleNodeType">
 		<xs:attribute name="Erase" type="EmptyElementType" use="optional"/>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeMultipleNodeType">
-		<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum"/>
-		<xs:attribute name="ResultOrder" type="xs:int" default="0">
-			<xs:annotation>
-				<xs:documentation>Das Attribut @ResultOrder definiert in welcher Reihenfolge die multiplen Zweige nach der Aggregation in der Ergebnis-Baumstruktur abgebildet werden sollen. Kleinere Werte von @ResultOrder werden in der baumartigen Ergebnisstruktur  zuerst aufgeführt. Der Default @ResultOrder = "0" bedeutet, dass die Reihenfolge beliebig ist. Unterschiedliche Werte von @ResultOrder führen zu neuen Zweigen in der Baumstruktur.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="Source" type="SourceAttributeType" use="required">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine
-					Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang
-					alle Leistungszeilen einer Komponente. Die Adressierung der Komponenteninstanz
-					erfolgt analog zum Attribut "Source" in den Conditions. Default ist
-					"ThisComponent". Globale Parameter werden als eigenständige Buchungszeile an die
-					Komponente 'Product' gehängt.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_84">This attribute addresses a single component instance. A component instance contained in this context refers to all the service lines of a component. The addressing of the component instance is the same as for the "Source"attribute in the conditions.
-Default is "ThisComponent". Global parameters are treated as separate booking factors attached to the 'Product' component.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="Class" type="xs:string" default="Default">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_85">Dieses Attribut identifiziert innerhalb einer
-					Komponenteninstanz unterschiedliche Leistungszeilen. Zum Beispiel wenn eine
-					Komponente zwei Leistungszeilen erzeugt.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_85">This attribute identifies different service lines within a component instance. For example, if a component produces 2 service lines</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="Erase" use="optional"/>
-		<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
+	<xs:complexType name="BookingTreeMultipleDayNodeType">
+		<xs:complexContent>
+			<xs:extension base="BTMultipleNodeType">
+				<xs:attribute name="EvaluationBase" type="BookingTreeEvaluationBaseDayEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BookingTreeMultiplePersonNodeType">
+		<xs:complexContent>
+			<xs:extension base="BTMultipleNodeType">
+				<xs:attribute name="EvaluationBase" type="BookingTreeEvaluationBasePersonEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BookingTreeMultipleInstanceNodeType">
+		<xs:complexContent>
+			<xs:extension base="BTMultipleNodeType">
+				<xs:attribute name="EvaluationBase" type="BookingTreeEvaluationBaseInstanceEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="BookingReplaceType">
 		<xs:attribute name="Source" type="BookingReplaceSourceAttributeType" use="required">
@@ -752,6 +743,28 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 			<xs:element name="Condition" type="ConditionType" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="Priority" type="xs:int" default="0"/>
+	</xs:complexType>
+	<xs:complexType name="BTMultipleNodeType">
+		<xs:sequence>
+			<xs:element name="Condition" type="ConditionType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="ResultOrder" type="xs:int" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="det">Das Attribut @ResultOrder definiert in welcher Reihenfolge die multiplen Zweige nach der Aggregation in der Ergebnis-Baumstruktur abgebildet werden sollen. Kleinere Werte von @ResultOrder werden in der baumartigen Ergebnisstruktur  zuerst aufgeführt. Der Default @ResultOrder = "0" bedeutet, dass die Reihenfolge beliebig ist. Unterschiedliche Werte von @ResultOrder führen zu neuen Zweigen in der Baumstruktur.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Source" type="SourceAttributeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="det">Dieses Attribut adressiert eine Menge von Komponenteninstanzen. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Class" type="xs:string" default="Default">
+			<xs:annotation>
+				<xs:documentation xml:lang="der">Dieses Attribut dient der Gruppierung von Parameterb innerhalb der gleichen Komponenteninstanz.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Erase" use="optional"/>
+		<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
 	</xs:complexType>
 	<xs:element name="BookingEntry" type="BookingEntryType" abstract="true">
 		<xs:annotation>
@@ -4724,6 +4737,21 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Person Day"/>
 			<xs:enumeration value="Person"/>
 			<xs:enumeration value="Day"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEvaluationBaseDayEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Day"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEvaluationBasePersonEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Person"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEvaluationBaseInstanceEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Instance"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AirportTypeEnum">
