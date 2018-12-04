@@ -472,31 +472,43 @@ Default = Always</xs:documentation>
 	<xs:complexType name="BookingTreeParameterTextType">
 		<xs:choice minOccurs="0">
 			<xs:element name="Value" type="xs:string"/>
-			<xs:element name="Tag" type="EmptyTagConditionType">
+			<xs:element name="Tag">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_9300">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als Booking-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_9300">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as Booking Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_9300">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als BookingTree-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9300">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as BookingTree Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="EmptyTagConditionType">
+							<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
 			</xs:element>
-			<xs:element name="ConditionalTag" type="EmptyTagConditionType">
+			<xs:element name="ConditionalTag">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_9301">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als Booking-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_9301">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as Booking Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_9301">Dieses Element referenziert über seine Attribute ein Tag im OTDS-Baum, dessen Value an dieser Stelle als BookingTree-Value eingefügt wird. Eine Referenzierung auf Tags des TagTypes= "Price" ist nicht definiert und führt dazu, dass der Value="" verwendet wird.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9301">This element uses its attributes to reference a tag in the OTDS tree, whose value is entered at this position as BookingTree Value. A reference to tags of TagType = "Price" is not defined and will lead to the Value="" being used.</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="EmptyTagConditionType">
+							<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
 			</xs:element>
 		</xs:choice>
 		<xs:attribute name="Name" type="NameType" default="Default">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_9302">Dieses Attribut definiert zusammen mit dem Attribut "Area" und dem Attribut "Field" die Eindeutigkeit eines BookingParameters während der finalen Verarbeitung.  </xs:documentation>
+				<xs:documentation xml:lang="det" xml:id="de_9302">Wenn der Inhalt dieses Attributs identisch ist, wie der eines sonst identischen BookingTree-Blattknotens, so überschreiben sich die Values der beiden Blattknoten. Unterscheiden sich die beiden Blattknoten nur im Value dieses Attributes so werden die Values aggregiert. Die Art der Aggregation bestimmen die Angaben in den anderen Attribute der Blattknoten.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_9302">Along with the "Area" and "Field" attributes, this attribute defines the uniqueness of a BookingParameter during the final processing.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="Index" type="xs:int" default="0">
 			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_9303">Dieses Attribut definiert, an welcher Position
-					der BookingParameter mit einem anderen BookingParameter zusammengefügt wird. Der
-					Wert kann positive und negative Werte annehmen. Default ist
-					0.</xs:documentation>
+				<xs:documentation xml:lang="det" xml:id="de_9303">Dieses Attribut definiert, im Falle einer Aggregation mehrere BookingTree-Blattknoten, an welcher Reihenfolge die
+					Values Blattknoten aggregiert werden. Die Aggregation erfolgt aufsteigend nach @Index und bei gleichem Index nach OTDS-Document-Order. Default ist Index="0".</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_9303">This attribute defines at what position a booking parameter is added another booking parameter.
 The value can be positive or negative.
 The default is 0.</xs:documentation>
@@ -570,6 +582,9 @@ Default = Always</xs:documentation>
 	<xs:complexType name="BookingTreeParameterDateReferenceType">
 		<xs:sequence>
 			<xs:element name="Date">
+				<xs:annotation>
+					<xs:documentation xml:lang="det">Die durch Date referenzierten Terminwerte für die BookingTree Values sind im Ausgabeformat im erweiterten Date-Isofomat "YYYY-MM-DD anzugeben.</xs:documentation>
+				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="EmptyElementType">
@@ -609,48 +624,50 @@ Possible values are:
 								</xs:annotation>
 							</xs:attribute>
 							<xs:attribute name="Offset" type="xs:int" default="0"/>
+							<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
 						</xs:extension>
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="BookingTreeParameterBirthdateReferenceType">
-		<xs:restriction base="xs:string">
-			<xs:maxLength value="0"/>
-		</xs:restriction>
-	</xs:simpleType>
+	<xs:complexType name="BookingTreeParameterBirthDateReferenceType">
+		<xs:sequence>
+			<xs:element name="BirthDate">
+				<xs:annotation>
+					<xs:documentation xml:lang="det">Die durch BirthDate referenzierten Geburtsags-Terminwerte für die BookingTree Values sind im Ausgabeformat im erweiterten Date-Isofomat "YYYY-MM-DD anzugeben. Bei der Berechnung eines Gerburtstages aus einer Altersangabe ist der Geburtsgtagstermin so zu wählen, dass das Alter der Person zum Reisebeginn erreicht ist.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="EmptyElementType"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="BookingTreeSingleNodeType">
 		<xs:attribute name="Erase" type="EmptyElementType" use="optional"/>
 	</xs:complexType>
-	<xs:complexType name="BookingTreeMultipleNodeType">
-		<xs:attribute name="EvaluationBase" type="EvaluationBaseEnum"/>
-		<xs:attribute name="ResultOrder" type="xs:int" default="0">
-			<xs:annotation>
-				<xs:documentation>Das Attribut @ResultOrder definiert in welcher Reihenfolge die multiplen Zweige nach der Aggregation in der Ergebnis-Baumstruktur abgebildet werden sollen. Kleinere Werte von @ResultOrder werden in der baumartigen Ergebnisstruktur  zuerst aufgeführt. Der Default @ResultOrder = "0" bedeutet, dass die Reihenfolge beliebig ist. Unterschiedliche Werte von @ResultOrder führen zu neuen Zweigen in der Baumstruktur.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="Source" type="SourceAttributeType" use="required">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_84">Dieses Attribut adressiert eine
-					Komponenteninstanz. Einer Komponenteninstanz entsprechen in diesem Zusammenhang
-					alle Leistungszeilen einer Komponente. Die Adressierung der Komponenteninstanz
-					erfolgt analog zum Attribut "Source" in den Conditions. Default ist
-					"ThisComponent". Globale Parameter werden als eigenständige Buchungszeile an die
-					Komponente 'Product' gehängt.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_84">This attribute addresses a single component instance. A component instance contained in this context refers to all the service lines of a component. The addressing of the component instance is the same as for the "Source"attribute in the conditions.
-Default is "ThisComponent". Global parameters are treated as separate booking factors attached to the 'Product' component.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="Class" type="xs:string" default="Default">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_85">Dieses Attribut identifiziert innerhalb einer
-					Komponenteninstanz unterschiedliche Leistungszeilen. Zum Beispiel wenn eine
-					Komponente zwei Leistungszeilen erzeugt.</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_85">This attribute identifies different service lines within a component instance. For example, if a component produces 2 service lines</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="Erase" use="optional"/>
+	<xs:complexType name="BookingTreeMultipleDayNodeType">
+		<xs:complexContent>
+			<xs:extension base="BTMultipleNodeType">
+				<xs:attribute name="EvaluationBase" type="BookingTreeEvaluationBaseDayEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BookingTreeMultiplePersonNodeType">
+		<xs:complexContent>
+			<xs:extension base="BTMultipleNodeType">
+				<xs:attribute name="EvaluationBase" type="BookingTreeEvaluationBasePersonEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BookingTreeMultipleInstanceNodeType">
+		<xs:complexContent>
+			<xs:extension base="BTMultipleNodeType">
+				<xs:attribute name="EvaluationBase" type="BookingTreeEvaluationBaseInstanceEnum" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="BookingReplaceType">
 		<xs:attribute name="Source" type="BookingReplaceSourceAttributeType" use="required">
@@ -727,15 +744,28 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 		</xs:sequence>
 		<xs:attribute name="Priority" type="xs:int" default="0"/>
 	</xs:complexType>
-	<!-- 
-	<xs:complexType name="BookingTreeType">
+	<xs:complexType name="BTMultipleNodeType">
 		<xs:sequence>
-			<xs:element name="AbstractBookingTree" minOccurs="0" maxOccurs="unbounded"  abstract="true"/>
 			<xs:element name="Condition" type="ConditionType" minOccurs="0"/>
 		</xs:sequence>
-		<xs:attribute name="Priority" type="xs:int" default="0"/>
+		<xs:attribute name="ResultOrder" type="xs:int" default="0">
+			<xs:annotation>
+				<xs:documentation xml:lang="det">Das Attribut @ResultOrder definiert in welcher Reihenfolge die multiplen Zweige nach der Aggregation in der Ergebnis-Baumstruktur abgebildet werden sollen. Kleinere Werte von @ResultOrder werden in der baumartigen Ergebnisstruktur  zuerst aufgeführt. Der Default @ResultOrder = "0" bedeutet, dass die Reihenfolge beliebig ist. Unterschiedliche Werte von @ResultOrder führen zu neuen Zweigen in der Baumstruktur.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Source" type="SourceAttributeType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="det">Dieses Attribut adressiert eine Menge von Komponenteninstanzen. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Class" type="xs:string" default="Default">
+			<xs:annotation>
+				<xs:documentation xml:lang="der">Dieses Attribut dient der Gruppierung von Parameterb innerhalb der gleichen Komponenteninstanz.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Erase" use="optional"/>
+		<xs:attribute name="SourceEvaluationContext" type="SourceEvaluationContextEnum" default="LocationOfDefinition"/>
 	</xs:complexType>
--->
 	<xs:element name="BookingEntry" type="BookingEntryType" abstract="true">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_86">Das BookingEntry ist die Integrationsmarke für Namespaces verschiedener Reservierungssysteme. Es ist denkbar, dass an dieser Stelle später komplexe Strukturen zum Befüllen von Reservierungssystemen platziert werden können.</xs:documentation>
@@ -4002,6 +4032,12 @@ A not necessarily complete nor necessarily correct list of codes and airlines ca
 			<xs:enumeration value="AppliedChildren"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="SourceEvaluationContextEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IterationInstance"/>
+			<xs:enumeration value="LocationOfDefinition"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="ShortServiceAnnotationType">
 		<xs:restriction base="xs:string">
 			<xs:minLength value="1"/>
@@ -4968,6 +5004,21 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="Person Day"/>
 			<xs:enumeration value="Person"/>
 			<xs:enumeration value="Day"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEvaluationBaseDayEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Day"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEvaluationBasePersonEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Person"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingTreeEvaluationBaseInstanceEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Instance"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AirportTypeEnum">
