@@ -19220,7 +19220,7 @@ usw.]]></programlisting>
 <Booking><Flug><Hin><Leg Source="global:Outbound" EvaluationBase="Instance"><DateStart>...</DateStart>
 <Booking><Flug><Hin><Leg Source="global:Outbound" EvaluationBase="Instance"><DateEnd>...</DateEnd>
 <Booking><Flug><Rueck><Leg Source="global:Inbound" EvaluationBase="Instance"><DateStart>...</DateStart>
-<Booking><Flug><Hin><Leg Source="global:Inbound" EvaluationBase="Instance"><DateEnd>...</DateEnd>]]></programlisting>
+<Booking><Flug><Rueck><Leg Source="global:Inbound" EvaluationBase="Instance"><DateEnd>...</DateEnd>]]></programlisting>
 						<para xml:lang="det">Die Auswertung der Source="global:Outbound" ergibt laut OTDS Instanzbaum
 							2 Komponenten-Instanzen: "OutBound1" und "OutBound2", da der Verweis per
 							default ComponentType="firstrealdescendants" als Wert hat und damit nur
@@ -19234,9 +19234,9 @@ usw.]]></programlisting>
 <Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><DateEnd>...</DateEnd>
 <Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><DateEnd>...</DateEnd>
 <Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><DateStart>...</DateStart>
-<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><DateStart>...</DateStart>
-<Booking><Flug><Hin><Leg Instance="InBound1" EvaluationBase="Instance"><DateEnd>...</DateEnd>
-<Booking><Flug><Hin><Leg Instance="InBound1" EvaluationBase="Instance"><DateEnd>...</DateEnd>]]></programlisting>
+<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><DateStart>...</DateStart>
+<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><DateEnd>...</DateEnd>
+<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><DateEnd>...</DateEnd>]]></programlisting>
 						<para xml:lang="det">Die Auswertung der <code>DateStart</code> und <code>DateEnd</code> greifen wir im nächsten Kapitel auf.</para>
 						<para xml:lang="det">Würde man anstatt <code>global:</code> in der Source <code>global+ComponentType.all:</code> angeben, so würde damit direkt die Inastanzen "Outbound" unf "Inbound" referenziert. Das Ergebnis der Expansion wäre dann:</para>
 						<programlisting><![CDATA[
@@ -19270,7 +19270,11 @@ usw.]]></programlisting>
 <Booking><Flug Instance="InBound2" EvaluationBase="Instance"><Leg Instance="InBound2" EvaluationBase="Instance"><DateStart>...</DateStart>
 ]]></programlisting>
 						<para xml:lang="det">Diese Expansion über die Instanzen wird nur durchgeführt, wenn in dem entsprechenden Knoten das Attribut <code>@EvaluationBase="Instance"</code> angegeben ist.</para>
-						<para xml:lang="det">Bei <code>@EvaluationBase="Person"</code> wird die Menge der Instanzen in einen Menge von Personen überführt, wobei jede Person dieser Menge mindestens einer Intanz zugeordnet ist. Danach findet eine Expansion über die Personen statt. Klassiker ist hier die Angabe der Personenalter.</para>
+						<para xml:lang="det">Bei <code>@EvaluationBase="Person"</code> wird die Menge der Instanzen in
+							einen Menge von Personen überführt, wobei jede Person dieser Menge
+							mindestens einer Instanz zugeordnet ist. Danach findet eine Expansion
+							über die Personen statt. Klassiker ist hier die Angabe der
+							Personenalter.</para>
 						<programlisting><![CDATA[<BookingTree>
 	<Booking>
 		<Hotel Source="global:Accommodation">
@@ -19288,14 +19292,14 @@ usw.]]></programlisting>
 	</BookingTree>]]></programlisting>
 						<para xml:lang="det">Daraus entsteht für <code>BirthDate</code> folgender Blattknoten:</para>
 						<programlisting><![CDATA[
-<Booking><Reisende Source="Product" EvaluationBase="Person"><BirthDate/>
+<Booking><Reisende Source="Product" EvaluationBase="Person"><Alter><BirthDate>
 ]]></programlisting>
 						<para xml:lang="det">Dieser wird aber nun über die Anzahl der Personen expandiert. Für eine Reise mit 4 Personen werden daraus dann folgende 4 Blattknoten:</para>
 						<programlisting><![CDATA[
-<Booking><Reisende PersinIndex="1"><BirthDate/>
-<Booking><Reisende PersinIndex="2"><BirthDate/>
-<Booking><Reisende PersinIndex="3"><BirthDate/>
-<Booking><Reisende PersinIndex="4"><BirthDate/>
+<Booking><Reisende PersinIndex="1"><Alter><BirthDate>
+<Booking><Reisende PersinIndex="2"><Alter><BirthDate>
+<Booking><Reisende PersinIndex="3"><Alter><BirthDate>
+<Booking><Reisende PersinIndex="4"><Alter><BirthDate>
 ]]></programlisting>
 						<para xml:lang="det">Folgende Struktur kombiniert die beiden Expansionen:</para>
 						<programlisting><![CDATA[<BookingTree>
@@ -19327,22 +19331,22 @@ usw.]]></programlisting>
 </BookingTree>]]></programlisting>
 						<para xml:lang="det">Das Ergebnis der Expansion folgt dem gleichen Schema der Expansion über jeden Knoten und ist nun schon recht umfangreich:</para>
 						<programlisting><![CDATA[
-<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
-<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
-<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
-<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
-<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
-<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
-<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
-<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="1"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="2"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="3"><BirthDate/>
-<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="4"><BirthDate/>
+<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="1"><Alter><BirthDate>
+<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="2"><Alter><BirthDate>
+<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="3"><Alter><BirthDate>
+<Booking><Flug><Hin><Leg Instance="OutBound1" EvaluationBase="Instance"><Reisende PersinIndex="4"><Alter><BirthDate>
+<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="1"><Alter><BirthDate>
+<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="2"><Alter><BirthDate>
+<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="3"><Alter><BirthDate>
+<Booking><Flug><Hin><Leg Instance="OutBound2" EvaluationBase="Instance"><Reisende PersinIndex="4"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="1"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="2"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="3"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound1" EvaluationBase="Instance"><Reisende PersinIndex="4"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="1"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="2"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="3"><Alter><BirthDate>
+<Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersinIndex="4"><Alter><BirthDate>
 ]]></programlisting>
 						<para xml:lang="det">Die Expansion bei <code>@EvaluationBase="Day"</code> erfolgt analog. Es wird die Menge der Instanzen in einen Menge von Tagen überführt, wobei jeder Tag dieser Menge mindestens einer Intanz zugeordnet ist. Danach findet eine Expansion über die Tage statt. Hier könnte man sich vorstellen, dass in einem Addon String mit "X"en für jeden Tag an dem das Addon gebucht wurde übermittelt werden soll.(Das ist rein theoretisch. Das ist kein Praxisbeispiel)</para>
 						<programlisting><![CDATA[<BookingTree>
@@ -19395,11 +19399,21 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 
 
 ]]></programlisting>
-						<para xml:lang="det">Man möchte an einer globalen Stelle einen Buchungsparameter für z.B. die Flugklasse spezifizieren. <code>Source="BookingClass"</code>, was ja identisch ist mit <code>Source="local:BookingClass"</code> 
-							würde mit dem Kontext <code>SourceEvaluationContext="LocationOfDefinition"</code> als "False" ausgewertet, da der Kontext="Brand" wäre und die "lokal"-Auswertung von 
-							"Brand" ausgehend keine "BookingClass" findet. <code>Source="global:BookingClass"</code> ist hier auch keine Lösung, denn das "global" würde dazu führen, dass an dieser Stelle über alle BookingClasses aller Flüge 
-							iteriert würde. Genau das ist aber nicht gewollt. Deshalb wurde <code>SourceEvaluationContext="IterationInstance"</code> eingeführt. Mit diesem Attribut entspricht der Kontext immer genau der gerade betrachteten 
-							Komponenten-Instanz des übergeordneten Knotens. Genau das ist hier gewollt. Es würden dann folgende Blattknoten entstehen:</para>
+						<para xml:lang="det">Man möchte an einer globalen Stelle einen Buchungsparameter für z.B. die
+							Flugklasse spezifizieren. <code>Source="BookingClass"</code>, entspricht
+							aufgrund der Default-Definitionen
+								<code>Source="local:BookingClass"</code> und würde mit dem Kontext
+								<code>SourceEvaluationContext="LocationOfDefinition"</code> als
+							"False" ausgewertet, da damit der Kontext="Brand" wäre und die
+							"lokal"-Auswertung von "Brand" ausgehend keine "BookingClass" findet.
+								<code>Source="global:BookingClass"</code> ist hier auch keine
+							Lösung, denn das "global" würde dazu führen, dass an dieser Stelle über
+							alle BookingClasses aller Flüge iteriert würde. Genau das ist aber nicht
+							gewollt. Deshalb wurde
+								<code>SourceEvaluationContext="IterationInstance"</code> eingeführt.
+							Mit diesem Attribut entspricht der Kontext immer genau der gerade
+							betrachteten Komponenten-Instanz des übergeordneten Knotens. Genau das
+							ist hier gewollt. Es würden dann folgende Blattknoten entstehen:</para>
 						<programlisting><![CDATA[
 <Booking><Flug><Leg Instance="OutBound1"><Seat Instance="OutBound1.BookingClass">
 <Booking><Flug><Leg Instance="OutBound2"><Seat Instance="OutBound2.BookingClass">
