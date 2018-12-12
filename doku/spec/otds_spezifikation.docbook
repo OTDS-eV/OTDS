@@ -18879,8 +18879,9 @@ usw.]]></programlisting>
 						</itemizedlist>
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeSingleNodeType">
-						<title><phrase  xml:lang="det">Der <code>BookingTreeSingleNodeType</code></phrase></title>
-						<para xml:lang="det">BookingTreeSingleNodeType wird für jeden Single-Konten innerhalb der BookingTree-Struktur benutzt, der kein Blattknoten ist.</para>
+						<title><phrase xml:id="de_9819" xml:lang="de">Der <code>BookingTreeSingleNodeType</code></phrase><phrase xml:id="en_9819" xml:lang="en">The <code>BookingTreeSingleNodeType</code></phrase></title>
+						<para xml:id="de_9820" xml:lang="de"><code>BookingTreeSingleNodeType</code> wird für jeden Single-Konten innerhalb der BookingTree-Struktur benutzt, der kein Blattknoten ist.</para>
+						<para xml:id="en_9820" xml:lang="en"><code>BookingTreeSingleNodeType</code> is used for every single node within the BookingTree structure that is not a leaf node.</para>
 						<figure>
 							<title><phrase xml:id="de_9727" xml:lang="de">Übersicht des <code>BookingTreeSingleNodeType</code></phrase><phrase xml:id="en_9727" xml:lang="en">Overview of the <code>BookingTreeSingleNodeType</code></phrase></title>
 							<mediaobject>
@@ -19009,7 +19010,7 @@ usw.]]></programlisting>
 								</caption>
 							</mediaobject>
 						</figure>
-						<para xml:id="de_9755" xml:lang="det">Die Referenzierung eines Termins erfolgt analog zu der Referenzierung
+						<para xml:id="de_9755" xml:lang="de">Die Referenzierung eines Termins erfolgt analog zu der Referenzierung
 							unter Benutzung von <code>BookingGroup/BookingParameter/Date</code>. Der Wert des Elementes selbst bleibt leer. Falls @SourceEvaluationContext =
 							"IterationInstance" so weicht die Source-Auswertung von der klassischen
 							Sourceauswertung ab. Lesen Sie dazu auch etwas später das Kapitel
@@ -19369,8 +19370,8 @@ usw.]]></programlisting>
 <Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersonIndex="3"><Alter><BirthDate>
 <Booking><Flug><Rueck><Leg Instance="InBound2" EvaluationBase="Instance"><Reisende PersonIndex="4"><Alter><BirthDate>
 ]]></programlisting>
-						<para xml:id="de_9798" xml:lang="de">Die Expansion bei <code>@EvaluationBase="Day"</code> erfolgt analog. Es wird die Menge der Instanzen in einen Menge von Tagen überführt, wobei jeder Tag dieser Menge mindestens einer Instanz zugeordnet ist. Danach findet eine Expansion über die Tage statt. Hier könnte man sich vorstellen, dass in einem Addon String mit "X"en für jeden Tag, an dem das Addon gebucht wurde, übermittelt werden soll.(Das ist rein theoretisch. Das ist kein Praxisbeispiel)</para>
-						<para xml:id="en_9798" xml:lang="en">The expansion at <code>@EvaluationBase="Day"</code> is analogous. The set of instances is converted into a set of days, whereby each day of this set is assigned to at least one instance. Then an expansion over the days takes place. Here one could imagine that in an addon string with "X "en for each day, on which the addon was booked, should be transmitted. (This is purely theoretical and no practical example)</para>
+						<para xml:id="de_9798" xml:lang="de">Die Expansion bei <code>@EvaluationBase="Day"</code> erfolgt analog. Es wird die Menge der Instanzen in einen Menge von Tagen überführt, wobei jeder Tag dieser Menge mindestens einer Instanz zugeordnet sein muss. Danach findet eine Expansion über jeden dieser Tage statt. Hier könnte man sich vorstellen, dass in einem Addon String mit "X"en für jeden Tag, an dem das Addon gebucht wurde, ein „X“ übermittelt werden soll.(Das ist rein theoretisch. Das ist kein Praxisbeispiel)</para>
+						<para xml:id="en_9798" xml:lang="en">The expansion at <code>@EvaluationBase="Day"</code> is analogous. The set of instances is converted into a set of days, whereby each day of this set must be assigned to at least one instance. Then an expansion takes place over each of these days. Here one could imagine that in an addon string with "X" an "X" should be transmitted for each day on which the addon was booked (this is purely theoretical and not a practical example).</para>
 						<programlisting><![CDATA[<BookingTree>
 	<Booking>
 		<Addon Source="global:Product">
@@ -19481,14 +19482,14 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 					</section>
 					<section xml:id="OtdsStrategyBookingBookingTreeConditionEvaluation">
 						<title><phrase xml:id="de_9807" xml:lang="de">Auswertung der Condition an den jeweiligen BookingTree-Knoten</phrase><phrase xml:id="en_9807" xml:lang="en">Evaluation of the condition at the respective BookingTree nodes</phrase></title>
-						<para xml:id="de_9808" xml:lang="det">In der BookingTree-Struktur kann man an allen multiplen Knoten auch eine Condition definieren. 
+						<para xml:id="de_9808" xml:lang="de">In der BookingTree-Struktur kann man an allen multiplen Knoten auch eine Condition definieren. 
 							Abhängig von dem Wert des Attributs @EvaluationBase des Parent-Knoten wird die Condition im Kontext der Komponenten-Instanz(en), bestimmten Personen oder bestimmter Tage ausgewertet.</para>
 						<para xml:id="en_9808" xml:lang="en">In the BookingTree structure also a condition may be defined at all multiple nodes. Depending on the value of the @EvaluationBase attribute of the parent node, the condition is evaluated in the context of the component instance(s), specific persons, or specific days.</para>
 						<bridgehead xml:id="de_9809" xml:lang="de">@EvaluationBase="Instance"</bridgehead><bridgehead xml:id="en_9809" xml:lang="en">@EvaluationBase="Instance"</bridgehead>
 						<para xml:id="de_9810" xml:lang="de">Wenn in einem Element <code>@EvaluationBase="Instance"</code> gesetzt ist, so wird die Condition im Kontext der betrachtetene Komponenten-Instanz des Parent-Elementes ausgewertet. Bzgl. Impact-Bedingungen wird die Condition so ausgewertet, als ob die gesamte Bedingung in ein NonImpact-Wrapper mit EvaluationMode="Any" eingefasst ist. Ist die Bedingung bezogen auf die betrachtete Komponenten-Instanz falsch, so werden alle nachfolgenden Blattknoten bezogen auf die betrachtete Komponenteninstanz eliminiert.</para>
 						<para xml:id="en_9810" xml:lang="en">If <code>@EvaluationBase="Instance"</code> is set in an element, the condition is evaluated in the context of the considered component instance of the parent element. With regard to impact conditions, the condition is evaluated as if the entire condition is enclosed in a NonImpact wrapper with EvaluationMode="Any". If the condition is false with respect to the component instance in question, all subsequent leaf nodes with respect to the component instance considered are eliminated.</para>
 						<bridgehead xml:id="de_9811" xml:lang="de">@EvaluationBase="Person"</bridgehead><bridgehead xml:id="en_9811" xml:lang="en">@EvaluationBase="Person"</bridgehead>
-						<para xml:id="de_9812" xml:lang="det">Wenn in einem Element <code>@EvaluationBase="Person"</code> gesetzt ist, so wird die Condition im Kontext der jeder Person ausgewertet. Bzgl. Impact-Bedingungen wird die Condition so ausgewertet, als ob die gesamte Bedingung in ein NonImpact-Wrapper mit EvaluationMode="Any" und Element "PersonBase" eingefasst ist. Ist die Bedingung bezogen auf die betrachtete Person falsch, so werden alle nachfolgenden Blattknoten bezogen auf die betrachtete Person eliminiert.</para>
+						<para xml:id="de_9812" xml:lang="de">Wenn in einem Element <code>@EvaluationBase="Person"</code> gesetzt ist, so wird die Condition im Kontext der jeder Person ausgewertet. Bzgl. Impact-Bedingungen wird die Condition so ausgewertet, als ob die gesamte Bedingung in ein NonImpact-Wrapper mit EvaluationMode="Any" und Element "PersonBase" eingefasst ist. Ist die Bedingung bezogen auf die betrachtete Person falsch, so werden alle nachfolgenden Blattknoten bezogen auf die betrachtete Person eliminiert.</para>
 						<para xml:id="en_9812" xml:lang="en">If <code>@EvaluationBase="Person"</code> is set in an element, the condition is evaluated in the context of each person. Regarding impact conditions, the condition is evaluated as if the entire condition is enclosed in a non-impact wrapper with EvaluationMode="Any" and element "PersonBase". If the condition related to the considered person is false, all subsequent leaf nodes related to the considered person are eliminated.</para>
 						<bridgehead xml:id="de_9813" xml:lang="de">@EvaluationBase="Day"</bridgehead><bridgehead xml:id="en_9813" xml:lang="en">@EvaluationBase="Day"</bridgehead>
 						<para xml:id="de_9814" xml:lang="de">Wenn in einem Element <code>@EvaluationBase="Day"</code> gesetzt ist, so wird die Condition im Kontext der Tage ausgewertet. Bzgl. Impact-Bedingungen wird die Condition so ausgewertet, als ob die gesamte Bedingung in ein NonImpact-Wrapper mit EvaluationMode="Any" und Element "DayBase" eingefasst ist. Ist die Bedingung bezogen auf den betrachteten Tag falsch, so werden alle nachfolgenden Blattknoten bezogen auf den betrachteten Tag eliminiert.</para>
@@ -21312,7 +21313,7 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							has to equal the CheckIn-Date for the hotel. In reverse the
 							CheckOut-Date of a hotel must be identical with the CheckIn-Date of the
 							return flight.</para>
-					<para xml:id="de_9540" xml:lang="det">Auf Veranstalterseite entsteht häufig Bedarf nach
+					<para xml:id="de_9540" xml:lang="de">Auf Veranstalterseite entsteht häufig Bedarf nach
 							flexiblen Strategien zur Zusteuerung von Hotels zu Flügen, die von der
 							Standard-Logik abweichen sollen. Eine solche Abweichung kann man mit dem
 								<code>NeighbourCorrectionComponent</code> (im Folgenden: NCC)
@@ -21328,7 +21329,7 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							eine "negative Lücke" also einen <code>NCC = -1</code> definiert. Damit
 							findet der CheckIn im Hotel einen Tag früher statt. Dazu folgendes
 							Beispiel:</para>
-					<para xml:id="en_9540" xml:lang="en">Among tour operators there often is a need for flexible strategies for the adding hotels to flights, which deviates from the standard logic. Such a deviation may be defined using the <code>NeighbourCorrectionComponent</code> (in the following: NCC).our operators, for example, sometimes want to enable their customers to move into their rooms well before the usual check-in time if their arrival times are very early, in order to get some sleep. standard logic. Such a deviation may be defined using the <code>NeighbourCorrectionComponent</code> (in the following: NCC). . For example, tour operators may want to very early arrival times, you can book your room well in advance. at the usual check-in time to get some sleep. For this the hotel has to be booked one night early. 
+					<para xml:id="en_9540" xml:lang="en">Among tour operators there often is a need for flexible strategies for the adding hotels to flights, which deviate from the standard logic. Such a deviation may be defined using the <code>NeighbourCorrectionComponent</code> (in the following: NCC).our operators, for example, sometimes want to enable their customers to move into their rooms well before the usual check-in time if their arrival times are very early, in order to get some sleep. standard logic. Such a deviation may be defined using the <code>NeighbourCorrectionComponent</code> (in the following: NCC). . For example, tour operators may want to very early arrival times, you can book your room well in advance. at the usual check-in time to get some sleep. For this the hotel has to be booked one night early. 
 						With the NCC a gap between neighboring components can be defined. In order to achieve the behavior described above, an overlap of one day must now be defined between the arrival date of the flight and the check-in date of the hotel. So one defines a <code>NCC</code>, which in interaction with the Accommodation defines a "negative gap", thus a <code>NCC = -1</code>. As a result the check-in in the hotel takes place one day earlier. The following example illustrates this:</para>
 					<programlisting><![CDATA[<OnewayFlight>
 	<OnewayFlight Key="FRAPMI20180331">
@@ -21393,43 +21394,29 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 			<CheckOutDateOffset Component="Accommodation">-1</CheckOutDateOffset>
 		</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9243" xml:lang="det">Hier ist der CheckIn-Termin des Fluges der 27.3.2018, doch
+					<para xml:id="de_9243" xml:lang="de">Hier ist der CheckIn-Termin des Fluges der 27.3.2018, doch
 							startet der Flug so spät (22:40h), dass er erst am Folgetag auf
 							Fuerteventura landet. Entsprechend kennzeichnet das DateOffset diesen
 							Flug als Übernachtflug. Der Veranstalter definiert wie im obigen
 							Beispiel mit dem CheckOutDateOffset =-1 im <code>NCC</code> bezogen auf
 							die Komponente Accommodation eine 1-tägige Überlappung des CheckOut des
 							Fluges mit dem CheckIn des Hotels, so dass der CheckIn des Hotels am
-							26.3. erfolgt, so dass dem Kunden der frühe Bezug seines Zimmers
-							ermöglicht wird.</para>
-					<para xml:id="en_9243" xml:lang="en">Here the CheckIn of the flight takes place
-						on 27.3.2018, but the flight takes off so late (22:40h) that it lands in
-						Fuerteventura on the following day. The DateOffset correspondigly marks this
-						flight as an overnight flight. Due to strategic reasons the tour operator
-						just as in the previous example pre-schedules the virtual CheckOut of the
-						flight a day earlier by defining a CheckOutDateOffset =-1 in
-							<code>NCC</code> with regard to the component Accommodation, hence to
-						the 26.3.. The CheckIn-date of the Hotel connects seamlessly to this date,
-						thus also taking place on 26.3., so that the customer can use his room a day
-						earlier.</para>
-					<para xml:id="de_9244" xml:lang="det">Die <code>NeighbourCorrectionComponent</code> kann auch
+							26.3. erfolgt. So wird dem Kunden der frühe Bezug seines Zimmers
+							ermöglicht.</para>
+					<para xml:id="en_9243" xml:lang="en">Here is the check-in date of the flight 27.3.2018, but the flight takes off so late (22:40h) that it lands on Fuerteventura the following day. Accordingly, the DateOffset marks this flight as an overnight flight. As in the above example, the tour operator defines with CheckOutDateOffset =-1 in <code>NCC</code> in relation to the Accommodation component a 1-day overlap of the CheckOut of the flight with the CheckIn of the hotel, so that the CheckIn of the hotel takes place on 26 March. This enables the customer to move into his room early.</para>
+					<para xml:id="de_9244" xml:lang="de">Die <code>NeighbourCorrectionComponent</code> kann auch
 							für den Rückflug Anwendung finden: Bei spät abends oder in der Nacht
 							startenden Abflügen aus der Urlaubsdestination möchten manche
 							Veranstalter vielleicht als Mehrwert eine Reise anbieten, die es dem
 							Kunden ermöglicht, noch einen Teil des Abends/der Nacht vor dem Transfer
 							in ihrem Zimmer zu verbringen. Wie auch zuvor wird hier wieder durch den
-								<code>NCC</code> eine Überlappung also eine negative Lücke
+								<code>NCC</code> eine Überlappung, also eine negative Lücke
 							definiert. Diesmal aber zwischen dem CheckIn des Rückfluges und dem
-							CheckOut der Unterkunft also ein <code>CheckInDateOffset = -1</code>.
+							CheckOut der Unterkunft, also ein <code>CheckInDateOffset = -1</code>.
 							Das Beispiel dazu sieht wie folgt aus: </para>
 					<para xml:id="en_9244" xml:lang="en">The
 							<code>NeighbourCorrectionComponent</code> can also be applied to the
-						return flight: if for example a returnflight departs quite late and the
-						traveller shall have the opportunity to use his room after the regular
-						check-out time of the hotel, the hotel-room has to be booked for a longer
-						period of time. To realize that, the departure date of the flight is
-						virtually postponed to the following day with a CheckInDateOffset =1. Here
-						is an example for that case:</para>
+						return flight: For late evening or night departures from the holiday destination, some operators may wish to offer an added value trip that allows the customer to spend part of the evening/night before the transfer in his room. As before, the <code>NCC</code> defines an overlap, i.e. a negative gap. In this case however it comes into effect between the CheckIn of the return flight and the CheckOut of the accommodation thus <code>CheckInDateOffset = -1</code></para>
 					<programlisting><![CDATA[<OnewayFlight>
 	<OnewayFlight Key="FUEFRA20180307">
 		<Properties>
@@ -21453,27 +21440,19 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 			<CheckInDateOffset Component="Accommodation">-1</CheckInDateOffset>
 		</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9245" xml:lang="det">Im Beispiel oben startet der Rückflug am 7.3.18 von
+					<para xml:id="de_9245" xml:lang="de">Im Beispiel oben startet der Rückflug am 7.3.18 von
 							Fuerteventura mit 22:00 Uhr recht spät am Abend; die Ankunft in
 							Frankfurt erfolgt erst am nächsten Kalendertag frühmorgens um 2:40 Uhr.
 							Entsprechend kennzeichnet das DateOffset diesen Flug für die Suche als
 							Übernachtflug. Damit das Hotelzimmer bis zum Beispiel 21 Uhr durch den
 							Reisenden genutzt werden kann, müsste der CheckOut im Hotel einen Tag
-							später erfolgen. Um das zu erreichen definietr man zwischen dem Rückflug
+							später erfolgen. Um das zu erreichen, definiert man zwischen dem Rückflug
 							und dem CheckOut aus der Unterkunft mit Hilfe des <code>NCC</code> eine
 							Überlappung ("negative Lücke") von einem Tag. Der CheckIn in den
 							Rückflug erfolgt am 07.03. der CheckOut in der Unterkunft wird aber auf
 							den 08.03. terminiert. </para>
-					<para xml:id="en_9245" xml:lang="en">In the example above the inbound flight departs on 7.3.18
-							form Fuerteventura quite late in the evening (22:00h). The arrival in
-							Frankfurt is scheduled for the early morning of the following day
-							(2:40h). The DateOffset correspondingly marks this flight for the search
-							as an Overnight Flight. For the occupancy of the hotel the
-							CheckInDateOffset=-1 with regard to the Accomodation indicates, that the
-							CheckIn of the flight is shifted virtually to one day later, thus to
-							8.3.. As a result the hotelroom can be used for another evening/night by
-							the traveller.</para>
-					<para xml:id="de_9246" xml:lang="det">Genau umgekehrt verhält es sich bei früh morgens
+					<para xml:id="en_9245" xml:lang="en">In the example above, the return flight from Fuerteventura starts on 7.3.18 at 22:00 quite late in the evening; the arrival in Frankfurt takes place on the next calendar day early in the morning at 2:40 a.m.. Accordingly, the DateOffset marks this flight for the search as an overnight flight. So that the hotel room can be used by the traveller until 9 p.m., for example, the CheckOut in the hotel would have to take place one day later. To achieve this, an overlap ("negative gap") of one day is defined between the return flight and the CheckOut from the accommodation using <code>NCC</code>. The check-in for the return flight takes place on 07.03. The check-out in the accommodation is scheduled for 08.03..</para>
+					<para xml:id="de_9246" xml:lang="de">Genau umgekehrt verhält es sich bei früh morgens
 							startenden Abflügen aus der Urlaubsdestination (bspw. um 0:30 Uhr). Ohne
 							eine Steuerung mithilfe der <code>NeighbourCorrectionComponent</code>
 							würde der Kunde die Übernachtung in der Nacht vor dem Abflug voll
@@ -21519,11 +21498,11 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 			<CheckInDateOffset Component="Accommodation">1</CheckInDateOffset>
 		</NeighbourComponentCorrection>
 </OnewayFlight>]]></programlisting>
-					<para xml:id="de_9247" xml:lang="det">Im Beispiel startet der Rückflug am 7.3.18 von
+					<para xml:id="de_9247" xml:lang="de">Im Beispiel startet der Rückflug am 7.3.18 von
 							Fuerteventura nach Frankfurt um kurz nach Mitternacht (0:30 Uhr). Ohne
 							den Einsatz der <code>NCC</code> würde daher das Hotel auch für die
 							Nacht des 6.3. auf den 7.3. gebucht werden. Durch die Definition einer
-							Lücke von 1 Tag zischen dem CheckIn des Rückfluges mithilfe der
+							Lücke von 1 Tag zwischen dem CheckIn des Rückfluges mithilfe der
 								<code>NCC</code> (CheckInDateOffset mit Bezug auf die Accommodation
 							=1) wird diese Nacht nicht mehr gebucht. Die Gesamtkosten für den
 							Kunden, der vielleicht ohnehin aufgrund von langen Transferzeiten und
@@ -21534,10 +21513,10 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 					<para xml:id="en_9247" xml:lang="en">In the example above the return flight
 						starts on 7.3.18 from Fuerteventura to Frankfurt shortly after midnight
 						(0:30h). Without the use of <code>NCC</code> the hotel would thus also be
-						booked for the night of the 6th to the 7th of March. By virtually advancing
-						the CheckIn of the flight with the help of the <code>NCC</code>
-						(CheckInDateOffset with regard to the Accommodation =-1), this night is not
-						booked. The total costs for the customer, that might have to depart from the
+						booked for the night of the 6th to the 7th of March. By defining a gap of 1 
+						day between the check-in of the return flight using the <code>NCC</code> 
+						(CheckInDateOffset with reference to Accommodation=1) this night is no longer booked. 
+						The total costs for the customer, that might have to depart from the
 						hotel e.g. at 20:00h due to a long tranfer and waiting times at the airport,
 						are reduced. If the hotel in addition allows him to spend the time after the
 						checkout comfortably on the hotel grounds, this can represent an attractive
@@ -23707,34 +23686,27 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 	<section xml:id="OtdsCodeOfPractiseBooking">
 			<title><phrase xml:id="de_1906" xml:lang="de">Praxisbeispiele der Buchungsparameter</phrase><phrase xml:id="en_1906" xml:lang="en">Practical examples of booking parameters</phrase></title>
 		<section xml:id="OtdsCodeOfPractiseBookingGeneralExample">
-			<title><phrase xml:lang="det">Allgemeines Beispiel für die Verarbeitung der Buchungsparameter in Analogie zu einer toma-ähnlichen Buchungsmaske</phrase></title>
-			
-			<para xml:lang="det">Im folgenden .</para>
+			<title><phrase xml:id="de_9815" xml:lang="de">Allgemeines Beispiel für die Verarbeitung der Buchungsparameter in Analogie zu einer TOMA-ähnlichen Buchungsmaske</phrase><phrase xml:id="en_9815" xml:lang="en">General example for the processing of booking parameters in analogy to a booking mask similar to TOMA</phrase></title>
+				<para></para>
 				<figure>
-					<title><phrase xml:lang="det">Übersicht der "Field"-Values
-						anhand der Analogie zur Buchungsmaske</phrase><phrase
-							xml:lang="en">Overview of the "Field" values using
-							the analogy of the booking mask</phrase></title>
+					<title><phrase xml:id="de_9816" xml:lang="de">Übersicht der "Field"-Values anhand der Analogie zur Buchungsmaske</phrase>
+						<phrase xml:id="en_9816" xml:lang="en">Overview of the "Field" values using the analogy of the booking mask</phrase></title>
 					<mediaobject>
 						<imageobject>
 							<imagedata fileref="figures/bookingmaskfieldexplanation.png"
 								format="PNG" contentwidth="90%"/>
 						</imageobject>
 						<textobject>
-							<para xml:lang="de">Übersicht aller
-								Field-Values</para>
-							<para xml:lang="en">Overview of all Field
-								values</para>
+							<para xml:lang="de">Übersicht aller Field-Values</para>
+							<para xml:lang="en">Overview of all Field values</para>
 						</textobject>
 						<caption>
 							<para xml:lang="de"> </para><para xml:lang="en"/>
 						</caption>
 					</mediaobject>
 				</figure>
-				<para xml:id="de_1690" xml:lang="de">Im folgenden ein Beispiel, wie die oben
-					abgebildete Buchungsmaske in OTDS definiert wird:</para>
-				<para xml:id="en_1690" xml:lang="en">The following is an example of how the
-					above pictured booking page is defined in OTDS:</para>
+				<para xml:id="de_1690" xml:lang="de">Im folgenden ein Beispiel, wie die oben abgebildete Buchungsmaske in OTDS definiert wird:</para>
+				<para xml:id="en_1690" xml:lang="en">The following is an example of how the above pictured booking page is defined in OTDS:</para>
 				<programlisting><![CDATA[
 	<Otds ...>
 		...
@@ -23807,8 +23779,8 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 		</Accommodation>
 		...
 		<OnewayFlights>
-			<!-- Der ReturnFlight wird hier aus 2 OnewayFlights zusammengesetzt, was in dem Beispiel nicht weiter ausgeführt wird -->
-			<!-- English remark: Thereturn flight is being set up from two OnewayFlights, which is not being elaborated on in the example -->
+			<!-- Der ReturnFlight wird hier aus zwei OnewayFlights zusammengesetzt, was in dem Beispiel nicht weiter ausgeführt wird -->
+			<!-- English remark: The return flight is being set up from two OnewayFlights, which is not being elaborated on in the example -->
 			<OnewayFlight Key="DUSPMI">
 				<Booking>
 					<BookingGroup Area="ServiceArea" Source="OnewayFlight">
@@ -23866,7 +23838,7 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 				<para xml:lang="det">TODO für Steffi ;-) aaaaa : Ergänzung der globalen Buchunsgparameter und Darstellung der einzelenen Schritte der Buchungsparameterverarbeitung anhand dieses konkreten Beispiels.</para>
 			</section>
 		<section xml:id="OtdsCodeOfPractiseBookingExampleMultipleBookingRows">
-			<title><phrase xml:lang="det">Praxisbeispiel, wie mehrere Buchungszeilen gefüllt werden</phrase></title>
+			<title><phrase xml:id="de_9817" xml:lang="de">Praxisbeispiel, wie mehrere Buchungszeilen gefüllt werden</phrase><phrase xml:id="en_9817" xml:lang="en">Practical example of how several booking lines are filled</phrase></title>
 			
 				<para xml:id="de_1691" xml:lang="de">Sollte eine Komponente mehrere
 					Buchungszeilen zum Buchen benötigen, so kann man die einzelnen
@@ -23883,8 +23855,8 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 					receives the value "Default".</para>
 				<para xml:id="de_1692" xml:lang="de">Hier ein Beispiel für einen gelieferten
 					Returnflug, der zwei Buchungszeilen definiert.</para>
-				<para xml:id="en_1692" xml:lang="en">Here is an example of a delivered return
-					flight which has been defined in 2 booking lines.</para>
+				<para xml:id="en_1692" xml:lang="en">Here is an example of a delivered return flight which
+					defines two booking lines.</para>
 				<para xml:id="de_1693" xml:lang="de"><programlisting><![CDATA[
 	<Otds ...>
 		...
@@ -23994,16 +23966,15 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 			</section>
 		
 		<section xml:id="OtdsCodeOfPractiseBookingExampleBookingNamespaceStadis">
-			<title><phrase xml:lang="det">Beispiel der Definition und Lieferung eines BookingTree-NameSpace für die Nutzung in Stadis und andere Systeme</phrase></title>
+			<title><phrase xml:id="de_9818" xml:lang="de">Beispiel der Definition und Lieferung eines BookingTree-NameSpace für die Nutzung in Stadis und anderen Systemen</phrase>
+				<phrase xml:id="en_9818" xml:lang="en">Example of definition and delivery of a BookingTree-NameSpace for use in Stadis and other systems</phrase></title>
 			<para xml:lang="de">aaaaa</para>
 		</section>
 	</section>
 	</section>
 	<section xml:id="OtdsProcess">
-		<title><phrase xml:id="de_2129" xml:lang="de">Das theoretische
-				Verarbeitungsmodell</phrase><phrase xml:id="en_2129" xml:lang="en">The theoretical
-				processing model</phrase></title>
-
+		<title><phrase xml:id="de_2129" xml:lang="de">Das theoretische Verarbeitungsmodell</phrase>
+			<phrase xml:id="en_2129" xml:lang="en">The theoretical processing model</phrase></title>
 		<para xml:id="de_2130" xml:lang="de">In diesem Kapitel wird das theoretische
 			Verarbeitungsmodell vorgestellt. Dieses Verarbeitungsmodell ist dazu gedacht, das
 			Verständnis der OTDS-Datenstruktur weiter zu vertiefen und Missverständnisse zu
