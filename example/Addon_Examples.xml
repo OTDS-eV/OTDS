@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
 	<Products>
-		<!-- Exemplarische Accommodation, auf die sich das Addon bezieht. Ein Addon kann stets nur mit einer anderen Komponente zusammen gebucht werden! -->
+		<!-- de: Exemplarische Accommodation, auf die sich das Addon bezieht. Ein Addon kann stets nur mit einer anderen Komponente zusammen gebucht werden! -->
+		<!-- en: Exemplary accommodation to which the addon refers. An addon can only be booked together with another component! -->
 		<Product Key="Accom" ProductType="AccommodationOnly">
 			<Components>
 				<Accommodation/>
@@ -9,20 +10,25 @@
 		</Product>
 		<Product ProductType="Addon" Key="regionw">
 			<Components>
-				<!-- An dieser Stelle werden die Komponenten definiert, aus denen das Addon-Produkt besteht. -->
-				<!-- Ein Addon benötigt immer den Bezug auf eine Accommodation, mit der es zusammen gebucht werden muss. -->
+				<!-- de: An dieser Stelle werden die Komponenten definiert, aus denen das Addon-Produkt besteht. -->
+				<!-- en: At this point, the components that make up the addon product are defined. -->
+				<!-- de: Ein Addon benötigt immer den Bezug auf eine Accommodation, mit der es zusammen gebucht werden muss. -->
+				<!-- en: An addon always requires the reference to an accommodation, with which it must be booked together. -->
 				<ProductComponent ProductType="AccommodationOnly"/>
 				<Addon DayAllocationIndex="0"/>
 			</Components>
-			<!-- Einschränkungen mit welchen Komponenten das Addon gebucht werden kann. -->
+			<!-- de: Einschränkungen, mit welchen Komponenten das Addon gebucht werden kann. -->
+			<!-- en: Restrictions on which components the addon can be booked with. -->
 			<Filter Key="1">
 				<Or>
-					<!-- Übereinstimmung bestimmter Tags. In diesem Beispiel handelt es sich um Leistungscodes der Accommodation, die in jeweils einem Tag in der bestimmten Accommodation und dem Addon vermerkt sind. -->
+					<!-- de: Übereinstimmung bestimmter Tags. In diesem Beispiel handelt es sich um Leistungscodes der Accommodation, die in jeweils einem Tag in der bestimmten Accommodation und dem Addon vermerkt sind. -->
+					<!-- en: Match of certain tags. In this example, the service codes of the accommodation are noted in a tag in the particular accommodation and in the addon.. -->
 					<MatchEqual>
 						<Tag Source="Accommodation" Class="Accom"/>
 						<Tag Source="Addon" Class="Accom"/>
 					</MatchEqual>
-					<!-- Zusammenspiel bestimmter Bedingungen der jeweiligen Komponenten -->
+					<!-- de: Zusammenspiel bestimmter Bedingungen der jeweiligen Komponenten -->
+					<!-- en: Interaction of certain conditions of the respective components -->
 					<And>
 						<Or>
 							<Tags Source="Accommodation" Class="Accom">050255</Tags>
@@ -31,7 +37,8 @@
 						</Or>
 						<Keys Source="Addon">0500S2</Keys>
 					</And>
-					<!-- Übereinstimmung eines Teils eines "Tags" (hier die ersten 3 Stellen) . -->
+					<!-- de: Übereinstimmung eines Teils eines "Tags" (hier die ersten 3 Stellen) . -->
+					<!-- en: Match of a part of a tag (here: the first 3 digits) . -->
 					<MatchEqual>
 						<Tag Source="Accommodation" Class="Accom" Offset="1" Length="3"/>
 						<Tag Source="Addon" Class="Region" Offset="1" Length="3"/>
@@ -39,7 +46,8 @@
 				</Or>
 			</Filter>
 			<DayAllocation>
-				<!-- Hier wird spezifiziert, welche Tage bezogen auf die Referenzkomponente für das Addon in Frage kommen. -->
+				<!-- de: Hier wird spezifiziert, welche Tage bezogen auf die Referenzkomponente für das Addon in Frage kommen. -->
+				<!-- de: Here it is specified which days are possible for the addon in relation to the reference component. -->
 				<DayAllocationStart Source="Accommodation" DayReference="CheckIn" Shift="External" Offset="0"/>
 				<DayAllocationEnd Source="Accommodation" DayReference="CheckOut" Shift="Auto" Offset="0"/>
 			</DayAllocation>
@@ -53,13 +61,17 @@
 				</BookingGroup>
 			</Booking>
 			<Components>
-				<!-- An dieser Stelle werden die Komponenten definiert, aus denen das Addon-Produkt besteht. -->
-				<!-- Ein Addon benötigt immer den Bezug auf eine Accommodation, mit der es zusammen gebucht werden kann. -->
-				<!-- Da aber die Accommodation auch alleine buchbar ist (das Addon ist optional!), wird hier auf ein bestehendes Produkt referenziert. -->
+				<!-- de: An dieser Stelle werden die Komponenten definiert, aus denen das Addon-Produkt besteht. -->
+				<!-- de: Ein Addon benötigt immer den Bezug auf eine Accommodation, mit der es zusammen gebucht werden kann. -->
+				<!-- de: Da aber die Accommodation auch alleine buchbar ist (das Addon ist optional!), wird hier auf ein bestehendes Produkt referenziert. -->
+				<!-- en: At this point, the components that make up the addon product are defined. -->
+				<!-- en: An addon always needs the reference to an accommodation with which it can be booked together. -->
+				<!-- en: Since an accommodation can also be booked alone (the addon is optional!), an existing product is referenced here. -->
 				<ProductComponent ProductType="AccommodationOnly"/>
 				<Addon Name="1906C0" DayAllocationIndex="0"/>
 			</Components>
-			<!-- Einschränkungen für die Kombinierbarkeit. Hier als Beispiel über ein Tag, das einen übereinstimmenden Ort (Leipzig) vorgibt. -->
+			<!-- de: Einschränkungen für die Kombinierbarkeit. Hier als Beispiel über ein Tag, das einen übereinstimmenden Ort (Leipzig) vorgibt. -->
+			<!-- en: Limitations for combinability. Here is an example of a tag that specifies a matching location (Leipzig). -->
 			<Filter Key="1">
 				<MatchEqual>
 					<Tag Source="Accommodation" Class="Ort"/>
@@ -80,13 +92,17 @@
 				</BookingGroup>
 			</Booking>
 			<Components>
-				<!-- An dieser Stelle werden die Komponenten definiert, aus denen das Addon-Produkt besteht. -->
-				<!-- Ein Addon benötigt immer den Bezug auf eine Accommodation, mit der es zusammen gebucht werden kann. -->
-				<!-- Da aber die Accommodation auch alleine buchbar ist (das Addon ist optional!), wird hier auf ein bestehendes Produkt referenziert. -->
+				<!-- de: An dieser Stelle werden die Komponenten definiert, aus denen das Addon-Produkt besteht. -->
+				<!-- de: Ein Addon benötigt immer den Bezug auf eine Accommodation, mit der es zusammen gebucht werden kann. -->
+				<!-- de: Da aber die Accommodation auch alleine buchbar ist (das Addon ist optional!), wird hier auf ein bestehendes Produkt referenziert. -->
+				<!-- en: At this point, the components that make up the addon product are defined. -->
+				<!-- en: An addon always needs the reference to an accommodation with which it can be booked together. -->
+				<!-- en: Since an accommodation can also be booked alone (the addon is optional!), an existing product is referenced here. -->
 				<ProductComponent ProductType="AccommodationOnly"/>
 				<Addon DayAllocationIndex="0"/>
 			</Components>
-			<!-- Einschränkungen für die Kombinierbarkeit. Hier als Beispiel über ein Tag, das einen übereinstimmenden Zielflughafen (CatchmentAirport) vorgibt. -->
+			<!-- de: Einschränkungen für die Kombinierbarkeit. Hier als Beispiel über ein Tag, das einen übereinstimmenden Zielflughafen (CatchmentAirport) vorgibt. -->
+			<!-- en: Limitations for combinability. Here is an example of a tag that specifies a matching destination airport (CatchmentAirport). -->
 			<Filter Key="1">
 				<MatchEqual>
 					<Element Source="Accommodation">CatchmentAirport</Element>
@@ -111,12 +127,14 @@
 		</Brand>
 	</Brands>
 	<Accommodations>
-		<!--Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!--de: Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!--de: Exemplary Accommodation. No detailed definition is given here, as this is only required for the combination with the addon. -->
 		<Accommodation Key="050255">
 			<Tags>
 				<Tag Class="Accom">050255</Tag>
 			</Tags>
-			<!-- Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!-- de: Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!-- de: Tag to compare with which the accommodation the addon can be linked. -->
 			<SellingAccom Key="1">
 				<Booking>
 					<BookingGroup Area="ServiceArea">
@@ -147,12 +165,14 @@
 				</Unit>
 			</SellingAccom>
 		</Accommodation>
-		<!--Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!--de: Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!--de: Exemplary Accommodation. No detailed definition is given here, as this is only required for the combination with the addon. -->
 		<Accommodation Key="051002">
 			<Tags>
 				<Tag Class="Accom">051002</Tag>
 			</Tags>
-			<!-- Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!-- de: Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!--en: Tag to compare with which the accommodation the addon can be linked. -->
 			<SellingAccom Key="1">
 				<Booking>
 					<BookingGroup Area="ServiceArea">
@@ -183,12 +203,14 @@
 				</Unit>
 			</SellingAccom>
 		</Accommodation>
-		<!--Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!-- de: Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!--de: Exemplary Accommodation. No detailed definition is given here, as this is only required for the combination with the addon. -->
 		<Accommodation Key="1">
 			<Tags>
 				<Tag Class="Ort">Leipzig</Tag>
 			</Tags>
-			<!-- Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!-- de: Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!--en: Tag to compare with which the accommodation the addon can be linked. -->
 			<SellingAccom Key="1">
 				<Booking>
 					<BookingGroup Area="ServiceArea">
@@ -219,9 +241,11 @@
 				</Unit>
 			</SellingAccom>
 		</Accommodation>
-		<!--Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!-- de: Exemplarische Accommodation. Auf eine ausführliche Definition wird hier verzichtet, da diese nur für die Kombination mit dem Addon benötigt wird. -->
+		<!--de: Exemplary Accommodation. No detailed definition is given here, as this is only required for the combination with the addon. -->
 		<Accommodation Key="1">
-			<!-- Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!-- de: Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!--en: Tag to compare with which the accommodation the addon can be linked. -->
 			<SellingAccom Key="1">
 				<Booking>
 					<BookingGroup Area="ServiceArea">
@@ -255,9 +279,12 @@
 		</Accommodation>
 	</Accommodations>
 	<Addons>
-		<!-- Tagesausflug. Preis p.P. einmalig -->
-		<!-- Verfügbar Januar bis Oktober 2012 (einschließlich) -->
-		<!-- Einschränkung auf bestimmte Accommodations -->
+		<!-- de: Tagesausflug. Preis p.P. einmalig -->
+		<!-- de: Verfügbar Januar bis Oktober 2012 (einschließlich) -->
+		<!-- de: Einschränkung auf bestimmte Accommodations -->
+		<!-- en: Day trip. Price per person-->
+		<!-- en: Available January to October 2012 (inclusive)  -->
+		<!-- en: Restriction to certain accommodations -->
 		<Addon Key="0500S2">
 			<Tags>
 				<Tag Class="Accom">050255</Tag>
@@ -265,8 +292,10 @@
 				<Tag Class="Accom">050265</Tag>
 				<Tag Class="Region">051</Tag>
 			</Tags>
-			<!-- Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
-			<!-- Tour-Arrangement individuelle Ausflug -->
+			<!-- de: Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!-- de: Tour-Arrangement individueller Ausflug -->
+			<!-- en: Tag to compare with which the accommodation the addon can be linked. -->
+			<!-- en: Tour arrangement individual excursion -->
 			<Booking>
 				<BookingGroup Area="ServiceArea" Source="Addon">
 					<BookingParameter Field="ServiceCode">
@@ -289,7 +318,8 @@
 			<Service Key="X01">
 				<Booking>
 					<BookingGroup Area="ServiceArea" Source="Addon">
-						<!-- BookingBlock des Service -->
+						<!-- de: BookingBlock des Service -->
+						<!-- en: Booking block of the service -->
 						<BookingParameter Field="ServiceFeatureCode">
 							<Value>X01</Value>
 						</BookingParameter>
@@ -304,7 +334,8 @@
 					</PropertyGroup>
 				</Properties>
 			</Service>
-			<!-- Die Zusatzleistung ist nur im angegebenen Zeitraum verfügbar. -->
+			<!-- de: Die Zusatzleistung ist nur im angegebenen Zeitraum verfügbar. -->
+			<!-- en: The addon service is only available in the specified period. -->
 			<Filter Key="1">
 				<Date Source="Addon" DayType="CheckIn">
 					<Min>2012-01-01</Min>
@@ -312,7 +343,8 @@
 				</Date>
 			</Filter>
 			<PriceItems Key="Prices">
-				<!-- Preis: Einmalig 87 EUR p.P. -->
+				<!-- de: Preis: Einmalig 87 EUR p.P. -->
+				<!-- de: Price: 87 EUR per person -->
 				<PriceItem Class="1T">
 					<Absolute>
 						<Value>87</Value>
@@ -323,15 +355,21 @@
 			</PriceItems>
 		</Addon>
 		<Addon Key="1906C0">
-			<!-- Drei-Tages-Pass für Leipzig. Preis p.P. einmalig -->
-			<!-- Verfügbar April bis Oktober 2012 (einschließlich) -->
-			<!-- Accommodations sollten nur aus dem Ort Leipzig zugeordnet werden. -->
+			<!-- de: Drei-Tages-Pass für Leipzig. Preis p.P. einmalig -->
+			<!-- de: Verfügbar April bis Oktober 2012 (einschließlich) -->
+			<!-- de: Accommodations sollten nur aus dem Ort Leipzig zugeordnet werden. -->
+			<!-- en: Three-day pass for Leipzig. Price p.P. one-time -->
+			<!-- en: Available April to October 2012 (inclusive) -->
+			<!-- en: Accommodations should only be assigned from the destination Leipzig. -->
 			<Tags>
 				<Tag Class="Ort">Leipzig</Tag>
 			</Tags>
-			<!-- Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
-			<!--Tour-Arrangement 3-Tageskarte-->
-			<!-- Booking-Informationen des Addons. Diese werden an jeden Service vererbt und müssen dort somit nicht mehr separat angegeben werden. -->
+			<!-- de: Tag zum Abgleich, mit welcher Accommodation das Addon verknüpft werden kann. -->
+			<!-- de: Tour-Arrangement 3-Tageskarte-->
+			<!-- de: Booking-Informationen des Addons. Diese werden an jeden Service vererbt und müssen dort somit nicht mehr separat angegeben werden. -->
+			<!-- en: Tag to compare with which accommodation the addon can be linked. -->
+			<!-- en: Tour arrangement 3-day ticket-->
+			<!-- en: Booking information of the addon. This information is passed on to each service and therefore no longer has to be specified there separately. -->
 			<Booking>
 				<BookingGroup Area="ServiceArea" Source="Addon">
 					<BookingParameter Field="ServiceCode">
@@ -342,7 +380,8 @@
 					</BookingParameter>
 				</BookingGroup>
 			</Booking>
-			<!-- CheckOutDateOffset = 0 : Die Buchung geschieht hier auf einen Tag, auch wenn dann der CityPass 3 Tage gültig ist. -->
+			<!-- de: CheckOutDateOffset = 0 : Die Buchung geschieht hier auf einen Tag, auch wenn dann der CityPass 3 Tage gültig ist. -->
+			<!-- de: CheckOutDateOffset = 0 : The booking is made on one day, even if the CityPass is valid for 3 days. -->
 			<CheckOutDateOffset>0</CheckOutDateOffset>
 			<Properties Key="1">
 				<PropertyGroup>
@@ -355,7 +394,8 @@
 			<Service Key="X01">
 				<Booking>
 					<BookingGroup Area="ServiceArea" Source="Addon">
-						<!-- BookingBlock des Service -->
+						<!-- de: BookingBlock des Service -->
+						<!-- en: Booking block of the service -->
 						<BookingParameter Field="ServiceFeatureCode">
 							<Value>X01</Value>
 						</BookingParameter>
@@ -370,7 +410,8 @@
 					</PropertyGroup>
 				</Properties>
 			</Service>
-			<!-- Die Zusatzleistung ist nur im angegebenen Zeitraum verfügbar. -->
+			<!-- de: Die Zusatzleistung ist nur im angegebenen Zeitraum verfügbar. -->
+			<!--en: The additional service is only available in the specified period. -->
 			<Filter Key="1">
 				<Date Source="Addon" DayType="CheckIn">
 					<Min>2012-04-01</Min>
@@ -379,7 +420,8 @@
 			</Filter>
 			<PriceItems Key="Prices">
 				<PriceItem Class="3T">
-					<!-- Preis: einmalig EUR19.- p.P. -->
+					<!-- de: Preis: einmalig EUR19.- p.P. -->
+					<!-- de: Price: EUR19.- per person one-time -->
 					<Absolute>
 						<Value>19</Value>
 						<DayBase>x</DayBase>
@@ -389,12 +431,17 @@
 			</PriceItems>
 			<CatchmentAirports>LEJ</CatchmentAirports>
 		</Addon>
-		<!-- Drei-Tages-Pass für Leipzig. Preis p.P. einmalig -->
-		<!-- Verfügbar April bis Oktober 2012 (einschließlich) -->
-		<!-- Keine Einschränkung auf bestimmte Accommodations -->
+		<!-- de: Drei-Tages-Pass für Leipzig. Preis p.P. einmalig -->
+		<!-- de: Verfügbar April bis Oktober 2012 (einschließlich) -->
+		<!-- de: Keine Einschränkung auf bestimmte Accommodations -->
+		<!-- en: Three-day pass for Leipzig. Price per person one-time-->
+		<!--  en: Available April until October 2012 (including) -->
+		<!--  en: No restriction to certain accommodations -->
 		<Addon Key="ACE666B">
-			<!-- Mietwagen -->
-			<!-- Booking-Informationen des Addons. Diese werden an jeden Service vererbt und müssen dort somit nicht mehr separat angegeben werden. -->
+			<!-- de: Mietwagen -->
+			<!-- de: Booking-Informationen des Addons. Diese werden an jeden Service vererbt und müssen dort somit nicht mehr separat angegeben werden. -->
+			<!-- de: Rental Car -->
+			<!-- de: Booking information of the addon. This information is passed on to each service and therefore no longer has to be specified there separately. -->
 			<Booking>
 				<BookingGroup Area="ServiceArea" Source="Addon">
 					<BookingParameter Field="ServiceCode">
@@ -405,7 +452,8 @@
 					</BookingParameter>
 				</BookingGroup>
 			</Booking>
-			<!-- Kein CheckOutDateOffset bedeutet bei Addons, dass das Addon (zeitlich) flexibel ist -->
+			<!-- de: Kein CheckOutDateOffset bedeutet bei Addons, dass das Addon (zeitlich) flexibel ist -->
+			<!-- en: No CheckOutDateOffset means for addons that the addon is (temporally) flexible. -->
 			<Properties Key="1">
 				<PropertyGroup>
 					<AddonName>Mietwagen</AddonName>
@@ -417,7 +465,8 @@
 			<Service Key="A">
 				<Booking>
 					<BookingGroup Area="ServiceArea" Source="Addon">
-						<!-- BookingBlock des Service -->
+						<!-- de: BookingBlock des Service -->
+						<!-- en: Booking block of the service -->
 						<BookingParameter Field="ServiceFeatureCode">
 							<Value>A</Value>
 						</BookingParameter>
@@ -434,7 +483,8 @@
 			</Service>
 			<PriceItems Key="Prices">
 				<PriceItem Class="week">
-					<!-- Preis: einmalig EUR 30.- pro Tag -->
+					<!-- de: Preis: einmalig EUR 30.- pro Tag -->
+					<!-- en: Price: EUR 30.- per day one-time -->
 					<Absolute>
 						<Value>30</Value>
 						<DayBase>1</DayBase>
