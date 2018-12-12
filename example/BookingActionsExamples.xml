@@ -203,11 +203,14 @@
 					<Booking>
 						<BookingGroup Area="ServiceArea" Source="SellingAccom">
 							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
-								<!--In diesem Fall wird der Boardcode an den Zimmercode angefügt, wie es in aktuellen Buchungssystemen üblich ist.
-								Die Angabe des Namens ist Vorraussetzung dafür, dass ein "Field" nicht überschrieben wird, sondern die Inhalte zusamengesetzt werden.
+								<!-- de: In diesem Fall wird der Boardcode an den Zimmercode angefügt, wie es in aktuellen Buchungssystemen üblich ist.
+								Die Angabe des Namens ist Voraussetzung dafür, dass ein "Field" nicht überschrieben wird, sondern die Inhalte zusammengesetzt werden.
 								 Der Index definiert dabei die Reihenfolge der Zusammensetzung. Der Zimmercode hat keinen Index (also Default=o). Somit wird der BoardCode an den Zimmercode angefügt.
-								Siehe auch dazu: weiter unten die Definition des Zimmercodes unter SellingUnit.
-								-->
+								Siehe auch dazu: weiter unten die Definition des Zimmercodes unter SellingUnit.-->
+								<!--en: In this case, the board code is added to the room code, as is usual in current booking systems.
+The specification of the name is a prerequisite for the fact that a "Field" is not overwritten, but the contents are put together.
+The index defines the order of the composition. The room code has no index (default=o). Thus the board code is added to the room code.
+See also: below the definition of the room code under SellingUnit.-->
 								<Value>F</Value>
 							</BookingParameter>
 						</BookingGroup>
@@ -245,9 +248,10 @@
 						<Booking>
 							<BookingGroup Area="ServiceArea" Source="SellingAccom">
 								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
-									<!-- Das Attribute "PadLength" ist ein Hinweis daruf, dass in diesem Feld Parameter zusammengesetzt werden. Der Zimmercode wird dabei auf eine Zeichenlänge von 3 Stellen gebracht, in dem Spaces am Ende eingefügt werden.
-											Die Art des Paddings kann spezifisch definiert werden. Bitte dazu die Beschreibung der anderen Attribute in der technischen Doku anschauen.
-									 -->
+									<!-- de: Das Attribute "PadLength" ist ein Hinweis darauf, dass in diesem Feld Parameter zusammengesetzt werden. Der Zimmercode wird dabei auf eine Zeichenlänge von 3 Stellen gebracht, indem Spaces am Ende eingefügt werden.
+Die Art des Paddings kann spezifisch definiert werden. Bitte dazu die Beschreibung der anderen Attribute in der Technischen Doku anschauen. -->
+									<!-- en: The attribute "PadLength" is an indication that parameters are composed in this field. The room code is brought to a character length of 3 digits by inserting spaces at the end.
+The type of padding can be defined specifically. Please refer to the description of the other attributes in the Technical Documentation. -->
 									<Value>A12</Value>
 								</BookingParameter>
 							</BookingGroup>
@@ -415,7 +419,8 @@
 			</OnewayFlight>
 		</OnewayFlights>
 		<ReturnFlights>
-			<!-- Hier ein Beispiel für einen ReturnFlight, der 2 Buchungszeilen für diese Komponente benötigt. Das Beispiel beschränkt sich rein auf die Buchungsparameter.-->
+			<!-- de: Hier ein Beispiel für einen ReturnFlight, der zwei Buchungszeilen für diese Komponente benötigt. Das Beispiel beschränkt sich rein auf die Buchungsparameter.-->
+			<!-- en: Here is an example of a ReturnFlight that requires two booking lines for this component. The example is limited to the booking parameters.-->
 			<ReturnFlight Key="DUSPMIDUS">
 				<Booking>
 					<BookingGroup Area="ServiceArea" Source="ReturnFlight" Class="Outbound">
@@ -467,11 +472,12 @@
 					<BookingParameter Name="AddonSuffix" Field="ServiceCode" LeftSeparator="" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right" Padding=" ">
 						<Value>A</Value>
 					</BookingParameter>
-					<!--	Die Source="global:SellingAccom" definiert, dass die BookingParameter in die gleiche Leistungszeile wie das SeelingAccom geschrieben werden 
-Der unterschiedliche Wert des Attributs "Name" definiert, dass es sich nicht um Ergänzung handelt.	
-								Das Attribut "Index" definiert die Position der Stringverknüpfung.
-							Source definiert um welche Komponente es geht. Standard ist "ThisComponent".	
- -->
+					<!-- de: Die Source="global:SellingAccom" definiert, dass die BookingParameter in die gleiche Leistungszeile wie das SellingAccom geschrieben werden. Der unterschiedliche Wert des Attributs "Name" definiert, dass es sich nicht um Ergänzung handelt.	
+Das Attribut "Index" definiert die Position der Stringverknüpfung.
+Source definiert, um welche Komponente es geht. Standard ist "ThisComponent". -->
+					<!-- en: The Source="global:SellingAccom" defines that the BookingParameters are written into the same service line as the SellingAccom. The different value of the attribute "Name" defines that it is not a supplement.	
+The Index attribute defines the position of the string link.
+Source defines which component is dealt with. The default is "ThisComponent". -->
 				</BookingGroup>
 			</Booking>
 			<Properties Key="1">
@@ -493,7 +499,8 @@ Der unterschiedliche Wert des Attributs "Name" definiert, dass es sich nicht um 
 		<Addon Key="AdventurePackage">
 			<Booking>
 				<BookingGroup Area="ServiceArea" Source="global:SellingAccom" Class="Default">
-					<!--	Der Default Name ist beim ServiceCode der Accommodation gleich. Damit wird definiert, dass es sich um eine Überschreibung handelt.	 -->
+					<!-- de: Der Default Name ist beim ServiceCode identisch mit der Accommodation. Damit wird definiert, dass es sich um eine Überschreibung handelt.	 -->
+					<!-- en: The default name for the ServiceCode is the same as for Accommodation. This defines that it is an overwrite..	 -->
 					<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
 						<Value>SPC10007</Value>
 					</BookingParameter>
@@ -519,13 +526,16 @@ Der unterschiedliche Wert des Attributs "Name" definiert, dass es sich nicht um 
 	<DefinedComponents>
 		<DefineComponent Key="HR" Role="ReturnFlight">
 			<Booking>
-				<!-- Definition einer Flughülle, die die Buchungsparameter aller beteiligten Einzelflüge ersetzt und danach neu definiert-->
-				<!-- zunächst alle möglicherweise durch Flüge angelegte Buchungszeilen löschen -->
+				<!-- de: Definition einer Flughülle, die die Buchungsparameter aller beteiligten Einzelflüge ersetzt und danach neu definiert-->
+				<!-- de: zunächst alle möglicherweise durch Flüge angelegte Buchungszeilen löschen -->
+				<!-- en: Definition of a flight wrapper that replaces the booking parameters of all single flights involved and then redefines them.-->
+				<!-- en: First delete all booking lines that may have been created by flights. -->
 				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
 					<BookingReplace Source="OnewayFlight" Class="*"/>
 					<BookingReplace Source="ReturnFlight" Class="*"/>
 					<BookingReplace Source="BookingClass" Class="*"/>
-					<!-- neue generisch Buchungszeile (Flughülle) -->
+					<!-- de: neue generische Buchungszeile (Flughülle) -->
+					<!-- en: New generic booking line (flight wrapper) -->
 					<BookingParameter Field="RequestCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
 						<Value>F</Value>
 					</BookingParameter>
@@ -540,7 +550,8 @@ Der unterschiedliche Wert des Attributs "Name" definiert, dass es sich nicht um 
 					</BookingParameter>
 				</BookingGroup>
 				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
-					<!-- Eine von den Flughäfen abhängiger ServiceCode der Flughülle -->
+					<!-- de: Eine von den Flughäfen abhängiger ServiceCode der Flughülle -->
+					<!-- en: A service code of the flight wrapper depending on the airports. -->
 					<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
 						<Value>DUSPMI</Value>
 					</BookingParameter>
