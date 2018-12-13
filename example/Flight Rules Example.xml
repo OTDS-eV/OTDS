@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
-	<!-- In diesem Beispiel werden einige Flüge auf unterschiedliche Weise kombiniert.
+	<!-- de: In diesem Beispiel werden einige Flüge auf unterschiedliche Weise kombiniert.
 		Dazu werden häufig "Tags" in der Form <Tag Class="">XXX</Tag> definiert, auf die später in der Kombinationsregel Bezug genommen wird.
 		Die Tags besitzen in diesem Beispiel sprechende Inhalte, sind aber vom Veranstalter frei gestaltbar.	
 		Die Inhalte der Flüge sind auf das Wesentliche beschränkt. Auch die Buchungsparameter sind der Übersichtlichkeit halber nicht vollständig integriert.-->
+	<!-- en: In this example, some flights are combined in different ways.
+		For this purpose, tags are often defined in the form <Tag Class="">XXX</Tag>, which is referred to later in the combination rule.
+		In this example, the tags have meaningful content, but can be freely designed by the tour operator.	
+		The contents of the flights are limited to the essentials. The booking parameters are also not fully integrated for the sake of clarity.-->
 	<Products>
 		<Product Key="OnewayFlightOnly_Standard" ProductType="OnewayFlightOnly">
 			<Components>
@@ -24,7 +28,8 @@
 			</Filter>
 		</Product>
 		<Product Key="ReturnFlight" ProductType="ReturnFlightOnly">
-			<!-- Die einfachste Form der Produktdefinition der ReturnFlights, welche aus allen gelieferten ReturnFlights besteht. Hier können sehr wohl auch OpenJaw-Flights drinstecken.-->
+			<!-- de: Die einfachste Form der Produktdefinition der ReturnFlights, welche aus allen gelieferten ReturnFlights besteht. Hier können sehr wohl auch OpenJaw-Flights drinstecken.-->
+			<!-- en: The simplest form of product definition for ReturnFlights, which consists of all ReturnFlights supplied. OpenJaw-Flights can also be used here.-->
 			<Components>
 				<ReturnFlight>
 					<Outbound DayAllocationIndex="-1"/>
@@ -34,7 +39,8 @@
 			</Components>
 		</Product>
 		<Product Key="ReturnFlight_Combined" ProductType="ReturnFlightOnly">
-			<!-- Returnflights, die aus kombinierten OneWayFlights bestehen, welche die Rolle ReturnFlight haben. Hier können auch OpenJawFlights drinstecken. -->
+			<!-- de: Returnflights, die aus kombinierten OneWayFlights bestehen, welche die Rolle ReturnFlight haben. Hier können auch OpenJawFlights drinstecken. -->
+			<!-- en: Returnflights, which consist of combined OneWayFlights, which have the role ReturnFlight. OpenJawFlights can also be used here. -->
 			<Components>
 				<DefinedComponent UseRole="ReturnFlight"/>
 				<VirtualComponent DayAllocationIndex="0"/>
@@ -44,7 +50,8 @@
 	<Brands/>
 	<Flights>
 		<OnewayFlights>
-			<!--Dieser Flug wird zur Kombination als Zubringer benutzt. Der Veranstalter hat dazu den Flug durch ein Tag als "Zubringer" markiert.-->
+			<!-- de: Dieser Flug wird zur Kombination als Zubringer benutzt. Der Veranstalter hat dazu den Flug durch ein Tag als "Zubringer" markiert.-->
+			<!-- en: This flight is used in combination as a feeder. The organizer has marked the flight by a tag as a "feeder".-->
 			<OnewayFlight Key="DUSFRA16">
 				<Tags>
 					<Tag Class="Kombi">A1</Tag>
@@ -76,7 +83,8 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!--Dieser Flug wird zur Kombination als Zubringer benutzt. Der Veranstalter hat dazu den Flug durch einen Tag als "Zubringer"=FRA markiert.-->
+			<!--de: Dieser Flug wird zur Kombination als Zubringer benutzt. Der Veranstalter hat dazu den Flug durch ein Tag als "Zubringer"=FRA markiert.-->
+			<!-- en: This flight is used in combination as a feeder. The organizer has marked the flight by a tag as a "feeder"=FRA.-->
 			<OnewayFlight Key="HAMFRA13">
 				<Tags>
 					<Tag Class="Kombi">A1</Tag>
@@ -108,8 +116,9 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!--Dieser Flug wird sowhl für die Kombinationen als Hauptflug benutzt, als auch als eigenständiger Flug angeboten. Der Veranstalter hat den Flug 
+			<!--de: Dieser Flug wird sowhl für die Kombinationen als Hauptflug benutzt, als auch als eigenständiger Flug angeboten. Der Veranstalter hat den Flug 
 			durch einen Tag als "Hauptflug" markiert.-->
+			<!--de: This flight is used both for the combinations as a main flight, and offered as an independent flight. The tour operator has marked the flight by one day as "main flight".-->
 			<OnewayFlight Key="FRABKK03">
 				<Tags>
 					<Tag Class="Kombi">A1</Tag>
@@ -141,7 +150,8 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!--Dieser Flug wird für Kombinationen als Hauptflug benutzt. Der Veranstalter hat den Flug durch einen Tag als Hauptflug markiert.-->
+			<!--de: Dieser Flug wird für Kombinationen als Hauptflug benutzt. Der Veranstalter hat den Flug durch ein Tag als Hauptflug markiert.-->
+			<!--en: This flight is used for combinations as main flight. The organizer has marked the flight by a tag as the main flight.-->
 			<OnewayFlight Key="FRAHKT03">
 				<Tags>
 					<Tag Class="Kombi">A1</Tag>
@@ -173,7 +183,8 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!--Im folgenden Flug sind zwei Tags definiert, die zur Kombination des Fluges verwendet werden können.-->
+			<!--de: Im folgenden Flug sind zwei Tags definiert, die zur Kombination des Fluges verwendet werden können.-->
+			<!--en: In the following flight two tags are defined, which can be used to combine the flight.-->
 			<OnewayFlight Key="BKKHKT03">
 				<Tags>
 					<Tag Class="Kombi">A1</Tag>
@@ -269,8 +280,9 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!--Dieser Flug wird sowohl für die Kombinationen als Hauptflug benutzt, als auch als eigenständiger Flug angeboten. Der Veranstalter hat den Flug 
+			<!-- de: Dieser Flug wird sowohl für die Kombinationen als Hauptflug benutzt, als auch als eigenständiger Flug angeboten. Der Veranstalter hat den Flug 
 			durch einen Tag als "Hauptflug" markiert.-->
+			<!-- en: This flight is used both for the combinations as main flight, and offered as an independent flight. The tour operator has marked the flight by a tag as "main flight". -->
 			<OnewayFlight Key="BKKFRA03">
 				<DepartureAirport>BKK</DepartureAirport>
 				<ArrivalAirport>FRA</ArrivalAirport>
@@ -298,7 +310,8 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!--Dieser Flug wird für Kombinationen als Hauptflug benutzt. Der Veranstalter hat den Flug durch einen Tag als Hauptflug markiert.-->
+			<!--de: Dieser Flug wird für Kombinationen als Hauptflug benutzt. Der Veranstalter hat den Flug durch ein Tag als Hauptflug markiert.-->
+			<!--en: This flight is used for combinations as main flight. The organizer has marked the flight by a tag as the main flight.-->
 			<OnewayFlight Key="FRAHKT03">
 				<Tags>
 					<Tag Class="Kombi">A1</Tag>
@@ -330,7 +343,8 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!--In dem folgenden Flug sind zwei Tags definiert, die zur Kombination des Fluges verwendet werden können.-->
+			<!--de: Im folgenden Flug sind zwei Tags definiert, die zur Kombination des Fluges verwendet werden können.-->
+			<!--en: In the following flight two tags are defined, which can be used to combine the flight.-->
 			<OnewayFlight Key="BKKHKT03">
 				<Tags>
 					<Tag Class="Kombi">A1</Tag>
@@ -464,7 +478,8 @@
 			</Filter>
 		</DefineComponent>
 		<DefineComponent Key="ReturnKombi_OpenJaw1" Role="ReturnFlight">
-			<!-- Im folgenden eine Definition für OpenJawFlights mit identischem Zielflughafen. -->
+			<!-- de: Im folgenden eine Definition für OpenJawFlights mit identischem Zielflughafen. -->
+			<!-- en: In the following a definition for OpenJawFlights with identical destination airport. -->
 			<Components>
 				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight Name="Outbound1"/>
@@ -481,7 +496,8 @@
 			</Filter>
 		</DefineComponent>
 		<DefineComponent Key="ReturnKombi_OpenJaw2" Role="ReturnFlight">
-			<!-- Im folgenden eine Definition für OpenJawFlights mit identischem Abflughafen. -->
+			<!-- de: Im folgenden eine Definition für OpenJawFlights mit identischem Abflughafen. -->
+			<!-- en: In the following a definition for OpenJawFlights with identical departure airport. -->
 			<Components>
 				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight Name="Outbound2"/>
@@ -659,7 +675,8 @@
 			</Filter>
 		</DefineComponent>
 		<DefineComponent Key="ReturnKombi1" Role="ReturnFlight">
-			<!-- Im folgenden eine Definition für einen klassischen Returnflight mit Oneway mit identischem Abflughafen bzw. Zielflughafen. -->
+			<!-- de: Im folgenden eine Definition für einen klassischen Returnflight mit Oneway mit identischem Abflughafen bzw. Zielflughafen. -->
+			<!-- en: The following is a definition for a classic return flight with one-way with identical departure and destination airports. -->
 			<Components>
 				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight Name="Outbound3"/>
