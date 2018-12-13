@@ -60,14 +60,17 @@
 							</Person>
 						</Occupancy>
 						<Availabilities Key="2011-09-01-P2">
-							<!-- Alle Availability-Lieferungen, die unter diesem Knoten geliefert werden, beziehen sich nur auf eine Belegung mit
-								 2 Personen und eine Abreise  am 01.09.2011 (siehe Condition ). DIes ist also eine Terminbezogene Lieferung von einzelnen Dauern. Jeder mgöliche CheckOut fdefiniert eine mögliche Dauer bezogen auf den 01.09.2011. Eine komplette Lieferung in dieser Form enthält je Termin einen Availabilities Knoten. Der Key sollte so gewählt werden, dass er mit dem Inhalt der Condition korreliert, damit er für inkrementelle Lieferung eindeutig reproduzierbar ist. -->
+							<!-- de: Alle Availability-Lieferungen, die unter diesem Knoten geliefert werden, beziehen sich nur auf eine Belegung mit 2 Personen und eine Abreise  am 01.09.2011 (siehe Condition). Dies ist also eine terminbezogene Lieferung von einzelnen Dauern. Jeder mögliche CheckOut definiert eine mögliche Dauer bezogen auf den 01.09.2011. Eine komplette Lieferung in dieser Form enthält je Termin einen Availabilities Knoten. Der Key sollte so gewählt werden, dass er mit dem Inhalt der Condition korreliert, damit er für inkrementelle Lieferung eindeutig reproduzierbar ist -->
+								 <!-- en: All availability deliveries that are delivered under this node only refer to an occupancy of 2 persons and a departure on 01.09.2011 (see Condition). This is therefore a time-related delivery of individual durations. Each possible CheckOut defines a possible duration related to 01.09.2011. A complete delivery in this form contains one Availabilities node per date. The key should be selected so that it correlates with the content of the condition so that it is clearly reproducible for incremental delivery. -->
 							<Availability Key="2011-09-01" StartDate="2011-09-01" EndDate="2011-09-19">
-								<!-- Diese Availability enthält Tagesstati für alle Tage zwischen dem 01.09.2011 und dem 19.09.2011. 		                     Default für jeden Tag der nicht explizit geliefert wird ist der Tagesstatus "Open", CheckIn = möglich und CheckOut= möglich. Durch den Default "CheckOut", was bedeutet CheckOut möglich, werden in diesem Fall ausschließlich negative Verfügbarkeiten geliefert. An einzelnen Tagen wird also ein CheckOut verboten, so dass dadurch genau dieser Abreisetermin nicht gilt und damit die entsprechende Dauer nicht möglich ist.
+								<!-- de: Diese Availability enthält Tagesstati für alle Tage zwischen dem 01.09.2011 und dem 19.09.2011.
+Default für jeden Tag, der nicht explizit geliefert wird, ist der Tagesstatus "Open", CheckIn = möglich und CheckOut= möglich. Durch den Default "CheckOut", was bedeutet CheckOut möglich, werden in diesem Fall ausschließlich negative Verfügbarkeiten geliefert. An einzelnen Tagen wird also ein CheckOut verboten, so dass dadurch genau dieser Abreisetermin nicht gilt und damit die entsprechende Dauer nicht möglich ist.
 Die Lieferung entspricht.: Am 01.09.2012 sind die Dauer: 1,2,3,5,6,7,9,17,18,19 möglich.
-Mit einem Default  "NoCheckOut" könnte man die Lieferung auch auf die positiven Dauern beschränken.
-
- -->
+Mit einem Default  "NoCheckOut" könnte man die Lieferung auch auf die positiven Dauern beschränken. -->
+								<!-- en: This availability contains daily states for all days between 01.09.2011 and 19.09.2011. 		
+Default for every day that is not explicitly delivered is the day status "Open", CheckIn = possible and CheckOut= possible. By the default "CheckOut", which means CheckOut possible, only negative availabilities will be delivered in this case. On single days a CheckOut is forbidden, so that exactly this date of departure is not valid and therefore the corresponding duration is not possible.
+On 01.09.2012 the duration: 1,2,3,5,6,7,9,17,18,19 is possible.
+With a default "NoCheckOut" one could also limit the delivery to the positive durations. -->
 								<DefaultDayState>
 									<Open/>
 									<CheckIn/>
@@ -125,9 +128,9 @@ Mit einem Default  "NoCheckOut" könnte man die Lieferung auch auf die positiven
 						</Availabilities>
 						<Availabilities Key="1">
 							<Availability Key="2011-10-01" StartDate="2011-10-01" EndDate="2011-10-10">
-								<!-- Steuerung über Tagesstatus:
-									 Im Zeitraum 2011-10-01 bis 2011-10-10 sind alle Tage "Open" bis auf 
-									 das Datum 2011-10-09.  Die Dauern ergeben sich aus den offenen Terminen. Ist eine Termin CLosed, so können keine Dauern erstellt werden, die diesen Termin enthalten.-->
+								<!-- de: Steuerung über Tagesstatus:
+									 Im Zeitraum 2011-10-01 bis 2011-10-10 sind alle Tage "Open" bis auf das Datum 2011-10-09. Die Dauern ergeben sich aus den offenen Terminen. Ist ein Termin "Closed", so können keine Dauern erstellt werden, die diesen Termin enthalten.-->
+									 <!-- en: Steering via day status: In the period 2011-10-01 to 2011-10-10 all days are "open" except for the date 2011-10-09. The durations result from the open dates. If a date is "Closed", no durations can be created that contain this date.-->
 								<DefaultDayState>
 									<Open/>
 									<CheckIn/>
@@ -138,9 +141,8 @@ Mit einem Default  "NoCheckOut" könnte man die Lieferung auch auf die positiven
 								</DayState>
 							</Availability>
 							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2011-11-10">
-								<!-- Steuerung über Tagesstatus:
-									 Im Zeitraum 2011-11-01 bis 2011-11-10 sind alle Tage "Closed" bis auf 
-									 das Datum 2011-11-05. Wenn im DefaultDayState keine Angaben zu CheckIn oder CheckOut gemacht werden so wird als Default CheckIn bzw. CheckOut möglich angenommen.-->
+								<!-- de: Steuerung über Tagesstatus: Im Zeitraum 2011-11-01 bis 2011-11-10 sind alle Tage "Closed" bis auf  das Datum 2011-11-05. Wenn im DefaultDayState keine Angaben zu CheckIn oder CheckOut gemacht werden, so wird als Default CheckIn bzw. CheckOut möglich angenommen.-->
+								 <!-- en: Steering via day status: In the period 2011-11-01 to 2011-11-10 all days are "Closed" except for the date 2011-11-05.If no information about CheckIn or CheckOut is given in the DefaultDayState, the default CheckIn or CheckOut possible is assumed.-->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -150,10 +152,9 @@ Mit einem Default  "NoCheckOut" könnte man die Lieferung auch auf die positiven
 							</Availability>
 						</Availabilities>
 						<Availabilities Key="D1-7">
-							<!-- Dauersteuerung:
-									Alle in diesem zweig gelieferten Availabilities gelten nur für die Dauern 1 - 7  (siehe Condition) .
-									Der Key sollte so gewählt werden, dass er mit dem Inhalt der Condition korreliert, damit er für inkrementelle 		Lieferung eindeutig reproduzierbar ist.
-								   -->
+							<!-- de: Dauersteuerung: Alle in diesem Zweig gelieferten Availabilities gelten nur für die Dauern 1 - 7  (siehe Condition).
+									Der Key sollte so gewählt werden, dass er mit dem Inhalt der Condition korreliert, damit er für inkrementelle Lieferung eindeutig reproduzierbar ist.  -->
+							<!-- en: Steering of duration: All availabilities delivered in this branch are only valid for durations 1 - 7 (see Condition). The key should be selected so that it correlates with the contents of the condition so that it is uniquely reproducible for incremental delivery.  -->
 							<Availability Key="2011-12-01" StartDate="2011-12-01" EndDate="2011-12-15">
 								<DefaultDayState>
 									<Open/>
@@ -175,12 +176,15 @@ Mit einem Default  "NoCheckOut" könnte man die Lieferung auch auf die positiven
 							</Condition>
 						</Availabilities>
 						<Availabilities Key="Mon-Tue-Wed-Thu">
-							<!-- Besonders beliebt bei Flugrotationen im Pauschalbereich
+							<!-- de: Besonders beliebt bei Flugrotationen im Pauschalbereich
 									nur CheckIn von Montag bis Donnerstag 
-								Beachte bei Availabilities im Flugbereich wird der Status CheckOut / NoCheckOut nicht berücksichtigt.
-							-->
+								Beachte bei Availabilities im Flugbereich wird der Status CheckOut / NoCheckOut nicht berücksichtigt.-->
+							<!-- en: Particularly popular for flight rotations for package travel
+									CheckIn only from Monday to Thursday. 
+								Note: for availability in the flight area the status CheckOut / NoCheckOut is not considered.-->
 							<Availability Key="2012-01-01" StartDate="2012-01-01" EndDate="2012-01-31">
-								<!-- Alle Flugrotationen sind verfügbar bis auf den 5.1. -->
+								<!-- de: Alle Flugrotationen sind verfügbar bis auf den 5.1. -->
+								<!-- en: All flight rotations are available except 5.1. -->
 								<DefaultDayState>
 									<Open/>
 								</DefaultDayState>
