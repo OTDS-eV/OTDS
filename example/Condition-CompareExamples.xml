@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" UpdateMode="New">
-	<!-- Dieses Beispiel zeigt die Verwendung von Compare in Filtern und Conditions.
+	<!-- de. Dieses Beispiel zeigt die Verwendung von Compare in Filtern und Conditions.
 		Es geht hier ausschließlich um die Verdeutlichung des Compare-Konstruktes-->
+	<!-- en: This example shows the use of Compare in filters and conditions.
+		This is only about clarifying the Compare construct.-->
 	<Products>
 		<Product Key="Package" ProductType="FlightAccommodation">
 			<Components>
@@ -14,7 +16,8 @@
 						<Element Source="Accommodation">CatchmentAirport</Element>
 						<Element Source="Outbound">ArrivalAirport</Element>
 					</MatchEqual>
-					<!--Diese Bedingung ist die allgemeinere Alternative zu einer spezifischen Bedingung direkt in jeder Accommodation.  -->
+					<!-- de: Diese Bedingung ist die allgemeinere Alternative zu einer spezifischen Bedingung direkt in jeder Accommodation.  -->
+					<!-- en: This condition is the more general alternative to a specific condition directly in each accommodation.  -->
 					<Compare Operation="LessThan">
 						<Tag Source="Accommodation" Class="ArrivalAllowedAfter"/>
 						<Tag Source="Outbound" Class="ArrivalTime"/>
@@ -52,7 +55,8 @@
 				<Tag Class="Longitude" TagValueType="Numeric">-73.8</Tag>
 			</Tags>
 			<Filter Key="1">
-				<!-- Alternative zum Filter unter Product kann man auch einen spezifischen FIlter direkt in der Accommodation angeben-->
+				<!-- de: Alternativ zum Filter unter Product kann man auch einen spezifischen Filter direkt in der Accommodation angeben-->
+				<!-- en: As an alternative to the filter under Product, you can also specify a specific filter directly in Accommodation.-->
 				<Compare Operation="LessThan">
 					<Values>09:00</Values>
 					<Tag Source="Outbound" Class="ArrivalTime"/>
@@ -81,7 +85,8 @@
 						<DayBase>x</DayBase>
 						<PersonBase>x</PersonBase>
 					</Absolute>
-					<!--Die folgende Condition beschränkt den Zuschlag auf Ankunftszeiten des Hinfluges innerhalb eines bestimmten Zeitintervals  -->
+					<!-- de: Die folgende Condition beschränkt den Zuschlag auf Ankunftszeiten des Hinfluges innerhalb eines bestimmten Zeitintervals  -->
+					<!-- en: The following condition limits the surcharge to arrival times of the outbound flight within a certain time interval  -->
 					<Condition>
 							<Compare Operation="LessThanOrEqual">
 								<Values>08:00</Values>
@@ -125,7 +130,8 @@
 		<Addon Key="LitteItalyCars">
 			<Service Key="Test1"/>
 			<Filter Key="1">
-				<!--Der folgende Filter beschränkt den Mietwagen auf Hotels innerhlab eines Rechtecks von bestimmten Längengraden und Breitengraden  -->
+				<!-- de: Der folgende Filter beschränkt den Mietwagen auf Hotels innerhalb eines Rechtecks von bestimmten Längengraden und Breitengraden  -->
+				<!-- en: The following filter restricts the rental car to hotels within a rectangle of certain longitudes and latitudes  -->
 				<And>
 					<Compare Operation="LessThanOrEqual">
 						<Values>40.7</Values>
