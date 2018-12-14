@@ -2,10 +2,13 @@
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
 	<Products>
 		<Product Key="OnewayFlightOnly" ProductType="OnewayFlightOnly">
-			<!-- Dieses Element definiert ein OnewayFlightOnly-Produkt, welches aus einem OnewayFlight besteht.
-					Sollten Sie sich auch für OnewayFlights interessieren, die aus einzelnen OnewayFlights zusammengesetzt werden, so schauen Sie bitte nach Durchsicht dieses Beispiels die OTDS Beispieldatei 		"FlightRulesExample.xml" an.-->
+			<!-- de: Dieses Element definiert ein OnewayFlightOnly-Produkt, welches aus einem OnewayFlight besteht.
+					Sollten Sie sich auch für OnewayFlights interessieren, die aus einzelnen OnewayFlights zusammengesetzt werden, so schauen Sie bitte nach Durchsicht dieses Beispiels die OTDS Beispieldatei "FlightRulesExample.xml" an.-->
+			<!-- en: This element defines a OnewayFlightOnly product, which consists of a OnewayFlight.
+					If you are also interested in OnewayFlights, which are composed of individual OnewayFlights, please have a look at the OTDS example file "FlightRulesExample.xml" after viewing this example.-->
 			<Booking>
-				<!-- Definition globaler Buchungsparameter wie dem Anforderungscode und zum Beispiel dem Starttermin. Der Übersicht halber ist die Platzierung der Start und Landezeiten etc. nur in dem 2. aufgeführten OnewayFlight aufgeführt. Dieses könnte analog auch im 1. aufgeführten OnewayFlight erfolgen.  -->
+				<!-- de: Definition globaler Buchungsparameter wie dem Anforderungscode und zum Beispiel dem Starttermin. Der Übersicht halber ist die Platzierung der Start und Landezeiten etc. nur in dem zweiten aufgeführten OnewayFlight aufgeführt. Dieses könnte analog auch im ersten aufgeführten OnewayFlight erfolgen.  -->
+				<!-- en: Definition of global booking parameters such as the request code and, for example, the start date. For the sake of clarity, the placement of take-off and landing times etc. is only listed in the 2nd OnewayFlight. This could also be done in the 1st listed OnewayFlight.  -->
 				<BookingGroup Area="ServiceArea" Source="OnewayFlight">
 					<BookingParameter Field="RequestCode">
 						<Value>F</Value>
@@ -23,7 +26,8 @@
 	<Brands>
 		<Brand Key="YYY">
 			<Booking>
-				<!-- Definition des Veranstaltercodes für die Buchung -->
+				<!-- de: Definition des Veranstaltercodes für die Buchung -->
+				<!-- en: Definition of the tour operator code for the booking -->
 				<BookingGroup Area="GlobalArea">
 					<BookingParameter Field="BrandCode">
 						<Value>YYY</Value>
@@ -35,9 +39,11 @@
 	<Flights>
 		<OnewayFlights>
 			<OnewayFlight Key="FRAFUE20130331K1">
-				<!-- Dieser OnewayFlight stellt die einfachste Form eines gelieferten OnewayFlights dar. In diesem Fall ist es ein Einzelflug an einem bestimmten Termin mit einer bestimmten Buchungsklasse. -->
+				<!-- de: Dieser OnewayFlight stellt die einfachste Form eines gelieferten OnewayFlights dar. In diesem Fall ist es ein Einzelflug an einem bestimmten Termin mit einer bestimmten Buchungsklasse. -->
+				<!-- en: This OnewayFlight is the simplest form of a delivered OnewayFlight. In this case it is a single flight on a certain date with a certain booking class. -->
 				<Booking>
-					<!-- Hier wird der Flugcode für die Buchung definiert.-->
+					<!-- de: Hier wird der Flugcode für die Buchung definiert.-->
+					<!-- en: Here the flight code for the booking is defined.-->
 					<BookingGroup Area="ServiceArea">
 						<BookingParameter Field="ServiceCode">
 							<Value>FRAFUEK1</Value>
@@ -47,19 +53,24 @@
 				<Properties Key="1">
 					<PropertyGroup>
 						<FlightRoutes>
-							<!-- In diesem Fall besteht die FlightRoute nur aus einem Segment. Es können aber auch mehrere Segmente und auch mehr Eigenschaften zum Flug angegeben werden. 
-								Im 3. OnewayFlight finden Sie ein Beispiel für einen Flug mit StopOver und mehr definierten Eigenschaften.
-							-->
+							<!-- de: In diesem Fall besteht die FlightRoute nur aus einem Segment. Es können aber auch mehrere Segmente und auch mehr Eigenschaften zum Flug angegeben werden. 
+								Im dritten OnewayFlight finden Sie ein Beispiel für einen Flug mit StopOver und mehr definierten Eigenschaften. -->
+							<!-- en: In this case the FlightRoute consists of only one segment. However, you can also specify several segments and more properties for the flight. 
+In the third OnewayFlight you will find an example of a flight with StopOver and more defined properties. -->
 							<FlightRoute>
 								<Departure>
 									<Airport>FRA</Airport>
 									<Time>12:20:00</Time>
-									<!-- Die Angabe der Zeit ist immer die Lokalzeit also in der Zeitzone am Ort des Abflug-Flughafens. 
-											Das zusätzliche neue Attribut "@UTCOffset" wird nur an den Tagen interpretiert, an den lokal eine Zeitumstellung stattfindet.
+									<!-- de: Die Angabe der Zeit ist immer die Lokalzeit, also in der Zeitzone am Ort des Abflug-Flughafens. 
+											Das zusätzliche Attribut "@UTCOffset" wird nur an den Tagen interpretiert, an denen lokal eine Zeitumstellung stattfindet.
 Mit dem entsprechenden UTC-Offset definiert man, ob die angegebene lokale Zeit vor oder nach der Zeitumstellung definiert ist. 
 Ist kein Attribut angegeben, gilt die Zeitzone nach der Umstellung.
-Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
--->
+Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.-->
+									<!-- en: The time specification is always the local time, i.e. in the time zone at the location of the departure airport. 
+											The additional attribute "@UTCOffset" is only interpreted on the days when a local time change takes place.
+The corresponding UTC offset defines whether the specified local time is defined before or after the time changeover. 
+If no attribute is specified, the time zone applies after the changeover.
+The UTC offset is not offset against the time.-->
 								</Departure>
 								<Arrival>
 									<Airport>FUE</Airport>
@@ -72,12 +83,16 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 				<DepartureAirport>FRA</DepartureAirport>
 				<ArrivalAirport>FUE</ArrivalAirport>
 				<CheckOutDateOffset>0</CheckOutDateOffset>
-				<!-- Der CheckOutDateOffset definiert, ob es sich um einen Übernachtflug handelt oder nicht. 
+				<!-- de: Der CheckOutDateOffset definiert, ob es sich um einen Übernachtflug handelt oder nicht. 
 					  Wenn es sich um keinen Übernachtflug handelt, nicht kann das Element auch weggelassen werden.-->
+				<!-- en: The CheckOutDateOffset defines whether it is an overnight flight or not. 
+					  If it is not an overnight flight, the element cannot also be omitted.-->
 				<BookingClass Key="Y">
-					<!-- Definition einer Buchungsklasse auf diesem Flug-->
+					<!-- de: Definition einer Buchungsklasse auf diesem Flug-->
+					<!-- en: Definition of a booking class on this flight-->
 					<Booking>
-						<!-- Hier wird er Code für die zu buchende Buchungsklasse definiert.-->
+						<!-- de: Hier wird er Code für die zu buchende Buchungsklasse definiert.-->
+						<!-- en: Here you define the code for the booking class to be booked.-->					
 						<BookingGroup Area="ServiceArea">
 							<BookingParameter Field="ServiceFeatureCode">
 								<Value>Y</Value>
@@ -85,13 +100,15 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 						</BookingGroup>
 					</Booking>
 					<Occupancy Key="1">
-						<!-- Dies ist eine Standardangabe, dass beliebige Personen buchbar sind. In der Regel muss hier keine Hand angelegt werden. -->
+						<!-- de: Dies ist eine Standardangabe, dass beliebige Personen buchbar sind. In der Regel muss hier keine Hand angelegt werden. -->
+						<!-- en: This is a standard specification that any person can be booked. Generally, there is no need for alterations here. -->
 						<Person>
 							<MinCount>1</MinCount>
 						</Person>
 					</Occupancy>
 					<Availabilities Key="1">
-						<!--Definition der Verfügbarkeit für diesen Flug-->
+						<!-- de: Definition der Verfügbarkeit für diesen Flug-->
+						<!-- en: Definition of availability for this flight-->
 						<Availability Key="2013-03-31" StartDate="2013-03-31" EndDate="2013-03-31">
 							<DefaultDayState>
 								<Open>4</Open>
@@ -108,10 +125,12 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 						</PriceItem>
 					</PriceItems>
 				</BookingClass>
-				<!-- Hier können sich weitere Buchungsklassen mit unterschiedlichen Preisen anschließen.-->
+				<!-- de: Hier können sich weitere Buchungsklassen mit unterschiedlichen Preisen anschließen.-->
+				<!-- en: Here further booking classes with different prices can follow.-->
 			</OnewayFlight>
 			<OnewayFlight Key="FRAFUEK2">
-				<!-- Dieser OnewayFlight stellt eine immer wiederkehrende Flugkette da, welche zu einem bestimmten Zeitpunkt an den in der Availability definierten Tagen fliegt. -->
+				<!-- de: Dieser OnewayFlight stellt eine immer wiederkehrende Flugkette da, welche zu einem bestimmten Zeitpunkt an den in der Availability definierten Tagen fliegt. -->
+				<!-- en: This OnewayFlight represents a recurring flight chain which flies at a certain time on the days defined in the Availability. -->
 				<Booking>
 					<BookingGroup Area="ServiceArea">
 						<BookingParameter Field="ServiceCode">
@@ -122,7 +141,8 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 				<DepartureAirport>FRA</DepartureAirport>
 				<ArrivalAirport>FUE</ArrivalAirport>
 				<BookingClass Key="Y">
-					<!-- Definition einer Buchungsklasse auf dieser Flugkette.-->
+					<!-- de: Definition einer Buchungsklasse auf dieser Flugkette.-->
+					<!-- en: Definition of a booking class on this flight chain.-->
 					<Booking>
 						<BookingGroup Area="ServiceArea">
 							<BookingParameter Field="ServiceFeatureCode">
@@ -136,18 +156,22 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 						</Person>
 					</Occupancy>
 					<Availabilities Key="1">
-						<!--Definition der Verfügbarkeit für diese Flugkette. Es finden Flüge zwischen dem 03.03.2013 und dem 27.05.2013 statt. Es finden ausschließlich am Mo und Fr Flüge statt. 
+						<!-- de: Definition der Verfügbarkeit für diese Flugkette. Es finden Flüge zwischen dem 03.03.2013 und dem 27.05.2013 statt. Es finden ausschließlich am Mo und Fr Flüge statt. 
 							Der Flug am 13.03. ist bereits ausgebucht.-->
+							<!-- en: Definition of availability for this flight chain. Flights take place between 03.03.2013 and 27.05.2013. Flights take place exclusively on Mon and Fri. 
+							The flight on 13.03. is already fully booked.-->
 						<Availability Key="2013-03-01" StartDate="2013-03-01" EndDate="2013-03-31">
 							<DefaultDayState>
 								<Open/>
 							</DefaultDayState>
 							<DayState Key="12" Offset="12">
-								<!-- Dieses Element definiert die Verfügbarkeitsstatus, in diesem Falle "Closed" für den Termin (StartDate + Offset). Also für den 13.03.2013. -->
+								<!-- de: Dieses Element definiert den Verfügbarkeitsstatus, in diesem Falle "Closed" für den Termin (StartDate + Offset). Also für den 13.03.2013. -->
+								<!-- en: This element defines the availability status, in this case "Closed" for the date (StartDate + Offset). In this case for the 13.03.2013. -->
 								<Closed/>
 							</DayState>
 							<DayState Key="29" Offset="29">
-								<!-- Dieses Element definiert die Verfügbarkeitsstatus, in diesem Falle "Closed" für den Termin (StartDate + Offset). Also für den 13.03.2013. -->
+								<!-- de: Dieses Element definiert die Verfügbarkeitsstatus, in diesem Falle "Closed" für den Termin (StartDate + Offset). Also für den 30.03.2013. -->
+								<!-- en: This element defines the availability status, in this case "Closed" for the date (StartDate + Offset). In this case for the 30.03.2013. -->
 								<Closed/>
 							</DayState>
 						</Availability>
@@ -162,15 +186,19 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 							</DefaultDayState>
 						</Availability>
 						<Condition>
-							<!-- Die Weekday Condition legt fest, dass die in diesem AvailabilityElement definierte Verfügbarkeit generell nur an den Abflugtagen "Montag" und "Freitag" gilt.-->
+							<!-- de: Die Weekday Condition legt fest, dass die in diesem AvailabilityElement definierte Verfügbarkeit generell nur an den Abflugtagen "Montag" und "Freitag" gilt.-->
+							<!-- en: The Weekday Condition specifies that the availability defined in this AvailabilityElement is generally only valid on the departure days "Monday" and "Friday".-->
 							<Weekdays Source="ThisComponent">Mon Fri</Weekdays>
 						</Condition>
-						<!-- Wir empfehlen, die Availabilities monatsweise zu gestalten. So kann man bei der Datenproduktion einzelne Monate bei fehlender Verfügbarkeit, bzw. das EndDate (siehe Mai) an die Verfügbarkeit anpassen. ohne viele Daten liefern zu müssen.
-							Wir empfehlen weiterhin den Startdate bzw. den Key der Availability-Elemente nicht zu ändern, da es sonst bei inkrementellen Updates zu Offsetproblemen kommen kann. -->
+						<!-- de: Wir empfehlen, die Availabilities monatsweise zu gestalten. So kann man bei der Datenproduktion einzelne Monate bei fehlender Verfügbarkeit, bzw. das EndDate (siehe Mai) an die Verfügbarkeit anpassen, ohne viele Daten liefern zu müssen.
+							Wir empfehlen weiterhin das Start-Date bzw. den Key der Availability-Elemente nicht zu ändern, da es sonst bei inkrementellen Updates zu Offsetproblemen kommen kann. -->
+							<!-- de: We recommend that you design the availability on a monthly basis. This allows you to adjust the availability of individual months during data production, or the end date (see May) to the availability, without having to supply a lot of data.
+							We also recommend that you do not change the start date or the key of the availability elements, as this can lead to offset problems with incremental updates. -->
 					</Availabilities>
 					<PriceItems Key="1">
 						<PriceItem Class="Base">
-							<!-- Festlegung des Flugpreises dieser Flugkette. -->
+							<!-- de: Festlegung des Flugpreises dieser Flugkette. -->
+							<!-- en: Determination of the airfare of this flight chain. -->
 							<Absolute>
 								<Value>332</Value>
 								<DayBase>x</DayBase>
@@ -178,7 +206,8 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 							</Absolute>
 						</PriceItem>
 						<PriceItem Class="FligtDateSupplement">
-							<!-- Festlegung z.B. eines terminabhängigen Flugzuschlages. -->
+							<!-- de: Festlegung z.B. eines terminabhängigen Flugzuschlages. -->
+							<!-- en: Determination, for example, of a time-dependent flight surcharge. -->
 							<Absolute>
 								<Value>15</Value>
 								<DayBase>x</DayBase>
@@ -188,19 +217,24 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 								<Date Source="ThisComponent">
 									<Dates>2013-03-10 2013-03-18 2013-03-19 2013-03-27</Dates>
 								</Date>
-								<!-- Es lassen sich im Element-Condition sehr viele unterschiedliche Bedingungen definieren, die auch Definitionen für Kinderpreise, Wochentagsabhängigkeiten und vieles mehr erlauben. 		
+								<!-- de: Es lassen sich im Element-Condition sehr viele unterschiedliche Bedingungen definieren, die auch Definitionen für Kinderpreise, Wochentagsabhängigkeiten und vieles mehr erlauben. 		
 									Weitere PreisItem Beispiele finden Sie in der OTDS-Beispieldatei "PriceItemExamples.xml".-->
+									<!-- en: You can define many different conditions in the element condition, which also allow definitions for child prices, weekday dependencies and much more. 		
+									Further examples of PriceItem can be found in the OTDS sample file "PriceItemExamples.xml".-->
 							</Condition>
 						</PriceItem>
 					</PriceItems>
 				</BookingClass>
 			</OnewayFlight>
 			<OnewayFlight Key="FRAHKT20130331K1">
-				<!-- Dieser OnewayFlight verdeutlicht, wie Sie Eigenschaften wie die Carrier, Zwischenlandungen oder Übernachflüge darstellen.
+				<!-- de: Dieser OnewayFlight verdeutlicht, wie Sie Eigenschaften wie die Carrier, Zwischenlandungen oder Übernachtflüge darstellen.
 					OnewayFlights mit mehreren Segmenten kommen nur dann zum Einsatz, wenn das Veranstaltersystem keine Regeln oder Preise auf einzelne Segmente bezieht.
 					 Will man sich auf einzelne Segmente mit Regeln und Preisen beziehen, so muss man dafür die Segmente als OnewayFlights liefern und mit Hilfe der im Veranstaltersystem hinterlegten Regeln zusammensetzen.
-					Schauen Sie sich dazu dann auch das OTDS Beispiel  FlightRules.xml an.
-				  -->
+					Schauen Sie sich dazu dann auch das OTDS Beispiel  FlightRules.xml an.  -->
+				<!-- en: This OnewayFlight illustrates how to display properties such as carriers, stopovers or overnight flights.
+					OnewayFlights with several segments are only used if the tour operator system does not apply any rules or prices to individual segments.
+					 If you want to refer to individual segments with rules and prices, you must supply the segments as one-way flights and assemble them using the rules stored in the tour operator system.
+					For further information on this take a look at the OTDS example FlightRules.xml.  -->
 				<Booking>
 					<BookingGroup Area="ServiceArea">
 						<BookingParameter Field="ServiceCode">
@@ -217,8 +251,8 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 							</BaggageAllowance>
 						</FlightBookingClassBaggageAllowances>
 						<FlightRoutes>
-							<!-- In diesem Fall besteht die FlightRoute aus mehreren Segmenten. Teilweise ist das Terminal bekannt. Ab BKK handelt es sich um einen Übernachtflug. Der DateOffset bezieht sich immer auf den CheckIn Termin des Angebotes. Die Zusatzangaben im ersten Segment können - wenn vorhanden - auch in den anderen Segmenten ergänzt werden.
-							-->
+							<!-- de: In diesem Fall besteht die FlightRoute aus mehreren Segmenten. Teilweise ist das Terminal bekannt. Ab BKK handelt es sich um einen Übernachtflug. Der DateOffset bezieht sich immer auf den CheckIn Termin des Angebotes. Die Zusatzangaben im ersten Segment können - wenn vorhanden - auch in den anderen Segmenten ergänzt werden.	-->
+							<!-- en: In this case the FlightRoute consists of several segments. Partly the terminal is known. From BKK it is an overnight flight. The DateOffset always refers to the check-in date of the offer. The additional information in the first segment can - if available - also be supplemented in the other segments.	-->
 							<FlightRoute>
 								<Departure>
 									<Airport>FRA</Airport>
@@ -277,7 +311,8 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 				</Properties>
 				<DepartureAirport>FRA</DepartureAirport>
 				<ArrivalAirport>FUE</ArrivalAirport>
-				<!-- Definition eines Übernachtfluges-->
+				<!-- de: Definition eines Übernachtfluges-->
+				<!-- en: Definition of an overnight flight-->
 				<CheckOutDateOffset>1</CheckOutDateOffset>
 				<BookingClass Key="Y">
 					<Booking>
@@ -311,7 +346,8 @@ Es findet keine Verrechnung des UTC-Offsets mit der Zeit statt.
 				</BookingClass>
 			</OnewayFlight>
 			<OnewayFlight Key="FRASFOK6">
-				<!-- In dieser Flugrotation sind die Segmente nicht bekannt. Aber es ist bekannt, dass es 3 StopOvers gibt.-->
+				<!-- de: In dieser Flugrotation sind die Segmente nicht bekannt. Aber es ist bekannt, dass es 3 StopOvers gibt.-->
+				<!-- en: In this flight rotation the segments are not known. But it is known that there are 3 StopOvers.-->
 				<Booking>
 					<BookingGroup Area="ServiceArea">
 						<BookingParameter Field="ServiceCode">

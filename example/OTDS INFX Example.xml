@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd">
-	<!-- Im folgenden ein Beispiel für eine Konvertierung von INFX in OTDS. Eine Konvertierung hat nur die Datentiefe zur Verfügung, die in INFX steckt. 
+<!-- 
+de: Im folgenden ein Beispiel für eine Konvertierung von INFX in OTDS. Eine Konvertierung hat nur die Datentiefe zur Verfügung, die in INFX steckt. 
 			Dieses Beispiel zeigt genau diese Konvertierung.
-
 			Wenn man eine INFX-Produktion direkt im System durch eine OTDS(INFX) -Produktion ersetzen würde, so wären noch andere Möglichkeiten der Umsetzung denkbar, die mehr Dateninhalt transportieren kann. Zum Beispiel könnten die Verfügbarkeiten der Flüge und Hotels getrennt aufgeschlüsselt werden, oder auch die Belegung bzgl. der Babies könnte feiner aufgeschlüsselt werden. Auch bzgl. der Übertragung der Buchungsparameter gibt es dann erheblich mehr Möglichkeiten. 
-
-Sie finden hier jeweils ein Beispiel für INFX-Package und INFX-NurHotel. Die entsprechenden INFX-zeilen sind als Kommentar im Produkt aufgeführt. 
-
--->
+Sie finden hier jeweils ein Beispiel für INFX-Package und INFX-NurHotel. Die entsprechenden INFX-Zeilen sind als Kommentar im Produkt aufgeführt. -->
+<!-- 
+en: The following is an example of a conversion from INFX to OTDS. A conversion has only the data depth available that is in INFX. 
+			This example shows exactly this conversion.
+			If one would replace an INFX production directly in the system by an OTDS(INFX) production, then still other possibilities of the conversion would be conceivable, which can transport more data contents. For example, the availability of flights and hotels could be broken down separately, or the occupancy of babies could be broken down more finely. There will also be considerably more options for transferring booking parameters. 
+Here you will find an example for INFX-Package and INFX-HotelOnly. The corresponding INFX lines are listed as comments in the product. -->
 	<Products>
 		<Product Key="Package" ProductType="FlightAccommodation">
-			<!-- Dieses Produkt definiert folgende INFXZeilen:
-Zeile 1:     
-
--->
+			<!-- de: Dieses Produkt definiert folgende INFX-Zeilen:
+Zeile 1:    -->
+			<!-- en: This product defines the following INFX lines:
+Line 1: -->
 			<Components>
 				<Accommodation DayAllocationIndex="0"/>
 				<ReturnFlight>
@@ -51,7 +53,8 @@ Zeile 1:
 						<Value>TO1</Value>
 					</BookingParameter>
 				</BookingGroup>
-				<!-- Die folgenden BookingGroups werden gebraucht um festzulegen, wie die Titel der Personen in die Buchungsmakse eingetragen werden. -->
+				<!-- de: Die folgenden BookingGroups werden gebraucht um festzulegen, wie die Titel der Personen in die Buchungsmaske eingetragen werden. -->
+				<!-- en: The following BookingGroups are used to determine how the titles of the persons are entered into the booking mask. -->
 				<BookingGroup EvaluationBase="Person" Area="PersonArea">
 					<BookingParameter Field="Title">
 						<Value>H</Value>
@@ -111,7 +114,8 @@ Zeile 1:
 						<PersonAge AgeType="TravelAge"/>
 					</BookingParameter>
 				</BookingGroup>
-				<!-- Die folgenden BookingGroups werden gebraucht um festzulegen, wie die Termine in die Leistungszeilen eingetragen werden. Hier wird von einer Zeile für die Accommodation und einer Zeile für den Flug ausgegangen. -->
+				<!-- de: Die folgenden BookingGroups werden gebraucht um festzulegen, wie die Termine in die Leistungszeilen eingetragen werden. Hier wird von einer Zeile für die Accommodation und einer Zeile für den Flug ausgegangen. -->
+				<!-- en: The following BookingGroups are used to determine how the dates are entered in the lines for the services. Here one line for accommodation and one line for flight are assumed. -->
 				<BookingGroup Area="ServiceArea" Source="global:SellingAccom" Class="Default">
 					<BookingParameter Field="DateStart">
 						<Date DateFormat="[D01][M01][Y01]" DayType="CheckIn" Source="global:Accommodation"/>
@@ -208,10 +212,12 @@ Zeile 1:
 								<MaxCount>2</MaxCount>
 							</Person>
 						</Occupancy>
-						<!-- Für jede Ausprägung nach Abflughafen, Zielflughafen, Dauer wird ein eigenes Element Availabilities angelegt. Ein Einzelnes Angebot darin bildet lediglich noch ein DayState-Element aus, welches innehrlab einer Monats-Availability liegt. Die monatliche Skalierung ist ein Vorschlag des OTDS Gremiums. -->
+						<!-- de: Für jede Ausprägung nach Abflughafen, Zielflughafen, Dauer wird ein eigenes Element Availabilities angelegt. Ein einzelnes Angebot darin bildet lediglich noch ein DayState-Element aus, welches innerhalb einer Monats-Availability liegt. Die monatliche Skalierung ist ein Vorschlag des OTDS Gremiums. -->
+						<!-- en: A separate Availabilities element is created for each characteristic of departure airport, destination airport, and duration. A single offer in this element only forms a DayState element, which is part of a monthly availability. The monthly scaling is a proposal of the OTDS committee. -->
 						<Availabilities Key="DZ_Dauer_7_DUS_TFS">
 							<Availability Key="DZ_2013_01" StartDate="2013-01-01" EndDate="2013-01-31">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -220,7 +226,8 @@ Zeile 1:
 								</DayState>
 							</Availability>
 							<Availability Key="DZ_2013_02" StartDate="2013-02-01" EndDate="2013-02-28">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -231,7 +238,8 @@ Zeile 1:
 										<Durations>7</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For hotels with only one "catchment airport" this is not necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 								</And>
 							</Condition>
@@ -248,14 +256,16 @@ Zeile 1:
 										<Durations>10</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 								</And>
 							</Condition>
 						</Availabilities>
 						<Availabilities Key="DZ_Dauer_7_DUS_TFN">
 							<Availability Key="DZ_2013_01" StartDate="2013-01-01" EndDate="2013-01-31">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -264,7 +274,8 @@ Zeile 1:
 								</DayState>
 							</Availability>
 							<Availability Key="DZ_2013_02" StartDate="2013-02-01" EndDate="2013-02-28">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -275,7 +286,8 @@ Zeile 1:
 										<Durations>7</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For hotels with only one "catchment airport" this is not necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 								</And>
 							</Condition>
@@ -292,14 +304,16 @@ Zeile 1:
 										<Durations>10</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 								</And>
 							</Condition>
 						</Availabilities>
 					</SellingUnit>
 					<SellingUnit Key="DZ-2-4-3-3">
-						<!-- 3 Personen und 0 - 1 Kinder haben den gleichen Vollzahlerpreis. Für jede Belegung, die einen eigenen Vollzahlerpreis hat, wird eine eigene SellingUnit angelegt. -->
+						<!-- de: 3 Personen und 0 - 1 Kinder haben den gleichen Vollzahlerpreis. Für jede Belegung, die einen eigenen Vollzahlerpreis hat, wird eine eigene SellingUnit angelegt. -->
+						<!-- en: 3 persons and 0 - 1 children have the same full-payer price. A separate selling unit is created for each occupancy that has its own full-payer price. -->
 						<Booking>
 							<BookingGroup Area="ServiceArea">
 								<BookingParameter Field="ServiceFeatureCode">
@@ -314,7 +328,8 @@ Zeile 1:
 							</PropertyGroup>
 						</Properties>
 						<Occupancy Key="1">
-							<!-- 2 Personen und 0 - 2 Kinder -->
+							<!-- de: 2 Personen und 0 - 2 Kinder -->
+							<!-- en: 2 persons and 0 - 2 children -->
 							<Person>
 								<Count>3</Count>
 							</Person>
@@ -323,14 +338,16 @@ Zeile 1:
 								<MaxCount>2</MaxCount>
 							</Person>
 							<Person>
-								<!-- Optional sind 2 Babies möglich. -->
+								<!-- de: Optional sind 2 Babies möglich. -->
+								<!-- en: Optionally 2 babies are possible. -->
 								<MaxAge>1</MaxAge>
 								<MaxCount>2</MaxCount>
 							</Person>
 						</Occupancy>
 						<Availabilities Key="DZ_Dauer_7_DUS_TFS">
 							<Availability Key="DZ_2013_01" StartDate="2013-01-01" EndDate="2013-01-31">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -339,7 +356,8 @@ Zeile 1:
 								</DayState>
 							</Availability>
 							<Availability Key="DZ_2013_02" StartDate="2013-02-01" EndDate="2013-02-28">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -350,7 +368,8 @@ Zeile 1:
 										<Durations>7</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For hotels with only one "catchment airport" this is not necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 								</And>
 							</Condition>
@@ -367,14 +386,16 @@ Zeile 1:
 										<Durations>10</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 								</And>
 							</Condition>
 						</Availabilities>
 						<Availabilities Key="DZ_Dauer_7_DUS_TFN">
 							<Availability Key="DZ_2013_01" StartDate="2013-01-01" EndDate="2013-01-31">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -383,7 +404,8 @@ Zeile 1:
 								</DayState>
 							</Availability>
 							<Availability Key="DZ_2013_02" StartDate="2013-02-01" EndDate="2013-02-28">
-								<!--Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- de: Die Verfügbarkeiten werden je INFX-Datensatz als DayState-Element eingetragen. -->
+								<!-- en: The availability is entered per INFX record as DayState element. -->
 								<DefaultDayState>
 									<Closed/>
 								</DefaultDayState>
@@ -394,7 +416,8 @@ Zeile 1:
 										<Durations>7</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei Hotels mit nur einem "CatchmentAirport" ist das nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For hotels with only one "catchment airport" this is not necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 								</And>
 							</Condition>
@@ -411,7 +434,8 @@ Zeile 1:
 										<Durations>10</Durations>
 									</Duration>
 									<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-									<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+									<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 									<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 								</And>
 							</Condition>
@@ -597,7 +621,8 @@ Zeile 1:
 			<CatchmentAirports>PMI</CatchmentAirports>
 		</Accommodation>
 		<PriceItems Key="INFXHotelOnly">
-			<!-- INFX Zeile Preis pro Person 199 EUR für S1-ACE138 2PR-2-2 am 1.12.2011 Dauer 7 Tage -->
+			<!-- de: INFX Zeile Preis pro Person 199 EUR für S1-ACE138 2PR-2-2 am 1.12.2011 Dauer 7 Tage -->
+			<!-- en: INFX line price per person 199 EUR for S1-ACE138 2PR-2-2 on 1.12.2011 duration 7 days -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>199</Value>
@@ -619,7 +644,8 @@ Zeile 1:
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Person 299 EUR für S1-PMI001 D-A am 1.12.2011 Dauer 7 Tage -->
+			<!-- de: INFX Zeile Preis pro Person 299 EUR für S1-PMI001 D-A am 1.12.2011 Dauer 7 Tage -->
+			<!-- en: INFX line price per person 299 EUR for S1-PMI001 D-A on 1.12.2011 duration 7 days -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>299</Value>
@@ -641,7 +667,8 @@ Zeile 1:
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Person 199 EUR für S1-ACE138 2PR-2-2 am 2.12.2011 Dauer 7 Tage -->
+			<!-- de: INFX Zeile Preis pro Person 199 EUR für S1-ACE138 2PR-2-2 am 2.12.2011 Dauer 7 Tage -->
+			<!-- en: INFX line price per person 199 EUR for S1-ACE138 2PR-2-2 on 2.12.2011 duration 7 days -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>199</Value>
@@ -663,7 +690,8 @@ Zeile 1:
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Person 299 EUR für S1-PMI001 D-A am 2.12.2011 Dauer 7 Tage -->
+			<!-- de: INFX Zeile Preis pro Person 299 EUR für S1-PMI001 D-A am 2.12.2011 Dauer 7 Tage -->
+			<!-- en: INFX line price per person 299 EUR for S1-PMI001 D-A on 2.12.2011 duration 7 days -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>299</Value>
@@ -687,7 +715,8 @@ Zeile 1:
 			</PriceItem>
 		</PriceItems>
 		<PriceItems Key="INFX_PackageTFS">
-			<!-- INFX Zeile Preis pro Erwachsenen 299 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsener 299 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 299 EUR for TFS001 DZ H occupancy 2-4-3-3 on 6.1.2013 duration 7 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>299</Value>
@@ -706,13 +735,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 399 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 399 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 399 EUR for TFS001 DZ H occupancy 2-4-2-2 on 6.1.2013 duration 7 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>399</Value>
@@ -731,13 +762,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 349 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 349 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 349 EUR for TFS001 DZ H occupancy 2-4-3-3 on 6.1.2013 duration 10 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>349</Value>
@@ -756,13 +789,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 449 EUR for TFS001 DZ H occupancy 2-4-2-2 on 6.1.2013 duration 10 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>449</Value>
@@ -781,13 +816,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 349 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 349 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 349 EUR for TFS001 DZ V occupancy 2-4-3-3 on 6.1.2013 duration 7 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>349</Value>
@@ -806,13 +843,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 449 EUR for TFS001 DZ V occupancy 2-4-2-2 on 6.1.2013 duration 7 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>449</Value>
@@ -831,13 +870,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 399 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 399 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 399 EUR for TFS001 DZ V occupancy 2-4-3-3 on 6.1.2013 duration 10 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>399</Value>
@@ -856,13 +897,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 499 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 499 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFS. -->
+			<!-- en: INFX line price per adult 499 EUR for TFS001 DZ V occupancy 2-4-2-2 on 6.1.2013 duration 10 days with flight DUSTFS. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>499</Value>
@@ -881,7 +924,8 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFS</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
@@ -889,7 +933,8 @@ Zeile 1:
 			</PriceItem>
 		</PriceItems>
 		<PriceItems Key="INFX_PackageTFN">
-			<!-- INFX Zeile Preis pro Erwachsenen 399 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 399 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 399 EUR for TFS001 DZ H occupancy 2-4-3-3 on 6.1.2013 duration 7 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>399</Value>
@@ -908,13 +953,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 499 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 499 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 499 EUR for TFS001 DZ H occupancy 2-4-2-2 on 6.1.2013 duration 7 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>499</Value>
@@ -933,13 +980,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ H Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 449 EUR for TFS001 DZ H occupancy 2-4-3-3 on 6.1.2013 duration 10 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>449</Value>
@@ -958,13 +1007,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 549 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 549 EUR für TFS001 DZ H Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 549 EUR for TFS001 DZ H occupancy 2-4-2-2 on 6.1.2013 duration 10 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>549</Value>
@@ -983,13 +1034,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">H</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 449 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 449 EUR for TFS001 DZ V occupancy 2-4-3-3 on 6.1.2013 duration 7 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>449</Value>
@@ -1008,13 +1061,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 549 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 549 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 7 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 549 EUR for TFS001 DZ V occupancy 2-4-2-2 on 6.1.2013 duration 7 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>549</Value>
@@ -1033,13 +1088,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 499 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 499 EUR für TFS001 DZ V Belegung 2-4-3-3 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 499 EUR for TFS001 DZ V occupancy 2-4-3-3 on 6.1.2013 duration 10 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>499</Value>
@@ -1058,13 +1115,15 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
 				</Condition>
 			</PriceItem>
-			<!-- INFX Zeile Preis pro Erwachsenen 599 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- de: INFX Zeile Preis pro Erwachsenen 599 EUR für TFS001 DZ V Belegung 2-4-2-2 am 6.1.2013 Dauer 10 Tage mit Flug DUSTFN. -->
+			<!-- en: INFX line price per adult 599 EUR for TFS001 DZ V occupancy 2-4-2-2 on 6.1.2013 duration 10 days with flight DUSTFN. -->
 			<PriceItem Class="INFX">
 				<Absolute>
 					<Value>599</Value>
@@ -1083,7 +1142,8 @@ Zeile 1:
 						<Keys Source="SellingUnit">DZ-2-4-3-3</Keys>
 						<Keys Source="Board">V</Keys>
 						<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-						<!-- bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- de: bei mehreren möglichen Zielflughäfen zum Beispiel Teneriffa TFS/TFN wird an dieser Stelle nach Zielflughafen unterschieden. Bei ACE ist das streng genommen nicht notwendig. -->
+						<!-- en: if there are several possible destination airports, e.g. Tenerife TFS/TFN, a distinction is made here between destination airports. For ACE this is not really necessary. -->
 						<Airports Source="Outbound" AirportType="Arrival">TFN</Airports>
 						<Tags Source="Accommodation" Class="Product">PackageAccommodation</Tags>
 					</And>
@@ -1117,8 +1177,9 @@ Zeile 1:
 			</ReturnFlight>
 		</ReturnFlights>
 	</Flights>
-	<!--
-Folgende INFXZeilen werden für Pauschal abgebildet:
+	<!-- de: Folgende INFX-Zeilen werden für Pauschal abgebildet:-->
+	<!-- de: The following INFX lines are mapped for a package trip:-->
+<!--
 Zeile01:01TO1 DUSTFSTFSDUS     06.01.201313.01.2013TFS001           DZ H  200399                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2422EUR
 Zeile02:01TO1 DUSTFSTFSDUS     06.01.201316.01.2013TFS001           DZ H  200449                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2422EUR
 Zeile03:01TO1 DUSTFSTFSDUS     06.01.201313.01.2013TFS001           DZ H  200299                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2433EUR
@@ -1136,7 +1197,9 @@ Zeile14:01TO1 DUSTFNTFNDUS     06.01.201316.01.2013TFS001           DZ V  200599
 Zeile15:01TO1 DUSTFNTFNDUS     06.01.201313.01.2013TFS001           DZ V  200449                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2433EUR
 Zeile16:01TO1 DUSTFNTFNDUS     06.01.201316.01.2013TFS001           DZ V  200499                                          H10 RUBICON PALACE La Pampa                                                                                                                                                                                                                                                            4,5                                            9                                                                                                                                        2433EUR
 -->
-	<!-- Durch das NurHotel-Produkt werden in diesem Beispiel folgende INFX-Zeilen abgedeckt:
+	<!-- de: Durch das NurHotel-Produkt werden in diesem Beispiel folgende INFX-Zeilen abgedeckt:-->
+	<!-- en: In this example, the following INFX lines are covered by the HotelOnly product:-->
+<!--
 Zeile1:01TO1                  01.12.201108.12.2011ACE138           2PRH  200199LH                                        H10 RUBICON PALACE PLAYA BLANCA                                                                                                                                                                                                                                                        4,5                                            9                                                                                                                                        2422EUR
 Zeile2:01TO1                  02.12.201109.12.2011ACE138           2PRH  200299LH                                        H10 RUBICON PALACE PLAYA BLANCA                                                                                                                                                                                                                                                        4,5                                            9                                                                                                                                        2422EUR
 Zeile3:01TO1                  01.12.201108.12.2011PMI001           D  A  200199LH                                        DELTA              CABO BLANCO                                                                                                                                                                                                                                                         4                                              9                                                                                                                                        2322EUR
