@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Otds xmlns="http://otds-group.org/otds" xmlns:merlin="http://otds-group.org/otds/booking/merlin" xmlns:toma="http://otds-group.org/otds/booking/toma" xmlns:tsx="http://www.tui.com/otds/booking/tsx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd  http://otds-group.org/otds/booking/merlin ../xsd/otds-booking-merlin.xsd http://otds-group.org/otds/booking/toma ../xsd/otds-booking-toma.xsd  http://www.tui.com/otds/booking/tsx ../xsd/otds-booking-TUI-Smart-XML.xsd">
+<Otds xmlns="http://otds-group.org/otds" xmlns:merlin="http://otds-group.org/otds/booking/merlin" xmlns:toma="http://otds-group.org/otds/booking/toma" xmlns:tsx="http://www.TO.com/otds/booking/tsx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="2.0" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd  http://otds-group.org/otds/booking/merlin ../xsd/otds-booking-merlin.xsd http://otds-group.org/otds/booking/toma ../xsd/otds-booking-toma.xsd  http://www.TO.com/otds/booking/tsx ../xsd/otds-booking-TO-NameSpace.xsd">
 	<Products>
 		<Product Key="FlightAccommodation" ProductType="FlightAccommodation">
 			<Components>
@@ -15,7 +15,7 @@
 		</Product>
 	</Products>
 	<Brands>
-		<Brand Key="TUID">
+		<Brand Key="TO">
 			<Tags>
 				<ConditionalTag>
 					<Tag Class="PersonBookingType">Adult</Tag>
@@ -288,7 +288,6 @@
 	</Accommodations>
 	<Flights>
 		<OnewayFlights>
-			<!-- TUI interner Hinflug-->
 			<OnewayFlight Key="HAJLPAA17RN23032017">
 				<Booking>
 					<BookingTree>
@@ -354,7 +353,6 @@
 					</PriceItems>
 				</BookingClass>
 			</OnewayFlight>
-			<!-- TUI interner Rückflug-->
 			<OnewayFlight Key="LPAHAJA17RN30032017">
 				<Booking>
 					<BookingTree>
@@ -409,7 +407,6 @@
 					</Availabilities>
 				</BookingClass>
 			</OnewayFlight>
-			<!-- TUI externer Hinflug bestehend aus mehreren Legs-->
 			<OnewayFlight Key="HAJLPAA17RN23032017">
 				<Booking>
 					<BookingTree>
@@ -593,7 +590,6 @@
 					</PriceItems>
 				</BookingClass>
 			</OnewayFlight>
-			<!-- TUI externer Rückflug-->
 			<OnewayFlight Key="LPAHAJA17RN30032017">
 				<Booking>
 					<BookingTree>
@@ -759,40 +755,6 @@
 	</Flights>
 	<DefinedComponents>
 		<DefineComponent Key="HR" Role="ReturnFlight">
-			<Booking>
-				<!-- Definition einer Flughülle, die die Buchungsparameter aller beteiligten Einzelflüge ersetzt und danach neu definiert-->
-				<!-- zunächst alle möglicherweise durch Flüge angelegte Buchungszeilen löschen -->
-				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
-					<BookingReplace Source="OnewayFlight" Class="*"/>
-					<BookingReplace Source="ReturnFlight" Class="*"/>
-					<BookingReplace Source="BookingClass" Class="*"/>
-					<!-- neue generisch Buchungszeile (Flughülle) -->
-					<BookingParameter Field="RequestCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
-						<Value>F</Value>
-					</BookingParameter>
-					<BookingParameter Field="ServiceFeatureCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
-						<Value>Y</Value>
-					</BookingParameter>
-					<BookingParameter Field="DateStart" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
-						<Date Source="Outbound" DayType="CheckIn"/>
-					</BookingParameter>
-					<BookingParameter Field="DateEnd" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
-						<Date Source="Inbound" DayType="CheckIn"/>
-					</BookingParameter>
-				</BookingGroup>
-				<BookingGroup Priority="1" Area="ServiceArea" Source="ReturnFlight">
-					<!-- Eine von den Flughäfen abhängiger ServiceCode der Flughülle -->
-					<BookingParameter Field="ServiceCode" Index="0" PadCondition="Always" PadLength="0" PadOrientation="Right">
-						<Value>DUSPMI</Value>
-					</BookingParameter>
-					<Condition>
-						<And>
-							<Airports Source="Outbound" AirportType="Departure">DUS</Airports>
-							<Airports Source="Outbound" AirportType="Arrival">PMI</Airports>
-						</And>
-					</Condition>
-				</BookingGroup>
-			</Booking>
 			<Components>
 				<CombiComponent Role="Outbound" DayAllocationIndex="-1">
 					<OnewayFlight Name="OutFlight"/>
