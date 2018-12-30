@@ -19068,8 +19068,10 @@ usw.]]></programlisting>
 								<para xml:id="en_9765" xml:lang="en">Collect all <code>BookingTree/.../leaf nodes</code> in the components and subcomponent branches of the considered offer including the path nodes and all attributes contained therein.</para>
 							</listitem>
 							<listitem>
-								<para  xml:lang="det">Auswertung der BookingTree/Condition. Die BookingTree/Condition wird wie in OTDS üblich ohne einen spezifischen Day-/Person-/Instance-Index (Details zu diesen Indices finden sie in den nachfolgenden Absätzen)  ausgewertet. Ist die Bedingung nicht valide werden die Inhalte dieses BookingTree-Elementes verworfen.
+								<para xml:id="de_9822" xml:lang="de">Auswertung der BookingTree/Condition. Die BookingTree/Condition wird - wie in OTDS üblich - ohne einen spezifischen Day-/Person-/Instance-Index (Details zu diesen Indices finden Sie in den nachfolgenden Absätzen) ausgewertet. Ist die Bedingung nicht valide, werden die Inhalte dieses BookingTree-Elementes verworfen.
 									Impact-Bedingungen sollten hier eigentlich nicht üblich sein. Die Auswertung der Impact-Bedingungen erfolgt aber so, als wenn die Condition von einem NonImpact-Wrapper mit EvaluationMode="Any" eingeschlossen ist.</para>	
+								<para xml:id="en_9822" xml:lang="en">Evaluation of the BookingTree/Condition. As usual in OTDS, the BookingTree/Condition is evaluated without a specific day/person/instance index (details on these indices can be found in the following paragraphs). If the condition is not valid, the contents of this BookingTree element are discarded.
+									Generally, Impact conditions should not be common here. However, the evaluation of the impact conditions takes place as if the condition is enclosed by a non-impact wrapper with evaluation mode="Any".</para>	
 							</listitem>
 							<listitem>
 								<para xml:id="de_9766" xml:lang="de">Expansion/Duplizierung der einzelnen Blattknoten basierend auf dem Wert
@@ -19078,29 +19080,19 @@ usw.]]></programlisting>
 								<para xml:id="en_9766" xml:lang="en">Expansion/duplication of the individual leaf nodes based on the value @EvaluationBase of the individual path nodes, so that each leaf node is assigned a defined Day/Person/Instance context. Omitting @EvaluationBase is a separate day/person context, namely "no Day/Person context".</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_9767" xml:lang="det">Auflösung von @Source in konkrete Komponenten-Instanzen und ggf. 
+								<para xml:id="de_9767" xml:lang="de">Auflösung von @Source in konkrete Komponenten-Instanzen und ggf. 
 									Expansion/Duplizierung der Pfade und Blattknoten, bis jedem Blattknoten nur noch genau eine Komponenten-Instanz zugeordnet ist. Dabei
 									muss die Anwendung des durch @SourceEvaluationContext festgelegten Kontextes berücksichtigt werden. Lesen Sie dazu
-									auch die nachfolgenden Kapitel <link	linkend="OtdsStrategyBookingBookingTreeSourceEvaluation">"Auswertung und Effekt der Auswertung von @Source und @EvaluationBase"</link> und <link	linkend="OtdsStrategyBookingBookingTreeSourceEvaluationContext">"Anwendung des SourceEvaluationContext='IterationInstance' bei der Sourceauswertung in BookingTree"</link>. 
+									auch die nachfolgenden Kapitel <link linkend="OtdsStrategyBookingBookingTreeSourceEvaluation">"Auswertung und Effekt der Auswertung von @Source und @EvaluationBase"</link> und <link	linkend="OtdsStrategyBookingBookingTreeSourceEvaluationContext">"Anwendung des SourceEvaluationContext='IterationInstance' bei der Sourceauswertung in BookingTree"</link>. 
 									Beachte: Eine Expansion über die Komponenteninstanzen findet nur für @EvaluationBase="Instance" statt. Für @EvaluationBase="Day|Person" wird über alle Tage/Personen iteriert, die wenigstens einer der durch Source adressierten Komponenteninstanzen zugeordnet sind.
 									Aus dem BookingTree-Blattknoten entsteht nach der Expansion nun eine Menge von Blatt-Knoten.
 									Jeder Blattknoten dieser Menge besteht nun aus dem Blattknoten selbst inklusive aller Attribute und einem Pfad-Identifier. Der Pfad-Identifier besteht aus dem Pfad der Pfadknoten bis zum Blattknoten (inkl. des Blattknoten) und je Pfadknoten der Wert von @Class und einem entsprechenden Day-Index, Person-Index oder einer Component-Instance, welcher sich aus der Expansion über Source und EvaluationBase ergeben hat.
-									Zusätzlich sind an jedem Pfadknoten auch noch die Attribute @ResultOrder und ggf.  @Erase für die weitere Verarbeitung vorhanden. Und jeder Blattknoten besitzt auch den Priority-Value aus dem BookingTree/@Priority Attribut und die zur späteren Aggregation der Werte notwendigen Attribute @Name, @Index, @LeftSperator, @RightSeparator, @PadLength, @PadOrientation, @Padding, @PadCondition.
-								</para>
-								<para xml:id="en_9767" xml:lang="en">Resolution of @Source into concrete component instances
-									and if necessary expansion/duplication of paths and leaf nodes
-									until only one component instance is assigned to each leaf node.
-									Thereby the application of the context defined by
-									@SourceEvaluationContext must be taken into account. Read also
-									the following chapters <link
-										linkend="OtdsStrategyBookingBookingTreeSourceEvaluation"
-										>"Evaluation and effect of the evaluation of @Source and @EvaluationBase"</link> and <link
-											linkend="OtdsStrategyBookingBookingTreeSourceEvaluationContext"
-											>"Application of the SourceEvaluationContext='IterationInstance' during source evaluation in BookingTree"</link>. Note: Expansion via instances
-									only takes place for @EvaluationBase="Instance". For
-									@EvaluationBase="Day|Person" all days/persons are iterated which
-									are assigned to at least one of the component instances
-									addressed by Source.</para>
+									Zusätzlich sind an jedem Pfadknoten auch noch die Attribute @ResultOrder und ggf.  @Erase für die weitere Verarbeitung vorhanden. Jeder Blattknoten besitzt auch den Priority-Value aus dem BookingTree/@Priority Attribut und die zur späteren Aggregation der Werte notwendigen Attribute @Name, @Index, @LeftSperator, @RightSeparator, @PadLength, @PadOrientation, @Padding, @PadCondition.</para>
+								<para xml:id="en_9767" xml:lang="en">Resolution of @Source into concrete component instances and, if necessary, expansion/duplication of paths and leaf nodes until only one component instance is assigned to each leaf node. The application of the context defined by @SourceEvaluationContext must be taken into account. For more information, see the following chapters <link linkend="OtdsStrategyBookingBookingTreeSourceEvaluation">"Evaluation and Effect of @Source and @EvaluationBase Evaluation"</link> and <link linkend="OtdsStrategyBookingBookingTreeSourceEvaluationContext">"Application of the SourceEvaluationContext='IterationInstance' during source evaluation in BookingTree"</link>. 
+									Note: An expansion via the component instances only takes place for @EvaluationBase="Instance". For @EvaluationBase="Day|Person" all days/persons are iterated which are assigned to at least one of the component instances addressed by source.
+									The BookingTree leaf node now becomes a set of leaf nodes after expansion.
+									Each leaf node of this set now consists of the leaf node itself including all attributes and a path identifier. The path identifier consists of the path of the path nodes to the leaf node (including the leaf node) and for each path node the value of @Class and a corresponding day index, person index or component instance, which resulted from the expansion via Source and EvaluationBase.
+									In addition, the attributes @ResultOrder and, if applicable, @Erase are also assigned to each path node for further processing. Each leaf node also has the priority value from the BookingTree/@Priority attribute and the @Name, @Index, @LeftSperator, @RightSeparator, @PadLength, @PadOrientation, @Padding, @PadCondition attributes required for later aggregation of the values.</para>
 							</listitem>
 							<listitem>
 								<para xml:id="de_9768" xml:lang="de">Anwendung der verschiedenen Conditions innerhalb der BookingTree-Strukturen. Die Condition wird jeweils im
@@ -19123,28 +19115,38 @@ usw.]]></programlisting>
 								<para xml:id="ene_9770" xml:lang="en">Sort the booking parameters in the booking parameter groups first by @Index in ascending order and then by XML document order.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_9771" xml:lang="det">Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value. Für Details schauen sie bitte im Kapitel Booking unter <link	linkend="de_9623">"Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value"</link> nach.</para>
+								<para xml:id="de_9771" xml:lang="de">Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value. Für Details schauen Sie bitte im Kapitel Booking unter <link	linkend="de_9623">"Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value"</link> nach.</para>
 								<para xml:id="en_9771" xml:lang="en">Replace the reference booking parameters with the referenced value. For details please check the description in chapter Booking <link	linkend="en_9623">"Replace the reference posting parameters with the referenced value"</link>.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_9772" xml:lang="de">Aggregation der Buchungsparametergruppen, so dass je Gruppe nur noch ein Buchungsparameter-Value übrig bleibt. Für Details schauen sie bitte im Kapitel Booking unter <link	linkend="de_9655">"Aggregation der Buchungsparametergruppen, so dass je
-									Gruppe nur noch ein konkreter Value übrig bleibt"</link> nach.</para>
+								<para xml:id="de_9772" xml:lang="de">Aggregation der Buchungsparametergruppen, so dass je
+									Gruppe nur noch ein Buchungsparameter-Value übrig bleibt. Für
+									Details schauen Sie bitte im Kapitel Booking unter <link
+										linkend="de_9655">"Aggregation der Buchungsparametergruppen,
+										so dass je Gruppe nur noch ein konkreter Value übrig
+										bleibt"</link> nach.</para>
 								<para xml:id="en_9772" xml:lang="en">Aggregation of the booking parameter groups so that only one booking parameter value remains per group. For details please check the description in chapter Booking <link	linkend="en_9655">"Aggregation of the booking parameter groups so that
 								only one concrete value remains per group"</link>.</para>
-								<para xml:lang="det">Sollten in identsichen Pfad-Identfiern auf einer XML-Ebenen unterschiedliche Werte für @ResultOrder vorliegen, so wird als @ResultOrder für diese Ebene der größte @ResultOrder-Wert festgelegt.</para>
-								<para xml:lang="det">In der Folge nennen wir den Blattknoten zur besseren Verständlichkeit das BookingTreeLeaf. Jedes BookingTreeLeaf besteht somit jeweils aus einem eindeutigen Pfad-Identifier (einer Liste von Pfadknoten mit jeweils @Class und einem Day-/Personindex bzw. einer Componentinstance und @ResultOrder) und einem BookingTreeLeaf-Value</para>
+								<para xml:id="de_9823" xml:lang="de">Sollten in identischen Pfad-Identfiern auf einer XML-Ebene unterschiedliche Werte für @ResultOrder vorliegen, so wird als @ResultOrder für diese Ebene der größte @ResultOrder-Wert festgelegt.</para>
+								<para xml:id="en_9823" xml:lang="en">If there are different values for @ResultOrder in identical path identifiers on an XML layer, the largest @ResultOrder value is defined as @ResultOrder for this layer.</para>
+								<para xml:id="de_9824" xml:lang="de">In der Folge nennen wir den Blattknoten zur besseren Verständlichkeit das BookingTreeLeaf. Jedes BookingTreeLeaf besteht somit jeweils aus einem eindeutigen Pfad-Identifier (einer Liste von Pfadknoten mit jeweils @Class und einem Day-/Personindex bzw. einer Componentinstance und @ResultOrder) und einem BookingTreeLeaf-Value.</para>
+								<para xml:id="en_9824" xml:lang="en">In the following we call the leaf node BookingTreeLeaf for better comprehensibility. Each BookingTreeLeaf consists of a unique path identifier (a list of path nodes each with @Class and a day/person index or component instance and @ResultOrder) and a BookingTreeLeaf value.</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_9773" xml:lang="det">Bildung der baumartigen Ergebnisstruktur aus den einzelnen BookingTreeLeafs.
-									Dazu wird gesucht an welcher Stelle das BookingTreeLeaf in die baumartige Ergebnisstruktur eingefügt wird. 
+								<para xml:id="de_9773" xml:lang="de">Bildung der baumartigen Ergebnisstruktur aus den einzelnen BookingTreeLeafs.
+									Dazu wird gesucht, an welcher Stelle das BookingTreeLeaf in die baumartige Ergebnisstruktur eingefügt wird. 
 									Ausgehend vom Root-Knoten des Pfad-Identifiers wird nun für jeden Pfadknoten des Pfad-Identifiers auf der gleichen Knotenebene in der baumartigen Ergebnisstruktur nach einem identischen Knoten gesucht. 
 									Identisch heißt: der Knoten-Name ist gleich, Day-/Personindex bzw. die Component-Instance muss gleich sein, falls eine vorhanden ist, und @Class muss gleich sein.
-									Falls ein identischer Knoten auf der gerade untersuchten XML-Ebene vorhanden ist, so untersucht man die nächste Ebene genau dieses identischen Knoten mit dem nächsten Pfadknoten des BookingTreeLeaf 
-									und folgt dieser Vorgehensweise bis kein identischer Knoten gefunden wird.
+									Falls ein identischer Knoten auf der gerade untersuchten XML-Ebene vorhanden ist, so untersucht man die nächste Ebene genau dieses identischen Knoten mit dem nächsten Pfadknoten des BookingTreeLeaf und folgt dieser Vorgehensweise, bis kein identischer Knoten gefunden wird.
 									Falls kein identischer Knoten gefunden, wird der Pfadknoten auf dieser Ebene in Abhängigkeit von @ResultOrder, DayAllocationLevel und DayAllocationIndex des Komponenten-Instance-Indexes eingefügt.
-									Die restlichen Pfadknoten inkl. dem BookingTreeLeaf-Value werden dann an diesen neuen Knoten in der baumartigen Ergebnisstruktur angefügt. Danach wird dieses Prozedere für alle verbleibenden BookingTreeLeaf durchgeführt.
-								</para>
-								<para xml:id="en_9773" xml:lang="en">Creation of the tree-like result structure based on the PathIdentifier and the specifications in @ResultOrder.</para>
+									Die restlichen Pfadknoten inkl. dem BookingTreeLeaf-Value werden dann an diesen neuen Knoten in der baumartigen Ergebnisstruktur angefügt. Danach wird dieses Prozedere für alle verbleibenden BookingTreeLeaf durchgeführt.</para>
+								<para xml:id="en_9773" xml:lang="en">Formation of the tree-like result structure from the individual BookingTreeLeafs.
+									It is searched for the position where the BookingTreeLeaf is inserted in the tree-like result structure. 
+									Starting from the root node of the path identifier, it is searched for an identical node on the same node level in the tree-like result structure for each path node of the path identifier.
+									Identical means: the node name is the same, the day/person index or component instance must be the same if one exists, and @Class must be the same.
+									If an identical node is present on the XML level currently being examined, the next level of exactly this identical node is examined with the next path node of the BookingTreeLeaf. This procedure continues until no identical node is found.
+									If no identical node is found, the path node is inserted at this level depending on the @ResultOrder, DayAllocationLevel, and DayAllocationIndex of the component instance index.
+									The remaining path nodes including the BookingTreeLeaf value are then appended to this new node in the tree-like result structure. This procedure is then performed for all remaining BookingTreeLeaf.</para>
 							</listitem>
 						</itemizedlist>
 						<para xml:id="de_9774" xml:lang="de">Im Kapitel 2 unter <link linkend="OtdsCodeOfPractiseBookingExampleBookingNamespaceStadis">Beispiel für die Verarbeitung von BookingTree-Buchungsparametern mit einem vereinfachten Stadis-Namespace</link> finden Sie ein Beispiel, wie mit einem rudimentären Stadis-Namespace die BookingTree-Buchungsparameter verarbeitet werden.</para>
@@ -19535,17 +19537,13 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 				<section xml:id="OtdsStrategyNamespaceBooking">
 					<title><phrase xml:id="de_1724" xml:lang="de">Booking Namespace</phrase><phrase
 						xml:id="en_1724" xml:lang="en">Booking namespace</phrase></title>
-					<para xml:id="de_1725" xml:lang="det">In jedem Booking-Zweig ist für die verschiedenen
+					<para xml:id="de_1725" xml:lang="de">In jedem Booking-Zweig ist für die verschiedenen
 						Reservierungssysteme ein eigener Namespace vorgesehen, durch den die
 						gelieferten Buchungsparameter zu 100% auf das Reservierungssystem
 						zugeschnitten werden können. Die Freigabe eines Namespaces erfolgt im Rahmen
 						einer neuen OTDS-Version und muss mit dem OTDS Gremium abgestimmt
 						werden.</para>
-					<para xml:id="en_1725" xml:lang="en">In each booking branch an individual
-						namespace is designated for the different reservation systems, with which
-						the product can be 100% tailored to the reservation system. The approval of
-						the namespaces follows at a later date and must be approved by the OTDS
-						committee.</para>
+					<para xml:id="en_1725" xml:lang="en">Each booking branch has its own namespace for the various reservation systems, through which the booking parameters supplied can be tailored 100% to the reservation system. The release of a namespace takes place within the framework of a new OTDS version and must be agreed with the OTDS committee.</para>
 					<para xml:id="de_1726" xml:lang="de"> </para>
 					<para xml:id="en_1726" xml:lang="en"/>
 				</section>
@@ -19553,18 +19551,16 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 					<title><phrase xml:id="de_1727" xml:lang="de">Properties
 						Namespace</phrase><phrase xml:id="en_1727" xml:lang="en">Properties
 							namespace</phrase></title>
-					<para xml:id="de_1728" xml:lang="det">In jedem Properties-Zweig ist die
+					<para xml:id="de_1728" xml:lang="de">In jedem Properties-Zweig ist die
 						Möglichkeit vorgesehen, eigene Namespaces zu integrieren. Die Namespaces
 						sind für alternative Attributierungssysteme vorgesehen, wie zum Beispiel von
-						Firmen wie GIATA oder die GlobalTypes des Deutschen ReiseVerbands (DRV). 
+						Firmen wie GIATA oder die GlobalTypes des Deutschen Reiseverbands (DRV). 
 						Bei Properties gibt es zusätzlich noch die Möglichkeit auch veranstaltereigene 
 						Attribute innerhalb des Elementes <code>OtdsUnboundedProperties</code> zu liefern. 
-						Die <code>OtdsUnboundedProperties</code> sind aussschließlich zur Verarbeitung durch den Veranstalter selbst gedacht. </para>
-					<para xml:id="en_1728" xml:lang="en">In each properties branch the possibility
-						to integrate your own namespaces is provided. The namespaces are provided
-						for individual attribution systems, for example for companies such as GIATA
-						or for the GlobalTypes of the Deutscher ReiseVerband (DRV), or even
-						operator's own attribution systems.</para>
+						Die <code>OtdsUnboundedProperties</code> sind ausschließlich zur Verarbeitung durch den Veranstalter selbst gedacht. </para>
+					<para xml:id="en_1728" xml:lang="en">Each Properties branch provides the option of integrating your own namespaces. The namespaces are intended for alternative attribution systems, such as those of companies like GIATA or the GlobalTypes of the German Travel Association (DRV). 
+						In the case of properties, it is also possible to supply tour operator-specific attributes within the element <code>OtdsUnboundedProperties</code>. 
+						The <code>OtdsUnboundedProperties</code> are intended exclusively for processing by the tour operator himself. </para>
 					<para xml:id="de_1729" xml:lang="de"> </para>
 					<para xml:id="en_1729" xml:lang="en"/>
 				</section>
@@ -23869,7 +23865,7 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 		</OnewayFlights>
 		...
 	</<Otds>]]></programlisting>
-				<para xml:lang="det">TODO für Steffi ;-) aaaaa : Ergänzung der globalen Buchunsgparameter und Darstellung der einzelenen Schritte der Buchungsparameterverarbeitung anhand dieses konkreten Beispiels.</para>
+				<para xml:lang="det">TODO für Steffi aaaaa : Ergänzung der globalen Buchunsgparameter und Darstellung der einzelnen Schritte der Buchungsparameterverarbeitung anhand dieses konkreten Beispiels.</para>
 			</section>
 		<section xml:id="OtdsCodeOfPractiseBookingExampleMultipleBookingRows">
 			<title><phrase xml:id="de_9817" xml:lang="de">Praxisbeispiel, wie mehrere Buchungszeilen gefüllt werden</phrase><phrase xml:id="en_9817" xml:lang="en">Practical example of how several booking lines are filled</phrase></title>
@@ -24001,10 +23997,12 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 			<section xml:id="OtdsCodeOfPractiseBookingExampleBookingNamespaceStadis">
 				<title><phrase xml:id="de_9818" xml:lang="de">Beispiel der Definition und Lieferung eines BookingTree-NameSpace für die Nutzung in Stadis und anderen Systemen</phrase>
 					<phrase xml:id="en_9818" xml:lang="en">Example of definition and delivery of a BookingTree-NameSpace for use in Stadis and other systems</phrase></title>
-				<para xml:lang="det">An dieser Stelle wird in Kürze die Umsetzung des BookingTree anhand eines Stadisbeispiels demonstriert. 
+				<para xml:id="de_9825" xml:lang="de">An dieser Stelle wird in Kürze die Umsetzung des BookingTree anhand eines Stadis-Beispiels demonstriert. 
 					Derzeit kann man sich nur als Beispiel die XSD "otds-booking-TO-NameSpace.xsd" und im Verzeichnis "OTDS/example" die dazu passende Datei "BookingActionsExamples_TONameSpace.xml" anschauen.
-					Die baumartige Ergebnisstruktur der aggregierten BookingTree-Buchungsparameter, würde dann der XSD "BookingTreeResult-TO-NameSpace.xsd" entsprechen.
-				</para>
+					Die baumartige Ergebnisstruktur der aggregierten BookingTree-Buchungsparameter würde dann der XSD "BookingTreeResult-TO-NameSpace.xsd" entsprechen.</para>
+				<para xml:id="en_9825" xml:lang="en">At this point, the implementation of the BookingTree will soon be demonstrated using a Stadis example. 
+					Currently you can only look at the XSD "otds-booking-TO-NameSpace.xsd" and the corresponding file "BookingActionsExamples_TONameSpace.xml" in the directory "OTDS/example".
+					The tree-like result structure of the aggregated BookingTree booking parameters would then correspond to the XSD "BookingTreeResult-TO-NameSpace.xsd".</para>
 			</section>
 		</section>
 	</section>
