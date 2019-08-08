@@ -2928,6 +2928,593 @@
 						accommodation in practice (Accommodations/PriceItems)</link>
 				</para>
 			</section>
+			<section xml:id="OtdsStrategyRulesProducts">
+				<title><phrase xml:id="de_9899" xml:lang="de">Regelwerke zur Bildung von Produkten
+						</phrase><phrase xml:id="en_9899" xml:lang="en">Rule sets for the compilation of products </phrase></title>
+					<section>
+						<title><phrase xml:id="de_1116" xml:lang="de">Überblick</phrase><phrase
+							xml:id="en_1116" xml:lang="en">Overview</phrase></title>
+					<para xml:id="de_1117" xml:lang="de">Wie bereits im Kapitel <link
+							linkend="OtdsStrategyComponentProducts">Produktregeln</link> und später in <link
+							linkend="OtdsStrategyComponentDefinedComponents">Kombinierte
+							Komponenten</link> erwähnt, werden in OTDS einheitliche, aber trotzdem
+						sehr flexible Regeln zur Kombinationen von Komponenten verwendet. Aus
+						Komponenten werden dabei Produkte oder auch neue erweiterte Komponenten. </para>
+					<para xml:id="en_1117" xml:lang="en">As has already been mentioned in the
+						chapters <link linkend="OtdsStrategyComponentProducts">Product Rules</link>
+						and in the later chapter of<link linkend="OtdsStrategyComponentDefinedComponents">Combined
+							Components</link>, OTDS uses consistent, but nevertheless very flexible
+						rules for the combination of components. In this way components are used to
+						make products or new extended components.</para>
+					<para xml:id="de_1118" xml:lang="de">Diese Regeln sind eine Erweiterung der
+						Filter um die Angabe der beteiligten Komponenten und die zusätzliche
+						Filtermöglichkeit "MatchEqual". Wie bereits im vorherigen Kapitel
+						beschrieben, ist MatchEqual ausschließlich für die Verwendung in diesen
+						Regelwerken vorgesehen. MatchEqual ist die einzige Condition, die mehrere
+						Komponenten miteinander vergleicht.</para>
+					<para xml:id="en_1118" xml:lang="en">These rules are an extension of the filter
+						for the specification of components involved and the additional possible
+						filter "MatchEqual". As has already been described in the previous chapter,
+						MatchEqual is intended exclusively for use in these rule sets. MatchEqual is
+						the only condition which compares several components with one
+						another.</para>
+					<para xml:id="de_1119" xml:lang="de">Mit Hilfe dieser Funktionalität lassen sich
+						weitreichende Kombinationsmöglichkeiten von Komponenten beschreiben. Wie das
+						funktioniert, zeigen wir zum einen anhand einer Produktdefinition, zum
+						anderen anhand einer Flugerweiterung</para>
+					<para xml:id="en_1119" xml:lang="en">With the aid of this functionality,
+						extensive potential combinations of components can be described. We will
+						show how this works, once with reference to a product definition and once
+						with reference to a flight extension.</para>
+					<figure>
+						<title><phrase xml:id="de_1120" xml:lang="de">Products</phrase><phrase
+								xml:id="en_1120" xml:lang="en">Products</phrase></title>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="figures/products.png" contentwidth="60%"/>
+							</imageobject>
+							<textobject>
+								<para xml:id="de_1121" xml:lang="de">Products</para>
+								<para xml:id="en_1121" xml:lang="en">Products</para>
+							</textobject>
+						</mediaobject>
+					</figure>
+					</section>
+					<section xml:id="OtdsStrategyRulesProductDefinition">
+					<title><phrase xml:id="de_1122" xml:lang="de">Produktdefinition
+							(V2.0)</phrase><phrase xml:id="en_1122" xml:lang="en">Product definition
+							(v2.0)</phrase></title>
+					<para xml:id="de_1123" xml:lang="de">Produkte setzen sich aus den folgenden
+						Komponenten zusammen:</para>
+					<para xml:id="en_1123" xml:lang="en">Products are compiled from the following
+						components:</para>
+					<itemizedlist>
+						<listitem>
+							<para xml:id="de_1124" xml:lang="de">Accommodation</para>
+							<para xml:id="en_1124" xml:lang="en">Accommodation</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1125" xml:lang="de">OnewayFlight</para>
+							<para xml:id="en_1125" xml:lang="en">OnewayFlight</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1126" xml:lang="de">ReturnFlight</para>
+							<para xml:id="en_1126" xml:lang="en">ReturnFlight</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1127" xml:lang="de">Addon</para>
+							<para xml:id="en_1127" xml:lang="en">Addon</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1128" xml:lang="de">Neu definierte Komponenten
+									(<code>DefinedComponent</code>, <code>CombiComponent</code>) </para>
+							<para xml:id="en_1128" xml:lang="en">Newly defined components
+									(<code>DefinedComponent</code>,
+								<code>CombiComponent</code>)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1129" xml:lang="de">Bereits definierte Produkte als
+								Bezugskomponente (<code>ProductComponent</code>)</para>
+							<para xml:id="en_1129" xml:lang="en">Products which have already been
+								defined as reference components
+								(<code>ProductComponent</code>)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6253" xml:lang="de">Flughüllen
+									(<code>FlightWrapper</code>) (neu in V2.0)</para>
+							<para xml:id="en_6253" xml:lang="en">Flight wrappers
+									(<code>Flightwrapper</code>) (new in v2.0)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6254" xml:lang="de">Hüllen für Unterkünfte
+									(<code>AccommodationWrapper</code>) (neu in V2.0)</para>
+							<para xml:id="en_6254" xml:lang="en">Wrapper for accommodations
+									(<code>AccommodationWrapper</code>) (new in v2.0)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_6255" xml:lang="de">Hüllen für Zusatzleistungen
+									(<code>AccommodationWrapper</code>) (neu in V2.0)</para>
+							<para xml:id="en_6255" xml:lang="en">Wrapper for addon services
+									(<code>AccommodationWrapper</code>) (new in v2.0)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_8574" xml:lang="de">Externe Komponenten
+									(<code>ExternalComponent</code>) um zum Beispiel zu definieren,
+								welche externe Komponente benötigt wird, um das Produkt zu
+								vervollständigen (neu in V2.0) </para>
+							<para xml:id="en_8574" xml:lang="en">External components
+									(<code>VirtualComponent</code>) to define which external
+								component is needed to complete the product (new in v2.0)</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_9110" xml:lang="de">Virtuelle Komponenten
+									(<code>VirtualComponent</code>) um zum Beispiel die Lücke
+								zwischen der Outbound- und Inbound-Komponente eines ReturnFlightOnly
+								zu füllen (neu in V2.0) </para>
+							<para xml:id="en_9110" xml:lang="en">Virtual Components
+									(<code>VirtualComponent</code>) to fill for example the gap
+								inbetween the outbound and inbound flight of a ReturnFlightOnly (new
+								in v2.0)</para>
+						</listitem>
+					</itemizedlist>
+					<figure>
+						<title><phrase xml:id="de_1130" xml:lang="de">Produktdefinition -
+								Product</phrase><phrase xml:id="en_1130" xml:lang="en">Product
+								definition - Product</phrase></title>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="figures/product.png" contentwidth="40%"/>
+							</imageobject>
+							<textobject>
+								<para xml:id="de_1131" xml:lang="de">Produktdefinition -
+									Product</para>
+								<para xml:id="en_1131" xml:lang="en">Product definition -
+									Product</para>
+							</textobject>
+						</mediaobject>
+					</figure>
+					<para xml:id="de_1132" xml:lang="de">Um ein Produkt zu definieren, wird ein
+						neues Element <code>Product</code> im Zweig Products angelegt. Ein Zweig
+							<code>Product</code> enthält mindestens eine Regel, welche die Erzeugung
+						von Angeboten aus den Komponenten beschreibt. Es ist ebenso möglich, mehr
+						als nur eine Regel anzugeben. In diesem Fall werden alle Regeln nacheinander
+						angewendet und die erzeugten Angebote unter Ausschluss gleicher Angebote
+						kumuliert. Eine Produktregel enthält mindestens eine Komponente im Zweig
+						"Components" und ggf. weitere Filter-Parameter bzgl. der Eigenschaften der
+						Komponenten, um das Produkt genauer einzuschränken.</para>
+					<para xml:id="en_1132" xml:lang="en">In order to define a product, a new
+							<code>Product</code> element is placed in the "Products" branch. A
+							<code>Product</code> branch contains at least one rule which describes
+						the creation of offers from the components. It is also possible to specify
+						more than just one rule. In this case, all rules are used after each other
+						and the resulting offers cumulate, excluding identical offers. A product
+						rule contains at least one component in the "Components" branch and
+						sometimes additional filter parameters relating to the properties of the
+						components to further refine the product.</para>
+					<para xml:id="de_1133" xml:lang="de">Beispiel für eine Produktdefinition</para>
+					<para xml:id="en_1133" xml:lang="en">Example for a product definition</para>
+					<programlisting><![CDATA[<Products>
+   <Product Key="Package2" ProductType="FlightAccommodation">
+			<Components>
+				<Accommodation Name="Unterkunft" DayAllocationIndex="0"/>
+				<ReturnFlight>
+					<Outbound DayAllocationIndex="-2"/>
+					<Inbound DayAllocationIndex="2"/>
+				</ReturnFlight>
+			</Components>
+			<Filter>
+				<And>
+					<Not>
+						<Keys Source="Accommodation">FUE102</Keys>
+					</Not>
+					<MatchEqual>
+						<Tag Source="#Unterkunft" Class="Reiseart"/>
+						<Tag Source="ReturnFlight" Class="Reiseart"/>
+					</MatchEqual>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
+					</MatchEqual>
+				</And>
+			</Filter>
+		</Product>
+  </Products>]]></programlisting>
+					<para xml:id="de_1134" xml:lang="de">Im obigen Beispiel sind als Komponenten
+							<code>Accommodation</code> und <code>ReturnFlight</code> angegeben. Die
+						Produktdefinition beschreibt ein Pauschalangebot mit Flug und Unterkunft.
+						Durch dieses Regelwerk können sehr flexibel alle Einzelkomponenten zu
+						komplexen verkaufbaren Produkten zusammengefügt werden. Das funktioniert für
+						Nur-Hotel-Produkte, Nur-Flug-Produkte, aber auch für Pauschalprodukte und
+						eventuelle Zusatzleistungen. Dabei können den verschiedenen Angeboten ein
+						oder mehrere passende Addons hinzugefügt werden. In dem Element
+							<code>Booking</code> kann definiert werden, dass die
+						Buchungsinformationen der Einzelkomponenten komplett überschrieben werden.
+						Im Flugbereich wird dies häufig bei der Definition von Flughülsen verwendet,
+						die die Buchungsinformationen der beteiligten Einzelflüge überschreiben. Im
+						Bereich <code>Products</code> ist uns zurzeit kein Anwendungsfall analog zu
+						den Flughülsen bekannt. Denkbar ist die Verwendung bei einer späteren
+						Integration von Rundreisen. </para>
+					<para xml:id="en_1134" xml:lang="en">In the above example, the components
+							<code>Accommodation</code> and <code>ReturnFlight</code> are specified.
+						The product definition describes a package offer with flight and
+						accommodation. Through this rule set, all individual components can be
+						flexibly combined to form complex saleable products. This works for
+						Hotel-Only products and Flight-Only products, as well as for package
+						products and possible additional services. In doing this, one or several
+						compatible Addons can be added on to the various offers. In the element
+							<code>Booking</code> , it is possible to specify that the booking
+						information of the individual components should be completely overwritten.
+						In the context of flights, this is commonly used in defining flight wrappers
+						that override the booking information of the individual flights involved. In
+						the field <code>Products</code> , we are currently unaware of any
+						application situations analogous to the flight wrappers. It is possible to
+						imagine a usage in the case of a future integration of round trips.</para>
+					<para xml:id="de_8575" xml:lang="de">Zusätzlich wird durch die Product-Definition eine
+						lückenlose Zuordnung der beteiligten Komponenten zu den Reisetagen
+						festgelegt. Diese Festlegung findet über das Attribut
+							<code>DayAllocationIndex</code> statt. Die Komponenten werden lückenlos
+						in der Reihenfolge der angegebenen DayAllocationIndices aneinandergefügt.
+						Produkttypen mit einer zwanghaften Lücke in der Tageszuordnung, wie zum
+						Beispiel der "ReturnFlightOnly", müssen dementsprechend eine
+						VirtualComponent einfügen, die diese Lücke bzgl. der Tageszuordnung
+						schließt.</para>
+					<para xml:id="en_8575" xml:lang="en">In addition a complete allocation of the
+						components involved to the travel days is determined by the Product
+						definition. This allocation takes plaxe via the attribute
+							<code>DayAllocationIndex</code>. The componentes are stringed together
+						without gaps in the order of the DayAllocationIndices indicated. Product
+						types with a compulsive gap in the day allocation, e.g the
+						"ReturnFlightOnly", have to add a VirtualComponent correspondingly that
+						closes this gap regarding the day allocation.</para>
+					<programlisting><![CDATA[<Products>
+   <Product Key="Package2" ProductType="ReturnFlightOnly">
+			<Components>
+				<VirtualComponent DayAllocationIndex="0"/>
+				<ReturnFlight>
+					<Outbound DayAllocationIndex="-2"/>
+					<Inbound DayAllocationIndex="2"/>
+				</ReturnFlight>
+			</Components>
+		</Product>
+  </Products>]]></programlisting>
+
+					<bridgehead xml:id="de_1135" xml:lang="de">Filter</bridgehead>
+					<bridgehead xml:id="en_1135" xml:lang="en">Filter</bridgehead>
+					<para xml:id="de_1136" xml:lang="de">Durch Filterbedingungen (Filter) kann die
+						Angebotsmenge beschränkt werden. Ein <code>Filter</code> kann zahlreiche
+						Bedingungen enthalten, die sehr weitreichend miteinander logisch verknüpft
+						werden können (siehe dazu das Kapitel <link
+							linkend="OtdsStrategyConditionBoolOperation">Logische
+							Verknüpfungen</link>). Diese Bedingungen können sich beispielsweise auf
+						Termine oder Dauern beziehen. "Tag"-Bedingungen beziehen sich auf Tags, um
+						Markierungen bestimmter Komponenten zu prüfen.</para>
+					<para xml:id="en_1136" xml:lang="en">Filter conditions (Filters) can be used to
+						restrict the amount of offers. A <code>Filter</code> can contain numerous
+						conditions which can be extensively logically connected to one another (see
+						the <link linkend="OtdsStrategyConditionBoolOperation">Logical
+							connections</link> chapter). These conditions could for example refer to
+						dates or durations. "Tag" conditions refer to tags, in order to check the
+						markers of certain components.</para>
+					<bridgehead xml:id="OtdsStrategyRulesAttributSource" xml:lang="de"
+						>Referenzierung von Komponenten / Referencing of Components (Attribut
+							<code>Source</code>)</bridgehead>
+					<para xml:id="de_1137" xml:lang="de">Auf welche der aufgelisteten Komponenten
+						sich die Bedingung bezieht, wird bei jeder Bedingung separat über das
+						Attribut "<code>Source</code>" angegeben (siehe XML-Beispiel). Zusätzlich zu
+						den vier Reisekomponenten (<code>Accommodation, ReturnFlight, OnewayFlight,
+							Addons</code>) können Unterkomponenten referenziert werden,
+						beispielsweise <code>Unit, Board, Inbound, Outbound, Addons.Service</code>
+						oder die <code>BookingClass</code> bei Flugkomponenten. Die Referenzierung
+						der Komponente geschieht über eine Punktnotation. Dabei wird die
+						Hauptkomponente zuerst genannt, die Unterkomponenten folgen durch Punkte
+						voneinander getrennt, also beispielsweise "<code>Accommodation.Unit</code>".
+						Wenn in einer Produktdefinition (<code>Product</code>) mehrere gleiche
+						Komponenten angegeben sind (beispielsweise mehrere Onewayflüge), so ist
+						diese Referenzierung nicht mehr eindeutig. Für diesen Fall besteht die
+						Notwendigkeit, jeder Komponente durch das Attribut "<code>Name</code>" einen
+						eindeutigen Namen zuzuweisen, um sich auf die jeweilige Komponente beziehen
+						zu können. Im obigen Beispiel hat die Accommodation Komponente exemplarisch
+						den Namen "Unterkunft" bekommen. Die Verwendung von Source="Accommodation"
+						und Source="Unterkunft" ist in diesem Fall identisch. Wie bereits gesagt,
+						kann aber bei mehrfachen gleichartigen Komponenten durch die Verwendung der
+						Namen genau eine Komponente referenziert werden. Die Referenzierung über
+						Namen kann auch in Verbindung mit der Punkt-Noatation erfolgen, z.B.
+						Source="#Unterkunft.Unit". Im Regelwerk zur Kombination von Einzelflügen,
+						die dem gleichen Regelkonzept folgen, wird beispielsweise die individuelle
+						Benennung gleicher Komponenten (=Flüge) notwendig. </para>
+					<para xml:id="en_1137" xml:lang="en">Which of the listed components a condition
+						refers to is specified separately for each condition via the attribute
+							"<code>Source</code> " (see XML example). In addition to the four travel
+						components (<code>Accommodation, ReturnFlight, OnewayFlight, Addons</code>
+						), it is also possible to reference subcomponents, for example <code>Unit,
+							Board, Inbound, Outbound, Addons,Service</code> or the
+							<code>BookingClass</code> for flight components. Components are
+						referenced using dot notation. The main components are named first and the
+						subcomponents follow, separated by dots, e.g.
+							"<code>Accommodation.Unit</code>". If there are several of the same
+						component (several one-way flights, for example) in a product definition
+							(<code>Product</code> ), the referencing is no longer unambiguous. In
+						this case, each component must be allocated a unique name using the
+							"<code>Name</code> " attribute in order to be able to refer to the
+						particular component. In the above example the Accommodation component is
+						given the name "Accommodation". The use of Source="Accommodation" and
+						Source="Unterkunft" is identical in this case. As was previously mentioned,
+						in the case of several components of the same type, one specific component
+						can be referenced using a name. Referencing by name can also be combined
+						with dot notation, e.g. Source="#Accommodation.Unit". In the rule set for
+						the combination of one-way flights, which follow the same rule concept,
+						components that are the same (=flights) are to be individually named.</para>
+					<bridgehead xml:id="de_1138" xml:lang="de">Match-Filter</bridgehead>
+					<bridgehead xml:id="en_1138" xml:lang="en">Match filter</bridgehead>
+					<para xml:id="de_1139" xml:lang="de">Neben den zahlreichen möglichen Bedingungen
+						für Belegung, Saison, Flughafen, Verpflegung, Dauer etc. gibt es in diesen
+						Rules darüber hinaus die Möglichkeit, Werte miteinander zu vergleichen. Dies
+						geschieht mit Hilfe des Elements "MatchEqual". Es lassen sich Werte von
+						Elementen (Unterelement "<code>Element</code>") sowie Tags (Unterelement
+							"<code>Tag</code>") miteinander vergleichen. Eine MatchBedingung besteht
+						demnach also immer aus mindestens zwei Tag-Referenzen oder zwei Element
+						Referenzen. Die Referenzierung erfolgt auch hier in gleicher Weise über das
+						Attribute "Source" und zusätzlich durch die Spezifizierung eines bestimmten
+						"Tags" bzw eines bestimmten Elementes. </para>
+					<para xml:id="en_1139" xml:lang="en">In addition to the numerous possible
+						conditions for Occupancy, Season, Airport, Board, Duration, etc., these
+						rules also allow you to compare values with one another. This can be done
+						using the element "MatchEqual". Values of elements (sub-element
+							"<code>Element</code> ") and tags (sub-element "<code>Tag</code> ") can
+						be compared with one another. A MatchCondition therefore consists of at
+						least 2 tag references or 2 element references. This referencing is done in
+						the same way via the "Source" attribute, and additionally by specifying a
+						certain tag or a certain element.</para>
+					<para xml:id="de_1140" xml:lang="de">Es werden die Werte aller angegebenen
+						Referenzen miteinander auf Gleichheit überprüft. Eine Matchbedingung ist
+						erfüllt, wenn alle referenzierten Werte gleich sind. Der Wertevergleich für
+						Tags kann über die beiden optionalen Attribute "<code>Offset</code>" und
+							"<code>Length</code>" genauer spezifiziert werden: Bei Angabe wird dann
+						nicht das komplette Tag, sondern nur ein Teil davon beginnend ab der
+						Position <code>Offset</code> mit der Länge <code>Length</code> für den
+						Vergleich herangezogen. </para>
+					<para xml:id="en_1140" xml:lang="en">The values of all specified references are
+						checked against each other for matches. A match condition is met if all
+						referenced values are the same. The value comparison for tags can be more
+						precisely specified using the two optional attributes "<code>Offset</code> "
+						and "<code>Length</code> ": If something is entered here, it will not use
+						the full tag for the comparison, but only the part of it beginning from the
+						position <code>Offset</code> with the length <code>Length</code> .</para>
+					<para xml:id="de_1141" xml:lang="de">Im obigen Beispiel kann man sehen, dass die
+						Matchbedingungen mit den anderen Bedingungen beliebig logisch verknüpft
+						werden können. </para>
+					<para xml:id="en_1141" xml:lang="en">In the example above you can see that the
+						match conditions can be logically connected to any other related
+						conditions.</para>
+					<para/>
+				</section>
+				<section xml:id="OtdsStrategyRulesProductTypes">
+					<title><phrase xml:id="de_1148" xml:lang="de">Festlegung der Produkttypen
+							(V2.0)</phrase><phrase xml:id="en_1148" xml:lang="en">Definition of
+							product types (v2.0)</phrase></title>
+					<para xml:id="de_1149" xml:lang="de">OTDS kennt aktuell 5 Produkttypen: </para>
+					<para xml:id="en_1149" xml:lang="en">OTDS currently has 5 product types:</para>
+
+					<itemizedlist>
+						<listitem>
+							<para xml:id="de_1150" xml:lang="de">AccommodationOnly</para>
+							<para xml:id="en_1150" xml:lang="en">AccommodationOnly</para>
+							<para xml:id="de_1151" xml:lang="de">Zur Definition von Produkten, die
+								nur eine Unterkunft enthalten</para>
+							<para xml:id="en_1151" xml:lang="en">For the definition of products
+								which only contain accommodation</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1152" xml:lang="de">OnewayFlightOnly</para>
+							<para xml:id="en_1152" xml:lang="en">OnewayFlightOnly</para>
+							<para xml:id="de_1153" xml:lang="de">Zur Definition von Produkten, die
+								nur einen Einzelflug enthalten</para>
+							<para xml:id="en_1153" xml:lang="en">For the definition of products
+								which contain only a one-way flight</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1154" xml:lang="de">ReturnFlightOnly (V2.0)</para>
+							<para xml:id="en_1154" xml:lang="en">ReturnFlightOnly (v2.0)</para>
+							<para xml:id="de_1155" xml:lang="de">Zur Definition von Produkten, die
+								aus einen Hin- und einem Rückflug bestehen. Seit <emphasis
+									role="bold">Version 2.0</emphasis> muss bei diesen Produkten die
+								Lücke zwischen Hin- und Rückflug durch eine virtuelle Komponente
+								(Components/VirtualComponent) geschlossen werden.</para>
+							<para xml:id="en_1155" xml:lang="en">For the definition of products
+								consisting of an outbound and a return flight. Since <emphasis
+									role="bold">version 2.0</emphasis> this kind of product needs to
+								fill the gap between outbound and inbound flight with a virtual
+								component (Components/VirtualComponent). (</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1156" xml:lang="de">FlightAccommodation</para>
+							<para xml:id="en_1156" xml:lang="en">FlightAccommodation</para>
+							<para xml:id="de_1157" xml:lang="de">Zur Definition von Produkten, die
+								aus einem Hin-Und Rückflug plus entsprechender Unterkunft vor Ort
+								bestehen</para>
+							<para xml:id="en_1157" xml:lang="en">For the definition of products
+								consisting of an outbound and return flight plus corresponding
+								accommodation at the destination</para>
+						</listitem>
+						<listitem>
+							<para xml:id="de_1158" xml:lang="de">Addon</para>
+							<para xml:id="en_1158" xml:lang="en">Addon</para>
+							<para xml:id="de_1159" xml:lang="de">Zur Definition von
+								Zusatzleistungen, die optional zu Produkten angeboten werden können </para>
+							<para xml:id="en_1159" xml:lang="en">For the definition of additional
+								services which are offered optionally in addition to the
+								product</para>
+						</listitem>
+					</itemizedlist>
+
+					<bridgehead xml:id="de_9112" xml:lang="de">Neuerung in Version 2.0:</bridgehead>
+					<bridgehead xml:id="en_9112" xml:lang="en">Novelty in version 2.0:</bridgehead>
+					<para xml:id="de_9113" xml:lang="de">Ein Sonderfall sind Mix-Produkte. Seit
+							<emphasis role="bold">Version 2.0</emphasis> sind Mix-Produkte Produkte,
+						die noch zusätzliche externe Komponenten benötigen, um das Produkt zu
+						vervollständigen. In der Regel sind Mix-Produkte mit dem
+						ProductType="FlightAccommodation" ausgezeichnet und enthalten wenigstens
+						eine externe Komponente (Components/ExternalComponent).</para>
+					<para xml:id="en_9113" xml:lang="en">Mix-products are a special case: Since
+							<emphasis role="bold">version 2.0</emphasis> mix-products are products
+						that require additional external components in order to complete the
+						product. In general mix-products are marked with the
+						ProductType="FlightAccommodation" and contain at least one external
+						component (Components/ExternalComponent).</para>
+				</section>
+				<section xml:id="OtdsStrategyRulesTags">
+					<title><phrase xml:id="de_1143" xml:lang="de">Markierungen (Tags) in
+							Produkten</phrase><phrase xml:id="en_1143" xml:lang="en">Markers (Tags)
+							in products</phrase></title>
+					<para xml:id="de_1144" xml:lang="de">Innerhalb der Produktdefinition können
+						besondere Markierungen (Tags) festgelegt werden. Auf diese Tags kann man
+						sich innerhalb der Komponentendaten beziehen und damit spezielle Preise,
+						Verfügbarkeiten oder andere Eigenschaften im Kontext eines spezifischen
+						Produktes festlegen. Diese Tags entsprechen in der Regel bereits in den
+						Veranstaltersystemen hinterlegten Codes oder Parametern. Alle in einer
+						Produkt-Regel vergebenen Markierungen (Tags) gelten für alle Komponenten
+						innerhalb des Produkts. Das Produkt selbst kann dadurch innerhalb der
+						Komponenten als Bedingung bei der Preisbildung herangezogen werden. </para>
+					<para xml:id="en_1144" xml:lang="en">Within the product definition, special
+						markers (tags) can be defined. You can refer to these tags within the
+						component data, and thereby specify special prices, availability, or other
+						properties in the context of a specific product. These tags correspond to a
+						rule already stored in the tour operator system's codes or parameters. All
+						markers (tags) used in a product rule apply to all components within the
+						product. The product itself may be used, within the components, as a
+						condition in the price formation process.</para>
+					<para xml:id="de_1145" xml:lang="de"> Beispiel für ein "Tag" in einem Produkt
+						und die Verwendung in den Preisen:<programlisting><![CDATA[<Products>
+  <Product Key="Package1" ProductType="AccommodationOnly">
+    <Tag Class="Product">AccomOnly</Tag>
+    <Filter>
+      ...
+    </Filter>
+  </Product>
+  ...
+</Products>
+<Accommodations>
+	...
+	<PriceItem>
+		...
+		<Condition>
+			...
+			<Tag Class="Product">AccomOnly</Tag>
+		</Condition>
+	</PriceItem>
+</Accommodations>
+]]></programlisting></para>
+					<para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its
+						use in pricing: <programlisting><![CDATA[<Products><Product Key="Package1" ProductType="AccommodationOnly">
+    <Tag Class="Product">AccomOnly</Tag>
+    <Filter>
+      ...
+    </Filter>
+  </Product>
+  ...
+</Products>
+<Accommodations>
+	...
+	<PriceItem>
+		...
+		<Condition>
+			...
+			<Tag Class="Product">AccomOnly</Tag>
+		</Condition>
+	</PriceItem>
+</Accommodations>]]></programlisting>
+					</para>
+					<para xml:id="de_1146" xml:lang="de">Das obige Beispiel zeigt eine
+						Produktdefinition für den Produkttyp "AccommodationOnly". Einige
+						Veranstalter belegen ihre Hotels, die als NurHotelProdukt verkauft werden,
+						mit einem Zuschlag. Dadurch, dass das Produkt im obigen Beispiel ein
+						spezifisches "Tag" mit der Class="Product" und dem Wert="AccomOnly" bekommt,
+						kann man Preise genau mit einer Bedingung bzgl. dieses Tags versehen.
+						Preise, Zu- und Abschläge werden in ODTS in PriceItems definiert. Eine
+						Condition legt fest, unter welchen Bedingungen ein PriceItem gilt. Genau das
+						wird in dem obigen Beispiel gemacht. Also nur wenn das Hotel als NurHotel
+						verwendet wird, wird dieser Zuschlag gültig und damit in die Berechnung mit
+						einbezogen. </para>
+					<para xml:id="en_1146" xml:lang="en">The above is an example of a product
+						definition for the product type "AccommodationOnly" Some tour operators
+						apply a surcharge to their hotels, which are sold as hotel-only products. By
+						equipping the product in the example above with a specific "tag" with the
+						class="Product" and value="AccomOnly", prices can be provided with a
+						condition relating to this very tag. Prices, discounts and surcharges are
+						defined in ODTS in PriceItems. A condition specifies the terms under which a
+						PriceItem applies. Precisely this is demonstrated in the example above. Thus
+						only if the hotel is used as a hotel-only product is this supplement valid
+						and will be included in the calculation.</para>
+					<para xml:id="de_1147" xml:lang="de"> </para>
+					<para xml:id="en_1147" xml:lang="en"/>
+				</section>
+				<section xml:id="OtdsStrategyProductProperties">
+					<title><phrase xml:lang="de" xml:id="de_5037">Eigenschaft (Properties) in
+							Produkten</phrase><phrase xml:lang="en" xml:id="en_5037">Property
+							(Properties) in products</phrase></title>
+					<para xml:lang="de" xml:id="de_5038">Innerhalb der Produktdefinition können
+						Eigenschaften definiert werden, die global über die gesamte Lieferung
+						gelten. Hiermit kann z.B. für ein gesamtes Produkt die Eigenschaft "Transfer
+						inkludiert" gesetzt werden. Diese Eigenschaft muss dann nicht je
+						Accommodation geliefert werden. </para>
+					<para xml:lang="en" xml:id="en_5038">Within the product definition, properties
+						can be defined which are globally applicable to the whole delivery. This,
+						for example, allows the property "Transfer included" to be set for the whole
+						product. These properties do not then have to be delivered according to
+						Accommodation.</para>
+				</section>
+				<section xml:id="OtdsStrategyProductPriceItems">
+					<title><phrase xml:lang="de" xml:id="de_5039">Preise (PriceItems) in Produkten
+							(V1.9)</phrase><phrase xml:lang="en" xml:id="en_5039">Prices
+							(PriceItems) in products (v1.9)</phrase></title>
+					<para xml:lang="de" xml:id="de_5040">Innerhalb der Produktdefinition können
+						PriceItems geliefert werden, die global für alle Komponenten des Produktes
+						gelten. Hierbei ist zu beachten, dass absolute PriceItems nur einmal je
+						Produkt angewendet werden und nicht je Komponente.</para>
+					<para xml:lang="en" xml:id="en_5040">Within the product definition, PriceItems
+						can be delivered which apply globally for all components of the product. It
+						is to be noted that absolute PriceItems are only used once per product and
+						not per component.</para>
+				</section>
+				<section xml:id="OtdsStrategyProductBooking">
+					<title><phrase xml:lang="de" xml:id="de_5041">Buchungsparameter (Booking) in
+							Produkten</phrase><phrase xml:lang="en" xml:id="en_5041">Booking
+							parameters (Booking) in products</phrase></title>
+					<para xml:lang="de" xml:id="de_5042">Das Booking-Element innerhalb der
+						Produktdefinition dient zur globalen Definition von Buchungsparametern. Die
+						Platzierung der Reiseart (TravelType) ist an dieser Stelle sinnvoll.</para>
+					<para xml:lang="en" xml:id="en_5042">The Booking element within the product
+						definition serves the global definition of booking parameters. The placement
+						of the travel type (TravelType) is significant in this position.</para>
+				</section>
+
+				<section xml:id="OtdsStrategyProductGenericTag">
+					<title>
+						<phrase xml:lang="de" xml:id="de_5043">Kennzeichnung von Produkt-Features
+							durch <code>GenericTag</code> in Produkten (V1.9) (Entfernt in
+							V2.0)</phrase><phrase xml:lang="en" xml:id="en_5043">Tagging of product
+							features using <code>GenericTag</code> in products (v1.9) (Deleted in
+							V2.0)</phrase>
+					</title>
+
+					<para xml:lang="de" xml:id="de_6144">Diese Art des
+							<code>GenericTag/ExternalParameter</code> wurde ab <emphasis role="bold"
+							>Version 2.0</emphasis> durch den
+							<code>GlobalValue/FeatureContext</code> ersetzt.</para>
+					<para xml:lang="en" xml:id="en_6144">This type of
+							<code>GenericTag/ExternalParameter</code> has been replaced by the
+							<code>GlobalValue/FeatureContext</code> in <emphasis role="bold">version
+							2.0</emphasis>.</para>
+					<para xml:lang="de" xml:id="de_6145">Details zur Benutzung des
+							<code>GlobalValue/FeatureContext</code> finden Sie im Kapitel <link
+							linkend="OtdsStrategyGlobalValuesFeatureContext"
+							>GlobalValue/FeatureContext (CityPairProduction)</link></para>
+					<para xml:lang="en" xml:id="en_6145">Details about the usage of
+							<code>GlobalValue/FeatureContext</code> are described in the Chapter
+							<link linkend="OtdsStrategyGlobalValuesFeatureContext"
+							>GlobalValue/FeatureContext (CityPairProduction)</link></para>
+					</section>
+				</section>
 			<section xml:id="OtdsStrategyCondition">
 				<title><phrase xml:id="de_797" xml:lang="de">Filter und Bedingungen (Filter und
 						Condition)</phrase><phrase xml:id="en_797" xml:lang="en">Filters and
@@ -9250,596 +9837,8 @@
 
 			</section>
 			<section xml:id="OtdsStrategyRules">
-				<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Bildung von Produkten
-						und Kombination von Komponenten</phrase><phrase xml:id="en_1115"
-						xml:lang="en">Rule sets for the compilation of products and combination of
-						components</phrase></title>
-				<section>
-					<title><phrase xml:id="de_1116" xml:lang="de">Überblick</phrase><phrase
-							xml:id="en_1116" xml:lang="en">Overview</phrase></title>
-					<para xml:id="de_1117" xml:lang="de">Wie bereits im Kapitel <link
-							linkend="OtdsStrategyComponentProducts">Produktregeln</link> und <link
-							linkend="OtdsStrategyComponentDefinedComponents">Kombinierte
-							Komponenten</link> erwähnt, werden in OTDS einheitliche aber trotzdem
-						sehr flexible Regeln zur Kombinationen von Komponenten verwendet. Aus
-						Komponenten werden dabei Produkte oder auch neue erweiterte Komponenten. </para>
-					<para xml:id="en_1117" xml:lang="en">As has already been mentioned in the
-						chapters <link linkend="OtdsStrategyComponentProducts">Product Rules</link>
-						and <link linkend="OtdsStrategyComponentDefinedComponents">Combined
-							Components</link>, OTDS uses consistent, but nevertheless very flexible
-						rules for the combination of components. In this way components are used to
-						make products or new extended components.</para>
-					<para xml:id="de_1118" xml:lang="de">Diese Regeln sind eine Erweiterung der
-						Filter um die Angabe der beteiligten Komponenten und die zusätzliche
-						Filtermöglichkeit "MatchEqual". Wie bereits im vorherigen Kapitel
-						beschrieben, ist MatchEqual ausschließlich für die Verwendung in diesen
-						Regelwerken vorgesehen. MatchEqual ist die einzige Condition, die mehrere
-						Komponenten miteinander vergleicht.</para>
-					<para xml:id="en_1118" xml:lang="en">These rules are an extension of the filter
-						for the specification of components involved and the additional possible
-						filter "MatchEqual". As has already been described in the previous chapter,
-						MatchEqual is intended exclusively for use in these rule sets. MatchEqual is
-						the only condition which compares several components with one
-						another.</para>
-					<para xml:id="de_1119" xml:lang="de">Mit Hilfe dieser Funktionalität lassen sich
-						weitreichende Kombinationsmöglichkeiten von Komponenten beschreiben. Wie das
-						funktioniert, zeigen wir zum einen anhand einer Produktdefinition, zum
-						anderen anhand einer Flugerweiterung</para>
-					<para xml:id="en_1119" xml:lang="en">With the aid of this functionality,
-						extensive potential combinations of components can be described. We will
-						show how this works, once with reference to a product definition and once
-						with reference to a flight extension.</para>
-					<figure>
-						<title><phrase xml:id="de_1120" xml:lang="de">Products</phrase><phrase
-								xml:id="en_1120" xml:lang="en">Products</phrase></title>
-						<mediaobject>
-							<imageobject>
-								<imagedata fileref="figures/products.png" contentwidth="60%"/>
-							</imageobject>
-							<textobject>
-								<para xml:id="de_1121" xml:lang="de">Products</para>
-								<para xml:id="en_1121" xml:lang="en">Products</para>
-							</textobject>
-						</mediaobject>
-					</figure>
-
-				</section>
-
-
-				<section xml:id="OtdsStrategyRulesProductDefinition">
-					<title><phrase xml:id="de_1122" xml:lang="de">Produktdefinition
-							(V2.0)</phrase><phrase xml:id="en_1122" xml:lang="en">Product definition
-							(v2.0)</phrase></title>
-					<para xml:id="de_1123" xml:lang="de">Produkte setzen sich aus den folgenden
-						Komponenten zusammen:</para>
-					<para xml:id="en_1123" xml:lang="en">Products are compiled from the following
-						components:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_1124" xml:lang="de">Accommodation</para>
-							<para xml:id="en_1124" xml:lang="en">Accommodation</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1125" xml:lang="de">OnewayFlight</para>
-							<para xml:id="en_1125" xml:lang="en">OnewayFlight</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1126" xml:lang="de">ReturnFlight</para>
-							<para xml:id="en_1126" xml:lang="en">ReturnFlight</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1127" xml:lang="de">Addon</para>
-							<para xml:id="en_1127" xml:lang="en">Addon</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1128" xml:lang="de">Neu definierte Komponenten
-									(<code>DefinedComponent</code>, <code>CombiComponent</code>) </para>
-							<para xml:id="en_1128" xml:lang="en">Newly defined components
-									(<code>DefinedComponent</code>,
-								<code>CombiComponent</code>)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1129" xml:lang="de">Bereits definierte Produkte als
-								Bezugskomponente (<code>ProductComponent</code>)</para>
-							<para xml:id="en_1129" xml:lang="en">Products which have already been
-								defined as reference components
-								(<code>ProductComponent</code>)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_6253" xml:lang="de">Flughüllen
-									(<code>FlightWrapper</code>) (neu in V2.0)</para>
-							<para xml:id="en_6253" xml:lang="en">Flight wrappers
-									(<code>Flightwrapper</code>) (new in v2.0)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_6254" xml:lang="de">Hüllen für Unterkünfte
-									(<code>AccommodationWrapper</code>) (neu in V2.0)</para>
-							<para xml:id="en_6254" xml:lang="en">Wrapper for accommodations
-									(<code>AccommodationWrapper</code>) (new in v2.0)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_6255" xml:lang="de">Hüllen für Zusatzleistungen
-									(<code>AccommodationWrapper</code>) (neu in V2.0)</para>
-							<para xml:id="en_6255" xml:lang="en">Wrapper for addon services
-									(<code>AccommodationWrapper</code>) (new in v2.0)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_8574" xml:lang="de">Externe Komponenten
-									(<code>ExternalComponent</code>) um zum Beispiel zu definieren,
-								welche externe Komponente benötigt wird, um das Produkt zu
-								vervollständigen (neu in V2.0) </para>
-							<para xml:id="en_8574" xml:lang="en">External components
-									(<code>VirtualComponent</code>) to define which external
-								component is needed to complete the product (new in v2.0)</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_9110" xml:lang="de">Virtuelle Komponenten
-									(<code>VirtualComponent</code>) um zum Beispiel die Lücke
-								zwischen der Outbound- und Inbound-Komponente eines ReturnFlightOnly
-								zu füllen (neu in V2.0) </para>
-							<para xml:id="en_9110" xml:lang="en">Virtual Components
-									(<code>VirtualComponent</code>) to fill for example the gap
-								inbetween the outbound and inbound flight of a ReturnFlightOnly (new
-								in v2.0)</para>
-						</listitem>
-					</itemizedlist>
-					<figure>
-						<title><phrase xml:id="de_1130" xml:lang="de">Produktdefinition -
-								Product</phrase><phrase xml:id="en_1130" xml:lang="en">Product
-								definition - Product</phrase></title>
-						<mediaobject>
-							<imageobject>
-								<imagedata fileref="figures/product.png" contentwidth="40%"/>
-							</imageobject>
-							<textobject>
-								<para xml:id="de_1131" xml:lang="de">Produktdefinition -
-									Product</para>
-								<para xml:id="en_1131" xml:lang="en">Product definition -
-									Product</para>
-							</textobject>
-						</mediaobject>
-					</figure>
-					<para xml:id="de_1132" xml:lang="de">Um ein Produkt zu definieren, wird ein
-						neues Element <code>Product</code> im Zweig Products angelegt. Ein Zweig
-							<code>Product</code> enthält mindestens eine Regel, welche die Erzeugung
-						von Angeboten aus den Komponenten beschreibt. Es ist ebenso möglich, mehr
-						als nur eine Regel anzugeben. In diesem Fall werden alle Regeln nacheinander
-						angewendet und die erzeugten Angebote unter Ausschluss gleicher Angebote
-						kumuliert. Eine Produktregel enthält mindestens eine Komponente im Zweig
-						"Components" und ggf. weitere Filter-Parameter bzgl. der Eigenschaften der
-						Komponenten, um das Produkt genauer einzuschränken.</para>
-					<para xml:id="en_1132" xml:lang="en">In order to define a product, a new
-							<code>Product</code> element is placed in the "Products" branch. A
-							<code>Product</code> branch contains at least one rule which describes
-						the creation of offers from the components. It is also possible to specify
-						more than just one rule. In this case, all rules are used after each other
-						and the resulting offers cumulate, excluding identical offers. A product
-						rule contains at least one component in the "Components" branch and
-						sometimes additional filter parameters relating to the properties of the
-						components to further refine the product.</para>
-					<para xml:id="de_1133" xml:lang="de">Beispiel für eine Produktdefinition</para>
-					<para xml:id="en_1133" xml:lang="en">Example for a product definition</para>
-					<programlisting><![CDATA[<Products>
-   <Product Key="Package2" ProductType="FlightAccommodation">
-			<Components>
-				<Accommodation Name="Unterkunft" DayAllocationIndex="0"/>
-				<ReturnFlight>
-					<Outbound DayAllocationIndex="-2"/>
-					<Inbound DayAllocationIndex="2"/>
-				</ReturnFlight>
-			</Components>
-			<Filter>
-				<And>
-					<Not>
-						<Keys Source="Accommodation">FUE102</Keys>
-					</Not>
-					<MatchEqual>
-						<Tag Source="#Unterkunft" Class="Reiseart"/>
-						<Tag Source="ReturnFlight" Class="Reiseart"/>
-					</MatchEqual>
-					<MatchEqual>
-						<Element Source="Accommodation">CatchmentAirport</Element>
-						<Element Source="ReturnFlight.Outbound">ArrivalAirport</Element>
-					</MatchEqual>
-				</And>
-			</Filter>
-		</Product>
-  </Products>]]></programlisting>
-					<para xml:id="de_1134" xml:lang="de">Im obigen Beispiel sind als Komponenten
-							<code>Accommodation</code> und <code>ReturnFlight</code> angegeben. Die
-						Produktdefinition beschreibt ein Pauschalangebot mit Flug und Unterkunft.
-						Durch dieses Regelwerk können sehr flexibel alle Einzelkomponenten zu
-						komplexen verkaufbaren Produkten zusammengefügt werden. Das funktioniert für
-						Nur-Hotel-Produkte, Nur-Flug-Produkte, aber auch für Pauschalprodukte und
-						eventuelle Zusatzleistungen. Dabei können den verschiedenen Angeboten ein
-						oder mehrere passende Addons hinzugefügt werden. In dem Element
-							<code>Booking</code> kann definiert werden, dass die
-						Buchungsinformationen der Einzelkomponenten komplett überschrieben werden.
-						Im Flugbereich wird dies häufig bei der Definition von Flughülsen verwendet,
-						die die Buchungsinformationen der beteiligten Einzelflüge überschreiben. Im
-						Bereich <code>Products</code> ist uns zurzeit kein Anwendungsfall analog zu
-						den Flughülsen bekannt. Denkbar ist die Verwendung bei einer späteren
-						Integration von Rundreisen. </para>
-					<para xml:id="en_1134" xml:lang="en">In the above example, the components
-							<code>Accommodation</code> and <code>ReturnFlight</code> are specified.
-						The product definition describes a package offer with flight and
-						accommodation. Through this rule set, all individual components can be
-						flexibly combined to form complex saleable products. This works for
-						Hotel-Only products and Flight-Only products, as well as for package
-						products and possible additional services. In doing this, one or several
-						compatible Addons can be added on to the various offers. In the element
-							<code>Booking</code> , it is possible to specify that the booking
-						information of the individual components should be completely overwritten.
-						In the context of flights, this is commonly used in defining flight wrappers
-						that override the booking information of the individual flights involved. In
-						the field <code>Products</code> , we are currently unaware of any
-						application situations analogous to the flight wrappers. It is possible to
-						imagine a usage in the case of a future integration of round trips.</para>
-					<para xml:id="de_8575" xml:lang="de">Zusätzlich wird durch die Product-Definition eine
-						lückenlose Zuordnung der beteiligten Komponenten zu den Reisetagen
-						festgelegt. Diese Festlegung findet über das Attribut
-							<code>DayAllocationIndex</code> statt. Die Komponenten werden lückenlos
-						in der Reihenfolge der angegebenen DayAllocationIndices aneinandergefügt.
-						Produkttypen mit einer zwanghaften Lücke in der Tageszuordnung, wie zum
-						Beispiel der "ReturnFlightOnly", müssen dementsprechend eine
-						VirtualComponent einfügen, die diese Lücke bzgl. der Tageszuordnung
-						schließt.</para>
-					<para xml:id="en_8575" xml:lang="en">In addition a complete allocation of the
-						components involved to the travel days is determined by the Product
-						definition. This allocation takes plaxe via the attribute
-							<code>DayAllocationIndex</code>. The componentes are stringed together
-						without gaps in the order of the DayAllocationIndices indicated. Product
-						types with a compulsive gap in the day allocation, e.g the
-						"ReturnFlightOnly", have to add a VirtualComponent correspondingly that
-						closes this gap regarding the day allocation.</para>
-					<programlisting><![CDATA[<Products>
-   <Product Key="Package2" ProductType="ReturnFlightOnly">
-			<Components>
-				<VirtualComponent DayAllocationIndex="0"/>
-				<ReturnFlight>
-					<Outbound DayAllocationIndex="-2"/>
-					<Inbound DayAllocationIndex="2"/>
-				</ReturnFlight>
-			</Components>
-		</Product>
-  </Products>]]></programlisting>
-
-					<bridgehead xml:id="de_1135" xml:lang="de">Filter</bridgehead>
-					<bridgehead xml:id="en_1135" xml:lang="en">Filter</bridgehead>
-					<para xml:id="de_1136" xml:lang="de">Durch Filterbedingungen (Filter) kann die
-						Angebotsmenge beschränkt werden. Ein <code>Filter</code> kann zahlreiche
-						Bedingungen enthalten, die sehr weitreichend miteinander logisch verknüpft
-						werden können (siehe dazu das Kapitel <link
-							linkend="OtdsStrategyConditionBoolOperation">Logische
-							Verknüpfungen</link>). Diese Bedingungen können sich beispielsweise auf
-						Termine oder Dauern beziehen. "Tag"-Bedingungen beziehen sich auf Tags, um
-						Markierungen bestimmter Komponenten zu prüfen.</para>
-					<para xml:id="en_1136" xml:lang="en">Filter conditions (Filters) can be used to
-						restrict the amount of offers. A <code>Filter</code> can contain numerous
-						conditions which can be extensively logically connected to one another (see
-						the <link linkend="OtdsStrategyConditionBoolOperation">Logical
-							connections</link> chapter). These conditions could for example refer to
-						dates or durations. "Tag" conditions refer to tags, in order to check the
-						markers of certain components.</para>
-					<bridgehead xml:id="OtdsStrategyRulesAttributSource" xml:lang="de"
-						>Referenzierung von Komponenten / Referencing of Components (Attribut
-							<code>Source</code>)</bridgehead>
-					<para xml:id="de_1137" xml:lang="de">Auf welche der aufgelisteten Komponenten
-						sich die Bedingung bezieht, wird bei jeder Bedingung separat über das
-						Attribut "<code>Source</code>" angegeben (siehe XML-Beispiel). Zusätzlich zu
-						den vier Reisekomponenten (<code>Accommodation, ReturnFlight, OnewayFlight,
-							Addons</code>) können Unterkomponenten referenziert werden,
-						beispielsweise <code>Unit, Board, Inbound, Outbound, Addons.Service</code>
-						oder die <code>BookingClass</code> bei Flugkomponenten. Die Referenzierung
-						der Komponente geschieht über eine Punktnotation. Dabei wird die
-						Hauptkomponente zuerst genannt, die Unterkomponenten folgen durch Punkte
-						voneinander getrennt, also beispielsweise "<code>Accommodation.Unit</code>".
-						Wenn in einer Produktdefinition (<code>Product</code>) mehrere gleiche
-						Komponenten angegeben sind (beispielsweise mehrere Onewayflüge), so ist
-						diese Referenzierung nicht mehr eindeutig. Für diesen Fall besteht die
-						Notwendigkeit, jeder Komponente durch das Attribut "<code>Name</code>" einen
-						eindeutigen Namen zuzuweisen, um sich auf die jeweilige Komponente beziehen
-						zu können. Im obigen Beispiel hat die Accommodation Komponente exemplarisch
-						den Namen "Unterkunft" bekommen. Die Verwendung von Source="Accommodation"
-						und Source="Unterkunft" ist in diesem Fall identisch. Wie bereits gesagt,
-						kann aber bei mehrfachen gleichartigen Komponenten durch die Verwendung der
-						Namen genau eine Komponente referenziert werden. Die Referenzierung über
-						Namen kann auch in Verbindung mit der Punkt-Noatation erfolgen, z.B.
-						Source="#Unterkunft.Unit". Im Regelwerk zur Kombination von Einzelflügen,
-						die dem gleichen Regelkonzept folgen, wird beispielsweise die individuelle
-						Benennung gleicher Komponenten (=Flüge) notwendig. </para>
-					<para xml:id="en_1137" xml:lang="en">Which of the listed components a condition
-						refers to is specified separately for each condition via the attribute
-							"<code>Source</code> " (see XML example). In addition to the four travel
-						components (<code>Accommodation, ReturnFlight, OnewayFlight, Addons</code>
-						), it is also possible to reference subcomponents, for example <code>Unit,
-							Board, Inbound, Outbound, Addons,Service</code> or the
-							<code>BookingClass</code> for flight components. Components are
-						referenced using dot notation. The main components are named first and the
-						subcomponents follow, separated by dots, e.g.
-							"<code>Accommodation.Unit</code>". If there are several of the same
-						component (several one-way flights, for example) in a product definition
-							(<code>Product</code> ), the referencing is no longer unambiguous. In
-						this case, each component must be allocated a unique name using the
-							"<code>Name</code> " attribute in order to be able to refer to the
-						particular component. In the above example the Accommodation component is
-						given the name "Accommodation". The use of Source="Accommodation" and
-						Source="Unterkunft" is identical in this case. As was previously mentioned,
-						in the case of several components of the same type, one specific component
-						can be referenced using a name. Referencing by name can also be combined
-						with dot notation, e.g. Source="#Accommodation.Unit". In the rule set for
-						the combination of one-way flights, which follow the same rule concept,
-						components that are the same (=flights) are to be individually named.</para>
-					<bridgehead xml:id="de_1138" xml:lang="de">Match-Filter</bridgehead>
-					<bridgehead xml:id="en_1138" xml:lang="en">Match filter</bridgehead>
-					<para xml:id="de_1139" xml:lang="de">Neben den zahlreichen möglichen Bedingungen
-						für Belegung, Saison, Flughafen, Verpflegung, Dauer etc. gibt es in diesen
-						Rules darüber hinaus die Möglichkeit, Werte miteinander zu vergleichen. Dies
-						geschieht mit Hilfe des Elements "MatchEqual". Es lassen sich Werte von
-						Elementen (Unterelement "<code>Element</code>") sowie Tags (Unterelement
-							"<code>Tag</code>") miteinander vergleichen. Eine MatchBedingung besteht
-						demnach also immer aus mindestens zwei Tag-Referenzen oder zwei Element
-						Referenzen. Die Referenzierung erfolgt auch hier in gleicher Weise über das
-						Attribute "Source" und zusätzlich durch die Spezifizierung eines bestimmten
-						"Tags" bzw eines bestimmten Elementes. </para>
-					<para xml:id="en_1139" xml:lang="en">In addition to the numerous possible
-						conditions for Occupancy, Season, Airport, Board, Duration, etc., these
-						rules also allow you to compare values with one another. This can be done
-						using the element "MatchEqual". Values of elements (sub-element
-							"<code>Element</code> ") and tags (sub-element "<code>Tag</code> ") can
-						be compared with one another. A MatchCondition therefore consists of at
-						least 2 tag references or 2 element references. This referencing is done in
-						the same way via the "Source" attribute, and additionally by specifying a
-						certain tag or a certain element.</para>
-					<para xml:id="de_1140" xml:lang="de">Es werden die Werte aller angegebenen
-						Referenzen miteinander auf Gleichheit überprüft. Eine Matchbedingung ist
-						erfüllt, wenn alle referenzierten Werte gleich sind. Der Wertevergleich für
-						Tags kann über die beiden optionalen Attribute "<code>Offset</code>" und
-							"<code>Length</code>" genauer spezifiziert werden: Bei Angabe wird dann
-						nicht das komplette Tag, sondern nur ein Teil davon beginnend ab der
-						Position <code>Offset</code> mit der Länge <code>Length</code> für den
-						Vergleich herangezogen. </para>
-					<para xml:id="en_1140" xml:lang="en">The values of all specified references are
-						checked against each other for matches. A match condition is met if all
-						referenced values are the same. The value comparison for tags can be more
-						precisely specified using the two optional attributes "<code>Offset</code> "
-						and "<code>Length</code> ": If something is entered here, it will not use
-						the full tag for the comparison, but only the part of it beginning from the
-						position <code>Offset</code> with the length <code>Length</code> .</para>
-					<para xml:id="de_1141" xml:lang="de">Im obigen Beispiel kann man sehen, dass die
-						Matchbedingungen mit den anderen Bedingungen beliebig logisch verknüpft
-						werden können. </para>
-					<para xml:id="en_1141" xml:lang="en">In the example above you can see that the
-						match conditions can be logically connected to any other related
-						conditions.</para>
-					<para/>
-				</section>
-				<section xml:id="OtdsStrategyRulesProductTypes">
-					<title><phrase xml:id="de_1148" xml:lang="de">Festlegung der Produkttypen
-							(V2.0)</phrase><phrase xml:id="en_1148" xml:lang="en">Definition of
-							product types (v2.0)</phrase></title>
-					<para xml:id="de_1149" xml:lang="de">OTDS kennt aktuell 5 Produkttypen: </para>
-					<para xml:id="en_1149" xml:lang="en">OTDS currently has 5 product types:</para>
-
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_1150" xml:lang="de">AccommodationOnly</para>
-							<para xml:id="en_1150" xml:lang="en">AccommodationOnly</para>
-							<para xml:id="de_1151" xml:lang="de">Zur Definition von Produkten, die
-								nur eine Unterkunft enthalten</para>
-							<para xml:id="en_1151" xml:lang="en">For the definition of products
-								which only contain accommodation</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1152" xml:lang="de">OnewayFlightOnly</para>
-							<para xml:id="en_1152" xml:lang="en">OnewayFlightOnly</para>
-							<para xml:id="de_1153" xml:lang="de">Zur Definition von Produkten, die
-								nur einen Einzelflug enthalten</para>
-							<para xml:id="en_1153" xml:lang="en">For the definition of products
-								which contain only a one-way flight</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1154" xml:lang="de">ReturnFlightOnly (V2.0)</para>
-							<para xml:id="en_1154" xml:lang="en">ReturnFlightOnly (v2.0)</para>
-							<para xml:id="de_1155" xml:lang="de">Zur Definition von Produkten, die
-								aus einen Hin- und einem Rückflug bestehen. Seit <emphasis
-									role="bold">Version 2.0</emphasis> muss bei diesen Produkten die
-								Lücke zwischen Hin- und Rückflug durch eine virtuelle Komponente
-								(Components/VirtualComponent) geschlossen werden.</para>
-							<para xml:id="en_1155" xml:lang="en">For the definition of products
-								consisting of an outbound and a return flight. Since <emphasis
-									role="bold">version 2.0</emphasis> this kind of product needs to
-								fill the gap between outbound and inbound flight with a virtual
-								component (Components/VirtualComponent). (</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1156" xml:lang="de">FlightAccommodation</para>
-							<para xml:id="en_1156" xml:lang="en">FlightAccommodation</para>
-							<para xml:id="de_1157" xml:lang="de">Zur Definition von Produkten, die
-								aus einem Hin-Und Rückflug plus entsprechender Unterkunft vor Ort
-								bestehen</para>
-							<para xml:id="en_1157" xml:lang="en">For the definition of products
-								consisting of an outbound and return flight plus corresponding
-								accommodation at the destination</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_1158" xml:lang="de">Addon</para>
-							<para xml:id="en_1158" xml:lang="en">Addon</para>
-							<para xml:id="de_1159" xml:lang="de">Zur Definition von
-								Zusatzleistungen, die optional zu Produkten angeboten werden können </para>
-							<para xml:id="en_1159" xml:lang="en">For the definition of additional
-								services which are offered optionally in addition to the
-								product</para>
-						</listitem>
-					</itemizedlist>
-
-					<bridgehead xml:id="de_9112" xml:lang="de">Neuerung in Version 2.0:</bridgehead>
-					<bridgehead xml:id="en_9112" xml:lang="en">Novelty in version 2.0:</bridgehead>
-					<para xml:id="de_9113" xml:lang="de">Ein Sonderfall sind Mix-Produkte. Seit
-							<emphasis role="bold">Version 2.0</emphasis> sind Mix-Produkte Produkte,
-						die noch zusätzliche externe Komponenten benötigen, um das Produkt zu
-						vervollständigen. In der Regel sind Mix-Produkte mit dem
-						ProductType="FlightAccommodation" ausgezeichnet und enthalten wenigstens
-						eine externe Komponente (Components/ExternalComponent).</para>
-					<para xml:id="en_9113" xml:lang="en">Mix-products are a special case: Since
-							<emphasis role="bold">version 2.0</emphasis> mix-products are products
-						that require additional external components in order to complete the
-						product. In general mix-products are marked with the
-						ProductType="FlightAccommodation" and contain at least one external
-						component (Components/ExternalComponent).</para>
-				</section>
-				<section xml:id="OtdsStrategyRulesTags">
-					<title><phrase xml:id="de_1143" xml:lang="de">Markierungen (Tags) in
-							Produkten</phrase><phrase xml:id="en_1143" xml:lang="en">Markers (Tags)
-							in products</phrase></title>
-					<para xml:id="de_1144" xml:lang="de">Innerhalb der Produktdefinition können
-						besondere Markierungen (Tags) festgelegt werden. Auf diese Tags kann man
-						sich innerhalb der Komponentendaten beziehen und damit spezielle Preise,
-						Verfügbarkeiten oder andere Eigenschaften im Kontext eines spezifischen
-						Produktes festlegen. Diese Tags entsprechen in der Regel bereits in den
-						Veranstaltersystemen hinterlegten Codes oder Parametern. Alle in einer
-						Produkt-Regel vergebenen Markierungen (Tags) gelten für alle Komponenten
-						innerhalb des Produkts. Das Produkt selbst kann dadurch innerhalb der
-						Komponenten als Bedingung bei der Preisbildung herangezogen werden. </para>
-					<para xml:id="en_1144" xml:lang="en">Within the product definition, special
-						markers (tags) can be defined. You can refer to these tags within the
-						component data, and thereby specify special prices, availability, or other
-						properties in the context of a specific product. These tags correspond to a
-						rule already stored in the tour operator system's codes or parameters. All
-						markers (tags) used in a product rule apply to all components within the
-						product. The product itself may be used, within the components, as a
-						condition in the price formation process.</para>
-					<para xml:id="de_1145" xml:lang="de"> Beispiel für ein "Tag" in einem Produkt
-						und die Verwendung in den Preisen:<programlisting><![CDATA[<Products>
-  <Product Key="Package1" ProductType="AccommodationOnly">
-    <Tag Class="Product">AccomOnly</Tag>
-    <Filter>
-      ...
-    </Filter>
-  </Product>
-  ...
-</Products>
-<Accommodations>
-	...
-	<PriceItem>
-		...
-		<Condition>
-			...
-			<Tag Class="Product">AccomOnly</Tag>
-		</Condition>
-	</PriceItem>
-</Accommodations>
-]]></programlisting></para>
-					<para xml:id="en_1145" xml:lang="en">An example of a "tag" in a product and its
-						use in pricing: <programlisting><![CDATA[<Products><Product Key="Package1" ProductType="AccommodationOnly">
-    <Tag Class="Product">AccomOnly</Tag>
-    <Filter>
-      ...
-    </Filter>
-  </Product>
-  ...
-</Products>
-<Accommodations>
-	...
-	<PriceItem>
-		...
-		<Condition>
-			...
-			<Tag Class="Product">AccomOnly</Tag>
-		</Condition>
-	</PriceItem>
-</Accommodations>]]></programlisting>
-					</para>
-					<para xml:id="de_1146" xml:lang="de">Das obige Beispiel zeigt eine
-						Produktdefinition für den Produkttyp "AccommodationOnly". Einige
-						Veranstalter belegen ihre Hotels, die als NurHotelProdukt verkauft werden,
-						mit einem Zuschlag. Dadurch, dass das Produkt im obigen Beispiel ein
-						spezifisches "Tag" mit der Class="Product" und dem Wert="AccomOnly" bekommt,
-						kann man Preise genau mit einer Bedingung bzgl. dieses Tags versehen.
-						Preise, Zu- und Abschläge werden in ODTS in PriceItems definiert. Eine
-						Condition legt fest, unter welchen Bedingungen ein PriceItem gilt. Genau das
-						wird in dem obigen Beispiel gemacht. Also nur wenn das Hotel als NurHotel
-						verwendet wird, wird dieser Zuschlag gültig und damit in die Berechnung mit
-						einbezogen. </para>
-					<para xml:id="en_1146" xml:lang="en">The above is an example of a product
-						definition for the product type "AccommodationOnly" Some tour operators
-						apply a surcharge to their hotels, which are sold as hotel-only products. By
-						equipping the product in the example above with a specific "tag" with the
-						class="Product" and value="AccomOnly", prices can be provided with a
-						condition relating to this very tag. Prices, discounts and surcharges are
-						defined in ODTS in PriceItems. A condition specifies the terms under which a
-						PriceItem applies. Precisely this is demonstrated in the example above. Thus
-						only if the hotel is used as a hotel-only product is this supplement valid
-						and will be included in the calculation.</para>
-					<para xml:id="de_1147" xml:lang="de"> </para>
-					<para xml:id="en_1147" xml:lang="en"/>
-				</section>
-				<section xml:id="OtdsStrategyProductProperties">
-					<title><phrase xml:lang="de" xml:id="de_5037">Eigenschaft (Properties) in
-							Produkten</phrase><phrase xml:lang="en" xml:id="en_5037">Property
-							(Properties) in products</phrase></title>
-					<para xml:lang="de" xml:id="de_5038">Innerhalb der Produktdefinition können
-						Eigenschaften definiert werden, die global über die gesamte Lieferung
-						gelten. Hiermit kann z.B. für ein gesamtes Produkt die Eigenschaft "Transfer
-						inkludiert" gesetzt werden. Diese Eigenschaft muss dann nicht je
-						Accommodation geliefert werden. </para>
-					<para xml:lang="en" xml:id="en_5038">Within the product definition, properties
-						can be defined which are globally applicable to the whole delivery. This,
-						for example, allows the property "Transfer included" to be set for the whole
-						product. These properties do not then have to be delivered according to
-						Accommodation.</para>
-				</section>
-				<section xml:id="OtdsStrategyProductPriceItems">
-					<title><phrase xml:lang="de" xml:id="de_5039">Preise (PriceItems) in Produkten
-							(V1.9)</phrase><phrase xml:lang="en" xml:id="en_5039">Prices
-							(PriceItems) in products (v1.9)</phrase></title>
-					<para xml:lang="de" xml:id="de_5040">Innerhalb der Produktdefinition können
-						PriceItems geliefert werden, die global für alle Komponenten des Produktes
-						gelten. Hierbei ist zu beachten, dass absolute PriceItems nur einmal je
-						Produkt angewendet werden und nicht je Komponente.</para>
-					<para xml:lang="en" xml:id="en_5040">Within the product definition, PriceItems
-						can be delivered which apply globally for all components of the product. It
-						is to be noted that absolute PriceItems are only used once per product and
-						not per component.</para>
-				</section>
-				<section xml:id="OtdsStrategyProductBooking">
-					<title><phrase xml:lang="de" xml:id="de_5041">Buchungsparameter (Booking) in
-							Produkten</phrase><phrase xml:lang="en" xml:id="en_5041">Booking
-							parameters (Booking) in products</phrase></title>
-					<para xml:lang="de" xml:id="de_5042">Das Booking-Element innerhalb der
-						Produktdefinition dient zur globalen Definition von Buchungsparametern. Die
-						Platzierung der Reiseart (TravelType) ist an dieser Stelle sinnvoll.</para>
-					<para xml:lang="en" xml:id="en_5042">The Booking element within the product
-						definition serves the global definition of booking parameters. The placement
-						of the travel type (TravelType) is significant in this position.</para>
-				</section>
-
-				<section xml:id="OtdsStrategyProductGenericTag">
-					<title>
-						<phrase xml:lang="de" xml:id="de_5043">Kennzeichnung von Produkt-Features
-							durch <code>GenericTag</code> in Produkten (V1.9) (Entfernt in
-							V2.0)</phrase><phrase xml:lang="en" xml:id="en_5043">Tagging of product
-							features using <code>GenericTag</code> in products (v1.9) (Deleted in
-							V2.0)</phrase>
-					</title>
-
-					<para xml:lang="de" xml:id="de_6144">Diese Art des
-							<code>GenericTag/ExternalParameter</code> wurde ab <emphasis role="bold"
-							>Version 2.0</emphasis> durch den
-							<code>GlobalValue/FeatureContext</code> ersetzt.</para>
-					<para xml:lang="en" xml:id="en_6144">This type of
-							<code>GenericTag/ExternalParameter</code> has been replaced by the
-							<code>GlobalValue/FeatureContext</code> in <emphasis role="bold">version
-							2.0</emphasis>.</para>
-					<para xml:lang="de" xml:id="de_6145">Details zur Benutzung des
-							<code>GlobalValue/FeatureContext</code> finden Sie im Kapitel <link
-							linkend="OtdsStrategyGlobalValuesFeatureContext"
-							>GlobalValue/FeatureContext (CityPairProduction)</link></para>
-					<para xml:lang="en" xml:id="en_6145">Details about the usage of
-							<code>GlobalValue/FeatureContext</code> are described in the Chapter
-							<link linkend="OtdsStrategyGlobalValuesFeatureContext"
-							>GlobalValue/FeatureContext (CityPairProduction)</link></para>
-				</section>
+				<title><phrase xml:id="de_1115" xml:lang="de">Regelwerke zur Kombination von Komponenten</phrase><phrase xml:id="en_1115"
+						xml:lang="en">Rule sets for the combination of components</phrase></title>
 				<section xml:id="OtdsStrategyRulesProductDefinedComponents">
 					<title><phrase xml:id="de_1160" xml:lang="de">Regeln zur Definition kombinierter
 							Komponenten (DefinedComponents)</phrase><phrase xml:id="en_1160"
