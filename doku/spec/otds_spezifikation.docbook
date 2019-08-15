@@ -12095,8 +12095,8 @@
 									lines)</para>
 							</listitem>
 							<listitem>
-								<para xml:id="de_1670" xml:lang="de">PersonArea (Für Werte die im Bereich
-									der Reiseteilnehmer platziert werden)</para>
+								<para xml:id="de_1670" xml:lang="de">PersonArea (Für Werte, die im Bereich der
+									Reiseteilnehmer platziert werden)</para>
 								<para xml:id="en_1670" xml:lang="en">PersonArea (For values that are placed
 									in the area of the travel participants)</para>
 							</listitem>
@@ -12106,21 +12106,21 @@
 						<title><phrase xml:id="de_1671" xml:lang="de">Buchungsparameter
 								(BookingParameter/Value)</phrase><phrase xml:id="en_1671" xml:lang="en"
 								>Booking parameters (BookingParameter/Value)</phrase></title>
-						<para xml:id="de_1672" xml:lang="de">In einer Buchungsmaske gibt es bezogen auf
-							das Angebot konstante Parameter, wie Veranstaltercode, Hotelcode und
-							Zimmercode sowie flexible Parameter wie der Reisetermin, die Dauer oder die
-							Alter der mitreisenden Personen.</para>
+						<para xml:id="de_1672" xml:lang="de">In einer Buchungsmaske gibt es bezogen auf das Angebot
+							konstante Parameter, wie Veranstaltercode, Hotelcode und Zimmercode
+							sowie flexible Parameter wie der Reisetermin, die Dauer oder das Alter
+							der mitreisenden Personen.</para>
 						<para xml:id="en_1672" xml:lang="en">In a booking mask there are parameters
 							which are constant with regard to the offer, such as operator code, hotel
 							code and room code, as well as parameters which are flexible, such as travel
 							dates, the duration or the age of the travelling persons.</para>
 	
-						<para xml:id="de_1673" xml:lang="de">In OTDS werden die einzelenen
-							Buchungsparameter als BookingParameter definiert und strukturiert an die
-							Buchungssysteme übergeben. Jeder einzelne Parameter wird genau einer
-							Leistungszeile und einem Feld in dieser Leistungszeile zugewiesen. Die
-							Definition der Felder erfolgt über das Attribut "Field" und kann folgende
-							Werte enthalten:</para>
+						<para xml:id="de_1673" xml:lang="de">In OTDS werden die einzelnen Buchungsparameter als
+							BookingParameter definiert und strukturiert an die Buchungssysteme
+							übergeben. Jeder einzelne Parameter wird genau einer Leistungszeile und
+							einem Feld in dieser Leistungszeile zugewiesen. Die Definition der
+							Felder erfolgt über das Attribut "Field" und kann folgende Werte
+							enthalten:</para>
 						<para xml:id="en_1673" xml:lang="en">In OTDS the individual booking parameters
 							are defined as BookingParameters and transferred to the booking system in a
 							structured form. Each individual parameter is allocated precisely one
@@ -12207,7 +12207,11 @@
 						<para xml:id="en_1689" xml:lang="en">The assignment of the individual parameters to the booking lines corresponds to the grouping according to the attributes.</para>
 						<para xml:id="de_9699" xml:lang="de">Die Zuordnung der einzelnen Parameter zu den Personen-Zeilen entspricht der Gruppierung nach den EvaluationBase-PersonIndices.</para>
 						<para xml:id="en_9699" xml:lang="en">The assignment of the individual parameters to the person lines corresponds to the grouping according to the EvaluationBasePersonIndices.</para>
-						<para xml:id="de_9698" xml:lang="de">Im Kapitel 2 unter <link linkend="OtdsCodeOfPractiseBooking">Praxisbeispiele der Buchungsparameter</link>finden Sie dazu ein Praxisbeispiel, welches die Überführung der BookingParameter in die oben abgebildete Buchungsmaske näher ausführt.</para>
+						<para xml:id="de_9698" xml:lang="de">Im Kapitel 2 unter <link
+								linkend="OtdsCodeOfPractiseBooking">Praxisbeispiele der
+								Buchungsparameter</link> finden Sie dazu ein Praxisbeispiel, welches
+							die Überführung der BookingParameter in die oben abgebildete
+							Buchungsmaske näher ausführt.</para>
 						<para xml:id="en_9698" xml:lang="en">In Chapter 2 under <link linkend="OtdsCodeOfPractiseBooking">Practical examples of the booking parameters</link> you will find a practical example which describes the transfer of the booking parameters into the booking mask shown above in more detail.</para>
 				</section>
 			</section>
@@ -24031,7 +24035,56 @@ usw.]]></programlisting>
 		...
 	</<Otds>]]></programlisting>
 				<para xml:lang="det">TODO für Steffi aaaaa : Ergänzung der globalen Buchunsgparameter und Darstellung der einzelnen Schritte der Buchungsparameterverarbeitung anhand dieses konkreten Beispiels.</para>
-			</section>
+			<para xml:id="de_4778" xml:lang="de">Die Verarbeitung der Buchungsparameter folgt dem nachstehenden groben Ablauf, der detailliert in Kapitel 1.3.10.2 <link linkend="OtdsStrategyBookingProcessSteps">Die Verarbeitungsschritte der Buchungsparameter beschrieben</link> wird:</para>  	
+			<para xml:id="en_4778" xml:lang="en">The processing of booking parameters roughly follows this procedure, which is also described in detail in Chapter 1.3.10.2 <link linkend="OtdsStrategyBookingProcessSteps">The processing steps of the booking parameters</link> beschrieben wird:</para>  	
+		<orderedlist>
+			<listitem>
+				<para xml:id="de_4777" xml:lang="de">Einsammeln aller Buchungsparameter</para> 
+				<para xml:id="en_4777" xml:lang="en">Collect all booking parameters</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4776" xml:lang="de">Ersetzen von @Source durch die Instanzen der Komponenten
+							und Unterkomponenten</para> 
+				<para xml:id="en_4776" xml:lang="en">Replace @Source with instances of components and subcomponents</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4775" xml:lang="de">Bildung der Komponenten-Instanzgruppen auf Basis der zuvor abgeleiteten Komponent-Instanzlisten</para> 
+				<para xml:id="en_4775" xml:lang="en">Creation of component instance groups on the basis of the previously derived component instance lists</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4774" xml:lang="de">Expansion auf den definierten Day/Person Kontext definiert durch @EvaluationBase</para> 
+				<para xml:id="en_4774" xml:lang="en">Expansion to the defined day/person context defined by @EvaluationBase</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4773" xml:lang="de">Anwendung der Condition in den BookingGroups</para> 
+				<para xml:id="en_4773" xml:lang="en">Using the Condition in the BookingGroups</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4772" xml:lang="de">BookingReplace anwenden</para> 
+				<para xml:id="en_4772" xml:lang="en">Apply BookingReplace</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4771" xml:lang="de">Gruppierung der Buchungsparameter nach identischen @Area-Werten, Komponenten-Instanzgruppe, @Class-Werten, @Field-Werten und EvaluationBase-Indices</para> 
+				<para xml:id="en_4771" xml:lang="en">Group booking parameters by identical @Area values, component instance group, @Class values, @Field values, and EvaluationBase indices</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4770" xml:lang="de">Sortierung der Buchungsparameter in den Buchungsparametergruppen nach @Priority aufsteigend und XML-Order</para> 
+				<para xml:id="en_4770" xml:lang="en">Sort booking parameters in booking parameter groups by @Priority ascending and XML Order</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4769" xml:lang="de">Ersetzen der Referenz-Buchungsparameter durch den referenzierten Value</para> 
+				<para xml:id="en_4769" xml:lang="en">Replace the reference posting parameters with the referenced value.</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4768" xml:lang="de">Aggregation der Buchungsparametergruppen</para> 
+				<para xml:id="en_4768" xml:lang="en">Aggregation of booking parameter groups</para>
+			</listitem>
+			<listitem>
+				<para xml:id="de_4767" xml:lang="de">Übertragung der Buchungsparameter-Values auf die entsprechende Buchungsschnittstellen</para> 
+				<para xml:id="en_4767" xml:lang="en">Transfer of booking parameter values to the corresponding booking interfaces</para>
+			</listitem>
+		</orderedlist>
+		</section>
 		<section xml:id="OtdsCodeOfPractiseBookingExampleMultipleBookingRows">
 			<title><phrase xml:id="de_9817" xml:lang="de">Praxisbeispiel, wie mehrere Buchungszeilen gefüllt werden</phrase><phrase xml:id="en_9817" xml:lang="en">Practical example of how several booking lines are filled</phrase></title>
 			
