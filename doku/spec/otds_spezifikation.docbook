@@ -24850,16 +24850,41 @@ usw.]]></programlisting>
 							offers (alternatively: use of filters to mark such offers)</para>
 					</listitem>
 					<listitem>
-						<para xml:id="de_9941" xml:lang="de">Local vs Global</para>
-						<para xml:id="en_9941" xml:lang="en">Local vs Global</para>
-						<para xml:id="de_9942" xml:lang="de">OTDS ermöglicht es, PriceItems in verschiedenen Abschnitten zu verwenden (→ OTDS specs, 1.3.13). Beispielsweise können unterbringungsbezogene PriceItems im Accommodation Container, Accommodation Komponenten, SellingAccom, Board und SellingUnit vorhanden sein. 
-						Obwohl es verwirrend aussehen mag, bietet dieser hohe Freiheitsgrad auch eine große Flexibilität und kann gut genutzt werden, um OTDS-Verteilungen klein und effizient zu halten, wenn sich die Produzenten an eine einfache Regel halten: Halten Sie sie so lokal wie möglich.
-						PriceItems sind in der Regel an Komponenten gebunden. So gibt es beispielsweise einen Basispreis von 80,00 für eine Unit D in zwei Zeitspannen A und B. Während der einfachste Weg scheint, alle PriceItems auf der gleichen Ebene zu platzieren (z.B. SellingAccom), führt dies automatisch dazu, dass eine verbindliche Condition erstellt werden muss, die den PriceItem mit der entsprechenden Komponente verknüpft.
-						Die Lösung wird also ungefähr so aussehen:</para>
-						<para xml:id="en_9942" xml:lang="en">OTDS allows PriceItems (PIs) to appear in different sections (→ OTDS specs, 1.3.13). For example, you could have accommodation related PIs in the Acommodations container, Accommodation components, SellingAccom, Board and SellingUnit. 
-						While it may look confusing, this high degree of freedom also offers great flexibility and can be used in a good way to keep OTDS distributions small and efficient, if the producers stick to a simple rule: keep it as local as possible:
-						Price items normally are bound to components. For example, there is a base price of 80,00 for a Unit D in two date range sets A and B. While the easiest way seems to be to place all PIs on the same level (e.g. SellingAccom), this automatically introduces the need to create a binding condition that links the PI to the corresponding component.
-						So the solution will probably look very much like this:</para>
+						<para xml:id="de_9941" xml:lang="de">Lokalisation (Local vs Global)</para>
+						<para xml:id="en_9941" xml:lang="en">Localisation (Local vs Global)</para>
+						<para xml:id="de_9942" xml:lang="de">OTDS ermöglicht es, PriceItems in verschiedenen
+							Abschnitten zu verwenden (siehe auch <link
+								linkend="OtdsStrategyPriceItem"> Kapitel 1.3.13 Preisbestandteile
+								für Komponenten (PriceItems)</link> und die Abbildung 68 dort).
+							Beispielsweise können unterbringungsbezogene PriceItems im Accommodation
+							Container, Accommodation Komponenten, SellingAccom, Board und
+							SellingUnit vorhanden sein. Obwohl es verwirrend aussehen mag, bietet
+							dieser hohe Freiheitsgrad auch eine große Flexibilität und kann gut
+							genutzt werden, um OTDS-Verteilungen klein und effizient zu halten, wenn
+							sich die Produzenten an eine einfache Regel halten: Halten Sie sie so
+							lokal wie möglich. PriceItems sind in der Regel an Komponenten gebunden.
+							So gibt es beispielsweise einen Basispreis von 80,00 für eine Unit D in
+							zwei Zeitspannen A und B. Während der einfachste Weg scheint, alle
+							PriceItems auf der gleichen Ebene zu platzieren (z.B. SellingAccom),
+							führt dies automatisch dazu, dass eine verbindliche Condition erstellt
+							werden muss, die den PriceItem mit der entsprechenden Komponente
+							verknüpft. Die Lösung wird also ungefähr so aussehen:</para>
+						<para xml:id="en_9942" xml:lang="en">OTDS allows PriceItems to appear in different sections
+							(please refer also to <link linkend="OtdsStrategyPriceItem"> Chapter
+								1.3.13 Price elements for components (PriceItems)</link> and Figure
+							68 depicted there). For example, you could have accommodation related
+							PriceItems in the Acommodations container, Accommodation components,
+							SellingAccom, Board and SellingUnit. While it may look confusing, this
+							high degree of freedom also offers great flexibility and can be used in
+							a good way to keep OTDS distributions small and efficient, if the
+							producers stick to a simple rule: keep it as local as possible:
+							PriceItems normally are bound to components. For example, there is a
+							base price of 80,00 for a Unit D in two date range sets A and B. While
+							the easiest way seems to be to place all PriceItems on the same level
+							(e.g. SellingAccom), this automatically introduces the need to create a
+							binding condition that links the PriceItems to the corresponding
+							component. So the solution will probably look very much like
+							this:</para>
 					</listitem>
 				</itemizedlist>
 				<programlisting><![CDATA[<SellingAccom Key="W9-HO0815">
@@ -24884,6 +24909,91 @@ usw.]]></programlisting>
         </Condition>
     </PriceItem>
 </SellingAccom>]]></programlisting>
+				<para xml:id="de_9943" xml:lang="de">Obwohl dies formal grundsätzlich machbar ist, ist diese Lösung nicht effizient, weil sie </para>
+				<para xml:id="en_9943" xml:lang="en">While there is nothing wrong with this from a formal point of view, this solution is not efficient because </para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9944" xml:lang="de">es erfordert, dass das PriceItem in jede Angebotsberechnung der Unterkomponenten von SellingAccom einbezogen wird.</para>
+						<para xml:id="en_9944" xml:lang="en">it requires the PriceItem to be included in each offer computation of the SellingAccom’s sub components</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9945" xml:lang="de">es verwendet eine Bedingung, um das PriceItem an die gewünschte Einheit zu binden.</para>
+						<para xml:id="en_9945" xml:lang="en">it uses a condition to bind the PriceItem to the desired Unit.</para>
+					</listitem>
+				</itemizedlist>
+				<para xml:id="de_9946" xml:lang="de">Statt sorgloser Einfachheit nutzt ein intelligenterer Ansatz die Natur des OTDS-Diagramms, um das PriceItem an die Unit zu binden, indem er es in der Komponente SellingUnit platziert.</para>
+				<para xml:id="en_9946" xml:lang="en">Instead of careless simplicity, a smarter approach exploits the nature of the OTDS graph to bind the PriceItem to the Unit by placing it in the SellingUnit component.</para>
+				<programlisting><![CDATA[<SellingAccom Key="W9-HO0815">
+    <Board Key="B">...</Board>
+    <Unit Key="S">...</Unit>
+    <Unit Key="D">...
+        <SellingUnit Key="D">
+            ...
+            <PriceItems Key="ESektion">
+                <PriceItem Class="E_VK_UNIT">
+                    <Absolute>
+                        <Value>80.00</Value>
+                        <DayBase>1</DayBase>
+                        <PersonBase>x</PersonBase>
+                    </Absolute>
+                    <Condition>
+                        <Impact>
+                            <ConditionalTags 
+                                    Class="SeasonStay" 
+                                    Source="SellingAccom">A W</ConditionalTags>
+                        </Impact>
+                    </Condition>
+                </PriceItem>
+            </PriceItems>            
+        </SellingUnit>
+    </Unit>
+    <Unit Key="T">...</Unit>
+</SellingAccom>]]></programlisting>
+				<para xml:id="de_9947" xml:lang="de">Auf diese Weise wird das PriceItem nur in die Angebotsberechnungen der Unit "D" einbezogen und die Condition kann als schnellere Bedingung bewertet werden (kein "AND", kein Key-Vergleich).
+					In einem praktischen Beispiel half die Überarbeitung des OTDS-Exports, die Angebotsberechnung um 300% zu beschleunigen, indem dieses Muster verwendet wurde., 
+					Natürlich könnte man argumentieren, dass es manchmal notwendig ist, ein PriceItem an eine Kombination von Komponenten zu binden, z.B. Unit D und Board B. Dies ist mit einer leichten Modifikation noch möglich (s. Keys Source="global:Board" im Beispiel unten):</para>
+				<para xml:id="en_9947" xml:lang="en">This way, the PriceItem will be included only in the offer
+					computations of the Unit “D” and the condition can be evaluated as a faster
+					condition (no “AND”, no Key compare). In a real life situation, refactoring the
+					OTDS export to use this pattern helped to speed up the offer computation by
+					300%. Of course, one could argue that sometimes there is a need to bind a
+					PriceItem to a combination of components, say Unit D and Board B. This is still
+					possible with a slight modification (see Keys Source="global:Board" in the
+					example below):</para>
+				<programlisting><![CDATA[<SellingAccom Key="W9-HO0815">
+    <Board Key="B">...</Board>
+    <Unit Key="S">...</Unit>
+    <Unit Key="D">...
+        <SellingUnit Key="D">
+            ...
+            <PriceItems Key="ESektion">
+                <PriceItem Class="E_VK_UNIT">
+                    <Absolute>
+                        <Value>80.00</Value>
+                        <DayBase>1</DayBase>
+                        <PersonBase>x</PersonBase>
+                    </Absolute>
+                    <Condition>
+                        <And>
+                            <Keys Source="global:Board">B</Keys>
+                            <Impact>
+                                <ConditionalTags
+                                        Class="SeasonStay"
+                                        Source="SellingAccom">A W
+					  </ConditionalTags>
+                            </Impact>
+                        </And>
+                    </Condition>
+                </PriceItem>
+            </PriceItems>
+        </SellingUnit>
+    </Unit>
+    <Unit Key="T">...</Unit>
+</SellingAccom>]]></programlisting>
+				<para xml:id="de_9948" xml:lang="de">Der globale Scope bewirkt, dass die Navigation die Board-Komponenten des Angebotskandidaten für ein Board mit dem Key "B" durchsucht. Da es im Vergleich zu Units in der Regel nur wenige Board-Komponenten gibt, ist die globale Navigation noch effizienter als die anfängliche Lösung.
+					Abschließend empfehlen wir dringend, den Diagrammcharakter von OTDS zu nutzen und die PriceItems so lokal wie möglich zu verteilen. Einige Minuten sorgfältigen Software-Designs können buchstäblich Jahre an Zeitersparnis bedeuten.</para>
+					<para xml:id="en_9948" xml:lang="en">The global scope causes the navigation to scan the Board components of the offer candidate for a Board with the key “B”. And since usually there are only few Board components compared to Units, the global navigation is still more efficient that the initial solution.
+				To conclude, we highly recommend to make use of the graph nature of OTDS and allocate PriceItems as local as possible. Some minutes of careful software design can literally save years of runtime.</para>
 			</section>
 			<section xml:id="OtdsBestPracticeCyclesConditionalTags">
 				<title><phrase xml:id="de_9914" xml:lang="de">Zyklen und/oder Rekursionen von ConditionalTags</phrase>
