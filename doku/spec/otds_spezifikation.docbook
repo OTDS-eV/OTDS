@@ -24265,9 +24265,9 @@ usw.]]></programlisting>
 					Sources, Class etc. für die "Field"-Values einer Buchung zumeist gewählt werden
 					bzw. gültig sind, finden Sie in <link linkend="OtdsStrategyBookingValue">Kapitel 1.3.10.3.2 Buchungsparameter</link></para>
 			<para xml:id="en_1690" xml:lang="en">A table giving an overview which locations, sources, classes etc. are mostly selected or valid for the "Field"-values of a booking can be found in <link linkend="OtdsStrategyBookingValue">1.3.10.3.2 Booking parameter</link></para>
-			<para xml:id="de_9898" xml:lang="de">Nachfolgend ein Beispiel, wie die oben abgebildete Buchungsmaske
+			<para xml:id="de_9901" xml:lang="de">Nachfolgend ein Beispiel, wie die oben abgebildete Buchungsmaske
 					mit einer Flugzeile in OTDS definiert wird:</para>
-				<para xml:id="en_9898" xml:lang="en">The following is an example of how the booking mask with a
+				<para xml:id="en_9901" xml:lang="en">The following is an example of how the booking mask with a
 					single flight line shown above is defined in OTDS:</para>
 				<programlisting><![CDATA[
 <Otds>
@@ -24797,6 +24797,311 @@ usw.]]></programlisting>
 				<para xml:id="en_9825" xml:lang="en">At this point, the implementation of the BookingTree will soon be demonstrated using a Stadis example. 
 					Currently you can only look at the XSD "otds-booking-TO-NameSpace.xsd" and the corresponding file "BookingActionsExamples_TONameSpace.xml" in the directory "OTDS/example".
 					The tree-like result structure of the aggregated BookingTree booking parameters would then correspond to the XSD "BookingTreeResult-TO-NameSpace.xsd".</para>
+			</section>
+		</section>
+		<section xml:id="OtdsBestPractice">
+			<title><phrase xml:id="de_9902" xml:lang="de">Optimierte Datenperformance</phrase>
+				<phrase xml:id="en_9902" xml:lang="en">Optimized data performance</phrase></title>
+			<para xml:id="de_9903" xml:lang="de">Nachfolgend werden Best Practice-Anwendungen und Empfehlungen vorgestellt, die die Performanz bei der Verarbeitung von OTDS-Datenlieferungen mitunter deutlich optimieren können. Die Erfahrungen aus der Praxis zeigen, dass bei der Verarbeitung von OTDS, welches diese Empfehlungen nicht oder nur in Teilen berücksichtigt, mitunter deutliche Performanz-Einbußen resultieren, weshalb der Technische Ausschuss des OTDS e.V. die Umsetzung der folgenden Vorschläge ausdrücklich empfiehlt.</para>
+			<para xml:id="en_9903" xml:lang="en">In the following, best practice applications and recommendations are presented that can significantly optimize performance in the processing of OTDS data deliveries. Practical experience has shown that the processing of OTDS, which does not take these recommendations into account or does so only in part, can result in significant performance losses, which is why the Technical Committee of OTDS e.V. expressly recommends the implementation of the following suggestions.</para>
+			<section xml:id="OtdsBestPracticePriceItemReduction">
+				<title><phrase xml:id="de_9904" xml:lang="de">Reduktion der Menge an PriceItems</phrase>
+					<phrase xml:id="en_9904" xml:lang="en">Reduction of the quantity of PriceItems</phrase></title>
+				<para xml:id="de_9905" xml:lang="de">Mitunter geht bei Datenlieferungen die Zahl an PriceItems pro SellingAccomm in die Zehntausende, bei einige Hotels gar in die Hunderttausende. Folgende Maßnahmen können zu einer deutlichen Reduzierung der PriceItems führen und damit eine performantere Verarbeitung erleichtern:</para>
+				<para xml:id="en_9905" xml:lang="en">Sometimes the number of PriceItems per SellingAccomm totals up to tens of thousands for a data deliveriy, and even into hundreds of thousands for some hotels. The following measures can lead to a significant reduction in PriceItems and thus facilitate more efficient processing:</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9906" xml:lang="de">Überprüfung der Sinnhaftigkeit aller PriceItems</para>
+						<para xml:id="en_9906" xml:lang="en">Verification of the usefulness of all PriceItems</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9907" xml:lang="de">Eliminierung derjenigen PriceItems=0, die keinen strategischen Nutzen haben</para>
+						<para xml:id="en_9907" xml:lang="en">Elimination of those PriceItems=0 that have no strategic benefit</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9908" xml:lang="de">PriceItems kleiner oder gleich 0 oder auch PriceItems in astronomischer Höhe werden gelegentlich eingesetzt um auszudrücken, dass das Angebot nicht verfügbar ist. 
+							Mit OTDS Version 2.2 wird eine neue Preisklasse eingeführt, die genau für diese Nicht-Verfügbarkeit steht. Sobald diese Version veröffentlich ist, sollte der Weg über negative, überhöhte oder Null-Preise zum Ausdrücken einer Nicht-Verfügbarkeit nicht mehr umgesetzt werden.
+						</para>
+						<para xml:id="en_9908" xml:lang="en">PriceItems smaller than or equal 0 or astronomical PriceItems are occasionally used to express that the offer is not available. 
+							With OTDS version 2.2 a new price class is introduced, which stands exactly for this unavailability. As soon as this version is released, the way of negative, exaggerated or zero prices to express unavailability should no longer be implemented.
+						</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9909" xml:lang="de">Intelligenter Einsatz von Conditions für die Reduktion von PriceItems:</para>
+						<para xml:id="en_9909" xml:lang="en">Intelligent use of conditions for the reduction of PriceItems:</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:id="de_9910" xml:lang="de">Gruppierung gleicher PriceItems nach Conditions</para>
+								<para xml:id="en_9910" xml:lang="en">Grouping of identical PriceItems according to conditions</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_9911" xml:lang="de">Intensivere Verwendung von Conditions und damit Wegfall von PriceItems</para>
+								<para xml:id="en_9911" xml:lang="en">More intensive use of conditions and thus elimination of PriceItems</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_9912" xml:lang="de">Finden und Verwenden von Mustern in Conditions</para>
+								<para xml:id="en_9912" xml:lang="en">Find and use patterns in conditions</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9913" xml:lang="en">Unterlassung der Verwendung von PriceItems zur Kennzeichnung von nicht buchbaren Angeboten (alternativ: Einsatz von Filtern zur Kennzeichnung solcher Angebote)</para>
+						<para xml:id="en_9913" xml:lang="en">Omission of the use of PriceItems to mark non-bookable
+							offers (alternatively: use of filters to mark such offers)</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9941" xml:lang="de">Lokalisation (Local vs Global)</para>
+						<para xml:id="en_9941" xml:lang="en">Localisation (Local vs Global)</para>
+						<para xml:id="de_9942" xml:lang="de">OTDS ermöglicht es, PriceItems in verschiedenen
+							Abschnitten zu verwenden (siehe auch <link
+								linkend="OtdsStrategyPriceItem"> Kapitel 1.3.13 Preisbestandteile
+								für Komponenten (PriceItems)</link> und die Abbildung 68 dort).
+							Beispielsweise können unterbringungsbezogene PriceItems im Accommodation
+							Container, Accommodation Komponenten, SellingAccom, Board und
+							SellingUnit vorhanden sein. Obwohl es verwirrend aussehen mag, bietet
+							dieser hohe Freiheitsgrad auch eine große Flexibilität und kann gut
+							genutzt werden, um OTDS-Verteilungen klein und effizient zu halten, wenn
+							sich die Produzenten an eine einfache Regel halten: Halten Sie sie so
+							lokal wie möglich. PriceItems sind in der Regel an Komponenten gebunden.
+							So gibt es beispielsweise einen Basispreis von 80,00 für eine Unit D in
+							zwei Zeitspannen A und B. Während der einfachste Weg scheint, alle
+							PriceItems auf der gleichen Ebene zu platzieren (z.B. SellingAccom),
+							führt dies automatisch dazu, dass eine verbindliche Condition erstellt
+							werden muss, die den PriceItem mit der entsprechenden Komponente
+							verknüpft. Die Lösung wird also ungefähr so aussehen:</para>
+						<para xml:id="en_9942" xml:lang="en">OTDS allows PriceItems to appear in different sections
+							(please refer also to <link linkend="OtdsStrategyPriceItem"> Chapter
+								1.3.13 Price elements for components (PriceItems)</link> and Figure
+							68 depicted there). For example, you could have accommodation related
+							PriceItems in the Acommodations container, Accommodation components,
+							SellingAccom, Board and SellingUnit. While it may look confusing, this
+							high degree of freedom also offers great flexibility and can be used in
+							a good way to keep OTDS distributions small and efficient, if the
+							producers stick to a simple rule: keep it as local as possible:
+							PriceItems normally are bound to components. For example, there is a
+							base price of 80,00 for a Unit D in two date range sets A and B. While
+							the easiest way seems to be to place all PriceItems on the same level
+							(e.g. SellingAccom), this automatically introduces the need to create a
+							binding condition that links the PriceItems to the corresponding
+							component. So the solution will probably look very much like
+							this:</para>
+					</listitem>
+				</itemizedlist>
+				<programlisting><![CDATA[<SellingAccom Key="W9-HO0815">
+    <Board Key="B">...</Board>
+    <Unit Key="S">...</Unit>	
+    <Unit Key="D">...</Unit>
+    <PriceItem Class="E_VK_UNIT">
+        <Absolute>
+            <Value>80.00</Value>
+            <DayBase>1</DayBase>
+            <PersonBase>x</PersonBase>
+        </Absolute>
+        <Condition>
+            <And>
+                <Keys Source="Unit">D</Keys>
+                <Impact>
+                    <ConditionalTags 
+				Class="SeasonStay" 
+				Source="SellingAccom">A W</ConditionalTags>
+                </Impact>
+            </And>
+        </Condition>
+    </PriceItem>
+</SellingAccom>]]></programlisting>
+				<para xml:id="de_9943" xml:lang="de">Obwohl dies formal grundsätzlich machbar ist, ist diese Lösung nicht effizient, weil sie </para>
+				<para xml:id="en_9943" xml:lang="en">While there is nothing wrong with this from a formal point of view, this solution is not efficient because </para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9944" xml:lang="de">es erfordert, dass das PriceItem in jede Angebotsberechnung der Unterkomponenten von SellingAccom einbezogen wird.</para>
+						<para xml:id="en_9944" xml:lang="en">it requires the PriceItem to be included in each offer computation of the SellingAccom’s sub components</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9945" xml:lang="de">es verwendet eine Bedingung, um das PriceItem an die gewünschte Einheit zu binden.</para>
+						<para xml:id="en_9945" xml:lang="en">it uses a condition to bind the PriceItem to the desired Unit.</para>
+					</listitem>
+				</itemizedlist>
+				<para xml:id="de_9946" xml:lang="de">Statt sorgloser Einfachheit nutzt ein intelligenterer Ansatz die Natur des OTDS-Diagramms, um das PriceItem an die Unit zu binden, indem er es in der Komponente SellingUnit platziert.</para>
+				<para xml:id="en_9946" xml:lang="en">Instead of careless simplicity, a smarter approach exploits the nature of the OTDS graph to bind the PriceItem to the Unit by placing it in the SellingUnit component.</para>
+				<programlisting><![CDATA[<SellingAccom Key="W9-HO0815">
+    <Board Key="B">...</Board>
+    <Unit Key="S">...</Unit>
+    <Unit Key="D">...
+        <SellingUnit Key="D">
+            ...
+            <PriceItems Key="ESektion">
+                <PriceItem Class="E_VK_UNIT">
+                    <Absolute>
+                        <Value>80.00</Value>
+                        <DayBase>1</DayBase>
+                        <PersonBase>x</PersonBase>
+                    </Absolute>
+                    <Condition>
+                        <Impact>
+                            <ConditionalTags 
+                                    Class="SeasonStay" 
+                                    Source="SellingAccom">A W</ConditionalTags>
+                        </Impact>
+                    </Condition>
+                </PriceItem>
+            </PriceItems>            
+        </SellingUnit>
+    </Unit>
+    <Unit Key="T">...</Unit>
+</SellingAccom>]]></programlisting>
+				<para xml:id="de_9947" xml:lang="de">Auf diese Weise wird das PriceItem nur in die Angebotsberechnungen der Unit "D" einbezogen und die Condition kann als schnellere Bedingung bewertet werden (kein "AND", kein Key-Vergleich).
+					In einem praktischen Beispiel half die Überarbeitung des OTDS-Exports, die Angebotsberechnung um 300% zu beschleunigen, indem dieses Muster verwendet wurde., 
+					Natürlich könnte man argumentieren, dass es manchmal notwendig ist, ein PriceItem an eine Kombination von Komponenten zu binden, z.B. Unit D und Board B. Dies ist mit einer leichten Modifikation noch möglich (s. Keys Source="global:Board" im Beispiel unten):</para>
+				<para xml:id="en_9947" xml:lang="en">This way, the PriceItem will be included only in the offer
+					computations of the Unit “D” and the condition can be evaluated as a faster
+					condition (no “AND”, no Key compare). In a real life situation, refactoring the
+					OTDS export to use this pattern helped to speed up the offer computation by
+					300%. Of course, one could argue that sometimes there is a need to bind a
+					PriceItem to a combination of components, say Unit D and Board B. This is still
+					possible with a slight modification (see Keys Source="global:Board" in the
+					example below):</para>
+				<programlisting><![CDATA[<SellingAccom Key="W9-HO0815">
+    <Board Key="B">...</Board>
+    <Unit Key="S">...</Unit>
+    <Unit Key="D">...
+        <SellingUnit Key="D">
+            ...
+            <PriceItems Key="ESektion">
+                <PriceItem Class="E_VK_UNIT">
+                    <Absolute>
+                        <Value>80.00</Value>
+                        <DayBase>1</DayBase>
+                        <PersonBase>x</PersonBase>
+                    </Absolute>
+                    <Condition>
+                        <And>
+                            <Keys Source="global:Board">B</Keys>
+                            <Impact>
+                                <ConditionalTags
+                                        Class="SeasonStay"
+                                        Source="SellingAccom">A W
+					  </ConditionalTags>
+                            </Impact>
+                        </And>
+                    </Condition>
+                </PriceItem>
+            </PriceItems>
+        </SellingUnit>
+    </Unit>
+    <Unit Key="T">...</Unit>
+</SellingAccom>]]></programlisting>
+				<para xml:id="de_9948" xml:lang="de">Der globale Scope bewirkt, dass die Navigation die Board-Komponenten des Angebotskandidaten für ein Board mit dem Key "B" durchsucht. Da es im Vergleich zu Units in der Regel nur wenige Board-Komponenten gibt, ist die globale Navigation noch effizienter als die anfängliche Lösung.
+					Abschließend empfehlen wir dringend, den Diagrammcharakter von OTDS zu nutzen und die PriceItems so lokal wie möglich zu verteilen. Einige Minuten sorgfältigen Software-Designs können buchstäblich Jahre an Zeitersparnis bedeuten.</para>
+					<para xml:id="en_9948" xml:lang="en">The global scope causes the navigation to scan the Board components of the offer candidate for a Board with the key “B”. And since usually there are only few Board components compared to Units, the global navigation is still more efficient that the initial solution.
+				To conclude, we highly recommend to make use of the graph nature of OTDS and allocate PriceItems as local as possible. Some minutes of careful software design can literally save years of runtime.</para>
+			</section>
+			<section xml:id="OtdsBestPracticeCyclesConditionalTags">
+				<title><phrase xml:id="de_9914" xml:lang="de">Zyklen und/oder Rekursionen von ConditionalTags</phrase>
+					<phrase xml:id="en_9914" xml:lang="en">Cycles and/or recursions of conditional tags</phrase></title>
+				<para xml:id="de_9915" xml:lang="de">Es kommt vor, dass ConditionalTags mit Zyklen oder Rekursionen angelegt werden. Das kostet Rechenzeit und macht die Verarbeitung unnötig komplex.</para>
+				<para xml:id="en_9915" xml:lang="en">It happens that conditional tags are created with cycles or recursions. This costs computing time and makes processing unnecessarily complex.</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9916" xml:lang="de">OTDS-Lieferanten sollten die Verwendung solcher Zyklen/Rekursion in ihren ConditionalTags unterlassen und sie zeitnah entfernen, wenn sie von ihren Verarbeitern auf die Existenz derselben hingewiesen werden.</para>
+						<para xml:id="en_9916" xml:lang="en">OTDS suppliers should refrain from using such cycles/recursions in their conditional tags and should remove them promptly if they are notified of their existence by the companies/organizations processing their data.</para>
+					</listitem>
+				</itemizedlist>
+			</section>
+			<section xml:id="OtdsBestPracticeComplexityCombinatorics">
+				<title><phrase xml:id="de_9917" xml:lang="de">Vereinfachung der Komplexität bei der Kombinatorik</phrase>
+					<phrase xml:id="en_9917" xml:lang="en">Simplification of the complexity of combinatorics</phrase></title>
+				<para xml:id="de_9918" xml:lang="de">Zu komplexe Strukturen in Combinatorics (die vor allem bei Accommodations zu beobachten sind) erfordern viele Kombinatorik-Schritte in der Verarbeitung, was wiederum die Verarbeitungszeit verlängert. Empfohlene Maßnahmen:</para>
+				<para xml:id="en_9918" xml:lang="en">Too complex structures in combinatorics (which can be observed especially in accommodations) require many combinatorics steps in processing, which in turn extends the processing time. Recommended measures:</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9919" xml:lang="de">Vermeidung von überflüssiger Kombinatorik</para>
+						<para xml:id="en_9919" xml:lang="en">Avoidance of superfluous combinatorics</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9920" xml:lang="de">Pflege der Stammdaten</para>
+						<para xml:id="en_9920" xml:lang="en">Master Data Maintenance</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9921" xml:lang="de">Anwendung von Alternativen für Konstrukte, die nicht unbedingt mit Kombinatorik umgesetzt werden müssen, bspw.</para>
+						<para xml:id="en_9921" xml:lang="en">Application of alternatives for constructs that do not necessarily have to be implemented with combinatorics, e.g.</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:id="de_9922" xml:lang="de">Fiktive Preise (bspw. +- 100.000€, Preis=0)</para>
+								<para xml:id="en_9922" xml:lang="en">Fictitious prices (e.g. +- 100.000€, price=0)</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_9923" xml:lang="de">Abbildung von Nicht-Buchbarkeit</para>
+								<para xml:id="en_9923" xml:lang="en">Illustration of non-booking</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_9924" xml:lang="de">Übersteuerung eines Filters (bspw. DZ-Preis wird zum EZ-Preis)</para>
+								<para xml:id="en_9924" xml:lang="en">Override of a filter (e.g. double room price becomes single room price)</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+				</itemizedlist>
+			</section>
+			<section xml:id="OtdsBestPracticeOccupancy">
+				<title><phrase xml:id="de_9925" xml:lang="de">Occupancy</phrase>
+					<phrase xml:id="en_9925" xml:lang="en">Occupancy</phrase></title>
+				<para xml:id="de_9926" xml:lang="de">In der Praxis zeigt sich, dass Occupancy häufig ohne weitere Angaben (d.h. ohne „Age“ oder „Count“) geliefert wird. Diese unspezifischen Angaben führen dazu, dass mehrere, möglicherweise auch unsinnige Occupancy-Varianten berechnet werden (z.B. 3 Infants ohne Erwachsene).</para>
+				<para xml:id="en_9926" xml:lang="en">Practice shows that Occupancy is often delivered without further information (i.e. without Age or Count). These unspecific data lead to the fact that several, possibly also senseless Occupancy variants are calculated (e.g. 3 infants without adults).</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9927" xml:lang="de">Occupancy sollte daher grundsätzlich mit der Angabe zumindest von MinAge einhergehen. Jedes weitere spezifizierte Kriterium hat darüber hinaus positiven Effekt auf die Performanz.</para>
+						<para xml:id="en_9927" xml:lang="en">Occupancy should therefore always go hand in hand with the indication of at least MinAge.  Each further specified criterion also has a positive effect on performance.</para>
+					</listitem>
+				</itemizedlist>
+			</section>
+			<section xml:id="OtdsBestPracticeFilterAndConditions">
+				<title><phrase xml:id="de_9928" xml:lang="de">Durchdachter Einsatz von Filtern und Conditions</phrase>
+					<phrase xml:id="en_9928" xml:lang="en">Sophisticated use of filters and conditions</phrase></title>
+				<para xml:id="de_9929" xml:lang="de">Der Einsatz von Filtern und Conditions sollte durchdacht sein, weil nicht ausgereifte Konstrukte das OTDS erheblich aufblähen und die Verarbeitungszeit mitunter deutlich verlängern kann:</para>
+				<para xml:id="en_9929" xml:lang="en">The use of filters and conditions should be well thought out, as immature designs can considerably inflate the OTDS and sometimes significantly prolong the processing time:</para>
+				<bridgehead xml:id="de_9937" xml:lang="de">Imply-Filter</bridgehead>
+				<bridgehead xml:id="en_9937" xml:lang="en">Imply-Filter</bridgehead>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9930" xml:lang="de">Häufig werden Imply-Filter ohne Einschränkung geliefert: z.B. Dauer = 1 Tag, Wochentage = Mo/Di/Mi/Do/Fr/Sa/So – also die komplette Woche. Dies führt dazu, dass alle Abnehmer diese Filter prüfen und diese anschließend verwerfen.</para>
+						<para xml:id="en_9930" xml:lang="en">Imply filters are often delivered without restrictions: e.g. duration = 1 day, weekdays = Mo/Di/Mi/Do/Fr/Sa/Su - i.e. the complete week. As a result, all data recipients check these filters and then discard them.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9931" xml:lang="de">Imply-Filter ohne Einschränkung sollten daher für eine optimierte Performanz vermieden bzw. aus der Datenlieferung entfernt werden.</para>
+						<para xml:id="en_9931" xml:lang="en">Imply filters without restrictions should therefore be avoided or removed from the data delivery for optimized performance.</para>
+					</listitem>
+				</itemizedlist>
+				<bridgehead xml:id="de_9932" xml:lang="de">Weitere performanz-mindernde Filter und Conditions</bridgehead>
+				<bridgehead xml:id="en_9932" xml:lang="en">Further performance-reducing filters and conditions</bridgehead>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9933" xml:lang="de">BookingDate oder auch alle Date Min Filter, bei denen das Datum in der Vergangenheit liegt</para>
+						<para xml:id="en_9933" xml:lang="en">BookingDate or also all Date Min filters where the date is in the past</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9934" xml:lang="de">Bezug auf GlobalValue Keys in Conditions für GlobalValue, die es nicht gibt</para>
+						<para xml:id="en_9934" xml:lang="en">Reference to GlobalValue Keys in Conditions for GlobalValue that do not exist</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9935" xml:lang="de">Bezug auf Tags aus Brands in Conditions, die es nicht gibt</para>
+						<para xml:id="en_9935" xml:lang="en">Reference to tags from Brands in Conditions that do not exist</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9936" xml:lang="de">Weekday Conditions, bei denen alle Tage erlaubt sind</para>
+						<para xml:id="en_9936" xml:lang="en">Weekday Conditions where all days are allowed</para>
+					</listitem>
+				</itemizedlist>
+			</section>
+			<section xml:id="OtdsBestPracticeReplaceGenericAbsolute">
+				<title><phrase xml:id="de_9938" xml:lang="de">Ersetzen von GenericAbsolute durch PercentPriceItem </phrase>
+					<phrase xml:id="en_9938" xml:lang="en">Replace GenericAbsolute with PercentPriceItem </phrase></title>
+				<para xml:id="de_9939" xml:lang="de">Grundsätzlich ist es möglich, im Rahmen der Abbildung von Abhängigkeiten von PriceItems mit dem GenericAbsolute auszudrücken, dass aus dem Ergebnis ein absoluter Wert gebildet soll. Bei Fällen, wo dazu viele GenericAbsolute benötigt werden, wird die Produktionslaufzeit negativ beeinflusst.</para> 
+				<para xml:id="en_9939" xml:lang="en">In principle, for illustrating dependencies of PriceItens, by using the GenericAbsolute it is possible to express that an absolute value is to be formed from the result. In cases where many GenericAbsolutes are required for this, the production time is negatively influenced.</para> 
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9940" xml:lang="de">Die Wirkung des GenericAbsolute kann in mitunter auch mit dem "normalen" PercentPriceItem erreicht werden. Es sollte betrachtet werden, ob wirklich in allen Fällen ein GenericAbsolute notwendig ist.</para>
+						<para xml:id="en_9940" xml:lang="en">The effect of GenericAbsolute can sometimes also be achieved with the "normal" PercentPriceItem. It should be considered whether a GenericAbsolute is really necessary in all cases.</para>
+					</listitem>
+				</itemizedlist>
 			</section>
 		</section>
 	</section>
