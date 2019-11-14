@@ -24799,9 +24799,239 @@ usw.]]></programlisting>
 					The tree-like result structure of the aggregated BookingTree booking parameters would then correspond to the XSD "BookingTreeResult-TO-NameSpace.xsd".</para>
 			</section>
 		</section>
+		<section xml:id="OtdsBestPracticeProduction">
+			<title><phrase xml:id="de_9949" xml:lang="de">Best Practice Empfehlungen für eine optimierte
+				Datenproduktion</phrase>
+				<phrase xml:id="en_9949" xml:lang="en">Best practices for optimized data
+					production</phrase></title>
+			<para xml:id="de_9950" xml:lang="de">Nachfolgend werden Best Practice-Beispiele und Tipps für Datenproduzenten und -Lieferanten vorgestellt. Sie sollen auch mögliche Lösungen für die OTDS-Produktion für solche Konstellationen aufzeigen, die nicht zum Standard-Repertoire zählen.</para>
+			<para xml:id="en_9950" xml:lang="en">Best practices and tips for data producers and suppliers are presented below. They are also intended to show possible solutions for OTDS production for constellations that are not part of the standard repertoire.</para>
+			<section xml:id="OtdsBestPracticeBookingPlacement">
+				<title><phrase xml:id="de_9951" xml:lang="de">Best Practice für die Platzierung des Elements Booking</phrase>
+					<phrase xml:id="en_9951" xml:lang="en">Best practice for placing the Booking element</phrase></title>
+				<para xml:id="de_9952" xml:lang="de">Auch wenn OTDS weitere Möglichkeiten zur Platzierung von Booking bietet, werden in der Regel bei vielen Veranstaltern vor allem folgende benutzt:</para>
+				<para xml:id="en_9952" xml:lang="en">Even though OTDS offers further possibilities to place a booking, many organizers usually use the following options:</para>
+				<itemizedlist>
+					<listitem>
+						<para xml:id="de_9953" xml:lang="de">In „Brand“: um auszudrücken, welche Termine für welche Komponenten anwendbar sind</para>
+						<para xml:id="en_9953" xml:lang="en">In "Brand": to express which dates are applicable for which components.</para>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9954" xml:lang="de">In „Accommodations“</para>
+						<para xml:id="en_9954" xml:lang="en">In "Accommodations"</para>
+						<itemizedlist>
+							<listitem>
+								<para xml:id="de_9955" xml:lang="de">auf Accommodation-Ebene: um die unterkunftsspezifischen Buchungsdaten zu liefern</para>
+								<para xml:id="en_9955" xml:lang="en">at Accommodation level: to provide accommodation-specific booking data</para>
+							</listitem>
+							<listitem>
+								<para xml:id="de_9956" xml:lang="de">auf SellingAccom-Ebene in “Unit” und “Board”: um die zimmer- bzw. verpflegungsspezifischen Buchungsdaten zu liefern</para>
+								<para xml:id="en_9956" xml:lang="en">at SellingAccom level in "Unit" and "Board": to provide the room- resepctively board-specific booking data</para>
+							</listitem>
+						</itemizedlist>
+					</listitem>
+					<listitem>
+						<para xml:id="de_9957" xml:lang="de">In „Flights“ auf OnewayFlight- und ReturnFlight-Ebene: um die flug- und buchungsklassenspezifischen Buchungsdaten zu liefern</para>
+						<para xml:id="en_9957" xml:lang="en">In "Flights" at OnewayFlight and ReturnFlight level: to provide flight- and booking class-specific booking data.</para>
+					</listitem>
+				</itemizedlist>
+			</section>
+			<section xml:id="OtdsBestPracticeMixProducts">
+				<title><phrase xml:id="de_9958" xml:lang="de">Best Practice für Mix-Produkte</phrase>
+					<phrase xml:id="en_9958" xml:lang="en">Best practice for Mix products</phrase></title>
+				<section xml:id="OtdsBestPracticeMixProductsAirports">
+					<title><phrase xml:id="de_9959" xml:lang="de">Mix-Produkte mit mehreren Flughäfen</phrase>
+						<phrase xml:id="en_9959" xml:lang="en">Mix products with several airports</phrase></title>
+					<para xml:id="de_9960" xml:lang="de">In den Vorgängerversionen von OTDS 2.0 ist es schwierig,
+						ein eindeutiges (Data-)Mix-Produkt zu definieren. Mit der Version 2.0 wurde  für
+						das DataMix-Product, das bereits den ProductType= "FlightAccommodation" enthält,
+						zusätzlich eine neue Komponente "ExternalComponent" eingeführt. </para>				
+					<para xml:id="en_9960" xml:lang="en">In previous versions of OTDS 2.0, it is difficult to define a unique (Data)Mix product. With version 2.0 a new component "ExternalComponent" was introduced for the DataMix product, which already contains the ProductType= "FlightAccommodation".</para>
+					<para xml:id="de_9961" xml:lang="de">Wird mit älteren OTDS-Versionen vor 2.0 gearbeitet, bietet sich für die Abbildung von Mix-Produkten mit mehreren Flughäfen folgendes Best Practice Beispiel an:</para>
+					<para xml:id="en_9961" xml:lang="en">If you are working with older OTDS versions prior to 2.0, the following best practice example is suitable for creating mix products with several airports:</para>
+					<programlisting><![CDATA[<Otds>
+  <Products>
+    <Product ProductType="AccommodationOnly" Key="DataMix">
+    <Tags>
+        <Tag Class="TypeOfProduct">DataMix</Tag>
+    </Tags>
+    <Components>
+        <Accommodation DayAllocationLevel="0"/>
+        <Addon DayAllocationLevel="1"/>
+    </Components>
+    <Filter Key="1">
+        <And>
+            <MatchEqual>
+                <Element Source="Accommodation">CatchmentAirport</Element>
+                <Element Source="Addon">CatchmentAirport</Element>
+            </MatchEqual>
+            <Keys Source="global:GlobalValue">DataMixProduction</Keys>
+            <Tags Class="UseForProduct" Source="Accommodation">DataMix</Tags>
+            ...
+        </And>
+    <Filter Key="1">
+    </Product>
+  </Products>
+    <Accommodations> 
+        <Accommodation Key="AYT557" UpdateMode="New">
+            <Tags>
+                ...
+            </Tags>
+            <Properties Key="1">
+                <PropertyGroup>
+                    <AccommodationCity>Morro Jable</AccommodationCity>
+                    ...
+                </PropertyGroup>
+                <PropertyGroup>
+                    <GeneralIncludedServices>
+                        <GeneralIncludedService>Transfer</GeneralIncludedService>
+                    </GeneralIncludedServices>
+                    <Condition>
+                        <Tags Source="global:Service" Class="TransferCode">AYTSIDN</Tags>
+                    </Condition>
+                </PropertyGroup>
+                <PropertyGroup>
+                    <GeneralIncludedServices>
+                        <GeneralIncludedService>CarRental</GeneralIncludedService>
+                    </GeneralIncludedServices>
+                    <Condition>
+                        <Tags Source="global:Service" Class="TransferCode">AYTBIDN</Tags>
+                    </Condition>
+                </PropertyGroup>
+                <PropertyGroup>
+                    <GeneralIncludedServices>
+                        <GeneralIncludedService>Transfer</GeneralIncludedService>
+                    </GeneralIncludedServices>
+                    <Condition>
+                        <Keys Source="global:Addon">AYT_DataMixAddon</Keys>
+                    </Condition>
+                </PropertyGroup>
+                <PropertyGroup>
+                    <GeneralIncludedServices>
+                        <GeneralIncludedService>CarRental</GeneralIncludedService>
+                    </GeneralIncludedServices>
+                    <Condition>
+                        <Keys Source="global:Addon">GZP_DataMixAddon</Keys>
+                    </Condition>
+                </PropertyGroup>
+            </Properties>
+            <SellingAccom Key="...">...</SellingAccom> 
+            ...
+            <CatchmentAirports>AYT GZP</CatchmentAirports>
+            <PriceItems Key="TransferPrices">
+                <PriceItem Class="TRBase">
+                    <Absolute>
+                        <Value>14</Value>
+                        <DayBase>x</DayBase>
+                        <PersonBase>1</PersonBase>
+                    </Absolute>
+                    <Condition>
+                        <And>
+                            <Keys Source="global:Addon">AYT_DataMixAddon</Keys>
+                            <PersonImpact>
+                                <PersonAge Source="ThisComponent">
+                                    <Min>2</Min>
+                                </PersonAge>
+                            </PersonImpact>
+                        </And>
+                    </Condition>
+                </PriceItem>
+                <PriceItem Class="TRP">
+                    <Percent>
+                        <Value>-50</Value>
+                        <ApplyTo>TRBase</ApplyTo>
+                    </Percent>
+                    <Condition>
+                        <And>
+                            <Keys Source="global:Addon">AYT_DataMixAddon</Keys>
+                            <PersonImpact>
+                                <PersonAge Source="ThisComponent">
+                                    <Max>12</Max>
+                                </PersonAge>
+                            </PersonImpact>
+                        </And>
+                    </Condition>
+                </PriceItem>
+                <PriceItem Class="AdultPrice">
+                    <Absolute>
+                        <Value>17</Value>
+                        <DayBase>x</DayBase>
+                        <PersonBase>1</PersonBase>
+                    </Absolute>
+                    <Condition>
+                        <And>
+                            <Keys Source="global:Addon">GZP_DataMixAddon</Keys>
+                            <PersonImpact>
+                                <PersonAge Source="ThisComponent">
+                                    <Min>13</Min>
+                                </PersonAge>
+                            </PersonImpact>
+                        </And>
+                    </Condition>
+                </PriceItem>
+                <PriceItem Class="ChildPrice">
+                    <Absolute>
+                        <Value>5</Value>
+                        <DayBase>x</DayBase>
+                        <PersonBase>1</PersonBase>
+                    </Absolute>
+                    <Condition>
+                        <And>
+                            <Keys Source="global:Addon">´GZP_DataMixAddon</Keys>
+                            <PersonImpact>
+                                <PersonAge Source="ThisComponent">
+                                    <Min>2</Min>
+                                    <Max>12</Max>
+                                </PersonAge>
+                            </PersonImpact>
+                        </And>
+                    </Condition>
+                </PriceItem>
+                ...
+            </PriceItems>
+            ...
+        </Accommodation>
+    </Accommodations>
+    <Addons UpdateMode="Merge">
+        <Addon Key="AYT_DataMixAddon">
+            <ServiceFeature Key="Default">
+                <Booking/>
+            </ServiceFeature>
+            <Service Key="1">
+                <Booking/>
+                <Occupancy Key="1">
+                    <Person>
+                        <MinCount>1</MinCount>
+                    </Person>
+                </Occupancy>
+            </Service>
+            <CatchmentAirports>AYT</CatchmentAirports>
+        </Addon>
+        <Addon Key="GZP_DataMixAddon">
+            <ServiceFeature Key="Default">
+                <Booking/>
+            </ServiceFeature>
+            <Service Key="1">
+                <Booking/>
+                <Occupancy Key="1">
+                    <Person>
+                        <MinCount>1</MinCount>
+                    </Person>
+                </Occupancy>
+            </Service>
+            <CatchmentAirports>GZP</CatchmentAirports>
+        </Addon>
+
+        ...
+    </Addons>]]></programlisting>
+				</section>
+			</section>	
+		</section>
 		<section xml:id="OtdsBestPractice">
-			<title><phrase xml:id="de_9902" xml:lang="de">Optimierte Datenperformance</phrase>
-				<phrase xml:id="en_9902" xml:lang="en">Optimized data performance</phrase></title>
+			<title><phrase xml:id="de_9902" xml:lang="de">Best Practice Empfehlungen für optimierte
+					Datenperformance bei der Verarbeitung</phrase>
+				<phrase xml:id="en_9902" xml:lang="en">Best practices for optimized data performance
+					during processing</phrase></title>
 			<para xml:id="de_9903" xml:lang="de">Nachfolgend werden Best Practice-Anwendungen und Empfehlungen vorgestellt, die die Performanz bei der Verarbeitung von OTDS-Datenlieferungen mitunter deutlich optimieren können. Die Erfahrungen aus der Praxis zeigen, dass bei der Verarbeitung von OTDS, welches diese Empfehlungen nicht oder nur in Teilen berücksichtigt, mitunter deutliche Performanz-Einbußen resultieren, weshalb der Technische Ausschuss des OTDS e.V. die Umsetzung der folgenden Vorschläge ausdrücklich empfiehlt.</para>
 			<para xml:id="en_9903" xml:lang="en">In the following, best practice applications and recommendations are presented that can significantly optimize performance in the processing of OTDS data deliveries. Practical experience has shown that the processing of OTDS, which does not take these recommendations into account or does so only in part, can result in significant performance losses, which is why the Technical Committee of OTDS e.V. expressly recommends the implementation of the following suggestions.</para>
 			<section xml:id="OtdsBestPracticePriceItemReduction">
@@ -24913,11 +25143,11 @@ usw.]]></programlisting>
 				<para xml:id="en_9943" xml:lang="en">While there is nothing wrong with this from a formal point of view, this solution is not efficient because </para>
 				<itemizedlist>
 					<listitem>
-						<para xml:id="de_9944" xml:lang="de">es erfordert, dass das PriceItem in jede Angebotsberechnung der Unterkomponenten von SellingAccom einbezogen wird.</para>
+						<para xml:id="de_9944" xml:lang="de">erfordert, dass das PriceItem in jede Angebotsberechnung der Unterkomponenten von SellingAccom einbezogen wird.</para>
 						<para xml:id="en_9944" xml:lang="en">it requires the PriceItem to be included in each offer computation of the SellingAccom’s sub components</para>
 					</listitem>
 					<listitem>
-						<para xml:id="de_9945" xml:lang="de">es verwendet eine Bedingung, um das PriceItem an die gewünschte Einheit zu binden.</para>
+						<para xml:id="de_9945" xml:lang="de"> eine Bedingung verwendet, um das PriceItem an die gewünschte Einheit zu binden.</para>
 						<para xml:id="en_9945" xml:lang="en">it uses a condition to bind the PriceItem to the desired Unit.</para>
 					</listitem>
 				</itemizedlist>
@@ -25104,6 +25334,7 @@ usw.]]></programlisting>
 				</itemizedlist>
 			</section>
 		</section>
+		
 	</section>
 	<section xml:id="OtdsProcess">
 		<title><phrase xml:id="de_2129" xml:lang="de">Das theoretische Verarbeitungsmodell</phrase>
