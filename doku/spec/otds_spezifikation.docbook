@@ -26569,7 +26569,7 @@ usw.]]></programlisting>
 					<para xml:id="de_9966" xml:lang="de">Die Produktdefinition hat sich im Filter direkt auf die
 						Datamix-Brand bezogen und damit die Produktdefinition für Datamix Produkte
 						implizit definiert. Das hat gerade in Bezug auf den Umgang mit mehreren
-						CatchmentAirports und auch bezüglich der zu verwendenen Brand-Buchungscodes
+						CatchmentAirports und auch bezüglich der zu verwendenden Brand-Buchungscodes
 						zu Problemen geführt. Deshalb wurde ab Version 2.0 eine spezifische
 						Produktstruktur für das Datamix-Produkt eingeführt. Im Folgenden wird daher
 						jeweils der Umgang mit mehreren CatchmentAirports in den verschiedenen
@@ -26581,146 +26581,15 @@ usw.]]></programlisting>
 						For this reason, a specific product structure for the DataMix product was
 						introduced in version 2.0. In the following the handling of several
 						CatchmentAirports in the different versions is described:</para>
-				</section>
-				<section xml:id="OtdsBestPracticeMixProductsMultipleAirports">
-					<title><phrase xml:id="de_9975" xml:lang="de">Multiple Catchment Airports im Datamix-Produkt</phrase>
-						<phrase xml:id="en_9975" xml:lang="en">Multiple Catchment Airports in the Datamix-Product</phrase></title>
-					<bridgehead xml:id="de_9967" xml:lang="de">Definition von Mix-Produkte ab
-						Version 2.0</bridgehead>
-					<bridgehead xml:id="en_9967" xml:lang="en">Definition of mix products from
-						version 2.0 on</bridgehead>
-					<para>Weitere Gliederung: - Wie wird mit Addons umgegangen - Probleme in den
-						älteren Versionen - Neu: wie erstellt man die Produktdefintion ab Version
-						2.0 - Wie kann ab 2.0 der Bezug auf mehrere Airports hergestellt werden -
-						Buchungsparameter (in der Vergangenheit eher implizit gehandelt, zB in Bezug
-						auf Brands). Der neue Ansatz stellt eine Optimierung dar, indem auch die
-						Marketing Brand eingeführt wurde</para>
-					<para xml:id="de_9968" xml:lang="de">Beim Datamix-Produkt handelt es sich um ein Nur-Hotel
-						Produkt an einer bestimmten Destination. In einigen Fällen kann es aber
-						vorkommen, dass das Hotel über zwei verschiedene Destinations-Flughäfen
-						angeflogen werden kann. Damit man unterschiedliche Preise je Flughafen
-						ausdrücken kann, muss man in OTDS vor der Version 2.0 zusätzliche Addons
-						definieren, die sozusagen den Transfer verkörpern/darstellen. EINFÜGEN
-						BEISPIEL VON VTO (Produktdefinition, Addon, wie Preis auszudrcken ist) </para>
-									
-					<para xml:lang="de">EInführungstext DRAFT: Mit der OTDS-Version 2.0 wurde eine effizientere
-						Lösung für die Konstellation mit mehreren CatchmentAirports umgesetzt: dafür
-						wurde die ExternalComponent eingeführt, deren Einsatz im Beispiel unten
-						aufgezeigt wird  (internal Tag V2.0 einfügen!)</para>
-					<para>Wichtig: Per Stand 31.1.2020 nutzt allerdings noch kein verarbeitendes System die in
-						Version 2.0 neu vorgeschlagene Produktstruktur für Datamix, weshalb auch ab
-						Version 2.0 Mix-Produkte noch in herkömmlicher, impliziter Weise geliefert
-						werden können. Alle OTDS-Empfänger akzeptieren nach wie vor die alte
-						Stuktur. ERGÄNZEN UM INHALTE AUS 2.3.2.3</para>
-					<para xml:id="en_9968" xml:lang="en">As of version 2.0, (Data)mix products
-						should only be defined in the following product definition: </para>
-					<programlisting><![CDATA[<Product Key="XFTIMix" ProductType="FlightAccommodation">
-   ...
-   <Components>
-     <ExternalComponent Role="Outbound"/> 
-     <Accommodation>...</Accommodation>
-     <ExternalComponent Role="Inbound"/>
-   </Components>
-   ...
-</Product>
-]]></programlisting>
-					<para xml:id="de_9969" xml:lang="de"> BEIPSIEL FÜR PRICEITEM,  </para>
-					<programlisting><![CDATA[<!-- Transfer TFSKAOGO -->    
-					<PriceItem Class="Transfer">
-						<Absolute>
-							<Value>…</Value>
-							<DayBase>…</DayBase>
-							<PersonBase>1</PersonBase>
-						</Absolute>
-						<Condition>
-							<And>
-								<Airports Source="Outbound" AirportType="ArrivalAirport">TFS</Airports>
-								<Impact>
-									<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Adult</ConditionalTags>
-									<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Child</ConditionalTags>
-								</Impact>
-							</And>
-						</Condition>
-					</PriceItem>]]></programlisting>
-					
-					<para xml:lang="de">Folgende (Data)Mix spezifische Bedingungen müssen
-						diesbezüglich ggf. angepasst werden:</para>
-					<para xml:id="en_9969" xml:lang="en">The following (Data)mix specific conditions
-						need to be adapted in this respect:</para>
-					<itemizedlist>
-						<listitem>
-							<para xml:id="de_9970" xml:lang="de">Die PropertyGroup/MarketingBrand
-								sollte passend gesetzt werden:</para>
-							<para xml:id="en_9970" xml:lang="en">The PropertyGroup/MarketingBrand
-								should be set appropriately:</para>
-							<programlisting><![CDATA[<Brand Key="XFTI">
-    ...
-    <Properties>
-      <PropertyGroup>
-        <MarketingBrandCode>XFTI</MarketingBrandCode>
-      <PropertyGroup>
-    <Properties>
-    ...
-</Brand >]]></programlisting>
-						</listitem>
-						<listitem>
-							<para xml:id="de_9971" xml:lang="de">Die exakten Buchungsparameter für
-								die Marke sollten korrekt gesetzt werden.</para>
-							<para xml:id="en_9971" xml:lang="en">The exact booking parameters for
-								the brand should be set correctly.</para>
-							<programlisting><![CDATA[<Brand Key="XFTI">
-								...
-								<Booking>
-									<BookingGroup>
-										<BookingParameter>
-											<Value Field="Brand">FTI</Value>
-										</BookingParameter>
-									</BookingGroup>
-								</Booking>
-								...
-							</Brand >]]></programlisting>
-						</listitem>
-					</itemizedlist>
-				</section>
-				<section xml:id="OtdsBestPracticeMixProductsWorkaround">
-					<title><phrase xml:id="de_9972" xml:lang="de">Work-Around: Herkömmliche
-							Abbildung von Mix-Produkten in Versionen ab 2.0</phrase>
-						<phrase xml:id="en_9972" xml:lang="en">Work-Around: Conventional mapping of
-							mix products in versions from 2.0 </phrase></title>
-					<para xml:id="de_9973" xml:lang="de">Zwar wurde mit OTDS 2.0 mithilfe der neuen
-						Komponente "ExternalComponent" die Möglichkeit geschaffen, ein eindeutiges
-						(Data-)Mix-Produkt zu definieren, allerdings zeigt sich in der Praxis, dass
-						die neue Lieferweise noch nicht von allen Vertriebssystemen unterstützt
-						wird. Da diese Tatsache möglicherweise als Bremse wirkt, auf die
-						OTDS-Versionen 2.0 oder höher umzusteigen, sei darauf hingewiesen, dass
-						grundsätzlich auch ab Version 2.0 Mix-Produkte noch in herkömmlicher,
-						impliziter Weise geliefert werden können.</para>
-					<para>BEISPIELE ODER HINWEISE EINFÜGEN?? ICH HABE IN DER DOKU KEINE STELLE GEFUNDEN; WO DATAMIX VOR V2.0 AUSFÜHRLICH BEHANDELT WIRD. ES GIBT NUR EINEN KLEINEN HINWEIS IN 1.3.8.3 PRODUKTTYPEN </para>
-					<para xml:id="en_9973" xml:lang="en">Although OTDS 2.0 has opened the possibility to create a unique (Data-)mix product thanks to the development of the new component "ExternalComponent" but in practice the new delivery method is not yet supported by all distribution systems. Since this fact may keep users from migrating to OTDS versions 2.0 or higher, please note that in principle also from version 2.0 mix products can still be supplied in the conventional, implicit way.</para>
-					<para xml:id="de_9974" xml:lang="de">Diese Möglichkeit soll ausdrücklich nur als zeitlich begrenzte Zwischenlösung dienen, da die in Version 2.0 festgelegte Definition explizit und definitiv sinnvoll im Sinne einer effizienten Datenproduktion und Verarbeitung ist. </para>
-					<para xml:id="en_9974" xml:lang="en">This option is explicitly intended only as an interim solution for a limited period of time, since the definition laid down in version 2.0 is explicit and definitely useful in terms of efficient data production and processing.</para>
-				</section>
-				<section xml:id="OtdsBestPracticeMixProductsAirports">
-					<title><phrase xml:id="de_9959" xml:lang="de">Mix-Produkte mit mehreren
-							Flughäfen</phrase>
-						<phrase xml:id="en_9959" xml:lang="en">Mix products with several
-							airports</phrase></title>
-					<para xml:id="de_9960" xml:lang="de">In den Vorgängerversionen von OTDS 2.0 ist
-						es schwierig, ein eindeutiges (Data-)Mix-Produkt zu definieren. Mit der
-						Version 2.0 wurde für das DataMix-Produkt, das bereits den ProductType=
-						"FlightAccommodation" enthält, zusätzlich eine neue Komponente
-						"ExternalComponent" eingeführt. </para>
-					<para xml:id="en_9960" xml:lang="en">In previous versions of OTDS 2.0, it is
-						difficult to define a unique (Data)Mix product. With version 2.0 a new
-						component "ExternalComponent" was introduced for the DataMix product, which
-						already contains the ProductType= "FlightAccommodation".</para>
-					<para>BEISPIEL FÜR MIX-PRODUKTE MIT MEHREREN FLUGHÄFEN AB VERSION 2.0 EINFÜGEN?!? WENN JA, WOHER?</para>
-					<para xml:id="de_9961" xml:lang="de">Wird mit älteren OTDS-Versionen vor 2.0
-						gearbeitet, bietet sich für die Abbildung von Mix-Produkten mit mehreren
-						Flughäfen folgendes Best Practice Beispiel an:</para>
-					<para xml:id="en_9961" xml:lang="en">If you are working with older OTDS versions
-						prior to 2.0, the following best practice example is suitable for creating
-						mix products with several airports:</para>
+					<bridgehead xml:id="de_9967" xml:lang="de">Multiple Catchment Airports im Datamix-Produkt vor Version 2.0</bridgehead>
+					<bridgehead xml:id="en_9967" xml:lang="en">Multiple Catchment Airports in the Datamix-Product before version 2.0</bridgehead>
+					<para xml:id="de_9968" xml:lang="de">Beim Datamix-Produkt
+						handelt es sich um ein Nur-Hotel Produkt an einer bestimmten Destination. In
+						einigen Fällen kann es aber vorkommen, dass das Hotel über zwei verschiedene
+						Destinations-Flughäfen angeflogen werden kann. Damit man unterschiedliche
+						Preise je Flughafen ausdrücken kann, muss man in OTDS vor der Version 2.0
+						zusätzliche Addons definieren, die sozusagen den Transfer
+						verkörpern/darstellen, wie im nachfolgenden Beispiel:</para>
 					<programlisting><![CDATA[<Otds>
   <Products>
     <Product ProductType="AccommodationOnly" Key="DataMix">
@@ -26895,7 +26764,101 @@ usw.]]></programlisting>
         </Addon>
 
         ...
-    </Addons>]]></programlisting>
+    </Addons>
+]]></programlisting>
+					<para xml:lang="de">IST DAS HIER RELEVANT?</para>
+					<programlisting><![CDATA[<Airports Source="global:Addon" AirportType="Catchment">TFS</Airports>]]></programlisting>
+				</section>
+				<section xml:id="OtdsBestPracticeMixProductsAfter20">
+					<title><phrase xml:id="de_9976" xml:lang="de">Definition von Mix-Produkten ab
+							Version 2.0</phrase>
+						<phrase xml:id="en_9976" xml:lang="en">Definition of Mix products from
+							Version 2.0 on</phrase></title>
+					<para>Mit der OTDS-Version 2.0 wurde eine effizientere, explizite Lösung für die
+						Definition von Mix-Produkte umgesetzt, mit der unter anderem die
+						MarketingBrand und eine neue Komponente "ExternalComponent“ eingeführt
+						wurde.</para>
+					<para>Wichtig: Per Stand 31.1.2020 nutzt allerdings noch kein verarbeitendes
+						System die in Version 2.0 neu vorgeschlagene Produktstruktur für Datamix,
+						weshalb auch ab Version 2.0 Mix-Produkte noch in der oben aufgezeigten
+						herkömmlichen und impliziten Weise geliefert werden können. Alle
+						OTDS-Empfänger akzeptieren nach wie vor die alte Stuktur. Diese Möglichkeit
+						soll jedoch ausdrücklich nur als zeitlich begrenzte Zwischenlösung dienen,
+						da die in Version 2.0 festgelegte Definition explizit und definitiv sinnvoll
+						im Sinne einer effizienten Datenproduktion und Verarbeitung ist.</para>
+					<para>Das Datamix-Produkt hat am Markt eigene Brands hervorgebracht, die
+						üblicherweise am X (für „Mix“) im Brandcode zu erkennen sind, wie bspw.
+						XFTI, XTUI, BENX etc.. Mitunter sollen diese X-Brands aber mit ihren
+						originalen Brandcodes (ohne das X) gebucht werden. Um diesen Sachverhalt in
+						OTDS abzubilden, wurde die MarketingBrand eingeführt.</para>
+					<para xml:id="de_9970" xml:lang="de">Die PropertyGroup/MarketingBrand sollte
+						passend gesetzt werden:</para>
+					<para xml:id="en_9970" xml:lang="en">The PropertyGroup/MarketingBrand should be
+						set appropriately:</para>
+					<programlisting><![CDATA[<Brand Key="XFTI">
+    ...
+    <Properties>
+      <PropertyGroup>
+        <MarketingBrandCode>XFTI</MarketingBrandCode>
+      <PropertyGroup>
+    <Properties>
+    ...
+</Brand >]]></programlisting>
+					<para xml:id="de_9971" xml:lang="de">Die exakten Buchungsparameter für die Marke
+						sollten korrekt gesetzt werden.</para>
+					<para xml:id="en_9971" xml:lang="en">The exact booking parameters for the brand
+						should be set correctly.</para>
+					<programlisting><![CDATA[<Brand Key="XFTI">
+								...
+								<Booking>
+									<BookingGroup>
+										<BookingParameter>
+											<Value Field="Brand">FTI</Value>
+										</BookingParameter>
+									</BookingGroup>
+								</Booking>
+								...
+							</Brand >]]></programlisting>
+					<bridgehead xml:id="de_9975" xml:lang="de">Multiple Catchment Airports im
+						Datamix-Produkt ab Version 2.0</bridgehead>
+					<bridgehead xml:id="en_9975" xml:lang="en">Multiple Catchment Airports in the
+						Datamix-Product from version 2.0 on</bridgehead>
+					<para>Für die bei Datamix gängige Konstellation mit mehreren CatchmentAirports
+						wurde für das DataMix-Produkt, das bereits den ProductType=
+						"FlightAccommodation" enthält, zusätzlich eine neue Komponente
+						"ExternalComponent" eingeführt, deren Einsatz im Beispiel unten aufgezeigt
+						wird.</para>
+					<para xml:id="en_9968" xml:lang="en">As of version 2.0, (Data)mix products
+						should only be defined in the following product definition: </para>
+					<programlisting><![CDATA[<Product Key="XFTIMix" ProductType="FlightAccommodation">
+   ...
+   <Components>
+     <ExternalComponent Role="Outbound"/> 
+     <Accommodation>...</Accommodation>
+     <ExternalComponent Role="Inbound"/>
+   </Components>
+   ...
+</Product>
+]]></programlisting>
+					<para xml:id="de_9969" xml:lang="de">Nachfolgend zudem ein Beispiel für eine PriceItem
+						Condition:</para>
+					<programlisting><![CDATA[<!-- Transfer TFSKAOGO -->    
+	<PriceItem Class="Transfer">
+		<Absolute>
+			<Value>…</Value>
+			<DayBase>…</DayBase>
+			<PersonBase>1</PersonBase>
+		</Absolute>
+		<Condition>
+			<And>
+				<Airports Source="Outbound" AirportType="ArrivalAirport">TFS</Airports>
+				<Impact>
+					<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Adult</ConditionalTags>
+					<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Child</ConditionalTags>
+				</Impact>
+			</And>
+		</Condition>
+	</PriceItem>]]></programlisting>
 				</section>
 			</section>
 		</section>
