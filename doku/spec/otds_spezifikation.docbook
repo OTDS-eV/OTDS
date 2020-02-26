@@ -2801,6 +2801,8 @@
 					beliebig viele dieser Wertepaare platziert werden.</para>
 				<para xml:id="en_785" xml:lang="en">Any number of these pairs of values can be
 					placed on all logical node points.</para>
+				<para xml:id="de_9978" xml:lang="de">Für die Ermittlung der Tags in der Condition-Auswertung wird die Class case-sensitiv behandelt. Damit muss bei Tags also auf die Groß- und Kleinschreibung geachtet werden.</para>
+				<para xml:id="en_9978" xml:lang="en">The class is treated as case sensitive when determining the tags in the condition evaluation. This means that tags are case-sensitive.</para>
 				<para xml:id="de_786" xml:lang="de">An allen Stellen, an denen Filter und
 					Bedingungen platziert werden dürfen, kann sowohl in der Produkterstellung als
 					auch in der Preisberechnung über Filter oder Conditions Bezug auf die Tags
@@ -2811,23 +2813,22 @@
 				<para xml:id="de_787" xml:lang="de">Ein Beispiel: </para>
 				<para xml:id="en_787" xml:lang="en">An example:</para>
 				<para xml:id="de_788" xml:lang="de">
-					<programlisting><![CDATA[<Tag Class="fluggruppe">AB</Tag>]]></programlisting>
+					<programlisting><![CDATA[<Tag Class="Fluggruppe">AB</Tag>]]></programlisting>
 				</para>
 				<para xml:id="en_788" xml:lang="en">
-					<programlisting>
-						<![CDATA[<Tag Class="fluggruppe">AB</Tag>]]></programlisting>
+					<programlisting><![CDATA[<Tag Class="Flightgroup">AB</Tag>]]></programlisting>
 				</para>
-				<para xml:id="de_789" xml:lang="de">Ein Datenlieferant möchte bei einem Flugangebot
-					die Fluggruppe mitübermitteln. Er markiert jeden entsprechenden Flug durch ein
-					Tag mit Class="Fluggruppe" und füllt dieses Feld mit dem Wert: AB. OTDS weiß
-					nicht, dass "AB" eine Fluggruppe ist. Für OTDS ist es ein beliebiges Tag mit
-					einem bestimmten Namen. Erst durch die sinngemäße Verwendung in den Regeln wird
-					es vom Datenlieferant wie eine Fluggruppe verwendet. Dann ist im Datenbestand
-					"AB" als ein Wert für Fluggruppe gespeichert und kann z.B. für
-					Produktzusammenstellungen benutzt werden. </para>
+				<para xml:id="de_789" xml:lang="de">Ein Datenlieferant möchte bei einem Flugangebot die
+					Fluggruppe mitübermitteln. Er markiert jeden entsprechenden Flug durch ein Tag
+					mit Class="Fluggruppe" und füllt dieses Feld mit dem Wert "AB". OTDS weiß nicht,
+					dass "AB" eine Fluggruppe ist. Für OTDS ist es ein beliebiges Tag mit einem
+					bestimmten Namen. Erst durch die sinngemäße Verwendung in den Regeln wird es vom
+					Datenlieferant wie eine Fluggruppe verwendet. Dann ist im Datenbestand "AB" als
+					ein Wert für Fluggruppe gespeichert und kann z.B. für Produktzusammenstellungen
+					benutzt werden. </para>
 				<para xml:id="en_789" xml:lang="en">A data provider wishes to include the flight
 					group in a flight offer. The provider marks every corresponding flight with a
-					tag with Class="Flight group" and in this fields enters the value: AB. OTDS does
+					tag with Class="Flightgroup" and in this fields enters the value: AB. OTDS does
 					not know that this is a flight group. For OTDS it is an arbitrary tag with a
 					specific name. Only when it is applied logically in the rules will it be used by
 					the data provider as a flight group. "AB" is then saved in the database as a
@@ -2838,16 +2839,25 @@
 					Tag mit der Class="Fluggruppe" haben müssen. </para>
 				<para xml:id="en_790" xml:lang="en">When combining flights, it is possible to
 					stipulate the condition that the flights being combined with one another must
-					have the same tag with the Class="Flight group".</para>
+					have the same tag with the Class="Flightgroup".</para>
 				<para xml:id="de_791" xml:lang="de">Das sieht dann so aus:</para>
 				<para xml:id="en_791" xml:lang="en">This is how it should then look:</para>
-				<programlisting><![CDATA[<MatchEqual>
+				<para xml:id="de_9979" xml:lang="de"><programlisting><![CDATA[<Filter>
+	<MatchEqual>
 		<Tag Source="#Zubringer" Class="Fluggruppe"/>
-		<Tag Source="#Hauptflug" Class=Fluggruppe"/>
+		<Tag Source="#Hauptflug" Class="Fluggruppe"/>
 	</MatchEqual>
 </Filter>
-]]>		
-				</programlisting>
+]]></programlisting>
+</para>
+				<para xml:id="en_9979" xml:lang="de"><programlisting><![CDATA[<Filter>
+	<MatchEqual>
+		<Tag Source="#Feeder line" Class="Flightgroup"/>
+		<Tag Source="#Main flight" Class="Flightgroup"/>
+	</MatchEqual>
+</Filter>
+]]></programlisting>
+				</para>
 
 				<para xml:id="de_792" xml:lang="de">In einem anderen Fall können bestimmte Hotels
 					mit Tags markiert werden, die die Zugehörigkeit zu einem bestimmten Katalog
@@ -2859,7 +2869,7 @@
 					During the price calculation, it is then possible to specify that a discount is
 					only valid if the hotel possesses that tag. Here is a small extract with the
 					corresponding data:</para>
-				<programlisting><![CDATA[<Accommodations>
+				<para xml:id="de_9980" xml:lang="de"><programlisting><![CDATA[<Accommodations>
 	<Accommodation>
 		<Tag Class="Brochure">FAMI</Tag>
 		...
@@ -2884,6 +2894,33 @@
 		...
 </Accommodations>]]>		
 				</programlisting>
+				</para>
+				<para xml:id="en_9980" xml:lang="en"><programlisting><![CDATA[<Accommodations>
+	<Accommodation>
+		<Tag Class="Brochure">FAMI</Tag>
+		...
+	</Accommodation>
+	<Accommodation>
+		<Tag Class="Brochure">FIT</Tag>
+		...
+	</Accommodation>
+	<Accommodation>
+		<Tag Class="Brochure">FAMI</Tag>
+		...
+	</Accommodation>
+	...
+	<PriceItems>
+		<PriceItem Class="Familydiscount">
+			<Percent>
+				<Value>-30</Value>
+				...
+			<Condition>
+				<Tag Source="Accommodation" Class="Brochure">FAMI</Tag>
+			</Condition>
+		...
+</Accommodations>]]>		
+				</programlisting>
+				</para>
 				<para xml:id="de_793" xml:lang="de">Dies soll die Funktionsweise der Tags
 					veranschaulichen. Die Einsatzmöglichkeit von Tags geht über das hier gezeigte
 					weit hinaus. Als Weiterentwicklung der Tags sollen schon hier die <link
