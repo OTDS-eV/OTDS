@@ -25226,18 +25226,21 @@ usw.]]></programlisting>
 		<Filter> 
 			<And> 
 				<Keys Source="global:Brand>XFTI</Keys>
+				...
 			</And>
 		</Filter>
 		...
 </Product>]]></programlisting>
-					<para xml:id="de_9966" xml:lang="de">Die Produktdefinition hat sich im Filter direkt auf die
-							Datamix-Brand bezogen und damit die Produktdefinition für Datamix
-							Produkte implizit definiert. Das hat gerade in Bezug auf den Umgang mit
-							mehreren CatchmentAirports und auch bezüglich der zu verwendenden
-							Brand-Buchungscodes zu Problemen geführt. Deshalb wurde ab Version 2.0
-							eine spezifische Produktstruktur für das Datamix-Produkt eingeführt. Im
-							Folgenden wird daher jeweils der Umgang mit mehreren CatchmentAirports
-							in den verschiedenen Versionen beschrieben:</para>
+					<para xml:id="de_9966" xml:lang="de">Beid er DataMix-Produktdefinition handelte es isch also um
+							eine NurHotel-Produkt, welche sich im Filter direkt auf die
+							Datamix-Brand bezog und damit die produzierten Angebote implizit als
+							DataMix-Angebote definiert. Gerade in Bezug auf den Umgang mit mehreren
+							CatchmentAirports und auch bezüglich der zu verwendenden
+							Brand-Buchungscodes hat diese implizite Produktdefinition zu Problemen
+							geführt. Deshalb wurde ab Version 2.0 eine spezifische Produktstruktur
+							für das Datamix-Produkt eingeführt. Im Folgenden wird daher jeweils der
+							Umgang mit mehreren CatchmentAirports in den verschiedenen Versionen
+							beschrieben:</para>
 					<para xml:id="en_9966" xml:lang="de">In the filter, the product definition referred directly to
 						the Datamix brand and thus implicitly defined the product definition for
 						Datamix products. This has led to problems, especially when dealing with
@@ -25255,168 +25258,155 @@ usw.]]></programlisting>
 							ausdrücken kann, muss man in OTDS vor der Version 2.0 zusätzliche Addons
 							definieren, die sozusagen den Transfer verkörpern/darstellen, wie im
 							nachfolgenden Beispiel:</para>
-					<programlisting><![CDATA[<Otds>
-  <Products>
-    <Product ProductType="AccommodationOnly" Key="DataMix">
-    <Tags>
-        <Tag Class="TypeOfProduct">DataMix</Tag>
-    </Tags>
- EINFÜGEN Spezifizierung des DayAllocationLevels (z.B. aus Ticket #2411, doc. v. 24.4.2019?)
-    <Components>
-        <OnewayFlight Name="1" DayAllocationLevel="-1"/>
-    	<OnewayFlight Name="2" DayAllocationLevel="0"/>
-   		<OnewayFlight Name="3" DayAllocationLevel="1"/>
-        <Accommodation DayAllocationLevel="0"/>
-        <Addon DayAllocationLevel="1"/>
-    </Components>
-    <Filter Key="1">
-        <And>
-            <MatchEqual>
-                <Element Source="Accommodation">CatchmentAirport</Element>
-                <Element Source="Addon">CatchmentAirport</Element>
-            </MatchEqual>
-            <Keys Source="global:GlobalValue">DataMixProduction</Keys>
-            <Tags Class="UseForProduct" Source="Accommodation">DataMix</Tags>
-            ...
-        </And>
-    <Filter Key="1">
-    </Product>
-  </Products>
-    <Accommodations> 
-        <Accommodation Key="AYT557" UpdateMode="New">
-            <Tags>
-                ...
-            </Tags>
-            <Properties Key="1">
-                <PropertyGroup>
-                    <AccommodationCity>Morro Jable</AccommodationCity>
-                    ...
-                </PropertyGroup>
-                <PropertyGroup>
-                    <GeneralIncludedServices>
-                        <GeneralIncludedService>Transfer</GeneralIncludedService>
-                    </GeneralIncludedServices>
-                    <Condition>
-                        <Tags Source="global:Service" Class="TransferCode">AYTSIDN</Tags>
-                    </Condition>
-                </PropertyGroup>
-                <PropertyGroup>
-                    <GeneralIncludedServices>
-                        <GeneralIncludedService>Transfer</GeneralIncludedService>
-                    </GeneralIncludedServices>
-                    <Condition>
-                        <Keys Source="global:Addon">AYT_DataMixAddon</Keys>
-                    </Condition>
-                </PropertyGroup>
-              </Properties>
-            <SellingAccom Key="...">...</SellingAccom> 
-            ...
-            <CatchmentAirports>AYT GZP</CatchmentAirports>
-            <PriceItems Key="TransferPrices">
-                <PriceItem Class="AdultPrice">
-                    <Absolute>
-                        <Value>14</Value>
-                        <DayBase>x</DayBase>
-                        <PersonBase>1</PersonBase>
-                    </Absolute>
-                    <Condition>
-                        <And>
-                            <Keys Source="global:Addon">AYT_DataMixAddon</Keys>
-                            <PersonImpact>
-                                <PersonAge Source="ThisComponent">
-                                    <Min>2</Min>
-                                </PersonAge>
-                            </PersonImpact>
-                        </And>
-                    </Condition>
-                </PriceItem>
-                <PriceItem Class="AdultPrice">
-                    <Absolute>
-                        <Value>17</Value>
-                        <DayBase>x</DayBase>
-                        <PersonBase>1</PersonBase>
-                    </Absolute>
-                    <Condition>
-                        <And>
-                            <Keys Source="global:Addon">GZP_DataMixAddon</Keys>
-                            <PersonImpact>
-                                <PersonAge Source="ThisComponent">
-                                    <Min>13</Min>
-                                </PersonAge>
-                            </PersonImpact>
-                        </And>
-                    </Condition>
-                </PriceItem>
-                <PriceItem Class="ChildPrice">
-                    <Absolute>
-                        <Value>5</Value>
-                        <DayBase>x</DayBase>
-                        <PersonBase>1</PersonBase>
-                    </Absolute>
-                    <Condition>
-                        <And>
-                            <Keys Source="global:Addon">GZP_DataMixAddon</Keys>
-                            <PersonImpact>
-                                <PersonAge Source="ThisComponent">
-                                    <Min>2</Min>
-                                    <Max>12</Max>
-                                </PersonAge>
-                            </PersonImpact>
-                        </And>
-                    </Condition>
-                </PriceItem>
-                ...
-            </PriceItems>
-            ...
-        </Accommodation>
-    </Accommodations>
-    <Addons UpdateMode="Merge">
-        <Addon Key="AYT_DataMixAddon">
-            <ServiceFeature Key="Default">
-                <Booking/>
-            </ServiceFeature>
-            <Service Key="1">
-                <Booking/>
-                <Occupancy Key="1">
-                    <Person>
-                        <MinCount>1</MinCount>
-                    </Person>
-                </Occupancy>
-            </Service>
-            <CatchmentAirports>AYT</CatchmentAirports>
-        </Addon>
-        <Addon Key="GZP_DataMixAddon">
-            <ServiceFeature Key="Default">
-                <Booking/>
-            </ServiceFeature>
-            <Service Key="1">
-                <Booking/>
-                <Occupancy Key="1">
-                    <Person>
-                        <MinCount>1</MinCount>
-                    </Person>
-                </Occupancy>
-            </Service>
-            <CatchmentAirports>GZP</CatchmentAirports>
-        </Addon>
-        ...
-    </Addons>
+					<programlisting><![CDATA[
+<Otds>
+	<Products>
+		<Product ProductType="AccommodationOnly" Key="DataMix">
+			<Tags>
+				<Tag Class="TypeOfProduct">DataMix</Tag>
+			</Tags>
+			<Components>
+				<Accommodation DayAllocationLevel="0"/>
+				<Addon DayAllocationLevel="1"/>
+			</Components>
+			<Filter Key="1">
+				<And>
+					<MatchEqual>
+						<Element Source="Accommodation">CatchmentAirport</Element>
+						<Element Source="Addon">CatchmentAirport</Element>
+					</MatchEqual>
+					<Keys Source="global:Brand">XFTI</Keys>
+					<Tags Class="UseForProduct" Source="Accommodation">DataMix</Tags>
+					...
+				</And>
+			</Filter>
+			<DayAllocation>
+				<DayAllocationStart DayAllocationLevel="1" Source="Accommodation" DayReference="CheckIn"/>
+				<DayAllocationEnd DayAllocationLevel="1" Source="Accommodation" DayReference="CheckOut"/>
+			</DayAllocation>
+		</Product>
+	</Products>
+	<Accommodations>
+		<Accommodation Key="AYT557">
+			<Tags>
+				<Tag Class="UseForProduct">DataMix</Tag>
+			</Tags>
+			<Properties Key="1">
+				<PropertyGroup>
+					<GeneralIncludedServices>
+						<GeneralIncludedService>Transfer</GeneralIncludedService>
+					</GeneralIncludedServices>
+					<Condition>
+						<Tags Source="Product" Class="TypeOfProduct">DataMix Package</Tags>
+					</Condition>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom>
+				...
+			</SellingAccom>
+			<CatchmentAirports>AYT GZP</CatchmentAirports>
+			<PriceItems Key="TransferPrices">
+				<PriceItem Class="AdultPrice">
+					<Absolute>
+						<Value>14</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<Keys Source="global:Addon">AYT_DataMixAddon</Keys>
+							<PersonImpact>
+								<PersonAge Source="ThisComponent">
+									<Min>2</Min>
+								</PersonAge>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</PriceItem>
+				<PriceItem Class="AdultPrice">
+					<Absolute>
+						<Value>17</Value>
+						<DayBase>x</DayBase>
+						<PersonBase>1</PersonBase>
+					</Absolute>
+					<Condition>
+						<And>
+							<Keys Source="global:Addon">GZP_DataMixAddon</Keys>
+							<PersonImpact>
+								<PersonAge Source="ThisComponent">
+									<Min>2</Min>
+								</PersonAge>
+							</PersonImpact>
+						</And>
+					</Condition>
+				</PriceItem>
+				...
+			</PriceItems>
+		</Accommodation>
+		...
+	</Accommodations>
+	<Addons UpdateMode="Merge">
+		<Addon Key="AYT_DataMixAddon">
+			<ServiceFeature Key="Default">
+				<Booking/>
+			</ServiceFeature>
+			<Service Key="1">
+				<Booking/>
+				<Occupancy Key="1">
+					<Person>
+						<MinCount>1</MinCount>
+					</Person>
+				</Occupancy>
+			</Service>
+			<CatchmentAirports>AYT</CatchmentAirports>
+		</Addon>
+		<Addon Key="GZP_DataMixAddon">
+			<ServiceFeature Key="Default">
+				<Booking/>
+			</ServiceFeature>
+			<Service Key="1">
+				<Booking/>
+				<Occupancy Key="1">
+					<Person>
+						<MinCount>1</MinCount>
+					</Person>
+				</Occupancy>
+			</Service>
+			<CatchmentAirports>GZP</CatchmentAirports>
+		</Addon>
+	</Addons>
+</Otds>
 ]]></programlisting>
-					<para>ToDo Stephan: bitte nochmal das Beispiel oben überprüfen (da müssen auf jeden Fall noch
-						&lt;Ands> raus und weitere Elemente gekürzt werden. Außerdem ist die
-						Spezifizierung des Day AllocationLevels vermutlich an der falschen Stelle)
-						und Texte schreiben</para>
-					
+					<para>Wie bereits zuvor beschrieben handelt es sich hier um eine NurHotel-Produktdefinition,
+							welche nur auf eine DataMix-Brand eingeschränkt wird. Zusätzlich findet
+							aber eine Kombination mit einer Addon-Komponente statt. Die Kombination
+							erfolgt über identische CatchmentAirports. Das Hotel definiert 2
+							CatchmentAirports "AYT" und "GZP". Zu beiden CatchmentAirports gibt es
+							jeweils ein Addon. Dadurch entsteht aus jedem Hotelangebot, im Ergebnis
+							2 Angebote. Ein Angebot in der Kombination mit dem Addon
+							"GZP_DataMixAddon" und ein zweites Angebot in der Kombination mit dem
+							Addon "GZP_DataMixAddon". Die Preise im Hotel können sich dann auf das
+							jeweilige Addon beziehen (&lt;Keys
+							Source="global:Addon">AYT_DataMixAddon&lt;/Keys>) und dadurch in
+							Abhängigkeit des benutzten Fluges unterschiedliche Preise ausprägen. </para>
+					<para>Beachte: Folgendes funktioniert <emphasis role="bold"><emphasis role="underline"
+									>nicht</emphasis></emphasis>. <programlisting><![CDATA[
+ Ein Bezug auf den CatchmentAirport des Hotels, also zum Beispiel  <Airports Source="Accommodation" AirportType="Catchment">AYT</Airports>. 
+ Denn für jedes Hotelangebot sind immer beide CatchmentAirports gültig egal, ob das Angebot mit dem GPZ- oder mit dem AYT-Addon kombiniert wird.]]>
+						</programlisting></para>
 				</section>
 				<section xml:id="OtdsBestPracticeMixProductsAfter20">
 					<title><phrase xml:id="de_9976" xml:lang="de">Definition von Mix-Produkten ab
 							Version 2.0</phrase>
 						<phrase xml:id="en_9976" xml:lang="en">Definition of Mix products from
 							Version 2.0 on</phrase></title>
-					<para>Mit der OTDS-Version 2.0 wurde eine explizite Lösung für die
-						Definition von Mix-Produkte umgesetzt, mit der unter anderem die
-						MarketingBrand und eine neue Komponente <code>ExternalComponent</code> eingeführt
-						wurde.</para>
+					<para>Mit der OTDS-Version 2.0 wurde eine explizite Lösung für die Definition von Mix-Produkte
+							umgesetzt. Basis ist die einführung eines neuen Komponententyps
+								<code>ExternalComponent</code>. Ein DataMix-Produkt wird nun als
+							Pauschalprodukt-Definition im Zusammenspiel mit entsprechenden
+							&lt;ExternalComponent> vorgenommen. Und auch eine spezifische
+							MarketingBrand wurde eingeführt um die angezeigte Brand vom der zu
+							buchenden Brandcode unterscheiden zu können.</para>
 					<para>Wichtig: Per Stand 31.1.2020 nutzt allerdings noch kein verarbeitendes System die in
 						Version 2.0 neu vorgeschlagene Produktstruktur für Datamix, weshalb auch ab
 						Version 2.0 Mix-Produkte noch in der oben aufgezeigten herkömmlichen und
@@ -25430,11 +25420,10 @@ usw.]]></programlisting>
 						Datamix-Produkt ab Version 2.0</bridgehead>
 					<bridgehead xml:id="en_9975" xml:lang="en">Multiple Catchment Airports in the
 						Datamix-Product from version 2.0 on</bridgehead>
-					<para>Für die bei Datamix gängige Konstellation mit mehreren CatchmentAirports
-						wurde für das DataMix-Produkt, das bereits den ProductType=
-						"FlightAccommodation" enthält, zusätzlich eine neue Komponente
-						<code>ExternalComponent</code> eingeführt, deren Einsatz im Beispiel unten aufgezeigt
-						wird.</para>
+					<para>Für die bei Datamix gängige Konstellation mit einem und mehreren CatchmentAirports wird
+							das DataMix-Produkt nun als ProductType= "FlightAccommodation" mit zwei
+							zusätzlichen neuen Komponenten <code>ExternalComponent</code> wie im
+							nachfolgenden Beispiel definiert.</para>
 					<para xml:id="en_9968" xml:lang="en">For the DataMix product, which already contains the
 						ProductType= "FlightAccommodation", a new component <code>ExternalComponent</code> was
 						introduced for the constellation with several CatchmentAirports, which is
@@ -25446,72 +25435,68 @@ usw.]]></programlisting>
      <Accommodation>...</Accommodation>
      <ExternalComponent Role="Inbound"/>
    </Components>
+   <Filter Key="1">
+        <And>
+            <MatchEqual>
+                <Element Source="Accommodation">CatchmentAirport</Element>
+                <Element Source="Outbound">ArrivalAirport</Element>
+                <Element Source="Inbound">DepartureAirport</Element>
+            </MatchEqual>
+            <Keys Source="global:Brand>XFTI</Keys>
+            <Tags Class="UseForProduct" Source="Accommodation">DataMix</Tags>
+            ...
+        </And>
+    <Filter Key="1">
    ...
 </Product>
 ]]></programlisting>
-					<para>ToDo Stephan: Beschreibender Text für Beispiel "Jetzt ist kein Addon mehr notwendig, weil
-							..." > Steffi: leider in keinem der Tickets gefunden</para>
-					<para xml:id="de_9969" xml:lang="de">Nachfolgend zudem ein Beispiel für eine PriceItem
-						Condition:</para>
-					<programlisting><![CDATA[<!-- Transfer AYT GZP -->    
+					<para>Somit besteht die Produktdefinition aus der gelieferten Hotelkomponente und zwei nicht
+							gelieferten "externen" Flugkomponenten. Die zusätzliche Definition eines
+							Addons ist nun nicht mehr notwendig, denn die Preise können sich (siehe nachfolgendes Beispiel) direkt
+							auf die externen Komponenten beziehen.</para>
+					<programlisting><![CDATA[   
+<Accommodation ...>
 	<PriceItem Class="Transfer">
 		<Absolute>
-			<Value>…</Value>
-			<DayBase>…</DayBase>
-			<PersonBase>1</PersonBase>
+			...
 		</Absolute>
 		<Condition>
 			<Airports Source="global:Outbound" AirportType="ArrivalAirport">AYT</Airports>
-			<Impact>
-				<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Adult</ConditionalTags>
-				<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Child</ConditionalTags>
-			</Impact>
+			...
 		</Condition>
-		<Condition>
-			<Airports Source="global:Outbound" AirportType="ArrivalAirport">GZP</Airports>
-			<Impact>
-				<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Adult</ConditionalTags>
-				<ConditionalTags Class="PersonBookingType" Source="SellingUnit">Child</ConditionalTags>
-			</Impact>
-		</Condition>
-	</PriceItem>]]></programlisting>
-					<para>ToDo Stephan: Beschreibender Text für Beispiel Textbausteine aus Ticket: "PI beziehen
-							sich auf den Flughafen der externen Komponente..." > Steffi: leider in
-							keinem der Tickets gefunden</para>
-					<bridgehead>Korrekte Bezeichnung der Brandcodes und Buchungsparameter (ÜBERSCHRIFT RICHTIG
-						SO?)</bridgehead>
-					<para>Das Datamix-Produkt hat am Markt eigene Brands hervorgebracht, die
-						üblicherweise am X (für „Mix“) im Brandcode zu erkennen sind, wie bspw.
-						XFTI, XTUI, BENX etc.. Mitunter sollen diese X-Brands aber mit ihren
-						originalen Brandcodes (ohne das X) gebucht werden. Um diesen Sachverhalt in
-						OTDS abzubilden, wurde die MarketingBrand eingeführt.</para>
-					<para xml:id="de_9970" xml:lang="de">Die PropertyGroup/MarketingBrand sollte
-						passend gesetzt werden:</para>
-					<para xml:id="en_9970" xml:lang="en">The PropertyGroup/MarketingBrand should be
+	</PriceItem>
+</Accommodation>]]></programlisting>
+					<bridgehead>Korrekte Unterscheidung zwischen angezeigter Brand und zu buchender
+							Brand</bridgehead>
+					<para>Das Datamix-Produkt hat am Markt eigene Brands hervorgebracht, die üblicherweise am X
+							(für „Mix“) im Brandcode zu erkennen sind, wie bspw. XFTI, XTUI, BENX
+							etc..  Diese X-Brands werden in der Regel bei den Angeboten angezeigt.
+							Mitunter wedren diese X-Brands mit ihren originalen Brandcodes (ohne das
+							X) gebucht. Zum Beispiel XFTI wird dann als "FTI" mit Reiseart="MIX"
+							gebucht. Bis OTDS 2.0 hat man diese Ungenauigkeiten implizit
+							"gradegebogen". Um solche Sachverhalte explizit korrekt abzubilden wurde
+							ab OTDS 2.0 die MarketingBrand eingeführt.</para>
+					<para xml:id="de_9970" xml:lang="de">Jetzt kann man  <code>PropertyGroup/MarketingBrand</code>
+							und Buchungsparameter "Brand" korrekt definieren:</para>
+					<para xml:id="en_9970" xml:lang="en">The <code>PropertyGroup/MarketingBrand</code> should be
 						set appropriately:</para>
 					<programlisting><![CDATA[<Brand Key="XFTI">
     ...
+    <Booking>
+		<BookingGroup>
+			<BookingParameter>
+				<Value Field="Brand">FTI</Value>
+				<Value Field="TravelType">MIX</Value>
+			</BookingParameter>
+		</BookingGroup>
+	</Booking>
     <Properties>
-      <PropertyGroup>
-        <MarketingBrandCode>XFTI</MarketingBrandCode>
-      <PropertyGroup>
+		<PropertyGroup>
+			<MarketingBrandCode>XFTI</MarketingBrandCode>
+		<PropertyGroup>
     <Properties>
+    
     ...
-</Brand >]]></programlisting>
-					<para xml:id="de_9971" xml:lang="de">Die exakten Buchungsparameter für die Marke
-						sollten korrekt gesetzt werden.</para>
-					<para xml:id="en_9971" xml:lang="en">The exact booking parameters for the brand
-						should be set correctly.</para>
-					<programlisting><![CDATA[<Brand Key="XFTI">
-	...
-		<Booking>
-			<BookingGroup>
-				<BookingParameter>
-					<Value Field="Brand">FTI</Value>
-				</BookingParameter>
-			</BookingGroup>
-		</Booking>
-	...
 </Brand >]]></programlisting>
 				</section>
 		</section>
