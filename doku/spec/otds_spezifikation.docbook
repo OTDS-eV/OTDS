@@ -20808,7 +20808,6 @@ usw.]]></programlisting>
 							<para xml:id="en_1829" xml:lang="en">Kosher</para>
 						</listitem>
 					</itemizedlist>
-
 					<para xml:id="de_1830" xml:lang="de">Eine vollständige <link
 							linkend="PropertiesAccommodations">Liste der
 							Verpflegungseigenschaften</link> finden Sie im Anhang!</para>
@@ -20816,269 +20815,6 @@ usw.]]></programlisting>
 							linkend="PropertiesAccommodations">list of the board properties</link>
 						can be found in the annex.</para>
 				</section>
-				<section>
-					<title><phrase xml:id="de_1831" xml:lang="de">Umgang mit Gebundenen Namespaces in den
-								Eigenschaften (Properties)</phrase><phrase xml:id="en_1831"
-								xml:lang="en">Use of Bound Namespaces in the properties
-								(Properties)</phrase></title>
-					<para xml:id="de_1833" xml:lang="de">Neben den in den Properties fest vorgegebenen
-							Ausstattungen und Angeboten sollen auch fremde Erweiterungen in OTDS
-							integrierbar sein. OTDS bietet hier das Element <code>Namespaces</code>
-							für beliebige Erweiterungen, so dass auch komplexe Strukturen abgebildet
-							werden können. Mit den Gebundenen Namespaces lassen sich zum Beispiel
-							die Attribute von Firmen wie GIATA, die GlobalTypes des Deutschen
-							Reiseverbands (DRV) oder andere Attribuierungssysteme einbinden, sofern
-							sie wohl definiert sind. Damit soll verhindert werden, dass Lieferanten
-							die eigentlich standardisierten Attribute unterschiedlich liefern, so
-							dass die Verarbeiter diese Unterschiede dann mit Mehraufwand wieder
-							ausgleichen müssen.</para>
-					<para xml:id="en_1833" xml:lang="en">In addition to the attributes and offers specified in the
-							properties, it should also be possible to integrate third-party
-							extensions into OTDS. OTDS offers <code>Namespaces</code> as an element
-							for any extensions, so that even complex structures can be mapped. Using
-							bound namespaces, attributes of companies such as GIATA, the GlobalTypes
-							of the German Travel Association (DRV) or other attribution systems can
-							be integrated, provided they are well defined. This is intended to
-							prevent provider from supplying the actually standardized attributes
-							differently, which would lead to processors having to compensate for
-							these differences at additional expense.</para>
-					<para xml:id="de_9970" xml:lang="de">Für Gebunde Namespaces muss die Nutzung beim OTDS e.V.
-							beantragt und zugelassen werden, da die XSD für die Spezifizierung
-							dieses Gebundenen Namespaces mit zu den mit OTDS ausgelieferten XSDs
-							gehören muss und der Lieferant an die Einhaltung eines spezifischen
-							Formats gebunden ist (Kontakt über: info@otds.de).EINFÜGEN BEISPIEL UND
-							XSD</para>
-					<para xml:id="en_9970" xml:lang="en">The use of bound namespaces must be applied for and
-							approved by OTDS e.V., since the XSD for the specification of this bound
-							namespace must be part of the XSDs delivered with OTDS-XSD. Also the
-							supplier is bound to the adherence to a specific format (contact via:
-							info@otds.de).</para>
-					<para xml:id="de_9975" xml:lang="de">Nachfolgend ein Beispiel, wie eine solche Lieferung
-							basierend auf der ebenfalls abgebildeten, vom OTDS e.V. beispielhaft
-							erstellten XSD aussehen könnte. Wichtig ist zu beachten, dass die XSD
-							vom Herausgeber der Attribute (bspw. GIATA oder dem Deutschen
-							Reiseverband) erstellt und durch eine Dokumentation begleitet sein
-							muss.</para>
-					<para xml:id="en_9975" xml:lang="en">The following is an example of how such a delivery, based
-							on the also shown XSD created by OTDS e.V., could look like. It is
-							important to note that the XSD must be created by the publisher of the
-							attributes (e.g. GIATA or the German Travel Association) and accompanied
-							by documentation..</para>
-					<programlisting><![CDATA[<Otds ... 
-		xmlns:gt="http://otds-group.org/otds/properties/globaltypes" 
-		xsi:schemaLocation="... http://otds-group.org/otds/properties/globaltypes ../xsd/external_namespaces/otds-properties-globaltypes.xsd">
-	<Accommodations UpdateMode="Merge">
-		<Accommodation Key="Hotel1"  UpdateMode="Merge">
-			<Properties Key="GT">
-				<PropertyGroup>
-					<gt:DRVGlobalTypes>
-						<gt:GlobalType Code="GT02-HO"/>
-						<!-- Hotel(-betrieb) -->
-						<gt:GlobalType Code="GT03-WELL">
-						<!-- Wellness  -->
-							<gt:SubType Code="ST03-ACUP"/>
-							<!-- Akupunktur -->
-							<gt:SubType Code="ST03-FANG" AdditionalTypes="AT03-HOTE"/>
-							<!-- Fango im Hotel -->
-						</gt:GlobalType>
-					</gt:DRVGlobalTypes>
-					<AccommodationName>The Example Hotel</AccommodationName>
-				</PropertyGroup>
-			</Properties>
-			<SellingAccom Key="Hotel1"  UpdateMode="Merge">
-				<Board Key="AI"  UpdateMode="Merge">
-					<Properties Key="GT">
-						<PropertyGroup>
-							<gt:DRVGlobalTypes>
-								<gt:GlobalType Code="GT06-AI"/>
-								<!-- Alles inklusive -->
-							</gt:DRVGlobalTypes>
-						</PropertyGroup>
-					</Properties>
-				</Board>
-				<Unit Key="DZ"  UpdateMode="Merge">
-					<SellingUnit Key="DZ"  UpdateMode="Merge">
-						<Properties Key="GT">
-							<PropertyGroup>
-								<gt:DRVGlobalTypes>
-									<gt:GlobalType Code="GT04-RO">
-									<!-- Zimmer/Kabine/Abteil -->
-										<gt:SubType Code="ST04-DO"/>
-										<!-- Doppel -->
-									</gt:GlobalType>
-								</gt:DRVGlobalTypes>
-							</PropertyGroup>
-						</Properties>
-					</SellingUnit>
-				</Unit>
-			</SellingAccom>
-		</Accommodation>
-	</Accommodations>
-</Otds>]]></programlisting>
-					<para xml:id="de_9981" xml:lang="de">Nachfolgend die entsprechende Beispiel-XSD:</para>
-					<para xml:id="en_9981" xml:lang="en">Below the corresponding exemplary XSD is shown:</para>
-					<figure>
-						<title><phrase xml:id="de_1847" xml:lang="de">XSD-Beispiel für die GlobalTypes des Deutschen Reiseverbands (DRV)</phrase>
-							<phrase xml:id="en_1847" xml:lang="en">XSD example for the GlobalTypes of the German Travel Association (DRV)</phrase></title>
-						<mediaobject>
-							<imageobject>
-								<imagedata fileref="figures/XSD_Example_GlobalTypes.png" format="PNG"
-									contentwidth="50%"/>
-							</imageobject>
-						</mediaobject>
-					</figure>
-				</section>
-				<section>
-					<title><phrase xml:id="de_1834" xml:lang="de">Umgang mit Ungebundenen Namespaces in den
-								Eigenschaften (Properties)</phrase><phrase xml:id="en_1834"
-								xml:lang="en">Use of Unbound Namespaces in the properties
-								(Properties)</phrase></title>
-					<para xml:id="de_1836" xml:lang="de">Neben den Gebundenen Namespaces ist bei den OTDS
-							Properties auch die Möglichkeit vorgesehen, Ungebundene Namespaces
-							einzurichten. Sie sind ausschließlich zur Verarbeitung durch den
-							Veranstalter selbst oder in einer bilateralen Beziehung zu <emphasis
-								role="bold">einem</emphasis> Verarbeiter gedacht. Bei den
-							Ungebundenen Namespaces gibt der Datenlieferant dem Verarbeiter vor, wie
-							damit umzugehen ist. Nachfolgend zwei Beispiele hierfür:</para>
-					<para xml:id="en_1836" xml:lang="en">In addition to the bound namespaces, OTDS properties also
-							provide the possibility to set up unbound namespaces. They are intended
-							exclusively for processing by the tour operator himself or in a
-							bilateral relationship with <emphasis role="bold">one</emphasis>
-							processor. In the case of unbound namespaces, the data provider tells
-							the processor how to handle them. Please find two examples of unbound
-							namespaces below:</para>
-					<programlisting><![CDATA[<Properties Key="PropertiesKey">
-	<PropertyGroup>
-		<OtdsUnboundedProperties>
-			<BewotecProperties xmlns="http://www.bewotec.de/otds/properties/bewotec">
-				<CustomProperties>
-					<CustomPropertiesEnum>Custom17</CustomPropertiesEnum>
-				</CustomProperties>
-				<CruiseProperties>
-					<Ports>
-						<Port>
-							<Code>2328</Code>
-							<Name>Valletta</Name>
-							<Airports>MLA</Airports>
-						</Port>
-						<Port>
-							<Code>114</Code>
-							<Name>Seetag</Name>
-						</Port>
-						<Port>
-							<Code>1350</Code>
-							<Name>Mykonos Stadt</Name>
-						</Port>
-						<...>
-						<Port>
-							<Code>2328</Code>
-							<Name>Valletta</Name>
-							<Airports>MLA</Airports>
-						</Port>
-					</Ports>
-					<AirportsOrigin>MLA</AirportsOrigin>
-					<AirportsDestination>MLA</AirportsDestination>
-					<Routecode>MM_9101</Routecode>
-					<Routename>Mittelmeer mit Rhodos II</Routename>
-					<RouteGroupCode>78</RouteGroupCode>
-					<RouteGroupName>Mittelmeer 2</RouteGroupName>
-					<RouteIdentifier>Mittelmeer 2</RouteIdentifier>
-				</CruiseProperties>
-				<OptionBookingNotPossible>false</OptionBookingNotPossible>
-			</BewotecProperties>
-		</OtdsUnboundedProperties>
-		<AccommodationName>Mein Schiff 5</AccommodationName>
-		<AccommodationAddress>
-			<GeoInfo>
-				<Region Code="MM" Name="Südeuropa &amp; Mittelmeer"/>
-				<Destination Code="WMM" Name="Westliches Mittelmeer"/>
-			</GeoInfo>
-		</AccommodationAddress>
-	</PropertyGroup>
-	<PropertyGroup>
-		<GeneralIncludedServices>
-			<GeneralIncludedService>Transfer</GeneralIncludedService>
-		</GeneralIncludedServices>
-		<Condition>
-			<Tags DayAllocation="All" Source="Product" Class="TravelType">Package</Tags>
-		</Condition>
-	</PropertyGroup>
-</Properties>]]></programlisting>
-					<para xml:id="de_9976" xml:lang="de">Das Beispiel oben zeigt in einem Ungebundenen Namespace
-							enthaltene Properties aus der Kreuzfahrt-Branche. Diese Properties
-							werden vom Lieferanten in Absprache mit Bewotec für die Erstellung der
-							kundeneigenen Webseite geliefert. Im Beispiel geht es konkret um Namen
-							und Codes von Kreuzfahrthäfen. Die Interpretation der Daten hat der
-							Lieferant/Kunde individuell für die ausschließliche Verwendung auf der
-							kundeneingenen Webseite mit Bewotec abgestimmt.</para>
-					<para xml:id="en_9976" xml:lang="en">The example above in an unbound namespace shows 
-						properties from the cruise sector. These properties, specifically names and codes of cruise ports, in this case
-						are produced by Bewotec for the exclusive use on the company website of a cruise customer.</para>
-					<programlisting><![CDATA[<Properties Key="1">
-    <PropertyGroup>
-        <OtdsUnboundedProperties>
-           <BewotecProperties xmlns="http://www.bewotec.de/otds/properties/bewotec">
-                <Rating>
-                    <RatingProvider>TripAdvisor</RatingProvider>
-                    <AverageRating>5</AverageRating>
-                </Rating>
-                <Catalog>
-                    <Page>162</Page>
-                </Catalog>
-            </BewotecProperties>
-        </OtdsUnboundedProperties>
-        <AccommodationCity>COSTA ADEJE</AccommodationCity>
-        <AccommodationType>Hotel</AccommodationType>
-        <AccommodationName>Royal Hideaway Corales Beach</AccommodationName> 
-        <...>     
-    </PropertyGroup>
-    <PropertyGroup>
-        <OtdsUnboundedProperties>
-            <BewotecProperties xmlns="http://www.bewotec.de/otds/properties/bewotec">
-                <TouristsTargetGroups>
-                    <TouristsTargetGroupEnum>SpaTourists</TouristsTargetGroupEnum>
-                    <TouristsTargetGroupEnum>SportTourists</TouristsTargetGroupEnum>
-                    <TouristsTargetGroupEnum>BeachTravellers</TouristsTargetGroupEnum>
-                    <TouristsTargetGroupEnum>Custom2</TouristsTargetGroupEnum>
-                    <TouristsTargetGroupEnum>BusinessTravellers</TouristsTargetGroupEnum>
-                </TouristsTargetGroups>
-            </BewotecProperties>
-        </OtdsUnboundedProperties>
-        <GeneralIncludedServices>
-            <GeneralIncludedService>Transfer</GeneralIncludedService>
-        </GeneralIncludedServices>
-        <Condition>
-            <Tags DayAllocation="All" Source="Product" Class="TravelType">Package HotelTransfer</Tags>
-        </Condition>
-    </PropertyGroup>
-</Properties>
-]]></programlisting>
-					<para xml:id="de_9977" xml:lang="de">Dieses Beispiel eines Ungebundenen Namespaces zeigt
-							ebenfalls einige von Bewotec definierte Properties: Bewertungen
-							(Ratings) und Zielgruppen (TouristTargetGroups). Grundsätzlich ist das
-							Beispiel aussagekräftig und korrekt, allerdings gibt es in der Praxis
-							Wege, um diese Informationen direkt in OTDS zu integrieren: Bewertungen können seit Version 2.0 als Non-Bookable Content eingebracht
-							werden, sofern es sich nicht um kunden-eigene Bewertungssysteme, sondern um
-							branchenweite Bewertungs-/Rating-Systeme handelt, die durchaus als
-							Referenzsystem betrachtet werden können. Hinsichtlich Zielgruppen gibt es seit Version
-							1.9.1 in den OTDS-eigenen Properties die
-							AccommodationTargetgroups, die 17 unterschiedliche Zielgruppen unter den
-							Reisenden ausweist <link linkend="PropertiesAccommodations">(s. Anhang
-								A3.1.3 Properties Accommodations)</link>.</para>						
-					<para xml:id="en_9977" xml:lang="en">This example of an unbound namespace also shows some
-							properties defined by Bewotec: Ratings and target groups
-							(TouristTargetGroups). Basically the example is meaningful and correct,
-							but in practice there are ways to integrate this information directly
-							into OTDS: Since version 2.0 ratings can be included as non-bookable
-							content, provided that these are not customer-specific evaluation
-							systems, but rather industry-wide evaluation/rating systems, which can
-							be regarded as a reference system. With regard to target groups, since
-							version 1.9.1 AccommodationTargetgroups exist in the OTDS-own
-							properties, which describe 17 different target groups among travellers
-								<link linkend="PropertiesAccommodations">(see Annex A3.1.3
-								Properties Accommodations)</link>.</para>
-				</section>
-			</section>
 			<section xml:id="OtdsProductsComponentsAccommodationUnit">
 				<title><phrase xml:id="de_1837" xml:lang="de">Zimmer (Unit)</phrase><phrase
 						xml:id="en_1837" xml:lang="en">Room (Unit)</phrase></title>
@@ -23927,6 +23663,273 @@ usw.]]></programlisting>
 			</para>
 			<para xml:id="en_2128" xml:lang="en"><link xlink:href="example/PropertiesExamples.xml"
 					>Examples of the use of (dynamic) Properties</link></para>
+			<section xml:id="OtdsBoundNamespaces">
+				<title><phrase xml:id="de_1831" xml:lang="de">Umgang mit Gebundenen Namespaces in den
+					Eigenschaften (Properties)</phrase><phrase xml:id="en_1831"
+						xml:lang="en">Use of Bound Namespaces in the properties
+						(Properties)</phrase></title>
+				<para xml:id="de_1833" xml:lang="de">Neben den in den Properties fest vorgegebenen
+					Ausstattungen und Angeboten sollen auch fremde Erweiterungen in OTDS
+					integrierbar sein. OTDS bietet hier das Element <code>Namespaces</code>
+					für beliebige Erweiterungen, so dass auch komplexe Strukturen abgebildet
+					werden können. Mit den Gebundenen Namespaces lassen sich zum Beispiel
+					die Attribute von Firmen wie GIATA, die GlobalTypes des Deutschen
+					Reiseverbands (DRV) oder andere Attribuierungssysteme einbinden, sofern
+					sie wohl definiert sind. Damit soll verhindert werden, dass Lieferanten
+					die eigentlich standardisierten Attribute unterschiedlich liefern, so
+					dass die Verarbeiter diese Unterschiede dann mit Mehraufwand wieder
+					ausgleichen müssen.</para>
+				<para xml:id="en_1833" xml:lang="en">In addition to the attributes and offers specified in the
+					properties, it should also be possible to integrate third-party
+					extensions into OTDS. OTDS offers <code>Namespaces</code> as an element
+					for any extensions, so that even complex structures can be mapped. Using
+					bound namespaces, attributes of companies such as GIATA, the GlobalTypes
+					of the German Travel Association (DRV) or other attribution systems can
+					be integrated, provided they are well defined. This is intended to
+					prevent provider from supplying the actually standardized attributes
+					differently, which would lead to processors having to compensate for
+					these differences at additional expense.</para>
+				<para xml:id="de_9970" xml:lang="de">Für Gebunde Namespaces muss die Nutzung beim OTDS e.V.
+					beantragt und zugelassen werden, da die XSD für die Spezifizierung
+					dieses Gebundenen Namespaces mit zu den mit OTDS ausgelieferten XSDs
+					gehören muss und der Lieferant an die Einhaltung eines spezifischen
+					Formats gebunden ist (Kontakt über: info@otds.de).EINFÜGEN BEISPIEL UND
+					XSD</para>
+				<para xml:id="en_9970" xml:lang="en">The use of bound namespaces must be applied for and
+					approved by OTDS e.V., since the XSD for the specification of this bound
+					namespace must be part of the XSDs delivered with OTDS-XSD. Also the
+					supplier is bound to the adherence to a specific format (contact via:
+					info@otds.de).</para>
+				<para xml:id="de_9975" xml:lang="de">Nachfolgend ein Beispiel, wie eine solche Lieferung
+					basierend auf der ebenfalls abgebildeten, vom OTDS e.V. beispielhaft
+					erstellten XSD aussehen könnte. Wichtig ist zu beachten, dass die XSD
+					vom Herausgeber der Attribute (bspw. GIATA oder dem Deutschen
+					Reiseverband) erstellt und durch eine Dokumentation begleitet sein
+					muss.</para>
+				<para xml:id="en_9975" xml:lang="en">The following is an example of how such a delivery, based
+					on the also shown XSD created by OTDS e.V., could look like. It is
+					important to note that the XSD must be created by the publisher of the
+					attributes (e.g. GIATA or the German Travel Association) and accompanied
+					by documentation..</para>
+				<programlisting><![CDATA[<Otds ... 
+		xmlns:gt="http://otds-group.org/otds/properties/globaltypes" 
+		xsi:schemaLocation="... http://otds-group.org/otds/properties/globaltypes ../xsd/external_namespaces/otds-properties-globaltypes.xsd">
+	<Accommodations UpdateMode="Merge">
+		<Accommodation Key="Hotel1"  UpdateMode="Merge">
+			<Properties Key="GT">
+				<PropertyGroup>
+					<gt:DRVGlobalTypes>
+						<gt:GlobalType Code="GT02-HO"/>
+						<!-- Hotel(-betrieb) -->
+						<gt:GlobalType Code="GT03-WELL">
+						<!-- Wellness  -->
+							<gt:SubType Code="ST03-ACUP"/>
+							<!-- Akupunktur -->
+							<gt:SubType Code="ST03-FANG" AdditionalTypes="AT03-HOTE"/>
+							<!-- Fango im Hotel -->
+						</gt:GlobalType>
+					</gt:DRVGlobalTypes>
+					<AccommodationName>The Example Hotel</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="Hotel1"  UpdateMode="Merge">
+				<Board Key="AI"  UpdateMode="Merge">
+					<Properties Key="GT">
+						<PropertyGroup>
+							<gt:DRVGlobalTypes>
+								<gt:GlobalType Code="GT06-AI"/>
+								<!-- Alles inklusive -->
+							</gt:DRVGlobalTypes>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Unit Key="DZ"  UpdateMode="Merge">
+					<SellingUnit Key="DZ"  UpdateMode="Merge">
+						<Properties Key="GT">
+							<PropertyGroup>
+								<gt:DRVGlobalTypes>
+									<gt:GlobalType Code="GT04-RO">
+									<!-- Zimmer/Kabine/Abteil -->
+										<gt:SubType Code="ST04-DO"/>
+										<!-- Doppel -->
+									</gt:GlobalType>
+								</gt:DRVGlobalTypes>
+							</PropertyGroup>
+						</Properties>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+</Otds>]]></programlisting>
+				<para xml:id="de_9981" xml:lang="de">Nachfolgend die entsprechende Beispiel-XSD:</para>
+				<para xml:id="en_9981" xml:lang="en">Below the corresponding exemplary XSD is shown:</para>
+				<figure>
+					<title><phrase xml:id="de_1847" xml:lang="de">XSD-Beispiel für die GlobalTypes des Deutschen Reiseverbands (DRV)</phrase>
+						<phrase xml:id="en_1847" xml:lang="en">XSD example for the GlobalTypes of the German Travel Association (DRV)</phrase></title>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="figures/XSD_Example_GlobalTypes.png" format="PNG"
+								contentwidth="50%"/>
+						</imageobject>
+					</mediaobject>
+				</figure>
+			</section>
+			<section xml:id="OtdsUnboundNamespaces">
+				<title><phrase xml:id="de_1834" xml:lang="de">Umgang mit Ungebundenen Namespaces in den
+					Eigenschaften (Properties)</phrase>
+					<phrase xml:id="en_1834" xml:lang="en">Use of Unbound Namespaces in the Properties</phrase></title>
+				<para xml:id="de_1836" xml:lang="de">Neben den Gebundenen Namespaces ist bei den OTDS
+					Properties auch die Möglichkeit vorgesehen, Ungebundene Namespaces
+					einzurichten. Sie sind ausschließlich zur Verarbeitung durch den
+					Veranstalter selbst oder in einer bilateralen Beziehung zu <emphasis
+						role="bold">einem</emphasis> Verarbeiter gedacht. Bei den
+					Ungebundenen Namespaces gibt der Datenlieferant dem Verarbeiter vor, wie
+					damit umzugehen ist. Nachfolgend zwei Beispiele hierfür:</para>
+				<para xml:id="en_1836" xml:lang="en">In addition to the bound namespaces, OTDS properties also
+					provide the possibility to set up unbound namespaces. They are intended
+					exclusively for processing by the tour operator himself or in a
+					bilateral relationship with <emphasis role="bold">one</emphasis>
+					processor. In the case of unbound namespaces, the data provider tells
+					the processor how to handle them. Please find two examples of unbound
+					namespaces below:</para>
+				<programlisting><![CDATA[<Properties Key="PropertiesKey">
+	<PropertyGroup>
+		<OtdsUnboundedProperties>
+			<BewotecProperties xmlns="http://www.bewotec.de/otds/properties/bewotec">
+				<CustomProperties>
+					<CustomPropertiesEnum>Custom17</CustomPropertiesEnum>
+				</CustomProperties>
+				<CruiseProperties>
+					<Ports>
+						<Port>
+							<Code>2328</Code>
+							<Name>Valletta</Name>
+							<Airports>MLA</Airports>
+						</Port>
+						<Port>
+							<Code>114</Code>
+							<Name>Seetag</Name>
+						</Port>
+						<Port>
+							<Code>1350</Code>
+							<Name>Mykonos Stadt</Name>
+						</Port>
+						<...>
+						<Port>
+							<Code>2328</Code>
+							<Name>Valletta</Name>
+							<Airports>MLA</Airports>
+						</Port>
+					</Ports>
+					<AirportsOrigin>MLA</AirportsOrigin>
+					<AirportsDestination>MLA</AirportsDestination>
+					<Routecode>MM_9101</Routecode>
+					<Routename>Mittelmeer mit Rhodos II</Routename>
+					<RouteGroupCode>78</RouteGroupCode>
+					<RouteGroupName>Mittelmeer 2</RouteGroupName>
+					<RouteIdentifier>Mittelmeer 2</RouteIdentifier>
+				</CruiseProperties>
+				<OptionBookingNotPossible>false</OptionBookingNotPossible>
+			</BewotecProperties>
+		</OtdsUnboundedProperties>
+		<AccommodationName>Mein Schiff 5</AccommodationName>
+		<AccommodationAddress>
+			<GeoInfo>
+				<Region Code="MM" Name="Südeuropa &amp; Mittelmeer"/>
+				<Destination Code="WMM" Name="Westliches Mittelmeer"/>
+			</GeoInfo>
+		</AccommodationAddress>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GeneralIncludedServices>
+			<GeneralIncludedService>Transfer</GeneralIncludedService>
+		</GeneralIncludedServices>
+		<Condition>
+			<Tags DayAllocation="All" Source="Product" Class="TravelType">Package</Tags>
+		</Condition>
+	</PropertyGroup>
+</Properties>]]></programlisting>
+				<para xml:id="de_9976" xml:lang="de">Das Beispiel oben zeigt in einem Ungebundenen Namespace
+							enthaltene Properties aus der Kreuzfahrt-Branche. Diese Properties
+							werden vom Lieferanten in Absprache mit Bewotec für die Erstellung der
+							kundeneigenen Webseite geliefert. Im Beispiel geht es konkret um Namen
+							und Codes von Kreuzfahrthäfen. Die Interpretation der Daten hat der
+							Lieferant/Kunde  für die ausschließliche Verwendung auf der
+							kundeneigenen Webseite individuell mit Bewotec abgestimmt.</para>
+				<para xml:id="en_9976" xml:lang="en">The example above shows properties from the cruise industry
+							contained in an unbound namespace. These properties are supplied by the
+							supplier in agreement with Bewotec for the creation of the
+							customer-specific website. The example specifically deals with names and
+							codes of cruise ports. The supplier/customer has individually agreed the
+							interpretation of the data with Bewotec for the exclusive use on the
+							customer's own website.</para>
+				<programlisting><![CDATA[<Properties Key="1">
+    <PropertyGroup>
+        <OtdsUnboundedProperties>
+           <BewotecProperties xmlns="http://www.bewotec.de/otds/properties/bewotec">
+                <Rating>
+                    <RatingProvider>TripAdvisor</RatingProvider>
+                    <AverageRating>5</AverageRating>
+                </Rating>
+                <Catalog>
+                    <Page>162</Page>
+                </Catalog>
+            </BewotecProperties>
+        </OtdsUnboundedProperties>
+        <AccommodationCity>COSTA ADEJE</AccommodationCity>
+        <AccommodationType>Hotel</AccommodationType>
+        <AccommodationName>Royal Hideaway Corales Beach</AccommodationName> 
+        <...>     
+    </PropertyGroup>
+    <PropertyGroup>
+        <OtdsUnboundedProperties>
+            <BewotecProperties xmlns="http://www.bewotec.de/otds/properties/bewotec">
+                <TouristsTargetGroups>
+                    <TouristsTargetGroupEnum>SpaTourists</TouristsTargetGroupEnum>
+                    <TouristsTargetGroupEnum>SportTourists</TouristsTargetGroupEnum>
+                    <TouristsTargetGroupEnum>BeachTravellers</TouristsTargetGroupEnum>
+                    <TouristsTargetGroupEnum>Custom2</TouristsTargetGroupEnum>
+                    <TouristsTargetGroupEnum>BusinessTravellers</TouristsTargetGroupEnum>
+                </TouristsTargetGroups>
+            </BewotecProperties>
+        </OtdsUnboundedProperties>
+        <GeneralIncludedServices>
+            <GeneralIncludedService>Transfer</GeneralIncludedService>
+        </GeneralIncludedServices>
+        <Condition>
+            <Tags DayAllocation="All" Source="Product" Class="TravelType">Package HotelTransfer</Tags>
+        </Condition>
+    </PropertyGroup>
+</Properties>
+]]></programlisting>
+				<para xml:id="de_9977" xml:lang="de">Dieses zweite Beispiel eines Ungebundenen Namespaces zeigt
+							ebenfalls einige von Bewotec definierte Properties: Bewertungen
+							(Ratings) und Zielgruppen (TouristTargetGroups). Grundsätzlich ist das
+							Beispiel aussagekräftig und korrekt, allerdings gibt es in der Praxis
+							Wege, um diese Informationen direkt in OTDS zu integrieren: Bewertungen
+							können seit Version 2.0 als Non-Bookable Content eingebracht werden,
+							sofern es sich nicht um kunden-eigene Bewertungssysteme, sondern um
+							branchenweite Bewertungs-/Rating-Systeme handelt, die durchaus als
+							Referenzsystem betrachtet werden können. Hinsichtlich Zielgruppen gibt
+							es seit Version 1.9.1 in den OTDS-eigenen Properties die
+							AccommodationTargetgroups, die derzeit 17 unterschiedliche Zielgruppen
+							unter den Reisenden ausweist <link linkend="PropertiesAccommodations"
+								>(s. Anhang A3.1.3 Properties Accommodations)</link>.</para>						
+				<para xml:id="en_9977" xml:lang="en">This second example of an unbound namespace also shows some
+							properties defined by Bewotec: Ratings and target groups
+							(TouristTargetGroups). Basically the example is meaningful and correct,
+							but in practice there are ways to integrate this information directly
+							into OTDS: Since version 2.0 ratings can be included as non-bookable
+							content, provided that these are not customer-specific evaluation
+							systems, but rather industry-wide evaluation/rating systems, which can
+							be regarded as a reference system. With regard to target groups, since
+							version 1.9.1 AccommodationTargetgroups exist in the OTDS-own
+							properties, which describe 17 different target groups among travellers
+								<link linkend="PropertiesAccommodations">(see Annex A3.1.3
+								Properties Accommodations)</link>.</para>
+			</section>
+			</section>
 		</section>
 		<section xml:id="OtdsProductsComponentsRounding">
 			<title><phrase xml:lang="de" xml:id="de_5281">Rundung (V1.9)</phrase><phrase
