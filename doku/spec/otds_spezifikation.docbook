@@ -25261,8 +25261,7 @@ usw.]]></programlisting>
 							definieren, die sozusagen den Transfer verkörpern/darstellen, wie im
 							nachfolgenden Beispiel:</para>
 					<para xml:id="en_9968" xml:lang="en">Up to version 2.0, the Datamix product is a hotel-only product, which is implicitly connected with an externally supplied flight by the processor. In some cases, the hotel may be served by two or more different destination airports. To be able to express different prices per airport,  in OTDS before version 2.0 additional addons have to be defined, which embody/represent the transfer as in the following example:</para>
-					<programlisting><![CDATA[
-<Otds>
+					<programlisting><![CDATA[<Otds>
 	<Products>
 		<Product ProductType="AccommodationOnly" Key="DataMix">
 			<Tags>
@@ -25408,14 +25407,15 @@ usw.]]></programlisting>
 							Version 2.0</phrase>
 						<phrase xml:id="en_9976" xml:lang="en">Definition of Mix products from
 							Version 2.0 on</phrase></title>
-					<para>Mit der OTDS-Version 2.0 wurde eine explizite Lösung für die Definition von Mix-Produkte
-							umgesetzt. Basis ist die einführung eines neuen Komponententyps
-								<code>ExternalComponent</code>. Ein DataMix-Produkt wird nun als
-							Pauschalprodukt-Definition im Zusammenspiel mit entsprechenden
-							&lt;ExternalComponent> vorgenommen. Und auch eine spezifische
-							MarketingBrand wurde eingeführt um die angezeigte Brand vom der zu
-							buchenden Brandcode unterscheiden zu können.</para>
-					<para>Wichtig: Per Stand 31.1.2020 nutzt allerdings noch kein verarbeitendes System die in
+					<para xml:id="de_9985" xml:lang="de">Mit der OTDS-Version 2.0 wurde eine explizite Lösung für
+							die Definition von Mix-Produkten umgesetzt. Basis ist die Einführung
+							eines neuen Komponententyps <code>ExternalComponent</code>. Ein
+							Datamix-Produkt wird nun als Pauschalprodukt-Definition im Zusammenspiel
+							mit entsprechenden <code>ExternalComponent</code> vorgenommen. Auch
+							wurde eine spezifische MarketingBrand eingeführt, um die angezeigte
+							Brand vom zu buchenden Brandcode unterscheiden zu können.</para>
+					<para xml:id="en_9985" xml:lang="en">With OTDS version 2.0 an explicit solution for the definition of mix products was implemented. The basis is the introduction of a new component type <code>ExternalComponent</code>. A Datamix product is now defined as a flat-rate product in combination with the corresponding <code>ExternalComponent</code>. A specific MarketingBrand was also introduced to distinguish the displayed brand from the brand code to be booked.</para>
+					<para xml:id="de_9986" xml:lang="de">Wichtig: Per Stand 31.1.2020 nutzt allerdings noch kein verarbeitendes System die in
 						Version 2.0 neu vorgeschlagene Produktstruktur für Datamix, weshalb auch ab
 						Version 2.0 Mix-Produkte noch in der oben aufgezeigten herkömmlichen und
 						impliziten Weise geliefert werden können. Alle OTDS-Empfänger akzeptieren
@@ -25423,19 +25423,20 @@ usw.]]></programlisting>
 						nur als zeitlich begrenzte Zwischenlösung dienen, da die in Version 2.0
 						festgelegte Definition sinnvoll im Sinne einer expliziten Verarbeitung
 						ist.</para>
-					
+					<para xml:id="en_9986" xml:lang="en">Important: As of 31.1.2020, however, no processing system is yet using the newly proposed product structure for Datamix of version 2.0. Due to this, also in version 2.0 or higher mix products can still be delivered in the conventional and implicit way. All OTDS recipients still  accept the old structure. However, this possibility explicitly should serve as an interim solution for a limited period of time only, since the new version 2.0 definition makes sense in terms of an explicit processing.</para>
 					<bridgehead xml:id="de_9975" xml:lang="de">Multiple Catchment Airports im
 						Datamix-Produkt ab Version 2.0</bridgehead>
 					<bridgehead xml:id="en_9975" xml:lang="en">Multiple Catchment Airports in the
 						Datamix-Product from version 2.0 on</bridgehead>
-					<para xml:id="de_9982" xml:lang="de">Für die bei Datamix gängige Konstellation mit einem und mehreren CatchmentAirports wird
-							das DataMix-Produkt nun als ProductType= "FlightAccommodation" mit zwei
-							zusätzlichen neuen Komponenten <code>ExternalComponent</code> wie im
-							nachfolgenden Beispiel definiert.</para>
-					<para xml:id="en_9982" xml:lang="en">For the DataMix product, which already contains the
-						ProductType= "FlightAccommodation", a new component <code>ExternalComponent</code> was
-						introduced for the constellation with several CatchmentAirports, which is
-						common for Datamix. Its use is shown in the example below: </para>
+					<para xml:id="de_9982" xml:lang="de">Für die bei Datamix gängige Konstellation mit einem und
+							mehreren CatchmentAirports wird das Datamix-Produkt nun als ProductType=
+							"FlightAccommodation" mit zwei zusätzlichen neuen Komponenten
+								<code>ExternalComponent</code> wie im nachfolgenden Beispiel
+							definiert.</para>
+					<para xml:id="en_9982" xml:lang="en">For the common Datamix constellation with one and more
+							CatchmentAirports, the Datamix product is now defined as ProductType=
+							"FlightAccommodation" with two additional new components
+						<code>ExternalComponent</code>. It is shown in the example below: </para>
 					<programlisting><![CDATA[<Product Key="XFTIMix" ProductType="FlightAccommodation">
    ...
    <Components>
@@ -25456,14 +25457,13 @@ usw.]]></programlisting>
         </And>
     <Filter Key="1">
    ...
-</Product>
-]]></programlisting>
-					<para>Somit besteht die Produktdefinition aus der gelieferten Hotelkomponente und zwei nicht
+</Product>]]></programlisting>
+					<para xml:id="de_9987" xml:lang="de">Somit besteht die Produktdefinition aus der gelieferten Hotelkomponente und zwei nicht
 							gelieferten "externen" Flugkomponenten. Die zusätzliche Definition eines
 							Addons ist nun nicht mehr notwendig, denn die Preise können sich (siehe nachfolgendes Beispiel) direkt
 							auf die externen Komponenten beziehen.</para>
-					<programlisting><![CDATA[   
-<Accommodation ...>
+					<para xml:id="en_9987" xml:lang="en">Thus, the product definition consists of the hotel component delivered and two not delivered "external" flight components . The additional definition of an addon is no longer necessary because the prices can refer directly to the external components (see the following example).</para>
+					<programlisting><![CDATA[<Accommodation ...>
 	<PriceItem Class="Transfer">
 		<Absolute>
 			...
@@ -25474,20 +25474,19 @@ usw.]]></programlisting>
 		</Condition>
 	</PriceItem>
 </Accommodation>]]></programlisting>
-					<bridgehead>Korrekte Unterscheidung zwischen angezeigter Brand und zu buchender
+					<bridgehead xml:id="de_9988" xml:lang="de">Korrekte Unterscheidung zwischen angezeigter Brand und zu buchender
 							Brand</bridgehead>
-					<para>Das Datamix-Produkt hat am Markt eigene Brands hervorgebracht, die üblicherweise am X
+					<bridgehead xml:id="en_9988" xml:lang="en">Correct differentiation between displayed brand and brand to be booked</bridgehead>
+					<para xml:id="de_9970" xml:lang="de">Das Datamix-Produkt hat am Markt eigene Brands hervorgebracht, die üblicherweise am X
 							(für „Mix“) im Brandcode zu erkennen sind, wie bspw. XFTI, XTUI, BENX
-							etc..  Diese X-Brands werden in der Regel bei den Angeboten angezeigt.
-							Mitunter wedren diese X-Brands mit ihren originalen Brandcodes (ohne das
-							X) gebucht. Zum Beispiel XFTI wird dann als "FTI" mit Reiseart="MIX"
-							gebucht. Bis OTDS 2.0 hat man diese Ungenauigkeiten implizit
-							"gradegebogen". Um solche Sachverhalte explizit korrekt abzubilden wurde
-							ab OTDS 2.0 die MarketingBrand eingeführt.</para>
-					<para xml:id="de_9970" xml:lang="de">Jetzt kann man  <code>PropertyGroup/MarketingBrand</code>
-							und Buchungsparameter "Brand" korrekt definieren:</para>
-					<para xml:id="en_9970" xml:lang="en">The <code>PropertyGroup/MarketingBrand</code> should be
-						set appropriately:</para>
+							etc.. Diese X-Brands werden in der Regel bei den Angeboten angezeigt.
+							Mitunter werden diese X-Brands jedoch mit ihren originalen Brandcodes
+							(ohne das X) gebucht. Zum Beispiel wird XFTI dann als "FTI" mit
+							Reiseart="MIX" gebucht. Bis OTDS 2.0 hat man diese Ungenauigkeiten
+							implizit "gerade gebogen". Um solche Sachverhalte korrekt und explizit
+							abzubilden, wurde ab OTDS 2.0 die MarketingBrand eingeführt. Damit kann nun <code>PropertyGroup/MarketingBrand</code>
+							und Buchungsparameter "Brand" korrekt definiert werden:</para>
+					<para xml:id="en_9970" xml:lang="en">The Datamix product has created its own brands on the market, which can usually be recognized by the X (for "mix") in the brand code, such as XFTI, XTUI, BENX etc. These X-Brands are usually displayed with the offers. However, sometimes these X-Brands are booked with their original brand codes (without the X). For example XFTI is then booked as "FTI" with travel type="MIX". Up to OTDS 2.0 these inaccuracies have been implicitly "straightened out". In order to reflect such facts correctly and explicitly, the MarketingBrand was introduced in OTDS 2.0. Now <code>PropertyGroup/MarketingBrand</code> and booking parameter "Brand" can be defined correctly:</para>
 					<programlisting><![CDATA[<Brand Key="XFTI">
     ...
     <Booking>
@@ -25502,8 +25501,7 @@ usw.]]></programlisting>
 		<PropertyGroup>
 			<MarketingBrandCode>XFTI</MarketingBrandCode>
 		<PropertyGroup>
-    <Properties>
-    
+    <Properties>    
     ...
 </Brand >]]></programlisting>
 				</section>
