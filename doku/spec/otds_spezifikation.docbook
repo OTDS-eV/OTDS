@@ -20853,14 +20853,80 @@ usw.]]></programlisting>
 							namespace must be part of the XSDs delivered with OTDS-XSD. Also the
 							supplier is bound to the adherence to a specific format (contact via:
 							info@otds.de).</para>
-					<para xml:id="de_9975" xml:lang="en">Da diese Art der
-							Namespaces bislang noch nicht umgesetzt wurde, enthält diese
-							Dokumentation noch kein Beispiel dafür. Wenn sich dies ändert, werden
-							wir ein Beispiel für Gebundene Namespaces hier integrieren.</para>
-					<para xml:id="en_9975" xml:lang="en">Since this type of namespace has not yet been
-						implemented, this documentation does not yet contain an example of this.
-						If this changes, we will integrate an example of bound namespaces
-						here.</para>
+					<para xml:id="de_9975" xml:lang="de">Nachfolgend ein Beispiel, wie eine solche Lieferung
+							basierend auf der ebenfalls abgebildeten, vom OTDS e.V. beispielhaft
+							erstellten XSD aussehen könnte. Wichtig ist zu beachten, dass die XSD
+							vom Herausgeber der Attribute (bspw. GIATA oder dem Deutschen
+							Reiseverband) erstellt und durch eine Dokumentation begleitet sein
+							muss.</para>
+					<para xml:id="en_9975" xml:lang="en">The following is an example of how such a delivery, based
+							on the also shown XSD created by OTDS e.V., could look like. It is
+							important to note that the XSD must be created by the publisher of the
+							attributes (e.g. GIATA or the German Travel Association) and accompanied
+							by documentation..</para>
+					<programlisting><![CDATA[<Otds ... 
+		xmlns:gt="http://otds-group.org/otds/properties/globaltypes" 
+		xsi:schemaLocation="... http://otds-group.org/otds/properties/globaltypes ../xsd/external_namespaces/otds-properties-globaltypes.xsd">
+	<Accommodations UpdateMode="Merge">
+		<Accommodation Key="Hotel1"  UpdateMode="Merge">
+			<Properties Key="GT">
+				<PropertyGroup>
+					<gt:DRVGlobalTypes>
+						<gt:GlobalType Code="GT02-HO"/>
+						<!-- Hotel(-betrieb) -->
+						<gt:GlobalType Code="GT03-WELL">
+						<!-- Wellness  -->
+							<gt:SubType Code="ST03-ACUP"/>
+							<!-- Akupunktur -->
+							<gt:SubType Code="ST03-FANG" AdditionalTypes="AT03-HOTE"/>
+							<!-- Fango im Hotel -->
+						</gt:GlobalType>
+					</gt:DRVGlobalTypes>
+					<AccommodationName>The Example Hotel</AccommodationName>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="Hotel1"  UpdateMode="Merge">
+				<Board Key="AI"  UpdateMode="Merge">
+					<Properties Key="GT">
+						<PropertyGroup>
+							<gt:DRVGlobalTypes>
+								<gt:GlobalType Code="GT06-AI"/>
+								<!-- Alles inklusive -->
+							</gt:DRVGlobalTypes>
+						</PropertyGroup>
+					</Properties>
+				</Board>
+				<Unit Key="DZ"  UpdateMode="Merge">
+					<SellingUnit Key="DZ"  UpdateMode="Merge">
+						<Properties Key="GT">
+							<PropertyGroup>
+								<gt:DRVGlobalTypes>
+									<gt:GlobalType Code="GT04-RO">
+									<!-- Zimmer/Kabine/Abteil -->
+										<gt:SubType Code="ST04-DO"/>
+										<!-- Doppel -->
+									</gt:GlobalType>
+								</gt:DRVGlobalTypes>
+							</PropertyGroup>
+						</Properties>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+		</Accommodation>
+	</Accommodations>
+</Otds>]]></programlisting>
+					<para xml:id="de_9981" xml:lang="de">Nachfolgend die entsprechende Beispiel-XSD:</para>
+					<para xml:id="en_9981" xml:lang="en">Below the corresponding exemplary XSD is shown:</para>
+					<figure>
+						<title><phrase xml:id="de_1847" xml:lang="de">XSD-Beispiel für die GlobalTypes des Deutschen Reiseverbands (DRV)</phrase>
+							<phrase xml:id="en_1847" xml:lang="en">XSD example for the GlobalTypes of the German Travel Association (DRV)</phrase></title>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="figures/XSD_Example_GlobalTypes.png" format="PNG"
+									contentwidth="50%"/>
+							</imageobject>
+						</mediaobject>
+					</figure>
 				</section>
 				<section>
 					<title><phrase xml:id="de_1834" xml:lang="de">Umgang mit Ungebundenen Namespaces in den
@@ -20903,6 +20969,7 @@ usw.]]></programlisting>
 							<Code>1350</Code>
 							<Name>Mykonos Stadt</Name>
 						</Port>
+						<...>
 						<Port>
 							<Code>2328</Code>
 							<Name>Valletta</Name>
@@ -20962,9 +21029,8 @@ usw.]]></programlisting>
         </OtdsUnboundedProperties>
         <AccommodationCity>COSTA ADEJE</AccommodationCity>
         <AccommodationType>Hotel</AccommodationType>
-        <AccommodationName>Royal Hideaway Corales Beach</AccommodationName> ...
-        
-     
+        <AccommodationName>Royal Hideaway Corales Beach</AccommodationName> 
+        <...>     
     </PropertyGroup>
     <PropertyGroup>
         <OtdsUnboundedProperties>
@@ -20991,29 +21057,26 @@ usw.]]></programlisting>
 							ebenfalls einige von Bewotec definierte Properties: Bewertungen
 							(Ratings) und Zielgruppen (TouristTargetGroups). Grundsätzlich ist das
 							Beispiel aussagekräftig und korrekt, allerdings gibt es in der Praxis
-							Wege, um diese Informationen direkt in OTDS zu integrieren: Seit Version
-							1.9.1 gibt es in den OTDS-eigenen Properties die
+							Wege, um diese Informationen direkt in OTDS zu integrieren: Bewertungen können seit Version 2.0 als Non-Bookable Content eingebracht
+							werden, sofern es sich nicht um kunden-eigene Bewertungssysteme, sondern um
+							branchenweite Bewertungs-/Rating-Systeme handelt, die durchaus als
+							Referenzsystem betrachtet werden können. Hinsichtlich Zielgruppen gibt es seit Version
+							1.9.1 in den OTDS-eigenen Properties die
 							AccommodationTargetgroups, die 17 unterschiedliche Zielgruppen unter den
 							Reisenden ausweist <link linkend="PropertiesAccommodations">(s. Anhang
-								A3.1.3 Properties Accommodations)</link>.</para>
-						
+								A3.1.3 Properties Accommodations)</link>.</para>						
 					<para xml:id="en_9977" xml:lang="en">This example of an unbound namespace also shows some
-							properties defined by Bewotec: Giata codes, Ratings and target groups
+							properties defined by Bewotec: Ratings and target groups
 							(TouristTargetGroups). Basically the example is meaningful and correct,
-							however there are ways to directly integrate this information into OTDS:
-							Since version 1.9.1, the OTDS properties contain
-							AccommodationTargetgroups, which have 17 different target groups among
-							the travelers <link linkend="PropertiesAccommodations">(see Annex A3.1.3
-								Properties Accommodations)</link>.</para> 
-						<para>Handelt es sich bei den
-							Bewertungen nicht um kunden-eigene Bewertungssysteme, sondern um
-							branchenweite, können diese Bewertungs-/Rating-Systeme durchaus als
-							Referenzsystem betrachtet und als Non-Bookable Content eingebracht
-							werden. </para>
-						<para>With version 2.0, non-bookable
-							content was also integrated into OTDS, which also included reference
-							systems such as that of Giata. Also rating systems may be considered as
-							a reference system and could be included as Non-bookable.</para>
+							but in practice there are ways to integrate this information directly
+							into OTDS: Since version 2.0 ratings can be included as non-bookable
+							content, provided that these are not customer-specific evaluation
+							systems, but rather industry-wide evaluation/rating systems, which can
+							be regarded as a reference system. With regard to target groups, since
+							version 1.9.1 AccommodationTargetgroups exist in the OTDS-own
+							properties, which describe 17 different target groups among travellers
+								<link linkend="PropertiesAccommodations">(see Annex A3.1.3
+								Properties Accommodations)</link>.</para>
 				</section>
 			</section>
 			<section xml:id="OtdsProductsComponentsAccommodationUnit">
@@ -21063,10 +21126,6 @@ usw.]]></programlisting>
 								<para xml:id="de_1846" xml:lang="de">Belegung - Occupancy</para>
 								<para xml:id="en_1846" xml:lang="en">Occupancy</para>
 							</textobject>
-							<caption>
-								<para xml:id="de_1847" xml:lang="de"> </para><para xml:id="en_1847"
-									xml:lang="en"/>
-							</caption>
 						</mediaobject>
 					</figure>
 					<para xml:id="de_1848" xml:lang="de">Nachfolgend werden einige typische Beispiel
