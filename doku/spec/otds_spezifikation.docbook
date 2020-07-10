@@ -8584,9 +8584,9 @@
 							Source and IntervalType) are regarded separately and evaluated according
 							to the EvaluationMode.</para>
 						<para xml:id="de_5375" xml:lang="de">Der NonImpact Wrapper wird auch gerne
-							benutzt, wenn Saisonbuchstaben sowohl als Stay-Seasons als auch als
-							CheckIn-Season benutzt werden. Dank des NonImpact-Wrappers muss man die
-							ConditionalTags der Seasons nur einmal definieren.</para>
+							benutzt, wenn Saisonbuchstaben sowohl für Aufenthalts- als auch für Anreisebedingungen
+                            benutzt werden. Dank des NonImpact-Wrappers muss man die
+							ConditionalTags für die Saisonbuchstaben nur einmal definieren.</para>
 						<para xml:id="en_5375" xml:lang="en">The NonImpact wrapper is of great help
 							if Season Characters (e.g. Season “A”) are used as Stay-Season as well
 							as CheckIn-Season. Thanks to the NonImpact wrapper the ConditionalTags
@@ -8623,16 +8623,28 @@
 							to arrival in Season A”.</para>
 						<para xml:id="de_5378" xml:lang="de">Mit dem NonImpact-Wrapper kann man nun
 							diese Bedingung mit einem einzigen ConditionalTag darstellen. Wir entfernen das
-							ConditionalTag StaySeason und benennen die Klasse des ConditionalTag SeasonCheckIn in
+							ConditionalTag SeasonCheckIn und benennen die Klasse des ConditionalTag SeasonStay in
 							Season um. Nun nutzen wir den NonImpact-Wrapper, um den ersten Aufenthaltstag auf Season
 							A zu testen:</para>
 						<para xml:id="en_5378" xml:lang="en">By using the NonImpact wrapper this
-							PriceItem can now be expressed using only a single conditional tag. So we delete the
-							SeasonCheckin ConditionalTag and rename the SeasonStay ConditionalTag to Season. Now we can
+							PriceItem condition can now be expressed using only a single ConditionalTag. So we remove the
+							SeasonCheckIn ConditionalTag and rename the SeasonStay ConditionalTag to Season. Now we can
 							use the NonImpact wrapper to re-model the CheckIn condition as a test for Season A on the
 							first stay day:</para>
-						<programlisting><![CDATA[<PriceItems Key="Hotelbasispreise">
-	<PriceItem Class="PAUSCH">
+						<programlisting><![CDATA[
+<ConditionalTag>
+	<Tag Class="Season">A</Tag>
+	<Condition>
+		<DayImpact>
+			<Date Source="Accommodation" DayType="Stay">
+				<Min>2013-04-27</Min>
+				<Max>2013-05-03</Max>
+			</Date>
+		</DayImpact>
+	</Condition>
+</ConditionalTag>
+<PriceItems Key="NonImpactExample">
+	<PriceItem Class="FitnessTrainerService">
 		<Absolute>
 			<Value>58.00</Value>
 			<DayBase>x</DayBase>
@@ -8645,7 +8657,7 @@
 					<Condition>
 					    <And>
 						    <Impact>
-							    <ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
+							    <ConditionalTags Source="SellingAccom" Class="Season">A</ConditionalTags>
 						    </Impact>
 						    <DayImpact>
 							    <DayIndex>
