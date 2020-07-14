@@ -8474,14 +8474,17 @@
 					<section xml:id="OtdsStrategyConditionNonImpact">
 						<title><phrase xml:id="de_5379" xml:lang="de">NonImpact</phrase><phrase
 								xml:id="en_5379" xml:lang="en">NonImpact</phrase></title>
-						<para xml:id="de_5369" xml:lang="de">Mit dem NonImpact-Wrapper kann man aus
-							mehreren Bedingungen, die eine oder mehrere ImpactBedingungen enthalten,
-							am Ende auswerten, dass die Bedingung entweder ganz oder gar nicht
-							erfüllt ist (also ohne Impact auf einzelne Tage oder Personen).</para>
-						<para xml:id="en_5369" xml:lang="en">By using the NonImpact Wrapper it is
-							possible to evaluate – considering several conditions containing one or
-							more Impact conditions – if a condition is completely fulfilled or not
-							at all (which means it has no impact on single days or persons).</para>
+						<para xml:id="de_5369" xml:lang="de">>Der NonImpact-Wrapper modifiziert die
+							Auswertung einer zusammengesetzten Bedingung, die eine oder mehrere
+							Impact-Bedingungen enthält. Die Auswertung erfolgt derart, dass die
+							Bedingung entweder ganz oder gar nicht erfüllt ist. Die Auswirkung (Impact),
+							auf einzelne Personen oder Tage wird dabei jedoch unterbunden.</para>
+						<para xml:id="en_5369" xml:lang="en">The NonImpact wrapper modifies the way how
+							a composed condition containing one or more Impact conditions is evaluated.
+							While the contained Impact conditions are still evaluated for each person or day, the
+							impact on persons and days is suppressed. As a result, the composed condition
+							is completely fulfilled or not at all and will not impact single
+							persons or days.</para>
 						<figure>
 							<info>
 								<title><phrase xml:id="de_5367" xml:lang="de"
@@ -8581,13 +8584,12 @@
 							Source and IntervalType) are regarded separately and evaluated according
 							to the EvaluationMode.</para>
 						<para xml:id="de_5375" xml:lang="de">Der NonImpact Wrapper wird auch gerne
-							benutzt, wenn Saisonbuchstaben sowohl als Stay-Seasons als auch als
-							CheckIn-Season benutzt werden. Dank des NonImpact-Wrappers muss man die
-							ConditionalTags der Seasons nur einmal definieren.</para>
-						<para xml:id="en_5375" xml:lang="en">The NonImpact Wrapper is of great help
-							if Season Characters (e.g. Season “A”) are used as Stay-Season as well
-							as CheckIn-Season. Thanks to the NonImpact Wrapper the ConditionalTags
-							of the seasons have only be to defined once.</para>
+							benutzt, wenn Saisonbuchstaben sowohl für Aufenthalts- als auch für Anreisebedingungen
+                            benutzt werden. Dank des NonImpact-Wrappers muss man die
+							ConditionalTags für die Saisonbuchstaben nur einmal definieren.</para>
+						<para xml:id="en_5375" xml:lang="en">The NonImpact Wrapper is also often used when season letters are used for both stay and arrival conditions. 
+							Thanks to the NonImpact wrapper the ConditionalTags
+							for the seasons letters have only be to defined once.</para>
 						<para xml:id="de_5376" xml:lang="de">Hier ein Beispiel:</para>
 						<para xml:id="en_5376" xml:lang="en">Here is an example:</para>
 						<programlisting><![CDATA[<ConditionalTag>
@@ -8613,17 +8615,34 @@
 	</Condition>
 </ConditionalTag>]]></programlisting>
 						<para xml:id="de_5377" xml:lang="de">Das erste ConditionalTag wäre
-							notwendig, um eine klassische CheckInSeason Abhängigkeit abzubilden.
+							notwendig, um eine klassische Checkin-Bedingung abzubilden:
 							"Preis gilt bei Anreise in Saison A"</para>
 						<para xml:id="en_5377" xml:lang="en">The first ConditionalTag would be
-							necessary to describe a typical CheckInSeason dependency: “Price applies
+							necessary to describe a typical Checkin dependency: “Price applies
 							to arrival in Season A”.</para>
-						<para xml:id="de_5378" xml:lang="de">Mit dem NonImpactWrapper kann man nun
-							dieses PriceItem wie folgt auch mit der StaySeason darstellen.</para>
-						<para xml:id="en_5378" xml:lang="en">By using the NonImpact Wrapper this
-							PriceItem can now be described with the StaySeason as follows:</para>
-						<programlisting><![CDATA[<PriceItems Key="Hotelbasispreise">
-	<PriceItem Class="PAUSCH">
+						<para xml:id="de_5378" xml:lang="de">Mit dem NonImpact-Wrapper kann man nun
+							diese Bedingung mit einem einzigen ConditionalTag darstellen. Wir entfernen das
+							ConditionalTag SeasonCheckIn und benennen die Klasse des ConditionalTag SeasonStay in
+							Season um. Nun nutzen wir den NonImpact-Wrapper, um den ersten Aufenthaltstag auf Season
+							A zu testen:</para>
+						<para xml:id="en_5378" xml:lang="en">By using the NonImpact wrapper this
+							PriceItem condition can now be expressed using only a single ConditionalTag. So we remove the
+							ConditionalTag SeasonCheckIn and rename the Class of the ConditionalTag SeasonStay to Season. Now we can
+							use the NonImpact wrapper to test the first stay day on Season A:</para>
+						<programlisting><![CDATA[
+<ConditionalTag>
+	<Tag Class="Season">A</Tag>
+	<Condition>
+		<DayImpact>
+			<Date Source="Accommodation" DayType="Stay">
+				<Min>2013-04-27</Min>
+				<Max>2013-05-03</Max>
+			</Date>
+		</DayImpact>
+	</Condition>
+</ConditionalTag>
+<PriceItems Key="NonImpactExample">
+	<PriceItem Class="FitnessTrainerService">
 		<Absolute>
 			<Value>58.00</Value>
 			<DayBase>x</DayBase>
@@ -8633,16 +8652,18 @@
 			<And>
 				...
 				<NonImpact>
-					<And>
-						<Impact>
-							<ConditionalTags Source="Accommodation.SellingAccom" Class="Season">A</ConditionalTags>
-						</Impact>
-						<DayImpact>
-							<DayIndex>
-								<Indices>1</Indices>
-							</DayIndex>
-						</DayImpact>
-					</And>
+					<Condition>
+					    <And>
+						    <Impact>
+							    <ConditionalTags Source="SellingAccom" Class="Season">A</ConditionalTags>
+						    </Impact>
+						    <DayImpact>
+							    <DayIndex>
+								    <Indices>1</Indices>
+							    </DayIndex>
+						    </DayImpact>
+					    </And>
+                    </Condition>
 				</NonImpact>
 				...
 			</And>
