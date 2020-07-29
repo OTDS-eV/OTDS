@@ -51968,10 +51968,9 @@ usw.]]></programlisting>
 								<para xml:id="en_4660" xml:lang="en">Sub-elements not specified in
 									OTDS</para>
 							</td>
-							<td rowspan="1" colspan="1"><para xml:id="de_5693" xml:lang="de">Unter
-									diesem Element können eigene Eigenschaften in Absprache mit dem
-									Datenlieferanten eingebunden werden. Eine Validierung im Rahmen
-									von OTDS ist an diese Stelle NICHT vorgesehen!</para><para
+							<td rowspan="1" colspan="1"><para xml:id="de_5693" xml:lang="de">Unter diesem Element können eigene Eigenschaften in Absprache
+									mit dem Datenlieferanten eingebunden werden. Eine Validierung im
+									Rahmen von OTDS ist an dieser Stelle NICHT vorgesehen!</para><para
 									xml:id="en_5693" xml:lang="en">In this element individual values
 									may be integrated in coordination with the data supplier. A
 									validation within the scope of OTDS is NOT intended!</para></td>
@@ -52257,38 +52256,50 @@ usw.]]></programlisting>
 								</row>
 								<row>
 									<entry>h</entry>
-									<entry>/Otds/Flights/OnewayFlights/OnewayFlight/Properties</entry>
+									<entry>/Otds/Accommodations/AccommodationWrapper/Properties</entry>
 								</row>
 								<row>
 									<entry>i</entry>
-									<entry>/Otds/Flights/OnewayFlights/OnewayFlight/BookingClass/Properties</entry>
+									<entry>/Otds/Flights/OnewayFlights/OnewayFlight/Properties</entry>
 								</row>
 								<row>
 									<entry>j</entry>
-									<entry>/Otds/Flights/ReturnFlights/ReturnFlight/Outbound/Properties</entry>
+									<entry>/Otds/Flights/OnewayFlights/OnewayFlight/BookingClass/Properties</entry>
 								</row>
 								<row>
 									<entry>k</entry>
-									<entry>/Otds/Flights/ReturnFlights/ReturnFlight/Inbound/Properties</entry>
+									<entry>/Otds/Flights/ReturnFlights/ReturnFlight/Outbound/Properties</entry>
 								</row>
 								<row>
 									<entry>l</entry>
-									<entry>/Otds/Flights/ReturnFlights/ReturnFlight/BookingClass/Properties</entry>
+									<entry>/Otds/Flights/ReturnFlights/ReturnFlight/Inbound/Properties</entry>
 								</row>
 								<row>
 									<entry>m</entry>
-									<entry>/Otds/Addons/Addon/Properties</entry>
+									<entry>/Otds/Flights/ReturnFlights/ReturnFlight/BookingClass/Properties</entry>
 								</row>
 								<row>
 									<entry>n</entry>
-									<entry>/Otds/Addons/Addon/ServiceFeature/Properties</entry>
+									<entry>/Otds/Flights/FlightWrapper/Properties</entry>
 								</row>
 								<row>
 									<entry>o</entry>
-									<entry>/Otds/Addons/Addon/Service/Properties</entry>
+									<entry>/Otds/Addons/Addon/Properties</entry>
 								</row>
 								<row>
 									<entry>p</entry>
+									<entry>/Otds/Addons/Addon/ServiceFeature/Properties</entry>
+								</row>
+								<row>
+									<entry>q</entry>
+									<entry>/Otds/Addons/Addon/Service/Properties</entry>
+								</row>
+								<row>
+									<entry>r</entry>
+									<entry>/Otds/Addons/AddonWrapper/Properties</entry>
+								</row>
+								<row>
+									<entry>s</entry>
 									<entry>*/PriceItems/PriceItem/Properties/(PriceType)</entry>
 								</row>
 							</tbody>
@@ -52301,15 +52312,6 @@ usw.]]></programlisting>
 					<para xml:id="en_4733" xml:lang="en">The properties of the PriceItems are
 						limited to the element PriceType. Otherwise the complete path of the
 						properties is specified in each case.</para>
-					<para xml:id="de_9893" xml:lang="de">Der Vollständigkeit halber sei betont, dass es auch
-						Properties an den Knoten AccommodationWrapper, FlightWrapper und
-						AddonWrapper gibt - wie in Figure A.1 Properties Overview in diesem Kapitel
-						abgebildet. Sie spielen jedoch in der Praxis keine Rolle.</para>
-					<para xml:id="en_9893" xml:lang="en">For the sake of completeness it should be mentioned here
-						that there are also properties at the nodes AccommodationWrapper,
-						FlightWrapper and AddonWrapper - as shown in Figure A.1. Properties
-						Overview in this very chapter. However, they do not play a role in
-						practice.</para>
 				</section>
 				<section>
 					<title><phrase xml:id="de_4734" xml:lang="de">Anwendbarkeits-Matrix der
@@ -52319,12 +52321,12 @@ usw.]]></programlisting>
 						Top-Level-Elemente erfasst, also diejenigen, die direkt unter dem
 						Properties-Knoten angeordnet sind. Die jeweiligen Properties werden nur an
 						den mit einem Kreuz gekennzeichneten Stellen verarbeitet. An anderen Stellen
-						gelieferte Properties werden igoniert. Alle weiteren Elemente, also die, die
-						einer anderen Eigenschaft untergeordnet ist, sind auch nur dann entsprechend
-						gültig, wenn das übergeordnete Element verwendet werden darf. Zum Beispiel
-						darf die <emphasis role="italic">GeoInfo</emphasis> nur dann verwendet
-						werden, wenn <emphasis role="italic">AccommodationAddress</emphasis> auch
-						zugelassen ist. </para>				
+						gelieferte Properties werden ignoriert. Alle weiteren Elemente, also die,
+						die einer anderen Eigenschaft untergeordnet ist, sind auch nur dann
+						entsprechend gültig, wenn das übergeordnete Element verwendet werden darf.
+						Zum Beispiel darf die <emphasis role="italic">GeoInfo</emphasis> nur dann
+						verwendet werden, wenn <emphasis role="italic"
+							>AccommodationAddress</emphasis> auch zugelassen ist. </para>				
 					<para xml:id="en_4735" xml:lang="en">The following table only includes the top-level elements,
 						or those which are ordered directly below the properties nodes. The
 						individual properties are only processed at the locations marked with a
@@ -52342,7 +52344,7 @@ usw.]]></programlisting>
 								Abhängigkeit der (Sub-)Komponente</phrase><phrase xml:id="en_4736"
 								xml:lang="en">Application of properties under the dependency of
 								(sub) components</phrase></title>
-						<tgroup cols="13" align="left" colsep="1" rowsep="1">
+						<tgroup cols="20" align="left" colsep="1" rowsep="1">
 							<colspec colnum="1" colname="c1" colwidth="17.04*"/>
 							<colspec colnum="2" colname="c2" colwidth="1*"/>
 							<colspec colnum="3" colname="c3" colwidth="1*"/>
@@ -52351,16 +52353,19 @@ usw.]]></programlisting>
 							<colspec colnum="6" colname="c6" colwidth="1*"/>
 							<colspec colnum="7" colname="c7" colwidth="1*"/>
 							<colspec colnum="8" colname="c8" colwidth="1*"/>
-							<colspec colnum="9" colname="c9" colwidth="1*"/>
-							<colspec colnum="10" colname="c10" colwidth="1*"/>
-							<colspec colnum="11" colname="c11" colwidth="1*"/>
-							<colspec colnum="12" colname="c12" colwidth="1*"/>
-							<colspec colnum="13" colname="c13" colwidth="1*"/>
-							<colspec colnum="14" colname="c14" colwidth="1*"/>
-							<colspec colnum="15" colname="c15" colwidth="1*"/>
-							<colspec colnum="16" colname="c16" colwidth="1*"/>
-							<colspec colnum="17" colname="c17" colwidth="1*"/>
-							<colspec colnum="18" colname="c18" colwidth="1*"/>
+							<colspec colname="newCol9" colnum="9" colwidth="1*"/>
+							<colspec colnum="10" colname="c9" colwidth="1*"/>
+							<colspec colnum="11" colname="c10" colwidth="1*"/>
+							<colspec colnum="12" colname="c11" colwidth="1*"/>
+							<colspec colnum="13" colname="c12" colwidth="1*"/>
+							<colspec colnum="14" colname="c13" colwidth="1*"/>
+							<colspec colname="newCol15" colnum="15" colwidth="1*"/>
+							<colspec colnum="16" colname="c14" colwidth="1*"/>
+							<colspec colnum="17" colname="c15" colwidth="1*"/>
+							<colspec colnum="18" colname="c16" colwidth="1*"/>
+							<colspec colname="newCol19" colnum="19" colwidth="1*"/>
+							<colspec colnum="20" colname="c17" colwidth="1*"/>
+							<colspec colnum="21" colname="c18" colwidth="1*"/>
 							<thead>
 								<row>
 									<entry>Property / Knoten</entry>
@@ -52380,6 +52385,9 @@ usw.]]></programlisting>
 									<entry>n</entry>
 									<entry>o</entry>
 									<entry>p</entry>
+									<entry>q</entry>
+									<entry>r</entry>
+									<entry>s</entry>
 								</row>
 							</thead>
 							<tbody>
@@ -52389,6 +52397,31 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AccommodationCityInfo</entry>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52420,6 +52453,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AccommodationName</entry>
@@ -52427,6 +52463,31 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AccommodationNameInfo</entry>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52458,6 +52519,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AccommodationOperatorCategory</entry>
@@ -52465,6 +52529,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52496,6 +52563,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AccommodationGeneralFacilities</entry>
@@ -52503,6 +52573,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52534,6 +52607,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AccommodationSportsFacilities</entry>
@@ -52541,6 +52617,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52572,6 +52651,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AccommodationSeniorFacilities</entry>
@@ -52579,6 +52661,53 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AccommodationTargetgroups</entry>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AccommodationInternetAccess</entry>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52610,6 +52739,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AccommodationAddress</entry>
@@ -52617,6 +52749,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52648,6 +52783,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>UnitName</entry>
@@ -52658,6 +52796,31 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>UnitInfo</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52686,6 +52849,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>UnitBedType (V1.9)</entry>
@@ -52696,6 +52862,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52724,6 +52893,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>UnitBuildingType</entry>
@@ -52743,6 +52915,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>BoardName</entry>
@@ -52751,6 +52926,31 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>BoardInfo</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52781,6 +52981,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>BoardProperties</entry>
@@ -52789,6 +52992,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52815,9 +53021,34 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AddonInfo</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
 									<entry/>
 								</row>
 								<row>
@@ -52834,9 +53065,12 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
 									<entry/>
 								</row>
 								<row>
@@ -52853,9 +53087,34 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AddonServiceInfo</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
 									<entry/>
 								</row>
 								<row>
@@ -52872,9 +53131,34 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AddonServiceFeatureInfo</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
 									<entry/>
 								</row>
 								<row>
@@ -52891,9 +53175,34 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>AddonCarRentalProperties (V1.9)</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
 									<entry/>
 								</row>
 								<row>
@@ -52914,6 +53223,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>FlightBookingClassBaggageAllowances</entry>
@@ -52924,8 +53236,11 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52935,7 +53250,8 @@ usw.]]></programlisting>
 									<entry/>
 								</row>
 								<row>
-									<entry>FlightRoute</entry>
+									<entry>FlightRoutes</entry>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52945,6 +53261,30 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>FlightCabinClass</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry>x</entry>
+									<entry>x</entry>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52955,6 +53295,9 @@ usw.]]></programlisting>
 								</row>
 								<row>
 									<entry>PriceType</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -52990,24 +53333,8 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
-								</row>
-								<row>
-									<entry>AddonCarRentalProperties (V1.9)</entry>
 									<entry/>
 									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry/>
-									<entry>x</entry>
-									<entry>x</entry>
-									<entry>x</entry>
 									<entry/>
 								</row>
 								<row>
@@ -53028,11 +53355,17 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>MarketingBrandName (V2.0)</entry>
 									<entry/>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -53066,6 +53399,53 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>TextInformation</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+								</row>
+								<row>
+									<entry>OTDSUnboundedProperties</entry>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 							</tbody>
 						</tgroup>
@@ -53076,7 +53456,7 @@ usw.]]></programlisting>
 								(V1.9)</phrase><phrase xml:id="en_4737" xml:lang="en">Application of
 								figures / LocationsDistance dependant on the (sub-)components
 								(v1.9)</phrase></title>
-						<tgroup cols="12" align="left" colsep="1" rowsep="1">
+						<tgroup cols="20" align="left" colsep="1" rowsep="1">
 							<thead>
 								<row>
 									<entry>LocationsDistance</entry>
@@ -53096,6 +53476,9 @@ usw.]]></programlisting>
 									<entry>n</entry>
 									<entry>o</entry>
 									<entry>p</entry>
+									<entry>q</entry>
+									<entry>r</entry>
+									<entry>s</entry>
 								</row>
 							</thead>
 							<tbody>
@@ -53105,6 +53488,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -53136,6 +53522,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>Shopping</entry>
@@ -53143,6 +53532,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -53174,6 +53566,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>PublicTransport</entry>
@@ -53181,6 +53576,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -53212,6 +53610,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>GolfCourse</entry>
@@ -53219,6 +53620,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -53250,6 +53654,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 							</tbody>
 						</tgroup>
@@ -53259,7 +53666,7 @@ usw.]]></programlisting>
 								Facility in Abhängigkeit der (Sub-)Komponente (V1.9)</phrase><phrase
 								xml:id="en_4738" xml:lang="en">Application of figures / Facility
 								dependent on the (sub-)component (v1.9)</phrase></title>
-						<tgroup cols="12" align="left" colsep="1" rowsep="1">
+						<tgroup cols="20" align="left" colsep="1" rowsep="1">
 							<thead>
 								<row>
 									<entry>Facility</entry>
@@ -53279,6 +53686,9 @@ usw.]]></programlisting>
 									<entry>n</entry>
 									<entry>o</entry>
 									<entry>p</entry>
+									<entry>q</entry>
+									<entry>r</entry>
+									<entry>s</entry>
 								</row>
 							</thead>
 							<tbody>
@@ -53291,6 +53701,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -53319,6 +53732,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AmountRooms</entry>
@@ -53329,6 +53745,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
@@ -53357,6 +53776,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry/>
 									<entry/>
+									<entry/>
+									<entry/>
+									<entry/>
 								</row>
 								<row>
 									<entry>AmountBathrooms</entry>
@@ -53367,6 +53789,9 @@ usw.]]></programlisting>
 									<entry/>
 									<entry>x</entry>
 									<entry>x</entry>
+									<entry/>
+									<entry/>
+									<entry/>
 									<entry/>
 									<entry/>
 									<entry/>
