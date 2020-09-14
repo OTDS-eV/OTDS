@@ -1911,6 +1911,7 @@ Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt 
 					<xs:documentation xml:lang="en" xml:id="en_141">Town or city in which the accommodation/hotel is located.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AccommodationCityInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="1.9.4"/>
 			<xs:element name="AccommodationType" type="AccommodationTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_142">Typ der Unterkunft: 
@@ -1957,6 +1958,7 @@ etc.
 The text should be short and is legally binding.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="UnitInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="1.9.4"/>
 			<xs:element name="UnitType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_146">Art der Unit/Unterkunft: - Double, - Apartment,
@@ -2021,6 +2023,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 						the board is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="BoardInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="1.9.4"/>
 			<xs:element name="BoardType" type="BoardTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_151">Art der Verpflegung: - SelfCatering, -
@@ -2048,6 +2051,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:documentation xml:lang="en" xml:id="en_153">Under this element, the full description of the add-ons is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AddonInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="1.9.4"/>
 			<xs:element name="AddonServiceType" minOccurs="0">
 				<xs:complexType>
 					<xs:choice>
@@ -2072,6 +2076,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:documentation xml:lang="en" xml:id="en_154">Under this element, the full description of the service is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AddonServiceInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="1.9.4"/>
 			<xs:element name="AddonServiceFeatureName" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_155">Unter diesem Element wird die vollständige
@@ -2079,6 +2084,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:documentation xml:lang="en" xml:id="en_155">Under this element, the full description of the ServiceFeatures is defined.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AddonServiceFeatureInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="1.9.4"/>
 			<xs:element name="AddonCatchmentRailwayStations" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_156">Das Element RailwayStation listet alle Bahnhöfe im Zielgebiet auf, über welche das Hotel angefahren werden kann.</xs:documentation>
@@ -2260,6 +2266,45 @@ For the complete list see the technical documentation.</xs:documentation>
 				<xs:documentation xml:lang="en" xml:id="en_171">This attribute specifies the priority of the PropertyGroup in relation to the evaluation of other PropertyGroups. PropertyGroups with a higher priority override ones with a lower priority.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ContentInfoType" internal:otdsversion="2.0">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9077">nicht-buchbare Zusatzinformationen wie Referenzen</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9077">non-bookable addon information like references</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Reference" type="ReferenceTagType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReferenceTagType" internal:otdsversion="2.0">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_9066">Das Element Reference beinhaltet alle Verweise, die sich auf externe Referenzsysteme beziehen. Hier werden z.B. Giata-ID eines Hotels oder die Geonames-ID eines Ortes referenziert.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_9066">The element Reference contains all references referring to external reference systems. Here for example the Giata-ID of a hotels or the Geonames-ID of a destination is referenced.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="ReferenceSystem" type="xs:string">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_9067">Die folgenden Referenzsysteme können aktuell verwendet werden: 
+- Giata (https://www.giata.com/de/multicodes/) 
+- Geonames (http://www.geonames.org/export/codes.html). 
+Eine Liste der derzeit bekannten Referenzsysteme finden Sie in der Thematischen Spezifikation.</xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_9067">Currently the following reference systems may be used: 
+- Giata (https://www.giata.com/de/multicodes/) 
+- Geonames (http://www.geonames.org/export/codes.html). 
+A list of the currently known reference systems may be found in the Thematical Specification.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ReferenceType" type="xs:string">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="de_9068">In Abhängigkeit vom Referenzsystem wird hiermit der Typ der Referenz festgelegt. Es handelt sich hierbei meist um eine ID zur eindeutigen Identifikation von Hotels, Schiffe etc. oder von Orten, Ortsteilen oder POI etc. Eine Liste der derzeit bekannten Referenzsystme finden Sie in der Thematischen Spezifikation.
+            </xs:documentation>
+						<xs:documentation xml:lang="en" xml:id="en_9068">In dependency to the reference system the type of the reference is defined here. This will be in most cases an ID for the unambiguous identification of hotels, ships etc. or of cities, districts, or POI etc. A list of the currently known reference systems may be found in the Thematical Specification.
+            </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="AddressType">
 		<xs:annotation>
@@ -2545,6 +2590,7 @@ DE Germany</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_205">The official name of the accommodation / hotel</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="AccommodationInfo" type="ContentInfoType" minOccurs="0" internal:otdsversion="1.9.4"/>
 			<xs:group ref="AccommodationCategoryGroup" minOccurs="0"/>
 			<xs:element name="AccommodationChain" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
@@ -4013,6 +4059,7 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="MountainView"/>
 			<xs:enumeration value="InnercourtView"/>
 			<xs:enumeration value="Kitchenette"/>
+			<xs:enumeration value="Budget" internal:otdsversion="1.9.4"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AccommodationTypeEnum">
@@ -4607,6 +4654,10 @@ For the complete list see the technical documentation.</xs:documentation>
 			<xs:enumeration value="FlightSupplement"/>
 			<xs:enumeration value="FlightTax"/>
 			<xs:enumeration value="SecurityCharge"/>
+			<xs:enumeration value="FirstMinute" internal:otdsversion="1.9.4"/>
+			<xs:enumeration value="LastMinute" internal:otdsversion="1.9.4"/>
+			<xs:enumeration value="UltraFirstMinute" internal:otdsversion="1.9.4"/>
+			<xs:enumeration value="UltraLastMinute" internal:otdsversion="1.9.4"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="RoundingEnum">
