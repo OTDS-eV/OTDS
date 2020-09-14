@@ -2008,6 +2008,12 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:documentation xml:lang="en" xml:id="en_149">Type of main building in the accommodation</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="BookableOnlyFor" type="BookableOnlyForEnum" minOccurs="0" internal:otdsversion="1.9.4">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_9476">Das Angebot kann nur von der angegebenen Zielgruppe gebucht werden.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_9476">The offer can only be booked from the defined target group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="BoardName" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_150">Unter dem Element Name wird die vollständige Bezeichnung der Verpflegung definiert.</xs:documentation>
@@ -4269,6 +4275,8 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="RailAndFly"/>
 			<xs:enumeration value="SkiLessons"/>
 			<xs:enumeration value="SnowboardLessons"/>
+			<xs:enumeration value="FreeCancellation" internal:otdsversion="2.1.1"/>
+			<xs:enumeration value="FreeRebooking" internal:otdsversion="2.1.1"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UnitBuildingTypeEnum">
@@ -4459,6 +4467,11 @@ https://en.wikipedia.org/wiki/Airline_codes
 			<xs:enumeration value="PremiumEconomy"/>
 			<xs:enumeration value="Business"/>
 			<xs:enumeration value="First"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookableOnlyForEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HoneyMooner"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!-- End Property Enums -->
