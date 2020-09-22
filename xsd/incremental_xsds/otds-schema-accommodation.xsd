@@ -11,10 +11,7 @@
       <xs:complexContent>
          <xs:extension base="CompositeUpdateNodeType">
             <xs:sequence>
-               <xs:element name="Accommodation"
-                           type="AccommodationType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+               <xs:element name="Accommodation" type="AccommodationType" maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_2">Reisekomponente für Unterbringungen
 Dieser Zweig enthält alle relevanten Daten (Stammdaten, Preise, Verfügbarkeiten) für Unterbringungen wie Hotels, Ferienwohnungen und Ferienhäusern. 
@@ -26,9 +23,9 @@ All travel components can be pooled under Products either on their own or with o
                </xs:element>
                <xs:element name="AccommodationWrapper"
                            type="WrapperType"
+                           minOccurs="0"
                            maxOccurs="unbounded"
-                           internal:otdsversion="2.0"
-                           minOccurs="0">
+                           internal:otdsversion="2.0">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_546">Die AccommodationWrapper definieren eine zusätzliche Instanz zwischen der ComponentenInstanz "Accommodations" und der eigentlichen "Accommodation"-Komponente. In der Produktregel oder in DefinedComponents können hierarchische Abhängigkeiten zwischen den AccommodationWrappern und den Accommodations festgelegt werden. AccommodationWrapper werden dazu benutzt, die Abhängigkeit zwischen mehreren Accommodations bei Rundreisepaketen abzubilden.Mehr Details hierzu finden Sie in der Dokumentation unter dem Schlagwort "Wrapper-Komponenten" und im Beispiel "WrapperComponent_Examples.xml". </xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_546">The AddonWrapper define an additional instance between the ComponentInstance "Addons" and the actual "Addon" component. In the product rule or in DefinedComponents hierarchical dependencies between AddonWrapper and Addons can be defined. AddonWrapper are being used in order to describe the dependency between several Addons in Addon-packets. For more details please refer to the keyword "Wrapper Components" in the documentation and to the example "WrapperComponent_Examples.xml".</xs:documentation>
@@ -36,8 +33,8 @@ All travel components can be pooled under Products either on their own or with o
                </xs:element>
                <xs:element name="PriceItems"
                            type="PriceItemsType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_3">Preisberechnung auf Accomodations-Ebene
 Preise, die für alle Unterkünfte in der Datenlieferung gelten
@@ -72,8 +69,8 @@ Prices, which are valid for all accommodation in the data delivery</xs:documenta
             <xs:sequence>
                <xs:element name="Properties"
                            type="PropertiesType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_6">Stammdaten der Unterbringung:
 Name, Adresse, Lage der Unterkunft, Kategorien, Merkmale und Eigenschaften der Unterkunft</xs:documentation>
@@ -83,8 +80,8 @@ Name, address, location of accommodation, category, features and characteristics
                </xs:element>
                <xs:element name="Filter"
                            type="FilterSimpleNodeType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_8840">Bedingungen auf Accommodation-Ebene
 Hier können Regeln und Einschränkungen auf Hotelebene definiert werden.</xs:documentation>
@@ -95,8 +92,7 @@ Here, rules and restrictions are defined at the hotel level.</xs:documentation>
                <xs:element name="SellingAccom"
                            type="SellingAccomType"
                            maxOccurs="unbounded"
-                           internal:otdsversion="1.9"
-                           minOccurs="0">
+                           internal:otdsversion="1.9">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_7">Verkaufsrelevante Daten der Unterbringung:
 enthält u.a. Preise und Verfügbarkeiten.</xs:documentation>
@@ -125,8 +121,8 @@ You will find a list of the MAA-Codes  that is not garanteed to be complete or c
                </xs:element>
                <xs:element name="PriceItems"
                            type="PriceItemsType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_8841">Preisbestandteile auf Accommodation-Ebene</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_8841">Pricing at accommodation level</xs:documentation>
@@ -134,8 +130,8 @@ You will find a list of the MAA-Codes  that is not garanteed to be complete or c
                </xs:element>
                <xs:element name="Availabilities"
                            type="AvailabilitiesType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_9">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.
 Bitte beachten Sie: Es muss auch immer der letzte mögliche CheckOut-Termin in der Availability enthalten sein.
@@ -155,7 +151,7 @@ Availabilities may be defined on various different layers. How those layers can 
       <xs:complexContent>
          <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
             <xs:sequence>
-               <xs:element name="Booking" type="BookingType" minOccurs="0">
+               <xs:element name="Booking" type="BookingType">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_11">In diesem Element werden alle Values zusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so das spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_11">In this element, all values ​​required for booking are combined. Other namespaces can be added to the BookingEntry later, so that values specific to different booking systems are specified along with their corresponding parameter names​​.</xs:documentation>
@@ -163,8 +159,8 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="Properties"
                            type="PropertiesType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_12">Merkmale und Eigenschaften der Unterkunft, inkludierte Zusatzleistungen</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_12">Features and characteristics of the accommodation, included add-ons.</xs:documentation>
@@ -172,8 +168,8 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="Filter"
                            type="FilterSimpleNodeType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_13">Bedingungen auf Unterkunft-/Hotelebene
 Hier können Regeln und Einschränkungen auf Hotelebene definiert werden.</xs:documentation>
@@ -183,9 +179,9 @@ Here, rules and restrictions are defined at the hotel level.</xs:documentation>
                </xs:element>
                <xs:element name="Board"
                            type="BoardType"
-                           maxOccurs="unbounded"
-                           minOccurs="0"/>
-               <xs:element name="Unit" type="UnitType" maxOccurs="unbounded" minOccurs="0">
+                           minOccurs="1"
+                           maxOccurs="unbounded"/>
+               <xs:element name="Unit" type="UnitType" maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_14">Definition auf Unitebene
 In Unit werden die Stammdaten der Unit festgelegt.
@@ -197,8 +193,8 @@ Occupancy and pricing components are specified in the SellingUnit.</xs:documenta
                </xs:element>
                <xs:element name="PriceItems"
                            type="PriceItemsType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_15">Preisberechnung auf Unterkunfts- / Hotelebene </xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_15">Pricing at accommodation / hotel level</xs:documentation>
@@ -206,8 +202,8 @@ Occupancy and pricing components are specified in the SellingUnit.</xs:documenta
                </xs:element>
                <xs:element name="NeighbourComponentCorrection"
                            type="NeighbourComponentCorrectionType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="det" xml:id="de_16">In diesem Zweig können außergewöhnliche Auswirkungen auf den CheckIn und CheckOut der angrenzenden Komponenten definiert werden. Aktuell kennen wir nur Fälle bei Flügen. Hier betrifft es Flüge, die sehr früh an einem Tag ankommen oder sehr spät an einem Tag abfliegen. Normalerweise reihen sich CheckIn und CheckOuts von benachbarten Componenten lückenlos aneinander. Mit Hilfe der NeighbourComponentCorrection kann man eine Lücke bzw. mit negativen Werten eine Überlappung zwischen beanchbarten Komponenten definieren. Seit Version 2.0 ist es nun möglich, dass man einer NeighbourComponentCorrection eine Condition mitgibt. Anwendungsfall ist, wenn die Anwendung der NeighbourComponentCorrection nur unter bestimmten Bedingungen erfüllen soll. 
 							
@@ -236,9 +232,9 @@ This approach for processing also defines the behaviour for date-dependent condi
                </xs:element>
                <xs:element name="Availabilities"
                            type="AvailabilitiesType"
+                           minOccurs="0"
                            maxOccurs="unbounded"
-                           internal:otdsversion="2.0"
-                           minOccurs="0">
+                           internal:otdsversion="2.0">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_8845">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
 Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.
@@ -272,8 +268,8 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="Properties"
                            type="PropertiesType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_19">Genauere Spezifizierung der Verpflegung</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_19">More detailed specification of catering</xs:documentation>
@@ -281,8 +277,8 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="Filter"
                            type="FilterSimpleNodeType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_20">Einschränkungen in Bezug auf die Verpflegung (Board)</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_20">Restrictions with reference to catering</xs:documentation>
@@ -290,8 +286,8 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="PriceItems"
                            type="PriceItemsType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_21">Preisberechnung der Verpflegung</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_21">Pricing of catering</xs:documentation>
@@ -328,17 +324,14 @@ Availabilities may be defined on various different layers. How those layers can 
             <xs:sequence>
                <xs:element name="Properties"
                            type="PropertiesType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_23">Stammdaten und Ausstattung des Zimmers / der Ferienwohnung</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_23">Master data and amenities of the room/ holiday apartment</xs:documentation>
                   </xs:annotation>
                </xs:element>
-               <xs:element name="SellingUnit"
-                           type="SellingUnitType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+               <xs:element name="SellingUnit" type="SellingUnitType" maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_24">Verkaufsdaten auf Zimmerebene 
 Buchungsdaten, Belegung, Verfügbarkeiten, Preisbestandteile</xs:documentation>
@@ -348,9 +341,9 @@ Booking data, occupancy, availability, price components</xs:documentation>
                </xs:element>
                <xs:element name="Availabilities"
                            type="AvailabilitiesType"
+                           minOccurs="0"
                            maxOccurs="unbounded"
-                           internal:otdsversion="2.0"
-                           minOccurs="0">
+                           internal:otdsversion="2.0">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_8846">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
 Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.
@@ -366,9 +359,9 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="PriceItems"
                            type="PriceItemsType"
+                           minOccurs="0"
                            maxOccurs="unbounded"
-                           internal:otdsversion="2.1"
-                           minOccurs="0">
+                           internal:otdsversion="2.1">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_9430">Preisberechnung auf Unit-Ebene</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_9430">Calculating the price at unit level</xs:documentation>
@@ -387,7 +380,7 @@ Availabilities may be defined on various different layers. How those layers can 
       <xs:complexContent>
          <xs:extension base="MultipleCompositeUpdateNodeWithTagsType">
             <xs:sequence>
-               <xs:element name="Booking" type="BookingType" minOccurs="0">
+               <xs:element name="Booking" type="BookingType">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_26">Buchungsdaten des Zimmers: UnitCode</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_26">Booking data for the room: UnitCode</xs:documentation>
@@ -395,8 +388,8 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="Properties"
                            type="PropertiesType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_27">Ausstattungsvarianten und inkudierte Zusatzleistungen der Unterkunft</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_27">Variations in amenities and add-ons included with the accommodation</xs:documentation>
@@ -404,17 +397,14 @@ Availabilities may be defined on various different layers. How those layers can 
                </xs:element>
                <xs:element name="Filter"
                            type="FilterSimpleNodeType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_28">Bedingungen, die für ein bestimmtes Zimmer/App. gelten.</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_28">Conditions for a specific room/apartment</xs:documentation>
                   </xs:annotation>
                </xs:element>
-               <xs:element name="Occupancy"
-                           type="OccupancyType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+               <xs:element name="Occupancy" type="OccupancyType" maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_29">Belegungsvarianten der Unterkünfe/Zimmer
 Personen werden nach Alter absteigend definiert.
@@ -426,8 +416,8 @@ Exclude allows for restricted occupancy criteria.</xs:documentation>
                </xs:element>
                <xs:element name="PriceItems"
                            type="PriceItemsType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_30">Preisberechnung auf Zimmerebene</xs:documentation>
                      <xs:documentation xml:lang="en" xml:id="en_30">Price data at room level</xs:documentation>
@@ -435,8 +425,8 @@ Exclude allows for restricted occupancy criteria.</xs:documentation>
                </xs:element>
                <xs:element name="Availabilities"
                            type="AvailabilitiesType"
-                           maxOccurs="unbounded"
-                           minOccurs="0">
+                           minOccurs="0"
+                           maxOccurs="unbounded">
                   <xs:annotation>
                      <xs:documentation xml:lang="de" xml:id="de_8842">Unter diesem Zweig werden die Verfügbarkeiten eines Objektes definiert. Fehlt der Zweig, so gelten alle Termine und Dauern als nicht verfügbar, sofern diese nicht schon an anderer Stelle als verfügbar definiert wurden. 
 Die Ebene "Availabilities" definiert, welche Art der Verfügbarkeits-Steuerung vorliegt. Wenn zum Beispiel eine Steuerung der Verfügbarkeiten über die Dauer stattfindet, so wird es je eingeschränkter Dauer einen eigenen Availabilities-Zweig mit einer entsprechenden Dauerbedingung unter "Conditions" geben. In der Regel sollte der Key des Availabilities-Knoten genau mit dieser Condition korrelieren, damit der Key für inkrementelle Updates immer eindeutig reproduzierbar ist.  
