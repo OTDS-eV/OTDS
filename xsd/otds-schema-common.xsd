@@ -1880,7 +1880,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:documentation xml:lang="en" xml:id="en_149">Type of main building in the accommodation</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BookableOnlyFor" type="BookableOnlyForEnum" minOccurs="0"  internal:otdsversion="2.1.1">
+			<xs:element name="BookableOnlyFor" type="BookableOnlyForEnum" minOccurs="0" internal:otdsversion="2.1.1">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_9476">Das Angebot kann nur von der angegebenen Zielgruppe gebucht werden.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_9476">The offer can only be booked from the defined target group.</xs:documentation>
@@ -2042,6 +2042,14 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
+			</xs:element>
+			<xs:element name="OptionalBookableAddonTypes" minOccurs="0" internal:otdsversion="2.1.2">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="det_557">Dieses Element gibt an, ob es optional zusätzlich buchbare Zusatzleistungen gibt, die über das Veranstaltersystem im Rahmen des Buchungsprozesses des Angebotes zubuchbar sind. Die zubuchbaren Leistungen müssen dafür nicht zwanghaft in der OTDS-Lieferung wenthalten sein. Das Porperty definiert, ob im Zusammenspiel der Komponenten des Angebotes (Hotel, Zimmer, Verpflegung, Flug, etc.) eine solche Zusatzleistung generell zubuchbar ist. Die Property definiert nicht, ob die entsprechende Zusatzleistung ggf. zu dem Termin ausgebucht ist. Beispiel: Wenn im Zusammenspiel mit bestimmten Flügen ein Zusatzleistungstyp generell nicht zur Verfügung steht, dann sollte dies durch entsprechende Conditions in OTDs definiert werden. Wenn an bestimmten Terminen keine Mietwagen mehr zur Verfügung stehen, dann wird das nicht über dieses Kennzeichen ausgedrückt. Solche Feinheiten sollten dann über entsprechende gelieferte Addons ausgedrückt werden, wenn man das ausdrücken möchte. In dem Element kann eine durch Space getrennte Liste von OptionalBookableAddonTypes angegeben werden.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:list itemType="OptionalBookableAddonTypeEnum"/>
+				</xs:simpleType>
 			</xs:element>
 			<xs:element name="FlightBookingClassBaggageAllowances" minOccurs="0">
 				<xs:annotation>
@@ -4526,8 +4534,8 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="RailAndFly"/>
 			<xs:enumeration value="SkiLessons"/>
 			<xs:enumeration value="SnowboardLessons"/>
-			<xs:enumeration value="FreeCancellation"  internal:otdsversion="2.1.1"/>
-			<xs:enumeration value="FreeRebooking"  internal:otdsversion="2.1.1"/>
+			<xs:enumeration value="FreeCancellation" internal:otdsversion="2.1.1"/>
+			<xs:enumeration value="FreeRebooking" internal:otdsversion="2.1.1"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UnitBuildingTypeEnum">
@@ -4723,6 +4731,24 @@ Folgende Informationen können geliefert werden:
 	<xs:simpleType name="BookableOnlyForEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="HoneyMooner"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OptionalBookableAddonTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TransferOptions"/>
+			<xs:enumeration value="GolfArrangements"/>
+			<xs:enumeration value="CarRentalOptions"/>
+			<xs:enumeration value="WellnessArrangements"/>
+			<xs:enumeration value="SportsArrangements"/>
+			<xs:enumeration value="SkipassOptions"/>
+			<xs:enumeration value="TourArrangements"/>
+			<xs:enumeration value="SnowboardLessons"/>
+			<xs:enumeration value="GuidedTours"/>
+			<xs:enumeration value="ParkingOptions"/>
+			<xs:enumeration value="RailAndFlyOptions"/>
+			<xs:enumeration value="SkiLessons"/>
+			<xs:enumeration value="SnowboardLessons"/>
+			<xs:enumeration value="FlexibleCancellationOptions"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!-- End Property Enums -->
