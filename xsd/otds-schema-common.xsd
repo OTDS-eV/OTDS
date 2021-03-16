@@ -1033,39 +1033,6 @@ Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponent
 The optional attribute "DayAllocationIndex" determines the classification of components in the travel itinerary.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ExternalComponent" internal:otdsversion="2.0">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_8845">Dieses Element definiert, dass dieses Produkt zwingend eine externe, also nicht in der Lieferung enthaltene Komponente des mit @Role definierten Typs benötigt. Das verarbeitenden System ergänzt das Produkt um die externe Komponente.
-Erst mit dieser externen Komponente ist das Produkt vollständig. Die externe Komponente ist immer zeit - und personenallozierend. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
-Key-, Tag, ConditionalTag-, Filter oder Conditions in Kombination mit externen Komponenten werden derzeit explizit als "False" ausgewertet.
-
-Das optionale Attribut "DayAllocationIndex" bestimmt die Zuordnung der Komponenten im Reiseverlauf.
-Das optionale Attribut "Name" ermöglicht einen möglichen Bezug auf diese Komponente in Filtern und Conditions über das Attribut "Source" in Kombination mit dem Präfix "#"+Name. 
-
-Die klassische Product-Definition eines DataMix-Produktes besteht damit aus 3 Components:
-1. ExternalComponent "Outbound"
-2. Accommodation
-3. ExternalComponent "Inbound" 
-</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_8845">This element defines, that it is mandatory for the product to contain an external (thus not included in the delivery) component of the type defined by @Role. The processing system complements the product with the external components.
-Only with this external component the product becomes complete. The external component always is time- and person allocating. Depending on the  @Role only the external components with Role="Accommodation" and Role="Addon" are flexible components with respect to time.
-Key-, Tag, ConditionalTag-, Filter or Conditions in combination with external components as of today explicitly are evaluated as "False".
-
-The optional attribute "DayAllocationIndex" defines the correlation of the components within the itinerary.
-The optional attribute "Name" allows a possible reference to these components in Filters and Conditions concerning the attribute "Source" combined with the prefix "#"+Name. 
-
-The classic product definition of a DataMix-product thus consists of three Components:
-1. ExternalComponent "Outbound"
-2. Accommodation
-3. ExternalComponent "Inbound" 
-</xs:documentation>
-						</xs:annotation>
-						<xs:complexType>
-							<xs:complexContent>
-								<xs:extension base="RuleExternalComponentType"/>
-							</xs:complexContent>
-						</xs:complexType>
-					</xs:element>
 					<xs:element name="VirtualComponent" type="RuleVirtualComponentType" internal:otdsversion="2.0">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_9000">Dieses Element definiert, dass in dem definierten Produkt eine virtuelle Komponente als Platzhalter enthalten ist. Diese Komponente ist eine Komponente mit flexibler Zeit- und Personenallozierung. 
@@ -1881,7 +1848,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 					<xs:documentation xml:lang="en" xml:id="en_149">Type of main building in the accommodation</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="BookableOnlyFor" type="BookableOnlyForEnum" minOccurs="0"  internal:otdsversion="2.1.1">
+			<xs:element name="BookableOnlyFor" type="BookableOnlyForEnum" minOccurs="0" internal:otdsversion="2.1.1">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_9476">Das Angebot kann nur von der angegebenen Zielgruppe gebucht werden.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_9476">The offer can only be booked from the defined target group.</xs:documentation>
@@ -4527,8 +4494,8 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="RailAndFly"/>
 			<xs:enumeration value="SkiLessons"/>
 			<xs:enumeration value="SnowboardLessons"/>
-			<xs:enumeration value="FreeCancellation"  internal:otdsversion="2.1.1"/>
-			<xs:enumeration value="FreeRebooking"  internal:otdsversion="2.1.1"/>
+			<xs:enumeration value="FreeCancellation" internal:otdsversion="2.1.1"/>
+			<xs:enumeration value="FreeRebooking" internal:otdsversion="2.1.1"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UnitBuildingTypeEnum">
@@ -6036,42 +6003,6 @@ In version 1.0, roles are still highly restricted. In later versions, all compon
 	</xs:complexType>
 	<xs:complexType name="RuleVirtualComponentType">
 		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
-	</xs:complexType>
-	<xs:complexType name="RuleExternalComponentType">
-		<xs:attribute name="Name" type="NameType">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_9001">Dieses Element definiert einen Namen, der innerhalb der ProductRules von den Filtern innerhalb des Attributes "Source" in Kombination mit dem Präfix "#" als Referenz benutzt werden kann. 
-							</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_9001">This element defines a name within the product rules of the filters using the "Source" attribute in combination with the prefix "#" as the reference.</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attributeGroup ref="ProductComponentBaseGroup"/>
-		<xs:attribute name="Role" type="RoleEnum" use="required">
-			<xs:annotation>
-				<xs:documentation xml:lang="de" xml:id="de_9009">Dieses Attribut definiert die Rolle, die eine ExternalComponent in Bezug auf den ComponentenTyp einnimmt. Abhängig von der @Role sind nur die externen Komponenten mit Role="Accommodation" und Role="Addon" zeitlich flexible Komponenten.
-Aktuell können explizit nur Flughafenbedingungen bzgl. der externen Komponente formuliert werden. 
-Dementsprechend werden Key-, Tag- und ConditionalTag-Filter und -Conditions in Kombination mit externen Komponenten explizit als "False" ausgewertet.
-
-Mögliche Werte für die Role sind: 
-
-- OnewayFlight
-- Outbound
-- Inbound
-- Accommodation
-- Addon</xs:documentation>
-				<xs:documentation xml:lang="en" xml:id="en_9009">This attribute defines the role, which an ExternalComponent takes over with reference to the ComponentType. Depending on the @Role only the external componentes with Role="Accommodation" and Role="Addon" are components that are flexible timewise.
-As of today only airport conditions with respect to the external component may be expressed.
-According to this Key-, Tag- and ConditionalTag-Filters and -Conditions in combination with external components will be explicitly evaluated as "False"
-
-Possible values for the Role are: 
-
-- OnewayFlight
-- Outbound
-- Inbound
-- Accommodation
-- Addon</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="KeyConditionType">
 		<xs:simpleContent>
