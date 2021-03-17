@@ -232,16 +232,6 @@ The default is 0.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
-	<xs:complexType name="PriceTagsApplyType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_3253">The TagConditionType defines a condition for certain tags including the indication of Class, Location and value of the tag. Tags are value pairs indicated in defined node points. By tags the compilation of offers as well as the price calculation can be influenced.</xs:documentation>
-		</xs:annotation>
-		<xs:simpleContent>
-			<xs:extension base="ConsideredPriceTagsReferenceType">
-				<xs:attributeGroup ref="ApplyAttributeGroup"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
 	<xs:complexType name="BookingWithoutNodeType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_59">In diesem Element werden alle Values uusammengefasst, die zum Buchen notwendig sind. Später können über den BookingEntry andere Namespaces ergänzt werden, so dass spezifisch für verschiedene Buchungssysteme Values zusammen mit dem dazugehörenden Parameternamen angegeben werden können.</xs:documentation>
@@ -1082,34 +1072,6 @@ It is not possible to refer to this component in filters nor in conditions. The 
 			<xs:extension base="EmptyElementType">
 				<xs:attributeGroup ref="SourceAttributeGroup"/>
 				<xs:attributeGroup ref="TagAttributeGroup"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-	<xs:complexType name="ApplyToPriceTagsType">
-		<xs:simpleContent>
-			<xs:extension base="PriceTagsApplyType">
-				<xs:attribute name="Include" type="IncludeAttributeEnum">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8863">Mit Include="ApplyDescendants" können weitere PriceItems inkludiert werden, die von den adressierten PriceItems angewendet werden. So kann man bestimmte PercentPriceItems zuordnen und zusätzlich alle PriceItems inkludieren, die sich über ApplyTo und AppliedBy auf dieses PriceItem beziehen. Dieses Attribut berücksichtigt nur eine Apply-Hierarchie!
-Sollte ein Bezug auf ein generisches Abolute hergestellt werden, so wird hierbei dessen Include nicht mit berücksichtigt.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8863">Include="ApplyDescendants" allows to include further PriceItems which are applied by the addressed PriceItems. By doing so specific PercentPriceItems can be assigned. In addition all PriceItems can be included that refer to this specific PriceItem via ApplyTo and AppliedBy. This attribute only considers one apply hierarchy!
-If a reference to a generic absolute is being established, its Include will not be considered.</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
-	<xs:complexType name="ConsideredPriceTagsReferenceType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_8864">Der TagConditionType definiert die Bedingung an bestimmte Tags inklusive Angabe der Class, Location und Werte des Tags. Tags sind Wertepaare, die an definierten Knotenpunkten angegeben werden können. Dadurch kann man Einfluss nehmen auf die
-Angebotserstellung und auch auf die Preisberechnung.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_8864">The TagConditionType determines the condition on specific tags including the indication of the Class, Location and Values of the tag.
-Tags are pairs of values that can be indicated at defined node points. In doing so one can influence the offer building as well as the price calculation.</xs:documentation>
-		</xs:annotation>
-		<xs:simpleContent>
-			<xs:extension base="BaseTagTypeList">
-				<xs:attributeGroup ref="TagAttributeGroup"/>
-				<xs:attributeGroup ref="TagReferenceAttributeGroup"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -2056,12 +2018,12 @@ The attribution is carried out according to hotel chain ID. A list of references
 	</xs:group>
 	<xs:complexType name="ConsideredPriceItemsType">
 		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_8873">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines bestimmten Types und/oder mit bestimmten PriceTags. Die Auswahl erfolgt in der folgenden Reihenfolge:
+			<xs:documentation xml:lang="de" xml:id="de_8873">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines bestimmten Types. Die Auswahl erfolgt in der folgenden Reihenfolge:
 1. Auswahl der PriceItems gemäß PriceFilter 
 2. ggf. Ergänzung der IncludedDescendants. 
 Bei mehrfacher Angabe des Elementes besteht die finale Menge der PriceItems aus einem Merge der PriceItems der einzelnen ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung von PriceItems statt. Falls ConsideredPriceItems kein Element enthält, so werden alle PriceItems
 gemäß der Angaben in den Attributen "Source" und "ConsideredPriceItemType" berücksichtigt.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_8873">Restricts the PriceItems that need to be considered to specific PriceItems of a specific type and/or with specific PriceTags. The selection takes place in the following order: 
+			<xs:documentation xml:lang="en" xml:id="en_8873">Restricts the PriceItems that need to be considered to specific PriceItems of a specific type. The selection takes place in the following order: 
 1. selection of the PriceItems according to the PriceFilter 
 2. if applicable complement of the IncludedDescendants. 
 If the element is indicated several times the final amount of PriceItems consists from a merge of PriceItems of the single ConsideredPriceItems evaluation. There will be no duplication of PriceItems. If ConsideredPriceItems contain no element, all PriceItems will be considered according to the values in the attributes "Source" and 
@@ -2105,18 +2067,6 @@ Default = "All"</xs:documentation>
 	<xs:group name="PriceItemFilterGroup">
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
-				<xs:element name="ConsideredPriceTags" type="ConsideredPriceTagsReferenceType">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8877">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8877">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="NotConsideredPriceTags" type="ConsideredPriceTagsReferenceType">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8878">>Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8878">>These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
 				<xs:group ref="ConsideredPriceItemsGroup">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_452">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>
@@ -4528,11 +4478,6 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:enumeration value="All"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="InheritPriceTagsEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="ConsideredAbsolutes"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="MatchAvailabilityEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="MatchCount"/>
@@ -5642,13 +5587,6 @@ Das Attribut ExecutionOrder definiert, zu welchem Zeitpunkt die Conditions ausge
 				accommodation.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="PriceTags" minOccurs="0" internal:otdsversion="1.9">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="PriceTag" type="TagType" maxOccurs="unbounded" internal:otdsversion="1.9"/>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
 			<xs:choice>
 				<xs:element name="Absolute" type="PriceImpactAbsoluteType">
 					<xs:annotation>
@@ -6052,20 +5990,6 @@ Kombinierbarkeit reflexiv ist). Mittels CombinableWhen kann sowohl eine Inklusiv
 	<xs:group name="PriceAppliedByGroup">
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
-				<xs:element name="AppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_8912">
-Dieses Element definiert die Bedingung, dass mindestens eines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent//PriceTags) definiert sein muss.
-Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
-PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition
-mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig mit der Eigenschaft
-"Hierarchy.All" verwendet, um PriceItems aus mehreren SubKomponenten gleichzeitig zu referenzieren. Am häufigsten wird Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_8912">This element defines the condition that at least one of the PriceTags specified here must be defined on the correlating Percent-PriceItem (Percent//PriceTags). 
-The element holds one or several values of a PriceTag; in addition the Class of the PriceTag is defined within the attribute "Class". A number of values can be specified in a list separated by Space. Also just like in the Tag-Condition it is possible to reference to certain sectors of the PriceTag-Value with the help of the attributes Length and Offset. The attribute "Source" in this aspect also is frequently used with the property "Hierarchy.All", in order to reference to PriceItems from
-several SubComponents at the same time. Most commonly the Source="Hierarchy.All:ThisComponent" will be used, which references the
-actual Component including all ancestors and descendants. PriceTags are tags that are defined at the node "PriceItem".</xs:documentation>
-					</xs:annotation>
-				</xs:element>
 				<xs:element name="AppliedBy" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_8913">In diesem Element wird definiert, welche Preisbestandteile mit
@@ -6102,21 +6026,6 @@ If both @Component and @Source are filled, both attributes must be fulfilled. If
 					<xs:complexType>
 						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
-				</xs:element>
-				<xs:element name="NotAppliedByPriceTags" type="PriceTagsApplyType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_9435">Dieses Element definiert die Bedingung, dass keines der hier angegeben PriceTags am korrelierenden Percent-PriceItem (Percent/PriceTags) definiert sein darf.
-
-Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
-PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition
-mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig mit der Eigenschaft
-"Hierarchy.All" verwendet, um PriceItems aus mehren SubKomponenten gleichzeitig zu referenzieren. Am häufigsten wird Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_9435">This element defines the condition that at none of the PriceTags specified here may be defined on the correlating Percent-PriceItem (Percent//PriceTags). 
-						
-The element holds one or several values of a PriceTag; in addition the Class of the PriceTag is defined within the attribute "Class". A number of values can be specified in a list separated by Space. Also just like in the Tag-Condition it is possible to reference to certain sectors of the PriceTag-Value with the help of the attributes Length and Offset. The attribute "Source" in this aspect also is frequently used with the property "Hierarchy.All", in order to reference to PriceItems from
-several SubComponents at the same time. Most commonly the Source="Hierarchy.All:ThisComponent" will be used, which references the
-actual Component including all ancestors and descendants. PriceTags are tags that are defined at the node "PriceItem".</xs:documentation>
-					</xs:annotation>
 				</xs:element>
 				<xs:element name="NotAppliedBy" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="2.0">
 					<xs:annotation>
@@ -6214,27 +6123,13 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 											<xs:documentation xml:lang="en" xml:id="en_8918">Each absolute PriceItem forms a separate group.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="PriceTagValue" type="EmptyPriceTagReferenceType" minOccurs="0" maxOccurs="unbounded" internal:otdsversion="1.9">
-										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_8919">Alle absoluten PriceItems, die das hier definierte
-												PriceTag mit identischem Value enthaltens bilden
-												eine Gruppe. Nicht enthaltene PriceTags fließen je
-												PriceTag mit dem Value="Default" jeweils in die
-												dementsprechende Gruppe ein.</xs:documentation>
-											<xs:documentation xml:lang="en" xml:id="en_8919">All absolute PriceItems that contain the defined PriceTag
-												with identical value form a group. Price Tags not
-												included are each included with the Value =
-												"Default" in the corresponding
-												group.</xs:documentation>
-										</xs:annotation>
-									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
 						<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation xml:lang="de" xml:id="de_8920">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte Menge von PriceItems 
-			eines bestimmten Types und/oder mit bestimmten PriceTags oder PriceClasses. Je Element "ConsideredPriceItems" wird eine Menge von PriceItems definiert.
+			eines bestimmten Types oder PriceClasses. Je Element "ConsideredPriceItems" wird eine Menge von PriceItems definiert.
 			Bei mehrfacher Angabe des Elementes werden die einzelnen Mengen ver-ODER-ert.
 			Es findet keine Duplizierung von PriceItems statt. 
 			Falls ConsideredPriceItems kein Unterelement enthält, so werden alle PriceItems gemäß der Angaben in den Attributen "Source" und "ConsideredPriceItemType" berücksichtigt.
@@ -6242,17 +6137,17 @@ Es werden nur die unter ConsideredPriceItems definierten PriceItems berücksicht
 			Die Definition der Ergebnismenge eines  Elementes "ConsideredPriceItems"erfolgt in der folgenden Reihenfolge: 
 			1. Auswahl der PriceItems gemäß der Attribute "Source" und "ConsideredPriceItemType"	
 			
-			2. Einschränkung der Auswahl der PreisItems auf bestimmte PriceClasses und PriceTags. Bei der Angabe mehrerer Unterelemente werden die einzelnen Einschränkungen bzgl. Tags und Classes ver-UND-et.
+			2. Einschränkung der Auswahl der PreisItems auf bestimmte PriceClasses. Bei der Angabe mehrerer Unterelemente werden die einzelnen Einschränkungen bzgl. Tags und Classes ver-UND-et.
 			
 			3. Ergänzung der IncludedDescendants. </xs:documentation>
 								<xs:documentation xml:lang="en" xml:id="en_8920">
 									Restricts the PriceItems that need to be considered to a specific numer of 
-						PriceItems of a specific type and/or with specific PriceTags or PriceClasses. For each element "ConsideredPriceItems" a numer of PriceItems is defined. If the element is indicated several times the single numbers are connected with OR. 
+						PriceItems of a specific type and/or with specific PriceClasses. For each element "ConsideredPriceItems" a numer of PriceItems is defined. If the element is indicated several times the single numbers are connected with OR. 
 						There is no duplication of PriceItems.
 						In the case that ConsideredPriceItems contains no sub-element, all PriceItems are considered according to the information in the attributes "Source" and "ConsideredPriceItemType".
 						The definition of the result set of an element "ConsideredPriceItems" takes place in the following order:
 					  1. selection of the PriceItems according to the attributes "Source" and "ConsideredPriceItemType"
-					  2. Restriction of the selection of PriceItems to specific PriceClasses and PriceTags. When more than one sub-element is stated, the restrictions regarding Tags and Classes are connected with AND.
+					  2. Restriction of the selection of PriceItems to specific PriceClasses. When more than one sub-element is stated, the restrictions regarding Tags and Classes are connected with AND.
 						3. Complementation of the IncludedDescendants.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
@@ -6286,14 +6181,6 @@ Negative Zahlen bedeuten Rundung auf 10er, 100er oder mehr.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_8922">Limit for rounding, in relation to the method. The limit
 								belongs always to the direction set out by the name of the
 								method.</xs:documentation>
-						</xs:annotation>
-					</xs:attribute>
-					<xs:attribute name="InheritPriceTags" type="InheritPriceTagsEnum">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_8923">Falls dieses Attribut den Wert "ConsideredAbsolutes" annimmt, dann erben
-								die Generic-PriceItems die PriceTags der Considered
-								Absolute-PriceItems.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_8923">If this attribute has the value "ConsideredAbsolutes" then the Generic-PriceItems inherit the PriceTags of the Considered Absolute-PriceItems.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
@@ -6336,7 +6223,7 @@ repräsentieren.</xs:documentation>
 								<xs:sequence>
 									<xs:element name="ConsideredPriceItems" type="ConsideredPriceItemsType" maxOccurs="unbounded">
 										<xs:annotation>
-											<xs:documentation xml:lang="de" xml:id="de_8927">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines bestimmten Types und/oder mit bestimmten PriceTags. Die Auswahl erfolgt in der	folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß	PriceFilter 2. Ggf. Ergänzung der IncludedDescendants. Bei mehrfacher Angabe des Elementes besteht die finale Menge der PriceItems aus einem Merge der PriceItems der einzelnen ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung von PriceItems statt.
+											<xs:documentation xml:lang="de" xml:id="de_8927">Beschränkt die zu berücksichtigenden PriceItems auf bestimmte PriceItems eines bestimmten Types. Die Auswahl erfolgt in der	folgenden Reihenfolge: 1. Auswahl der PriceItems gemäß	PriceFilter 2. Ggf. Ergänzung der IncludedDescendants. Bei mehrfacher Angabe des Elementes besteht die finale Menge der PriceItems aus einem Merge der PriceItems der einzelnen ConsideredPriceItems-Auswertungen. Es findet keine Duplizierung von PriceItems statt.
 Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt. </xs:documentation>
 											<xs:documentation xml:lang="en" xml:id="en_8927">Restricts the PriceItems to be considered to certain PriceItems of a specific type and/or with	certain Pricetags. The selection is made in the following order:
 									1. selection of the PriceItems according to PriceFilter. 2. If necessary supplement of the IncludedDescendants. If the element
@@ -6365,26 +6252,6 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 	<xs:group name="ApplyToGroup">
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
-				<xs:element name="ApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_398">Dieses Element definiert die Bedingung, dass mindestens eines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein muss.
-
-Das Element enthält einen oder mehrere Values eines PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des
-PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space getrennt angegeben werden. Außerdem kann man sich wie in der
-Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig
-mit der Eigenschaft "Hierarchy.All" verwendet, um PriceItems aus mehren SubKomponenten gleichzeitig zu referenzieren. Am Häufigsten wird
-Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle Komponente inkl. alle Ancestors und Descendants referenziert. PriceTags
-sind Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
-						<xs:documentation xml:lang="en" xml:id="en_398">This element defines the condition that at least one of the PriceTags specified here must be defined on the correlating Absolute PriceItem (Absolute/PriceTags or GenericAbsolute/PriceTags). 
-							
-The element holds one or several values of a PriceTags; in addition the Class of the PriceTag is defined within the attribute "Class". 
-A number of values can be specified in a list separated by Space. Also just like in the Tag-Condition it is possible to reference to certain 
-sectors of the PriceTag-Value with the help of the attributes Length and Offset. The attribute "Source" in this aspect also is frequently used 
-with the property "Hierarchy.All", in order to reference to PriceItems from several SubComponents at the same time. Most commonly the 
-Source="Hierarchy.All:ThisComponent" will be used, which references the acutal Component including all ancestors and descendants. 
-PriceTags are tags, that are defined at the node "PriceItem".</xs:documentation>
-					</xs:annotation>
-				</xs:element>
 				<xs:element name="ApplyTo">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_9438">Dieses Element definiert die Bedingung, dass mindestens eine der hier angegeben PriceClasses am korrelierenden Absolute-PriceItem (Absolute/@Class bzw. GenericAbsolute/@Class) definiert sein muss.
@@ -6419,23 +6286,6 @@ If both @Component and @Source are filled, both attributes must be fulfilled. If
 					<xs:complexType>
 						<xs:attributeGroup ref="ApplyAttributeGroup"/>
 					</xs:complexType>
-				</xs:element>
-				<xs:element name="NotApplyToPriceTags" type="PriceTagsApplyType" maxOccurs="unbounded" internal:otdsversion="2.0">
-					<xs:annotation>
-						<xs:documentation xml:lang="de" xml:id="de_9010">Dieses Element definiert die Bedingung , dass keines der hier angegeben PriceTags am korrelierenden Absolute-PriceItem (Absolute/PriceTags bzw. GenericAbsolute/PriceTags) definiert sein darf.
-
-In diesem Element wird definiert, auf welche anderen PriceItems dieses PriceItem wirkt. Das Element enthält einen oder mehrere Values eines
-PriceTags und zusätzlich wird in dem Attribut "Class" auch die Class des PriceTags festgelegt. Es können auch mehrere Werte als Liste mit Space
-getrennt angegeben werden. Außerdem kann man sich wie in der Tag-Condition mit dem Attributen Length und Offset auf Teilbereiche des
-PriceTag-Values beziehen. Das Attribut "Source" wird hier auch häufig mit der Eigenschaft "Hierarchy.All" verwendet, um PriceItems aus mehren
-SubKomponenten gleichzeitig zu referenzieren. Am Häufigsten wird Source="Hierarchy.All:ThisComponent" vorkommen, welches die aktuelle
-Komponente inkl. alle Ancestors und Descendants referenziert. 
-PriceTags sind Tags, die am Knoten "PriceItem" definiert werden.</xs:documentation>
-						<xs:documentation xml:lang="de" xml:id="en_9010">In this element is being defined, which other PriceItems this PriceItem may have an impact on. 
-
-The element holds one or several values of a PriceTags; in addition the Class of the PriceTag is defined within the attribute "Class". A number of values can be specified in a list separated by Space. Also just like in the Tag-Condition it is possible to reference to certain sectors of the PriceTag-Value with the help of the attributes Length and Offset. The attribute "Source" in this aspect also is frequently used with the property "Hierarchy.All", in order to reference to PriceItems from several SubComponents at the same time. Most commonly the Source="Hierarchy.All:ThisComponent" will be used, which references the acutal Component including all ancestors and descendants. 
-PriceTags are tags, that are defined at the node "PriceItem".</xs:documentation>
-					</xs:annotation>
 				</xs:element>
 				<xs:element name="NotApplyTo">
 					<xs:annotation>
@@ -7416,37 +7266,11 @@ It is rare to use a positive value in relation to "From", i.e. "From=x", and it 
 			</xs:element>
 			<xs:sequence>
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_1440">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden. Jedes Element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
+					<xs:documentation xml:lang="de" xml:id="de_1440">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden. Jedes Element "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.
 Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der PriceItems statt.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_1440">Here the PriceItems are defined respectively excluded, which are used for evaluating the PriceIndex. Each element "ConsideredPriceTags",  "NotConsideredPriceTags", "ConsideredPriceItemClasses", and "NotConsideredPriceItemClasses" is evaluated within its Component context. The result set of the valid PriceItems is the united set of the single evaluations. In this process no PriceItems are duplicated. If no PriceItemFilterGroup is indicated, there will be no restriction of the PriceItems.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_1440">Here the PriceItems are defined respectively excluded, which are used for evaluating the PriceIndex. Each element "ConsideredPriceItemClasses", and "NotConsideredPriceItemClasses" is evaluated within its Component context. The result set of the valid PriceItems is the united set of the single evaluations. In this process no PriceItems are duplicated. If no PriceItemFilterGroup is indicated, there will be no restriction of the PriceItems.</xs:documentation>
 				</xs:annotation>
 				<xs:choice maxOccurs="unbounded">
-					<xs:element name="ConsideredPriceTags">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_9007">Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die eines der aufgeführten PriceTags beinhalten.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_9007">These elements define, that only those PriceItems will be considered, that include one of the listed PriceTags.</xs:documentation>
-						</xs:annotation>
-						<xs:complexType>
-							<xs:complexContent>
-								<xs:extension base="ConsideredPriceTagsReferenceType">
-									<xs:attributeGroup ref="ComponentAttributeGroup"/>
-								</xs:extension>
-							</xs:complexContent>
-						</xs:complexType>
-					</xs:element>
-					<xs:element name="NotConsideredPriceTags">
-						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_9008">>Diese Elemente definieren, dass nur PriceItems berücksichtigt werden, die keines der aufgeführten PriceTags beinhalten.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_9008">>These elements define, that only those PriceItems will be considered, that include none of the listed PriceTags.</xs:documentation>
-						</xs:annotation>
-						<xs:complexType>
-							<xs:complexContent>
-								<xs:extension base="ConsideredPriceTagsReferenceType">
-									<xs:attributeGroup ref="ComponentAttributeGroup"/>
-								</xs:extension>
-							</xs:complexContent>
-						</xs:complexType>
-					</xs:element>
 					<xs:group ref="DayPriceIndexConsideredPriceItemsGroup">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_9006">Hier werden die PriceItems definiert bzw. ausgeschlossen, welche zur Beurteilung des Preisindizes herangezogen werden.  Jedes Element "ConsideredPriceItemClasses" bzw. "NotConsideredPriceItemClasses" wird in seinem Component-Kontext ausgewertet. Die Ergebnismenge der gültigen PriceItems ist die Vereinigungsmenge der Einzelauswertungen. Dabei werden keine PriceItems vervielfältigt.</xs:documentation>

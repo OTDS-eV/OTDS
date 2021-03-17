@@ -15210,10 +15210,10 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 								<listitem>
 									<para xml:id="de_1296" xml:lang="de">Auf welches absolute
 										PriceItem wirkt ein prozentualer Zu-/Abschlag: ApplyTo,
-										NotApplyTo, ApplyToPriceTags</para>
+										NotApplyTo</para>
 									<para xml:id="en_1296" xml:lang="en">Which absolute PriceItem
 										does a percentage surcharge/discount have an effect on:
-										ApplyTo, NotApplyTo, ApplyToPriceTags</para>
+										ApplyTo, NotApplyTo</para>
 								</listitem>
 								<listitem>
 									<para xml:id="de_1297" xml:lang="de">Welche prozentualen
@@ -15339,27 +15339,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 						codes. In OTDS there is therefore one CombinationCode which has been
 						decoupled from the PriceItem class, and which, if necessary, can be filled
 						with the "Class". In this way OTDS can function with all systems.</para>
-				</section>
-				<section xml:id="OtdsStrategyPriceItemTags">
-					<title><phrase xml:lang="de" xml:id="de_5159">PriceItem Tags (PriceTags)
-							(V1.9)</phrase><phrase xml:lang="en" xml:id="en_5159">PriceItem tags
-							(PriceTags) (v1.9)</phrase></title>
-					<para xml:lang="de" xml:id="de_5160">Mit den PriceTags wurde das bestehende
-						Tag-Konzept um die Möglichkeit erweitert, Tags auch einem PriceItem
-						zuzuweisen. Die Wirkung der prozentualen PriceItems auf absolute PriceItems
-						kann durch PriceTags gesteuert werden. Innerhalb des
-						ApplyToPriceTags-Element in den prozentualen PriceItems ist es möglich, die
-						PriceTags zu definieren, die an einem absoluten PriceItem vorkommen müssen,
-						damit das prozentuale PriceItem auf das absolute wirkt. PriceTags haben wie
-						die "normalen" Tags eine Class und einen Wert.</para>
-					<para xml:lang="en" xml:id="en_5160">PriceTags expand the existing tag concept
-						to allow for tags to be allocated to a PriceItem. The effect percentage
-						PriceItems have on absolute PriceItems can be controlled using PriceTags.
-						Within the ApplyToPriceTags element in the percentage PriceItems, it is
-						possible to define the PriceTags that need to be present for an absolute
-						PriceItem, in order for the percentage PriceItem to affect upon the absolute
-						PriceItem. PriceTags, just like the "normal" tags, have a Class and a
-						Value.</para>
 				</section>
 				<section xml:id="OtdsStrategyPriceItemAbsolute">
 					<title><phrase xml:id="de_1313" xml:lang="de">PriceItems mit absoluten Preisen
@@ -16189,63 +16168,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							the element <code>IncludeAppliedPriceItems</code> you can also define
 							that the next Apply hierarchy level of PriceItems to be applied should
 							be included.</para>
-						<para xml:lang="de" xml:id="de_5168">Damit Eigenschaften bzw. die damit
-							verbundenen implizierten Möglichkeiten der Verwendung der
-							Quell-PriceItems an die Elemente von <code>GenericAbsolute</code>
-							weitergegeben werden, können <code>GenericAbsolutes</code> auch
-								<code>PriceTags</code> von den verwendeten Quell-PriceItems erben.
-							Hierzu erhält das Element <code>Round</code> das Attribute
-								<code>InheritPriceTags</code>. </para>
-						<para xml:lang="en" xml:id="en_5168">For properties or the connected implied
-							possible uses of source PriceItems to be sent on to the
-								<code>GenericAbsolute</code> element, <code>GenericAbsolutes</code>
-							can also inherit <code>PriceTags</code> from the source PriceItems that
-							are used. In order to do so, the <code>Round</code> element receives the
-							attribute <code>InheritPriceTags</code> .</para>
-						<para xml:lang="de" xml:id="de_5169">Nachfolgend ein Beispiel eines
-							PriceItems für einen generischen Absolutbetrag, in dem exemplarisch alle
-							Bereiche aufgeführt sind: </para>
-						<para xml:lang="en" xml:id="en_5169">The following is an example of a
-							PriceItem for a generic absolute amount, whereby all areas are listed to
-							serve as an example.</para>
-						<programlisting><![CDATA[<PriceItem Class="SpecialRounding">
-	  <GenericAbsolute ExecutionPriority="2">
-	    <GenericValue>
-	      <Round InheritAppliedPriceTags="true" RemainingDigits="0" Method="Up" Treshold="0.5">
-	        <GroupAbsolutePriceItemsBy>
-	          <Person/>
-	          <Day/>
-	          <AbsolutePriceItem/>
-	          <PriceTagValue Source="Hierarchy.all:Product" Class="RoundGrouping"/>
-	        </GroupAbsolutePriceItemsBy>
-	        <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
-	          <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-	          <IncludeAppliedDescendants/>
-	        </ConsideredPriceItems>
-	      </Round>
-	    </GenericValue>
-	    <DayBase>x</DayBase>
-	    <PersonBase>x<PersonBase>
-	  </GenericAbsolute>
-	  <Condition>
-	    <And>
-	      <PersonImpact>
-	        <GroupedPerson/>
-	      </PersonImpact>
-	      <DayImpact>
-	        <GroupedDay/>
-	      </DayImpact>
-	      <Impact>
-	        <GroupedAbsolute/>
-	      </Impact>
-	    </And>
-	  </Condition>
-	</PriceItem>]]></programlisting>
-
-
-
-
-
 						<para xml:lang="de" xml:id="de_5174">Nachfolgend ein Beispiel, wie die
 							Rundung des Endpreises auf Personenpreise umgesetzt werden kann:</para>
 						<para xml:lang="en" xml:id="en_5174">The following is an example of how the
@@ -16332,25 +16254,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 								<code>Absolute</code> PriceItem has a <code>Percent</code>
 							-PriceItem that was assigned to the <code>Absolute</code> -PriceItem by
 								<code>ApplyTo</code> and <code>AppliedBy</code> .</para>
-						<para xml:lang="de" xml:id="de_5182">Im Falle</para>
-						<para xml:lang="en" xml:id="en_5182">In the case</para>
-						<programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
-	  <Person/>
-	  <Day/>
-	  <PriceTagValue Source="global+Hierarchy.all:Product" Class="RoundGrouping"/>
-	</GroupAbsolutePriceItemsBy>]]></programlisting>
-						<para xml:lang="de" xml:id="de_5183">bildet zusätzlich Gruppierungen von
-								<code>Absolute</code>-PriceItems mit übereinstimmenden
-							PriceTag-Values der hier definierten PriceTags. Zu jeder Gruppe gehören
-							dann auch jeweils die dem <code>Absolute</code>-PriceItem durch
-								<code>ApplyTo</code> und <code>AppliedBy</code> zugeordneten
-								<code>Percent</code>-PriceItems.</para>
-						<para xml:lang="en" xml:id="en_5183">additionally displays groupings of
-								<code>Absolute</code> -PriceItems with matching PriceTag values for
-							the PriceTags that are defined here. Each group has a
-								<code>Percent</code> PriceItem that was assigned to the
-								<code>Absolute</code> PriceItem by <code>ApplyTo</code> and
-								<code>AppliedBy</code> .</para>
 						<para xml:lang="de" xml:id="de_5184">Im Falle</para>
 						<para xml:lang="en" xml:id="en_5184">In the case</para>
 						<programlisting><![CDATA[<GroupAbsolutePriceItemsBy/>]]></programlisting>
@@ -16588,76 +16491,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 								</itemizedlist>
 							</listitem>
 						</orderedlist>
-						<programlisting><![CDATA[<Round RemainingDigits="0" Method="Up" Treshold="0.5">
-	   ...
-	</Round>]]></programlisting>
-						<bridgehead xml:lang="de" xml:id="de_5211">Vererbung der
-							PriceTags</bridgehead>
-						<bridgehead xml:lang="en" xml:id="en_5211">Inheriting PriceTags</bridgehead>
-						<para xml:id="de_5212" xml:lang="de">Es besteht die Möglichkeit, dass für
-							das <code>GenericAbsolute</code>-PriceItem die <code>PriceTags</code>
-							der gerundeten <code>Absolute</code>-PriceItems vererbt werden können.
-							Damit wird auch die PriceItem-Class vererbt, die 1-zu-1 in ein
-								<code>PriceTag</code> überführt wird. Siehe dazu Details unter <link
-								linkend="OtdsStrategyPriceItemTags">Kapitel: PriceItem Tags
-								(PriceTags)</link></para>
-						<para xml:id="en_5212" xml:lang="en">For the <code>GenericAbsolute</code>
-							PriceItem, there is the possibility of inheriting the
-								<code>PriceTags</code> of the rounded up/down <code>Absolute</code>
-							PriceItems. In doing so, the PriceItem Class is also inherited, which is
-							transferred one-for-one into a <code>PriceTag</code> . For details, see
-								<link linkend="OtdsStrategyPriceItemTags"> in the chapter: PriceItem
-								tags (PriceTags)</link></para>
-						<para xml:id="de_5213" xml:lang="de">Die Vererbung wird jeweils durch die
-							Angabe des Attributes <emphasis role="bold"
-								>InheritPriceTags="ConsideredAbsolutes"</emphasis> im
-								<code>Round</code>-Knoten definiert.</para>
-						<para xml:id="en_5213" xml:lang="en">The inheritance is defined by the entry
-							under the attribute <emphasis role="bold"
-								>InheritPriceTags="ConsideredAbsolutes"</emphasis> in the
-								<code>Round</code> node.</para>
-						<programlisting><![CDATA[<GenericAbsolute>
-	    <GenericValue>
-	        <Round InheritPriceTags="ConsideredAbsolutes" ...>
-	            ...
-	        </Round>
-	    </GenericValue>
-	    ...
-	</GenericAbsolute>]]></programlisting>
-						<para xml:id="de_5214" xml:lang="de">Dem Anwendungsfall liegt folgendes
-							Szenario zu Grunde:</para>
-						<para xml:id="en_5214" xml:lang="en">The following scenario underlies the
-							use case:</para>
-						<para xml:id="de_5215" xml:lang="de">Es liegt ein Reisezuschlag vor, der für
-							die ganze Reise einmalig und für die komplette Reisegruppe einmalig in
-							die Berechnung eingeht. Das berechnende System gibt vor, dass dieser
-							Zuschlag auf alle Tage und Personen aufgeteilt und direkt nach der
-							Aufteilung auf ganze Euro gerundet wird.</para>
-						<para xml:id="en_5215" xml:lang="en">There is a travel surcharge which is
-							applied once for the holiday and is calculated once for the entire
-							travel group. The calculation system states that the surcharge should be
-							distributed among all days and persons, and that it should be rounded to
-							the nearest whole euro directly following this distribution.</para>
-						<para xml:id="de_5216" xml:lang="de">Durch ein entsprechendes
-								<code>GenericAbsolute</code>-PriceItem wird für jedes enthaltene
-								<code>Absolute</code>-PriceItem die Rundung angewendet. Daraus
-							resultiert je PriceItem-Value ein entsprechender
-								<code>GenericAbsolute</code>-Value.</para>
-						<para xml:id="en_5216" xml:lang="en">Through a corresponding
-								<code>GenericAbsolute</code> -PriceItem, the rounding will be
-							applied to each contained <code>Absolute</code> -PriceItem. This results
-							in each PriceItem value receiving a corresponding
-								<code>GenericAbsolute</code> value.</para>
-						<para xml:id="de_5217" xml:lang="de">Hierbei fließt der
-								<code>GenericAbsolute</code> in alle Berechnungen bzgl. Zuschlägen,
-							7=6 etc. mit ein. Dies erfordert, dass der <code>GenericAbsolute</code>
-							automatisch die Eigenschaften des in der Rundung betrachteten PriceItems
-							vererbt bekommt.</para>
-						<para xml:id="en_5217" xml:lang="en">For this, the
-								<code>GenericAbsolute</code> is included in all calculations
-							regarding surcharges, 7=6, etc. This necessitates that the
-								<code>GenericAbsolute</code> automatically inherits the properties
-							of the PriceItems considered by the rounding.</para>
 						<bridgehead xml:lang="de" xml:id="de_5218">Definition der berücksichtigten
 							PriceItems (<code>ConsideredPriceItems</code>)</bridgehead>
 						<bridgehead xml:lang="en" xml:id="en_5218">Definition of the considered
@@ -16713,67 +16546,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							benutzt, wenn das Attribut nicht gesetzt ist.</para>
 						<para xml:id="en_5224" xml:lang="en">The default is "All" and is also used
 							when the attribute is not placed.</para>
-						<bridgehead xml:lang="de" xml:id="de_5225">Definition zu berücksichtigender
-							PriceTags oder auszuschließender PriceTags</bridgehead>
-						<bridgehead xml:lang="en" xml:id="en_5225">Definition of PriceTags to be
-							considered or PriceTags to be excluded.</bridgehead>
-						<para xml:id="de_5226" xml:lang="de">PriceTags sind in Version 1.9
-							eingeführte Markierungen (Tags) von einzelnen PriceItems direkt am
-							PriceItem-Knoten.</para>
-						<para xml:id="en_5226" xml:lang="en">PriceTags are the tags (Tags) of
-							individual PriceItems, which have been added directly onto the PriceItem
-							node in version 1.9.</para>
-						<para xml:id="de_5227" xml:lang="de">Mit Hilfe des Elementes
-								<code>ConsideredPriceTags</code> kann man einschränken, dass nur
-							PriceItems mit bestimmten PriceTags benutzt werden. Alternativ kann man
-							auch PriceItems mit bestimmten PriceTags durch Verwendung des Elementes
-								<code>NotConsideredPriceTags</code> explizit von der Verwendung
-							ausschließen.</para>
-						<para xml:id="en_5227" xml:lang="en">With the element
-								<code>ConsideredPriceTags</code> , it is possible to restrict the
-							PriceItems used to those with specific PriceTags. Alternatively, it is
-							also possible to explicitly exclude PriceItems with specific PriceTags
-							from use, using the element <code>NotConsideredPriceTags</code> .</para>
-						<para xml:id="de_5385" xml:lang="de">Neben den PriceTags kann man sich mit
-								<code>ConsideredPriceItemClasses</code> und
-								<code>NotConsideredPriceItemClasses</code> direkt auf
-							PriceItemClasses beziehen.</para>
-						<para xml:id="en_5385" xml:lang="en">Besides PriceTags one can refer
-							directly to PriceItemCLasses by using
-								<code>ConsideredPriceItemClasses</code> and
-								<code>NotConsideredPriceItemClasses</code>.</para>
-						<programlisting><![CDATA[<GenericAbsolute>
-	    <GenericValue>
-	        <Round ...>
-	            ...
-	            <ConsideredPriceItems ...>
-	                <ConsideredPriceTags Class="Currency">EUR CHF</PriceTags>
-	                <NotConsideredPriceTags Class="Rounding">NoRounding</NotConsideredPriceTags>
-	            </ConsideredPriceItems>
-	        </Round>
-	    </GenericValue>
-	    ...
-	    </GenericAbsolute>]]></programlisting>
-						<para xml:id="de_5386" xml:lang="de">Hierbei muss berücksichtigt werden,
-							dass die Definition von mehreren <code>ConsideredPriceItem</code> wie
-							ein ODER interpretiert wird. Die mehrfache Angabe von
-								<code>ConsideredPriceTags</code>,
-								<code>NotConsideredPriceTags</code>,
-								<code>ConsideredPriceItemClasses</code> und
-								<code>NotConsideredPriceItemClasses</code> werden jedoch verUNDet,
-							müssen also alle erfüllt werden, damit ein PriceItem bei der Berechnung
-							berücksichtigt wird. Somit lassen sich komplexe Kombinationen von UND
-							und ODER formulieren.</para>
-						<para xml:id="en_5386" xml:lang="en">In doing so it has to be considered,
-							that the definition of several <code>ConsideredPriceItems</code> are
-							interpreted as an "OR". The multiple indication of
-								<code>ConsideredPriceTags</code>,
-								<code>NotConsideredPriceTags</code>,
-								<code>ConsideredPriceItemClasses</code>, and/or
-								<code>NotConsideredPriceItemClasses</code> are being treated with
-							"AND", thus have to be fulfulled completely, in order to assure that a
-							PriceItem is being considered for the calulation. Hereby complex
-							combinations of "AND" and "OR" can be expressed.</para>
 						<bridgehead xml:lang="de" xml:id="de_5228">Die Eigenschaft "Hierarchy" des
 							Source-Attributes</bridgehead>
 						<bridgehead xml:lang="en" xml:id="en_5228">The property "Hierarchy" of the
@@ -16849,82 +16621,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 						<para xml:id="en_5243" xml:lang="en">all absolute PriceItems on the node
 							instance "Outbound" and on the subordinate node instances OnewayFlight
 							and BookingClass are referenced.</para>
-						<bridgehead xml:lang="de" xml:id="de_5244">Sonderfall für die Adressierung
-							von PriceItems über <code>IncludeAppliedDescendants</code></bridgehead>
-						<bridgehead xml:lang="en" xml:id="en_5244">Special case for addressing
-							PriceItems via <code>IncludeAppliedDescendants</code>
-						</bridgehead>
-						<para xml:id="de_5245" xml:lang="de">Es wird zusätzlich ermöglicht, auch die
-							nächste Apply-Hierarchiestufe von adressierten PriceItems zu
-							adressieren. Dazu muss innerhalb des Elementes
-								<code>ConsideredPriceItem</code> das Element
-								<code>IncludeAppliedDescendants</code> definiert werden. Das
-							bedeutet also, dass zusätzlich zu den durch
-								<code>ConsideredPriceItems</code> definierten PriceItems auch deren
-							"AppliedDescendants" miteinbezogen werden.</para>
-						<para xml:id="en_5245" xml:lang="en">It has additionally been made possible
-							to address the next Apply-Hierarchy level of addressed PriceItems. For
-							this, the element <code>IncludeAppliedDescendants</code> must be defined
-							within the element <code>ConsideredPriceItem</code> . This means that in
-							addition to the PriceItems defined via <code>ConsideredPriceItems</code>
-							, their "AppliedDescendants" are also included.</para>
-						<para xml:id="de_5246" xml:lang="de">Die "AppliedDescendants" sind alle
-							PriceItems, die durch <code>ApplyTo</code>'s oder
-							<code>AppliedBy</code>'s mit den <code>ConsideredPriceItem</code>'s in
-							Interaktion treten. Die "AppliedDescendants" sind nicht auf den
-							PriceItemType der ConsideredPriceItems begrenzt. Vielmehr können die
-							"AppliedDescendants" separat durch ein eigenes Attribut "PriceItemType"
-							optional eingegrenzt werden. Das <code>IncludeAppliedDescendants</code>
-							wird generell auf die Auswertung der nächsten Ebene begrenzt. Es
-							existiert keine weitere Rekursion.</para>
-						<para xml:id="en_5246" xml:lang="en">The "AppliedDescendants" are all
-							PriceItems which interact with the <code>ConsideredPriceItem</code> s
-							via <code>ApplyTo</code> s or <code>AppliedBy</code> s. The
-							"AppliedDescendants" are not restricted to the PriceItemType of the
-							ConsideredPriceItems. Instead, there is the option of separately
-							restricting the "AppliedDescendants" through their own "PriceItemType"
-							attribute. <code>IncludeAppliedDescendants</code> is generally
-							restricted to the evaluation of the next level. No further recursion
-							exists.</para>
-						<para xml:id="de_5247" xml:lang="de">Anwendungsfall ist die Rundung aller
-							Absoluten, auf die ein Percent-PriceItems mit einem PriceTag der
-							Class="CurrencyFactor" wirkt. </para>
-						<para xml:id="en_5247" xml:lang="en">The use case is the rounding of all
-							absolutes which influence a Percent-PriceItem with a PriceTag of the
-							Class="CurrencyFactor".</para>
-						<programlisting><![CDATA[<ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
-	    <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-	    <IncludeAppliedDescendants/>
-	    </ConsideredPriceItems> ]]></programlisting>
-
-						<para xml:id="de_5248" xml:lang="de">Hier werden im ersten Schritt nur alle
-								<code>Percent</code>-PriceItems berücksichtigt. Durch das
-							"IncludeAppliedDescendants" werden zusätzlich alle dazu passenden
-								<code>Absolute</code>-PriceItems mit einbezogen.</para>
-						<para xml:id="en_5248" xml:lang="en">Here, the first step involves the
-							consideration of all <code>Percent</code> -PriceItems only. Through
-							"IncludeAppliedDescendants", all matching <code>Absolute</code>
-							PriceItems are also included. </para>
-						<para xml:id="de_5249" xml:lang="de">Die
-								<code>IncludeAppliedDescendants</code> können auch explizit bzgl.
-							spezieller PriceTags weiter eingeschränkt werden.</para>
-						<para xml:id="en_5249" xml:lang="en"><code>IncludeAppliedDescendants</code>
-							can also be explicitly further restricted with regard to special
-							PriceTags.</para>
-						<programlisting><![CDATA[<ConsideredPriceItems ...>
-	    ...
-	    <IncludeAppliedDescendants ...>
-	        <ConsideredPriceTags ... >A B</ConsideredPriceTags>
-	        <NotConsideredPriceTags ... >NoRounding</NotConsideredPriceTags>
-	    </IncludeAppliedDescendants>
-	    </ConsideredPriceItems>]]></programlisting>
-						<para xml:id="de_5387" xml:lang="de">Alternativ zum hier aufgeführten
-							Beispiel können auch auf mit <code>ConsideredPriceItemClasses</code> nur
-							auf PriceItems mit bestimmten <code>Classes</code> eingeschränkt
-							werden.</para>
-						<para xml:id="en_5387" xml:lang="en">Alternatively to the example shown here
-							auf mit <code>ConsideredPriceItemClasses</code> nur auf PriceItems mit
-							bestimmten <code>Classes</code>eingeschränkt werden.</para>
 						<bridgehead xml:lang="de" xml:id="de_5250">Verschachtelte Rundung
 							(ExecutionPriority)</bridgehead>
 						<bridgehead xml:lang="en" xml:id="en_5250">Encapsulated rounding
@@ -17091,10 +16787,10 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 				</section>
 				<section xml:id="OtdsStrategyPriceItemApplyTo">
 					<title><phrase xml:id="de_1363" xml:lang="de">Wirkung (<code>ApplyTo</code>,
-								<code>NotApplyTo</code>, <code>ApplyToPriceTags</code>,
+								<code>NotApplyTo</code>,
 								<code>AppliedBy</code>, V2.0)</phrase><phrase xml:id="en_1363"
 							xml:lang="en">Effect (<code>ApplyTo</code>, <code>NotApplyTo</code>,
-								<code>ApplyToPriceTags</code>, <code>AppliedBy</code>,
+								<code>AppliedBy</code>,
 							v2.0)</phrase></title>
 					<para xml:id="de_1364" xml:lang="de">Prozentuale PriceItems müssen sich immer
 						auf mindestens ein absolutes PriceItem beziehen, um angewendet zu werden.
@@ -17155,16 +16851,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 						explicitly excluded. In this, the only PriceItems included are those of the
 						component which is specified by the attribute <code>Component</code> . In
 						the standard case, it is the component you are currently in.</para>
-					<para xml:lang="de" xml:id="de_5253">Mit der Version 1.9 wurde die Möglichkeit
-						eingeführt, die Wirkung über PriceTags zu definieren. In dem
-						ApplyToPriceTags Element werden alle PriceTags aufgelistet, auf die ein
-						prozentuales PriceItem wirken soll. PriceTags sind Tags, die am Knoten
-						"PriceItem" definiert werden.</para>
-					<para xml:lang="en" xml:id="en_5253">In version 1.9 is the possibility of
-						defining influence via PriceTags was introduced. In the ApplyToPriceTags
-						element, all PriceTags are listed which are to be influenced by a percentage
-						PriceItem. PriceTags are tags which are defined at the "PriceItem"
-						node.</para>
 					<para xml:lang="de" xml:id="de_9004">Ebenfalls in der Version 1.9 eingeführt
 						wurde die Möglichkeit, zusätzlich bzw. alternativ zum Attribut
 							<code>@Component</code> auch noch das Attribut <code>@Source</code>
@@ -17217,16 +16903,10 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							<para><code>Absolute/AppliedBy</code></para>
 						</listitem>
 						<listitem>
-							<para><code>Absolute/AppliedByPriceTags</code></para>
-						</listitem>
-						<listitem>
 							<para><code>Absolute/AppliedByAll</code>(V2.0)</para>
 						</listitem>
 						<listitem>
 							<para><code>Absolute/NotAppliedBy</code>(V2.0)</para>
-						</listitem>
-						<listitem>
-							<para><code>Absolute/NotAppliedByPriceTags</code>(V2.0)</para>
 						</listitem>
 						<listitem>
 							<para><code>Absolute/NotAppliedByAll</code>(V2.0)</para>
@@ -17241,16 +16921,10 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							<para role="NoTrans"><code>Percent/ApplyTo</code></para>
 						</listitem>
 						<listitem>
-							<para><code>Percent/ApplyToPriceTags</code></para>
-						</listitem>
-						<listitem>
 							<para><code>Percent/ApplyToAll</code></para>
 						</listitem>
 						<listitem>
 							<para><code>Percent/NotApplyTo</code></para>
-						</listitem>
-						<listitem>
-							<para><code>Percent/NotApplyToPriceTags</code>(V2.0)</para>
 						</listitem>
 						<listitem>
 							<para><code>Percent/NotApplyToAll</code>(V2.0)</para>
@@ -19629,10 +19303,9 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 						</listitem>
 						<listitem>
 							<para xml:id="de_5258" xml:lang="de">Bezüge von
-								Währungs-Umrechnungsfaktor über AppliedBy oder
-								ApplyToPriceTags</para>
+								Währungs-Umrechnungsfaktor über AppliedBy</para>
 							<para xml:id="en_5258" xml:lang="en">References of currency conversion
-								factor via AppliedBy or ApplyToPriceTags</para>
+								factor via AppliedBy </para>
 						</listitem>
 					</orderedlist>
 					<bridgehead xml:id="de_5259" xml:lang="de">Der Parameter SalesMarket / Wegfall
@@ -19724,44 +19397,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
      <Accommodations>    
      ...
      </Otds>]]></programlisting>
-					<bridgehead xml:id="de_5267" xml:lang="de">PriceItems unter Products, Product,
-						Addons, Brand</bridgehead>
-					<bridgehead xml:id="en_5267" xml:lang="en">PriceItems under Products, Product,
-						Addons, Brand</bridgehead>
-					<para xml:id="de_5268" xml:lang="de">Um Währungsumrechnungsfaktoren sinnvoll im
-						OTDS-Format platzieren zu können, ist es notwendig, "PriceItems" auch auf
-						globaler Ebene - also direkt unter Products - abzulegen.</para>
-					<para xml:id="en_5268" xml:lang="en">In order to place currency conversion
-						factors in a way which makes sense in the OTDS format, it is necessary to
-						also specify "PriceItems" on a global level, i.e. directly under
-						Products.</para>
-					<programlisting><![CDATA[<Otds...>
-    <Products>
-        <GlobalValues>
-            ... 
-        </GlobalValues>
-               <Product>
-                  ...
-               </Product>
-                ...
-               <PriceItems Key="CurrencyRates">
-            <PriceItem Class="EURGBP">
-                <Percent>
-                    <Value>-15.49</Value>
-                    <ApplyToPriceTags Source="Descendants:Product" Class="Currency">EUR</ApplyToPriceTags>
-                </Percent>
-                <Condition>
-                    <Keys Source="global:GlobalValue">GBmarket</Keys>
-                </Condition>
-            </PriceItem>
-        </PriceItems>
-     </Products>
-     ...
-     </Otds>]]></programlisting>
-					<para xml:id="de_5269" xml:lang="de">Es ist dabei zu beachten, dass global
-						definierte PriceItems nur einmalig in die Berechnung einfließen.</para>
-					<para xml:id="en_5269" xml:lang="en">It should be ensured that globally defined
-						PriceItems are only included once in the calculation.</para>
 					<bridgehead xml:id="de_5270" xml:lang="de">Bezüge von Währungs-Umrechnungsfaktor
 						über AppliedBy</bridgehead>
 					<bridgehead xml:id="en_5270" xml:lang="en">References of the currency conversion
@@ -19875,73 +19510,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 						operator's answer (e.g. with BA offer). This corresponds to classic role
 						allocation within data traffic between operators and distribution
 						systems.</para>
-					<bridgehead xml:id="de_5277" xml:lang="de">Bezüge von Währungs-Umrechnungsfaktor
-						über PriceTags</bridgehead>
-					<bridgehead xml:id="en_5277" xml:lang="en">References of currency conversion
-						factor via PriceTags</bridgehead>
-					<para xml:id="de_5278" xml:lang="de">Dadurch, dass seit Version 1.9 auch
-						PriceTags zusätzlich zu der Class eines PriceItems definiert werden können,
-						können alle PriceItems mit einer PriceTag-"Auszeichnung" versehen werden,
-						auf die sich der Umrechnungsfaktor beziehen kann.</para>
-					<para xml:id="en_5278" xml:lang="en">Given that, as of version 1.9, it is
-						possible to define PriceTags in addition to the Class of a PriceItem, all
-						PriceItems can be allocated a PriceTag "Price tag", which the conversion
-						factor can refer to.</para>
-					<para xml:id="de_5279" xml:lang="de">Nachfolgend ein passendes Beispiel
-						dazu:</para>
-					<para xml:id="en_5279" xml:lang="en">An example is given below:</para>
-					<programlisting><![CDATA[<Otds...>
-    <Products>
-        <GlobalValues>
-            ... siehe oben
-        </GlobalValues>
-               <Product>
-                  ...
-               </Product>
-                ...
-               <PriceItems Key="CurrencyRates">
-            <PriceItem Class="EURGBP">
-                <Percent>
-                    <Value>-15.49</Value>
-                    <ApplyToPriceTags Source="Descendants:Product" Class="Currency">EUR</ApplyToPriceTags>
-                </Percent>
-                <Condition>
-                    <Keys Source="global:GlobalValue">GBmarket</Keys>
-                </Condition>
-            </PriceItem>
-        </PriceItems>
-     </Products>
-    <Accommodations>
-        <Accommodation ...>
-            <SellingAccom ...>
-                ...
-                <PriceItems ...>
-                    <PriceItem ...>
-                        <PriceTags>
-                            <PriceTag Class="Currency">EUR</PriceTag>
-                        </PriceTags>
-                        <Absolute>
-                            <Value>90</Value>
-                            <DayBase>x</DayBase>
-                            <PersonBase>1</PersonBase>
-                        </Absolute>
-                        <Condition>
-                            <And>
-                                <Keys Source="global:GlobalValue">GermanMarket</Keys>
-                                <Date Source="Accommodation" DayType="CheckIn">
-                                    <Min>2011-04-15</Min>
-                                    <Max>2011-06-01</Max>
-                                </Date>
-                                ...            
-                            </And>
-                        </Condition>
-                    </PriceItem>
-            </SellingAccom>
-        </Accommodation>
-
-     <Accommodations>    
-     ...
-</Otds>]]></programlisting>
 				</section>
 				<section xml:id="OtdsDataDeliveryInitial">
 					<title><phrase xml:id="de_1587" xml:lang="de">Initiale
@@ -24708,455 +24276,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 								out.</para>
 						</listitem>
 					</orderedlist>
-				</section>
-				<section xml:id="OtdsRoundingComplex">
-					<title><phrase xml:lang="de" xml:id="de_5297">Beispiel für komplexe Rundung
-							innerhalb eines Veranstaltersystems</phrase><phrase xml:lang="en"
-							xml:id="en_5297">Example of complex rounding within a tour operator
-							system</phrase></title>
-					<para xml:lang="de" xml:id="de_5298">Eine mögliche Formel für eine komplexe
-						Rundung lautet:</para>
-					<para xml:lang="en" xml:id="en_5298">One possible formula for complex rounding
-						is:</para>
-					<programlisting><![CDATA[RUNDEN((Startpreis + (Tagespreise * Dauer * FrühbucherProzentual * ErmäßigungProzentual)) * KFANGProzentual)
-+ RUNDEN(Verpflegung * Dauer * FrühbucherProzentual * ErmäßigungProzentual * KFANGProzentual)
-+ RUNDEN((KFANGFix + FrühbucherFix) * FrühbucherProzentual * ErmäßigungProzentual * KFANGProzentual)]]></programlisting>
-					<para xml:lang="de" xml:id="de_5299">Auch hier geht es um eine personenweise
-						Betrachtung. In diesem Fall sind es drei voneinander unabhängige Rundungen
-						von verschiedenen Gruppen von PriceItems.</para>
-					<para xml:lang="en" xml:id="en_5299">Here, too, consideration is person-based.
-						In this case there are three mutually independent roundings of different
-						groups of PriceItems.</para>
-					<para xml:lang="de" xml:id="de_5300">Wir nehmen an, dass die Variablennamen in
-						der obigen Formel den PriceItemClasses entsprechen. Dann sähen die
-						dazugehörigen drei Rundungs-PriceItems so aus:</para>
-					<para xml:lang="en" xml:id="en_5300">We assume that the variable names in the
-						above formula correspond to the PriceItemClasses. In this case, the three
-						rounding PriceItems belonging to them would look like this:</para>
-					<programlisting><![CDATA[<PriceItem Class="BlankBasePriceRounding">
-  <GenericAbsolute>
-    <GenericValue>
-      <Round RemainingDigits="0" Method="Up" Treshold="0.5">
-        <GroupAbsolutePriceItemsBy>
-          <Person/>
-        </GroupAbsolutePriceItemsBy>
-        <ConsideredPriceItems Source="global+Hierarchy.all:Product">
-          <ConsideredPriceTags Class="OTDS-PriceClass">Startpreis Tagespreise FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
-        </ConsideredPriceItems>
-      </Round>
-    </GenericValue>
-    <DayBase>x</DayBase>
-    <PersonBase>1</PersonBase>
-  </GenericAbsolute>
-  <Condition>
-    <PersonImpact>
-      <GroupedPerson/>
-    </PersonImpact>
-  </Condition>
-</PriceItem>
-<PriceItem Class="BlankAddPriceRounding">
-  <GenericAbsolute>
-    <GenericValue>
-      <Round RemainingDigits="0" Method="Up" Treshold="0.5">
-        <GroupAbsolutePriceItemsBy>
-          <Person/>
-        </GroupAbsolutePriceItemsBy>
-        <ConsideredPriceItems Source="global+Hierarchy.all:Product">
-          <ConsideredPriceTags Class="OTDS-PriceClass">Verpflegung FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
-        </ConsideredPriceItems>
-      </Round>
-    </GenericValue>
-    <DayBase>x</DayBase>
-    <PersonBase>1</PersonBase>
-  </GenericAbsolute>
-  <Condition>
-    <PersonImpact>
-      <GroupedPerson/>
-    </PersonImpact>
-  </Condition>
-</PriceItem>
-<PriceItem Class="BlankSpecialPriceRounding">
-  <GenericAbsolute>
-    <GenericValue>
-      <Round RemainingDigits="0" Method="Up" Treshold="0.5">
-        <GroupAbsolutePriceItemsBy>
-          <Person/>
-        </GroupAbsolutePriceItemsBy>
-        <ConsideredPriceItems Source="global+Hierarchy.all:Product">
-          <ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
-        </ConsideredPriceItems>
-      </Round>
-    </GenericValue>
-    <DayBase>x</DayBase>
-    <PersonBase>1</PersonBase>
-  </GenericAbsolute>
-  <Condition>
-    <PersonImpact>
-      <GroupedPerson/>
-    </PersonImpact>
-  </Condition>
-  </PriceItem>]]></programlisting>
-					<para xml:lang="de" xml:id="de_5301">Für den Erwachsenen bedeutet das
-						also:</para>
-					<para xml:lang="en" xml:id="en_5301">For adults that would therefore
-						mean:</para>
-					<programlisting><![CDATA[ 
-+ (19 + (284 * 0.85) * 1.05)                      [=273,42]       =>  BlankBasePriceRounding      = -0,4200000
-+ 112 * 0.85 * 1.05                               [=99,96]        =>  BlankAddPriceRounding       =  0,0400000
-+ 2 * 0.85 * 1.05                                 [=1.785]        =>  BlankSpecialPriceRounding   =  0,2150000
-----------------------------
-                                                  375,165                          +                -0,1650000   = 375
-                                                  ]]></programlisting>
-					<para xml:lang="de" xml:id="de_5302">Für den Nichtvollzahler bedeutet das
-						also:</para>
-					<para xml:lang="en" xml:id="en_5302">For non-full-paying persons this would
-						therefore mean:</para>
-					<programlisting><![CDATA[
-+ (19 + (284 * 0.85 * 0.75) * 1.05)               [=210,0525]     =>  BlankBasePriceRounding      = -0,5250000
-+ 112 * 0.85  * 0.75 * 1.05                       [=74,97]        =>  BlankAddPriceRounding       =  0,0300000
-+ 2 * 0.85  * 0.75* 1.05                          [=1.33875]      =>  BlankSpecialPriceRounding   = -0,3387500
-----------------------------
-                                                  286,89375                        +                -0,89375     = 286]]></programlisting>
-				</section>
-				<section xml:id="OtdsRoundingSpecial">
-					<title><phrase xml:lang="de" xml:id="de_5303">Beispiel für Spezialfall der
-							separate Rundung der Komponenten</phrase><phrase xml:lang="en"
-							xml:id="en_5303">Example of a special case of separate rounding of the
-							components</phrase></title>
-					<para xml:id="de_5304" xml:lang="de">Wir nehmen an, es gibt ein Paket, welches
-						aus einem Hinflug, einer Hotelunterkunft und einem Rückflug besteht. Die
-						Rundung soll je Person sein. Jedoch soll Hinflug, Rückflug und Unterkunft
-						separat gerundet werden. </para>
-					<para xml:id="en_5304" xml:lang="en">We assume there is a package comprising an
-						outbound flight, hotel accommodation and an inbound flight. Rounding should
-						be per person. However, outbound flight, inbound flight and accommodation
-						should be separately rounded.</para>
-					<para xml:id="de_5305" xml:lang="de">Nachfolgend ein Beispiel für eine solche
-						Rundung:</para>
-					<para xml:id="en_5305" xml:lang="en">Below is an example of this kind of
-						rounding:</para>
-					<programlisting><![CDATA[    <PriceItem Class="RoundingOfOutbound">
-        <GenericAbsolute>
-            <GenericValue>
-                <Round RemainingDigits="0" Method="Up" Treshold="0.5">
-                    <GroupAbsolutePriceItemsBy>
-                        <Person/>
-                    </GroupAbsolutePriceItemsBy>
-                    <ConsideredPriceItems Source="global+descendants:Outbound">
-                        <ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
-                    </ConsideredPriceItems>
-                    <ConsideredPriceItems Source="global+Hierarchy.all:Product">
-                        <ConsideredPriceTags Class="ComponentType">Outbound</ConsideredPriceTags>
-                    </ConsideredPriceItems>
-                </Round>
-            </GenericValue>
-            <DayBase>x</DayBase>
-            <PersonBase>1</PersonBase>
-        </GenericAbsolute>
-        <Condition>
-            <PersonImpact>
-                <GroupedPerson/>
-            </PersonImpact>
-        </Condition>
-    </PriceItem>
-    <PriceItem Class="RoundingOfInbound">
-        <GenericAbsolute>
-            <GenericValue>
-                <Round RemainingDigits="0" Method="Up" Treshold="0.5">
-                    <GroupAbsolutePriceItemsBy>
-                        <Person/>
-                    </GroupAbsolutePriceItemsBy>
-                    <ConsideredPriceItems Source="global+descendants:Outbound">
-                        <ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
-                    </ConsideredPriceItems>
-                    <ConsideredPriceItems Source="global+Hierarchy.all:Product">
-                        <ConsideredPriceTags Class="ComponentType">Inbound</ConsideredPriceTags>
-                    </ConsideredPriceItems>
-                </Round>
-            </GenericValue>
-            <DayBase>x</DayBase>
-            <PersonBase>1</PersonBase>
-        </GenericAbsolute>
-        <Condition>
-            <PersonImpact>
-                <GroupedPerson/>
-            </PersonImpact>
-        </Condition>
-    </PriceItem>
-    <PriceItem Class="RoundingOfAccommodation">
-        <GenericAbsolute>
-            <GenericValue>
-                <Round RemainingDigits="0" Method="Up" Treshold="0.5">
-                    <GroupAbsolutePriceItemsBy>
-                        <Person/>
-                    </GroupAbsolutePriceItemsBy>
-                    <ConsideredPriceItems Source="global+descendants:Outbound">
-                        <ConsideredPriceTags Class="OTDS-PriceClass">KFANGFix FruehbucherFix FruehbucherProzentual ErmaessigungProzentual KFANGProzentual</ConsideredPriceTags>
-                    </ConsideredPriceItems>
-                    <ConsideredPriceItems Source="global+Hierarchy.all:Product">
-                        <ConsideredPriceTags Class="ComponentType">Accommodation</ConsideredPriceTags>
-                    </ConsideredPriceItems>
-                </Round>
-            </GenericValue>
-            <DayBase>x</DayBase>
-            <PersonBase>1</PersonBase>
-        </GenericAbsolute>
-        <Condition>
-            <PersonImpact>
-                <GroupedPerson/>
-            </PersonImpact>
-        </Condition>
-        </PriceItem>]]></programlisting>
-					<orderedlist>
-						<listitem>
-							<para xml:id="de_5306" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5306" xml:lang="en">As</para>
-							<programlisting><![CDATA[<ConsideredPriceItems Source="global+descendants:XXX">]]></programlisting>
-							<para xml:id="de_5307" xml:lang="de">wird die Rundung auf alle
-								PriceItems eingeschränkt, die innerhalb der Komponente XXX platziert
-								sind.</para>
-							<para xml:id="en_5307" xml:lang="en">the rounding is restricted to all
-								PriceItems placed within the component XXX.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_5308" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5308" xml:lang="en">As</para>
-							<programlisting><![CDATA[<ConsideredPriceTags Class="ComponentType">Accommodation</ConsideredPriceTags>]]></programlisting>
-							<para xml:id="de_5309" xml:lang="de">werden auch die global gelieferten
-								PriceItems einbezogen, wenn sie ein entsprechendes PriceTag
-								besitzen, was sie einer bestimmten Komponente zuordnet. </para>
-							<para xml:id="en_5309" xml:lang="en">globally delivered PriceItems are
-								also included, if they possess a corresponding PriceTag allocating
-								them to a specific component.</para>
-							<para xml:id="de_5310" xml:lang="de">Den Rest kennen wir schon von den
-								vorherigen Beispielen.</para>
-							<para xml:id="en_5310" xml:lang="en">We are already familiar with the
-								rest from the previous examples.</para>
-						</listitem>
-					</orderedlist>
-				</section>
-				<section xml:id="OtdsRoundingBreakDown">
-					<title><phrase xml:lang="de" xml:id="de_5311">Beispiel für Rundung von
-							Reisepreisen direkt nach Aufteilung auf Tage und
-							Personen</phrase><phrase xml:lang="en" xml:id="en_5311">Example of
-							rounding of travel prices directly after their distribution among days
-							and persons</phrase></title>
-					<para xml:id="de_5312" xml:lang="de">Manchmal brechen Veranstaltersysteme
-						grundsätzlich alle reisebezogenen Preise auf Tage und Personen herunter und
-						runden dann direkt, bevor weitere Berechungen angestellt werden. Das
-						folgende PriceItem zeigt, wie so etwas geliefert werden muss.</para>
-					<para xml:id="en_5312" xml:lang="en">Sometimes tour operator systems distribute
-						all travel-based prices among days and persons as a matter of course, and
-						then carry out rounding directly before further calculations are carried
-						out. The following PriceItem shows how this should be carried out.</para>
-					<programlisting><![CDATA[<PriceItem Class="RoundingReisezuschlag">
-    <GenericAbsolute>
-        <GenericValue>
-            <Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Treshold="0.5">
-                <GroupAbsolutePriceItemsBy>
-                    <Person/>
-                    <Day/>
-                    <AbsolutePriceItem/>
-                </GroupAbsolutePriceItemsBy>
-                <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute">
-                    <ConsideredPriceTags Class="RoundingType">TravelBased</ConsideredPriceTags>
-                </ConsideredPriceItems>
-            </Round>
-        </GenericValue>
-        <DayBase>1</DayBase>
-        <PersonBase>1</PersonBase>
-    </GenericAbsolute>
-    <Condition>
-        <And>
-            <PersonImpact>
-                <GroupedPerson/>
-            </PersonImpact>
-            <DayImpact>
-                <GroupedDay/>
-            </DayImpact>
-            <Impact>
-                <GroupedAbsolute/>
-            </Impact>
-        </And>
-    </Condition>
-    </PriceItem>]]></programlisting>
-					<orderedlist>
-						<listitem>
-							<para xml:id="de_5313" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5313" xml:lang="en">As</para>
-							<programlisting><![CDATA[<GroupAbsolutePriceItemsBy>
-    <Person/>
-    <Day/>
-    <AbsolutePriceItem/>
-    </GroupAbsolutePriceItemsBy>]]></programlisting>
-							<para xml:id="de_5314" xml:lang="de">wird bei dieser Rundung jedes
-								PriceItem einzeln betrachtet und zu jedem PriceItem wird ein eigener
-								&lt;GenericAbsolut&gt;-Value erzeugt.</para>
-							<para xml:id="en_5314" xml:lang="en">each PriceItem is considered
-								individually during this rounding and an individual
-								&lt;GenericAbsolut&gt; value is produced for each PriceItem.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_5315" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5315" xml:lang="en">As</para>
-							<programlisting><![CDATA[<GenericValue InheritAppliedPriceTags="true" InheritAppliedCombinatorics="true">]]></programlisting>
-							<para xml:id="de_5316" xml:lang="de">erben alle
-								&lt;GenericAbsolute&gt;'s die entsprechenden PriceTags und
-								Combinatorics der PriceItems, auf die sie angewendet werden.</para>
-							<para xml:id="en_5316" xml:lang="en">all &lt;GenericAbsolute&gt;s
-								inherit the corresponding PriceTags and combinatorics of the
-								PriceItems to which they are applied.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_5317" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5317" xml:lang="en">As</para>
-							<programlisting><![CDATA[<ApplyToPriceTags  Source="Hierarchy.all:Product" Class="RoundingType">TravelBased</ApplyToPriceTags>]]></programlisting>
-							<para xml:id="de_5318" xml:lang="de">werden nur die PriceItems
-								berücksichtigt, die ein PriceTag mit Class="RoundingType" und
-								Value="TravelBased" besitzen.</para>
-							<para xml:id="en_5318" xml:lang="en">only PriceItems possessing a
-								PriceTag with Class="RoundingType" and Value="TravelBased" are
-								considered.</para>
-						</listitem>
-					</orderedlist>
-				</section>
-				<section xml:id="OtdsRoundingPercentPriceitems">
-					<title><phrase xml:lang="de" xml:id="de_5319">Beispiel für Rundung von
-							prozentualen PriceItems</phrase><phrase xml:lang="en" xml:id="en_5319"
-							>Example of the rounding of percentage PriceItems</phrase></title>
-					<para xml:id="de_5320" xml:lang="de">Manchmal rechnen Veranstaltersysteme die
-						Währung auf unterster Ebene um und runden dann direkt, bevor weitere
-						Berechnungen stattfinden.</para>
-					<para xml:id="en_5320" xml:lang="en">Sometimes tour operator systems convert the
-						currency on the lowest level and then carry out rounding directly before
-						further calculations are carried out.</para>
-					<para xml:id="de_5321" xml:lang="de">Das folgende PriceItem zeigt, wie man dies
-						liefern könnte. </para>
-					<para xml:id="en_5321" xml:lang="en">The following PriceItem shows how this can
-						be carried out.</para>
-					<para xml:id="de_5322" xml:lang="de">Die PriceItems der
-						Währungsumrechnungsfaktoren müssten dazu aber auch das entsprechende
-						PriceTag mit der Währung EUR enthalten.</para>
-					<para xml:id="en_5322" xml:lang="en">For this, the PriceItems of the currency
-						conversion factors must also include the corresponding PriceTag with the
-						currency EUR.</para>
-					<programlisting><![CDATA[<PriceItem Class="RoundingOfAllCurrencyTouchedPriceItems">
-    <GenericAbsolute>
-        <GenericValue>
-            <Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Treshold="0.5">
-                <GroupAbsolutePriceItemsBy>
-                    <Person/>
-                    <Day/>
-                    <AbsolutePriceItem/>
-                </GroupAbsolutePriceItemsBy>
-                <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Percent">
-                    <ConsideredPriceTags Class="Currency">EUR CHF</ConsideredPriceTags>
-                    <IncludeAppliedDescendants/>
-                </ConsideredPriceItems>
-            </Round>
-        </GenericValue>
-        <DayBase>1</DayBase>
-        <PersonBase>1</PersonBase>
-    </GenericAbsolute>
-    <Condition>
-        <And>
-            <PersonImpact>
-                <GroupedPerson/>
-            </PersonImpact>
-            <DayImpact>
-                <GroupedDay/>
-            </DayImpact>
-            <Impact>
-                <GroupedAbsolute/>
-            </Impact>
-        </And>
-    </Condition>
-    </PriceItem>]]></programlisting>
-					<orderedlist>
-						<listitem>
-							<para xml:id="de_5323" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5323" xml:lang="en">As</para>
-							<programlisting><![CDATA[<SpecialBase>SingleAbsolutePercentTuple</SpecialBase>
-<DayBase>1</DayBase>
-<PersonBase>1</PersonBase>]]></programlisting>
-							<para xml:id="de_5324" xml:lang="de">wird bei dieser Rundung jedes Tuple
-								aus &lt;Percent&gt;- und &lt;Absolute&gt;-PriceItem einzeln
-								betrachtet und zu jedem dieser Tuple wird ein eigener
-								&lt;GenericAbsolut&gt;-Value erzeugt.</para>
-							<para xml:id="en_5324" xml:lang="en">each tuple of &lt;Percent&gt; and
-								&lt;Absolute&gt; PriceItems is individually considered during this
-								rounding and a &lt;GenericAbsolut&gt; value is produced for each of
-								these tuples.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_5325" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5325" xml:lang="en">As</para>
-							<programlisting><![CDATA[<GenericValue InheritAppliedPriceTags="true" InheritAppliedCombinatorics="true">]]></programlisting>
-							<para xml:id="de_5326" xml:lang="de">erben alle
-								&lt;GenericAbsolute&gt;'s die entsprechenden PriceTags und
-								Combinatorics der PriceItems, auf die sie angewendet werden.</para>
-							<para xml:id="en_5326" xml:lang="en">all &lt;GenericAbsolute&gt;s
-								inherit the corresponding PriceTags and combinatorics of the
-								PriceItems to which they are applied.</para>
-						</listitem>
-						<listitem>
-							<para xml:id="de_5327" xml:lang="de">Aufgrund von</para>
-							<para xml:id="en_5327" xml:lang="en">As</para>
-							<programlisting><![CDATA[<ApplyToPriceTags Source="Hierarchy.all:Product" Class="Currency" Include="AppliedChildren">EUR CHF</ApplyToPriceTags>]]></programlisting>
-							<para xml:id="de_5328" xml:lang="de">werden nur die PriceItems
-								berücksichtigt, die ein PriceTag mit Class="Currency" und
-								Value="EUR" oder "CHF" besitzen. </para>
-							<para xml:id="en_5328" xml:lang="en">only PriceItems possessing a
-								PriceTag with Class="Currency" and Value="EUR" or "CHF" are
-								considered.</para>
-							<para xml:id="de_5329" xml:lang="de">Wegen des Attributes
-								Include="AppliedChildren" werden auch alle durch Currency mit
-								einbezogenen &lt;Absolute&gt;-PriceItems berücksichtigt.</para>
-							<para xml:id="en_5329" xml:lang="en">Because of the attribute
-								Include="AppliedChildren", all &lt;Absolute&gt; PriceItems included
-								through Currency are also considered.</para>
-						</listitem>
-					</orderedlist>
-				</section>
-				<section xml:id="OtdsRoundingDeepLevel">
-					<title><phrase xml:lang="de" xml:id="de_5330">Beispiel für Rundung auf tiefer
-							Ebene</phrase><phrase xml:lang="en" xml:id="en_5330">Example for
-							rounding on a deeper level</phrase></title>
-					<para xml:id="de_5331" xml:lang="de">Hier beispielhaft eine Methode, wie
-						einzelne PriceItems gemeinsam auf sehr tiefer Ebene gerundet werden
-						können:</para>
-					<para xml:id="en_5331" xml:lang="en">Here, for example, is a method through
-						which individual PriceItems can be rounded at a very deep level:</para>
-					<programlisting><![CDATA[<PriceItem Class="RoundingCombinedAbsolutes">
-    <GenericAbsolute>
-        <GenericValue>
-            <Round InheritPriceTags="ConsideredAbsolutes" RemainingDigits="0" Method="Up" Treshold="0.5">
-                <GroupAbsolutePriceItemsBy>
-                    <Person/>
-                    <Day/>
-                    <AbsolutePriceItem/>
-                    <PriceTagValue Source="global+Hierarchy.all:Product" Class="RoundGrouping"/>
-                </GroupAbsolutePriceItemsBy>
-                <ConsideredPriceItems Source="global+Hierarchy.all:Product" ConsideredPriceItemType="Absolute"/>
-            </Round>
-        </GenericValue>
-        <DayBase>1</DayBase>
-        <PersonBase>1</PersonBase>
-    </GenericAbsolute>
-    <Condition>
-        <And>
-            <PersonImpact>
-                <GroupedPerson/>
-            </PersonImpact>
-            <DayImpact>
-                <GroupedDay/>
-            </DayImpact>
-            <Impact>
-                <GroupedAbsolute/>
-            </Impact>
-        </And>
-    </Condition>
-</PriceItem> ]]></programlisting>
 				</section>
 			</section>
 		</section>
@@ -30883,19 +30002,11 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 										<para><code>PriceItem/Absolute/AppliedBy</code></para>
 									</listitem>
 									<listitem>
-										<para><code>PriceItem/Absolute/AppliedByPriceTags</code>
-											(V2.0)</para>
-									</listitem>
-									<listitem>
 										<para><code>PriceItem/Absolute/AppliedByAll</code>
 											(V2.0)</para>
 									</listitem>
 									<listitem>
 										<para><code>PriceItem/Absolute/NotAppliedBy</code>
-											(V2.0)</para>
-									</listitem>
-									<listitem>
-										<para><code>PriceItem/Absolute/NotAppliedByPriceTags</code>
 											(V2.0)</para>
 									</listitem>
 									<listitem>
@@ -30906,18 +30017,10 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 										<para><code>PriceItem/Percent/ApplyTo</code></para>
 									</listitem>
 									<listitem>
-										<para><code>PriceItem/Percent/ApplyToPriceTags</code>
-											(V2.0)</para>
-									</listitem>
-									<listitem>
 										<para><code>PriceItem/Percent/ApplyToAll</code></para>
 									</listitem>
 									<listitem>
 										<para><code>PriceItem/Percent/NotApplyTo</code></para>
-									</listitem>
-									<listitem>
-										<para><code>PriceItem/Percent/NotApplyToPriceTags</code>
-											(V2.0)</para>
 									</listitem>
 									<listitem>
 										<para><code>PriceItem/Percent/NotApplyToAll</code>
@@ -42460,15 +41563,11 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							<listitem>
 								<para xml:id="de_9028" xml:lang="de">Bei relativen PriceItems über
 									die Angabe von <code>Percent/ApplyTo</code>,
-										<code>Percent/ApplyToPriceTags</code>,
 										<code>Percent/ApplyToAll</code>,
-										<code>Percent/ApplyToPriceTags</code> oder
 										<code>Percent/NotApplyTo</code></para>
 								<para xml:id="en_9028" xml:lang="en">For relative PriceItems via the
 									specification of <code>Percent/ApplyTo</code> ,
-										<code>Percent/ApplyToPriceTags</code> ,
 										<code>Percent/ApplyToAll</code> ,
-										<code>Percent/ApplyToPriceTags</code> or
 										<code>Percent/NotApplyTo</code>
 								</para>
 							</listitem>
@@ -42556,21 +41655,6 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 											copied into all cost nodes where the category name of
 											the absolute PriceItem matches one of the given category
 											names.</para>
-									</listitem>
-									<listitem>
-										<para xml:lang="de" xml:id="de_5332">Hat das relative
-											PriceItem eine Angabe <code>ApplyToPriceTags</code>,
-											wird das relative PriceItem in alle Kostenknoten
-											kopiert, deren absolutes PriceItem ein PriceTag besitzt,
-											welches mit der Definition in
-												<code>ApplyToPriceTags</code> übereinstimmt
-											übereinstimmt.</para>
-										<para xml:lang="en" xml:id="en_5332">If the relative
-											PriceItem has an <code>ApplyToPriceTags</code> entry,
-											the relative PriceItem is copied into all cost nodes
-											whose absolute PriceItem possesses a PriceTag which
-											matches the definition in <code>ApplyToPriceTags</code>
-											.</para>
 									</listitem>
 									<listitem>
 										<para xml:id="de_3632" xml:lang="de">Hat das relative
