@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
+<!-- Mit XMLSpy v2021 (x64) (http://www.altova.com) von Stephan Nicklaus (Amadeus Leisure IT GmbH) bearbeitet -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<!-- Import xml: namespace -->
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
@@ -2014,7 +2014,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 			</xs:element>
 			<xs:element name="OptionalBookableAddonTypes" minOccurs="0" internal:otdsversion="2.1.2">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="det_557">Dieses Element gibt an, ob es optional zusätzlich buchbare Zusatzleistungen gibt, die über das Veranstaltersystem im Rahmen des Buchungsprozesses des Angebotes zubuchbar sind. Die zubuchbaren Leistungen müssen dafür nicht zwanghaft in der OTDS-Lieferung wenthalten sein. Das Porperty definiert, ob im Zusammenspiel der Komponenten des Angebotes (Hotel, Zimmer, Verpflegung, Flug, etc.) eine solche Zusatzleistung generell zubuchbar ist. Die Property definiert nicht, ob die entsprechende Zusatzleistung ggf. zu dem Termin ausgebucht ist. Beispiel: Wenn im Zusammenspiel mit bestimmten Flügen ein Zusatzleistungstyp generell nicht zur Verfügung steht, dann sollte dies durch entsprechende Conditions in OTDs definiert werden. Wenn an bestimmten Terminen keine Mietwagen mehr zur Verfügung stehen, dann wird das nicht über dieses Kennzeichen ausgedrückt. Solche Feinheiten sollten dann über entsprechende gelieferte Addons ausgedrückt werden, wenn man das ausdrücken möchte. In dem Element kann eine durch Space getrennte Liste von OptionalBookableAddonTypes angegeben werden.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="det_557">Dieses Element gibt an, ob es optional zusätzlich buchbare Zusatzleistungen gibt, die über das Veranstaltersystem im Rahmen des Buchungsprozesses des Angebotes zubuchbar sind. Die zubuchbaren Leistungen müssen dafür nicht zwanghaft in der OTDS-Lieferung enthalten sein. Das Property definiert, ob im Zusammenspiel der Komponenten des Angebotes (Hotel, Zimmer, Verpflegung, Flug, etc.) eine solche Zusatzleistung generell zubuchbar ist. Die Property definiert nicht, ob die entsprechende Zusatzleistung ggf. zu dem Termin ausgebucht ist. Beispiel: Wenn im Zusammenspiel mit bestimmten Flügen ein Zusatzleistungstyp generell nicht zur Verfügung steht, dann sollte dies durch entsprechende Conditions in OTDS definiert werden. Wenn an bestimmten Terminen keine Mietwagen mehr zur Verfügung stehen, dann wird das nicht über dieses Kennzeichen ausgedrückt. Solche Feinheiten sollten dann über entsprechende gelieferte Addons ausgedrückt werden, wenn man das ausdrücken möchte. Es können mehrere OptionalBookableAddonTypes angegeben werden. Zu jedem kann ein TeaserText von maximal 50 Zeichen angegeben werden.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -2034,7 +2034,11 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
-					<xs:attribute name="Class" internal:otdsversion="2.1"/>
+					<xs:attribute name="Class" internal:otdsversion="2.1">
+						<xs:annotation>
+							<xs:documentation>Dieses Attribut kann benutzt werden, um die Aggregation mit an anderen Stellen definierten OptionalBookableAddonTypes zu beeinflussen. </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="MandatoryServicesPaidAtLocation" minOccurs="0" internal:otdsversion="1.9">
