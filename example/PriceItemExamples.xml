@@ -1052,91 +1052,6 @@
  											    100       * 0,8 * 0,9 +     150       * 0,8  + ( AbsoluteA * 0,8 + AbsolutB * 0,8 )       * (-0,3) 
 								-->
 						</PriceItems>
-						<PriceItems Key="5">
-							<!-- Variante 2 mit PercentModificationValue: Noch komplexeres Beispiel für die PriceGroup PriceItems mit PriceTags auf  Level-Basis     -->
-							<PriceItem Class="A1">
-								<PriceTags>
-									<PriceTag Class="Level">0</PriceTag>
-								</PriceTags>
-								<Absolute>
-									<Value>50</Value>
-									<DayBase>1</DayBase>
-									<PersonBase>1</PersonBase>
-								</Absolute>
-							</PriceItem>
-							<PriceItem Class="A2">
-								<PriceTags>
-									<PriceTag Class="Level">5</PriceTag>
-								</PriceTags>
-								<Absolute>
-									<Value>30</Value>
-									<DayBase>1</DayBase>
-									<PersonBase>1</PersonBase>
-								</Absolute>
-							</PriceItem>
-							<PriceItem Class="P1">
-								<PriceTags>
-									<PriceTag Class="Level">1</PriceTag>
-								</PriceTags>
-								<GenericAbsolute>
-									<GenericValue>
-										<PercentModificationValue>
-											<PercentValue>-10</PercentValue>
-											<ModificationBasis>
-												<ConsideredPriceItems>
-													<ConsideredPriceTags Class="Level">0</ConsideredPriceTags>
-												</ConsideredPriceItems>
-											</ModificationBasis>
-										</PercentModificationValue>
-									</GenericValue>
-									<DayBase>1</DayBase>
-									<PersonBase>1</PersonBase>
-								</GenericAbsolute>
-							</PriceItem>
-							<PriceItem Class="P2">
-								<PriceTags>
-									<PriceTag Class="Level">1</PriceTag>
-								</PriceTags>
-								<GenericAbsolute>
-									<GenericValue>
-										<PercentModificationValue>
-											<PercentValue>-5</PercentValue>
-											<ModificationBasis>
-												<ConsideredPriceItems>
-													<ConsideredPriceTags Class="Level">0</ConsideredPriceTags>
-												</ConsideredPriceItems>
-											</ModificationBasis>
-										</PercentModificationValue>
-									</GenericValue>
-									<DayBase>1</DayBase>
-									<PersonBase>1</PersonBase>
-								</GenericAbsolute>
-							</PriceItem>
-							<PriceItem Class="P3">
-								<PriceTags>
-									<PriceTag Class="Level">10</PriceTag>
-								</PriceTags>
-								<GenericAbsolute>
-									<GenericValue>
-										<PercentModificationValue>
-											<PercentValue>-25</PercentValue>
-											<ModificationBasis>
-												<ConsideredPriceItems>
-													<ConsideredPriceTags Class="Level">0 1 2 3 4 5 6 7 8 9</ConsideredPriceTags>
-												</ConsideredPriceItems>
-											</ModificationBasis>
-										</PercentModificationValue>
-									</GenericValue>
-									<DayBase>1</DayBase>
-									<PersonBase>1</PersonBase>
-								</GenericAbsolute>
-							</PriceItem>
-							<!--DE: Ergebnis ist:
-											A1 + A2 + ( ModificationBasisP1 * (-0,1) ) + ( ModificationBasisP2 * (-0,05) ) + ( ModificationBasisP3 * (-0,25) )
-										=	A1 + A2 + ( (A1 ) * (- 0,1) ) + ( ( A1) * (- 0,05) ) + ( A1 + A2 +  ( (A1 ) * (- 0,1) ) + ( ( A2) * (- 0,05) ) )* (-0,25) )   
-										=  0,85A1 + A2 + ( 0,85A1 + A2 ) * (-0,25) =  0.6375 A1 + 0,75A2 = 31,875 + 22,5 = 54,375	
-								-->
-						</PriceItems>
 						<Availabilities Key="DZ-3">
 							<Availability Key="2011-11-01" StartDate="2011-11-01" EndDate="2012-04-30">
 								<DefaultDayState>
@@ -1195,29 +1110,6 @@
 									<Value>-40</Value>
 									<NotApplyTo LogicalRelation="And">AbsoluteA</NotApplyTo>
 								</Percent>
-							</PriceItem>
-							<!-- Nachfolgend eine komplett sinnfreie Auflistung verschiendenster Apply Möglichkeiten in PercentPriceitems -->
-							<PriceItem Class="FBAProzent">
-								<Percent>
-									<Value>-40</Value>
-									<NotApplyTo LogicalRelation="And">AbsoluteA</NotApplyTo>
-									<NotApplyToAll/>
-									<ApplyToAll/>
-									<ApplyToPriceTags Class="a">a</ApplyToPriceTags>
-									<NotApplyToPriceTags Class="a">p</NotApplyToPriceTags>
-								</Percent>
-							</PriceItem>
-							<PriceItem Class="AbsoluteAB">
-								<Absolute>
-									<Value>100</Value>
-									<DayBase>x</DayBase>
-									<PersonBase>1</PersonBase>
-									<AppliedBy>FBProzent</AppliedBy>
-									<NotAppliedBy>a</NotAppliedBy>
-									<AppliedByPriceTags Class="as"/>
-									<NotAppliedByAll Source="SellingAccom" Component="Accommodation"></NotAppliedByAll>
-									<NotAppliedByPriceTags Class="asd" Source="#beliebig">MichNicht</NotAppliedByPriceTags>
-								</Absolute>
 							</PriceItem>
 						</PriceItems>
 						<Availabilities Key="DZ-3">
