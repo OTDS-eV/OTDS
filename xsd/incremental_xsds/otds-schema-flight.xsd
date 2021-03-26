@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
-<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:internal="http://otds-group.org/otds/internal" xmlns:z="http://www.xsdr.org/ns/structure" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+<!-- Mit XMLSpy v2021 (x64) (http://www.altova.com) von Stephan Nicklaus (Amadeus Leisure IT GmbH) bearbeitet -->
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<xs:include schemaLocation="otds-schema-common.xsd"/>
 	<xs:complexType name="FlightsType">
 		<xs:complexContent>
@@ -84,7 +84,7 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="OnewayFlight" type="OnewayType" maxOccurs="unbounded">
+					<xs:element name="OnewayFlight" type="OnewayType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_491">Definition der kleinsten Einheit von Einzelflügen, die in einem Veranstaltersystem vorliegen und  ggf. zur Kombination von Returnflügen und auch zur Erstellung von erweiterten Flügen benutzt werden. Siehe dazu auch Hinweise ReturnFlightRules und OnewayFlightCombiRules.  
 		</xs:documentation>
@@ -100,7 +100,7 @@ In the OTDS structure, extended flight offers (CombiRules) are also available, w
 		<xs:complexContent>
 			<xs:extension base="CompositeUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="ReturnFlight" type="ReturnType" maxOccurs="unbounded">
+					<xs:element name="ReturnFlight" type="ReturnType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_494">Definition aller Hin- und Rückflüge, sofern diese nicht durch Kombination von Einzelflügen abgebildet werden	können.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_494">Definition of all return flights, in case they cannot be represented by a combination of individual flights.</xs:documentation>
