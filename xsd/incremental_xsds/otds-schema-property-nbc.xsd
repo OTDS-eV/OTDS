@@ -1,273 +1,267 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns="http://otds-group.org/otds"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:xlink="http://www.w3.org/1999/xlink"
-           xmlns:z="http://www.xsdr.org/ns/structure"
-           targetNamespace="http://otds-group.org/otds"
-           elementFormDefault="qualified">
-   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
-   <xs:import namespace="http://www.w3.org/XML/1998/namespace"
-              schemaLocation="xml.xsd"/>
-   <xs:complexType name="InfoWithLangType">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="title" type="TitleWithLangType"/>
-            <xs:element ref="author"/>
-            <xs:element ref="copyright"/>
-            <xs:element name="keywordset" type="KeywordsetWithLangType"/>
-            <xs:element ref="pubdate"/>
-            <xs:element ref="publisher"/>
-         </xs:choice>
-      </xs:choice>
-   </xs:complexType>
-   <xs:complexType name="TitleWithLangType">
-      <xs:simpleContent>
-         <xs:extension base="xs:string">
-            <xs:attribute ref="xml:lang" use="optional" default="de">
-               <xs:annotation>
-                  <xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
-               </xs:annotation>
-            </xs:attribute>
-         </xs:extension>
-      </xs:simpleContent>
-   </xs:complexType>
-   <xs:complexType name="KeywordsetWithLangType">
-      <xs:sequence>
-         <xs:element ref="keyword" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute ref="xml:lang" use="optional" default="de">
-         <xs:annotation>
-            <xs:documentation xml:lang="de" xml:id="del_1">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
-         </xs:annotation>
-      </xs:attribute>
-   </xs:complexType>
-   <xs:element name="title" type="xs:string"/>
-   <xs:element name="info">
-      <xs:complexType>
-         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-               <xs:element ref="title"/>
-               <xs:element ref="author"/>
-               <xs:element ref="copyright"/>
-               <xs:element ref="keywordset"/>
-               <xs:element ref="pubdate"/>
-               <xs:element ref="publisher"/>
-            </xs:choice>
-         </xs:choice>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="keywordset">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element ref="keyword" maxOccurs="unbounded"/>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="keyword" type="xs:string"/>
-   <xs:element name="para" type="ParaType"/>
-   <xs:complexType name="ParaType" mixed="true">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-         <xs:element ref="itemizedlist"/>
-         <xs:element ref="orderedlist"/>
-         <xs:element ref="para"/>
-      </xs:choice>
-   </xs:complexType>
-   <xs:element name="itemizedlist" type="ItemizedlistType"/>
-   <xs:complexType name="ItemizedlistType">
-      <xs:sequence>
-         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element ref="itemizedlist"/>
-            <xs:element ref="orderedlist"/>
-            <xs:element ref="para"/>
-         </xs:choice>
-         <xs:element ref="listitem" maxOccurs="unbounded"/>
-      </xs:sequence>
-   </xs:complexType>
-   <xs:element name="orderedlist" type="OrderedlistType"/>
-   <xs:complexType name="OrderedlistType">
-      <xs:sequence>
-         <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-               <xs:element ref="title"/>
-            </xs:choice>
-         </xs:sequence>
-         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element ref="itemizedlist"/>
-            <xs:element ref="orderedlist"/>
-            <xs:element ref="para"/>
-         </xs:choice>
-         <xs:element ref="listitem" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute name="continuation">
-         <xs:simpleType>
-            <xs:restriction base="xs:token">
-               <xs:enumeration value="continues"/>
-               <xs:enumeration value="restarts"/>
-            </xs:restriction>
-         </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="startingnumber" type="xs:NMTOKEN"/>
-      <xs:attribute name="numeration">
-         <xs:simpleType>
-            <xs:restriction base="xs:token">
-               <xs:enumeration value="arabic"/>
-               <xs:enumeration value="upperalpha"/>
-               <xs:enumeration value="loweralpha"/>
-               <xs:enumeration value="upperroman"/>
-               <xs:enumeration value="lowerroman"/>
-            </xs:restriction>
-         </xs:simpleType>
-      </xs:attribute>
-   </xs:complexType>
-   <xs:element name="listitem">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-               <xs:element ref="itemizedlist"/>
-               <xs:element ref="orderedlist"/>
-               <xs:element ref="para"/>
-            </xs:choice>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="figure">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element ref="title" minOccurs="0"/>
-            <xs:element ref="mediaobject" minOccurs="1"/>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="mediaobject">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element name="info" type="InfoWithLangType" minOccurs="0"/>
-            <xs:choice maxOccurs="unbounded">
-               <xs:element ref="videoobject"/>
-               <xs:element ref="audioobject"/>
-               <xs:element ref="imageobject"/>
-            </xs:choice>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="videoobject">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element ref="videodata"/>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="audioobject">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element ref="audiodata"/>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="imageobject">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element ref="imagedata"/>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="videodata">
-      <xs:complexType>
-         <xs:attribute name="format"/>
-         <xs:attribute name="fileref"/>
-         <xs:attribute name="width"/>
-         <xs:attribute name="depth"/>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="audiodata">
-      <xs:complexType>
-         <xs:attribute name="format"/>
-         <xs:attribute name="fileref"/>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="imagedata">
-      <xs:complexType>
-         <xs:attribute name="format"/>
-         <xs:attribute name="fileref"/>
-         <xs:attribute name="width"/>
-         <xs:attribute name="depth"/>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="orgname" type="xs:string"/>
-   <xs:element name="personname">
-      <xs:complexType mixed="true">
-         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element ref="firstname"/>
-            <xs:element ref="surname"/>
-         </xs:choice>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="author">
-      <xs:complexType>
-         <xs:choice>
-            <xs:sequence>
-               <xs:element ref="personname"/>
-               <xs:choice minOccurs="0" maxOccurs="unbounded">
-                  <xs:element ref="email"/>
-               </xs:choice>
-            </xs:sequence>
-            <xs:sequence>
-               <xs:element ref="orgname"/>
-               <xs:choice minOccurs="0" maxOccurs="unbounded">
-                  <xs:element ref="email"/>
-               </xs:choice>
-            </xs:sequence>
-         </xs:choice>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="copyright">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element ref="year" maxOccurs="unbounded"/>
-            <xs:element ref="holder" minOccurs="0" maxOccurs="unbounded"/>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="year" type="xs:string"/>
-   <xs:element name="holder" type="xs:string"/>
-   <xs:element name="firstname" type="xs:string"/>
-   <xs:element name="surname" type="xs:string"/>
-   <xs:element name="pubdate" type="xs:string"/>
-   <xs:element name="publisher">
-      <xs:complexType>
-         <xs:sequence>
-            <xs:element ref="publishername"/>
-         </xs:sequence>
-      </xs:complexType>
-   </xs:element>
-   <xs:element name="publishername" type="xs:string"/>
-   <xs:element name="email" type="xs:string"/>
-   <xs:element name="section" type="SectionType"/>
-   <xs:complexType name="SectionType">
-      <xs:sequence>
-         <xs:sequence>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-               <xs:element ref="title"/>
-            </xs:choice>
-         </xs:sequence>
-         <xs:choice>
-            <xs:sequence>
-               <xs:choice maxOccurs="unbounded">
-                  <xs:element ref="itemizedlist"/>
-                  <xs:element ref="orderedlist"/>
-                  <xs:element ref="figure"/>
-                  <xs:element ref="para"/>
-               </xs:choice>
-               <xs:choice minOccurs="0">
-                  <xs:sequence>
-                     <xs:element ref="section" maxOccurs="unbounded"/>
-                  </xs:sequence>
-               </xs:choice>
-            </xs:sequence>
-            <xs:sequence>
-               <xs:element ref="section" maxOccurs="unbounded"/>
-            </xs:sequence>
-         </xs:choice>
-      </xs:sequence>
-   </xs:complexType>
+<xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:complexType name="InfoWithLangType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="title" type="TitleWithLangType"/>
+				<xs:element ref="author"/>
+				<xs:element ref="copyright"/>
+				<xs:element name="keywordset" type="KeywordsetWithLangType"/>
+				<xs:element ref="pubdate"/>
+				<xs:element ref="publisher"/>
+			</xs:choice>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="TitleWithLangType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute ref="xml:lang" use="optional" default="de">
+					<xs:annotation>
+						<xs:documentation xml:lang="de" xml:id="del_">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="KeywordsetWithLangType">
+		<xs:sequence>
+			<xs:element ref="keyword" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional" default="de">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="del_1">In diesem Attribut wird die Sprache nach XML 1.0 innerhalb des Elements angegeben.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="title" type="xs:string"/>
+	<xs:element name="info">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="title"/>
+					<xs:element ref="author"/>
+					<xs:element ref="copyright"/>
+					<xs:element ref="keywordset"/>
+					<xs:element ref="pubdate"/>
+					<xs:element ref="publisher"/>
+				</xs:choice>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="keywordset">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="keyword" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="keyword" type="xs:string"/>
+	<xs:element name="para" type="ParaType"/>
+	<xs:complexType name="ParaType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="itemizedlist"/>
+			<xs:element ref="orderedlist"/>
+			<xs:element ref="para"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="itemizedlist" type="ItemizedlistType"/>
+	<xs:complexType name="ItemizedlistType">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="itemizedlist"/>
+				<xs:element ref="orderedlist"/>
+				<xs:element ref="para"/>
+			</xs:choice>
+			<xs:element ref="listitem" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="orderedlist" type="OrderedlistType"/>
+	<xs:complexType name="OrderedlistType">
+		<xs:sequence>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="title"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="itemizedlist"/>
+				<xs:element ref="orderedlist"/>
+				<xs:element ref="para"/>
+			</xs:choice>
+			<xs:element ref="listitem" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="continuation">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="continues"/>
+					<xs:enumeration value="restarts"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="startingnumber" type="xs:NMTOKEN"/>
+		<xs:attribute name="numeration">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="arabic"/>
+					<xs:enumeration value="upperalpha"/>
+					<xs:enumeration value="loweralpha"/>
+					<xs:enumeration value="upperroman"/>
+					<xs:enumeration value="lowerroman"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="listitem">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="itemizedlist"/>
+					<xs:element ref="orderedlist"/>
+					<xs:element ref="para"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="figure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="title" minOccurs="0"/>
+				<xs:element ref="mediaobject" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mediaobject">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="info" type="InfoWithLangType" minOccurs="0"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="videoobject"/>
+					<xs:element ref="audioobject"/>
+					<xs:element ref="imageobject"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="videoobject">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="videodata"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="audioobject">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="audiodata"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="imageobject">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="imagedata"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="videodata">
+		<xs:complexType>
+			<xs:attribute name="format"/>
+			<xs:attribute name="fileref"/>
+			<xs:attribute name="width"/>
+			<xs:attribute name="depth"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="audiodata">
+		<xs:complexType>
+			<xs:attribute name="format"/>
+			<xs:attribute name="fileref"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="imagedata">
+		<xs:complexType>
+			<xs:attribute name="format"/>
+			<xs:attribute name="fileref"/>
+			<xs:attribute name="width"/>
+			<xs:attribute name="depth"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="orgname" type="xs:string"/>
+	<xs:element name="personname">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="firstname"/>
+				<xs:element ref="surname"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="author">
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="personname"/>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="email"/>
+					</xs:choice>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element ref="orgname"/>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="email"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="copyright">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="year" maxOccurs="unbounded"/>
+				<xs:element ref="holder" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year" type="xs:string"/>
+	<xs:element name="holder" type="xs:string"/>
+	<xs:element name="firstname" type="xs:string"/>
+	<xs:element name="surname" type="xs:string"/>
+	<xs:element name="pubdate" type="xs:string"/>
+	<xs:element name="publisher">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="publishername"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="publishername" type="xs:string"/>
+	<xs:element name="email" type="xs:string"/>
+	<xs:element name="section" type="SectionType"/>
+	<xs:complexType name="SectionType">
+		<xs:sequence>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="title"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element ref="itemizedlist"/>
+						<xs:element ref="orderedlist"/>
+						<xs:element ref="figure"/>
+						<xs:element ref="para"/>
+					</xs:choice>
+					<xs:choice minOccurs="0">
+						<xs:sequence>
+							<xs:element ref="section" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:choice>
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element ref="section" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>
