@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:functx="http://www.functx.com" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="1.9.5" UpdateMode="New">
+	<!-- vereinfachte Products zur Veranschaulichung der Änderungen in 1.9.4 und 1.9.5 -->
+	<Products>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TO1">
+			<Booking>
+				<BookingGroup Source="ThisComponent" Area="GlobalArea" Class="Default">
+					<BookingParameter Field="BrandCode">
+						<Value>TO1</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<!--vereinfachte Accommodations zur Veranschaulichung der Änderungen in 1.9.4  und 1.9.5 -->
+	<Accommodations UpdateMode="New">
+		<Accommodation Key="BAD020" UpdateMode="New">
+			<Properties Key="1">
+				<PropertyGroup>
+					<!-- in 1.9.4 hinzugefügte Eigenschaften für Zielgruppen u.a.  Backpacker, BusinessTravelers, ClubTourists, CruiseTravelers, GolfTourists, 
+                GroupTourists, LongTermTourists, Cyclists, Motorbiker, RoundtripTravelers, SingleWithChild, WheelchairUsers, BeachTravelers, PartyTourists
+			 -->
+					<AccomodationTargetgroups>Backpacker BusinessTravellers ClubTourists CruiseTravellers GolfTourists GroupTourists LongTermTourists Cyclists Motorbiker RoundtripTravellers SingleWithChild WheelchairUsers BeachTravellers PartyTourists</AccomodationTargetgroups>
+					<GeneralIncludedServices>
+						<!-- in 1.9.4 hinzugefügte Werte für inkludierte Zusatzleistungen FreeCancellation und FreeRebooking -->
+						<GeneralIncludedService>FreeCancellation</GeneralIncludedService>
+						<GeneralIncludedService>FreeRebooking</GeneralIncludedService>
+						<!-- in 1.9.5 hinzugefügte Werte für inkludierte Zusatzleistungen FreeCancellation und FreeRebooking -->
+						<GeneralIncludedService>FreeCancellationWithFee</GeneralIncludedService>
+						<GeneralIncludedService>FreeRebookingWithFee</GeneralIncludedService>
+					</GeneralIncludedServices>
+					<!-- in 1.9.5 hinzugefügtes Element-->
+					<OptionalBookableAddonTypes>
+						<OptionalBookableAddonType ShortTeaserText="FlexTarif für 58 Euro">FlexibleCancellationOptions</OptionalBookableAddonType>
+						<OptionalBookableAddonType>CarRentalOptions</OptionalBookableAddonType>
+						<OptionalBookableAddonType>GolfArrangements</OptionalBookableAddonType>
+						<OptionalBookableAddonType>GuidedTours</OptionalBookableAddonType>
+						<OptionalBookableAddonType>ParkingOptions</OptionalBookableAddonType>
+						<OptionalBookableAddonType>RailAndFlyOptions</OptionalBookableAddonType>
+						<OptionalBookableAddonType>SkiLessons</OptionalBookableAddonType>
+						<OptionalBookableAddonType>SkipassOptions</OptionalBookableAddonType>
+						<OptionalBookableAddonType>SnowboardLessons</OptionalBookableAddonType>
+						<OptionalBookableAddonType>SportsArrangements</OptionalBookableAddonType>
+						<OptionalBookableAddonType>TourArrangements</OptionalBookableAddonType>
+						<OptionalBookableAddonType>TransferOptions</OptionalBookableAddonType>
+						<OptionalBookableAddonType>WellnessArrangements</OptionalBookableAddonType>
+					</OptionalBookableAddonTypes>
+				</PropertyGroup>
+			</Properties>
+			<SellingAccom Key="S5-BAD020">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="Accommodation">
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>BAD020</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="K">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="Accommodation">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>K</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+						    <!-- in 1.9.4 hinzugefügte neue Property "Reference" und der Möglichkeit verschiedene Referenzsysteme einzubinden
+							 -->
+							<BoardInfo>
+								<Reference ReferenceSystem="NL-ANVR" ReferenceType="BoardTypeAccommodation">BB</Reference>
+							</BoardInfo>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<Filter Key="1">
+						<Keys Source="global:Unit">DZ EZ Y</Keys>
+					</Filter>
+				</Board>
+				<Unit Key="A3">
+					<Tags>
+						<Tag Class="Key">A3</Tag>
+					</Tags>
+					<Properties Key="1">
+						<PropertyGroup>
+							<!-- in 1.9.4 hinzugefügte neue Property "Reference" und der Möglichkeit verschiedene Referenzsysteme einzubinden. -->
+							<UnitInfo>
+								<Reference ReferenceSystem="NL-ANVR" ReferenceType="RoomType">3KA</Reference>
+							</UnitInfo>
+							
+							<!-- in 1.9.4 hinzugefügte neue Wert "Budget" in UnitFacilities. -->
+							<UnitFacilities>Budget</UnitFacilities>
+							
+							<!-- in 1.9.4 hinzugefügte neue Property "BookableOnlyFor" mit dem ersten Eintrag "Honeymooner".-->
+							<BookableOnlyFor>HoneyMooner</BookableOnlyFor>
+							
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="STK">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="Accommodation">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>STK</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Standkaravan Typ C</UnitName>
+								<!-- in 1.9.5 hinzugefügte Unittypen-->
+								<UnitType>MobileHome</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="Unit">
+							<Person>
+								<MinAge>12</MinAge>
+								<Count>5</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+					<SellingUnit Key="FW">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="Accommodation">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>FW</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Ferienwohnung Typ F</UnitName>
+								<!-- in 1.9.5 hinzugefügte Unittypen-->
+								<UnitType>HolidayFlat</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="Unit">
+							<Person>
+								<MinAge>12</MinAge>
+								<Count>5</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+					<SellingUnit Key="HH">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="Accommodation">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>FW</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Ferienhaus mit Seeblick</UnitName>
+								<!-- in 1.9.5 genauer spezifiziert als Ferienhaus-->
+								<UnitType>HolidayHome</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="Unit">
+							<Person>
+								<MinAge>12</MinAge>
+								<Count>5</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+					<SellingUnit Key="TT">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="Accommodation">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>TT</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Hauszelt für 8 Personen</UnitName>
+								<!-- in 1.9.5 hinzugefügte Unittypen-->
+								<UnitType>Tent</UnitType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="Unit">
+							<Person>
+								<MinAge>12</MinAge>
+								<MinCount>1</MinCount>
+								<MaxCount>8</MaxCount>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+					<SellingUnit Key="DZ">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="Accommodation">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Doppelzimmer mit 2 Einzelbetten</UnitName>
+								<UnitType>Double</UnitType>
+								<!-- in 1.9.5 hinzugefügte UnitBedType -> SeparatedBeds -->
+								<UnitBedType>SeparatedBeds</UnitBedType>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="Unit">
+							<Person>
+								<MinAge>12</MinAge>
+								<MinCount>1</MinCount>
+								<MaxCount>2</MaxCount>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+				<PriceItems Key="HotelOnlyPrices">
+					<PriceItem Class="Baseprice">
+						<Absolute>
+							<Value>79</Value>
+							<DayBase>x</DayBase>
+							<PersonBase>1</PersonBase>
+						</Absolute>
+						<Properties>
+							<PropertyGroup>
+								<!-- in 1.9.4 hinzugefügte neue PriceTypes LastMinute, FirstMinute, UltraLastMinute, UltraFirstMinute.-->
+								<PriceType>LastMinute</PriceType>
+							</PropertyGroup>
+						</Properties>
+					</PriceItem>
+				</PriceItems>
+			</SellingAccom>
+			<CatchmentAirports>BAD</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+</Otds>
