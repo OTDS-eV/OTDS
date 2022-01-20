@@ -783,8 +783,8 @@ Default is "ThisComponent". Global parameters are treated as separate booking fa
 					<xs:sequence>
 						<xs:element name="Person" maxOccurs="unbounded">
 							<xs:annotation>
-								<xs:documentation xml:lang="de" xml:id="de_88">Definition der Personen, die in der Unterkunft buchbar sind. Die Personen werden nach Alter absteigend definiert.</xs:documentation>
-								<xs:documentation xml:lang="en" xml:id="en_88">Definition of persons who can be booked into the accommodation. Persons are defined in descending order by age.</xs:documentation>
+								<xs:documentation xml:lang="de" xml:id="de_01457">Definition der Personen, die in der Unterkunft buchbar sind. Die Personen werden nach Alter absteigend definiert.</xs:documentation>
+								<xs:documentation xml:lang="en" xml:id="en_01457">Definition of persons who can be booked into the accommodation. Persons are defined in descending order by age.</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:complexContent>
@@ -2801,35 +2801,27 @@ If the attribute is not filled, the default "Any" is used.</xs:documentation>
 		
 		<xs:attribute name="Duration" use="required">
 			<xs:annotation>
-				<xs:documentation xml:id="de_1234" xml:lang="de">Angabe der Aufenthaltsdauer
-				</xs:documentation>
-				<xs:documentation xml:id="en_1234" xml:lang="en">Defines the duration of the stay
-				</xs:documentation>
+				<xs:documentation xml:id="de_01452" xml:lang="de">Angabe der Aufenthaltsdauer</xs:documentation>
+				<xs:documentation xml:id="en_01452" xml:lang="en">Defines the duration of the stay</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="StartDate" use="required">
 			<xs:annotation>
-				<xs:documentation xml:id="de_1234" xml:lang="de">Startdatum der Werteliste
-				</xs:documentation>
-				<xs:documentation xml:id="en_1234" xml:lang="en">Defines the start date 
-				</xs:documentation>
+				<xs:documentation xml:id="de_01453" xml:lang="de">Startdatum der Werteliste</xs:documentation>
+				<xs:documentation xml:id="en_01454" xml:lang="en">Defines the start date</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute form="unqualified" name="EndDate" use="required">
 			<xs:annotation>
-				<xs:documentation xml:id="de_1234" xml:lang="de">Enddatum der Werteliste
-				</xs:documentation>
-				<xs:documentation xml:id="en_1234" xml:lang="en">Defines the end date 
-				</xs:documentation>
+				<xs:documentation xml:id="de_01454" xml:lang="de">Enddatum der Werteliste</xs:documentation>
+				<xs:documentation xml:id="en_01454" xml:lang="en">Defines the end date </xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="WeekdayList" type="WeekdayEnum">
 			<xs:annotation>
-				<xs:documentation xml:id="de_1234" xml:lang="de">Angabe der Wochentage, für die der Preis gelten soll. Eine Angabe "MON TUE" führt dazu, dass Anreisen nur Montags und Dienstags erlaubt sind.
-					Ohne Angabe ist tägliche Anreise möglich. 
+				<xs:documentation xml:id="de_01455" xml:lang="de">Angabe der Wochentage, für die der Preis gelten soll. Eine Angabe "MON TUE" führt dazu, dass Anreisen nur Montags und Dienstags erlaubt sind. Ohne Angabe ist tägliche Anreise möglich. 
 				</xs:documentation>
-				<xs:documentation xml:id="en_1234" xml:lang="en">Defines the weekdays, which allow checkin and distibutes the prices on the given weekdays. 
-					Without the definition of the attribute the checkin is daily. 
+				<xs:documentation xml:id="en_01455" xml:lang="en">Defines the weekdays, which allow checkin and distibutes the prices on the given weekdays. Without the definition of the attribute the checkin is daily. 
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
@@ -5736,50 +5728,77 @@ Das Attribut ExecutionOrder definiert, zu welchem Zeitpunkt die Conditions ausge
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="SimplePriceItemsType">
-		<xs:annotation>
-			<xs:documentation xml:lang="de" xml:id="de_354">Definition der Preisbestandteile (PriceItem) bei
-				Unterbringungen.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_354">Definition of price components (PriceItem) for
-				accommodation.</xs:documentation>
-		</xs:annotation>
+	<xs:complexType name="SimplePriceItemsType">		
 		<xs:complexContent>
 			<xs:extension base="MultipleSimpleUpdateNodeType">
 				<xs:sequence>
-					<xs:element name="SimplePriceItem" type="SimplePriceItemType"
-						maxOccurs="unbounded" minOccurs="1"/>
+					<xs:element name="SimplePriceItem" type="SimplePriceItemType" maxOccurs="unbounded" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_01447">Definition der simplen Preisbestandteile (SimplePriceItem) bei Zimmern.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_01447">Definition of simple price components (SimplePriceItem) for rooms.</xs:documentation>
+						</xs:annotation></xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="SimplePriceItemType">
 		<xs:sequence>
-			<xs:element name="Absolute" type="SimplePriceItemAbsoluteType" minOccurs="1">
+			<xs:element name="Absolute" type="SimplePriceItemAbsoluteType" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
-					<xs:documentation xml:id="de_12345" xml:lang="de">Definition der einfachen Preisbestandteile (SimplePriceItem) bei SellingUnits.</xs:documentation>
-					<xs:documentation xml:id="en_12345" xml:lang="en">Definition of simple price components (SImplePriceItem) for SellingUnits.</xs:documentation>
+					<xs:documentation xml:id="de_01448" xml:lang="de">Definition der Absolut-Preise</xs:documentation>
+					<xs:documentation xml:id="en_01448" xml:lang="en">Definition of absolute prices.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" name="SimpleOccupancy" type="SimpleOccupancyType"
-					minOccurs="0">
+				<xs:element maxOccurs="unbounded" name="SimpleOccupancy" type="SimpleOccupancyType" minOccurs="0">
 					<xs:annotation>
-						<xs:documentation xml:id="de_29" xml:lang="de">Belegungsvarianten der Unterkünfe/Zimmer 
-Personen werden nach Alter absteigend definiert.
-</xs:documentation>
-						<xs:documentation xml:id="en_29" xml:lang="en">Occupancy variations for a room/apartment
-Persons are defined in descending order by age.
-</xs:documentation>
+						<xs:documentation xml:id="de_01456" xml:lang="de">Belegungsvarianten der Unterkünfe/Zimmer Personen werden nach Alter absteigend definiert. Vereinfachte Angabe ohne Exclude und Match Availability.</xs:documentation>
+						<xs:documentation xml:id="en_01456" xml:lang="en">Occupancy variations for a room/apartment Persons are defined in descending order by age. Simplified definition without exclude and match availability.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
+		</xs:sequence>		
+		<xs:attribute name="Class" type="TokenType" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_01449">Gibt einen frei vergebbaren Klassennamen für das SimplePriceItem an, auf den in Combinatorics Bezug genommen werden kann. Es wird typischerweise eine Kategorie von SimplePriceItems angegeben, beispielsweise Kinderermäßigung, Frühbucherrabatt, DurationReduction etc.</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_01449">Specify a freely assignable class name for the SimplePriceItem which will be referred back to in Combinatorics. Typically a category of SimplePriceItems will be specified, such as children's discount, early booking discount, DurationReduction, etc.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DayType" type="DayTypeEnum" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="de" xml:id="de_01450">Gibt an, wie Preise verarbeitet werden sollen. CheckIn = DayType X; Stay = DayType 1</xs:documentation>
+				<xs:documentation xml:lang="en" xml:id="en_01450">Specify the price rule.CheckIn = DayType X; Stay = DayType 1 </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="SimplePriceItemAbsoluteType">
+		<xs:sequence>
+			<xs:element name="ValueLists" maxOccurs="1" type="SimplePriceItemValueListsType">				
+			</xs:element>
 		</xs:sequence>
+	</xs:complexType>	
+	<xs:complexType name="SimplePriceItemValueListsType">		
+		<xs:sequence>
+			<xs:element name="ValueList" type="SimplePriceItemValueListType" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_01451">Definiert eine Liste von Preis Angaben, die sich an Attributen StartDaten, EndDate, WeekdayList orientieren. Der erste Wert der Liste wird auf den ersten Tag zwischen StartDate und EndDate angewendet, der WeekdayList erfüllt.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_01451">Defines a list of price information based on attributes StartDate, EndDate, WeekdayList. The first value of the list is applied to the first day between StartDate and EndDate that satisfies WeekdayList</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="SimplePriceItemValueListType">
+		<xs:simpleContent>
+			<xs:extension base="IntegerListType">
+				<xs:attributeGroup ref="SimplePriceItemValueListAttributeGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="PriceItemType">
 		<xs:annotation>
 			<xs:documentation xml:lang="de" xml:id="de_00355">Definition der Preisbestandteile (PriceItem) bei Unterbringungen.</xs:documentation>
-			<xs:documentation xml:lang="en" xml:id="en_00355">Definition of price components (PriceItem) for
-				accommodation.</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_00355">Definition of price components (PriceItem) for accommodation.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:choice>
@@ -6442,26 +6461,7 @@ Ist keine PriceItemFilterGroup angegeben, so findet keine Einschränkung der Pri
 			</xs:element>
 		</xs:choice>
 	</xs:complexType>
-	<xs:complexType name="SimplePriceItemAbsoluteType">
-		<xs:sequence>
-			<xs:element name="ValueLists" maxOccurs="1" type="SimplePriceItemValueListsType">
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="SimplePriceItemValueListsType">		
-		<xs:sequence>
-			<xs:element name="ValueList" type="SimplePriceItemValueListType" minOccurs="1" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="SimplePriceItemValueListType">
-		<xs:simpleContent>
-			<xs:extension base="IntegerListType">
-				<xs:attributeGroup ref="SimplePriceItemValueListAttributeGroup"/>
-			</xs:extension>
-		</xs:simpleContent>
-	</xs:complexType>
+	
 	
 	<xs:complexType name="PriceAbsoluteType">
 		<xs:sequence>
