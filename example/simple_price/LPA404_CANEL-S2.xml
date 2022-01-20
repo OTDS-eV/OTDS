@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- WBS-METAINFO -->
+<Otds UpdateMode="Merge" xsi:schemaLocation="http://otds-group.org/otds ../../xsd/otds.xsd" Version="2.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://otds-group.org/otds">
+  <Brands UpdateMode="Merge"/>
+  <Accommodations UpdateMode="Merge">
+    <Accommodation Key="Simple-Accomm" UpdateMode="Merge">
+      <Tags>
+        <Tag Class="3LC1">LPA</Tag>
+      </Tags>
+      <Properties Key="Default">
+        <PropertyGroup>
+          <AccommodationCity>Playa del Ingles</AccommodationCity>
+          <AccommodationType>Hotel</AccommodationType>
+          <AccommodationName>Gay Artemisa Bungalows</AccommodationName>
+          <AccommodationInfo>
+            <Reference ReferenceSystem="Giata" ReferenceType="ObjectID">408605</Reference>
+            <Reference ReferenceSystem="Giata" ReferenceType="CityID">692</Reference>
+          </AccommodationInfo>
+          <AccommodationOfficialCategory>3</AccommodationOfficialCategory>
+          <AccommodationAddress>
+            <Street>Calle Timple No. 5</Street>
+            <ZipCode>35100</ZipCode>
+            <City>Playa del Ingles</City>
+            <Country>Spanien/Gran Canaria</Country>
+            <Phone>0034-928-760020</Phone>
+            <Fax>0034-928-762473</Fax>
+            <GeoInfo>
+              <GeoCode>
+                <Latitude>27.7608</Latitude>
+                <Longitude>-15.5781</Longitude>
+                <Accuracy>1</Accuracy>
+              </GeoCode>
+            </GeoInfo>
+          </AccommodationAddress>
+        </PropertyGroup>
+      </Properties>
+      <SellingAccom Key="S2-Simple-Accomm">
+        <Tags>
+          <Tag Class="HotelCode">Simple-Accomm</Tag>
+          <ConditionalTag>
+            <Tag Class="HotelOption">N</Tag>
+            <Condition>
+              <BookingDateOffset Source="Product">
+                <Max>13</Max>
+              </BookingDateOffset>
+            </Condition>
+          </ConditionalTag>
+        </Tags>
+        <Booking>
+          <BookingGroup Area="ServiceArea" Source="Accommodation">
+            <BookingParameter Field="RequestCode">
+              <Value>H</Value>
+            </BookingParameter>
+            <BookingParameter Field="ServiceCode">
+              <Value>Simple-Accomm</Value>
+            </BookingParameter>
+          </BookingGroup>
+        </Booking>
+        <Filter Key="Default">
+          <And>
+            <Not>
+              <Or>
+                <Date Source="SellingAccom" DayType="Stay">
+                  <Max>2022-04-30</Max>
+                </Date>
+                <Date Source="SellingAccom" DayType="Stay">
+                  <Min>2022-11-01</Min>
+                </Date>
+              </Or>
+            </Not>
+            <Or>
+              <And>
+                <Keys Source="Board">H U</Keys>
+                <Keys Source="Unit">B11</Keys>
+              </And>
+            </Or>
+          </And>
+        </Filter>
+        <Board Key="H">
+          <Tags>
+            <Tag Class="Key">H</Tag>
+          </Tags>
+          <Booking>
+            <BookingGroup Area="ServiceArea" Source="Accommodation">
+              <BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+                <Value>H</Value>
+              </BookingParameter>
+            </BookingGroup>
+          </Booking>
+          <Properties Key="Default">
+            <PropertyGroup>
+              <BoardName>Halbpension</BoardName>
+              <BoardType>HalfBoard</BoardType>
+            </PropertyGroup>
+          </Properties>
+        </Board>
+        <Board Key="U">
+          <Tags>
+            <Tag Class="Key">U</Tag>
+          </Tags>
+          <Booking>
+            <BookingGroup Area="ServiceArea" Source="Accommodation">
+              <BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+                <Value>U</Value>
+              </BookingParameter>
+            </BookingGroup>
+          </Booking>
+          <Properties Key="Default">
+            <PropertyGroup>
+              <BoardName>&#220;bernachtung</BoardName>
+              <BoardType>None</BoardType>
+            </PropertyGroup>
+          </Properties>
+        </Board>
+        <Unit Key="B11">
+          <Properties Key="Default">
+            <PropertyGroup>
+              <AccomodationTargetgroups>AdultsOnly</AccomodationTargetgroups>
+              <UnitName>Bungalow 1Schlafzimmer 2Erw. + 1 Kind</UnitName>
+              <UnitType>Bungalow</UnitType>
+            </PropertyGroup>
+            <PropertyGroup>
+              <GeneralIncludedServices>
+                <GeneralIncludedService>Transfer</GeneralIncludedService>
+              </GeneralIncludedServices>
+              <Condition>
+                <Tags Source="Product" Class="HProduct">Pauschal</Tags>
+              </Condition>
+            </PropertyGroup>
+          </Properties>
+          <SellingUnit Key="B11-1-0">
+            <Booking>
+              <BookingGroup Area="ServiceArea" Source="Accommodation">
+                <BookingParameter Field="ServiceFeatureCode" PadLength="3">
+                  <Value>B11</Value>
+                </BookingParameter>
+              </BookingGroup>
+            </Booking>            
+            <Occupancy Key="Unit">
+              <Person>
+                <MinAge>2</MinAge>
+                <MaxAge>17</MaxAge>
+                <MaxCount>1</MaxCount>
+              </Person>
+              <Person>
+                <MinAge>18</MinAge>
+                <MaxCount>2</MaxCount>
+              </Person>
+            </Occupancy>
+            <SimplePriceItems Key="SimplePrice-B11">
+              <SimplePriceItem>
+                <Absolute>
+                  <ValueLists>
+                    <ValueList StartDate="2022-05-01" EndDate="2022-05-31" Duration="7" WeekdayList="Tue">100 150</ValueList>
+                    <ValueList StartDate="2022-06-01" EndDate="2022-08-31" Duration="7" WeekdayList="Tue">120 170</ValueList>
+                    <ValueList StartDate="2022-09-01" EndDate="2022-10-31" Duration="7" WeekdayList="Tue">100 150</ValueList>
+                  </ValueLists>
+                </Absolute>
+                <SimpleOccupancy>
+                  <Person>
+                    <MinAge>2</MinAge>
+                    <MaxAge>17</MaxAge>
+                    <MaxCount>1</MaxCount>
+                  </Person>
+                </SimpleOccupancy>
+              </SimplePriceItem>
+              <SimplePriceItem>
+                <Absolute>
+                  <ValueLists>
+                    <ValueList StartDate="2022-05-01" EndDate="2022-05-31" Duration="7" WeekdayList="Tue">150 200</ValueList>
+                    <ValueList StartDate="2022-06-01" EndDate="2022-08-31" Duration="7" WeekdayList="Tue">170 220</ValueList>
+                    <ValueList StartDate="2022-09-01" EndDate="2022-10-31" Duration="7" WeekdayList="Tue">150 200</ValueList>
+                  </ValueLists>
+                </Absolute>
+                <SimpleOccupancy>
+                  <Person><MinAge>18</MinAge><MaxCount>2</MaxCount></Person>
+                </SimpleOccupancy>
+              </SimplePriceItem>
+            </SimplePriceItems>
+          </SellingUnit>
+        </Unit>
+      </SellingAccom>
+      <CatchmentAirports>LPA</CatchmentAirports>
+      <Availabilities Key="S2-B11">
+        <Availability Key="S2-B11" StartDate="2022-05-01" EndDate="2022-10-31">
+          <DefaultDayState>
+            <Open>9</Open>
+          </DefaultDayState>
+        </Availability>
+        <Condition>
+          <And>
+            <Keys Source="SellingAccom">S2-Simple-Accomm</Keys>
+            <Keys Source="Unit">B11</Keys>
+          </And>
+        </Condition>
+      </Availabilities>
+    </Accommodation>
+  </Accommodations>
+</Otds>
