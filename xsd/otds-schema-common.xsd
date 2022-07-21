@@ -1501,16 +1501,20 @@ For the complete list see the technical documentation.</xs:documentation>
 					</xs:sequence>
 					<xs:attribute name="ConfirmBeforeBooking" type="IntBooleanType" default="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_00166">Dieses Element definiert, ob eine Nachricht vom Kunden bestätigt werden muss, bevor das Angebot gebucht werden kann. ConfirmBeforeBooking=1 besagt, dass eine Bestätigung erforderlich ist. Der Defaultwert ist 0.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_00166">This element defines whether a message has to be confirmed by the customer before the offer can be booked.
-ConfirmBeforeBooking=1, indicates a confirmation is required.
-The default value is 0.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_00166">Dieses Element definiert, ob eine Nachricht vom Kunden bestätigt werden muss, bevor das Angebot gebucht werden kann. ConfirmBeforeBooking=1 besagt, dass eine Bestätigung erforderlich ist. Der Defaultwert ist 0. Mit Type=CancellationPolicy können einfache Stornierungbedingungen übergeben werden. </xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00166">This element defines whether a message has to be confirmed by the customer before the offer can be booked. ConfirmBeforeBooking=1, indicates a confirmation is required. The default value is 0. Simple cancellation policies can be passed with Type=Cancellation Policy.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 					<xs:attribute name="Display" type="DisplayEnum" default="Search">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_00167">Dieses Attribut gibt an, wo die Textinformation angezeigt werden soll.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_00167">This attribute specifies where the text information is to be displayed.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Type" type="TextInformationTypeEnum " default="CancellationPolicy"  use="optional" internal:otdsversion="2.1.4">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_00579">Dieses Attribut gibt an, welchen Informationstyp die Textinformation transportieren.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00579">This attribute specifies which text informations are transported.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
@@ -4151,6 +4155,7 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="2.1.1"/>
 			<xs:enumeration value="2.1.2"/>
 			<xs:enumeration value="2.1.3"/>
+			<xs:enumeration value="2.1.4"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -4379,6 +4384,15 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_00276">A list of weekdays.</xs:documentation>
 		</xs:annotation>
 		<xs:list itemType="WeekdayEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="TextInformationTypeEnum">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_00580">Eine Liste von TextInformation-Typen</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_00580">Eine Liste von TextInformation-Typen</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CancellationPolicy"/>
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="NonEmptyWeekdayEnumList">
 		<xs:annotation>
