@@ -1484,16 +1484,25 @@ Zu beachten: die Routen müssen entsprechend ihrer zeitlichen Reihenfolge des Fl
 			<xs:element name="PriceType" type="PriceTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_00164">Spezifizierung eines PriceItems für die Anzeige in Datenbrowsern. Dieser Wert wird ausdrücklich nicht innerhalb der Preisberechung berücksichtigt. (z.B. Base, Board, EarlyBird, ExtraDay, StayPay, ChildReduction, DurationReduction, BoardUpgrade, ChildPrice, OccupancyReduction etc.) Eine vollständige Liste finden Sie in der Technischen Dokumentation.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_00164">Specification of PriceItems to be displayed in the browser.
-This value is explicitly not included in the price calculation.
-(e.g. Base, Board, EarlyBird, ExtraDay, StayPay, ChildReduction, DurationReduction, BoardUpgrade, ChildPrice, OccupancyReduction, etc.)
-For the complete list see the technical documentation.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_00164">Specification of PriceItems to be displayed in the browser. This value is explicitly not included in the price calculation. (e.g. Base, Board, EarlyBird, ExtraDay, StayPay, ChildReduction, DurationReduction, BoardUpgrade, ChildPrice, OccupancyReduction, etc.) For the complete list see the technical documentation.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="TextInformation" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_00165">In diesem Zweig werden buchungsrelevante Nachrichten definiert. Das Attribut "Confirm" gibt an, ob die Nachricht bestätigt werden muss, bevor gebucht werden kann.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_00165">In this branch booking-relevant messages are defined. The attribute "Confirm" indicates whether the message must be confirmed before it can be booked.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_00165">
+						In diesem Zweig werden buchungsrelevante Nachrichten definiert. 
+						Das Attribut "Confirm" gibt an, ob die Nachricht bestätigt werden muss, bevor gebucht werden kann.
+						Mit Type=CancellationPolicy können einfache Stornierungbedingungen übergeben werden.
+						Die Gesamtlänge aller gelieferten TextInformation sollte 128 Zeichen nicht überschreiten.
+						Da es keine Aggregation gibt, werden die Texte verkettet, nicht überschrieben.
+					</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_00165">
+						In this branch booking-relevant messages are defined. 
+						The attribute "Confirm" indicates whether the message must be confirmed before it can be booked.
+						Simple cancellation policies can be passed with Type=Cancellation Policy.
+						The summarized length of all delivered TextInformations should not exceed 128 characters. 
+						Since there is no aggregation, the texts are concatenated., not overwritten.
+					</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1501,8 +1510,9 @@ For the complete list see the technical documentation.</xs:documentation>
 					</xs:sequence>
 					<xs:attribute name="ConfirmBeforeBooking" type="IntBooleanType" default="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_00166">Dieses Element definiert, ob eine Nachricht vom Kunden bestätigt werden muss, bevor das Angebot gebucht werden kann. ConfirmBeforeBooking=1 besagt, dass eine Bestätigung erforderlich ist. Der Defaultwert ist 0. Mit Type=CancellationPolicy können einfache Stornierungbedingungen übergeben werden. </xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_00166">This element defines whether a message has to be confirmed by the customer before the offer can be booked. ConfirmBeforeBooking=1, indicates a confirmation is required. The default value is 0. Simple cancellation policies can be passed with Type=Cancellation Policy.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_00166">Dieses Element definiert, ob eine Nachricht vom Kunden bestätigt werden muss, bevor das Angebot gebucht werden kann. ConfirmBeforeBooking=1 besagt, dass eine Bestätigung erforderlich ist. Der Defaultwert ist 0. 
+							</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00166">This element defines whether a message has to be confirmed by the customer before the offer can be booked. ConfirmBeforeBooking=1, indicates a confirmation is required. The default value is 0.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 					<xs:attribute name="Display" type="DisplayEnum" default="Search">
