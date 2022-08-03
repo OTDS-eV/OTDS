@@ -1517,11 +1517,11 @@ Zu beachten: die Routen müssen entsprechend ihrer zeitlichen Reihenfolge des Fl
 					</xs:attribute>
 					<xs:attribute name="Display" type="DisplayEnum" default="Search">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_00167">Dieses Attribut gibt an, wo die Textinformation angezeigt werden soll.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_00167">This attribute specifies where the text information is to be displayed.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_00167">Dieses Attribut ist ein Filter für die Sichtbarkeit. Search gibt die Information bei Suche, Book bei Buchung und None in allen Fällen aus.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00167">This attribute is a visibility filter. Search outputs the information for a search, Book for a booking and None in all cases.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
-					<xs:attribute name="Type" type="TextInformationTypeEnum " default="CancellationPolicy"  use="optional" internal:otdsversion="2.1.4">
+					<xs:attribute name="Type" type="TextInformationTypeEnum " default="None"  use="optional" internal:otdsversion="2.1.4">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_00579">Dieses Attribut gibt an, welchen Informationstyp die Textinformation transportieren.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_00579">This attribute specifies which text informations are transported.</xs:documentation>
@@ -4401,6 +4401,7 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_00580">Eine Liste von TextInformation-Typen</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
+			<xs:enumeration value="None"/>
 			<xs:enumeration value="CancellationPolicy"/>
 		</xs:restriction>
 	</xs:simpleType>
