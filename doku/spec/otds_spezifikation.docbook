@@ -1623,7 +1623,7 @@
 								über mehrere Segmente. Die DocumentOrder der FlightRoute-Elemente
 								innerhalb einer Flugkomponente entspricht der Reihenfolge der
 								Flugereignisse.</para>
-							<para xml:id="en_000696" xml:lang="en">This node describes the details of
+                <para xml:id="en_000696" xml:lang="en">This node describes the details of
 								the flight route of a OnewayFlight. Due to the fact that the
 								OnewayFlights represent the lowest level of the flight segments used
 								in the tour operator system for product and price composition, the
@@ -1639,6 +1639,29 @@
 								correspondingly describe the course of the OnewayFlight over several
 								segments. The DocumentOrder of the FlightRoute elements correlate to
 								the chronological sequence of the flight events.</para>
+								<bridgehead xml:id="de_000524" xml:lang="de">Operating und Marketing Carrier</bridgehead>
+								<bridgehead xml:id="en_000524" xml:lang="en">Operating und Marketing Carrier</bridgehead>
+								<para xml:id="de_000525" xml:lang="de">OTDS unterscheidet bei den Carriern zwischen den Operating und den Marketing Carriern, die mit jeweils Airline-Name und/oder Flugnummer spezifiziert werden können. Der Operating Carrier ist dabei die durchführende Airline, der Marketing Carrier die Gesellschaft, die den Flug eingekauft und das Ticket verkauft hat. Insbesondere Codesharing, aber auch andere Szenarien führen zu der Erfordernis, mehrere Marketing Carrier und Flugnummern aufzuführen. Obwohl es beim Operating grundsätzlich nur einen Carrier geben kann, gestaltet OTDS beide Properties (Link zu Anhang Property Tabelle 3.1.5) als multiple Elemente, um die Struktur einheitlich zu gestalten.
+Werden für die Marketing Carrier multiple Airlines/Flugnummern geliefert, sollte beachtet werden, zu welchem Ergebnis die Interpretation dieser Informationen führt: Das in der XML-Order zuerst gelieferte Marketing-Element (im Beispiel unten: LH) wird als der Marketing-Carrier verwendet. Weitere Marketing-Carrier werden ignoriert. Der relevante Carrier sollte also in der XML-Order oben stehen.
+Beispiel: Ein Angebot nutzt einen Lufthansaflug, den Lufthansa von ABC gekauft hat. ABC wiederum hatte den Flug bereits von einem anderen Carrier DEF gekauft. DEF hat den Flug von XYZ bezogen, der ihn operiert. Das OTDS-Beispiel sähe aus wie folgt:</para>
+                <para xml:id="en_000525" xml:lang="en">OTDS differentiates between operating and marketing carriers, which can be specified by airline name and/or flight number. The operating carrier is the operating airline, the marketing carrier the company that purchased the flight and sold the ticket. Code sharing in particular, but also other scenarios, lead to the necessity to list several marketing carriers and flight numbers. Although there can only be one carrier for the operating, OTDS configures both properties (link to Appendix Property Table 3.1.5) as multiple elements to keep the structure consistent.
+If multiple airlines/flight numbers are supplied for the marketing carriers, it should be kept in mind to which result the interpretation of this information leads: The marketing element supplied first in the XML order (in the example below: LH) is used as the marketing carrier. Other marketing carriers will be ignored. The relevant carrier should therefore be at the top of the XML order.
+Example: An offer uses a Lufthansa flight that Lufthansa bought from ABC. ABC in turn had already purchased the flight from another carrier DEF. DEF sourced the flight from XYZ, who operates it. The OTDS example would look like this:</para>
+	              <programlisting><![CDATA[<Flights>
+	<Operating>
+    <Carrier>XYZ</Carrier>
+</Operating>
+<Marketing>
+    <Carrier>LH</Carrier>
+</Marketing>
+<Marketing>
+    <Carrier>ABC</Carrier>
+</Marketing>
+<Marketing>
+    <Carrier>DEF</Carrier>
+</Marketing>]]></programlisting>
+                <para xml:id="de_000526" xml:lang="de">Falls es in zur Lieferung mehrerer Operating Carrier kommen sollte, wird in der Verarbeitung analog immer nur der erste Carrier genutzt. In der Praxis dürfte das nicht relevant werden, da multiple Operating Carrier derzeit keinen Sinn machen.</para>
+                <para xml:id="en_000526" xml:lang="en">If multiple operating carriers are delivered, only the first carrier is used in processing. In practice, this should not be relevant, since multiple operating carriers currently make no sense.</para>
 						</section>
 						<section xml:id="OtdsStrategyComponentFlightsProperties">
 							<title><phrase xml:id="de_009221" xml:lang="de">Properties Oneway
