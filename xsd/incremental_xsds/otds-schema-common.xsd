@@ -1484,16 +1484,25 @@ Zu beachten: die Routen müssen entsprechend ihrer zeitlichen Reihenfolge des Fl
 			<xs:element name="PriceType" type="PriceTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_00164">Spezifizierung eines PriceItems für die Anzeige in Datenbrowsern. Dieser Wert wird ausdrücklich nicht innerhalb der Preisberechung berücksichtigt. (z.B. Base, Board, EarlyBird, ExtraDay, StayPay, ChildReduction, DurationReduction, BoardUpgrade, ChildPrice, OccupancyReduction etc.) Eine vollständige Liste finden Sie in der Technischen Dokumentation.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_00164">Specification of PriceItems to be displayed in the browser.
-This value is explicitly not included in the price calculation.
-(e.g. Base, Board, EarlyBird, ExtraDay, StayPay, ChildReduction, DurationReduction, BoardUpgrade, ChildPrice, OccupancyReduction, etc.)
-For the complete list see the technical documentation.</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_00164">Specification of PriceItems to be displayed in the browser. This value is explicitly not included in the price calculation. (e.g. Base, Board, EarlyBird, ExtraDay, StayPay, ChildReduction, DurationReduction, BoardUpgrade, ChildPrice, OccupancyReduction, etc.) For the complete list see the technical documentation.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="TextInformation" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_00165">In diesem Zweig werden buchungsrelevante Nachrichten definiert. Das Attribut "Confirm" gibt an, ob die Nachricht bestätigt werden muss, bevor gebucht werden kann.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_00165">In this branch booking-relevant messages are defined. The attribute "Confirm" indicates whether the message must be confirmed before it can be booked.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_00165">
+						In diesem Zweig werden buchungsrelevante Nachrichten definiert. 
+						Das Attribut "Confirm" gibt an, ob die Nachricht bestätigt werden muss, bevor gebucht werden kann.
+						Mit Type=CancellationPolicy können einfache Stornierungbedingungen übergeben werden.
+						Die Gesamtlänge aller gelieferten TextInformation sollte 128 Zeichen nicht überschreiten.
+						Da es keine Aggregation gibt, werden die Texte verkettet.
+					</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_00165">
+						In this branch booking-relevant messages are defined. 
+						The attribute "Confirm" indicates whether the message must be confirmed before it can be booked.
+						Simple cancellation policies can be passed with Type=CancellationPolicy.
+						The summarized length of all delivered TextInformations should not exceed 128 characters. 
+						Since there is no aggregation, the texts are concatenated.
+					</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
@@ -1501,16 +1510,21 @@ For the complete list see the technical documentation.</xs:documentation>
 					</xs:sequence>
 					<xs:attribute name="ConfirmBeforeBooking" type="IntBooleanType" default="0">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_00166">Dieses Element definiert, ob eine Nachricht vom Kunden bestätigt werden muss, bevor das Angebot gebucht werden kann. ConfirmBeforeBooking=1 besagt, dass eine Bestätigung erforderlich ist. Der Defaultwert ist 0.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_00166">This element defines whether a message has to be confirmed by the customer before the offer can be booked.
-ConfirmBeforeBooking=1, indicates a confirmation is required.
-The default value is 0.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_00166">Dieses Element definiert, ob eine Nachricht vom Kunden bestätigt werden muss, bevor das Angebot gebucht werden kann. ConfirmBeforeBooking=1 besagt, dass eine Bestätigung erforderlich ist. Der Defaultwert ist 0. 
+							</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00166">This element defines whether a message has to be confirmed by the customer before the offer can be booked. ConfirmBeforeBooking=1, indicates a confirmation is required. The default value is 0.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 					<xs:attribute name="Display" type="DisplayEnum" default="Search">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_00167">Dieses Attribut gibt an, wo die Textinformation angezeigt werden soll.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_00167">This attribute specifies where the text information is to be displayed.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_00167">Dieses Attribut ist ein Filter für die Sichtbarkeit. Search gibt die Information bei Suche, Book bei Buchung und None in allen Fällen aus.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00167">This attribute is a visibility filter. Search outputs the information for a search, Book for a booking and None in all cases.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Type" type="TextInformationTypeEnum" use="optional" default="None" internal:otdsversion="2.1.4">
+						<xs:annotation>
+							<xs:documentation xml:lang="de" xml:id="de_00579">Dieses Attribut gibt an, welchen Informationstyp die Textinformation transportiert.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00579">This attribute specifies which text informations is transported.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 				</xs:complexType>
@@ -3268,9 +3282,10 @@ optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
 			<xs:element name="StopOvers" type="xs:unsignedInt" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_08960">Anzahl Stops innerhalb dieser Route. Technical Stops werden nicht hier, sondern im Element "TechnicalStopOvers" aufgeführt.
-Das Weglassen dieses Elementes bedeutet, dass der Lieferant keine Aussage über die Anzahl der Stops machen kann. 
+Gibt es keine Stops, ist StopOver=0 zu setzen. Das Weglassen dieses Elementes bedeutet, dass der Lieferant keine Aussage über die Anzahl der Stops machen kann. 
 "Direct-Flights" und "NonStop-Flights" dürfen keine StopOvers haben.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_08960">The number of stops en route. Technical stops are not indicated here, but rather in the element "TechnicalStopOvers". Leaving out the element means that the supplier can not make a statement about the number of stops.
+					<xs:documentation xml:lang="en" xml:id="en_08960">The number of stops en route. Technical stops are not indicated here, but rather in the element "TechnicalStopOvers". 
+If there are no stops, StopOvers=0 should be used. Leaving out the element means that the supplier can not make a statement about the number of stops.
 "Direct-Flights" and "NonStop-Flights" cannot have StopOvers.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
@@ -3589,10 +3604,10 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="SemidetachedHouse"/>
 			<xs:enumeration value="Quad"/>
 			<xs:enumeration value="SingleWithChild"/>
-			<xs:enumeration value="MobileHome"/>
-			<xs:enumeration value="Tent"/>
+			<xs:enumeration value="MobileHome" internal:otdsversion="2.1.2"/>
+			<xs:enumeration value="Tent" internal:otdsversion="2.1.2"/>
 			<xs:enumeration value="JuniorSuite" internal:otdsversion="2.1.3"/>
-			<xs:enumeration value="HolidayFlat"/>
+			<xs:enumeration value="HolidayFlat" internal:otdsversion="2.1.2"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UnitFacilitiesEnum">
@@ -3663,6 +3678,9 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="Veranda" internal:otdsversion="2.1.3"/>
 			<xs:enumeration value="WashingMachine"/>
 			<xs:enumeration value="Budget" internal:otdsversion="2.0"/>
+			<xs:enumeration value="DirectSharedPoolAccess" internal:otdsversion="2.1.4"/>
+			<xs:enumeration value="PrivateToilette" internal:otdsversion="2.1.4"/>
+			<xs:enumeration value="Fridge" internal:otdsversion="2.1.4"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="AccommodationTypeEnum">
@@ -4151,6 +4169,7 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="2.1.1"/>
 			<xs:enumeration value="2.1.2"/>
 			<xs:enumeration value="2.1.3"/>
+			<xs:enumeration value="2.1.4"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -4379,6 +4398,16 @@ Mon Tue Wed Thu Fri Sat Sun</xs:documentation>
 			<xs:documentation xml:lang="en" xml:id="en_00276">A list of weekdays.</xs:documentation>
 		</xs:annotation>
 		<xs:list itemType="WeekdayEnum"/>
+	</xs:simpleType>
+	<xs:simpleType name="TextInformationTypeEnum">
+		<xs:annotation>
+			<xs:documentation xml:lang="de" xml:id="de_00580">Eine Liste von TextInformation-Typen</xs:documentation>
+			<xs:documentation xml:lang="en" xml:id="en_00580">A list of TextInformation types</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="CancellationPolicy"/>
+		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="NonEmptyWeekdayEnumList">
 		<xs:annotation>
@@ -7129,10 +7158,10 @@ Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd yo
 			</xs:choice>
 			<xs:element name="PersonFilter" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_00440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen. Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren. Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert; auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices".</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_00440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen. Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren. Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert; auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices". Werden mehrere Filter im PersonFilter angegeben so werden diese "verundet". Es werden also nur die Personen für die Indizierung herangezogen, welche alle Filter-Bedingungen erfüllen.</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_00440">This element filters the participants in the tour to which the PersonIndex should apply. By default, all participants in the tour are sorted in descending order according to age.
 Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. An application of this would be, for example, to address only full-paying adults or children.
-The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices".</xs:documentation>
+The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices". If more than one filter criteria is defined in PersonFilter every Person considered for the PersonIndex has to fullfil all citeria.</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:choice maxOccurs="unbounded">
@@ -7204,7 +7233,12 @@ Indices="1 3 -3 -1" defines the check-in day and 2 following days as well as the
 					</xs:annotation>
 				</xs:element>
 			</xs:choice>
-			<xs:element name="DayFilter" type="DayFilterType" minOccurs="0" internal:otdsversion="1.9.1"/>
+			<xs:element name="DayFilter" type="DayFilterType" minOccurs="0" internal:otdsversion="1.9.1">
+				<xs:annotation>
+					<xs:documentation xml:lang="de" xml:id="de_00112">Dieses Element filtert die Tage der Reise, für welche der DayIndex angewendet werden soll. Standardmäßig werden alle Tage der Reise aufsteigend betrachtet. Soll sich der DayIndex auf Tage beziehen, die bestimmte Bedingungen erfüllen, so können die betrachteten Tage durch das DayFilter Element eingeschränkt werden. Es werden also nur die Tage für die Indizierung herangezogen, welche alle angegebenen Filter-Bedingungen erfüllen. Gilt der DayIndex zum Beispiel nur für alle Samstage, so bekommt der erste Samstag den Index=1 und der zweite Samstag den Index=2. Auf diese Index-Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices". </xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_00112">This element filters the days of the trip for which the DayIndex should be applied. By default, all days of the trip are considered in ascending order. If DayIndex shall be applied to days that meet certain conditions, the DayFilter element can be used to restrict the days considered. This means that only those days that meet all the specified filter conditions are used for indexing. For example, if the DayIndex only applies to Saturdays, the first Saturday gets DayIndex=1 and the second Saturday gets DayIndex=2. The elements "Min", "Max" and "Indices" are refering to these DayIndices.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="Repeat" type="xs:positiveInteger">
 			<xs:annotation>
