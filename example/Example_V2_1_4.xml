@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Otds xmlns="http://otds-group.org/otds" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:functx="http://www.functx.com" xsi:schemaLocation="http://otds-group.org/otds ../xsd/otds.xsd" Version="2.1.4" UpdateMode="New">
+	<!-- vereinfachte Products zur Veranschaulichung der Änderungen in 2.1.4 -->
+	<Products>
+		<Product Key="AccomOnly" ProductType="AccommodationOnly">
+			<Components>
+				<Accommodation/>
+			</Components>
+		</Product>
+	</Products>
+	<Brands>
+		<Brand Key="TO1">
+			<Booking>
+				<BookingGroup Source="ThisComponent" Area="GlobalArea" Class="Default">
+					<BookingParameter Field="BrandCode">
+						<Value>TO1</Value>
+					</BookingParameter>
+				</BookingGroup>
+			</Booking>
+		</Brand>
+	</Brands>
+	<!--vereinfachte Accommodations zur Veranschaulichung der Änderungen in 2.1.4 -->
+	<Accommodations UpdateMode="New">
+		<Accommodation Key="BAD020" UpdateMode="New">
+			<SellingAccom Key="S5-BAD020">
+				<Booking>
+					<BookingGroup Area="ServiceArea" Source="Accommodation">
+						<BookingParameter Field="RequestCode">
+							<Value>H</Value>
+						</BookingParameter>
+						<BookingParameter Field="ServiceCode">
+							<Value>BAD020</Value>
+						</BookingParameter>
+					</BookingGroup>
+				</Booking>
+				<Board Key="K">
+					<Booking>
+						<BookingGroup Area="ServiceArea" Source="Accommodation">
+							<BookingParameter Name="BoardCode" Field="ServiceFeatureCode" Index="1">
+								<Value>K</Value>
+							</BookingParameter>
+						</BookingGroup>
+					</Booking>
+					<Properties Key="1">
+						<PropertyGroup>
+							<BoardType>Breakfast</BoardType>
+						</PropertyGroup>
+					</Properties>
+					<Filter Key="1">
+						<Keys Source="global:Unit">DZ EZ Y</Keys>
+					</Filter>
+				</Board>
+				<Unit Key="A3">
+					<Tags>
+						<Tag Class="Key">A3</Tag>
+					</Tags>
+					<Properties Key="1">
+						<PropertyGroup>
+							<!-- in 2.1.4 hinzugefügtes, neues Attribut, um Cancellation-Policy Infotexte liefern zu können.-->
+							<TextInformation Type="CancellationPolicy">
+								<Text>Diese Reise ist bis 90 Tage vor Reiseantritt für 10% des Reisepreises stornierbar.</Text>
+							</TextInformation>
+						</PropertyGroup>
+					</Properties>
+					<SellingUnit Key="A3-2-0-0-K">
+						<Booking>
+							<BookingGroup Area="ServiceArea" Source="Accommodation">
+								<BookingParameter Field="ServiceFeatureCode" PadLength="3">
+									<Value>DZ</Value>
+								</BookingParameter>
+							</BookingGroup>
+						</Booking>
+						<Properties Key="1">
+							<PropertyGroup>
+								<UnitName>Apartment mit 3 Schlafzimmern</UnitName>
+								<!-- in 2.1.4 hinzugefügte Unittypen-->
+								<UnitFacilities>DirectSharedPoolAccess PrivateToilette Fridge Freezer</UnitFacilities>
+							</PropertyGroup>
+						</Properties>
+						<Occupancy Key="Unit">
+							<Person>
+								<MinAge>12</MinAge>
+								<Count>5</Count>
+							</Person>
+						</Occupancy>
+					</SellingUnit>
+				</Unit>
+			</SellingAccom>
+			<CatchmentAirports>BAD</CatchmentAirports>
+		</Accommodation>
+	</Accommodations>
+</Otds>
