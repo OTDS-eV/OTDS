@@ -23903,6 +23903,78 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							<link linkend="PropertiesAccommodations">(see Annex A3.1.3 Properties
 							Accommodations)</link>.</para>
 				</section>
+				<section xml:id="OtdsUnboundNamespacesPreVersionProperties">
+					<title><phrase xml:id="de_XXXXX1" xml:lang="de">Umgang mit PreVersionProperties Namespaces
+						in den Eigenschaften (Properties)</phrase>
+						<phrase xml:id="en_XXXXX1" xml:lang="en">Use of PreVersionProperties Namespaces in the
+							Properties</phrase></title>
+					<para xml:id="de_XXXXX2" xml:lang="de">Mit den "PreVersionProperties" wird eine Klasse von UnboundedProperties eingeführt, 
+					  die trotz ihres Status als UnboundedProperty (Property für veranstaltereigene Attribute) analog zu den OTDS Properties in der OTDS-Dokumentation dokumentiert werden.
+					  Die Veröffentlichung der "PreVersionProperties" hat den Vorteil, dass jede dieser Properties in Bezug auf Schreibweise, Bedeutung und Art der Interpretation in der OTDS-Dokumentation dokumentiert ist. 
+					  "PreVersionProperties" sind nicht auf Dauer angelegt, sondern werden, sofern weiterhin und langfristig Bedarf an ihrer Anwendung besteht, mit einer der folgenden OTDS-Versionen in die OTDS Properties integriert.
+						Die Entscheidung, ob eine Property als PreVersionProperty in die Dokumentation mit aufgenommen wird, 
+						liegt beim Technischen Ausschuss des OTDS Verein.
+						Damit ist die Wahrscheinlichkeit sehr hoch, dass diese Property mit in die nächste OTDS-Version 
+						aufgenommen wird.
+						Das folgende Beispiel zeigt eine Erweiterung einer existierenden Property. Ein Grund für eine 
+						Erweiterung könnte sein, dass ein Veranstalter schnell einen neuen Wert für eine existierende 
+						Property in Umlauf bringen möchte.
+						Beispiel: "PrivateTransfer" in GeneralIncludedService:</para>
+					<para xml:id="en_XXXXX2" xml:lang="en">With the "PreVersionProperties" a class of UnboundedProperties is introduced, 
+					  which are documented analogously to the OTDS properties in the OTDS documentation despite their status as UnboundedProperty (property for tour operator-own attributes).
+					  Publishing the "PreVersionProperties" has the advantage that each of these properties is documented in terms of notation, meaning and type of interpretation in the OTDS documentation. 
+					  "PreVersionProperties" are not intended to be permanent, but, if there is a continuing and long-term need for their use, will be integrated into the OTDS Properties with one of the following OTDS versions.
+						The decision as to whether a property is included in the documentation as a PreVersionProperty
+						lies with the Technical Committee of the OTDS Association.
+						This makes it very likely that this property will be included in the next OTDS version.
+						The following example shows an extension of an existing property. A reason for an
+						extension could be that a tour operator quickly wants to use a new value for an existing property.
+						Example: "PrivateTransfer" in GeneralIncludedService:</para>
+					<programlisting><![CDATA[<Properties Key="XXX">
+    <PropertyGroup>
+        <OtdsUnboundedProperties>
+            <GeneralIncludedServices xmlns="http://www.otds.de/properties/OTDS_PreVersion_Properties">
+                <GeneralIncludedService ShortServiceAnnotation="XXXX" Class="YYY">PrivateTransfer</GeneralIncludedService>
+            </GeneralIncludedServices>
+        </OtdsUnboundedProperties>
+        <Condition>
+            ...
+        </Condition>
+    </PropertyGroup>
+</Properties>]]></programlisting>
+					<para xml:id="de_XXXXX3" xml:lang="de">Ein weiteres Anwendungsbeispiel für
+						"PreVersionProperties" ist die Einführung einer neuen Property, welche 
+						eine gewisse Allgemeingültigkeit besitzt und nicht veranstalterspezifisch 
+						ist. Das folgende Beispiel zeigt die "PreVersionProperty" 
+						<code>BookOnOption</code>. Mit dieser Property möchte der OTDS-Lieferant 
+						seine Angebote kennzeichnen, die auf Option buchbar sind: 
+						</para>
+					<para xml:id="en_XXXXX3" xml:lang="en">Another use case for
+						"PreVersionProperties" is the introduction of a new property which
+						has a certain generality and is not tour operator specific.
+						The following example shows the "PreVersionProperty"
+						<code>BookOnOption</code>. The OTDS supplier wants to use this property
+						to tag offers which can be booked on option:</para>
+					<programlisting><![CDATA[<Otds>
+    ...
+    <Accommodation Key="PMI200">
+        ...
+        <Properties>
+            <OtdsUnboundedProperties>
+                <BookOnOption xmlns="http://www.otds.de/properties/OTDS_PreVersion_Properties"/>
+            </OtdsUnboundedProperties>
+            <Condition>
+                <And>
+                    <ConditionalTags Source="global:Outbound" Class="BookOnOption">J</ConditionalTags>
+                    <ConditionalTags Source="global:Inbound" Class="BookOnOption">J</ConditionalTags>
+                </And>
+            </Condition>
+        </Properties>
+        ...
+    </Accommodation>
+    ...
+</Otds>]]></programlisting>
+				</section>
 			</section>
 			<section xml:id="OtdsProductsComponentsRounding">
 				<title><phrase xml:lang="de" xml:id="de_005281">Rundung (V1.9)</phrase><phrase
