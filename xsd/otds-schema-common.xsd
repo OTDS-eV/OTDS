@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mit XMLSpy v2011 rel. 3 (x64) (http://www.altova.com) von Sebastian Oremek (TravelTainment GmbH) bearbeitet -->
 <xs:schema xmlns="http://otds-group.org/otds" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:internal="http://otds-group.org/otds/internal" targetNamespace="http://otds-group.org/otds" elementFormDefault="qualified">
 	<!-- Import xml: namespace -->
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
@@ -19,7 +18,7 @@
 
 			Eigenschaft4 = "first" | "last" | "DayAllocation.all"
 
-			Falls Eigenschaften angegeben werden muss zwingend die oben angegebene Reihenfolge der Eigenschaften eingehalten werden.
+			Falls Eigenschaften angegeben werden, muss zwingend die oben angegebene Reihenfolge der Eigenschaften eingehalten werden.
 		
 			steps = oneOrMoreNameSteps | zeroOrMoreNameSteps | componentSteps
 		
@@ -1273,7 +1272,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 - HalfBoardPlus
 - FullBoard
 - FullBoardPlus
-- AllInclusiveLight
+- AllInclusiveLight (V2.1.5)
 - AllInclusive
 - AllInclusivePlus </xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_00151">Type of catering:
@@ -1283,7 +1282,7 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 - HalfBoardPlus
 - FullBoard
 - FullBoardPlus
-- AllInclusiveLight
+- AllInclusiveLight (V2.1.5)
 - AllInclusive
 - AllInclusivePlus</xs:documentation>
 				</xs:annotation>
@@ -7163,10 +7162,20 @@ Indices="1 4 -3 -1" defines the oldest person, the 4th oldest person, the 3rd yo
 			</xs:choice>
 			<xs:element name="PersonFilter" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_00440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen. Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren. Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert; auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices". Werden mehrere Filter im PersonFilter angegeben so werden diese "verundet". Es werden also nur die Personen für die Indizierung herangezogen, welche alle Filter-Bedingungen erfüllen.</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_00440">This element filters the participants in the tour to which the PersonIndex should apply. By default, all participants in the tour are sorted in descending order according to age.
-Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. An application of this would be, for example, to address only full-paying adults or children.
-The result of this filter is to sort participants in descending order by age and relate this information to the index information in the elements, "Min", "Max" and "Indices". If more than one filter criteria is defined in PersonFilter every Person considered for the PersonIndex has to fullfil all citeria.</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_00440">Dieses Element filtert die Personen der Reise, für welche der PersonIndex gelten soll. 
+						Standardmäßig werden alle Personen der Reise betrachtet, die nach Alter absteigend sortiert vorliegen. 
+						Soll sich der PersonIndex auf Personen beziehen, die bestimmte Bedingungen erfüllen, kann durch dieses Element der Personenkreis eingeschränkt werden. 
+						Anwendungsfall ist beispielsweise, nur Vollzahler oder Kinder zu adressieren. Die Ergebnismenge dieses Filters wird nach Alter absteigend sortiert; 
+						auf diese Menge beziehen sich die Indexangaben in den Elementen "Min", "Max" und "Indices". Werden mehrere Filter im PersonFilter angegeben so werden diese "verundet". 
+						Es werden also nur die Personen für die Indizierung herangezogen, welche alle Filter-Bedingungen erfüllen.
+					</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_00440">This element filters the participants in the tour to which the PersonIndex should apply. 
+						By default, all participants in the tour are sorted in descending order according to age.
+						Where the PersonIndex refers to persons that meet certain conditions, they can be restricted by this element. 
+						An application of this would be, for example, to address only full-paying adults or children.
+						The result of this filter is to sort participants in descending order by age and relate this information to the index information in 
+						the elements, "Min", "Max" and "Indices". If more than one filter criteria is defined in PersonFilter, every person considered for the PersonIndex has to fullfil all criteria.
+					</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:choice maxOccurs="unbounded">
