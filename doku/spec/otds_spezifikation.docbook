@@ -4055,7 +4055,7 @@ Example: An offer uses a Lufthansa flight that Lufthansa bought from ABC. ABC in
 									</listitem>
 								</orderedlist>
 								<para xml:id="de_004993" xml:lang="de">Somit lässt sich die in V1.0
-									verwendete Syntax zu 100% auf die in V1.0 verwendeten impliziten
+									verwendete Syntax zu 100% auf die in anderen Versionen verwendeten impliziten
 									Werte zurückführen. Das Attribut "@DayAllocation" bleibt
 									erhalten; der Defaultwert von @DayAllocation wird durch den
 									entsprechenden Wert/Defaultwert in der Source-Eigenschaft
@@ -5609,6 +5609,8 @@ Example: An offer uses a Lufthansa flight that Lufthansa bought from ABC. ABC in
 		<Min>5</Min>
 	</Duration>
 </Condition>]]></programlisting>
+                <para xml:id="de_009139" xml:lang="de"><emphasis role="bold">Hinweis:</emphasis>In den vorherigen Versionen 1.9.1 bis 1.9.5 wurde ein "Hack" vereinbart, dass mit der Source="ReturnFlight" genau die in diesem Beispiel aufgezeigte Dauerdefinition explizit definiert werden konnte. Ab <emphasis role="bold">Version 2.0</emphasis> verliert dieser "Hack" seine Gültigkeit und es wird nun die Source="ReturnFlight" wieder "normal" interpretiert, also die Dauer vom CheckIn des Hinfluges bis zum CheckOut des Rückfluges.</para>
+                <para xml:id="en_009139" xml:lang="en"><emphasis role="bold">Note:</emphasis> In the previous versions 1.9.1 to 1.9.5, a "hack" was agreed that exactly the duration definition shown in this example could be explicitly defined with the Source="ReturnFlight". As of <emphasis role="bold">version 2.0</emphasis> this "hack" is no longer valid and the Source="ReturnFlight" is now interpreted "normally" again, i.e. the duration from check-in of the outbound flight to check-out of the return flight.</para>
 								<para xml:id="de_000891" xml:lang="de">Weitere Informationen finden Sie in
 								der <link xlink:href="../technisch/otds_technisch.html#Duration"
 									>Technischen Dokumentation für OTDS </link>.</para>
@@ -5631,10 +5633,9 @@ Example: An offer uses a Lufthansa flight that Lufthansa bought from ABC. ABC in
 								the condition of whether the booking date (or the date of the price
 								inquiry) is included within a specific timespan or in an explicitly
 								stated list of days.</para>
-							<para xml:id="de_000894" xml:lang="de">Diese Bedingung kennt in Version 1.0
-								nur den Kontext der Gesamtreise. Source ist also immer
+							<para xml:id="de_000894" xml:lang="de">Diese Bedingung kennt nur den Kontext der Gesamtreise. Source ist also immer
 								"Product".</para>
-							<para xml:id="en_000894" xml:lang="en">In version 1.0 this condition only
+							<para xml:id="en_000894" xml:lang="en">This condition only
 								knows the context of the entire trip. Source is therefore always
 								"Product".</para>
 							<para xml:id="de_000895" xml:lang="de">Das folgende Beispiel zeigt eine
@@ -6273,14 +6274,14 @@ Example: An offer uses a Lufthansa flight that Lufthansa bought from ABC. ABC in
 								miteinander verglichen werden. Auch hier wird die betrachtete
 								Komponente/Unterkomponente durch das Attribute "Source" definiert.
 								Der Wert des Elementes "Element" definiert, welches Element bzgl.
-								der Übereinstimmung betrachtet wird. In OTDS Version 1.0 sind hier
+								der Übereinstimmung betrachtet wird. Hier sind 
 								lediglich die Airportfelder "DepartureAirport", "ArrivalAirport" und
 								"CatchmentAirport" möglich.</para>
 							<para xml:id="en_000960" xml:lang="en">As well as Tags, fields can also be
 								compared to one another. Here too, the regarded
 								components/subcomponents are defined through the attribute "Source".
 								The value of the element "Element" defines which element is being
-								considered with regard to the match. In OTDS Version 1.0, only the
+								considered with regard to the match. Only the
 								airport fields "DepartureAirport", "ArrivalAirport" and
 								"CatchmentAirport" are possible here.</para>
 							<para xml:id="de_000961" xml:lang="de">Im folgenden Beispiel müssen die
@@ -12297,7 +12298,7 @@ Example: An offer uses a Lufthansa flight that Lufthansa bought from ABC. ABC in
 								into play here as well.</para>
 							<para xml:id="de_009638" xml:lang="de">Falls DayType="CheckIn", ist der
 								implizite Value von DayAllocation="First". Falls nach Auswertung von
-								DayAllocation="First" immer noch mehrere KomponentenInstanzen
+								DayAllocation="First" immer noch mehrere Komponenteninstanzen
 								existieren, so wird von diesen Komponenteninstanzen der früheste
 								Termin als Value genommen.</para>
 							<para xml:id="en_009638" xml:lang="en">If DayType="CheckIn", the implicit
@@ -12306,7 +12307,7 @@ Example: An offer uses a Lufthansa flight that Lufthansa bought from ABC. ABC in
 								date of these component instances is taken as the value.</para>
 							<para xml:id="de_009639" xml:lang="de">Falls DayType="CheckOut", ist der
 								implizite Value von DayAllocation="Last". Falls nach Auswertung von
-								DayAllocation="Last" immer noch mehrere KomponentenInstanzen
+								DayAllocation="Last" immer noch mehrere Komponenteninstanzen
 								existieren, so wird von diesen Komponenteninstanzen der späteste
 								Termin als Value genommen.</para>
 							<para xml:id="en_009639" xml:lang="en">If DayType="CheckOut", the implicit
@@ -28472,7 +28473,7 @@ in the parameter <code>SalesMarket</code> within <code>GlobalValues</code>
 							vorherigen Namen referenzierten Komponente referenzieren. Die gesamte
 							Folge von Namensreferenzen wird für die Belange der statischen Analyse
 							durch die Rolle oder den Typ des letzten Namens ersetzt. Da alle
-							Komponentennamen in einer OTDS 1.0 Lieferung eindeutig sein müssen, kann
+							Komponentennamen in einer OTDS-Lieferung eindeutig sein müssen, kann
 							jedem Namen eine eindeutige Rolle (oder Typ) zugeordnet werden
 							(Beispiel: In der <code>Source</code> Angabe
 								<code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV.BookingClass</code>
@@ -28484,8 +28485,7 @@ in the parameter <code>SalesMarket</code> within <code>GlobalValues</code>
 							each name reference must refer to a direct subcomponent of the data
 							referred to by the previous name component. To facilitate static
 							analysis the entire sequence of name references is replaced by the role
-							or the type of the last name. Since all name components in an OTDS-1.0
-							delivery must be clear, each name can be assigned a clear role (or type)
+							or the type of the last name. Since all name components in an OTDS-delivery must be clear, each name can be assigned a clear role (or type)
 							(for example: In the <code>Source</code> classification
 								<code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV.BookingClass</code>
 							<code>#ReturnFlightCombiOneWay.#ZubringerCombiOneWayZHV</code> would be
@@ -31286,14 +31286,6 @@ in the parameter <code>SalesMarket</code> within <code>GlobalValues</code>
 						restrictions must be fulfilled simultaneously for the condition to be met.
 						Entering both <code>Min</code> and <code>Max</code> can be used to define a
 						period of dates in which a booking can be made, for example.</para>
-
-					<para xml:id="de_002638" xml:lang="de">Für das Attibut <code>Source</code> muss
-						immer der Wert <code>Product</code> angegeben werden. Die Logik wird
-						möglicherweise in einer zukünftigen Version von OTDS auf
-						Komponenteninstanzen ausgedehnt.</para>
-					<para xml:id="en_002638" xml:lang="en">For the <code>Source</code> attribute, the
-							<code>Product</code> value must be entered. The logic is likely to be
-						expanded for component instances in a future version of OTDS.</para>
 				</section>
 				<section xml:id="OtdsProcessConditionsBookingDateOffset">
 					<title><phrase xml:id="de_002639" xml:lang="de"><code>BookingDateOffset</code>
@@ -32151,11 +32143,11 @@ in the parameter <code>SalesMarket</code> within <code>GlobalValues</code>
 					<para xml:id="de_002727" xml:lang="de">Eine <code>PersonAge</code> Bedingung
 						überprüft im Rahmen einer <code>PersonImpact</code> Bedingung in einem
 						personenspezifischen Bedingungs-Kontext die einer Komponenteninstanz
-						zugeordneten Personen (in OTDS 1.0 also alle Reisepersonen) auf deren Alter.
+						zugeordneten Personen (also alle Reisepersonen) auf deren Alter.
 						Der Test wird gegen die aktuelle Person ausgeführt.</para>
 					<para xml:id="en_002727" xml:lang="en">A <code>PersonAge</code> condition checks,
 						within a <code>PersonImpact</code> condition in a person-specific condition
-						context, the components instance of corresponding persons (in OTDS 1.0 all
+						context, the components instance of corresponding persons (all
 						travellers) with their age. The test is run on the current person.</para>
 					<para xml:id="de_002728" xml:lang="de">Das Alter der reisenden Personen kann
 						absolut in Jahren oder durch ein Geburtsdatum eingeschränkt werden:</para>
@@ -32250,11 +32242,11 @@ in the parameter <code>SalesMarket</code> within <code>GlobalValues</code>
 								><code>PersonGroup</code> condition</phrase></title>
 
 					<para xml:id="de_002742" xml:lang="de">Eine <code>PersonGroup</code> Bedingung
-						überprüft die einer Komponenteninstanz zugeordneten Personen (in OTDS 1.0
+						überprüft die einer Komponenteninstanz zugeordneten Personen (
 						also alle Reisepersonen) auf eine bestimmte Belegungsvariante (z.B.
 						mindestens ein Kind und ein Erwachsener).</para>
 					<para xml:id="en_002742" xml:lang="en">A <code>PersonGroup</code> condition checks
-						the persons assigned to a components instance (in OTDS 1.0 all travellers)
+						the persons assigned to a components instance (all travellers)
 						with the specific occupancy variant (e.g. a minimum of one child and one
 						adult).</para>
 
