@@ -17078,7 +17078,29 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 							<code>CombinationCode</code> is a freely definable code which can be
 						tested in the combinatorial conditions of other PriceItems. In general, tour
 						operator systems contain precisely these codes.</para>
-					<para xml:id="de_001388" xml:lang="de">aaaa Beispiel Combinatorics Element mit
+					<programlisting><![CDATA[
+<PriceItems>
+  <PriceItem Class="Fruehbucher">
+    ...
+    <Combinatorics>
+      ...
+      <CombinationCode>FB</CombinationCode>
+    </Combinatorics>
+  </PriceItem>
+  <PriceItem Class="Dauerreduktion">
+    ...
+    <Combinatorics>
+      ...
+      <CombinableWhen>
+        <Not>
+          <CombinationCode>FB</CombinationCode>
+        </Not>
+      </CombinableWhen>
+    </Combinatorics>
+  </PriceItem>
+<PriceItems>
+]]></programlisting>
+					<para xml:id="de_001388" xml:lang="de">Beispiel Combinatorics Element mit
 						Code und NotCombinableWhen</para>
 					<para xml:id="en_001388" xml:lang="en">Example of a combinatorics element with
 						Code and NotCombinableWhen</para>
@@ -17117,7 +17139,29 @@ Es geht um: <Seat Source="BookingClass" SourceEvaluationContext="IterationInstan
 						specified, codes and indices are assigned the <code>Group</code> "default".
 						The use of the attribute <code>Group</code> is only required when a tour
 						operator makes a similar classification.</para>
-					<para xml:id="de_001390" xml:lang="de">aaaa Beispiel Combinatorics Element mit
+					<programlisting><![CDATA[
+<PriceItems>
+  <PriceItem Class="Fruehbucher">
+    ...
+    <Combinatorics>
+      ...
+      <CombinationIndex>108</CombinationIndex>
+    </Combinatorics>
+  </PriceItem>
+  <PriceItem Class="Dauerreduktion">
+    ...
+    <Combinatorics>
+      ...
+      <CombinableWhen>
+        <Not>
+          <CombinationIndexMax>300</CombinationIndexMax>
+        </Not>
+      </CombinableWhen>
+    </Combinatorics>
+  </PriceItem>
+<PriceItems>
+]]></programlisting>
+					<para xml:id="de_001390" xml:lang="de">Beispiel Combinatorics Element mit
 						Index und NotCombinableWhen größer </para>
 					<para xml:id="en_001390" xml:lang="en">Example Combinatorics Element with Index
 						and NotCombinableWhen larger</para>
