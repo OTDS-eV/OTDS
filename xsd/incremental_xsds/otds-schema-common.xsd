@@ -967,8 +967,8 @@ The optional attribute "DayAllocationIndex" determines the classification of com
 					</xs:element>
 					<xs:element name="ProductComponent">
 						<xs:annotation>
-							<xs:documentation xml:lang="de" xml:id="de_00104">Dieser Zweig definiert eine Komponente, die aus einem kompletten Produkt besteht. In OTDS Version 1.0 ist die Verwendung dieses Elements ausschließlich im Zusammenhang mit der Komponente "Addon" definiert, um die Abhängigkeiten optionaler Addons von Produkten festzulegen.</xs:documentation>
-							<xs:documentation xml:lang="en" xml:id="en_00104">This branch defines a component that consists of a complete product. In OTDS Version 1.0 the use of this element is exclusively defined in relation to the "Addon" component, in order to establish the dependencies of the optional add-ons of products.</xs:documentation>
+							<xs:documentation xml:lang="de" xml:id="de_00104">Dieser Zweig definiert eine Komponente, die aus einem kompletten Produkt besteht. Die Verwendung dieses Elements wird ausschließlich im Zusammenhang mit der Komponente "Addon" definiert, um die Abhängigkeiten optionaler Addons von Produkten festzulegen.</xs:documentation>
+							<xs:documentation xml:lang="en" xml:id="en_00104">This branch defines a component that consists of a complete product. The use of this element is exclusively defined in relation to the "Addon" component, in order to establish the dependencies of the optional add-ons of products.</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
 							<xs:complexContent>
@@ -1266,25 +1266,31 @@ As with other elements which are implemented as a list, in Version V2.0 the elem
 			<xs:element name="BoardType" type="BoardTypeEnum" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de" xml:id="de_00151">Art der Verpflegung: 
-- SelfCatering
-- Breakfast
-- HalfBoard
-- HalfBoardPlus
-- FullBoard
-- FullBoardPlus
-- AllInclusiveLight (V2.1.5)
-- AllInclusive
-- AllInclusivePlus </xs:documentation>
+						- SelfCatering
+						- Breakfast
+						- HalfBoard
+						- HalfBoardPlus
+						- FullBoard
+						- FullBoardPlus
+						- AllInclusiveLight (V2.1.5)
+						- AllInclusiveUltraLight (V2.1.6)
+						- AllInclusive
+						- AllInclusivePlus
+						AllInclusiveUltraLight ist eine um weitere Leistungen verringerte Verpflegung von AllInclusiveLight.
+					</xs:documentation>
 					<xs:documentation xml:lang="en" xml:id="en_00151">Type of catering:
-- SelfCatering
-- Breakfast
-- HalfBoard
-- HalfBoardPlus
-- FullBoard
-- FullBoardPlus
-- AllInclusiveLight (V2.1.5)
-- AllInclusive
-- AllInclusivePlus</xs:documentation>
+						- SelfCatering
+						- Breakfast
+						- HalfBoard
+						- HalfBoardPlus
+						- FullBoard
+						- FullBoardPlus
+						- AllInclusiveLight (V2.1.5)
+						- AllInclusiveUltraLight (V2.1.6)
+						- AllInclusive
+						- AllInclusivePlus
+						AllInclusiveUltraLight is a further reduced catering service compared to AllInclusiveLight.
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="BoardProperties" minOccurs="0">
@@ -1522,7 +1528,7 @@ Zu beachten: die Routen müssen entsprechend ihrer zeitlichen Reihenfolge des Fl
 							<xs:documentation xml:lang="en" xml:id="en_00167">This attribute is a visibility filter. Search outputs the information for a search, Book for a booking and None in all cases.</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
-					<xs:attribute name="Type" default="None" type="TextInformationTypeEnum" internal:otdsversion="2.1.4" use="optional">
+					<xs:attribute name="Type" type="TextInformationTypeEnum" use="optional" default="None" internal:otdsversion="2.1.4">
 						<xs:annotation>
 							<xs:documentation xml:lang="de" xml:id="de_00579">Dieses Attribut gibt an, welchen Informationstyp die Textinformation transportiert.</xs:documentation>
 							<xs:documentation xml:lang="en" xml:id="en_00579">This attribute specifies which text informations is transported.</xs:documentation>
@@ -3258,8 +3264,8 @@ optional ist, kann der Wert auch leer bleiben ("", ohne Zeichen).</summary>
 			</xs:element>
 			<xs:element name="FlightType" type="FlightTypeEnum" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation xml:lang="de" xml:id="de_00251">Typ des Fluges (main; feeder,wrapper)</xs:documentation>
-					<xs:documentation xml:lang="en" xml:id="en_00251">Type of flight (main; feeder, wrapper)</xs:documentation>
+					<xs:documentation xml:lang="de" xml:id="de_00251">Typ des Fluges (Main oder Feeder)</xs:documentation>
+					<xs:documentation xml:lang="en" xml:id="en_00251">Type of flight (Main or Feeder)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="FlightCabinClass" type="FlightCabinClassEnum" minOccurs="0" internal:otdsversion="2.0">
@@ -3543,7 +3549,7 @@ Folgende Informationen können geliefert werden:
 	<xs:complexType name="CheckInOutOffsetType">
 		<xs:simpleContent>
 			<xs:extension base="xs:int">
-				<xs:attribute name="Component" type="ComponentAttributeType">
+				<xs:attribute name="Component" type="ComponentAttributeType" default="ThisComponent" internal:otdsversion="2.1.6">
 					<xs:annotation>
 						<xs:documentation xml:lang="de" xml:id="de_00537">Dieses Attribut gibt den Type einer Komponente an. Folgende Typen stehen zur Auswahl: 
 - Accommodation, 
@@ -3581,6 +3587,7 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="AllInclusive"/>
 			<xs:enumeration value="AllInclusivePlus"/>
 			<xs:enumeration value="AllInclusiveLight" internal:otdsversion="2.1.5"/>
+			<xs:enumeration value="AllInclusiveUltraLight" internal:otdsversion="2.1.6"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="BoardPropertiesEnum">
@@ -4174,6 +4181,7 @@ Folgende Informationen können geliefert werden:
 			<xs:enumeration value="2.1.3"/>
 			<xs:enumeration value="2.1.4"/>
 			<xs:enumeration value="2.1.5"/>
+			<xs:enumeration value="2.1.6"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ShiftEnum">
@@ -4377,6 +4385,7 @@ For the complete list see the technical documentation.</xs:documentation>
 			<xs:enumeration value="Traffics"/>
 			<xs:enumeration value="Schmetterling"/>
 			<xs:enumeration value="Check24" internal:otdsversion="2.1.3"/>
+			<xs:enumeration value="Peakwork" internal:otdsversion="2.1.5"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="WeekdayEnum">
