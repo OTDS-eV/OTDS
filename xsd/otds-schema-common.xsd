@@ -1488,7 +1488,7 @@ Zu beachten: die Routen müssen entsprechend ihrer zeitlichen Reihenfolge des Fl
 					<xs:documentation xml:lang="en" xml:id="en_00163">Specification of the booking class (e.g. Economy, PremiumEconomy, Business, First)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="FlightCarbonEmissions" type="xs:int" minOccurs="0">
+			<xs:element name="FlightCarbonEmissions" type="CarbonEmissionsType" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation xml:lang="de">Angabe der voraussichtlichen CO2-Emissionen in kg pro Person.</xs:documentation>
 					<xs:documentation xml:lang="en">Indication of projected CO2 emissions in kg per person.</xs:documentation>
@@ -8249,4 +8249,27 @@ The AvailabiltyState condition is evaluated only in filters on Product and Defin
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="CarbonEmissionsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="de">Angabe der voraussichtlichen CO2-Emissionen in kg pro Person.</xs:documentation>
+			<xs:documentation xml:lang="en">Indication of projected CO2 emissions in kg per person.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:int">
+				<xs:attribute use="optional" default="CO2e" name="Unit" type="CarbonEmissionsUnitEnum">
+					<xs:annotation>
+						<xs:documentation xml:lang="de">Einheit in der die CO2 Emissionen geliefert werden</xs:documentation>
+						<xs:documentation xml:lang="en">Unit of delivered CO2 emissions</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="CarbonEmissionsUnitEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CO2e"/>
+			<xs:enumeration value="CO2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
 </xs:schema>
